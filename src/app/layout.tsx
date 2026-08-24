@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -13,6 +14,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  // Without this, Next resolves og:image against localhost and ships that
+  // URL to production. Social cards should always point at the canonical
+  // site, not at whichever host rendered the page.
+  metadataBase: new URL(SITE_URL),
   title: "Titanium SDK",
   description:
     "Build native iOS and Android apps with JavaScript and TypeScript.",
