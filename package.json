@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "check:contrast": "node scripts/check-contrast.mts"
   },
   "dependencies": {
     "next": "16.3.2",

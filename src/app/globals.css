@@ -1,26 +1,179 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Dark applies when explicitly chosen, or when the system prefers it and the
+   user has not explicitly chosen light. Semantic tokens below swap on their
+   own, so `dark:` is only an escape hatch. */
+@custom-variant dark {
+  &:where([data-theme="dark"], [data-theme="dark"] *) { @slot; }
+  @media (prefers-color-scheme: dark) {
+    &:where(:root:not([data-theme="light"]), :root:not([data-theme="light"]) *) { @slot; }
+  }
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+/* Ramps. Generated in OKLCH at a fixed hue with chroma tapering toward both
+   ends; see scripts/check-contrast.mts. brand-700 and brand-950 are the
+   Titanium logo colors, so the identity is a step of the scale, not an
+   exception to it. */
+@theme {
+  --color-brand-50: #F5F6FE;
+  --color-brand-100: #EBECF9;
+  --color-brand-200: #D8D9ED;
+  --color-brand-300: #C0C2DB;
+  --color-brand-400: #A5A6C4;
+  --color-brand-500: #8789A9;
+  --color-brand-600: #6A6B8B;
+  --color-brand-700: #4F506B;
+  --color-brand-800: #3C3D58;
+  --color-brand-900: #2D2D47;
+  --color-brand-950: #202137;
+
+  --color-accent-50: #F0F5FF;
+  --color-accent-100: #E1EAFF;
+  --color-accent-200: #CAD6FF;
+  --color-accent-300: #AFBEFF;
+  --color-accent-400: #92A0FF;
+  --color-accent-500: #7480E9;
+  --color-accent-600: #5860CC;
+  --color-accent-700: #3F42AA;
+  --color-accent-800: #2F2D90;
+  --color-accent-900: #221D79;
+  --color-accent-950: #190E64;
+
+  --color-success-50: #E8FDEC;
+  --color-success-100: #D5F7DB;
+  --color-success-200: #B6EAC0;
+  --color-success-300: #93D7A1;
+  --color-success-400: #6CBF7F;
+  --color-success-500: #42A35D;
+  --color-success-600: #0E853D;
+  --color-success-700: #006721;
+  --color-success-800: #00520D;
+  --color-success-900: #004000;
+  --color-success-950: #003100;
+
+  --color-warning-50: #FFF4DD;
+  --color-warning-100: #FFE8C3;
+  --color-warning-200: #FDD39A;
+  --color-warning-300: #EFB96C;
+  --color-warning-400: #DB9B35;
+  --color-warning-500: #C17B00;
+  --color-warning-600: #A25C00;
+  --color-warning-700: #833E00;
+  --color-warning-800: #6B2B00;
+  --color-warning-900: #571B00;
+  --color-warning-950: #460E00;
+
+  --color-danger-50: #FFEEEB;
+  --color-danger-100: #FFDED9;
+  --color-danger-200: #FFC4BD;
+  --color-danger-300: #FFA69E;
+  --color-danger-400: #F5837C;
+  --color-danger-500: #DB5F5A;
+  --color-danger-600: #BB3C3A;
+  --color-danger-700: #99171E;
+  --color-danger-800: #7F000B;
+  --color-danger-900: #680000;
+  --color-danger-950: #540000;
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
+/* Semantic roles. Components reference these, never a ramp step directly. */
+:root {
+  --bg: #FFFFFF;
+  --surface: #F5F6FE;
+  --surface-raised: #FFFFFF;
+  --border: #D8D9ED;
+  --border-strong: #8789A9;
+  --text: #2D2D47;
+  --text-muted: #4F506B;
+  --text-subtle: #6A6B8B;
+  --link: #5860CC;
+  --link-hover: #3F42AA;
+  --focus: #5860CC;
+  --success: #0E853D;
+  --warning: #A25C00;
+  --danger: #BB3C3A;
+  --info: #5860CC;
+  --logo-outer: #4F506B;
+  --logo-inner: #202137;
+  color-scheme: light;
+}
+
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  :root:not([data-theme="light"]) {
+    --bg: #202137;
+    --surface: #2D2D47;
+    --surface-raised: #3C3D58;
+    --border: #3C3D58;
+    --border-strong: #6A6B8B;
+    --text: #EBECF9;
+    --text-muted: #C0C2DB;
+    --text-subtle: #A5A6C4;
+    --link: #AFBEFF;
+    --link-hover: #CAD6FF;
+    --focus: #92A0FF;
+    --success: #93D7A1;
+    --warning: #EFB96C;
+    --danger: #FFA69E;
+    --info: #AFBEFF;
+    --logo-outer: #C0C2DB;
+    --logo-inner: #F5F6FE;
+    color-scheme: dark;
   }
 }
 
+:root[data-theme="dark"] {
+  --bg: #202137;
+  --surface: #2D2D47;
+  --surface-raised: #3C3D58;
+  --border: #3C3D58;
+  --border-strong: #6A6B8B;
+  --text: #EBECF9;
+  --text-muted: #C0C2DB;
+  --text-subtle: #A5A6C4;
+  --link: #AFBEFF;
+  --link-hover: #CAD6FF;
+  --focus: #92A0FF;
+  --success: #93D7A1;
+  --warning: #EFB96C;
+  --danger: #FFA69E;
+  --info: #AFBEFF;
+  --logo-outer: #C0C2DB;
+  --logo-inner: #F5F6FE;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-text: var(--text);
+  --color-text-muted: var(--text-muted);
+  --color-text-subtle: var(--text-subtle);
+  --color-link: var(--link);
+  --color-link-hover: var(--link-hover);
+  --color-focus: var(--focus);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+  --color-info: var(--info);
+  --color-logo-outer: var(--logo-outer);
+  --color-logo-inner: var(--logo-inner);
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
