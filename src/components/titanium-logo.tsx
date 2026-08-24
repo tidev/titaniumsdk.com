@@ -12,15 +12,19 @@
 export function TitaniumMark({
   className,
   title,
+  style,
 }: {
   className?: string;
   /** Omit when the mark sits beside text that already names it. */
   title?: string;
+  /** Escape hatch for forcing token values, e.g. the /design preview. */
+  style?: React.CSSProperties;
 }) {
   return (
     <svg
       viewBox="0 0 75 80"
       className={className}
+      style={style}
       fillRule="evenodd"
       clipRule="evenodd"
       role={title ? "img" : undefined}
