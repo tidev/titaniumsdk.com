@@ -1,9 +1,12 @@
 export type NavItem = { href: string; label: string };
 
-/** Main sections. Routes are placeholders until M2–M4 build them out. */
+/**
+ * Main sections. "Docs" is the umbrella over both guides and the API
+ * reference — the API is part of the docs, not a sibling of them.
+ * Routes are placeholders until M2–M4 build them out.
+ */
 export const primaryNav: NavItem[] = [
   { href: "/docs", label: "Docs" },
-  { href: "/api", label: "API Reference" },
   { href: "/downloads", label: "Downloads" },
   { href: "/modules", label: "Modules" },
 ];
