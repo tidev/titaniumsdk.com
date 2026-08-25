@@ -1,0 +1,35 @@
+name: 'Regen Builds'
+
+# Mirrors the workflow in tidev/downloads-www. Both repos regenerate
+# independently until the cutover in TI-51, at which point downloads-www's copy
+# is switched off. Dual generation rather than a one-time copy because this data
+# changes several times a day — a static snapshot would be stale within hours.
+on:
+  workflow_dispatch:
+  repository_dispatch:
+    types: [regen-builds]
+
+concurrency:
+  group: regen-builds
+  cancel-in-progress: true
+
+jobs:
+  regen:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Retrieve the builds
+        uses: tidev/titanium-builds-regen-action@v6
+        with:
+          output-dir: 'registry/builds'
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+      # No deploy dispatch: Vercel builds on push, so the commit below is
+      # enough. downloads-www needs one because it deploys via Dokku.
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: 'Regen SDK builds registry'
