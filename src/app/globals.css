@@ -27,17 +27,17 @@
   --color-brand-900: #2D2D47;
   --color-brand-950: #202137;
 
-  --color-accent-50: #F0F5FF;
-  --color-accent-100: #E1EAFF;
-  --color-accent-200: #CAD6FF;
-  --color-accent-300: #AFBEFF;
-  --color-accent-400: #92A0FF;
-  --color-accent-500: #7480E9;
-  --color-accent-600: #5860CC;
-  --color-accent-700: #3F42AA;
-  --color-accent-800: #2F2D90;
-  --color-accent-900: #221D79;
-  --color-accent-950: #190E64;
+  --color-accent-50: #FFF0FF;
+  --color-accent-100: #FAE2FF;
+  --color-accent-200: #EFCAFF;
+  --color-accent-300: #DEAEFB;
+  --color-accent-400: #C78EE9;
+  --color-accent-500: #AC6CD0;
+  --color-accent-600: #8E4CB2;
+  --color-accent-700: #702D92;
+  --color-accent-800: #5B187A;
+  --color-accent-900: #490565;
+  --color-accent-950: #390052;
 
   --color-success-50: #E8FDEC;
   --color-success-100: #D5F7DB;
@@ -89,13 +89,13 @@
   --text: #2D2D47;
   --text-muted: #4F506B;
   --text-subtle: #6A6B8B;
-  --link: #5860CC;
-  --link-hover: #3F42AA;
-  --focus: #5860CC;
+  --link: #8E4CB2;
+  --link-hover: #702D92;
+  --focus: #8E4CB2;
   --success: #0E853D;
   --warning: #A25C00;
   --danger: #BB3C3A;
-  --info: #5860CC;
+  --info: #8E4CB2;
   --logo-outer: #4F506B;
   --logo-inner: #202137;
   color-scheme: light;
@@ -111,13 +111,13 @@
     --text: #EBECF9;
     --text-muted: #C0C2DB;
     --text-subtle: #A5A6C4;
-    --link: #AFBEFF;
-    --link-hover: #CAD6FF;
-    --focus: #92A0FF;
+    --link: #DEAEFB;
+    --link-hover: #EFCAFF;
+    --focus: #C78EE9;
     --success: #93D7A1;
     --warning: #EFB96C;
     --danger: #FFA69E;
-    --info: #AFBEFF;
+    --info: #DEAEFB;
     --logo-outer: #C0C2DB;
     --logo-inner: #F5F6FE;
     color-scheme: dark;
@@ -133,13 +133,13 @@
   --text: #EBECF9;
   --text-muted: #C0C2DB;
   --text-subtle: #A5A6C4;
-  --link: #AFBEFF;
-  --link-hover: #CAD6FF;
-  --focus: #92A0FF;
+  --link: #DEAEFB;
+  --link-hover: #EFCAFF;
+  --focus: #C78EE9;
   --success: #93D7A1;
   --warning: #EFB96C;
   --danger: #FFA69E;
-  --info: #AFBEFF;
+  --info: #DEAEFB;
   --logo-outer: #C0C2DB;
   --logo-inner: #F5F6FE;
   color-scheme: dark;
@@ -163,6 +163,20 @@
   --color-info: var(--info);
   --color-logo-outer: var(--logo-outer);
   --color-logo-inner: var(--logo-inner);
+}
+
+/* Anodized titanium: running current through the real metal grows an oxide
+   layer that shifts teal to violet to magenta by interference, no pigment
+   involved. Decorative only - hero, OG cards, dividers. It never carries
+   text, so it has no contrast target. */
+:root {
+  --gradient-anodized: linear-gradient(
+    115deg,
+    #00ACAA 0%,
+    #4296E6 34%,
+    #A07BDD 67%,
+    #C76DB5 100%
+  );
 }
 
 body {
