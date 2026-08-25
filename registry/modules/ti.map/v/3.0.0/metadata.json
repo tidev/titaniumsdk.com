@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "ti.map",
+  "version": "3.0.0",
+  "mutable": false,
+  "platforms": ["android", "ios"],
+  "publishedAt": "2015-03-11T00:00:00Z",
+  "tag": "3_2_3_GA",
+  "manifests": [
+    { "platform": "android", "version": "3.0.0", "minsdk": "3.2.0", "apiversion": 2,
+      "architectures": ["armeabi", "armeabi-v7a", "x86"], "guid": "f0d8fd44-86d2-4730-b67d-bd454577aeee",
+      "author": "Appcelerator", "license": "Apache Public License v2" },
+    { "platform": "ios", "version": "3.0.0", "minsdk": "3.2.0.GA", "apiversion": 2,
+      "architectures": ["armv7", "arm64", "i386"], "guid": "f0d8fd44-86d2-4730-b67d-bd454577aeee",
+      "author": "Appcelerator", "license": "Apache Public License v2", "mac": false }
+  ],
+  "assets": [
+    { "platform": "android", "filename": "ti.map-android-3.0.0.zip",
+      "url": "https://github.com/tidev/ti.map/releases/download/3_2_3_GA/ti.map-android-3.0.0.zip" },
+    { "platform": "ios", "filename": "ti.map-iphone-3.0.0.zip",
+      "url": "https://github.com/tidev/ti.map/releases/download/3_2_3_GA/ti.map-iphone-3.0.0.zip" }
+  ],
+  "hasApiDocs": true
+}
