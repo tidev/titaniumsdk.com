@@ -1,8 +1,8 @@
-import Link from "next/link";
-import { GITHUB_ORG_URL, primaryNav } from "@/lib/nav";
-import { TitaniumLogo } from "./titanium-logo";
-import { ThemeToggle } from "./theme-toggle";
-import { MobileNav } from "./mobile-nav";
+import { MobileNav } from './mobile-nav';
+import { ThemeToggle } from './theme-toggle';
+import { TitaniumLogo } from './titanium-logo';
+import { GITHUB_ORG_URL, primaryNav } from '@/lib/nav';
+import Link from 'next/link';
 
 export function SiteHeader() {
   return (

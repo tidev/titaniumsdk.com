@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from 'next/link';
 
 /** Placeholder. The real landing page is TI-45. */
 export default function Home() {

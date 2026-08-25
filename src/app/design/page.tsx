@@ -1,18 +1,18 @@
-import { readFileSync } from "node:fs";
-import { join } from "node:path";
-import type { Metadata } from "next";
-import { TitaniumMark } from "@/components/titanium-logo";
+import { TitaniumMark } from '@/components/titanium-logo';
+import type { Metadata } from 'next';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 
 export const metadata: Metadata = {
-  title: "Design tokens",
-  description: "Every color token in the Titanium SDK design system.",
+  title: 'Design tokens',
+  description: 'Every color token in the Titanium SDK design system.',
 };
 
 /**
  * Parsed from globals.css at build time rather than restated here, so this
  * page cannot drift from what actually ships.
  */
-const css = readFileSync(join(process.cwd(), "src/app/globals.css"), "utf8");
+const css = readFileSync(join(process.cwd(), 'src/app/globals.css'), 'utf8');
 
 function declarations(source: string): Record<string, string> {
   const out: Record<string, string> = {};
@@ -31,7 +31,7 @@ const theme = blockAfter(/@theme \{[\s\S]*?\n\}/);
 const light = blockAfter(/^:root \{[^}]*\}/m);
 const dark = blockAfter(/^:root\[data-theme="dark"\] \{[^}]*\}/m);
 
-const RAMPS = ["brand", "accent", "success", "warning", "danger"];
+const RAMPS = ['brand', 'accent', 'success', 'warning', 'danger'];
 const STEPS = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950];
 
 function luminance(hex: string) {
@@ -56,11 +56,7 @@ function Swatch({ hex, on }: { hex: string; on?: string }) {
       />
       <span className="font-mono text-xs text-text-muted">
         {hex}
-        {on && (
-          <span className="ml-2 text-text-subtle">
-            {contrast(hex, on).toFixed(2)}:1
-          </span>
-        )}
+        {on && <span className="ml-2 text-text-subtle">{contrast(hex, on).toFixed(2)}:1</span>}
       </span>
     </div>
   );
@@ -73,9 +69,9 @@ export default function DesignPage() {
     <div className="mx-auto w-full max-w-7xl px-4 py-14 sm:px-6">
       <h1 className="text-3xl font-semibold tracking-tight">Design tokens</h1>
       <p className="mt-3 max-w-2xl text-text-muted">
-        Generated in OKLCH at a fixed hue with chroma tapering toward both ends.
-        Contrast ratios are measured against each theme&rsquo;s own background.
-        Verified in CI by <code className="font-mono text-sm">pnpm check:contrast</code>.
+        Generated in OKLCH at a fixed hue with chroma tapering toward both ends. Contrast ratios are
+        measured against each theme&rsquo;s own background. Verified in CI by{' '}
+        <code className="font-mono text-sm">pnpm check:contrast</code>.
       </p>
 
       <section className="mt-12">
@@ -94,12 +90,8 @@ export default function DesignPage() {
                         className="h-14 rounded-md border border-border"
                         style={{ background: hex }}
                       />
-                      <div className="mt-1 font-mono text-[11px] text-text-subtle">
-                        {step}
-                      </div>
-                      <div className="font-mono text-[10px] text-text-subtle">
-                        {hex}
-                      </div>
+                      <div className="mt-1 font-mono text-[11px] text-text-subtle">{step}</div>
+                      <div className="font-mono text-[10px] text-text-subtle">{hex}</div>
                     </div>
                   );
                 })}
@@ -130,9 +122,7 @@ export default function DesignPage() {
                   <td className="py-3 pr-6">
                     <Swatch hex={light[role]} on={light.bg} />
                   </td>
-                  <td className="py-3">
-                    {dark[role] && <Swatch hex={dark[role]} on={dark.bg} />}
-                  </td>
+                  <td className="py-3">{dark[role] && <Swatch hex={dark[role]} on={dark.bg} />}</td>
                 </tr>
               ))}
             </tbody>
@@ -145,8 +135,8 @@ export default function DesignPage() {
         <div className="mt-6 grid gap-4 sm:grid-cols-2">
           {(
             [
-              ["Light", light],
-              ["Dark", dark],
+              ['Light', light],
+              ['Dark', dark],
             ] as const
           ).map(([label, tokens]) => (
             <div
@@ -156,20 +146,20 @@ export default function DesignPage() {
             >
               <div
                 className="text-xs font-medium uppercase tracking-wider"
-                style={{ color: tokens["text-subtle"] }}
+                style={{ color: tokens['text-subtle'] }}
               >
                 {label}
               </div>
               <div className="mt-4 flex items-end gap-6">
-                {["4rem", "2.5rem", "1.5rem"].map((size) => (
+                {['4rem', '2.5rem', '1.5rem'].map((size) => (
                   <TitaniumMark
                     key={size}
                     style={
                       {
                         height: size,
-                        width: "auto",
-                        "--logo-outer": tokens["logo-outer"],
-                        "--logo-inner": tokens["logo-inner"],
+                        width: 'auto',
+                        '--logo-outer': tokens['logo-outer'],
+                        '--logo-inner': tokens['logo-inner'],
                       } as React.CSSProperties
                     }
                   />
@@ -181,15 +171,12 @@ export default function DesignPage() {
                   className="h-10 w-auto"
                   style={
                     {
-                      "--logo-outer": tokens["logo-outer"],
-                      "--logo-inner": tokens["logo-inner"],
+                      '--logo-outer': tokens['logo-outer'],
+                      '--logo-inner': tokens['logo-inner'],
                     } as React.CSSProperties
                   }
                 />
-                <span
-                  className="text-lg font-semibold"
-                  style={{ color: tokens.text }}
-                >
+                <span className="text-lg font-semibold" style={{ color: tokens.text }}>
                   Titanium SDK
                 </span>
               </div>

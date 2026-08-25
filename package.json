@@ -3,10 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "check:contrast": "node scripts/check-contrast.mts",
     "build": "next build",
-    "start": "next start",
-    "check:contrast": "node scripts/check-contrast.mts"
+    "check": "next typegen && tsc --noEmit",
+    "dev": "next dev",
+    "fmt": "oxfmt",
+    "fmt:check": "oxfmt --check",
+    "lint": "oxlint",
+    "start": "next start"
   },
   "dependencies": {
     "next": "16.3.2",
@@ -19,6 +23,8 @@
     "@types/react": "19.2.18",
     "@types/react-dom": "19.2.4",
     "babel-plugin-react-compiler": "1.0.0",
+    "oxfmt": "0.64.0",
+    "oxlint": "1.79.0",
     "tailwindcss": "4.3.3",
     "typescript": "7.0.2"
   },

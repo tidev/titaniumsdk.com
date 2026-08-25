@@ -5,6 +5,7 @@ The website for [titaniumsdk.com](https://titaniumsdk.com).
 ## Development
 
 To get started, run the following commands:
+
 ```bash
 pnpm install
 ```

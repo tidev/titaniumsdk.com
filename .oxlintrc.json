@@ -1,0 +1,21 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["import", "react", "typescript", "unicorn"],
+  "env": {
+    "node": true
+  },
+  "ignorePatterns": ["node_modules", ".next", "dist", "build"],
+  "rules": {
+    "no-console": "off",
+    "typescript/no-this-alias": "off",
+    "no-unused-vars": "error",
+    "react-hooks/exhaustive-deps": "error",
+    "react/set-state-in-effect": "off",
+    "react/refs": "off",
+    "react/immutability": "off",
+    "react/static-components": "off",
+    "react/purity": "off",
+    "react/globals": "off",
+    "react/preserve-manual-memoization": "off"
+  }
+}

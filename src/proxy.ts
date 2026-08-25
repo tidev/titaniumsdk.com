@@ -1,6 +1,6 @@
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
-import { isIndexableHost } from "@/lib/site";
+import { isIndexableHost } from '@/lib/site';
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
 
 /**
  * Marks every response from a non-production host as noindex.
@@ -11,8 +11,8 @@ import { isIndexableHost } from "@/lib/site";
 export function proxy(request: NextRequest) {
   const response = NextResponse.next();
 
-  if (!isIndexableHost(request.headers.get("host"))) {
-    response.headers.set("X-Robots-Tag", "noindex, nofollow");
+  if (!isIndexableHost(request.headers.get('host'))) {
+    response.headers.set('X-Robots-Tag', 'noindex, nofollow');
   }
 
   return response;
@@ -22,5 +22,5 @@ export const config = {
   // Everything except build output and the favicon. robots.txt and sitemap.xml
   // stay in scope deliberately — the header is harmless there, and excluding
   // them is one more thing to keep in sync.
-  matcher: ["/((?!_next/static|_next/image|favicon.ico).*)"],
+  matcher: ['/((?!_next/static|_next/image|favicon.ico).*)'],
 };

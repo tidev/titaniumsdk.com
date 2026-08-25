@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
-import { communityNav, isExternal, primaryNav } from "@/lib/nav";
-import { ThemeToggle } from "./theme-toggle";
+import { ThemeToggle } from './theme-toggle';
+import { communityNav, isExternal, primaryNav } from '@/lib/nav';
+import Link from 'next/link';
+import { useEffect, useRef, useState } from 'react';
 
 /**
  * Native <dialog> rather than a hand-rolled drawer: showModal() traps focus,
@@ -21,8 +21,8 @@ export function MobileNav() {
     const dialog = ref.current;
     if (!dialog) return;
     const onClose = () => setOpen(false);
-    dialog.addEventListener("close", onClose);
-    return () => dialog.removeEventListener("close", onClose);
+    dialog.addEventListener('close', onClose);
+    return () => dialog.removeEventListener('close', onClose);
   }, []);
 
   return (
@@ -103,9 +103,7 @@ export function MobileNav() {
                 <a
                   href={item.href}
                   onClick={close}
-                  {...(isExternal(item.href)
-                    ? { target: "_blank", rel: "noreferrer" }
-                    : {})}
+                  {...(isExternal(item.href) ? { target: '_blank', rel: 'noreferrer' } : {})}
                   className="block rounded-md px-3 py-2 text-sm text-text-muted hover:bg-surface-raised hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
                 >
                   {item.label}

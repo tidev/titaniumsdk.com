@@ -1,12 +1,16 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 /* Dark applies when explicitly chosen, or when the system prefers it and the
    user has not explicitly chosen light. Semantic tokens below swap on their
    own, so `dark:` is only an escape hatch. */
 @custom-variant dark {
-  &:where([data-theme="dark"], [data-theme="dark"] *) { @slot; }
+  &:where([data-theme='dark'], [data-theme='dark'] *) {
+    @slot;
+  }
   @media (prefers-color-scheme: dark) {
-    &:where(:root:not([data-theme="light"]), :root:not([data-theme="light"]) *) { @slot; }
+    &:where(:root:not([data-theme='light']), :root:not([data-theme='light']) *) {
+      @slot;
+    }
   }
 }
 
@@ -15,63 +19,63 @@
    Titanium logo colors, so the identity is a step of the scale, not an
    exception to it. */
 @theme {
-  --color-brand-50: #F5F6FE;
-  --color-brand-100: #EBECF9;
-  --color-brand-200: #D8D9ED;
-  --color-brand-300: #C0C2DB;
-  --color-brand-400: #A5A6C4;
-  --color-brand-500: #8789A9;
-  --color-brand-600: #6A6B8B;
-  --color-brand-700: #4F506B;
-  --color-brand-800: #3C3D58;
-  --color-brand-900: #2D2D47;
+  --color-brand-50: #f5f6fe;
+  --color-brand-100: #ebecf9;
+  --color-brand-200: #d8d9ed;
+  --color-brand-300: #c0c2db;
+  --color-brand-400: #a5a6c4;
+  --color-brand-500: #8789a9;
+  --color-brand-600: #6a6b8b;
+  --color-brand-700: #4f506b;
+  --color-brand-800: #3c3d58;
+  --color-brand-900: #2d2d47;
   --color-brand-950: #202137;
 
-  --color-accent-50: #FFF0FF;
-  --color-accent-100: #FAE2FF;
-  --color-accent-200: #EFCAFF;
-  --color-accent-300: #DEAEFB;
-  --color-accent-400: #C78EE9;
-  --color-accent-500: #AC6CD0;
-  --color-accent-600: #8E4CB2;
-  --color-accent-700: #702D92;
-  --color-accent-800: #5B187A;
+  --color-accent-50: #fff0ff;
+  --color-accent-100: #fae2ff;
+  --color-accent-200: #efcaff;
+  --color-accent-300: #deaefb;
+  --color-accent-400: #c78ee9;
+  --color-accent-500: #ac6cd0;
+  --color-accent-600: #8e4cb2;
+  --color-accent-700: #702d92;
+  --color-accent-800: #5b187a;
   --color-accent-900: #490565;
   --color-accent-950: #390052;
 
-  --color-success-50: #E8FDEC;
-  --color-success-100: #D5F7DB;
-  --color-success-200: #B6EAC0;
-  --color-success-300: #93D7A1;
-  --color-success-400: #6CBF7F;
-  --color-success-500: #42A35D;
-  --color-success-600: #0E853D;
+  --color-success-50: #e8fdec;
+  --color-success-100: #d5f7db;
+  --color-success-200: #b6eac0;
+  --color-success-300: #93d7a1;
+  --color-success-400: #6cbf7f;
+  --color-success-500: #42a35d;
+  --color-success-600: #0e853d;
   --color-success-700: #006721;
-  --color-success-800: #00520D;
+  --color-success-800: #00520d;
   --color-success-900: #004000;
   --color-success-950: #003100;
 
-  --color-warning-50: #FFF4DD;
-  --color-warning-100: #FFE8C3;
-  --color-warning-200: #FDD39A;
-  --color-warning-300: #EFB96C;
-  --color-warning-400: #DB9B35;
-  --color-warning-500: #C17B00;
-  --color-warning-600: #A25C00;
-  --color-warning-700: #833E00;
-  --color-warning-800: #6B2B00;
-  --color-warning-900: #571B00;
-  --color-warning-950: #460E00;
+  --color-warning-50: #fff4dd;
+  --color-warning-100: #ffe8c3;
+  --color-warning-200: #fdd39a;
+  --color-warning-300: #efb96c;
+  --color-warning-400: #db9b35;
+  --color-warning-500: #c17b00;
+  --color-warning-600: #a25c00;
+  --color-warning-700: #833e00;
+  --color-warning-800: #6b2b00;
+  --color-warning-900: #571b00;
+  --color-warning-950: #460e00;
 
-  --color-danger-50: #FFEEEB;
-  --color-danger-100: #FFDED9;
-  --color-danger-200: #FFC4BD;
-  --color-danger-300: #FFA69E;
-  --color-danger-400: #F5837C;
-  --color-danger-500: #DB5F5A;
-  --color-danger-600: #BB3C3A;
-  --color-danger-700: #99171E;
-  --color-danger-800: #7F000B;
+  --color-danger-50: #ffeeeb;
+  --color-danger-100: #ffded9;
+  --color-danger-200: #ffc4bd;
+  --color-danger-300: #ffa69e;
+  --color-danger-400: #f5837c;
+  --color-danger-500: #db5f5a;
+  --color-danger-600: #bb3c3a;
+  --color-danger-700: #99171e;
+  --color-danger-800: #7f000b;
   --color-danger-900: #680000;
   --color-danger-950: #540000;
 
@@ -81,67 +85,67 @@
 
 /* Semantic roles. Components reference these, never a ramp step directly. */
 :root {
-  --bg: #FFFFFF;
-  --surface: #F5F6FE;
-  --surface-raised: #FFFFFF;
-  --border: #D8D9ED;
-  --border-strong: #8789A9;
-  --text: #2D2D47;
-  --text-muted: #4F506B;
-  --text-subtle: #6A6B8B;
-  --link: #8E4CB2;
-  --link-hover: #702D92;
-  --focus: #8E4CB2;
-  --success: #0E853D;
-  --warning: #A25C00;
-  --danger: #BB3C3A;
-  --info: #8E4CB2;
-  --logo-outer: #4F506B;
+  --bg: #ffffff;
+  --surface: #f5f6fe;
+  --surface-raised: #ffffff;
+  --border: #d8d9ed;
+  --border-strong: #8789a9;
+  --text: #2d2d47;
+  --text-muted: #4f506b;
+  --text-subtle: #6a6b8b;
+  --link: #8e4cb2;
+  --link-hover: #702d92;
+  --focus: #8e4cb2;
+  --success: #0e853d;
+  --warning: #a25c00;
+  --danger: #bb3c3a;
+  --info: #8e4cb2;
+  --logo-outer: #4f506b;
   --logo-inner: #202137;
   color-scheme: light;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
+  :root:not([data-theme='light']) {
     --bg: #202137;
-    --surface: #2D2D47;
-    --surface-raised: #3C3D58;
-    --border: #3C3D58;
-    --border-strong: #6A6B8B;
-    --text: #EBECF9;
-    --text-muted: #C0C2DB;
-    --text-subtle: #A5A6C4;
-    --link: #DEAEFB;
-    --link-hover: #EFCAFF;
-    --focus: #C78EE9;
-    --success: #93D7A1;
-    --warning: #EFB96C;
-    --danger: #FFA69E;
-    --info: #DEAEFB;
-    --logo-outer: #C0C2DB;
-    --logo-inner: #F5F6FE;
+    --surface: #2d2d47;
+    --surface-raised: #3c3d58;
+    --border: #3c3d58;
+    --border-strong: #6a6b8b;
+    --text: #ebecf9;
+    --text-muted: #c0c2db;
+    --text-subtle: #a5a6c4;
+    --link: #deaefb;
+    --link-hover: #efcaff;
+    --focus: #c78ee9;
+    --success: #93d7a1;
+    --warning: #efb96c;
+    --danger: #ffa69e;
+    --info: #deaefb;
+    --logo-outer: #c0c2db;
+    --logo-inner: #f5f6fe;
     color-scheme: dark;
   }
 }
 
-:root[data-theme="dark"] {
+:root[data-theme='dark'] {
   --bg: #202137;
-  --surface: #2D2D47;
-  --surface-raised: #3C3D58;
-  --border: #3C3D58;
-  --border-strong: #6A6B8B;
-  --text: #EBECF9;
-  --text-muted: #C0C2DB;
-  --text-subtle: #A5A6C4;
-  --link: #DEAEFB;
-  --link-hover: #EFCAFF;
-  --focus: #C78EE9;
-  --success: #93D7A1;
-  --warning: #EFB96C;
-  --danger: #FFA69E;
-  --info: #DEAEFB;
-  --logo-outer: #C0C2DB;
-  --logo-inner: #F5F6FE;
+  --surface: #2d2d47;
+  --surface-raised: #3c3d58;
+  --border: #3c3d58;
+  --border-strong: #6a6b8b;
+  --text: #ebecf9;
+  --text-muted: #c0c2db;
+  --text-subtle: #a5a6c4;
+  --link: #deaefb;
+  --link-hover: #efcaff;
+  --focus: #c78ee9;
+  --success: #93d7a1;
+  --warning: #efb96c;
+  --danger: #ffa69e;
+  --info: #deaefb;
+  --logo-outer: #c0c2db;
+  --logo-inner: #f5f6fe;
   color-scheme: dark;
 }
 
@@ -170,13 +174,7 @@
    involved. Decorative only - hero, OG cards, dividers. It never carries
    text, so it has no contrast target. */
 :root {
-  --gradient-anodized: linear-gradient(
-    115deg,
-    #00ACAA 0%,
-    #4296E6 34%,
-    #A07BDD 67%,
-    #C76DB5 100%
-  );
+  --gradient-anodized: linear-gradient(115deg, #00acaa 0%, #4296e6 34%, #a07bdd 67%, #c76db5 100%);
 }
 
 body {
@@ -185,7 +183,9 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;

@@ -5,10 +5,10 @@
  *
  *   node scripts/check-contrast.ts
  */
-import { readFileSync } from "node:fs";
-import { fileURLToPath } from "node:url";
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 
-const CSS = fileURLToPath(new URL("../src/app/globals.css", import.meta.url));
+const CSS = fileURLToPath(new URL('../src/app/globals.css', import.meta.url));
 
 type Tokens = Record<string, string>;
 
@@ -38,32 +38,32 @@ function contrast(a: string, b: string): number {
 
 /** [foreground, background, minimum ratio] */
 const PAIRS: [string, string, number][] = [
-  ["text", "bg", 4.5],
-  ["text", "surface", 4.5],
-  ["text", "surface-raised", 4.5],
-  ["text-muted", "bg", 4.5],
-  ["text-muted", "surface", 4.5],
-  ["text-subtle", "bg", 4.5],
-  ["text-subtle", "surface", 4.5],
-  ["link", "bg", 4.5],
-  ["link", "surface", 4.5],
-  ["link-hover", "bg", 4.5],
-  ["success", "bg", 4.5],
-  ["warning", "bg", 4.5],
-  ["danger", "bg", 4.5],
-  ["info", "bg", 4.5],
+  ['text', 'bg', 4.5],
+  ['text', 'surface', 4.5],
+  ['text', 'surface-raised', 4.5],
+  ['text-muted', 'bg', 4.5],
+  ['text-muted', 'surface', 4.5],
+  ['text-subtle', 'bg', 4.5],
+  ['text-subtle', 'surface', 4.5],
+  ['link', 'bg', 4.5],
+  ['link', 'surface', 4.5],
+  ['link-hover', 'bg', 4.5],
+  ['success', 'bg', 4.5],
+  ['warning', 'bg', 4.5],
+  ['danger', 'bg', 4.5],
+  ['info', 'bg', 4.5],
   // Non-text UI needs 3:1 (WCAG 1.4.11).
-  ["focus", "bg", 3],
-  ["border-strong", "bg", 3],
+  ['focus', 'bg', 3],
+  ['border-strong', 'bg', 3],
   // Logos are exempt from contrast minimums (WCAG 1.4.3) but must stay visible.
-  ["logo-outer", "bg", 3],
-  ["logo-inner", "bg", 3],
+  ['logo-outer', 'bg', 3],
+  ['logo-inner', 'bg', 3],
 ];
 
-const css = readFileSync(CSS, "utf8");
+const css = readFileSync(CSS, 'utf8');
 const themes: [string, Tokens][] = [
-  ["light", block(css, /^:root \{[^}]*\}/m)],
-  ["dark", block(css, /^:root\[data-theme="dark"\] \{[^}]*\}/m)],
+  ['light', block(css, /^:root \{[^}]*\}/m)],
+  ['dark', block(css, /^:root\[data-theme="dark"\] \{[^}]*\}/m)],
 ];
 
 let failed = 0;
@@ -80,15 +80,13 @@ for (const [theme, tokens] of themes) {
     const ok = ratio >= min;
     if (!ok) failed++;
     const label = `${fg} on ${bg}`.padEnd(30);
-    console.log(
-      `  ${ok ? "pass" : "FAIL"}  ${label} ${ratio.toFixed(2)}:1  (min ${min})`,
-    );
+    console.log(`  ${ok ? 'pass' : 'FAIL'}  ${label} ${ratio.toFixed(2)}:1  (min ${min})`);
   }
 }
 
 console.log(
   failed === 0
-    ? "\nAll pairings meet their contrast target."
-    : `\n${failed} pairing(s) below target.`,
+    ? '\nAll pairings meet their contrast target.'
+    : `\n${failed} pairing(s) below target.`
 );
 process.exit(failed === 0 ? 0 : 1);

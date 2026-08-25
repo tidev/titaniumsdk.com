@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
-type Theme = "light" | "system" | "dark";
+type Theme = 'light' | 'system' | 'dark';
 
 const OPTIONS: { value: Theme; label: string; icon: React.ReactNode }[] = [
   {
-    value: "light",
-    label: "Light",
+    value: 'light',
+    label: 'Light',
     icon: (
       <>
         <circle cx="12" cy="12" r="4" />
@@ -16,8 +16,8 @@ const OPTIONS: { value: Theme; label: string; icon: React.ReactNode }[] = [
     ),
   },
   {
-    value: "system",
-    label: "System",
+    value: 'system',
+    label: 'System',
     icon: (
       <>
         <rect x="2" y="4" width="20" height="13" rx="2" />
@@ -26,8 +26,8 @@ const OPTIONS: { value: Theme; label: string; icon: React.ReactNode }[] = [
     ),
   },
   {
-    value: "dark",
-    label: "Dark",
+    value: 'dark',
+    label: 'Dark',
     icon: <path d="M20 14a8 8 0 1 1-9.9-9.9 7 7 0 0 0 9.9 9.9Z" />,
   },
 ];
@@ -41,25 +41,25 @@ const OPTIONS: { value: Theme; label: string; icon: React.ReactNode }[] = [
  * literal string "system" would leave an attribute no rule matches.
  */
 export function ThemeToggle() {
-  const [theme, setTheme] = useState<Theme>("system");
+  const [theme, setTheme] = useState<Theme>('system');
   // The server cannot know the stored theme, so nothing is marked active
   // until after hydration. Avoids a mismatch and a flash of wrong selection.
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    const stored = localStorage.getItem("theme");
-    setTheme(stored === "light" || stored === "dark" ? stored : "system");
+    const stored = localStorage.getItem('theme');
+    setTheme(stored === 'light' || stored === 'dark' ? stored : 'system');
     setReady(true);
   }, []);
 
   function choose(next: Theme) {
     setTheme(next);
     const root = document.documentElement;
-    if (next === "system") {
-      localStorage.removeItem("theme");
+    if (next === 'system') {
+      localStorage.removeItem('theme');
       delete root.dataset.theme;
     } else {
-      localStorage.setItem("theme", next);
+      localStorage.setItem('theme', next);
       root.dataset.theme = next;
     }
   }
@@ -82,9 +82,7 @@ export function ThemeToggle() {
             title={o.label}
             onClick={() => choose(o.value)}
             className={`grid size-7 place-items-center rounded-full transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus ${
-              active
-                ? "bg-surface-raised text-text"
-                : "text-text-subtle hover:text-text"
+              active ? 'bg-surface-raised text-text' : 'text-text-subtle hover:text-text'
             }`}
           >
             <svg

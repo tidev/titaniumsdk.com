@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { TitaniumMark } from './titanium-logo';
 import {
   communityNav,
   isExternal,
@@ -6,28 +6,21 @@ import {
   socialNav,
   supportNav,
   type NavItem,
-} from "@/lib/nav";
-import { TitaniumMark } from "./titanium-logo";
+} from '@/lib/nav';
+import Link from 'next/link';
 
 function LinkColumn({ title, items }: { title: string; items: NavItem[] }) {
   return (
     <div>
-      <h2 className="text-xs font-semibold uppercase tracking-wider text-text-subtle">
-        {title}
-      </h2>
+      <h2 className="text-xs font-semibold uppercase tracking-wider text-text-subtle">{title}</h2>
       <ul className="mt-3 flex flex-col gap-2">
         {items.map((item) => {
           const className =
-            "text-sm text-text-muted transition-colors hover:text-link focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus rounded";
+            'text-sm text-text-muted transition-colors hover:text-link focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus rounded';
           return (
             <li key={item.href}>
               {isExternal(item.href) ? (
-                <a
-                  href={item.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className={className}
-                >
+                <a href={item.href} target="_blank" rel="noreferrer" className={className}>
                   {item.label}
                 </a>
               ) : (
@@ -60,7 +53,7 @@ export function SiteFooter() {
             <span className="text-sm font-medium">Titanium SDK</span>
           </div>
           <p className="text-sm text-text-subtle">
-            Apache-2.0. Titanium is a registered trademark of{" "}
+            Apache-2.0. Titanium is a registered trademark of{' '}
             <a
               href="https://tidev.io"
               target="_blank"

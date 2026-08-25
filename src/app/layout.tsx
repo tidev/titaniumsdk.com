@@ -1,18 +1,18 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import { SiteHeader } from "@/components/site-header";
-import { SiteFooter } from "@/components/site-footer";
-import { SITE_URL } from "@/lib/site";
-import "./globals.css";
+import { SiteFooter } from '@/components/site-footer';
+import { SiteHeader } from '@/components/site-header';
+import { SITE_URL } from '@/lib/site';
+import type { Metadata } from 'next';
+import { Geist, Geist_Mono } from 'next/font/google';
+import './globals.css';
 
 const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+  variable: '--font-geist-sans',
+  subsets: ['latin'],
 });
 
 const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  variable: '--font-geist-mono',
+  subsets: ['latin'],
 });
 
 export const metadata: Metadata = {
@@ -20,9 +20,8 @@ export const metadata: Metadata = {
   // URL to production. Social cards should always point at the canonical
   // site, not at whichever host rendered the page.
   metadataBase: new URL(SITE_URL),
-  title: "Titanium SDK",
-  description:
-    "Build native iOS and Android apps with JavaScript and TypeScript.",
+  title: 'Titanium SDK',
+  description: 'Build native iOS and Android apps with JavaScript and TypeScript.',
 };
 
 /**
@@ -32,7 +31,7 @@ export const metadata: Metadata = {
  */
 const THEME_INIT = `try{var t=localStorage.getItem("theme");if(t==="dark"||t==="light")document.documentElement.dataset.theme=t}catch(e){}`;
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
     <html
       lang="en"
