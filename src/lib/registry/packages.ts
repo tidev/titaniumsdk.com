@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 /**
  * SDK versions and modules — the entries that carry documentation.
@@ -14,7 +14,7 @@ export const SCHEMA_VERSION = 1;
 const SchemaVersion = z.number().int().positive();
 
 /** Normalized to exactly these two. `iphone` is accepted as input and mapped. */
-export const PlatformSchema = z.enum(["android", "ios"]);
+export const PlatformSchema = z.enum(['android', 'ios']);
 export type Platform = z.infer<typeof PlatformSchema>;
 
 /**
@@ -97,7 +97,7 @@ export const ModuleVersionSchema = z
   })
   .loose();
 
-export const CurationSchema = z.enum(["tidev", "community", "unverified"]);
+export const CurationSchema = z.enum(['tidev', 'community', 'unverified']);
 
 export const ModuleIndexSchema = z
   .object({
@@ -109,7 +109,7 @@ export const ModuleIndexSchema = z
     repo: z.url().optional(),
     /** Repo name and other spellings that should redirect here. */
     aliases: z.array(z.string()).default([]),
-    curation: CurationSchema.default("community"),
+    curation: CurationSchema.default('community'),
     /**
      * Latest per platform. Never a single value: ti.map's newest by date is
      * android 5.7.0 while its highest semver is iOS 7.3.1, and neither is
@@ -124,7 +124,7 @@ export const ModuleIndexSchema = z
           platforms: z.array(PlatformSchema),
           publishedAt: z.string().optional(),
         })
-        .loose(),
+        .loose()
     ),
   })
   .loose();

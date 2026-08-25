@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 /**
  * Compiled API reference — one file per type, inheritance already resolved.
@@ -136,7 +136,7 @@ export const ApiIndexSchema = z
           platforms: z.array(PlatformName).optional(),
           deprecated: z.boolean().optional(),
         })
-        .loose(),
+        .loose()
     ),
   })
   .loose();

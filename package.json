@@ -3,15 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "check:contrast": "node scripts/check-contrast.mts",
     "build": "next build",
     "check": "next typegen && tsc --noEmit",
+    "check:contrast": "node scripts/check-contrast.mts",
+    "check:registry": "node scripts/validate-registry.mts",
     "dev": "next dev",
     "fmt": "oxfmt",
     "fmt:check": "oxfmt --check",
     "lint": "oxlint",
-    "start": "next start",
-    "check:registry": "node scripts/validate-registry.mts"
+    "start": "next start"
   },
   "dependencies": {
     "next": "16.3.2",
