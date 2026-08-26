@@ -29,9 +29,9 @@ function blockAfter(re: RegExp): Record<string, string> {
 
 const theme = blockAfter(/@theme \{[\s\S]*?\n\}/);
 const light = blockAfter(/^:root \{[^}]*\}/m);
-const dark = blockAfter(/^:root\[data-theme="dark"\] \{[^}]*\}/m);
+const dark = blockAfter(/^:root\[data-theme=['"]dark['"]\] \{[^}]*\}/m);
 
-const RAMPS = ['brand', 'accent', 'success', 'warning', 'danger'];
+const RAMPS = ['neutral', 'accent', 'success', 'warning', 'danger'];
 const STEPS = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950];
 
 function luminance(hex: string) {

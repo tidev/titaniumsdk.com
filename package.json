@@ -11,7 +11,8 @@
     "fmt": "oxfmt",
     "fmt:check": "oxfmt --check",
     "lint": "oxlint",
-    "start": "next start"
+    "start": "next start",
+    "tokens": "node scripts/generate-tokens.mts && oxfmt src/app/globals.css"
   },
   "dependencies": {
     "next": "16.3.2",

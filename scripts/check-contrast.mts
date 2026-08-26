@@ -63,7 +63,7 @@ const PAIRS: [string, string, number][] = [
 const css = readFileSync(CSS, 'utf8');
 const themes: [string, Tokens][] = [
   ['light', block(css, /^:root \{[^}]*\}/m)],
-  ['dark', block(css, /^:root\[data-theme="dark"\] \{[^}]*\}/m)],
+  ['dark', block(css, /^:root\[data-theme=['"]dark['"]\] \{[^}]*\}/m)],
 ];
 
 let failed = 0;
