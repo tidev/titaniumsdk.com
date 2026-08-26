@@ -8,6 +8,7 @@
     "check:contrast": "node scripts/check-contrast.mts",
     "check:registry": "node scripts/validate-registry.mts",
     "dev": "next dev",
+    "docgen": "node scripts/docgen/index.mts",
     "fmt": "oxfmt",
     "fmt:check": "oxfmt --check",
     "lint": "oxlint",
@@ -20,6 +21,7 @@
     "next": "16.3.2",
     "react": "19.2.8",
     "react-dom": "19.2.8",
+    "yaml": "^2.9.0",
     "zod": "^4.4.3"
   },
   "devDependencies": {
