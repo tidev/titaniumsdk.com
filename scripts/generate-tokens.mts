@@ -90,8 +90,10 @@ const ROLES = {
     warning: ['warning', 300],
     danger: ['danger', 300],
     info: ['accent', 300],
-    'logo-outer': ['neutral', 300],
-    'logo-inner': ['neutral', 50],
+    // Tinted rather than plain white — the mark should read as part of the
+    // system, not as a separate white element sitting on the page.
+    'logo-outer': ['accent', 400],
+    'logo-inner': ['accent', 200],
   },
 } as const satisfies Record<string, Record<string, readonly [string, number] | string>>;
 

@@ -122,8 +122,8 @@
     --warning: #e2bf77;
     --danger: #ffa69e;
     --info: #87ccff;
-    --logo-outer: #bfc5ca;
-    --logo-inner: #f9fafb;
+    --logo-outer: #5db1f4;
+    --logo-inner: #b4e4ff;
     color-scheme: dark;
   }
 }
@@ -144,8 +144,8 @@
   --warning: #e2bf77;
   --danger: #ffa69e;
   --info: #87ccff;
-  --logo-outer: #bfc5ca;
-  --logo-inner: #f9fafb;
+  --logo-outer: #5db1f4;
+  --logo-inner: #b4e4ff;
   color-scheme: dark;
 }
 
@@ -234,15 +234,27 @@
    the default register should be instrument panel, not splash page.
 */
 @theme {
+  /* Each size needs its paired --text-*--line-height. Tailwind's utilities
+     reference it directly, so a size without one silently falls back to the
+     inherited line-height and every text box ends up the wrong height. */
   --text-xs: 0.75rem;
+  --text-xs--line-height: 1.5;
   --text-sm: 0.8125rem;
+  --text-sm--line-height: 1.5;
   --text-base: 0.9375rem;
+  --text-base--line-height: 1.6;
   --text-lg: 1.0625rem;
+  --text-lg--line-height: 1.5;
   --text-xl: 1.25rem;
+  --text-xl--line-height: 1.4;
   --text-2xl: 1.5rem;
+  --text-2xl--line-height: 1.3;
   --text-3xl: 1.875rem;
+  --text-3xl--line-height: 1.25;
   --text-4xl: 2.375rem;
+  --text-4xl--line-height: 1.15;
   --text-5xl: 3rem;
+  --text-5xl--line-height: 1.1;
 
   --leading-tight: 1.2;
   --leading-snug: 1.35;

@@ -71,16 +71,6 @@ export default function Home() {
           <Code />
         </div>
       </section>
-
-      {/* Machined edge: light on top, shadow beneath. */}
-      <section className="surface-metal">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-10 gap-y-3 px-4 py-5 sm:px-6">
-          <TitaniumMark className="h-5 w-auto shrink-0" />
-          <p className="font-mono text-xs text-text-muted">
-            Maintained by TiDev · 17 years of shipped apps
-          </p>
-        </div>
-      </section>
     </div>
   );
 }
