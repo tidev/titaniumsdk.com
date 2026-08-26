@@ -36,27 +36,12 @@ function Code() {
   );
 }
 
-const FACTS = [
-  ['Since', '2008'],
-  ['Targets', 'iOS · Android'],
-  ['Written in', 'JS · TS'],
-  ['License', 'Apache-2.0'],
-];
-
 export default function Home() {
   return (
     <div className="w-full">
       <section className="mx-auto grid max-w-7xl gap-12 px-4 py-20 sm:px-6 lg:grid-cols-[1.05fr_1fr] lg:items-center lg:gap-16 lg:py-28">
         <div>
-          {/* Accent as structure: a rule, not a button. */}
-          <div className="flex items-center gap-3">
-            <span className="h-px w-8 bg-link" />
-            <span className="font-mono text-xs uppercase tracking-widest text-text-muted">
-              Open source SDK
-            </span>
-          </div>
-
-          <h1 className="mt-6 text-4xl font-semibold leading-tight tracking-tighter text-balance sm:text-5xl">
+          <h1 className="text-4xl font-semibold leading-tight tracking-tighter text-balance sm:text-5xl">
             Native iOS and Android apps,
             <span className="text-text-muted"> written in JavaScript</span>
           </h1>
@@ -80,17 +65,6 @@ export default function Home() {
               Documentation
             </Link>
           </div>
-
-          <dl className="mt-12 grid max-w-lg grid-cols-2 gap-x-8 gap-y-4 border-t border-border pt-6 sm:grid-cols-4">
-            {FACTS.map(([label, value]) => (
-              <div key={label}>
-                <dt className="font-mono text-[0.6875rem] uppercase tracking-widest text-text-subtle">
-                  {label}
-                </dt>
-                <dd className="mt-1 font-mono text-sm text-text">{value}</dd>
-              </div>
-            ))}
-          </dl>
         </div>
 
         <div className="lg:pl-4">
