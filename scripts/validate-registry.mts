@@ -3,7 +3,7 @@ import {
   ApiTypeSchema,
   BranchesSchema,
   BuildListSchema,
-  ExpiredListSchema,
+  PrunedListSchema,
   ModuleIndexSchema,
   ModuleVersionSchema,
   SdkVersionSchema,
@@ -33,7 +33,13 @@ function schemaFor(rel: string): ZodType | null {
 
   if (parts[0] === 'builds') {
     if (file === 'branches.json') return BranchesSchema;
-    return file.endsWith('.expired.json') ? ExpiredListSchema : BuildListSchema;
+    // pruned/<branch>.pruned.json holds tombstones, not builds
+    if (parts[1] === 'pruned') return PrunedListSchema;
+    return BuildListSchema;
+  }
+  if (parts[0] === 'sdk' && parts.length === 2) {
+    // sdk/{ga,rc,beta}.json are release lists; sdk/<version>/ holds docs
+    return BuildListSchema;
   }
   if (parts.includes('types')) return ApiTypeSchema;
   if (file === 'index.json') {

@@ -60,25 +60,27 @@ export const BuildListSchema = z.array(BuildSchema);
 export const BranchesSchema = z.record(z.string(), z.number().int().nonnegative());
 
 /**
- * `<branch>.expired.json` is **not** build data — it is a negative-result cache.
+ * `builds/pruned/<branch>.pruned.json` is **not** build data — it is a
+ * negative-result cache.
  *
- * The generator records workflow runs whose artifacts have already expired so
- * subsequent runs skip re-fetching artifact metadata for them. Tombstones only;
- * nothing here is meant for display.
+ * It records workflow runs whose artifacts no longer exist, so a regen skips
+ * re-fetching artifact metadata for runs it already knows are dead. Tombstones
+ * only; nothing here is meant for display. Both the directory and the suffix
+ * say so, since an editor tab shows only the filename.
  */
-export const ExpiredTombstoneSchema = z
+export const PrunedRunSchema = z
   .object({
     id: z.number().int(),
     html_url: z.url(),
   })
   .loose();
 
-export const ExpiredListSchema = z.array(ExpiredTombstoneSchema);
+export const PrunedListSchema = z.array(PrunedRunSchema);
 
 export type Asset = z.infer<typeof AssetSchema>;
 export type Build = z.infer<typeof BuildSchema>;
 export type Branches = z.infer<typeof BranchesSchema>;
-export type ExpiredTombstone = z.infer<typeof ExpiredTombstoneSchema>;
+export type PrunedRun = z.infer<typeof PrunedRunSchema>;
 
 /** Whether a build's artifacts are still downloadable. Releases never expire. */
 export function isExpired(build: Build, now = Date.now()): boolean {
