@@ -10,8 +10,6 @@ import Link from 'next/link';
  * Placeholder still; TI-45 is the real landing page.
  */
 
-const SAMPLE = [['import', ' Titanium ', 'from', " 'titanium'"]] as const;
-
 function Code() {
   return (
     <div className="overflow-hidden rounded-lg border border-border bg-surface">
