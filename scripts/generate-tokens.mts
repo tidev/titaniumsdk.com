@@ -71,8 +71,8 @@ const ROLES = {
     warning: ['warning', 700],
     danger: ['danger', 600],
     info: ['accent', 700],
-    'logo-outer': ['neutral', 700],
-    'logo-inner': ['neutral', 950],
+    'logo-outer': ['neutral', 950],
+    'logo-inner': ['neutral', 700],
   },
   dark: {
     bg: ['neutral', 950],
@@ -92,8 +92,8 @@ const ROLES = {
     info: ['accent', 300],
     // Tinted rather than plain white — the mark should read as part of the
     // system, not as a separate white element sitting on the page.
-    'logo-outer': ['accent', 400],
-    'logo-inner': ['accent', 200],
+    'logo-outer': ['accent', 200],
+    'logo-inner': ['accent', 400],
   },
 } as const satisfies Record<string, Record<string, readonly [string, number] | string>>;
 
