@@ -79,8 +79,8 @@
   --color-danger-900: #660000;
   --color-danger-950: #4b0000;
 
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-plex-sans);
+  --font-mono: var(--font-plex-mono);
 }
 
 /* Semantic roles. Components reference these, never a ramp step. */
@@ -170,9 +170,96 @@
 }
 /* --- generated:tokens:end --- */
 
+/* ---------------------------------------------------------------- material
+
+   Titanium is a metal and none of the competitors have any surface texture —
+   they are flat fills. These are deliberately near-invisible: the effect
+   should register as "this surface has a finish" rather than as a pattern.
+   If you can see the grain as stripes, it is too strong.
+*/
+:root {
+  /* Brushed grain. Sub-pixel period so it reads as sheen, not lines. */
+  --grain-light: repeating-linear-gradient(
+    100deg,
+    rgb(0 0 0 / 0.014) 0px,
+    rgb(0 0 0 / 0.014) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  --grain-dark: repeating-linear-gradient(
+    100deg,
+    rgb(255 255 255 / 0.016) 0px,
+    rgb(255 255 255 / 0.016) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  --grain: var(--grain-light);
+
+  /* A machined edge: light catches the top, shadow sits under the bottom. */
+  --edge-top: rgb(255 255 255 / 0.55);
+  --edge-bottom: rgb(0 0 0 / 0.06);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --grain: var(--grain-dark);
+    --edge-top: rgb(255 255 255 / 0.07);
+    --edge-bottom: rgb(0 0 0 / 0.35);
+  }
+}
+
+:root[data-theme='dark'] {
+  --grain: var(--grain-dark);
+  --edge-top: rgb(255 255 255 / 0.07);
+  --edge-bottom: rgb(0 0 0 / 0.35);
+}
+
+@utility surface-metal {
+  background-color: var(--color-surface);
+  background-image: var(--grain);
+  border-top: 1px solid var(--edge-top);
+  border-bottom: 1px solid var(--edge-bottom);
+}
+
+/* Accent used as structure rather than decoration — section rules, active
+   states, code-block markers. The competitors use their accent only on
+   buttons and links, which is what makes it feel applied rather than built in. */
+@utility rule-accent {
+  border-color: var(--color-link);
+}
+
+/* ------------------------------------------------------------ typography
+
+   Tighter than a marketing scale. This is an SDK with a large API surface;
+   the default register should be instrument panel, not splash page.
+*/
+@theme {
+  --text-xs: 0.75rem;
+  --text-sm: 0.8125rem;
+  --text-base: 0.9375rem;
+  --text-lg: 1.0625rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.375rem;
+  --text-5xl: 3rem;
+
+  --leading-tight: 1.2;
+  --leading-snug: 1.35;
+  --leading-normal: 1.6;
+  --leading-relaxed: 1.75;
+
+  /* Plex has a wide default; pulling headings in gives them more authority. */
+  --tracking-tighter: -0.03em;
+  --tracking-tight: -0.015em;
+}
+
 body {
-  background: var(--color-bg);
+  background-color: var(--color-bg);
+  background-image: var(--grain);
   color: var(--color-text);
+  font-synthesis-weight: none;
+  text-rendering: optimizeLegibility;
 }
 
 @media (prefers-reduced-motion: reduce) {
