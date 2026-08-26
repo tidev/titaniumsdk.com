@@ -1,4 +1,3 @@
-import { TitaniumMark } from '@/components/titanium-logo';
 import Link from 'next/link';
 
 /**
