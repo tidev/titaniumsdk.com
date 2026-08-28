@@ -180,22 +180,56 @@ type GhRun = {
 };
 type GhArtifact = { name: string; size_in_bytes: number; expires_at: string | null };
 
+/** The run id is not stored on a build, but it is in its Actions URL. */
+function runIdFrom(url: string): number | null {
+  const m = url.match(/\/actions\/runs\/(\d+)/);
+  return m ? Number(m[1]) : null;
+}
+
 async function getBranchBuilds(
   branch: string,
   existingBuilds: Build[],
   existingPruned: PrunedRun[]
 ): Promise<{ builds: Build[]; pruned: PrunedRun[] }> {
-  const builds: Build[] = [];
-  const pruned: PrunedRun[] = [];
   const now = Date.now();
 
   const knownBuild = new Map(existingBuilds.map((b) => [b.url, b]));
-  const knownPruned = new Set(existingPruned.map((p) => p.id));
+  const knownPruned = new Map(existingPruned.map((p) => [p.id, p]));
 
-  // GitHub paginates /actions/runs over a live list. A build finishing midway
-  // through shifts every later entry down a slot, so a run already returned on
-  // an earlier page comes back on the next one — which lands the same build in
-  // the output twice.
+  /**
+   * A build leaves the list when it expires, and for no other reason.
+   *
+   * The listing this walks is not a reliable census. GitHub paginates
+   * /actions/runs over a live, eventually-consistent index, so the same query
+   * seconds apart can return a different set: one observed pass reported the
+   * same 141 runs while omitting four that were alive with downloadable
+   * artifacts, and the next three returned all of them. Rebuilding the list
+   * from scratch each run therefore deletes whatever the API happened not to
+   * mention, silently and without a tombstone.
+   *
+   * So the previous list is the starting point, not the listing. Everything
+   * already known is carried forward and only expiry removes it; the walk below
+   * can add builds and can promote one to a tombstone, but absence from it
+   * means nothing.
+   */
+  const builds = new Map<string, Build>();
+  for (const b of existingBuilds) {
+    const expires = b.expires ? Date.parse(b.expires) : NaN;
+    if (Number.isFinite(expires) && expires <= now) {
+      const id = runIdFrom(b.url);
+      if (id !== null) knownPruned.set(id, { id, html_url: b.url });
+      continue;
+    }
+    builds.set(b.url, b);
+  }
+
+  // Tombstones are carried forward for the same reason: a run the listing skips
+  // this time must not lose its "artifacts are gone" marker, or the next run
+  // pays for the artifact lookup again to learn what we already knew.
+  const pruned = new Map(knownPruned);
+
+  // The instability cuts the other way too — a run already returned on an
+  // earlier page can come back on the next one, which would process it twice.
   const seen = new Set<number>();
 
   for await (const page of paginate<GhRun>(`/repos/${OWNER}/${REPO}/actions/runs`, {
@@ -209,17 +243,9 @@ async function getBranchBuilds(
       if (seen.has(run.id)) continue;
       seen.add(run.id);
 
-      // Already have it, or already know its artifacts are gone. Either way,
-      // skip the artifact lookup — that is the expensive call.
-      const cached = knownBuild.get(run.html_url);
-      if (cached) {
-        builds.push(cached);
-        continue;
-      }
-      if (knownPruned.has(run.id)) {
-        pruned.push({ id: run.id, html_url: run.html_url });
-        continue;
-      }
+      // Already carried forward above, or already known dead. Either way, skip
+      // the artifact lookup — that is the expensive call.
+      if (knownBuild.has(run.html_url) || knownPruned.has(run.id)) continue;
 
       const { artifacts } = await get<{ artifacts: GhArtifact[] }>(
         `/repos/${OWNER}/${REPO}/actions/runs/${run.id}/artifacts`
@@ -235,7 +261,7 @@ async function getBranchBuilds(
       const expires = expiries.length ? Math.min(...expiries) : null;
 
       if (expires !== null && expires > now) {
-        builds.push({
+        builds.set(run.html_url, {
           name,
           version,
           date: run.updated_at,
@@ -248,14 +274,18 @@ async function getBranchBuilds(
           })),
         });
       } else {
-        pruned.push({ id: run.id, html_url: run.html_url });
+        pruned.set(run.id, { id: run.id, html_url: run.html_url });
       }
 
       await new Promise((r) => setTimeout(r, 500));
     }
   }
 
-  return { builds, pruned };
+  // Newest first, so the order does not depend on how the listing paginated.
+  return {
+    builds: [...builds.values()].sort((a, b) => Date.parse(b.date) - Date.parse(a.date)),
+    pruned: [...pruned.values()].sort((a, b) => b.id - a.id),
+  };
 }
 
 // ------------------------------------------------------------------ main
