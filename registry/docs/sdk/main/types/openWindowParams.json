@@ -2,7 +2,12 @@
   "schemaVersion": 1,
   "name": "openWindowParams",
   "kind": "pseudo",
-  "platforms": ["android", "iphone", "ipad", "macos"],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": {
     "android": "2.0.0",
     "iphone": "2.0.0",
@@ -13,7 +18,9 @@
   "properties": [
     {
       "name": "activityEnterAnimation",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Animation resource to run on the activity being opened.",
       "description": "This value will be ignored if `animated` is set to false.\nSee \"Window Transitions in Android\" in the main description of Titanium.UI.Window\nfor more information.\n",
       "type": [
@@ -32,7 +39,9 @@
     },
     {
       "name": "activityExitAnimation",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Animation resource to run on the activity that is being put in background as a window is being opened above it.",
       "description": "This value will be ignored if `animated` is set to false.\nSee \"Window Transitions in Android\" in the main description of Titanium.UI.Window\nfor more information.\n",
       "type": [
@@ -45,7 +54,12 @@
     },
     {
       "name": "animated",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Determines whether to use an animated effect when the window is shown.\n",
       "description": "On Android, this property supports animated transitions on windows\nexcept for modal windows (`modal:true`). The transitions are on by default, but\nyou can disable this behavior by setting this value to `false`.\n\nOn iOS, only use this property to disable animated transitions on modal windows.\nThis property has unintended side effects on non-modal windows if it is defined.\n",
       "type": [
@@ -58,7 +72,12 @@
     },
     {
       "name": "bottom",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Window's bottom position, in platform-specific units.",
       "description": "On Android, this property has no effect.\n",
       "type": [
@@ -75,7 +94,11 @@
     },
     {
       "name": "forceModal",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Indicates whether the window enforces modal behaviour.",
       "description": "Set to `true` to prevent interactive dismissal of window while it is onscreen.\n",
       "type": [
@@ -98,7 +121,12 @@
     },
     {
       "name": "fullscreen",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Determines if the window is fullscreen.",
       "type": [
         {
@@ -110,7 +138,12 @@
     },
     {
       "name": "height",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Window's height, in platform-specific units.",
       "description": "On Windows Phone and Windows 10 Mobile, this property does not take any effect.\nOn Windows 10 Store App, resizing Window takes no effect in following cases\naccording to [Windows Runtime API document](https://msdn.microsoft.com/en-us/library/windows/apps/windows.ui.viewmanagement.applicationview.tryresizeview).\n* The requested size is larger than the available work area.\n* The requested size is less than the view's minimum size.\n* The smallest allowed minimum size is 192 x 48 effective pixels.\n* The largest allowed minimum size is 500 x 500 effective pixels.\n",
       "type": [
@@ -126,7 +159,12 @@
     },
     {
       "name": "left",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Window's left position, in platform-specific units.",
       "description": "On Android, this property has no effect.\n",
       "type": [
@@ -143,7 +181,12 @@
     },
     {
       "name": "modal",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Determines whether to open the window modal in front of other windows.",
       "type": [
         {
@@ -155,7 +198,11 @@
     },
     {
       "name": "modalStyle",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Presentation style of this modal window.",
       "type": [
         {
@@ -164,11 +211,17 @@
         }
       ],
       "default": "<Titanium.UI.iOS.MODAL_PRESENTATION_FULLSCREEN>",
-      "constants": ["Titanium.UI.iOS.MODAL_PRESENTATION_*"]
+      "constants": [
+        "Titanium.UI.iOS.MODAL_PRESENTATION_*"
+      ]
     },
     {
       "name": "modalTransitionStyle",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Transition style of this modal window.",
       "type": [
         {
@@ -177,11 +230,18 @@
         }
       ],
       "default": "<Titanium.UI.iOS.MODAL_TRANSITION_STYLE_COVER_VERTICAL>",
-      "constants": ["Titanium.UI.iOS.MODAL_TRANSITION_STYLE_*"]
+      "constants": [
+        "Titanium.UI.iOS.MODAL_TRANSITION_STYLE_*"
+      ]
     },
     {
       "name": "navBarHidden",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "For modal windows, hides the nav bar (`true`) or shows the nav bar (`false`).",
       "description": "On iOS, beginning with **Release 3.1.3**, this is no longer a valid parameter passed to the [Window.open](api:Titanium.UI.Window#open) method.\n",
       "type": [
@@ -194,7 +254,12 @@
     },
     {
       "name": "right",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Window's right position, in platform-specific units.",
       "description": "On Android, this property has no effect.\n",
       "type": [
@@ -211,7 +276,12 @@
     },
     {
       "name": "top",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Window's top position, in platform-specific units.",
       "description": "On Android, this property has no effect.\n",
       "type": [
@@ -228,7 +298,11 @@
     },
     {
       "name": "transition",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Transition style of this non-modal window.",
       "type": [
         {
@@ -237,11 +311,18 @@
         }
       ],
       "default": "<Titanium.UI.iOS.AnimationStyle.NONE>",
-      "constants": ["Titanium.UI.iOS.AnimationStyle.*"]
+      "constants": [
+        "Titanium.UI.iOS.AnimationStyle.*"
+      ]
     },
     {
       "name": "width",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Window's width, in platform-specific units.",
       "description": "On Windows Phone and Windows 10 Mobile, this property does not take any effect.\nOn Windows 10 Store App, resizing Window takes no effect in following cases\naccording to [Windows Runtime API document](https://msdn.microsoft.com/en-us/library/windows/apps/windows.ui.viewmanagement.applicationview.tryresizeview).\n* The requested size is larger than the available work area.\n* The requested size is less than the view's minimum size.\n* The smallest allowed minimum size is 192 x 48 effective pixels.\n* The largest allowed minimum size is 500 x 500 effective pixels.\n* This method is called while in while the app is running in Tablet Mode.\n",
       "type": [
@@ -263,6 +344,8 @@
     "methods": [],
     "events": []
   },
-  "references": ["Titanium.UI.Window"],
+  "references": [
+    "Titanium.UI.Window"
+  ],
   "source": "Titanium/UI/Window.yml"
 }

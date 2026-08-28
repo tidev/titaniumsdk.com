@@ -3,8 +3,15 @@
   "name": "Titanium.Buffer",
   "kind": "proxy",
   "extends": "Titanium.Proxy",
-  "inheritanceChain": ["Titanium.Proxy"],
-  "platforms": ["android", "iphone", "ipad", "macos"],
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": {
     "android": "1.7",
     "iphone": "1.7",
@@ -16,7 +23,12 @@
   "properties": [
     {
       "name": "byteOrder",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Byte order of this buffer.",
       "description": "Specify either [Titanium.Codec.BIG_ENDIAN](api:Titanium.Codec#BIG_ENDIAN) or [Titanium.Codec.LITTLE_ENDIAN](api:Titanium.Codec#LITTLE_ENDIAN).\n",
       "type": [
@@ -30,7 +42,12 @@
     },
     {
       "name": "length",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Length of the buffer in bytes.",
       "description": "When `length` is modified the buffer will be re-sized while preserving existing data where\npossible. If the new buffer length is smaller than the length of the existing data then the\nexisting data will be truncated down to the size of the new buffer.\n\nResizing a buffer by setting its length should be used sparingly due to the associated overhead.\n",
       "type": [
@@ -43,7 +60,12 @@
     },
     {
       "name": "type",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The type of data encoding to use with `value`.",
       "description": "Required when `value` is a Number. For numbers, specify a `TYPE` constant\nfrom [Titanium.Codec](api:Titanium.Codec), for example, [Titanium.Codec.TYPE_DOUBLE](api:Titanium.Codec#TYPE_DOUBLE).\n\nWhen `value` is a String, specify a `CHARSET` constant from [Titanium.Codec](api:Titanium.Codec).\n",
       "type": [
@@ -57,7 +79,12 @@
     },
     {
       "name": "value",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Data to be encoded.",
       "description": "If `value` is a Number, `type` must also be set. (This is simply a convenient way of\ncalling [Titanium.Codec.encodeString](api:Titanium.Codec#encodeString) or [Titanium.Codec.encodeNumber](api:Titanium.Codec#encodeNumber).)\n",
       "type": [
@@ -76,7 +103,12 @@
   "methods": [
     {
       "name": "append",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Appends `sourceBuffer` to the this buffer.",
       "description": "This buffer is grown dynamically to accommodate the additional data if need be.\n\nIf `sourceOffset` and `sourceLength` are specified, data from `sourceBuffer` is\ncopied starting at position `sourceOffset`, and no more than `sourceLength` bytes\nare copied.\n",
       "parameters": [
@@ -129,12 +161,22 @@
     },
     {
       "name": "clear",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Clears this buffer's contents but does not change the size of the buffer."
     },
     {
       "name": "clone",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates a complete or partial copy of this buffer.",
       "description": "If called with no arguments, returns a complete copy of the current buffer.\n\nIf `offset` and `length` are specified, creates a new buffer from the original\nbuffer contents starting at `offset` and ending at `offset`+`length`-1.\n",
       "parameters": [
@@ -176,7 +218,12 @@
     },
     {
       "name": "copy",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Copies data from `sourceBuffer` into the current buffer at `offset`.",
       "description": "Does not expand this buffer if there is not enough room to accommodate the data\nfrom `sourceBuffer`.\n\nIf `sourceOffset` and `sourceLength` are specified, bytes are copied from\n`sourceBuffer` starting at `sourceOffset`, and a maximum of `sourceLength` bytes\nare copied.\n",
       "parameters": [
@@ -239,7 +286,12 @@
     },
     {
       "name": "fill",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fills this buffer with the specified byte value.",
       "description": "Fills the buffer by setting byte values to `fillByte`.\n\nIf `offset` and `length` are specified, fills the buffer starting at\n`offset` and ending at `offset`+`length`-1.\n\nIf `offset` and `length` are omitted, fills the entire buffer.\n",
       "parameters": [
@@ -281,7 +333,12 @@
     },
     {
       "name": "insert",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Inserts data from `sourceBuffer` into this buffer at `offset`.",
       "description": "Buffer is grown to accommodate the new data.\n\nIf `sourceOffset` and `sourceLength` are specified, `sourceLength` bytes\nof data are copied from `sourceBuffer`, with the first byte at `sourceOffset`.\n",
       "parameters": [
@@ -344,13 +401,23 @@
     },
     {
       "name": "release",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Releases the space allocated to the buffer, and sets its length to 0.",
       "description": "This is effectively the same as `buffer.length = 0`.\n"
     },
     {
       "name": "toBlob",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Converts this buffer to a [Titanium.Blob](api:Titanium.Blob).",
       "returns": [
         {
@@ -365,7 +432,12 @@
     },
     {
       "name": "toString",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Converts this buffer to a String.",
       "returns": [
         {
@@ -385,43 +457,80 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "lifecycleContainer",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "events": []
   },
-  "references": ["Titanium", "Titanium.Blob", "Titanium.Codec", "Titanium.Proxy"],
+  "references": [
+    "Titanium",
+    "Titanium.Blob",
+    "Titanium.Codec",
+    "Titanium.Proxy"
+  ],
   "source": "Titanium/Buffer.yml"
 }

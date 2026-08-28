@@ -3,8 +3,13 @@
   "name": "Titanium.UI.Android.SearchView",
   "kind": "view",
   "extends": "Titanium.UI.View",
-  "inheritanceChain": ["Titanium.UI.View", "Titanium.Proxy"],
-  "platforms": ["android"],
+  "inheritanceChain": [
+    "Titanium.UI.View",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android"
+  ],
   "since": "3.0.2",
   "summary": "A specialized text field for entering search text.",
   "description": "| Android |\n| ------- |\n| ![Android](./searchview_android.png) |\n\n`SearchView` provides a user interface to enter a search query and submit a request to a search provider.\n\nSearch views are most commonly used for filtering the rows in a [TableView](api:Titanium.UI.TableView).\nSimilar to [SearchBar](api:Titanium.UI.SearchBar), you can add a search view to a table view by setting the table view's\n[search](api:Titanium.UI.TableView#search) property. A search view can be used without a `TableView`.\n\nYou can also use a `SearchView` object as the [Titanium.UI.ListView.searchView](api:Titanium.UI.ListView#searchView)\nproperty of a [ListView](api:Titanium.UI.ListView) object.\n\nYou can also add `SearchView` to an `ActionBar` as a view (see example below).\n\nUse the [Titanium.UI.Android.createSearchView](api:Titanium.UI.Android#createSearchView) method or **`<SearchView>`** Alloy element to create\na search view. You must set the Alloy element's `ns` attribute to **Ti.UI.Android**:\n\n``` xml\n<SearchView ns=\"Ti.UI.Android\" platform=\"android\"/>\n```\n",
@@ -21,7 +26,9 @@
   "properties": [
     {
       "name": "color",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Color of the text in this SearchView, as a color name or hex triplet.",
       "description": "For information about color values, see the \"Colors\" section of [Titanium.UI](api:Titanium.UI).\n",
       "type": [
@@ -33,7 +40,9 @@
     },
     {
       "name": "hintText",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Text to show when the search view field is not focused.",
       "type": [
         {
@@ -45,7 +54,9 @@
     },
     {
       "name": "hintTextColor",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Color of hint text that displays when field is empty.",
       "description": "Color of hint text that displays when field is empty.\n",
       "type": [
@@ -59,7 +70,9 @@
     },
     {
       "name": "iconified",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Iconifies or expands the search view",
       "description": "see [Android Documentation](https://developer.android.com/reference/android/widget/SearchView.html#setIconified(boolean)) for more details.",
       "type": [
@@ -72,7 +85,9 @@
     },
     {
       "name": "iconifiedByDefault",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Sets the default or resting state of the search view",
       "description": "see [Android Documentation](https://developer.android.com/reference/android/widget/SearchView.html#setIconifiedByDefault(boolean)) for more details.",
       "type": [
@@ -85,7 +100,9 @@
     },
     {
       "name": "submitEnabled",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Whether to display the submit button when necessary or never display.",
       "type": [
         {
@@ -97,7 +114,9 @@
     },
     {
       "name": "value",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Value of the search view.",
       "description": "This value cannot be set until after the search view is created.\n",
       "type": [
@@ -111,40 +130,54 @@
   "methods": [
     {
       "name": "blur",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Causes the search view to lose focus."
     },
     {
       "name": "focus",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Causes the search view to gain focus."
     }
   ],
   "events": [
     {
       "name": "blur",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Fired when the search view loses focus."
     },
     {
       "name": "cancel",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Fired when the cancel button is pressed.",
       "description": "Due to the current [Android Issue](http://code.google.com/p/android/issues/detail?id=25758), this event does not work\nwith Android 4.0+. Alternatively, when using SearchView in the action bar, you can listen for the [MenuItem.collapse](api:Titanium.Android.MenuItem#collapse) event.\n"
     },
     {
       "name": "change",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Fired when the value of the search view changes."
     },
     {
       "name": "focus",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Fired when the search view gains focus."
     },
     {
       "name": "submit",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "If the search query is not empty, fired when the search button is clicked on soft keyboard"
     }
   ],
@@ -153,466 +186,650 @@
       {
         "name": "accessibilityDisableLongPress",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "accessibilityHidden",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "accessibilityHint",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "accessibilityLabel",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "accessibilityValue",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "anchorPoint",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "backgroundColor",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "backgroundDisabledColor",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "backgroundDisabledImage",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "backgroundFocusedColor",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "backgroundFocusedImage",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "backgroundGradient",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "backgroundImage",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "backgroundRepeat",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "backgroundSelectedColor",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "backgroundSelectedImage",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "borderColor",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "borderRadius",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "borderWidth",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "bottom",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "center",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "children",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "elevation",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "filterTouchesWhenObscured",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "focusable",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "height",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "hiddenBehavior",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "horizontalWrap",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "id",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "keepHardwareMode",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "keepScreenOn",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "layout",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "left",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "lifecycleContainer",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "opacity",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "overrideCurrentAnimation",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "rect",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "right",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "rotation",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "rotationX",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "rotationY",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "scaleX",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "scaleY",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "size",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "softKeyboardOnFocus",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "tooltip",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "top",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "touchEnabled",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "touchFeedback",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "touchFeedbackColor",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "transform",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "transitionName",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "translationX",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "translationY",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "translationZ",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "viewShadowColor",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "visible",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "width",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "zIndex",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "animate",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "convertPointToView",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "getViewById",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "hide",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "insertAt",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "remove",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "removeAllChildren",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "replaceAt",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "show",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "stopAnimation",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "toImage",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ],
     "events": [
       {
         "name": "click",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "dblclick",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "doubletap",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "keypressed",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "longclick",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "longpress",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "pinch",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "postlayout",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "rotate",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "singletap",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "swipe",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "touchcancel",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "touchend",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "touchmove",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "touchstart",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "twofingertap",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ]
   },

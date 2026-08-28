@@ -3,8 +3,15 @@
   "name": "Titanium.Network.Cookie",
   "kind": "proxy",
   "extends": "Titanium.Proxy",
-  "inheritanceChain": ["Titanium.Proxy"],
-  "platforms": ["android", "iphone", "ipad", "macos"],
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": {
     "android": "3.2.0",
     "iphone": "3.3.0",
@@ -15,7 +22,12 @@
   "properties": [
     {
       "name": "comment",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The comment describing the purpose of this cookie",
       "type": [
         {
@@ -26,7 +38,12 @@
     },
     {
       "name": "domain",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The domain attribute of the cookie.",
       "type": [
         {
@@ -37,7 +54,11 @@
     },
     {
       "name": "expiryDate",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The expiration Date of the cookie.",
       "description": "Date format is \"_yyyy_-_MM_-_dd_**T**_HH_**:**_mm_**:**_ss_**.**_SSS_**+0000**\"\n\nThis has been deprecated and removed since 5.0.0 in Android. Please use the property `maxAge`\nfor Cookies in Android.\n",
       "type": [
@@ -53,7 +74,12 @@
     },
     {
       "name": "httponly",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The httponly attribute of the cookie.",
       "description": "On iOS this property cannot be set. On Android, when this property is set to `true`, the cookie will\nbe used only when transmitting HTTP (or HTTPS) requests.\n",
       "type": [
@@ -66,7 +92,9 @@
     },
     {
       "name": "maxAge",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Sets the Max-Age attribute of a Cookie, in delta-seconds.",
       "type": [
         {
@@ -78,7 +106,12 @@
     },
     {
       "name": "name",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The name of the cookie.",
       "type": [
         {
@@ -91,7 +124,11 @@
     },
     {
       "name": "originalUrl",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The original URL attribute of the cookie.",
       "type": [
         {
@@ -103,7 +140,12 @@
     },
     {
       "name": "path",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The path attribute of the cookie.",
       "description": "In the system cookie store, the default value of the path is \"/\". In the HTTP client cookie store,\nthe default value of the path is `null`.\n",
       "type": [
@@ -115,7 +157,12 @@
     },
     {
       "name": "secure",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The secure attribute of the cookie.",
       "description": "Indicates whether this cookie requires a secure connection.\n",
       "type": [
@@ -128,7 +175,12 @@
     },
     {
       "name": "value",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The value of the cookie.",
       "type": [
         {
@@ -139,7 +191,12 @@
     },
     {
       "name": "version",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The version of the cookie specification to which this cookie conforms.",
       "type": [
         {
@@ -152,7 +209,12 @@
   "methods": [
     {
       "name": "isValid",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Returns true if the cookie is valid.",
       "description": "This method checks if the cookie is valid. For a cookie to be valid the minimum\nproperties required are `name`, `value`, `path` and either `domain` or `originalUrl` (iOS only)\n",
       "since": {
@@ -178,43 +240,78 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "lifecycleContainer",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "events": []
   },
-  "references": ["Titanium.Network", "Titanium.Proxy"],
+  "references": [
+    "Titanium.Network",
+    "Titanium.Proxy"
+  ],
   "source": "Titanium/Network/Cookie.yml"
 }

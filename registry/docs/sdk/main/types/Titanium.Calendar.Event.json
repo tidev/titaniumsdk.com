@@ -3,8 +3,15 @@
   "name": "Titanium.Calendar.Event",
   "kind": "proxy",
   "extends": "Titanium.Proxy",
-  "inheritanceChain": ["Titanium.Proxy"],
-  "platforms": ["android", "iphone", "ipad", "macos"],
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": {
     "android": "3.2.0",
     "iphone": "3.1.0",
@@ -15,7 +22,12 @@
   "properties": [
     {
       "name": "alerts",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Alarms associated with the calendar item, as an array of [Titanium.Calendar.Alert](api:Titanium.Calendar.Alert) objects.",
       "description": "This property is read-only on Android.\n",
       "type": [
@@ -33,7 +45,12 @@
     },
     {
       "name": "allDay",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Indicates whether this event is all day.",
       "description": "This property is read-only on Android.\n",
       "type": [
@@ -46,7 +63,11 @@
     },
     {
       "name": "attendees",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The list of event attendees. This list will be empty if the event has no attendees.",
       "type": [
         {
@@ -65,7 +86,11 @@
     },
     {
       "name": "availability",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Availability of this event.",
       "type": [
         {
@@ -73,11 +98,18 @@
           "name": "Number"
         }
       ],
-      "constants": ["Titanium.Calendar.AVAILABILITY_*"]
+      "constants": [
+        "Titanium.Calendar.AVAILABILITY_*"
+      ]
     },
     {
       "name": "begin",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Start date/time of this event.",
       "description": "This property is read-only on Android.\n",
       "type": [
@@ -89,7 +121,9 @@
     },
     {
       "name": "description",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Description of this event.",
       "type": [
         {
@@ -101,7 +135,12 @@
     },
     {
       "name": "end",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "End date/time of this event.",
       "description": "This property is read-only on Android.\n",
       "type": [
@@ -113,7 +152,9 @@
     },
     {
       "name": "extendedProperties",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Extended properties of this event.",
       "type": [
         {
@@ -125,7 +166,12 @@
     },
     {
       "name": "hasAlarm",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Indicates whether an alarm is scheduled for this event.",
       "type": [
         {
@@ -137,7 +183,12 @@
     },
     {
       "name": "id",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Identifier of this event.",
       "type": [
         {
@@ -149,7 +200,11 @@
     },
     {
       "name": "isDetached",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Boolean value that indicates whether an event is a detached instance of a\nrepeating event.\n",
       "description": "This value is `YES` if and only if the event is part of a repeating event\nand one or more of its attributes have been modified from the repeating event's\ndefault attributes.\n",
       "type": [
@@ -162,7 +217,12 @@
     },
     {
       "name": "location",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Location of this event.",
       "description": "This property is read-only on Android.\n",
       "type": [
@@ -174,7 +234,11 @@
     },
     {
       "name": "notes",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Notes for this event.",
       "type": [
         {
@@ -185,7 +249,12 @@
     },
     {
       "name": "recurrenceRules",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The recurrence rules for the calendar item.",
       "description": "On Android, only the first element of the recurrenceRules is taken into account\ndue to the way it handles conditions for recurrence rules.\n",
       "type": [
@@ -208,7 +277,9 @@
     },
     {
       "name": "reminders",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Existing reminders for this event.",
       "type": [
         {
@@ -226,7 +297,12 @@
     },
     {
       "name": "status",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Status of this event.",
       "type": [
         {
@@ -235,11 +311,18 @@
         }
       ],
       "permission": "read-only",
-      "constants": ["Titanium.Calendar.STATUS_*"]
+      "constants": [
+        "Titanium.Calendar.STATUS_*"
+      ]
     },
     {
       "name": "title",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Title of this event.",
       "description": "This property is read-only on Android.\n",
       "type": [
@@ -251,7 +334,9 @@
     },
     {
       "name": "visibility",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Visibility of this event.",
       "type": [
         {
@@ -260,13 +345,19 @@
         }
       ],
       "permission": "read-only",
-      "constants": ["Titanium.Calendar.VISIBILITY_*"]
+      "constants": [
+        "Titanium.Calendar.VISIBILITY_*"
+      ]
     }
   ],
   "methods": [
     {
       "name": "addRecurrenceRule",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Adds a recurrence rule to the recurrence rule array.",
       "parameters": [
         {
@@ -283,7 +374,12 @@
     },
     {
       "name": "createAlert",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates an alert for this event.",
       "parameters": [
         {
@@ -316,7 +412,12 @@
     },
     {
       "name": "createRecurrenceRule",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates an recurrence pattern for a recurring event.\nAll of the properties for the recurrence rule must be set during creation.\nThe recurrence rule properties cannot be modified.\n",
       "since": {
         "android": "7.1.0"
@@ -352,7 +453,9 @@
     },
     {
       "name": "createReminder",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Creates a reminder for this event.",
       "parameters": [
         {
@@ -385,7 +488,9 @@
     },
     {
       "name": "getExtendedProperty",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Gets the value of the specified extended property.",
       "parameters": [
         {
@@ -412,7 +517,11 @@
     },
     {
       "name": "refresh",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Updates the event's data with the current information in the Calendar database.",
       "description": "This method should be only used on events that your application is editing, and only\nwhen your application receives the [change](api:Titanium.Calendar#change) notification.\nIf this method returns NO, the event has been deleted or otherwise invalidated,\nand you should not continue to use it.\n",
       "returns": [
@@ -428,7 +537,12 @@
     },
     {
       "name": "remove",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Removes an event from the calendar.",
       "description": "This method raises an exception on iOS if an event from another calendar is used.\n",
       "since": {
@@ -463,7 +577,11 @@
     },
     {
       "name": "removeRecurrenceRule",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Removes a recurrence rule to the recurrence rule array.",
       "parameters": [
         {
@@ -480,7 +598,12 @@
     },
     {
       "name": "save",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Saves changes to an event permanently.",
       "description": "This method raises an exception if it is passed an event from another calendar.\n\nWhen an event is saved, it is updated in the Calendar database. Any fields you did\nnot modify are updated to reflect the most recent value in the database. If the\nevent has been deleted from the database, it is re-created as a new event.\n\nOn Android, this method only updates the recurrence rule (if set). See [TIMOB-24248](https://jira-archive.titaniumsdk.com/TIMOB-24248)\nto track this new feature.\n",
       "since": {
@@ -514,7 +637,9 @@
     },
     {
       "name": "setExtendedProperty",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Sets the value of the specified extended property.",
       "parameters": [
         {
@@ -546,39 +671,71 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "lifecycleContainer",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "events": []

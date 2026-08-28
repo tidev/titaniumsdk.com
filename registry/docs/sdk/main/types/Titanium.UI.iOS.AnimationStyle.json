@@ -3,8 +3,14 @@
   "name": "Titanium.UI.iOS.AnimationStyle",
   "kind": "proxy",
   "extends": "Titanium.Proxy",
-  "inheritanceChain": ["Titanium.Proxy"],
-  "platforms": ["iphone", "ipad", "macos"],
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": {
     "iphone": "5.4.0",
     "ipad": "5.4.0",
@@ -14,7 +20,11 @@
   "properties": [
     {
       "name": "CROSS_DISSOLVE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "A transition that dissolves from one view to the next.",
       "description": "Used with the [Titanium.UI.Animation.transition](api:Titanium.UI.Animation#transition) property.\n",
       "type": [
@@ -28,7 +38,11 @@
     },
     {
       "name": "CURL_DOWN",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Curl downwards during a transition animation.",
       "description": "Used with the [Titanium.UI.Animation.transition](api:Titanium.UI.Animation#transition) property.        \n",
       "type": [
@@ -41,7 +55,11 @@
     },
     {
       "name": "CURL_UP",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Curl upwards during a transition animation.",
       "description": "Used with the [Titanium.UI.Animation.transition](api:Titanium.UI.Animation#transition) property.\n",
       "type": [
@@ -54,7 +72,11 @@
     },
     {
       "name": "FLIP_FROM_BOTTOM",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Flip from bottom to top during a transition animation.",
       "description": "Used with the [Titanium.UI.Animation.transition](api:Titanium.UI.Animation#transition) property.\n",
       "type": [
@@ -68,7 +90,11 @@
     },
     {
       "name": "FLIP_FROM_LEFT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Flip from left to right during a transition animation.",
       "description": "Used with the [Titanium.UI.Animation.transition](api:Titanium.UI.Animation#transition) property.        \n",
       "type": [
@@ -81,7 +107,11 @@
     },
     {
       "name": "FLIP_FROM_RIGHT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Flip from right to left during a transition animation.",
       "description": "Used with the [Titanium.UI.Animation.transition](api:Titanium.UI.Animation#transition) property.\n",
       "type": [
@@ -94,7 +124,11 @@
     },
     {
       "name": "FLIP_FROM_TOP",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Flip from top to bottom during a transition animation.",
       "description": "Used with the [Titanium.UI.Animation.transition](api:Titanium.UI.Animation#transition) property.\n",
       "type": [
@@ -108,7 +142,11 @@
     },
     {
       "name": "NONE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "No animation.",
       "description": "Used with the [Titanium.UI.Animation.transition](api:Titanium.UI.Animation#transition) property.\n",
       "type": [
@@ -127,38 +165,65 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "events": []
   },
-  "references": ["Titanium.Proxy", "Titanium.UI.Animation"],
+  "references": [
+    "Titanium.Proxy",
+    "Titanium.UI.Animation"
+  ],
   "source": "Titanium/UI/iOS/AnimationStyle.yml"
 }

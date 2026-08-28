@@ -3,15 +3,28 @@
   "name": "Titanium.App",
   "kind": "module",
   "extends": "Titanium.Module",
-  "inheritanceChain": ["Titanium.Module", "Titanium.Proxy"],
-  "platforms": ["android", "iphone", "ipad", "macos"],
+  "inheritanceChain": [
+    "Titanium.Module",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": "0.1",
   "summary": "The top-level App module is mainly used for accessing information about the\napplication at runtime, and for sending or listening for system events.\n",
   "description": "The `App` module exposes a number of properties set in the `tiapp.xml` file.\n\nThree of these properties, the application name, ID, and URL, must be specified when the\napplication is created.\n\nWhile most values may be changed by editing the `tiapp.xml` file after creating the project,\nthe GUID is automatically generated and should not be changed.\n\nTo access other application properties set in the `tiapp.xml` file not exposed by the\n`Titanium.App` module, see [Titanium.App.Properties](api:Titanium.App.Properties).\n\n#### iOS Application Life Cycle\n\nAt any given moment, you applications can be in one of the following possible states:\n\n*   Not running: The app has not been launched or was running but was terminated by the system.\n\n*   Inactive: The app is running in the foreground but is currently not receiving events.\nAn app usually stays in this state only briefly as it transitions to a different state.\nThe `pause` event is fired during this state.\n\n*   Active: The app is running in the foreground and is receiving events. This is the normal\nmode for foreground apps.\n\n*   Background: The app is in the background and executing code. Most apps enter this state\nbriefly on their way to being suspended.\n\n*   Suspended: The app is in the background but is not executing code. The system moves\napps to this state automatically and does not notify them before doing so. While suspended,\nan app remains in memory but does not execute any code. The `paused` event is fired\nduring this state. The system tries to keep as many apps in memory at the same time as it\ncan, but when memory runs low it terminates suspended apps to reclaim that memory. Apps\nthat consume large amounts of memory while in the background are the first apps to be terminated.\n\n**Responding To Interruptions**\n\n***System Alerts***\n\nWhen an **alert-based** interruption occurs, such as an incoming phone call, the app moves\ntemporarily to the inactive state, and fires the `pause` event. The system then displays\nan alert to the user. The app remains in this state until the user dismisses the alert.\nAt this point, the app either returns to the active state and fires the `resumed` event;\nor moves to the background state and fires the `paused` event.\n\nAlert-based interruptions result in temporary loss of control by your app and results in `pause`\nevent being fired. Your app continues to run in the foreground, but it does not receive\ntouch events from the system. (It does continue to receive notifications and other types\nof events, such as accelerometer events.) When your app is moved back to the\nactive state, the `resumed` event is fired.\n\nThe same set of events takes place when user **double taps on the home button**.\n\n***Sleep/Wake Button***\n\nPressing the **Sleep/Wake** button is another type of interruption that causes your app to\nmove to an inactive state. When the app is in the foreground and the **Sleep/Wake button**\nis pressed, the the system fires the `pause` event followed by the `paused` event and\nbecomes inactive. This is an intentionally behavioral change by Apple to conserve battery when\nthe Sleep/Wake button is pressed. On waking up the app fires the `resume` event followed by the\n`resumed` event and returns the app to normal state.\n\n***Home Button***\n\nPressing the **home button** is another kind of interruption. The app fires `pause` and\n`paused`events before going into background. When app is reopened it fires the `resume`\nevent followed by the `resumed` event, returning the app to the normal state.\n\n<table class=\"doc-table\" summary=\"This table gives the order of events fired when the app is in normal state.\">\n  <caption><b>Lifecycle events fired during different interruptions</b></caption>\n  <thead>\n    <tr>\n      <th colspan=\"2\">Type of Interruption</th>\n      <th colspan=\"2\">Going into Background</th>\n      <th colspan=\"2\">Coming into  Foreground</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <th colspan=\"2\" align=\"left\">Alert-Based/Fast App Switching</th>\n      <td align=\"center\">pause</td>\n      <td align=\"center\"></td>\n      <td align=\"center\"> </td>\n      <td align=\"center\">resumed</td>\n    </tr>\n    <tr>\n      <th colspan=\"2\" align=\"left\">Sleep/Wake Button</th>\n      <td align=\"center\">pause</td>\n      <td align=\"center\">paused</td>\n      <td align=\"center\">resume</td>\n      <td align=\"center\">resumed</td>\n    </tr>\n    <tr>\n      <th colspan=\"2\" align=\"left\">Home Button (backgrounding)</th>\n      <td align=\"center\">pause</td>\n      <td align=\"center\">paused</td>\n      <td align=\"center\">resume</td>\n      <td align=\"center\">resumed</td>\n    </tr>\n  </tbody>\n</table>\n\n***Blur and Focus Events***\n\nWhen using the iOS pause/resume feature, the `blur` and `focus` events do not fire\nbefore the application enters the background or after it returns to the foreground,\nrespectively.  Instead, the application needs to monitor the `pause` and `resumed` events,\nwhich relies on the underlying iOS events to determine the application state rather than the\nUI events.\n\n#### Application Level Events\n\nApplication-level events are custom events that are defined globally for your\napplication. By convention, application-level events are set on the `Titanium.App`\nmodule, like this:\n\n``` js\nTi.App.addEventListener('app:myCustomEvent', myHandlerFunction);\n```\n\nAdding a prefix (like 'app:' in this example) is optional, but can help ensure that\nyour custom event names don't conflict with any future Titanium events.\n\nApplication-level event listeners can be added and fired from any context, including from inside\na web view, so they are ideal for communicating between separate parts of your\napplication.\n\nWhen you add an event listener on a Titanium module (such as `Ti.App` or\n[Ti.Geolocation](api:Titanium.Geolocation)), the event listener function is referenced from\nthe global context. This means the event listener function and any object it references\ncan't be garbage collected until the event listener is removed.\n\nThis can lead to memory leaks if application-level event listeners are added and not\nremoved.\n\nSee also: [Event Handling](https://titaniumsdk.com/guide/Titanium_SDK/Titanium_SDK_How-tos/User_Interface_Fundamentals/Event_Handling.html)\nin the Titanium Mobile Guides.\n\n#### System Level Accessibility Events\n\nSystem-level Accessibility events include:\n\n* Events your application fires to alert the device's accessibility system of some condition\nor to ask it to do something.\n* Events fired by the device's accessibility system and listened for in your application.\n\nCurrently there are four system-level accessibility events. Three of them are available for\nyour application to fire, and one of them is for your application to listen for.\n\n##### Firing Accessibility Events.\n\nThe following accessibility events can be fired by your application to alert the accessibility\nsystem of a particular condition or to ask it to perform an action.\n\nThese events are fired using [Titanium.App.fireSystemEvent](api:Titanium.App#fireSystemEvent), which is available in Titanium Mobile 3.0.0.\n\n* [Titanium.App.EVENT_ACCESSIBILITY_ANNOUNCEMENT](api:Titanium.App#EVENT_ACCESSIBILITY_ANNOUNCEMENT), available in iOS and Android, asks the device's\naccessibility system to make an announcement. The announcement itself is a string passed as the second\nargument to [Titanium.App.fireSystemEvent](api:Titanium.App#fireSystemEvent). *How* the device's accessibility actually makes that announcement\ndepends on what accessibility services are activated on the device. The most common are VoiceOver on\niOS and TalkBack on Android. Each of those would read the announcement aloud.\n\n``` js\nTi.App.fireSystemEvent(Ti.App.EVENT_ACCESSIBILITY_ANNOUNCEMENT, \"Welcome to my App\");\n```\n\n* [Titanium.App.iOS.EVENT_ACCESSIBILITY_LAYOUT_CHANGED](api:Titanium.App.iOS#EVENT_ACCESSIBILITY_LAYOUT_CHANGED), available only on iOS, can be used to alert\nthe accessibility system that the layout of the screen has changed, such as when an element\nappears or disappears. When your application fires this event, Titanium calls `UIAccessibilityLayoutChangedNotification`\nin the iOS [UIAccessibility Protocol](https://developer.apple.com/documentation/uikit/accessibility/uiaccessibility).\nNo second parameter is required when firing this event with [Titanium.App.fireSystemEvent](api:Titanium.App#fireSystemEvent).\n\n* [Titanium.App.iOS.EVENT_ACCESSIBILITY_SCREEN_CHANGED](api:Titanium.App.iOS#EVENT_ACCESSIBILITY_SCREEN_CHANGED), available only on iOS, can be used to alert\nthe accessibility system when a new view appears that comprises a major portion of the screen.\nWhen your application fires this event, Titanium calls `UIAccessibilityScreenChangedNotification`\nin the iOS [UIAccessibility Protocol](https://developer.apple.com/documentation/uikit/accessibility/uiaccessibility).\nNo second parameter is required when firing this event with [Titanium.App.fireSystemEvent](api:Titanium.App#fireSystemEvent).\n\n##### Listening for Accessibility Events\n\nCurrently there is only one system accessibility event which your application can listen for using\n[Titanium.App.addEventListener](api:Titanium.App#addEventListener), namely [Titanium.App.accessibilitychanged](api:Titanium.App#accessibilitychanged).  This event, available on iOS and on Android\n(for devices running Ice Cream Sandwich or greater), is fired when the device's accessibility service is turned\non or off. The object passed as a parameter to the listener function contains an `enabled` property which is\n`true` if the accessibility service is now turned on, or `false` otherwise.\n",
   "properties": [
     {
       "name": "accessibilityEnabled",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Indicates whether Accessibility is enabled by the system.",
       "type": [
         {
@@ -23,7 +36,11 @@
     },
     {
       "name": "arguments",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The arguments passed to the application on startup.",
       "description": "On Android, fetch the [Ti.Android.rootActivity](api:Titanium.Android#rootActivity) object and\nread its [intent](api:Titanium.Android.Activity#intent) property to retrieve the parameters used\nto launch the application activity. Note that this [intent](api:Titanium.Android.Activity#intent)\nwill change when a \"[newintent](api:Titanium.Android.Activity#newintent)\" event has been fired.\n",
       "type": [
@@ -43,7 +60,12 @@
         "properties": [
           {
             "name": "launchOptionsLocationKey",
-            "platforms": ["android", "iphone", "ipad", "macos"],
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "If set to `true`, this key indicates that the application was launched in response to an\nincoming location event.\n",
             "type": [
               {
@@ -55,7 +77,12 @@
           },
           {
             "name": "source",
-            "platforms": ["android", "iphone", "ipad", "macos"],
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "This key indicates that the application was launched by another\napplication with the specified bundle ID.\n",
             "type": [
               {
@@ -66,7 +93,12 @@
           },
           {
             "name": "url",
-            "platforms": ["android", "iphone", "ipad", "macos"],
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "This key indicates that the application was launched in order to open\nthe specified URL.\n",
             "type": [
               {
@@ -80,7 +112,12 @@
     },
     {
       "name": "copyright",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Application copyright statement, determined by `tiapp.xml`.",
       "type": [
         {
@@ -92,7 +129,11 @@
     },
     {
       "name": "currentService",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "A reference to the current background service running when the application is placed in the background.",
       "type": [
         {
@@ -104,7 +145,12 @@
     },
     {
       "name": "deployType",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Build type that reflects how the application was packaged.\n\nReturns one of the following values:\n* `development` (Simulator)\n* `test` (Device)\n* `production` (App Store / Adhoc)\n",
       "type": [
         {
@@ -116,7 +162,12 @@
     },
     {
       "name": "description",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Application description, determined by `tiapp.xml`.",
       "type": [
         {
@@ -128,7 +179,11 @@
     },
     {
       "name": "disableNetworkActivityIndicator",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Prevents network activity indicator from being displayed.\n",
       "description": "Setting this property to true disables display of the network activity indicator when network activity is in progress.\nIf the network activity indicator is currently visible, it is hidden immediately.\n\n**NOTE: In general, the user should always be made aware of network activity. The network activity indicator should only be disabled for very brief network activity (a few seconds).**\n",
       "type": [
@@ -146,7 +201,12 @@
     },
     {
       "name": "EVENT_ACCESSIBILITY_ANNOUNCEMENT",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Convenience constant for system event \"accessibilityannouncement\".",
       "type": [
         {
@@ -164,7 +224,12 @@
     },
     {
       "name": "EVENT_ACCESSIBILITY_CHANGED",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Convenience constant for system event \"accessibilitychanged\".",
       "type": [
         {
@@ -182,7 +247,11 @@
     },
     {
       "name": "forceSplashAsSnapshot",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Shows the application's splash screen on app resume.",
       "description": "Note: This only works on device.\nWhen the app goes to the background a screenshot of the current app state is taken. When\nthe app resumes that screenshot is shown for brief moment. To disable this behavior, set\nthis property to `true` and the default splash screen will show on app resume instead.\n",
       "type": [
@@ -194,7 +263,12 @@
     },
     {
       "name": "guid",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Application globally-unique ID, determined by `tiapp.xml`.",
       "description": "This value is system-generated and consistent through all versions.",
       "type": [
@@ -207,7 +281,12 @@
     },
     {
       "name": "id",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Application ID, from `tiapp.xml`.",
       "description": "The application ID is a required property that must be specified when creating a new project.\n",
       "type": [
@@ -220,7 +299,11 @@
     },
     {
       "name": "idleTimerDisabled",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Determines whether the screen is locked when the device is idle.",
       "description": "Set to `true` to disable the timer. For Android look at [Titanium.UI.View.keepScreenOn](api:Titanium.UI.View#keepScreenOn).",
       "type": [
@@ -232,7 +315,11 @@
     },
     {
       "name": "installId",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The install ID for this application.",
       "description": "The application install ID is a unique identifier (UUID) for this\ninstall of the application. It is not modified by application updates;\nonly when an application is initially installed, or removed and\nre-installed.\n",
       "type": [
@@ -250,7 +337,12 @@
     },
     {
       "name": "keyboardVisible",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Indicates whether or not the soft keyboard is visible.",
       "description": "On Android it will only work using Android 11 and up. Otherwise it will always be false.\n",
       "type": [
@@ -269,7 +361,12 @@
     },
     {
       "name": "name",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Application name, determined by `tiapp.xml`.",
       "type": [
         {
@@ -281,7 +378,12 @@
     },
     {
       "name": "proximityDetection",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Determines whether proximity detection is enabled.",
       "description": "Set to `true` to receive [Titanium.App.proximity](api:Titanium.App#proximity) events.\n",
       "type": [
@@ -298,7 +400,10 @@
     },
     {
       "name": "proximityState",
-      "platforms": ["android", "iphone"],
+      "platforms": [
+        "android",
+        "iphone"
+      ],
       "summary": "Indicates the state of the device's proximity sensor, according to the\n[Titanium.App.proximity](api:Titanium.App#proximity) event.\n",
       "description": "This property is `true` when the proximity sensor is close to the user.\n\nWhen [Titanium.App.proximityDetection](api:Titanium.App#proximityDetection) is disabled, the value of this property is undefined.\n",
       "type": [
@@ -314,7 +419,12 @@
     },
     {
       "name": "publisher",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Application publisher, from `tiapp.xml`.",
       "type": [
         {
@@ -326,7 +436,12 @@
     },
     {
       "name": "sessionId",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Unique session identifier for the current continuous run of the application.",
       "type": [
         {
@@ -338,7 +453,11 @@
     },
     {
       "name": "trackUserInteraction",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Indicates whether or not the user interaction should be tracked.",
       "description": "Use the [Titanium.App.userinteraction](api:Titanium.App#userinteraction) event to get notified about user interaction.\nFor Android, user-interactions are controlled by the event and do not require this\nproperty to be set explicitly. For iOS, this is done to prevent additional overhead.\n",
       "type": [
@@ -355,7 +474,12 @@
     },
     {
       "name": "url",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Application URL, from `tiapp.xml`.",
       "type": [
         {
@@ -367,7 +491,12 @@
     },
     {
       "name": "version",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Application version, from `tiapp.xml`.",
       "type": [
         {
@@ -381,7 +510,12 @@
   "methods": [
     {
       "name": "fireSystemEvent",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fire a system-level event such as [Titanium.App.EVENT_ACCESSIBILITY_ANNOUNCEMENT](api:Titanium.App#EVENT_ACCESSIBILITY_ANNOUNCEMENT).",
       "since": {
         "android": "3.0.0",
@@ -415,7 +549,11 @@
     },
     {
       "name": "getArguments",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Returns the arguments passed to the application on startup.",
       "description": "On Android, fetch the [Ti.Android.rootActivity](api:Titanium.Android#rootActivity) object and\nread its [intent](api:Titanium.Android.Activity#intent) property to retrieve the parameters used\nto launch the application activity. Note that this [intent](api:Titanium.Android.Activity#intent)\nwill change when a \"[newintent](api:Titanium.Android.Activity#newintent)\" event has been fired.\n",
       "deprecated": {
@@ -437,7 +575,12 @@
   "events": [
     {
       "name": "accessibilitychanged",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired by the system when the device's accessibility service is turned on or off.",
       "since": {
         "android": "3.0.0",
@@ -460,7 +603,12 @@
     },
     {
       "name": "close",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired by the system when the application is about to be terminated.",
       "description": "It is the last event that can be received before the application gets closed.",
       "since": {
@@ -472,7 +620,12 @@
     },
     {
       "name": "keyboardframechanged",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when the soft keyboard is presented, on and off the screen.",
       "description": "This event fires when the application presents the soft keyboard on/off the screen . The\nevent on iOS returns the dictionary `keyboardFrame` containing `x`, `y`, `height` and `width` keys,\ncorresponding to the frame of the keyboard with respect to the screen coordinates.\n\nOn Titanium SDK 4.0.0 and later the event also contains a second parameter `animationDuration` representing\nthe duration of the animation for the presentation and dismissal of the soft keyboard.\n\nNote that the keyboard `height` and `width` properties will not be accurate when the keyboard\nis being dismissed.\n\nFor Android it will only work using Android 11 and up. The return values are empty but you can use\n`keyboardVisible` to check if the keyboard is visible or not.\n",
       "since": {
@@ -506,7 +659,11 @@
     },
     {
       "name": "memorywarning",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when the app receives a warning from the operating system about low memory availability.",
       "since": {
         "iphone": "3.2.3",
@@ -516,7 +673,12 @@
     },
     {
       "name": "pause",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when the application transitions from active to inactive state on a multitasked system.",
       "description": "This event fires when the user leaves the application or for certain types of temporary interruptions\nsuch as a notification or incoming phone call. On an iPad application with split view enabled,\nthe event will be called once the application is put in the background and a different split view\napplication is focused.\n\nSee the `applicationWillResignActive` section of the official Apple documentation about\n[Monitoring Application State Changes](https://developer.apple.com/documentation/uikit/uiapplicationdelegate/1622950-applicationwillresignactive)\nfor the exact behavior that triggers this event.\n\nNote that calls to functions that modify the UI during this event may be partially executed,\n**up to** the UI call before the suspension. See [paused](api:Titanium.App#paused) event. If this happens, the remainder of the code will\nbe executed after the application is resumed, but before the `resume` event is triggered.\n",
       "since": {
@@ -528,7 +690,12 @@
     },
     {
       "name": "paused",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when the application transitions to the background on a multitasked system.",
       "description": "This event fires when putting the application in the background using the home button\nor when using the sleep/wake or power button.\n\nThis event fires when the user leaves the application.\n\nSee the `applicationDidEnterBackground` section of the official Apple documentation about\n[Monitoring Application State Changes](https://developer.apple.com/documentation/uikit/uiapplicationdelegate/1622997-applicationdidenterbackground?language=objc)\nfor the exact behavior that triggers this event.\n",
       "since": {
@@ -540,7 +707,10 @@
     },
     {
       "name": "proximity",
-      "platforms": ["android", "iphone"],
+      "platforms": [
+        "android",
+        "iphone"
+      ],
       "summary": "Fired when the proximity sensor changes state.",
       "description": "The proximity sensor detects whether the device is being held up to the user's ear,\nand shuts down the display.\n\nProximity events are only fired when [proximityDetection](api:Titanium.App#proximityDetection)\nis `true`.\n",
       "since": {
@@ -561,7 +731,12 @@
     },
     {
       "name": "resume",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when the application returns to the foreground on a multitasked system.",
       "description": "This event fires when putting the application in the background\nusing the home button and when using the sleep/wake or power button.\n\nNote that this event does not fire for pauses resulting from notifications or incoming phone\ncalls.\n\nSee the `applicationWillEnterForeground` section of the official Apple documentation about\n[Monitoring Application State Changes](https://developer.apple.com/documentation/uikit/uiapplicationdelegate/1623076-applicationwillenterforeground)\nfor the exact behavior that triggers this event.\n",
       "since": {
@@ -573,7 +748,12 @@
     },
     {
       "name": "resumed",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when the application returns to the foreground.",
       "description": "This event fires when the application enters the foreground with the `resume` event or\nreturns to focus after a notification or incoming phone call. On an iPad with split view enabled,\nthis event will be called every time the application resized.\n\nSee the `applicationDidBecomeActive` section of the official Apple documentation about\n[Monitoring Application State Changes](https://developer.apple.com/documentation/uikit/uiapplicationdelegate/1622956-applicationdidbecomeactive)\nfor the exact behavior that triggers this event.\n\nNote: This event will not be fired for URL's in iOS 10+ that are handled by the <Modules.SafariDialog>\nor [Titanium.UI.WebView](api:Titanium.UI.WebView), because Apple does not call the `applicationDidBecomeActive` for\nURL-handling anymore. Instead, use the `handleurl` event in [Titanium.App.iOS](api:Titanium.App.iOS).\n",
       "since": {
@@ -585,7 +765,12 @@
     },
     {
       "name": "screenshotcaptured",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired after the user takes a screenshot, e.g. by pressing both the home and lock screen buttons.",
       "description": "Android is only available on devices with Android 14+ and you'll have to add the following permission\nto your tiapp.xml: `<uses-permission android:name=\"android.permission.DETECT_SCREEN_CAPTURE\"/>`\n",
       "since": "13.1.0",
@@ -609,7 +794,12 @@
     },
     {
       "name": "shortcutitemclick",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when a [Titanium.UI.ShortcutItem](api:Titanium.UI.ShortcutItem) is clicked.",
       "since": {
         "android": "7.5.0",
@@ -632,7 +822,11 @@
     },
     {
       "name": "significanttimechange",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when there is a significant change in the time.",
       "description": "Examples of significant time changes include the arrival of midnight, an update to the time by a carrier,\nand the change to daylight savings time. If your application is currently in `paused` state, this message\nwill be is queued until your application returns to the foreground, at which point it is delivered. If multiple\nchanges occur, only the most recent one is delivered.\n",
       "since": {
@@ -643,14 +837,24 @@
     },
     {
       "name": "started",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired after the \"app.js\" or \"alloy.js\" gets executed during application startup.",
       "description": "The intention of this event is for modules to defer firing their own startup related events\nuntil the app developer's main script has had a chance to add listeners for them.\n",
       "since": "8.0.0"
     },
     {
       "name": "uncaughtException",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when an uncaught JavaScript exception occurs.",
       "description": "This event will occur in both production and development builds, allowing you to warn the\nuser that an error has occurred, and log more information to help you fix any bugs.\n",
       "since": "4.1.0",
@@ -799,7 +1003,12 @@
     },
     {
       "name": "userinteraction",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Called whenever an interaction with the window occurred. To be used together with the [Titanium.App.trackUserInteraction](api:Titanium.App#trackUserInteraction) property.",
       "description": "Implement this method if you wish to know that the user has interacted with the device in some\nway while your app is running.\n\nNote that this callback will be invoked for the touch down action that begins a touch gesture,\nbut may not be invoked for the touch-moved and touch-up actions that follow.\n\nSee also:\n  - Android: See the [onUserInteraction](https://developer.android.com/reference/android/app/Activity.html#onUserInteraction()) callback\n  - iOS: See the [sendEvent](https://developer.apple.com/documentation/uikit/uiapplication/1623043-sendevent) delegate\n",
       "since": {
@@ -815,39 +1024,71 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "lifecycleContainer",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "events": []
@@ -866,6 +1107,8 @@
     "Titanium.UI.WebView",
     "launchOptions"
   ],
-  "externalReferences": ["Modules.SafariDialog"],
+  "externalReferences": [
+    "Modules.SafariDialog"
+  ],
   "source": "Titanium/App/App.yml"
 }

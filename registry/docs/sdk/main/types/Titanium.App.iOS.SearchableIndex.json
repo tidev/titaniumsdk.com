@@ -3,8 +3,14 @@
   "name": "Titanium.App.iOS.SearchableIndex",
   "kind": "proxy",
   "extends": "Titanium.Proxy",
-  "inheritanceChain": ["Titanium.Proxy"],
-  "platforms": ["iphone", "ipad", "macos"],
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": "5.0.0",
   "summary": "The SearchableIndex module is used to add or remove Ti.App.iOS.SearchableItem objects from the device search index.",
   "description": "To effectively add and remove information from the iOS search index you will need to use the following modules:\n\n* [Titanium.App.iOS.SearchableItemAttributeSet](api:Titanium.App.iOS.SearchableItemAttributeSet) - Used to create metadata related to the `Ti.App.iOS.SearchableItem`\n* [Titanium.App.iOS.SearchableItem](api:Titanium.App.iOS.SearchableItem) - Used to assemble metadata into a unique object package to be used by `Ti.App.iOS.SearchableIndex`\n* [Titanium.App.iOS.SearchableIndex](api:Titanium.App.iOS.SearchableIndex)  - Used to add and remove `Ti.App.iOS.SearchableItem` objects to the device search index\n\nTo use this feature make sure you have a compatible device running iOS 9 or later.\n",
@@ -18,7 +24,11 @@
   "methods": [
     {
       "name": "addToDefaultSearchableIndex",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Adds an array of Titanium.App.iOS.SearchableItem objects to the default search index.\n",
       "parameters": [
         {
@@ -57,7 +67,11 @@
     },
     {
       "name": "deleteAllSearchableItemByDomainIdentifiers",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Removes search items based on an array of domain identifiers.\n",
       "parameters": [
         {
@@ -96,7 +110,11 @@
     },
     {
       "name": "deleteAllSearchableItems",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Removes all search items added by the application.\n",
       "parameters": [
         {
@@ -119,7 +137,11 @@
     },
     {
       "name": "deleteSearchableItemsByIdentifiers",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Removes search items based on an array of identifiers.\n",
       "parameters": [
         {
@@ -158,7 +180,11 @@
     },
     {
       "name": "isSupported",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Indicates whether indexing is supported by the device.",
       "returns": [
         {
@@ -178,34 +204,58 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "events": []

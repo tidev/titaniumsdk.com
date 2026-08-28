@@ -2,13 +2,23 @@
   "schemaVersion": 1,
   "name": "Global",
   "kind": "module",
-  "platforms": ["android", "iphone", "ipad", "macos"],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "summary": "The APIs that reside in the global scope, which may be called without a namespace prefix.",
   "description": "Titanium provides a number of global built-in objects, detailed below.\n\n#### String Utilities\n\nTitanium includes several extra utility functions for formatting text, attached to the\nglobal [String](api:Global.String) object.\n\n#### console\n\nTitanium provides [console](api:Global.Console) support familiar to many JavaScript developers\nfor logging at the toplevel, in addition to the [Titanium](api:Titanium.API) logging facilities.\n\n#### Timers\n\nTitanium has built-in support for one-off and repeating timers:\n\n* Use [setTimeout](api:Global#setTimeout) to start a one-off timer.\n* Use [setInterval](api:Global#setInterval) to start a repeating timer.\n\n#### Alert\n\nTitanium has a built-in convenience function [alert](api:Global#alert) which can be used as an alias\nfor the [AlertDialog](api:Titanium.UI.AlertDialog) module.\n\n#### Locale\n\nThe `L` macro can also be used as an alias for the [Titanium.Locale.getString](api:Titanium.Locale#getString) method.\n",
   "properties": [
     {
       "name": "Buffer",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "a global reference to the [Buffer](api:buffer.Buffer) class.",
       "type": [
         {
@@ -19,7 +29,12 @@
     },
     {
       "name": "console",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Console logging facilities.",
       "type": [
         {
@@ -30,7 +45,12 @@
     },
     {
       "name": "DIST_ADHOC",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "A special constant that is replaced during the app build with a boolean `true`/`false` value, based on whether build target is `'dist-adhoc'`.",
       "description": "The replacement is done by a Babel plugin during JS transpilation phase of the app build.\nThis is an easy way to guard deploy type-specific codepaths (and make it easier for Babel to strip away dead code paths).\n\nThis pre-define originally lived in Alloy compilation but has been migrated to the SDK build process.\n",
       "type": [
@@ -44,7 +64,12 @@
     },
     {
       "name": "DIST_STORE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "A special constant that is replaced during the app build with a boolean `true`/`false` value, based on whether build target is `'dist-appstore'` or `'dist-playstore'`.",
       "description": "The replacement is done by a Babel plugin during JS transpilation phase of the app build.\nThis is an easy way to guard deploy type-specific codepaths (and make it easier for Babel to strip away dead code paths).\n\nThis pre-define originally lived in Alloy compilation but has been migrated to the SDK build process.\n",
       "type": [
@@ -58,7 +83,12 @@
     },
     {
       "name": "ENV_DEV",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Alias for [Global.ENV_DEVELOPMENT](api:Global#ENV_DEVELOPMENT)",
       "type": [
         {
@@ -71,7 +101,12 @@
     },
     {
       "name": "ENV_DEVELOPMENT",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "A special constant that is replaced during the app build with a boolean `true`/`false` value, based on whether deploy type is `'development'`. Typically true for simulator/emulator builds.",
       "description": "The replacement is done by a Babel plugin during JS transpilation phase of the app build.\nThis is an easy way to guard deploy type-specific codepaths (and make it easier for Babel to strip away dead code paths).\n\nThis pre-define originally lived in Alloy compilation but has been migrated to the SDK build process.\n",
       "type": [
@@ -85,7 +120,12 @@
     },
     {
       "name": "ENV_PROD",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Alias for [Global.ENV_PRODUCTION](api:Global#ENV_PRODUCTION)",
       "type": [
         {
@@ -98,7 +138,12 @@
     },
     {
       "name": "ENV_PRODUCTION",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "A special constant that is replaced during the app build with a boolean `true`/`false` value, based on whether deploy type is `'production'`. Typically true for app store/ad-hoc builds.",
       "description": "The replacement is done by a Babel plugin during JS transpilation phase of the app build.\nThis is an easy way to guard deploy type-specific codepaths (and make it easier for Babel to strip away dead code paths).\n\nThis pre-define originally lived in Alloy compilation but has been migrated to the SDK build process.\n",
       "type": [
@@ -112,7 +157,12 @@
     },
     {
       "name": "ENV_TEST",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "A special constant that is replaced during the app build with a boolean `true`/`false` value, based on whether deploy type is `'test'`. Typically true for device builds.",
       "description": "The replacement is done by a Babel plugin during JS transpilation phase of the app build.\nThis is an easy way to guard deploy type-specific codepaths (and make it easier for Babel to strip away dead code paths).\n\nThis pre-define originally lived in Alloy compilation but has been migrated to the SDK build process.\n",
       "type": [
@@ -126,7 +176,12 @@
     },
     {
       "name": "global",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Reference to the global object itself.",
       "type": [
         {
@@ -137,7 +192,12 @@
     },
     {
       "name": "OS_ANDROID",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "A special constant that is replaced during the app build with a boolean `true`/`false` value.",
       "description": "This value is replaced by an injected boolean literal value indicating if the current platform is Android.\n\nThe replacement is done by a Babel plugin during JS transpilation phase of the app build.\nThis is an easy way to guard platform-specific codepaths (and make it easier for Babel to strip away dead code paths).\n\nThis pre-define originally lived in Alloy compilation but has been migrated to the SDK build process.\n",
       "type": [
@@ -151,7 +211,12 @@
     },
     {
       "name": "OS_IOS",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "A special constant that is replaced during the app build with a boolean `true`/`false` value.",
       "description": "This value is replaced by an injected boolean literal value indicating if the current platform is ipad/iphone.\n\nThe replacement is done by a Babel plugin during JS transpilation phase of the app build.\nThis is an easy way to guard platform-specific codepaths (and make it easier for Babel to strip away dead code paths).\n\nThis pre-define originally lived in Alloy compilation but has been migrated to the SDK build process.\n",
       "type": [
@@ -165,7 +230,12 @@
     },
     {
       "name": "OS_VERSION_MAJOR",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The operation system's major version number.",
       "description": "This returns the same value as the [Titanium.Platform.versionMajor](api:Titanium.Platform#versionMajor) property.\n\n``` js\nif (OS_IOS && (OS_VERSION_MAJOR >= 13)) {\n    // Do something on iOS 13 or higher only.\n}\n```\n",
       "type": [
@@ -179,7 +249,12 @@
     },
     {
       "name": "OS_VERSION_MINOR",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The operating system's minor version number.",
       "description": "This returns the same value as the [Titanium.Platform.versionMinor](api:Titanium.Platform#versionMinor) property.\n\nWill return zero if the OS does not have a minor version.\n",
       "type": [
@@ -194,7 +269,12 @@
     },
     {
       "name": "OS_VERSION_PATCH",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The operating system's patch version number.",
       "description": "This returns the same value as the [Titanium.Platform.versionPatch](api:Titanium.Platform#versionPatch) property.\n\nWill return zero if the OS does not have a patch version.\n",
       "type": [
@@ -209,7 +289,12 @@
     },
     {
       "name": "process",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Reference to the global `process` object.",
       "type": [
         {
@@ -222,7 +307,12 @@
   "methods": [
     {
       "name": "alert",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Displays a pop-up alert dialog with the passed in `message`.",
       "description": "This function is a shortcut for creating and displaying an\n[alert dialog](api:Titanium.UI.AlertDialog). For example, the following two statements produce\nthe same result.\n\n``` js\nalert('Danger, Will Robinson!');\n\nTi.UI.createAlertDialog({ message: 'Danger, Will Robinson!' }).show();\n```\n\nNote that unlike a web browser-based version of `alert`, the method is asynchronous. However,\nonly one alert dialog will be visible and modal at a time.\n\nBe aware that this method may be removed in the future.\n",
       "parameters": [
@@ -240,7 +330,12 @@
     },
     {
       "name": "clearInterval",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Cancels an interval timer.",
       "parameters": [
         {
@@ -258,7 +353,12 @@
     },
     {
       "name": "clearTimeout",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Cancels a one-time timer.",
       "parameters": [
         {
@@ -276,7 +376,12 @@
     },
     {
       "name": "decodeURIComponent",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Replaces each escape sequence in the specified string, created using the `encodedURI`\nmethod, with the character that it represents.\n",
       "description": "For more information, see the MDN website for\n[encodeURIComponent](https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/encodeURIComponent)\nand [decodeURIComponent](https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/decodeURIComponent).\n",
       "parameters": [
@@ -305,7 +410,12 @@
     },
     {
       "name": "encodeURIComponent",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Replaces each special character in the specified string with the equivalent URI escape\nsequence. Useful for encoding URIs.\n",
       "description": "For more information, see the MDN website for\n[encodeURIComponent](https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/encodeURIComponent)\nand [decodeURIComponent](https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/decodeURIComponent).\n",
       "parameters": [
@@ -334,7 +444,12 @@
     },
     {
       "name": "L",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "An alias for [Titanium.Locale.getString](api:Titanium.Locale#getString).",
       "parameters": [
         {
@@ -373,7 +488,12 @@
     },
     {
       "name": "require",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Loads either a native Titanium module or a CommonJS module.",
       "description": "The `require` function takes a module identifier as its argument and returns an object with\nreferences to the module's exported symbols.\n\n#### ES6+ Syntax\n\nUsing Titanium SDK 7.1.0 and later, you can also use the ES6+ [`import`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) and [`export`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export) syntax\nby enabling transpiling via the `<transpile>true</transpile>` property in your tiapp.xml\n\n#### Native Titanium Module\n\nTo load a native Titanium module:\n\n  1. Install the module to the project or copy it to the Titanium SDK home directory.\n  2. Add the module as a dependency to the project by modifying the `modules` section of the `tiapp.xml` file.\n  3. Initialize the module with the `require` method by passing the module ID to the method.\n\nFor detailed instructions, refer to\n[Using a Module](https://titaniumsdk.com/guide/Titanium_SDK/Titanium_SDK_How-tos/Using_Modules/Using_a_Module.html).\n\n#### CommonJS Module\n\nTo load a local CommonJS module, place the CommonJS module in the `Resources` directory of\nyour project. Pass the `require` method the path to the file without the `Resources`\ndirectory, platform-specific directory and the `.js` extension.\n\nNote that the appropriate *platform-specific* `Resources` subdirectory is merged into the\nmain `Resources` directory at build time. For example, suppose the following files exist.\n\n* `Resources/app.js`\n* `Resources/ui/MainWindow.js`\n* `Resources/iphone/ui/TaskWindow.js`\n* `Resources/android/ui/TaskWindow.js`\n\nThe appropriate `TaskWindow.js` file is moved into the `Resources/ui` directory of the\nbuilt application. To include both the MainWindow module and the platform-specific\nTaskWindow module from any JavaScript file in the project:\n\n``` js\n// load main window module from ui subdirectory\nvar mainWindow = require('ui/MainWindow');\n\n// load platform-specific task window module\nvar taskWindow = require('ui/TaskWindow');\n```\n\nFor more information, see the official [CommonJS](http://requirejs.org/docs/commonjs.html) website.\n\n#### Alloy\n\nFor Alloy, place the CommonJS modules in the `app/lib` directory of your Alloy project,\nthen load the module with the `require` method without the `app/lib` path and `.js`\nextension.\n\nStarting with Alloy 1.5.0, you can add platform-specific directories to the `app/lib` directory.\nDo not include the platform-specific directory when referencing the CommonJS module.\n\nFor example, a module file `app/lib/android/myModule/module.js` may be loaded by\n`app/controllers/index.js` using:\n\n``` js\nrequire('myModule/module');\n```\n\n#### Android\n\nAdditionally, on Android, an absolute path to a module may be specified using a path\nseparator (`/`) at the beginning of the path.\n\nFor example, a module file `Resources/myModule/module.js` may be required by\n`Resources/example/example.js` using either of the following:\n\n``` js\nrequire('../myModule/module')\nrequire ('/myModule/module')\n```\n",
       "examples": [
@@ -412,7 +532,12 @@
     },
     {
       "name": "setInterval",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Executes a function repeatedly with a fixed time delay between each call to that function.",
       "description": "Note that although the interval is not guaranteed to be exact, the interval between calls\nwill be no less than the specified delay.\n\nReturns a unique timer identifier that can be passed to [clearInterval](api:Global#clearInterval)\nto cancel this timer.\n\nFor more information, see the MDN website for\n[setInterval](https://developer.mozilla.org/en/DOM/window.setInterval).\n",
       "examples": [
@@ -458,7 +583,12 @@
     },
     {
       "name": "setTimeout",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Executes code or a function after a delay.",
       "description": "Note that although the timeout is not guaranteed to be exact, the delay before the\nfunction is invoked will be no less than the specified delay.\n\nReturns a unique timer identifier that can be passed to [clearTimeout](api:Global#clearTimeout)\nto cancel this timer.\n\nFor more information, see the MDN website for\n[setTimeout](https://developer.mozilla.org/en/DOM/window.setTimeout).\n",
       "examples": [

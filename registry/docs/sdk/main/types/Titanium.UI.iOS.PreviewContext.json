@@ -3,8 +3,12 @@
   "name": "Titanium.UI.iOS.PreviewContext",
   "kind": "proxy",
   "extends": "Titanium.Proxy",
-  "inheritanceChain": ["Titanium.Proxy"],
-  "platforms": ["iphone"],
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "iphone"
+  ],
   "since": "5.1.0",
   "summary": "A PreviewContext provides options to configure the iOS 9 3D-Touch \"Peek and Pop\" feature.\n",
   "description": "The PreviewContext is created by the [Titanium.UI.iOS.createPreviewContext](api:Titanium.UI.iOS#createPreviewContext) method. You must set\nthe `pop` and `preview` properties when creating a `PreviewContext` object.\n\nUse this class to configure the previewing context which is displayed while \"peeking\" a view.\n\nNote: This feature requires iOS 9 and a 3D-Touch capable device (such as iPhone 6S or iPhone 6S Plus).\nYou cannot test 3D touch on the iOS simulator.\nTo check if the current device supports 3D touch, use the [Titanium.UI.iOS.forceTouchSupported](api:Titanium.UI.iOS#forceTouchSupported)\nproperty and consider using the `longpress` event to provide a fallback to your users on\nnon-3D-touch devices.\n\nSee also:\n\n* [iOS Developer Library: Adopting 3D Touch on iPhone](https://developer.apple.com/library/content/documentation/UserExperience/Conceptual/Adopting3DTouchOniPhone/3DTouchAPIs.html)\n",
@@ -21,7 +25,9 @@
   "properties": [
     {
       "name": "actions",
-      "platforms": ["iphone"],
+      "platforms": [
+        "iphone"
+      ],
       "summary": "The preview actions and preview action groups.",
       "description": "Provides an array with elements of the type [Titanium.UI.iOS.PreviewAction](api:Titanium.UI.iOS.PreviewAction)\nand [Ti.UI.iOS.PreviewActionGroup](api:Titanium.UI.iOS.PreviewActionGroup). Both can be used together.\n",
       "type": [
@@ -39,7 +45,9 @@
     },
     {
       "name": "contentHeight",
-      "platforms": ["iphone"],
+      "platforms": [
+        "iphone"
+      ],
       "summary": "The height of the preview.",
       "description": "Specified the height of the preview which will be shown during \"peeking\".\n",
       "type": [
@@ -52,7 +60,9 @@
     },
     {
       "name": "preview",
-      "platforms": ["iphone"],
+      "platforms": [
+        "iphone"
+      ],
       "summary": "The preview view.",
       "description": "Provides the preview for \"peeking\". This view is independent from the window which can be openend after\n\"popping\" the preview to give you the ability to provide different layouts for the preview and the full\nwindow. If you want to adjust the preview inside the `peek` event, change the view assigned to this property.\n",
       "type": [
@@ -67,7 +77,9 @@
   "events": [
     {
       "name": "peek",
-      "platforms": ["iphone"],
+      "platforms": [
+        "iphone"
+      ],
       "summary": "Fired when the user peeks the preview. You can configure the preview",
       "description": "You can configure the preview in this event before it is displayed. If the preview context is assigned to a \nnormal view like a [Titanium.UI.Button](api:Titanium.UI.Button) the `preview` property can be received here to change the content of it \nbefore displaying. If the preview context is assigned to a [Titanium.UI.ListView](api:Titanium.UI.ListView), you can also receive the \nproperties `sectionIndex`, `itemIndex` and `itemId` here to access item-specific data to display. \n\nNote: Don't do asynchronous operations like HTTP requests here, since the preview will not wait for the \noperations to complete.\n",
       "properties": [
@@ -115,7 +127,9 @@
     },
     {
       "name": "pop",
-      "platforms": ["iphone"],
+      "platforms": [
+        "iphone"
+      ],
       "summary": "Fired when the user pop the preview. You will most likely open a fullscreen window here.",
       "description": "You can open a window here or update your current UI. If the preview context is assigned to a \nnormal view like a [Titanium.UI.Button](api:Titanium.UI.Button) the `preview` property can be received here to change the content of it \nbefore displaying. If the preview context is assigned to a [Titanium.UI.ListView](api:Titanium.UI.ListView), you can also receive the \nproperties `sectionIndex`, `itemIndex` and `itemId` here to access item-specific data to display. \n\nNote: Don't do asynchronous operations like HTTP requests here, since the preview will not wait for the \noperations to complete.\n",
       "properties": [
@@ -167,34 +181,46 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone"]
+        "platforms": [
+          "iphone"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone"]
+        "platforms": [
+          "iphone"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone"]
+        "platforms": [
+          "iphone"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone"]
+        "platforms": [
+          "iphone"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone"]
+        "platforms": [
+          "iphone"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone"]
+        "platforms": [
+          "iphone"
+        ]
       }
     ],
     "events": []

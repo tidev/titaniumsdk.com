@@ -3,8 +3,15 @@
   "name": "Titanium.UI.DashboardView",
   "kind": "view",
   "extends": "Titanium.UI.View",
-  "inheritanceChain": ["Titanium.UI.View", "Titanium.Proxy"],
-  "platforms": ["iphone", "ipad", "macos"],
+  "inheritanceChain": [
+    "Titanium.UI.View",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": "1.2",
   "summary": "A dashboard view is an iOS Springboard-like view of [Titanium.UI.DashboardItem](api:Titanium.UI.DashboardItem) items that may \nbe deleted and reordered by the user using its built-in edit mode.\n",
   "description": "The DashboardView is created using the [Titanium.UI.createDashboardView](api:Titanium.UI#createDashboardView) method or **`<DashboardView>`** \nAlloy element.\n\nDashboard view's edit mode may be activated by a longpress of a [Titanium.UI.DashboardItem](api:Titanium.UI.DashboardItem) item, \nunless this behavior has been disabled by the [editable](api:Titanium.UI.DashboardView#editable) \nproperty. As a dashboard view does not inherently provide a way to exit edit mode, this must be \nexplicitly defined.\n\nWhen edit mode has been activated, the item icons wobble by default to act as a visual cue. \nThis behavior may be disabled using the [wobble](api:Titanium.UI.DashboardView#wobble) property.\n\nIf a dashboard contains more than 9 items, it will be paged into screens in a 3 x 3 formation \nusing its built-in scrollable view. A paging control is added to the bottom of the view to \nindicate the active page.\n\nNote that a dashboard is only intended to be used in [PORTRAIT](api:Titanium.UI#PORTRAIT) \norientation mode.\n",
@@ -21,7 +28,11 @@
   "properties": [
     {
       "name": "columnCount",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The number of columns of items in the view.",
       "type": [
         {
@@ -35,7 +46,11 @@
     },
     {
       "name": "data",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Items to display in this view.",
       "type": [
         {
@@ -52,7 +67,11 @@
     },
     {
       "name": "editable",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Determines whether edit mode is activated by a longpress of an item.",
       "description": "Set to `false` to prevent a longpress from activating edit mode.\n",
       "type": [
@@ -65,7 +84,11 @@
     },
     {
       "name": "rowCount",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The number of rows of items in the view.",
       "type": [
         {
@@ -79,7 +102,11 @@
     },
     {
       "name": "wobble",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Determines whether the wobble visual editing cue is enabled in edit mode.",
       "description": "Set to `false` to disable wobble effect.\n\nMust be defined before edit mode is activated in order to take effect.\n",
       "type": [
@@ -94,13 +121,21 @@
   "methods": [
     {
       "name": "startEditing",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Enable edit mode.",
       "description": "This method causes the [Titanium.UI.DashboardView.edit](api:Titanium.UI.DashboardView#edit) event to fire."
     },
     {
       "name": "stopEditing",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Disable edit mode.",
       "description": "This method causes the [Titanium.UI.DashboardView.commit](api:Titanium.UI.DashboardView#commit) event to fire."
     }
@@ -108,7 +143,11 @@
   "events": [
     {
       "name": "click",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "properties": [
         {
           "name": "item",
@@ -134,13 +173,21 @@
     },
     {
       "name": "commit",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when edit mode ends.",
       "description": "This event is invoked by the [Titanium.UI.DashboardView.stopEditing](api:Titanium.UI.DashboardView#stopEditing) method.\n"
     },
     {
       "name": "delete",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when an item is deleted in edit mode.",
       "properties": [
         {
@@ -157,7 +204,11 @@
     },
     {
       "name": "dragend",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when an item finishes being dragged in edit mode.",
       "since": "3.0.0",
       "properties": [
@@ -175,7 +226,11 @@
     },
     {
       "name": "dragstart",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when an item starts being dragged in edit mode.",
       "since": "3.0.0",
       "properties": [
@@ -193,13 +248,21 @@
     },
     {
       "name": "edit",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when edit mode starts.",
       "description": "This event is invoked by a longpress of a [Titanium.UI.DashboardItem](api:Titanium.UI.DashboardItem) item or the \n[Titanium.UI.DashboardView.startEditing](api:Titanium.UI.DashboardView#startEditing) method.\n"
     },
     {
       "name": "move",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when an item is moved in edit mode.",
       "properties": [
         {
@@ -232,7 +295,11 @@
     },
     {
       "name": "pagechanged",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when the current page of the dashboard view changes.",
       "since": "3.1.0",
       "properties": [
@@ -254,349 +321,623 @@
       {
         "name": "accessibilityHidden",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "accessibilityHint",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "accessibilityLabel",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "accessibilityValue",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "anchorPoint",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "animatedCenter",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "backgroundColor",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "backgroundGradient",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "backgroundImage",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "backgroundLeftCap",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "backgroundRepeat",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "backgroundTopCap",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "borderColor",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "borderRadius",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "borderWidth",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "bottom",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "center",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "children",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "clipMode",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "height",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "horizontalMotionEffect",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "horizontalWrap",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "id",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "layout",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "left",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "opacity",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "previewContext",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone"]
+        "platforms": [
+          "iphone"
+        ]
       },
       {
         "name": "pullBackgroundColor",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "rect",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "right",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "rotation",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad"]
+        "platforms": [
+          "iphone",
+          "ipad"
+        ]
       },
       {
         "name": "size",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "tintColor",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "tooltip",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "top",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "touchEnabled",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "transform",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "verticalMotionEffect",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "viewShadowColor",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "viewShadowOffset",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "viewShadowRadius",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "visible",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "width",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "zIndex",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "animate",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "clearMotionEffects",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "convertPointToView",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "getViewById",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "hide",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "insertAt",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "show",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "toImage",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "events": [
       {
         "name": "dblclick",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "doubletap",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "keypressed",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "longpress",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "pinch",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "postlayout",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "rotate",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "singletap",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "swipe",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "twofingertap",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ]
   },
-  "references": ["Point", "Titanium.UI", "Titanium.UI.DashboardItem", "Titanium.UI.View"],
+  "references": [
+    "Point",
+    "Titanium.UI",
+    "Titanium.UI.DashboardItem",
+    "Titanium.UI.View"
+  ],
   "source": "Titanium/UI/DashboardView.yml"
 }

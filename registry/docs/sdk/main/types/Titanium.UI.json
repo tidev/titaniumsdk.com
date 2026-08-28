@@ -3,8 +3,16 @@
   "name": "Titanium.UI",
   "kind": "module",
   "extends": "Titanium.Module",
-  "inheritanceChain": ["Titanium.Module", "Titanium.Proxy"],
-  "platforms": ["android", "iphone", "ipad", "macos"],
+  "inheritanceChain": [
+    "Titanium.Module",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": "0.4",
   "summary": "The main [Titanium.UI](api:Titanium.UI) module.",
   "description": "The UI module is responsible for native user-interface components and interaction inside\nTitanium.  The goal of the UI module is to provide a native experience along with native\nperformance by compiling Javascript code into their native counterparts as part of the\nbuild process.\n\n#### Design\n\nThe UI module is broken down into 3 major area:\n\n* **Views** - [Views](api:Titanium.UI.View) are containers that host visual elements such as\ncontrols or other views.  Views can have their properties customized, such as their border color\nand radius, can fire events such as swipe events or touches, and can optionally contain a\nhierarchy or other views as children. In Titanium, most views are specialized to perform both a\nvisual function and set of interaction behaviors such as [Table View](api:Titanium.UI.TableView) or\n[Coverflow View](api:Titanium.UI.iOS.CoverFlowView).  Views are always named with the suffix `View`.\n\n* **Controls** - controls, or sometimes referred as widgets, are visual elements such as\n[sliders](api:Titanium.UI.Slider),  [buttons](api:Titanium.UI.Button) and [switches](api:Titanium.UI.Switch).\nThey provide a visual element which has a defined behavior and typical have special\nconfiguration and special events.  Controls themselves are views and also inherit a views\nproperties, functions and events.\n\n* **Windows** - [Windows](api:Titanium.UI.Window) are typically top-level visual constructs that are\nthe main part of your interface. An application will always have at least one window and windows\ncan take different shapes and sizes, can have display and interaction properties such as\nfullscreen or modal and can be customized, such as changing their opacity or background color.\nWindows themselves are views and also inherit a views properties, functions and events. There\nare a few specialization of Windows such as a [Tab Group](api:Titanium.UI.TabGroup) which offer\nadditional behavior beyond the basic Window. It is considered a best practice to use a\n[NavigationWindow](api:Titanium.UI.NavigationWindow) as the root of your application.\n\nTitanium uses the [Factory Pattern](http://en.wikipedia.org/wiki/Factory_method_pattern) for\nconstructing objects and a general naming pattern for APIs.  For example, to construct a\n[Alert Dialog](api:Titanium.UI.AlertDialog), you call the method [Titanium.UI.createAlertDialog](api:Titanium.UI#createAlertDialog).\nTo create a [TextArea](api:Titanium.UI.TextArea), you call the method [Titanium.UI.createTextArea](api:Titanium.UI#createTextArea).\nOnce an object is created, it will be available until it goes out of scope.\n\n#### Optimizations\n\nUI objects are optimized by Titanium to not be realized into the drawing context and placed into\nthe device UI surface until needed.  That means that you can create UI objects, set their\nproperties and add them to their hierarchy without much worry about memory or performance.\nWhen the native drawing surface needs to render a specific view or control, Titanium will\nautomatically create the view as needed.  Additionally, Titanium is optimized to also release\nmemory once the view is no longer needed, on screen or in low memory situations.  However, it's\na good idea to help Titanium along in certain cases where you are no longer using objects.  For\nexample, you should call `close` on a [Window](api:Titanium.UI.Window) instance when you are no\nlonger using it.  You can safely call `open` on the window again to re-open it.\n\n#### Global Context\n\nPrior to the release of Titanium SDK `9.0.0.GA` any variable declared in `app.js` or `alloy.js`\nwas added to a global scope. This however is no longer the case since `9.0.0.GA`. However\nit is still possible to add variables to a global scope by adding `global.` in front of any\nvariable declared in `app.js` or `alloy.js`. However you should be careful with adding variables\nto global context because anything added to the global context will not be garbage-collected.\n\nIn Alloy the recommended way to add global context is `Alloy.Globals`.\n\n#### Portability\n\nTitanium components are designed to be portable across as many platforms as it supports.\nHowever, there are cases where a device either does not support a specific feature or capability\nor where it support additional functionality. For cases where the device OS supports\ncapabilities that other platforms do not, we attempt to place those capabilities in a separate\nnamespace, such as [Titanium.UI.iOS](api:Titanium.UI.iOS). However, in cases where the control is in a common\nnamespace and support additional features, we continue to place that functionality directly on\nthe object.\n\n#### Events\n\nEvent listeners must be defined before their respective events are likely to be fired, otherwise\nthey are not guaranteed to be called. The open and focus [Window](api:Titanium.UI.Window) event\nlisteners, for instance, must be defined before the window is opened.\n\nEvaluating events as late as possible while bearing the above consideration in mind, however,\ncan significantly improve application responsiveness. For example, an event listener for a\nclick event may be defined after the parent window has been opened.\n\nAdding `eventListeners` in Alloy makes sure they are bound before they are fired.\n\n#### Colors\n\nMany UI components have properties that control their color.\n\nColors may be specified as a hex triplet to determine the red, green and blue channels. Thus,\n`'#000000'` is specified for black, `'#ff0000'` for red, `'#00ff00'` for green, `'#0000ff'` for\nblue, and `'#ffffff'` for white, etc. A channel may be abbreviated when its two hex digits are\nidentical, such as `'#000'`, `'#f00'`, `'#0f0#'`, `'#00f'` and `'#fff'` for the above colors,\nrespectively.\n\nAn additional alpha channel is supported as a prefix to the hex triplet (ARGB or AARRGGBB). So, to make\nthe purple-like color `'#ff00ff'` semi-opaque, you could use an alpha value of `'55'`, giving,\n`'#55ff00ff'` or `'#5f0f'`. Please note that both iOS and Android use ARGB format, while typical CSS supports RGBA.\n\nNote that while the pound symbol, `#`, is not mandatory on iOS when using the hex triplet format,\nit is recommended to include it to provide compatibility with other platforms.\n\niOS and Android also accept colors specified in the form, `rgb(R,G,B)` and `rgba(R,G,B,A)`, with the color\nchannels inside the parentheses represented by integer numbers between `0` and `255` and the\nalpha channel by a float number between `0` and `1.0` (transparent to opaque, respectively).\nFor example, an opaque purple could be obtained using `'rgb(255,0,255)'` and a semi-opaque purple\nusing `'rgba(255,0,255,0.3)'`. Note that although this format will work if the `rgb` or `rgba`\nprefix is omitted, this is not officially supported and thus not recommended.\n\nAlternatively, the following set of color names are recognized.\n\n`'aqua'`, `'black'`, `'blue'`, `'brown'`, `'cyan'`, `'darkgray'`, `'fuchsia'`, `'gray'`,\n`'green'`, `'lightgray'`, `'lime'`, `'magenta'`, `'maroon'`, `'navy'`, `'olive'`, `'orange'`,\n`'pink'`, `'purple'`, `'red'`, `'silver'`, `'teal'`, `'white'`, `'yellow'`.\n\nAll color properties also accept a value of `'transparent'`.\n\nOn Android, if you want to create a semi-transparent window, set the `opacity`\nproperty **before** opening the window.\n\nOn iOS, you can set a global tinting using [Titanium.UI.tintColor](api:Titanium.UI#tintColor). All child views will inherit\nthe tint color by default and are able to override the color using `tintColor` on their own views.\nThe default `tintColor` on iOS is the blue (system-color).\n\nIf a color property is undefined, the default color of the particular UI element is applied.\nIf a color value is not valid on iOS, the default color is applied, whereas, on Android, the\ncolor yellow is applied.\n\nOn iOS, you may use named system colors. See the [Titanium.UI.Color](api:Titanium.UI.Color) documentation for more details.\n\n#### Dark Mode\n\nIn iOS 13 Apple introduced support for users to adopt a system-wide Dark Mode setting where the screens, view, menus, and controls use a darker color palette. You can read more about this in the Apple Human Interface Guidelines.\n\nThere are two aspects to dark mode that can be specified for your app, colors and images.\n\n##### Specifying Dark Mode colors\n\nTo specify colors for dark mode, also known as semantic colors, first create a file called `semantic.colors.json` in the Resources directory for classic applications, or in the assets directory for Alloy applications. Then you can specify color names in the following format:\n\n``` json\n  {\n    \"textColor\": { // the name for your color\n      \"dark\": {\n        \"color\": \"#ff85e2\", // hex color code to be set\n        \"alpha\": \"50\" // can be set from a range of 0.0-100.0, integer or float\n      },\n      \"light\": \"#ff1f1f\" // can be a hex color (with alpha via ARGB/AARRGGBB)\n    }\n  }\n```\n\nTo reference these colors in your application use the [Titanium.UI.fetchSemanticColor](api:Titanium.UI#fetchSemanticColor) API, this is a cross platform API that on iOS 13 and above will use the native method that checks the users system-wide setting, and in all other instances will check the [Titanium.UI.semanticColorType](api:Titanium.UI#semanticColorType) property and return the correct color for the current setting.\n\nYou may also directly use the named of the colors as values to any color properties on UI elements.\n\n##### Specifying Dark Mode images\n\nNote: Dark Mode images are iOS only.\n\nTo specify dark mode images, use the `-dark` suffix on the image name. When building your app the images are set as the dark mode variant, then refer to images as normal and iOS will select the correct image dependent on the users system-wide setting.\n\nFor example given an image `logo.png` with `@2x` and `@3x` variants, the following dark mode images should exist:\n\n  * logo-dark.png\n  * logo-dark@2x.png\n  * logo-dark@3x.png\n\nAnd you would reference the image as before using `logo-dark.png`\n\nAndroid:\nYou can use the native `app/assets/android/images/res-night` folder (extend them with e.g. `res-night-xxhdpi` if needed) for dark-mode images.\n",
@@ -17,7 +25,12 @@
   "properties": [
     {
       "name": "ANIMATION_CURVE_EASE_IN",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Animation.curve](api:Titanium.UI.Animation#curve) to specify an animation that starts\nslowly and speeds up.\n",
       "type": [
         {
@@ -34,7 +47,12 @@
     },
     {
       "name": "ANIMATION_CURVE_EASE_IN_OUT",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Animation.curve](api:Titanium.UI.Animation#curve) to specify an animation that starts\nslowly, and speeds up, then slows down at the end of the animation.\n",
       "type": [
         {
@@ -51,7 +69,12 @@
     },
     {
       "name": "ANIMATION_CURVE_EASE_OUT",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Animation.curve](api:Titanium.UI.Animation#curve) to specify an animation that starts\nquickly, then slows down at the end of the animation.\n",
       "type": [
         {
@@ -68,7 +91,12 @@
     },
     {
       "name": "ANIMATION_CURVE_LINEAR",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Animation.curve](api:Titanium.UI.Animation#curve) to specify an animation that proceeds\nat a constant rate.\n",
       "type": [
         {
@@ -85,7 +113,12 @@
     },
     {
       "name": "ATTRIBUTE_BACKGROUND_COLOR",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Attribute.type](api:Attribute#type) to specify a background color.\n",
       "description": "Use a color name or hex value for [Attribute.value](api:Attribute#value).\n\nSee [Attribute](api:Attribute) for more information.\n",
       "type": [
@@ -99,7 +132,12 @@
     },
     {
       "name": "ATTRIBUTE_BASELINE_OFFSET",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Attribute.type](api:Attribute#type) to apply a different baseline to the text.\n",
       "description": "Set [Attribute.value](api:Attribute#value) to a number to specify how many pixels to raise or lower the text.\n\nSee [Attribute](api:Attribute) for more information.\n",
       "type": [
@@ -117,7 +155,11 @@
     },
     {
       "name": "ATTRIBUTE_EXPANSION",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Attribute.type](api:Attribute#type) to stretch the text horizontally.\n",
       "description": "Set [Attribute.value](api:Attribute#value) to a float value to specify how much to stretch the text.\n\nFor iOS, the default value is 0.0 and has no minimum/maximum range specified.\nFor Windows, the default value is 0.0 and the valid range is between 0.5 and 1.0.\n\nSee [Attribute](api:Attribute) for more information.\n",
       "type": [
@@ -131,7 +173,12 @@
     },
     {
       "name": "ATTRIBUTE_FONT",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Attribute.type](api:Attribute#type) to specify a font.\n",
       "description": "Use a [Font](api:Font) dictionary for [Attribute.value](api:Attribute#value).\n\nSee [Attribute](api:Attribute) for more information.\n",
       "type": [
@@ -145,7 +192,12 @@
     },
     {
       "name": "ATTRIBUTE_FOREGROUND_COLOR",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Attribute.type](api:Attribute#type) to specify a font color.\n",
       "description": "Use a color name or hex value for [Attribute.value](api:Attribute#value).\n\nSee [Attribute](api:Attribute) for more information.\n",
       "type": [
@@ -159,7 +211,11 @@
     },
     {
       "name": "ATTRIBUTE_KERN",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Attribute.type](api:Attribute#type) to specify kerning (space between characters).\n",
       "description": "Set [Attribute.value](api:Attribute#value) to a float value specifying how many pixels to increase the character\nspacing.\n\nSee [Attribute](api:Attribute) for more information.\n",
       "type": [
@@ -173,7 +229,11 @@
     },
     {
       "name": "ATTRIBUTE_LETTERPRESS_STYLE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Attribute.value](api:Attribute#value) to use a letterpress text effect.\n",
       "description": "Use this constant when [Attribute.type](api:Attribute#type) is\n[Titanium.UI.ATTRIBUTE_TEXT_EFFECT](api:Titanium.UI#ATTRIBUTE_TEXT_EFFECT).\n\nSee [Attribute](api:Attribute) for more information.\n",
       "type": [
@@ -187,7 +247,11 @@
     },
     {
       "name": "ATTRIBUTE_LIGATURE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Attribute.type](api:Attribute#type) to enable or disable ligatures.\n",
       "description": "Set [Attribute.value](api:Attribute#value) to `1` to enable ligatures, else `0` to disable.\nLigatures are only supported on certain fonts.\n\nSee [Attribute](api:Attribute) for more information.\n",
       "type": [
@@ -201,7 +265,11 @@
     },
     {
       "name": "ATTRIBUTE_LINE_BREAK",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Attribute.type](api:Attribute#type) to wrap and truncate the text.\n",
       "description": "Set [Attribute.value](api:Attribute#value) to a `Titanium.UI.ATTRIBUTE_LINE_BREAK_*` constant.\n\nSee [Attribute](api:Attribute) for more information on type modes.\n",
       "type": [
@@ -219,7 +287,11 @@
     },
     {
       "name": "ATTRIBUTE_LINE_BREAK_BY_CHAR_WRAPPING",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Attribute.value](api:Attribute#value) to wrap words at word boundaries.\n",
       "description": "Use this constant when [Attribute.type](api:Attribute#type) is\n[Titanium.UI.ATTRIBUTE_LINE_BREAK](api:Titanium.UI#ATTRIBUTE_LINE_BREAK).\n\nSee [Attribute](api:Attribute) for more information.\n",
       "type": [
@@ -233,7 +305,11 @@
     },
     {
       "name": "ATTRIBUTE_LINE_BREAK_BY_CLIPPING",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Attribute.value](api:Attribute#value) to set lines to not draw past the edge of the text container.\n",
       "description": "Use this constant when [Attribute.type](api:Attribute#type) is\n[Titanium.UI.ATTRIBUTE_LINE_BREAK](api:Titanium.UI#ATTRIBUTE_LINE_BREAK).\n\nSee [Attribute](api:Attribute) for more information.\n",
       "type": [
@@ -247,7 +323,11 @@
     },
     {
       "name": "ATTRIBUTE_LINE_BREAK_BY_TRUNCATING_HEAD",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Attribute.value](api:Attribute#value) to use ellipsis glyph at the beginning of the line for missing text.\n",
       "description": "Use this constant when [Attribute.type](api:Attribute#type) is\n[Titanium.UI.ATTRIBUTE_LINE_BREAK](api:Titanium.UI#ATTRIBUTE_LINE_BREAK).\n\nSee [Attribute](api:Attribute) for more information.\n",
       "type": [
@@ -261,7 +341,11 @@
     },
     {
       "name": "ATTRIBUTE_LINE_BREAK_BY_TRUNCATING_MIDDLE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Attribute.value](api:Attribute#value) to use ellipsis glyph at the middle of the line for missing text.\n",
       "description": "Use this constant when [Attribute.type](api:Attribute#type) is\n[Titanium.UI.ATTRIBUTE_LINE_BREAK](api:Titanium.UI#ATTRIBUTE_LINE_BREAK).\n\nSee [Attribute](api:Attribute) for more information.\n",
       "type": [
@@ -275,7 +359,11 @@
     },
     {
       "name": "ATTRIBUTE_LINE_BREAK_BY_TRUNCATING_TAIL",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Attribute.value](api:Attribute#value) to use ellipsis glyph at the end of the line for missing text.\n",
       "description": "Use this constant when [Attribute.type](api:Attribute#type) is\n[Titanium.UI.ATTRIBUTE_LINE_BREAK](api:Titanium.UI#ATTRIBUTE_LINE_BREAK).\n\nSee [Attribute](api:Attribute) for more information.\n",
       "type": [
@@ -289,7 +377,11 @@
     },
     {
       "name": "ATTRIBUTE_LINE_BREAK_BY_WORD_WRAPPING",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Attribute.value](api:Attribute#value) to wrap words at word boundaries.\n",
       "description": "Use this constant when [Attribute.type](api:Attribute#type) is\n[Titanium.UI.ATTRIBUTE_LINE_BREAK](api:Titanium.UI#ATTRIBUTE_LINE_BREAK).\n\nSee [Attribute](api:Attribute) for more information.\n",
       "type": [
@@ -303,7 +395,12 @@
     },
     {
       "name": "ATTRIBUTE_LINK",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Attribute.type](api:Attribute#type) to create a link.\n",
       "description": "Set [Attribute.value](api:Attribute#value) to a URL.\n\nUse the Label's [link](api:Titanium.UI.Label#link) event to determine when the user triggers a\nlong press (not a click) event on the linked text.\n\nSee [Attribute](api:Attribute) for more information.\n",
       "type": [
@@ -317,7 +414,11 @@
     },
     {
       "name": "ATTRIBUTE_OBLIQUENESS",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Attribute.type](api:Attribute#type) to skew the text.\n",
       "description": "Set [Attribute.value](api:Attribute#value) to a float value to specify how much to skew the text.\n\nSee [Attribute](api:Attribute) for more information.\n",
       "type": [
@@ -331,7 +432,11 @@
     },
     {
       "name": "ATTRIBUTE_PARAGRAPH_STYLE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Attribute.type](api:Attribute#type) to manages the behaviour of string set.\n",
       "description": "Use [ParagraphAttribute](api:ParagraphAttribute) for the 'value' property in the attribute dictionary.\nRange for this should be whole string.\nSee [Attribute](api:Attribute) for more information on type modes.\n",
       "type": [
@@ -345,7 +450,11 @@
     },
     {
       "name": "ATTRIBUTE_SHADOW",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Attribute.type](api:Attribute#type) to display a shadow behind the text.\n",
       "description": "Set [Attribute.value](api:Attribute#value) to a [Shadow](api:shadowDict) dictionary.\n\nSee [Attribute](api:Attribute) for more information.\n",
       "type": [
@@ -359,7 +468,11 @@
     },
     {
       "name": "ATTRIBUTE_STRIKETHROUGH_COLOR",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Attribute.type](api:Attribute#type) to change the color of the horizontal line.\n",
       "description": "Use a color name or hex value for [Attribute.value](api:Attribute#value).\n\nSee [Attribute](api:Attribute) for more information.\n",
       "type": [
@@ -373,7 +486,12 @@
     },
     {
       "name": "ATTRIBUTE_STRIKETHROUGH_STYLE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Attribute.type](api:Attribute#type) to place a horizontal line through the text.\n",
       "description": "Set the `value` property to a `Titanium.UI.ATTRIBUTE_UNDERLINE_*` constant.\n\nSee [Attribute](api:Attribute) for more information.\n",
       "type": [
@@ -387,7 +505,11 @@
     },
     {
       "name": "ATTRIBUTE_STROKE_COLOR",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Attribute.type](api:Attribute#type) to specify a color for the stroke text.\n",
       "description": "Use a color name or hex value for the `value` property in the attributes dictionary.\n\nSee [Attribute](api:Attribute) for more information on type modes.\n",
       "type": [
@@ -401,7 +523,11 @@
     },
     {
       "name": "ATTRIBUTE_STROKE_WIDTH",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Attribute.type](api:Attribute#type) to specify the width of the stroke text.\n",
       "description": "Set [Attribute.value](api:Attribute#value) to a float value specifying the size of stroke width as a percentage of the\nfont size. A positive value displays an outline of the character, while a negative value\nfills the character.\n\nSee [Attribute](api:Attribute) for more information.\n",
       "type": [
@@ -415,7 +541,9 @@
     },
     {
       "name": "ATTRIBUTE_SUBSCRIPT_STYLE",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Use with [Attribute.type](api:Attribute#type) to place the text in a lower position.\n",
       "description": "See [Attribute](api:Attribute) for more information.\n",
       "type": [
@@ -429,7 +557,9 @@
     },
     {
       "name": "ATTRIBUTE_SUPERSCRIPT_STYLE",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Use with [Attribute.type](api:Attribute#type) to place the text in an upper position.\n",
       "description": "See [Attribute](api:Attribute) for more information.\n",
       "type": [
@@ -443,7 +573,11 @@
     },
     {
       "name": "ATTRIBUTE_TEXT_EFFECT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Attribute.type](api:Attribute#type) to apply a text effect.\n",
       "description": "Set [Attribute.value](api:Attribute#value) to `Titanium.UI.ATTRIBUTE_LETTERPRESS_STYLE` to apply a\nletterpress effect to the text.\n\nSee [Attribute](api:Attribute) for more information.\n",
       "type": [
@@ -457,7 +591,11 @@
     },
     {
       "name": "ATTRIBUTE_UNDERLINE_BY_WORD",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Attribute.value](api:Attribute#value) to draw a line only underneath or through words.\n",
       "description": "Use this constant when [Attribute.type](api:Attribute#type) is either\n[Titanium.UI.ATTRIBUTE_UNDERLINES_STYLE](api:Titanium.UI#ATTRIBUTE_UNDERLINES_STYLE) or\n[Titanium.UI.ATTRIBUTE_STRIKETHROUGH_STYLE](api:Titanium.UI#ATTRIBUTE_STRIKETHROUGH_STYLE).\n\nSee [Attribute](api:Attribute) for more information.\n",
       "type": [
@@ -471,7 +609,12 @@
     },
     {
       "name": "ATTRIBUTE_UNDERLINE_COLOR",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Attribute.type](api:Attribute#type) to change the color of the horizontal line.\n",
       "description": "Use a color name or hex value for [Attribute.value](api:Attribute#value).\n\nSee [Attribute](api:Attribute) for more information.\n",
       "type": [
@@ -489,7 +632,11 @@
     },
     {
       "name": "ATTRIBUTE_UNDERLINE_PATTERN_DASH",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Attribute.value](api:Attribute#value) to draw a dashed line.\n",
       "description": "Use this constant when [Attribute.type](api:Attribute#type) is either\n[Titanium.UI.ATTRIBUTE_UNDERLINES_STYLE](api:Titanium.UI#ATTRIBUTE_UNDERLINES_STYLE) or\n[Titanium.UI.ATTRIBUTE_STRIKETHROUGH_STYLE](api:Titanium.UI#ATTRIBUTE_STRIKETHROUGH_STYLE).\n\nSee [Attribute](api:Attribute) for more information.\n",
       "type": [
@@ -503,7 +650,11 @@
     },
     {
       "name": "ATTRIBUTE_UNDERLINE_PATTERN_DASH_DOT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Attribute.value](api:Attribute#value) to draw an alternating line of dashes and dots.\n",
       "description": "Use this constant when [Attribute.type](api:Attribute#type) is either\n[Titanium.UI.ATTRIBUTE_UNDERLINES_STYLE](api:Titanium.UI#ATTRIBUTE_UNDERLINES_STYLE) or\n[Titanium.UI.ATTRIBUTE_STRIKETHROUGH_STYLE](api:Titanium.UI#ATTRIBUTE_STRIKETHROUGH_STYLE).\n\nSee [Attribute](api:Attribute) for more information.\n",
       "type": [
@@ -517,7 +668,11 @@
     },
     {
       "name": "ATTRIBUTE_UNDERLINE_PATTERN_DASH_DOT_DOT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Attribute.value](api:Attribute#value) to draw an alternating line of dashes and two dots.\n",
       "description": "Use this constant when [Attribute.type](api:Attribute#type) is either\n[Titanium.UI.ATTRIBUTE_UNDERLINES_STYLE](api:Titanium.UI#ATTRIBUTE_UNDERLINES_STYLE) or\n[Titanium.UI.ATTRIBUTE_STRIKETHROUGH_STYLE](api:Titanium.UI#ATTRIBUTE_STRIKETHROUGH_STYLE).\n\nSee [Attribute](api:Attribute) for more information.\n",
       "type": [
@@ -531,7 +686,11 @@
     },
     {
       "name": "ATTRIBUTE_UNDERLINE_PATTERN_DOT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Attribute.value](api:Attribute#value) to draw a dotted line.\n",
       "description": "Use this constant when [Attribute.type](api:Attribute#type) is either\n[Titanium.UI.ATTRIBUTE_UNDERLINES_STYLE](api:Titanium.UI#ATTRIBUTE_UNDERLINES_STYLE) or\n[Titanium.UI.ATTRIBUTE_STRIKETHROUGH_STYLE](api:Titanium.UI#ATTRIBUTE_STRIKETHROUGH_STYLE).\n\nSee [Attribute](api:Attribute) for more information.\n",
       "type": [
@@ -545,7 +704,11 @@
     },
     {
       "name": "ATTRIBUTE_UNDERLINE_PATTERN_SOLID",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Attribute.value](api:Attribute#value) to draw a solid line.\n",
       "description": "Use this constant when [Attribute.type](api:Attribute#type) is either\n[Titanium.UI.ATTRIBUTE_UNDERLINES_STYLE](api:Titanium.UI#ATTRIBUTE_UNDERLINES_STYLE) or\n[Titanium.UI.ATTRIBUTE_STRIKETHROUGH_STYLE](api:Titanium.UI#ATTRIBUTE_STRIKETHROUGH_STYLE).\n\nSee [Attribute](api:Attribute) for more information.\n",
       "type": [
@@ -559,7 +722,11 @@
     },
     {
       "name": "ATTRIBUTE_UNDERLINE_STYLE_DOUBLE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Attribute.value](api:Attribute#value) to draw a double line.\n",
       "description": "Use this constant when [Attribute.type](api:Attribute#type) is either\n[Titanium.UI.ATTRIBUTE_UNDERLINES_STYLE](api:Titanium.UI#ATTRIBUTE_UNDERLINES_STYLE) or\n[Titanium.UI.ATTRIBUTE_STRIKETHROUGH_STYLE](api:Titanium.UI#ATTRIBUTE_STRIKETHROUGH_STYLE).\n\nSee [Attribute](api:Attribute) for more information.\n",
       "type": [
@@ -573,7 +740,11 @@
     },
     {
       "name": "ATTRIBUTE_UNDERLINE_STYLE_NONE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Attribute.value](api:Attribute#value) to not draw a line.\n",
       "description": "Use this constant when [Attribute.type](api:Attribute#type) is either\n[Titanium.UI.ATTRIBUTE_UNDERLINES_STYLE](api:Titanium.UI#ATTRIBUTE_UNDERLINES_STYLE) or\n[Titanium.UI.ATTRIBUTE_STRIKETHROUGH_STYLE](api:Titanium.UI#ATTRIBUTE_STRIKETHROUGH_STYLE).\n\nSee [Attribute](api:Attribute) for more information.\n",
       "type": [
@@ -587,7 +758,11 @@
     },
     {
       "name": "ATTRIBUTE_UNDERLINE_STYLE_SINGLE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Attribute.value](api:Attribute#value) to draw a single line.\n",
       "description": "Use this constant when [Attribute.type](api:Attribute#type) is either\n[Titanium.UI.ATTRIBUTE_UNDERLINES_STYLE](api:Titanium.UI#ATTRIBUTE_UNDERLINES_STYLE) or\n[Titanium.UI.ATTRIBUTE_STRIKETHROUGH_STYLE](api:Titanium.UI#ATTRIBUTE_STRIKETHROUGH_STYLE).\n\nSee [Attribute](api:Attribute) for more information.\n",
       "type": [
@@ -601,7 +776,11 @@
     },
     {
       "name": "ATTRIBUTE_UNDERLINE_STYLE_THICK",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Attribute.value](api:Attribute#value) to draw a thick line.\n",
       "description": "Use this constant when [Attribute.type](api:Attribute#type) is either\n[Titanium.UI.ATTRIBUTE_UNDERLINES_STYLE](api:Titanium.UI#ATTRIBUTE_UNDERLINES_STYLE) or\n[Titanium.UI.ATTRIBUTE_STRIKETHROUGH_STYLE](api:Titanium.UI#ATTRIBUTE_STRIKETHROUGH_STYLE).\n\nSee [Attribute](api:Attribute) for more information.\n",
       "type": [
@@ -615,7 +794,12 @@
     },
     {
       "name": "ATTRIBUTE_UNDERLINES_STYLE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Attribute.type](api:Attribute#type) to place a horizontal line under the text.\n",
       "description": "Set the `value` property to a `Titanium.UI.ATTRIBUTE_UNDERLINE_*` constant.\n\nSee [Attribute](api:Attribute) for more information.\n",
       "type": [
@@ -629,7 +813,11 @@
     },
     {
       "name": "ATTRIBUTE_WRITING_DIRECTION",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Attribute.type](api:Attribute#type) to control the direction of the text.\n",
       "description": "Set [Attribute.value](api:Attribute#value) to a `Titanium.UI.ATTRIBUTE_WRITING_DIRECTION_*` constant.\n\nSee [Attribute](api:Attribute) for more information on type modes.\n",
       "type": [
@@ -643,7 +831,11 @@
     },
     {
       "name": "ATTRIBUTE_WRITING_DIRECTION_EMBEDDING",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Attribute.value](api:Attribute#value) to use the embedded text direction.\n",
       "description": "Use this constant when [Attribute.type](api:Attribute#type) is\n[Titanium.UI.ATTRIBUTE_WRITING_DIRECTION](api:Titanium.UI#ATTRIBUTE_WRITING_DIRECTION).\n\nSee [Attribute](api:Attribute) for more information.\n",
       "type": [
@@ -657,7 +849,11 @@
     },
     {
       "name": "ATTRIBUTE_WRITING_DIRECTION_LEFT_TO_RIGHT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Attribute.value](api:Attribute#value) to write text left to right.\n",
       "description": "Use this constant when [Attribute.type](api:Attribute#type) is\n[Titanium.UI.ATTRIBUTE_WRITING_DIRECTION](api:Titanium.UI#ATTRIBUTE_WRITING_DIRECTION).\n\nSee [Attribute](api:Attribute) for more information.\n",
       "type": [
@@ -671,7 +867,11 @@
     },
     {
       "name": "ATTRIBUTE_WRITING_DIRECTION_NATURAL",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Attribute.value](api:Attribute#value) to use the\n[Unicode Bidirection Algorithm rules P2 and P3](http://www.unicode.org/reports/tr9/#The_Paragraph_Level)\nto determine which direction to use.\n",
       "description": "Use this constant when [Attribute.type](api:Attribute#type) is\n[Titanium.UI.ATTRIBUTE_WRITING_DIRECTION](api:Titanium.UI#ATTRIBUTE_WRITING_DIRECTION).\n\nSee [Attribute](api:Attribute) for more information.\n",
       "type": [
@@ -685,7 +885,11 @@
     },
     {
       "name": "ATTRIBUTE_WRITING_DIRECTION_OVERRIDE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Attribute.value](api:Attribute#value) to override the text direction.\n",
       "description": "Use this constant when [Attribute.type](api:Attribute#type) is\n[Titanium.UI.ATTRIBUTE_WRITING_DIRECTION](api:Titanium.UI#ATTRIBUTE_WRITING_DIRECTION).\n\nSee [Attribute](api:Attribute) for more information.\n",
       "type": [
@@ -699,7 +903,11 @@
     },
     {
       "name": "ATTRIBUTE_WRITING_DIRECTION_RIGHT_TO_LEFT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Attribute.value](api:Attribute#value) to write text right to left.\n",
       "description": "Use this constant when [Attribute.type](api:Attribute#type) is\n[Titanium.UI.ATTRIBUTE_WRITING_DIRECTION](api:Titanium.UI#ATTRIBUTE_WRITING_DIRECTION).\n\nSee [Attribute](api:Attribute) for more information.\n",
       "type": [
@@ -713,7 +921,12 @@
     },
     {
       "name": "AUTOFILL_TYPE_ADDRESS",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies the expectation of an address.",
       "type": [
         {
@@ -731,7 +944,11 @@
     },
     {
       "name": "AUTOFILL_TYPE_ADDRESS_CITY",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies the expectation of a city name.",
       "type": [
         {
@@ -744,7 +961,11 @@
     },
     {
       "name": "AUTOFILL_TYPE_ADDRESS_CITY_STATE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies the expectation of a city name combined with a state name.",
       "type": [
         {
@@ -757,7 +978,11 @@
     },
     {
       "name": "AUTOFILL_TYPE_ADDRESS_LINE1",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies the expectation of the first line of a street address.",
       "type": [
         {
@@ -770,7 +995,11 @@
     },
     {
       "name": "AUTOFILL_TYPE_ADDRESS_LINE2",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies the expectation of the second line of a street address.",
       "type": [
         {
@@ -783,7 +1012,11 @@
     },
     {
       "name": "AUTOFILL_TYPE_ADDRESS_STATE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies the expectation of a state name.",
       "type": [
         {
@@ -796,7 +1029,9 @@
     },
     {
       "name": "AUTOFILL_TYPE_CARD_EXPIRATION_DATE",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Specifies the expectation of a card expiration date.",
       "type": [
         {
@@ -814,7 +1049,9 @@
     },
     {
       "name": "AUTOFILL_TYPE_CARD_EXPIRATION_DAY",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Specifies the expectation of a card expiration day.",
       "type": [
         {
@@ -832,7 +1069,9 @@
     },
     {
       "name": "AUTOFILL_TYPE_CARD_EXPIRATION_MONTH",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Specifies the expectation of a card expiration month.",
       "type": [
         {
@@ -850,7 +1089,9 @@
     },
     {
       "name": "AUTOFILL_TYPE_CARD_EXPIRATION_YEAR",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Specifies the expectation of a card expiration year.",
       "type": [
         {
@@ -868,7 +1109,12 @@
     },
     {
       "name": "AUTOFILL_TYPE_CARD_NUMBER",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies the expectation of a card number.",
       "type": [
         {
@@ -886,7 +1132,9 @@
     },
     {
       "name": "AUTOFILL_TYPE_CARD_SECURITY_CODE",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Specifies the expectation of a card security code.",
       "type": [
         {
@@ -904,7 +1152,11 @@
     },
     {
       "name": "AUTOFILL_TYPE_COUNTRY_NAME",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies the expectation of a country name.",
       "type": [
         {
@@ -917,7 +1169,12 @@
     },
     {
       "name": "AUTOFILL_TYPE_EMAIL",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies the expectation of an email address.",
       "type": [
         {
@@ -935,7 +1192,11 @@
     },
     {
       "name": "AUTOFILL_TYPE_FAMILY_NAME",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies the expectation of a family name.",
       "type": [
         {
@@ -948,7 +1209,11 @@
     },
     {
       "name": "AUTOFILL_TYPE_GIVEN_NAME",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies the expectation of a given name.",
       "type": [
         {
@@ -961,7 +1226,11 @@
     },
     {
       "name": "AUTOFILL_TYPE_JOB_TITLE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies the expectation of a job title.",
       "type": [
         {
@@ -974,7 +1243,11 @@
     },
     {
       "name": "AUTOFILL_TYPE_LOCATION",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies the expectation of a location, such as a point of interest, an address, or another way to identify a location.",
       "type": [
         {
@@ -987,7 +1260,11 @@
     },
     {
       "name": "AUTOFILL_TYPE_MIDDLE_NAME",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies the expectation of a middle name.",
       "type": [
         {
@@ -1000,7 +1277,12 @@
     },
     {
       "name": "AUTOFILL_TYPE_NAME",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies the expectation of a name.",
       "type": [
         {
@@ -1018,7 +1300,11 @@
     },
     {
       "name": "AUTOFILL_TYPE_NAME_PREFIX",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies the expectation of a prefix or title, such as 'Dr.'",
       "type": [
         {
@@ -1031,7 +1317,11 @@
     },
     {
       "name": "AUTOFILL_TYPE_NAME_SUFFIX",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies the expectation of a suffix, such as 'Jr.'",
       "type": [
         {
@@ -1044,7 +1334,11 @@
     },
     {
       "name": "AUTOFILL_TYPE_NEW_PASSWORD",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies the expectation of a new password.",
       "type": [
         {
@@ -1057,7 +1351,11 @@
     },
     {
       "name": "AUTOFILL_TYPE_NICKNAME",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies the expectation of a nickname.",
       "type": [
         {
@@ -1070,7 +1368,11 @@
     },
     {
       "name": "AUTOFILL_TYPE_ONE_TIME_CODE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies the expectation of a single-factor SMS login code.",
       "type": [
         {
@@ -1083,7 +1385,11 @@
     },
     {
       "name": "AUTOFILL_TYPE_ORGANIZATION_NAME",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies the expectation of an organization name.",
       "type": [
         {
@@ -1096,7 +1402,12 @@
     },
     {
       "name": "AUTOFILL_TYPE_PASSWORD",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies the expectation of a password.",
       "type": [
         {
@@ -1114,7 +1425,12 @@
     },
     {
       "name": "AUTOFILL_TYPE_PHONE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies the expectation of a telephone number.",
       "type": [
         {
@@ -1132,7 +1448,12 @@
     },
     {
       "name": "AUTOFILL_TYPE_POSTAL_CODE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies the expectation of a postal code.",
       "type": [
         {
@@ -1150,7 +1471,11 @@
     },
     {
       "name": "AUTOFILL_TYPE_SUBLOCALITY",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies the expectation of a sublocality.",
       "type": [
         {
@@ -1163,7 +1488,11 @@
     },
     {
       "name": "AUTOFILL_TYPE_URL",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies the expectation of a URL.",
       "type": [
         {
@@ -1176,7 +1505,12 @@
     },
     {
       "name": "AUTOFILL_TYPE_USERNAME",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies the expectation of an account or login name.",
       "type": [
         {
@@ -1194,7 +1528,12 @@
     },
     {
       "name": "AUTOLINK_ALL",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Converts all detectable types of data into clickable links.",
       "description": "Two or more autolink constants can be combined using bitwise or.\nOn iOS:\n   Use with the [Titanium.UI.TextArea.autoLink](api:Titanium.UI.TextArea#autoLink) property.\n\nOn Android:\n   Use with [Titanium.UI.TextArea.autoLink](api:Titanium.UI.TextArea#autoLink), [Titanium.UI.TextField.autoLink](api:Titanium.UI.TextField#autoLink), and [Titanium.UI.Label.autoLink](api:Titanium.UI.Label#autoLink) properties.\n",
       "type": [
@@ -1208,7 +1547,11 @@
     },
     {
       "name": "AUTOLINK_CALENDAR",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Converts strings formatted as calendar events into clickable links.",
       "description": "Use with the [Titanium.UI.TextArea.autoLink](api:Titanium.UI.TextArea#autoLink) property. Two or more autolink constants can be combined using bitwise or.",
       "type": [
@@ -1222,7 +1565,12 @@
     },
     {
       "name": "AUTOLINK_EMAIL_ADDRESSES",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Converts strings formatted as email addresses into clickable links.",
       "description": "Two or more autolink constants can be combined using bitwise or.\nOn iOS:\n   Use with the [Titanium.UI.TextArea.autoLink](api:Titanium.UI.TextArea#autoLink) property. This property will also convert strings formatted\n   as URLs into clickable links.\n\nOn Android:\n   Use with [Titanium.UI.TextArea.autoLink](api:Titanium.UI.TextArea#autoLink), [Titanium.UI.TextField.autoLink](api:Titanium.UI.TextField#autoLink), and [Titanium.UI.Label.autoLink](api:Titanium.UI.Label#autoLink) properties.\n",
       "type": [
@@ -1236,7 +1584,11 @@
     },
     {
       "name": "AUTOLINK_FLIGHT_NUMBER",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "An option to detect strings with the format of a flight number from an airline.",
       "description": "Two or more autolink constants can be combined using bitwise or.\nUse with the [Titanium.UI.TextArea.autoLink](api:Titanium.UI.TextArea#autoLink) property.\n",
       "type": [
@@ -1250,7 +1602,11 @@
     },
     {
       "name": "AUTOLINK_LOOKUP_SUGGESTION",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "An option to detect strings with the format of information that the user might want to look up.",
       "description": "Two or more autolink constants can be combined using bitwise or.\nUse with the [Titanium.UI.TextArea.autoLink](api:Titanium.UI.TextArea#autoLink) property.\n",
       "type": [
@@ -1264,7 +1620,12 @@
     },
     {
       "name": "AUTOLINK_MAP_ADDRESSES",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Converts strings formatted as addresses into clickable links.",
       "description": "Two or more autolink constants can be combined using bitwise or.\nOn iOS:\n   Use with the [Titanium.UI.TextArea.autoLink](api:Titanium.UI.TextArea#autoLink) property.\n\nOn Android:\n   Use with [Titanium.UI.TextArea.autoLink](api:Titanium.UI.TextArea#autoLink), [Titanium.UI.TextField.autoLink](api:Titanium.UI.TextField#autoLink), and [Titanium.UI.Label.autoLink](api:Titanium.UI.Label#autoLink) properties.\n",
       "type": [
@@ -1278,7 +1639,11 @@
     },
     {
       "name": "AUTOLINK_MONEY",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "An option to detect strings with the format of money amounts.",
       "description": "Two or more autolink constants can be combined using bitwise or.\nUse with the [Titanium.UI.TextArea.autoLink](api:Titanium.UI.TextArea#autoLink) property.\n",
       "type": [
@@ -1297,7 +1662,12 @@
     },
     {
       "name": "AUTOLINK_NONE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Disables converting strings into clickable links.",
       "description": "Two or more autolink constants can be combined using bitwise or.\nOn iOS:\n   Use with the [Titanium.UI.TextArea.autoLink](api:Titanium.UI.TextArea#autoLink) property.\n\nOn Android:\n   Use with [Titanium.UI.TextArea.autoLink](api:Titanium.UI.TextArea#autoLink), [Titanium.UI.TextField.autoLink](api:Titanium.UI.TextField#autoLink), and [Titanium.UI.Label.autoLink](api:Titanium.UI.Label#autoLink) properties.\n",
       "type": [
@@ -1311,7 +1681,12 @@
     },
     {
       "name": "AUTOLINK_PHONE_NUMBERS",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Converts strings formatted as phone numbers into clickable links.",
       "description": "Two or more autolink constants can be combined using bitwise or.\nOn iOS:\n   Use with the [Titanium.UI.TextArea.autoLink](api:Titanium.UI.TextArea#autoLink) property.\n\nOn Android:\n   Use with [Titanium.UI.TextArea.autoLink](api:Titanium.UI.TextArea#autoLink), [Titanium.UI.TextField.autoLink](api:Titanium.UI.TextField#autoLink), and [Titanium.UI.Label.autoLink](api:Titanium.UI.Label#autoLink) properties.\n",
       "type": [
@@ -1325,7 +1700,11 @@
     },
     {
       "name": "AUTOLINK_PHYSICAL_VALUE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "An option to detect strings with the format of physical values (length, temperatures, etc...)",
       "description": "Two or more autolink constants can be combined using bitwise or.\nUse with the [Titanium.UI.TextArea.autoLink](api:Titanium.UI.TextArea#autoLink) property.\n",
       "type": [
@@ -1344,7 +1723,11 @@
     },
     {
       "name": "AUTOLINK_SHIPMENT_TRACKING_NUMBER",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "An option to detect strings with the format of a tracking number from a package delivery company.",
       "description": "Two or more autolink constants can be combined using bitwise or.\nUse with the [Titanium.UI.TextArea.autoLink](api:Titanium.UI.TextArea#autoLink) property.\n",
       "type": [
@@ -1358,7 +1741,12 @@
     },
     {
       "name": "AUTOLINK_URLS",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Converts strings formatted as URLs into clickable links.",
       "description": "Two or more autolink constants can be combined using bitwise or.\nOn iOS:\n   Use with the [Titanium.UI.TextArea.autoLink](api:Titanium.UI.TextArea#autoLink) property. This property will also convert strings formatted\n   as email addresses into clickable links.\n\nOn Android:\n   Use with [Titanium.UI.TextArea.autoLink](api:Titanium.UI.TextArea#autoLink), [Titanium.UI.TextField.autoLink](api:Titanium.UI.TextField#autoLink), and [Titanium.UI.Label.autoLink](api:Titanium.UI.Label#autoLink) properties.\n",
       "type": [
@@ -1372,7 +1760,12 @@
     },
     {
       "name": "availableSystemFontFamilies",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Returns a list of font families that are provided by the system.",
       "type": [
         {
@@ -1391,7 +1784,12 @@
     },
     {
       "name": "backgroundColor",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Sets the background color of the master view (when there are no windows or other top-level\ncontrols displayed).\n",
       "description": "The default background color may also show through if you use semi-transparent\nwindows.\n",
       "type": [
@@ -1407,7 +1805,12 @@
     },
     {
       "name": "backgroundImage",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Local path or URL to an image file for setting a background for the master view (when there\nare no windows or other top-level controls displayed).\n",
       "description": "The default background image may also show through if you use semi-transparent\nwindows.\n",
       "type": [
@@ -1419,7 +1822,12 @@
     },
     {
       "name": "BLEND_MODE_CLEAR",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [MaskedImage.mode](api:Titanium.UI.MaskedImage#mode) to specify a blend mode.\n",
       "type": [
         {
@@ -1432,7 +1840,11 @@
     },
     {
       "name": "BLEND_MODE_COLOR",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [MaskedImage.mode](api:Titanium.UI.MaskedImage#mode) to specify a blend mode.\n",
       "type": [
         {
@@ -1445,7 +1857,11 @@
     },
     {
       "name": "BLEND_MODE_COLOR_BURN",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [MaskedImage.mode](api:Titanium.UI.MaskedImage#mode) to specify a blend mode.\n",
       "type": [
         {
@@ -1458,7 +1874,11 @@
     },
     {
       "name": "BLEND_MODE_COLOR_DODGE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [MaskedImage.mode](api:Titanium.UI.MaskedImage#mode) to specify a blend mode.\n",
       "type": [
         {
@@ -1471,7 +1891,12 @@
     },
     {
       "name": "BLEND_MODE_COPY",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [MaskedImage.mode](api:Titanium.UI.MaskedImage#mode) to specify a blend mode.\n",
       "type": [
         {
@@ -1484,7 +1909,12 @@
     },
     {
       "name": "BLEND_MODE_DARKEN",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [MaskedImage.mode](api:Titanium.UI.MaskedImage#mode) to specify a blend mode.\n",
       "type": [
         {
@@ -1497,7 +1927,12 @@
     },
     {
       "name": "BLEND_MODE_DESTINATION_ATOP",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [MaskedImage.mode](api:Titanium.UI.MaskedImage#mode) to specify a blend mode.\n",
       "type": [
         {
@@ -1510,7 +1945,12 @@
     },
     {
       "name": "BLEND_MODE_DESTINATION_IN",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [MaskedImage.mode](api:Titanium.UI.MaskedImage#mode) to specify a blend mode.\n",
       "type": [
         {
@@ -1523,7 +1963,12 @@
     },
     {
       "name": "BLEND_MODE_DESTINATION_OUT",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [MaskedImage.mode](api:Titanium.UI.MaskedImage#mode) to specify a blend mode.\n",
       "type": [
         {
@@ -1536,7 +1981,12 @@
     },
     {
       "name": "BLEND_MODE_DESTINATION_OVER",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [MaskedImage.mode](api:Titanium.UI.MaskedImage#mode) to specify a blend mode.\n",
       "type": [
         {
@@ -1549,7 +1999,11 @@
     },
     {
       "name": "BLEND_MODE_DIFFERENCE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [MaskedImage.mode](api:Titanium.UI.MaskedImage#mode) to specify a blend mode.\n",
       "type": [
         {
@@ -1562,7 +2016,11 @@
     },
     {
       "name": "BLEND_MODE_EXCLUSION",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [MaskedImage.mode](api:Titanium.UI.MaskedImage#mode) to specify a blend mode.\n",
       "type": [
         {
@@ -1575,7 +2033,11 @@
     },
     {
       "name": "BLEND_MODE_HARD_LIGHT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [MaskedImage.mode](api:Titanium.UI.MaskedImage#mode) to specify a blend mode.\n",
       "type": [
         {
@@ -1588,7 +2050,11 @@
     },
     {
       "name": "BLEND_MODE_HUE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [MaskedImage.mode](api:Titanium.UI.MaskedImage#mode) to specify a blend mode.\n",
       "type": [
         {
@@ -1601,7 +2067,12 @@
     },
     {
       "name": "BLEND_MODE_LIGHTEN",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [MaskedImage.mode](api:Titanium.UI.MaskedImage#mode) to specify a blend mode.\n",
       "type": [
         {
@@ -1614,7 +2085,11 @@
     },
     {
       "name": "BLEND_MODE_LUMINOSITY",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [MaskedImage.mode](api:Titanium.UI.MaskedImage#mode) to specify a blend mode.\n",
       "type": [
         {
@@ -1627,7 +2102,12 @@
     },
     {
       "name": "BLEND_MODE_MULTIPLY",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [MaskedImage.mode](api:Titanium.UI.MaskedImage#mode) to specify a blend mode.\n",
       "type": [
         {
@@ -1640,7 +2120,12 @@
     },
     {
       "name": "BLEND_MODE_NORMAL",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [MaskedImage.mode](api:Titanium.UI.MaskedImage#mode) to specify a blend mode.\n",
       "type": [
         {
@@ -1653,7 +2138,12 @@
     },
     {
       "name": "BLEND_MODE_OVERLAY",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [MaskedImage.mode](api:Titanium.UI.MaskedImage#mode) to specify a blend mode.\n",
       "type": [
         {
@@ -1666,7 +2156,11 @@
     },
     {
       "name": "BLEND_MODE_PLUS_DARKER",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [MaskedImage.mode](api:Titanium.UI.MaskedImage#mode) to specify a blend mode.\n",
       "type": [
         {
@@ -1679,7 +2173,12 @@
     },
     {
       "name": "BLEND_MODE_PLUS_LIGHTER",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [MaskedImage.mode](api:Titanium.UI.MaskedImage#mode) to specify a blend mode.\n",
       "type": [
         {
@@ -1692,7 +2191,11 @@
     },
     {
       "name": "BLEND_MODE_SATURATION",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [MaskedImage.mode](api:Titanium.UI.MaskedImage#mode) to specify a blend mode.\n",
       "type": [
         {
@@ -1705,7 +2208,12 @@
     },
     {
       "name": "BLEND_MODE_SCREEN",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [MaskedImage.mode](api:Titanium.UI.MaskedImage#mode) to specify a blend mode.\n",
       "type": [
         {
@@ -1718,7 +2226,11 @@
     },
     {
       "name": "BLEND_MODE_SOFT_LIGHT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [MaskedImage.mode](api:Titanium.UI.MaskedImage#mode) to specify a blend mode.\n",
       "type": [
         {
@@ -1731,7 +2243,12 @@
     },
     {
       "name": "BLEND_MODE_SOURCE_ATOP",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [MaskedImage.mode](api:Titanium.UI.MaskedImage#mode) to specify a blend mode.\n",
       "type": [
         {
@@ -1744,7 +2261,12 @@
     },
     {
       "name": "BLEND_MODE_SOURCE_IN",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [MaskedImage.mode](api:Titanium.UI.MaskedImage#mode) to specify a blend mode.\n",
       "type": [
         {
@@ -1757,7 +2279,12 @@
     },
     {
       "name": "BLEND_MODE_SOURCE_OUT",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [MaskedImage.mode](api:Titanium.UI.MaskedImage#mode) to specify a blend mode.\n",
       "type": [
         {
@@ -1770,7 +2297,12 @@
     },
     {
       "name": "BLEND_MODE_XOR",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [MaskedImage.mode](api:Titanium.UI.MaskedImage#mode) to specify a blend mode.\n",
       "type": [
         {
@@ -1783,7 +2315,9 @@
     },
     {
       "name": "BREAK_BALANCED",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Line breaking strategy balances line lengths.",
       "type": [
         {
@@ -1796,7 +2330,9 @@
     },
     {
       "name": "BREAK_HIGH_QUALITY",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Line breaking uses high-quality strategy, including hyphenation.",
       "type": [
         {
@@ -1809,7 +2345,9 @@
     },
     {
       "name": "BREAK_SIMPLE",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Line breaking uses simple strategy.",
       "type": [
         {
@@ -1822,7 +2360,12 @@
     },
     {
       "name": "BUTTON_STYLE_FILLED",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Button.style](api:Titanium.UI.Button#style) to show a solid filled button.",
       "description": "This is not supported on iOS and will show [BUTTON_STYLE_TEXT](api:Titanium.UI#BUTTON_STYLE_TEXT) instead.\n",
       "type": [
@@ -1836,7 +2379,12 @@
     },
     {
       "name": "BUTTON_STYLE_OPTION_NEGATIVE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Button.style](api:Titanium.UI.Button#style) to show a negative themed escape button.",
       "description": "This is a text-only button without a background. It is intended to be used in conjunction with\n[BUTTON_STYLE_OPTION_POSITIVE](api:Titanium.UI#BUTTON_STYLE_OPTION_POSITIVE) and\n[BUTTON_STYLE_OPTION_NEUTRAL](api:Titanium.UI#BUTTON_STYLE_OPTION_NEUTRAL) to show an\nescape button to exit a window or dialog such as \"Cancel\", \"No\", etc.\n\nThis is not supported on iOS and will use [BUTTON_STYLE_TEXT](api:Titanium.UI#BUTTON_STYLE_TEXT) instead.\n\nOn Android, this can be customized by the `buttonBarNegativeButtonStyle` attribute. By default,\nAndroid's built-in themes will style this button the same as\n[BUTTON_STYLE_OPTION_NEUTRAL](api:Titanium.UI#BUTTON_STYLE_OPTION_NEUTRAL) and\n[BUTTON_STYLE_TEXT](api:Titanium.UI#BUTTON_STYLE_TEXT).\n",
       "type": [
@@ -1850,7 +2398,12 @@
     },
     {
       "name": "BUTTON_STYLE_OPTION_NEUTRAL",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Button.style](api:Titanium.UI.Button#style) to show a normal themed option button.",
       "description": "This is a text-only button without a background. It is intended to be used in conjunction with\n[BUTTON_STYLE_OPTION_POSITIVE](api:Titanium.UI#BUTTON_STYLE_OPTION_POSITIVE) and\n[BUTTON_STYLE_OPTION_NEGATIVE](api:Titanium.UI#BUTTON_STYLE_OPTION_NEGATIVE) to show\na normal informational button.\n\nThis is not supported on iOS and will use [BUTTON_STYLE_TEXT](api:Titanium.UI#BUTTON_STYLE_TEXT) instead.\n\nOn Android, this can be customized by the `buttonBarNeutralButtonStyle` attribute. By default,\nAndroid's built-in themes will style this button the same as\n[BUTTON_STYLE_OPTION_NEGATIVE](api:Titanium.UI#BUTTON_STYLE_OPTION_NEGATIVE) and\n[BUTTON_STYLE_TEXT](api:Titanium.UI#BUTTON_STYLE_TEXT).\n",
       "type": [
@@ -1864,7 +2417,12 @@
     },
     {
       "name": "BUTTON_STYLE_OPTION_POSITIVE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Button.style](api:Titanium.UI.Button#style) to show a positive themed accept button.",
       "description": "This is a text-only button without a background. It is intended to be used in conjunction with\n[BUTTON_STYLE_OPTION_NEGATIVE](api:Titanium.UI#BUTTON_STYLE_OPTION_NEGATIVE) and\n[BUTTON_STYLE_OPTION_NEUTRAL](api:Titanium.UI#BUTTON_STYLE_OPTION_NEUTRAL) to show an an accept button\nbefore closing a window or dialog such as \"OK\", \"Yes\", \"Done\", etc. It is typically colored\ndifferently than a [BUTTON_STYLE_TEXT](api:Titanium.UI#BUTTON_STYLE_TEXT) themed button on iOS.\n\nOn Android, this can be customized by the `buttonBarPositiveButtonStyle` attribute.\n\nBy default, the Android material theme does not style this button differently than any other\ntext-only button. Only the holo theme will style it differently.\n",
       "type": [
@@ -1878,7 +2436,12 @@
     },
     {
       "name": "BUTTON_STYLE_OUTLINED",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Button.style](api:Titanium.UI.Button#style) to show an unfilled rounded border button.",
       "description": "This is not supported on iOS and will show [BUTTON_STYLE_TEXT](api:Titanium.UI#BUTTON_STYLE_TEXT) instead.\n",
       "type": [
@@ -1892,7 +2455,12 @@
     },
     {
       "name": "BUTTON_STYLE_TEXT",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Button.style](api:Titanium.UI.Button#style) to show a text-only button without a background.",
       "type": [
         {
@@ -1905,7 +2473,11 @@
     },
     {
       "name": "CLIPBOARD_OPTION_EXPIRATION_DATE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies the time and date that you want the system to remove the clipboard items from the clipboard.\n\nNote that on macOS, setting a date in the past does not appear to invalidate items immediately, while on iOS it does.\n",
       "type": [
         {
@@ -1918,7 +2490,11 @@
     },
     {
       "name": "CLIPBOARD_OPTION_LOCAL_ONLY",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies that the clipboard items should not be available to other devices through Handoff.",
       "type": [
         {
@@ -1931,7 +2507,9 @@
     },
     {
       "name": "cutoutSize",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Returns the position and shape of the Android notch. Read more about the notch [here](https://developer.android.com/develop/ui/views/layout/display-cutout).",
       "description": "Using Android 9+ it will return the bounding box of the Android notch. It will return `top`,`left, `width` and `height`.\n",
       "type": [
@@ -1948,7 +2526,9 @@
         "properties": [
           {
             "name": "height",
-            "platforms": ["android"],
+            "platforms": [
+              "android"
+            ],
             "summary": "The height of the cutout",
             "type": [
               {
@@ -1959,7 +2539,9 @@
           },
           {
             "name": "left",
-            "platforms": ["android"],
+            "platforms": [
+              "android"
+            ],
             "summary": "The left position of the cutout.",
             "type": [
               {
@@ -1970,7 +2552,9 @@
           },
           {
             "name": "top",
-            "platforms": ["android"],
+            "platforms": [
+              "android"
+            ],
             "summary": "The top position of the cutout.",
             "type": [
               {
@@ -1981,7 +2565,9 @@
           },
           {
             "name": "width",
-            "platforms": ["android"],
+            "platforms": [
+              "android"
+            ],
             "summary": "The width of the cutout",
             "type": [
               {
@@ -1995,7 +2581,12 @@
     },
     {
       "name": "DATE_PICKER_STYLE_AUTOMATIC",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Displays a [Titanium.UI.Picker](api:Titanium.UI.Picker) using the best visual style on the current platform for date/time selection.\n",
       "description": "On Android and iOS, a picker with this style will be shown in compact form,\nwhere the picker will be a read-only text field which opens a selection dialog when tapped on.\n\nNote: Prior to iOS 14, this property is only used on iOS Catalyst apps.\n",
       "type": [
@@ -2014,7 +2605,12 @@
     },
     {
       "name": "DATE_PICKER_STYLE_COMPACT",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Displays a [Titanium.UI.Picker](api:Titanium.UI.Picker) as a read-only text field which opens a selection dialog when tapped on.",
       "description": "Note: Prior to iOS 14, this property is only used on iOS Catalyst apps.",
       "type": [
@@ -2033,7 +2629,12 @@
     },
     {
       "name": "DATE_PICKER_STYLE_INLINE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Displays a [Titanium.UI.Picker](api:Titanium.UI.Picker) as a large calendar or clock view for date/time selection.",
       "description": "On iOS, an inlined \"time\" picker will appear as a text field with spinners for hours and minutes.\n",
       "type": [
@@ -2052,7 +2653,12 @@
     },
     {
       "name": "DATE_PICKER_STYLE_WHEELS",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Displays a [Titanium.UI.Picker](api:Titanium.UI.Picker) as spinner wheels for date/time selection.",
       "type": [
         {
@@ -2070,7 +2676,11 @@
     },
     {
       "name": "EXTEND_EDGE_ALL",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies that all the edges of the window can extend.",
       "description": "One of the group of constants for the [Titanium.UI.Window.extendEdges](api:Titanium.UI.Window#extendEdges) property.\n",
       "type": [
@@ -2084,7 +2694,11 @@
     },
     {
       "name": "EXTEND_EDGE_BOTTOM",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies that the bottom edge of the window can extend.",
       "description": "One of the group of constants for the [Titanium.UI.Window.extendEdges](api:Titanium.UI.Window#extendEdges) property.\n",
       "type": [
@@ -2098,7 +2712,11 @@
     },
     {
       "name": "EXTEND_EDGE_LEFT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies that the left edge of the window can extend.",
       "description": "One of the group of constants for the [Titanium.UI.Window.extendEdges](api:Titanium.UI.Window#extendEdges) property.\n",
       "type": [
@@ -2112,7 +2730,11 @@
     },
     {
       "name": "EXTEND_EDGE_NONE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies that none of the edges of the window can extend.",
       "description": "One of the group of constants for the [Titanium.UI.Window.extendEdges](api:Titanium.UI.Window#extendEdges) property.\n",
       "type": [
@@ -2126,7 +2748,11 @@
     },
     {
       "name": "EXTEND_EDGE_RIGHT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies that the right edge of the window can extend.",
       "description": "One of the group of constants for the [Titanium.UI.Window.extendEdges](api:Titanium.UI.Window#extendEdges) property.\n",
       "type": [
@@ -2140,7 +2766,11 @@
     },
     {
       "name": "EXTEND_EDGE_TOP",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies that the top edge of the window can extend.",
       "description": "One of the group of constants for the [Titanium.UI.Window.extendEdges](api:Titanium.UI.Window#extendEdges) property.\n",
       "type": [
@@ -2154,7 +2784,12 @@
     },
     {
       "name": "FACE_DOWN",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant value for face-down orientation.",
       "description": "One of the group of orientation constants for the [Titanium.Gesture](api:Titanium.Gesture) module,\n[Titanium.UI.PORTRAIT](api:Titanium.UI#PORTRAIT),\n[Titanium.UI.UPSIDE_PORTRAIT](api:Titanium.UI#UPSIDE_PORTRAIT),\n[Titanium.UI.LANDSCAPE_LEFT](api:Titanium.UI#LANDSCAPE_LEFT),\n[Titanium.UI.LANDSCAPE_RIGHT](api:Titanium.UI#LANDSCAPE_RIGHT),\n[Titanium.UI.FACE_UP](api:Titanium.UI#FACE_UP),\n[Titanium.UI.FACE_DOWN](api:Titanium.UI#FACE_DOWN),\nand [Titanium.UI.UNKNOWN](api:Titanium.UI#UNKNOWN).\n",
       "type": [
@@ -2167,7 +2802,12 @@
     },
     {
       "name": "FACE_UP",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant value for face-up orientation.",
       "description": "One of the group of orientation constants for the [Titanium.Gesture](api:Titanium.Gesture) module,\n[Titanium.UI.PORTRAIT](api:Titanium.UI#PORTRAIT),\n[Titanium.UI.UPSIDE_PORTRAIT](api:Titanium.UI#UPSIDE_PORTRAIT),\n[Titanium.UI.LANDSCAPE_LEFT](api:Titanium.UI#LANDSCAPE_LEFT),\n[Titanium.UI.LANDSCAPE_RIGHT](api:Titanium.UI#LANDSCAPE_RIGHT),\n[Titanium.UI.FACE_UP](api:Titanium.UI#FACE_UP),\n[Titanium.UI.FACE_DOWN](api:Titanium.UI#FACE_DOWN),\nand [Titanium.UI.UNKNOWN](api:Titanium.UI#UNKNOWN).\n",
       "type": [
@@ -2180,7 +2820,12 @@
     },
     {
       "name": "FILL",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "FILL behavior for UI layout.",
       "description": "The FILL behavior means the view will grow its size to fill its parent.",
       "type": [
@@ -2194,7 +2839,9 @@
     },
     {
       "name": "HIDDEN_BEHAVIOR_GONE",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Release free space when hiding an object.",
       "type": [
         {
@@ -2207,7 +2854,9 @@
     },
     {
       "name": "HIDDEN_BEHAVIOR_INVISIBLE",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Keeps free space when hiding an object.",
       "type": [
         {
@@ -2220,7 +2869,9 @@
     },
     {
       "name": "HINT_TYPE_ANIMATED",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Use when creating a TextField to specify the hintType as animated.\n",
       "type": [
         {
@@ -2232,7 +2883,9 @@
     },
     {
       "name": "HINT_TYPE_STATIC",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Use when creating a TextField to specify the hintType as static.\n",
       "type": [
         {
@@ -2244,7 +2897,9 @@
     },
     {
       "name": "HYPHEN_FULL",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Standard amount of hyphenation, useful for running text and for screens with limited space for text.",
       "type": [
         {
@@ -2257,7 +2912,9 @@
     },
     {
       "name": "HYPHEN_FULL_FAST",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Same to hyphenationFrequency=\"full\" but using faster algorithm for measuring hyphenation break points.",
       "type": [
         {
@@ -2270,7 +2927,9 @@
     },
     {
       "name": "HYPHEN_NONE",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "No hyphenation.",
       "type": [
         {
@@ -2283,7 +2942,9 @@
     },
     {
       "name": "HYPHEN_NORMAL",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Less frequent hyphenation, useful for informal use cases, such as chat messages.",
       "type": [
         {
@@ -2296,7 +2957,9 @@
     },
     {
       "name": "HYPHEN_NORMAL_FAST",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Same to hyphenationFrequency=\"normal\" but using faster algorithm for measuring hyphenation break points.",
       "type": [
         {
@@ -2309,7 +2972,12 @@
     },
     {
       "name": "INPUT_BORDERSTYLE_BEZEL",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use a bezel-style border on the input field.",
       "description": "Use with the [Titanium.UI.TextField.borderStyle](api:Titanium.UI.TextField#borderStyle) property.\n\nOn Android, this can also be used by the [Titanium.UI.TextArea.borderStyle](api:Titanium.UI.TextArea#borderStyle) property.\n\nAndroid does not support this style and will use\n[INPUT_BORDERSTYLE_LINE](api:Titanium.UI#INPUT_BORDERSTYLE_LINE) instead.\n",
       "type": [
@@ -2322,7 +2990,12 @@
     },
     {
       "name": "INPUT_BORDERSTYLE_FILLED",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Show an enclosed border with a filled background on the input field.",
       "description": "This is the default Android material theme on Android.\n\nUse with the [Titanium.UI.TextField.borderStyle](api:Titanium.UI.TextField#borderStyle) and [Titanium.UI.TextArea.borderStyle](api:Titanium.UI.TextArea#borderStyle) properties.\n\niOS does not support this style and will use\n[INPUT_BORDERSTYLE_BEZEL](api:Titanium.UI#INPUT_BORDERSTYLE_BEZEL) instead.\n",
       "type": [
@@ -2336,7 +3009,12 @@
     },
     {
       "name": "INPUT_BORDERSTYLE_LINE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use a simple line border on the input field.",
       "description": "Use with the [Titanium.UI.TextField.borderStyle](api:Titanium.UI.TextField#borderStyle) property.\n\nOn Android, this can also be used by the [Titanium.UI.TextArea.borderStyle](api:Titanium.UI.TextArea#borderStyle) property.\n",
       "type": [
@@ -2349,7 +3027,12 @@
     },
     {
       "name": "INPUT_BORDERSTYLE_NONE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use no border on the input field.",
       "description": "Use with the [Titanium.UI.TextField.borderStyle](api:Titanium.UI.TextField#borderStyle) property.\n\nOn Android, this can also be used by the [Titanium.UI.TextArea.borderStyle](api:Titanium.UI.TextArea#borderStyle) property.\n",
       "type": [
@@ -2362,7 +3045,12 @@
     },
     {
       "name": "INPUT_BORDERSTYLE_ROUNDED",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use a rounded-rectangle border on the input field.",
       "description": "Use with the [Titanium.UI.TextField.borderStyle](api:Titanium.UI.TextField#borderStyle) property.\n\nOn Android, this can also be used by the [Titanium.UI.TextArea.borderStyle](api:Titanium.UI.TextArea#borderStyle) property.\n",
       "type": [
@@ -2375,7 +3063,12 @@
     },
     {
       "name": "INPUT_BORDERSTYLE_UNDERLINED",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Show an underline instead of a border around the input field.",
       "description": "Use with the [Titanium.UI.TextField.borderStyle](api:Titanium.UI.TextField#borderStyle) and [Titanium.UI.TextArea.borderStyle](api:Titanium.UI.TextArea#borderStyle) properties.\n\niOS does not support this style and will use\n[INPUT_BORDERSTYLE_LINE](api:Titanium.UI#INPUT_BORDERSTYLE_LINE) instead.\n",
       "type": [
@@ -2389,7 +3082,12 @@
     },
     {
       "name": "INPUT_BUTTONMODE_ALWAYS",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Always show buttons on the input field.",
       "description": "Use with the [Titanium.UI.TextField.clearButtonMode](api:Titanium.UI.TextField#clearButtonMode),\n[Titanium.UI.TextField.leftButtonMode](api:Titanium.UI.TextField#leftButtonMode),\nand [Titanium.UI.TextField.rightButtonMode](api:Titanium.UI.TextField#rightButtonMode) properties.\n",
       "type": [
@@ -2402,7 +3100,12 @@
     },
     {
       "name": "INPUT_BUTTONMODE_NEVER",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Never show buttons on the input field.",
       "description": "Use with the [Titanium.UI.TextField.clearButtonMode](api:Titanium.UI.TextField#clearButtonMode),\n[Titanium.UI.TextField.leftButtonMode](api:Titanium.UI.TextField#leftButtonMode),\nand [Titanium.UI.TextField.rightButtonMode](api:Titanium.UI.TextField#rightButtonMode) properties.\n",
       "type": [
@@ -2415,7 +3118,11 @@
     },
     {
       "name": "INPUT_BUTTONMODE_ONBLUR",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Show buttons on the input field when it loses focus.",
       "description": "Use with the [Titanium.UI.TextField.clearButtonMode](api:Titanium.UI.TextField#clearButtonMode),\n[Titanium.UI.TextField.leftButtonMode](api:Titanium.UI.TextField#leftButtonMode),\nand [Titanium.UI.TextField.rightButtonMode](api:Titanium.UI.TextField#rightButtonMode) properties.\n",
       "type": [
@@ -2428,7 +3135,12 @@
     },
     {
       "name": "INPUT_BUTTONMODE_ONFOCUS",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Show buttons on the input field when it gains focus.",
       "description": "Use with the [Titanium.UI.TextField.clearButtonMode](api:Titanium.UI.TextField#clearButtonMode),\n[Titanium.UI.TextField.leftButtonMode](api:Titanium.UI.TextField#leftButtonMode),\nand [Titanium.UI.TextField.rightButtonMode](api:Titanium.UI.TextField#rightButtonMode) properties.\n",
       "type": [
@@ -2441,7 +3153,9 @@
     },
     {
       "name": "INPUT_TYPE_CLASS_NUMBER",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Use a keyboard with a number pad only, with the pad keyboard layout. Accepts only numbers.",
       "description": "Use with the [Titanium.UI.TextField.inputType](api:Titanium.UI.TextField#inputType) properties. This overrides any changes [Titanium.UI.TextField.keyboardType](api:Titanium.UI.TextField#keyboardType)\ndoes to the inputType of the Android device.\n",
       "type": [
@@ -2454,7 +3168,9 @@
     },
     {
       "name": "INPUT_TYPE_CLASS_TEXT",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Use an ASCII keyboard, with the standard keyboard layout.",
       "description": "Use with the [Titanium.UI.TextField.inputType](api:Titanium.UI.TextField#inputType) properties. This overrides any changes [Titanium.UI.TextField.keyboardType](api:Titanium.UI.TextField#keyboardType)\ndoes to the inputType of the Android device.\n",
       "type": [
@@ -2467,7 +3183,11 @@
     },
     {
       "name": "KEYBOARD_APPEARANCE_DARK",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use the platform-specific dark keyboard appearance.",
       "type": [
         {
@@ -2480,7 +3200,11 @@
     },
     {
       "name": "KEYBOARD_APPEARANCE_DEFAULT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use the platform-specific default keyboard appearance.",
       "type": [
         {
@@ -2492,7 +3216,11 @@
     },
     {
       "name": "KEYBOARD_APPEARANCE_LIGHT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use the platform-specific light keyboard appearance.",
       "type": [
         {
@@ -2505,7 +3233,12 @@
     },
     {
       "name": "KEYBOARD_TYPE_ASCII",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use a keyboard supporting all characters except emoji. Defaults to English letters layout on iOS.",
       "description": "This keyboard type allows the end-user to enter numbers, symbols, and non-English letters too.\nIt just launches with the English letters keyboard layout when shown.\nThis type will not allow the end-user to display an emoji keyboard.\n\nAndroid keyboards will typically ignore this setting and show the default language keyboard instead,\nbut will still not allow the end-user to enter emoji characters like iOS.\n\nUse with the [Titanium.UI.TextField.keyboardType](api:Titanium.UI.TextField#keyboardType) and [Titanium.UI.TextArea.keyboardType](api:Titanium.UI.TextArea#keyboardType)\nproperties.\n",
       "type": [
@@ -2519,7 +3252,12 @@
     },
     {
       "name": "KEYBOARD_TYPE_DECIMAL_PAD",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use a number pad keyboard layout showing only numbers, decimal separator, and sign character.",
       "description": "Use with the [Titanium.UI.TextField.keyboardType](api:Titanium.UI.TextField#keyboardType) and [Titanium.UI.TextArea.keyboardType](api:Titanium.UI.TextArea#keyboardType)\nproperties.\n\nOn iPad, this behaves the same as [Titanium.UI.KEYBOARD_TYPE_DEFAULT](api:Titanium.UI#KEYBOARD_TYPE_DEFAULT).\ntype: Number\n",
       "type": [
@@ -2533,7 +3271,12 @@
     },
     {
       "name": "KEYBOARD_TYPE_DEFAULT",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use the default keyboard, depending on the platform.",
       "description": "Use with the [Titanium.UI.TextField.keyboardType](api:Titanium.UI.TextField#keyboardType) and [Titanium.UI.TextArea.keyboardType](api:Titanium.UI.TextArea#keyboardType)\nproperties.\n",
       "type": [
@@ -2547,7 +3290,12 @@
     },
     {
       "name": "KEYBOARD_TYPE_EMAIL",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use a keyboard suitable for composing email, with the standard keyboard layout.",
       "description": "Use with the [Titanium.UI.TextField.keyboardType](api:Titanium.UI.TextField#keyboardType) and [Titanium.UI.TextArea.keyboardType](api:Titanium.UI.TextArea#keyboardType)\nproperties.\n",
       "type": [
@@ -2561,7 +3309,12 @@
     },
     {
       "name": "KEYBOARD_TYPE_NAMEPHONE_PAD",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use a keyboard suitable for entering names and phone numbers, with the pad keyboard layout.",
       "description": "Use with the [Titanium.UI.TextField.keyboardType](api:Titanium.UI.TextField#keyboardType) and [Titanium.UI.TextArea.keyboardType](api:Titanium.UI.TextArea#keyboardType)\nproperties.\n",
       "type": [
@@ -2575,7 +3328,12 @@
     },
     {
       "name": "KEYBOARD_TYPE_NUMBER_PAD",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use a number pad keyboard layout only showing numbers for entering positive integers.",
       "description": "Use with the [Titanium.UI.TextField.keyboardType](api:Titanium.UI.TextField#keyboardType) and [Titanium.UI.TextArea.keyboardType](api:Titanium.UI.TextArea#keyboardType)\nproperties.\n\nOn iPad, this behaves the same as [Titanium.UI.KEYBOARD_TYPE_NUMBERS_PUNCTUATION](api:Titanium.UI#KEYBOARD_TYPE_NUMBERS_PUNCTUATION).\n",
       "type": [
@@ -2589,7 +3347,12 @@
     },
     {
       "name": "KEYBOARD_TYPE_NUMBERS_PUNCTUATION",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use a keyboard supporting all characters except emoji, defaulting to numbers layout on iOS.",
       "description": "On iOS, this will default to showing the \"Numbers and Punctuation\" side of the keyboard,\nbut still allows the end-user to switch to other keyboards for entering letters as well.\nThis type will not allow the end-user to display an emoji keyboard.\n\nOn Android, this type displays a normal keyboard defaulting to the letter side,\nbut will not allow the end-user to enter emoji characters like iOS.\n\nUse with the [Titanium.UI.TextField.keyboardType](api:Titanium.UI.TextField#keyboardType) and [Titanium.UI.TextArea.keyboardType](api:Titanium.UI.TextArea#keyboardType)\nproperties.\n",
       "type": [
@@ -2603,7 +3366,12 @@
     },
     {
       "name": "KEYBOARD_TYPE_PHONE_PAD",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use a keyboard with a phone-style number pad, with the pad keyboard layout.",
       "description": "Use with the [Titanium.UI.TextField.keyboardType](api:Titanium.UI.TextField#keyboardType) and [Titanium.UI.TextArea.keyboardType](api:Titanium.UI.TextArea#keyboardType)\nproperties.\n\nOn iPad, this behaves the same as [Titanium.UI.KEYBOARD_TYPE_NUMBERS_PUNCTUATION](api:Titanium.UI#KEYBOARD_TYPE_NUMBERS_PUNCTUATION).\n",
       "type": [
@@ -2617,7 +3385,11 @@
     },
     {
       "name": "KEYBOARD_TYPE_TWITTER",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use a keyboard optimized for twitter text entry, with easy access to the @ and",
       "description": "Use with the [Titanium.UI.TextField.keyboardType](api:Titanium.UI.TextField#keyboardType) and [Titanium.UI.TextArea.keyboardType](api:Titanium.UI.TextArea#keyboardType)\nproperties.\n",
       "type": [
@@ -2631,7 +3403,12 @@
     },
     {
       "name": "KEYBOARD_TYPE_URL",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use a keyboard optimized for entering URLs, with the standard keyboard layout.",
       "description": "Use with the [Titanium.UI.TextField.keyboardType](api:Titanium.UI.TextField#keyboardType) and [Titanium.UI.TextArea.keyboardType](api:Titanium.UI.TextArea#keyboardType)\nproperties.\n",
       "type": [
@@ -2645,7 +3422,11 @@
     },
     {
       "name": "KEYBOARD_TYPE_WEBSEARCH",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use a keyboard optimized for web search terms and URL entry.",
       "description": "Use with the [Titanium.UI.TextField.keyboardType](api:Titanium.UI.TextField#keyboardType) and [Titanium.UI.TextArea.keyboardType](api:Titanium.UI.TextArea#keyboardType)\nproperties. This type features the space and . characters prominently.\n\nNote: This keyboard automatically sets the return key to \"Go\" (localized).\n",
       "type": [
@@ -2659,7 +3440,12 @@
     },
     {
       "name": "LANDSCAPE_LEFT",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Standard landscape orientation (home button on left).",
       "description": "One of the group of orientation constants for the [Titanium.Gesture](api:Titanium.Gesture) module,\n[Titanium.UI.PORTRAIT](api:Titanium.UI#PORTRAIT),\n[Titanium.UI.UPSIDE_PORTRAIT](api:Titanium.UI#UPSIDE_PORTRAIT),\n[Titanium.UI.LANDSCAPE_LEFT](api:Titanium.UI#LANDSCAPE_LEFT),\n[Titanium.UI.LANDSCAPE_RIGHT](api:Titanium.UI#LANDSCAPE_RIGHT),\n[Titanium.UI.FACE_UP](api:Titanium.UI#FACE_UP),\n[Titanium.UI.FACE_DOWN](api:Titanium.UI#FACE_DOWN),\nand [Titanium.UI.UNKNOWN](api:Titanium.UI#UNKNOWN).\n",
       "type": [
@@ -2672,7 +3458,12 @@
     },
     {
       "name": "LANDSCAPE_RIGHT",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Reverse landscape orientation (home button on right).",
       "description": "One of the group of orientation constants for the [Titanium.Gesture](api:Titanium.Gesture) module,\n[Titanium.UI.PORTRAIT](api:Titanium.UI#PORTRAIT),\n[Titanium.UI.UPSIDE_PORTRAIT](api:Titanium.UI#UPSIDE_PORTRAIT),\n[Titanium.UI.LANDSCAPE_LEFT](api:Titanium.UI#LANDSCAPE_LEFT),\n[Titanium.UI.LANDSCAPE_RIGHT](api:Titanium.UI#LANDSCAPE_RIGHT),\n[Titanium.UI.FACE_UP](api:Titanium.UI#FACE_UP),\n[Titanium.UI.FACE_DOWN](api:Titanium.UI#FACE_DOWN),\nand [Titanium.UI.UNKNOWN](api:Titanium.UI#UNKNOWN).\n",
       "type": [
@@ -2685,7 +3476,12 @@
     },
     {
       "name": "LIST_ACCESSORY_TYPE_CHECKMARK",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Displays a checkmark on the right side of an item in a list view.",
       "description": "Use to indicate an item in a list is selected.\n",
       "type": [
@@ -2699,7 +3495,12 @@
     },
     {
       "name": "LIST_ACCESSORY_TYPE_DETAIL",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Displays a detail disclosure button on the right side of an item in a list view.",
       "description": "Use to indicate that selecting this item results in the display of a detailed view of that item.\n",
       "type": [
@@ -2713,7 +3514,12 @@
     },
     {
       "name": "LIST_ACCESSORY_TYPE_DISCLOSURE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Displays a disclosure indicator on the right side of an item in a list view.",
       "description": "Use to indicate that selecting this item results in the display of another list, reflecting\nthe next level in the data model hierarchy.\n",
       "type": [
@@ -2727,7 +3533,12 @@
     },
     {
       "name": "LIST_ACCESSORY_TYPE_NONE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Do not display anything on the right side of an item in a list view.",
       "type": [
         {
@@ -2740,7 +3551,11 @@
     },
     {
       "name": "LIST_ITEM_TEMPLATE_CONTACTS",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "A built-in style for an item with a right-aligned title label on the left side of the cell,\nwhich is next to a left-aligned subtitle label.\n",
       "description": "The title label value and subtitle label value bind to the `title` and `subtitle`\nproperties, respectively, of the data item. If a property is not set, that element is not\ndisplayed.\n",
       "type": [
@@ -2754,7 +3569,12 @@
     },
     {
       "name": "LIST_ITEM_TEMPLATE_DEFAULT",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "A built-in style for an item with an image view and left-aligned title label.\n",
       "description": "The text label value and image value bind to the `title` and `image` properties, respectively,\nof the data item. If a property is not set, that element is not displayed.\n\nOn Android, the image appears on the right side of the cell, and on iOS, the image appears\non the left side of the cell.\n",
       "type": [
@@ -2768,7 +3588,11 @@
     },
     {
       "name": "LIST_ITEM_TEMPLATE_SETTINGS",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "A built-in style for a item with an image view; a left-aligned title label; and a\nright-aligned subtitle label.\n",
       "description": "The title label value, subtitle label value and image value bind to the `title`, `subtitle`\nand `image` properties, respectively, of the data item. If a property is not set, that\nelement is not displayed.\n",
       "type": [
@@ -2782,7 +3606,11 @@
     },
     {
       "name": "LIST_ITEM_TEMPLATE_SUBTITLE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "A built-in style for an item with an image view; a black, left-aligned title label across the\ntop of the cell and a subtitle label below it.\n",
       "description": "The title label value, subtitle label value and image value bind to the `title`, `subtitle`\nand `image` properties, respectively, of the data item. If a property is not set, that\nelement is not displayed.\n",
       "type": [
@@ -2796,7 +3624,9 @@
     },
     {
       "name": "NOTIFICATION_DURATION_LONG",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Specifies a long duration for an Android Toast notification ([Titanium.UI.Notification](api:Titanium.UI.Notification)).",
       "type": [
         {
@@ -2808,7 +3638,9 @@
     },
     {
       "name": "NOTIFICATION_DURATION_SHORT",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Specifies a short duration for an Android Toast notification ([Titanium.UI.Notification](api:Titanium.UI.Notification)).",
       "type": [
         {
@@ -2820,7 +3652,12 @@
     },
     {
       "name": "overrideUserInterfaceStyle",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Forces the app to used assigned theme instead of the system theme.",
       "description": "When set to [USER_INTERFACE_STYLE_DARK](api:Titanium.UI#USER_INTERFACE_STYLE_DARK) or\n[USER_INTERFACE_STYLE_LIGHT](api:Titanium.UI#USER_INTERFACE_STYLE_LIGHT), the app will ignore\nthe system's current theme and use the theme assigned to this property instead.\n\nWhen set to [USER_INTERFACE_STYLE_UNSPECIFIED](api:Titanium.UI#USER_INTERFACE_STYLE_UNSPECIFIED),\nthe app will use the system's current theme. To determine what the system's current theme is,\nyou must read the [userInterfaceStyle](api:Titanium.UI#userInterfaceStyle) property.\n\nSee [UI_MODE_NIGHT_MASK](https://developer.android.com/reference/android/content/res/Configuration.html#UI_MODE_NIGHT_MASK).\n",
       "type": [
@@ -2836,11 +3673,17 @@
           "min": "13.0"
         }
       },
-      "constants": ["Titanium.UI.USER_INTERFACE_STYLE_*"]
+      "constants": [
+        "Titanium.UI.USER_INTERFACE_STYLE_*"
+      ]
     },
     {
       "name": "PICKER_TYPE_COUNT_DOWN_TIMER",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use a picker with a countdown timer appearance, showing hours and minutes.",
       "description": "For an actual countdown timer, the application is responsible for setting a timer\nto update the picker values.\n",
       "type": [
@@ -2853,7 +3696,12 @@
     },
     {
       "name": "PICKER_TYPE_DATE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use a date picker.",
       "type": [
         {
@@ -2865,7 +3713,12 @@
     },
     {
       "name": "PICKER_TYPE_DATE_AND_TIME",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use a date and time picker.",
       "type": [
         {
@@ -2877,7 +3730,12 @@
     },
     {
       "name": "PICKER_TYPE_PLAIN",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use a plain picker (for values other than date or time).",
       "type": [
         {
@@ -2889,7 +3747,12 @@
     },
     {
       "name": "PICKER_TYPE_TIME",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use a time picker.",
       "type": [
         {
@@ -2901,7 +3764,12 @@
     },
     {
       "name": "PORTRAIT",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Orientation constant for portrait mode orientation.",
       "description": "One of the group of orientation constants for the [Titanium.Gesture](api:Titanium.Gesture) module,\n[Titanium.UI.PORTRAIT](api:Titanium.UI#PORTRAIT),\n[Titanium.UI.UPSIDE_PORTRAIT](api:Titanium.UI#UPSIDE_PORTRAIT),\n[Titanium.UI.LANDSCAPE_LEFT](api:Titanium.UI#LANDSCAPE_LEFT),\n[Titanium.UI.LANDSCAPE_RIGHT](api:Titanium.UI#LANDSCAPE_RIGHT),\n[Titanium.UI.FACE_UP](api:Titanium.UI#FACE_UP),\n[Titanium.UI.FACE_DOWN](api:Titanium.UI#FACE_DOWN),\nand [Titanium.UI.UNKNOWN](api:Titanium.UI#UNKNOWN).\n",
       "type": [
@@ -2914,7 +3782,11 @@
     },
     {
       "name": "RETURNKEY_CONTINUE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Set the return key text to \"Continue\".",
       "description": "Use with the [Titanium.UI.TextField.returnKeyType](api:Titanium.UI.TextField#returnKeyType) and\n[Titanium.UI.TextArea.returnKeyType](api:Titanium.UI.TextArea#returnKeyType) properties.\n\nNote: This constant is only available on iOS devices running iOS 9 or later. Older iOS\ndevices will display [Titanium.UI.RETURNKEY_DEFAULT](api:Titanium.UI#RETURNKEY_DEFAULT).\n",
       "type": [
@@ -2928,7 +3800,12 @@
     },
     {
       "name": "RETURNKEY_DEFAULT",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use the default return key on the virtual keyboard.",
       "description": "Use with the [Titanium.UI.TextField.returnKeyType](api:Titanium.UI.TextField#returnKeyType) and\n[Titanium.UI.TextArea.returnKeyType](api:Titanium.UI.TextArea#returnKeyType) properties.\n\nOn Android devices, the default return key displays a graphical arrow.\n",
       "type": [
@@ -2941,7 +3818,12 @@
     },
     {
       "name": "RETURNKEY_DONE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Set the return key text to \"Done\".",
       "description": "Use with the [Titanium.UI.TextField.returnKeyType](api:Titanium.UI.TextField#returnKeyType) and\n[Titanium.UI.TextArea.returnKeyType](api:Titanium.UI.TextArea#returnKeyType) properties.\n",
       "type": [
@@ -2954,7 +3836,12 @@
     },
     {
       "name": "RETURNKEY_EMERGENCY_CALL",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Set the return key text to \"Emergency Call\".",
       "description": "Use with the [Titanium.UI.TextField.returnKeyType](api:Titanium.UI.TextField#returnKeyType) and\n[Titanium.UI.TextArea.returnKeyType](api:Titanium.UI.TextArea#returnKeyType) properties.\n",
       "type": [
@@ -2967,7 +3854,12 @@
     },
     {
       "name": "RETURNKEY_GO",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Set the return key text to \"Go\".",
       "description": "Use with the [Titanium.UI.TextField.returnKeyType](api:Titanium.UI.TextField#returnKeyType) and\n[Titanium.UI.TextArea.returnKeyType](api:Titanium.UI.TextArea#returnKeyType) properties.\n",
       "type": [
@@ -2980,7 +3872,12 @@
     },
     {
       "name": "RETURNKEY_GOOGLE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Set the return key text to \"Google\".",
       "description": "Use with the [Titanium.UI.TextField.returnKeyType](api:Titanium.UI.TextField#returnKeyType) and\n[Titanium.UI.TextArea.returnKeyType](api:Titanium.UI.TextArea#returnKeyType) properties.\n",
       "type": [
@@ -2993,7 +3890,12 @@
     },
     {
       "name": "RETURNKEY_JOIN",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Set the return key text to \"Join\".",
       "description": "Use with the [Titanium.UI.TextField.returnKeyType](api:Titanium.UI.TextField#returnKeyType) and\n[Titanium.UI.TextArea.returnKeyType](api:Titanium.UI.TextArea#returnKeyType) properties.\n",
       "type": [
@@ -3006,7 +3908,12 @@
     },
     {
       "name": "RETURNKEY_NEXT",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Set the return key text to \"Next\".",
       "description": "Use with the [Titanium.UI.TextField.returnKeyType](api:Titanium.UI.TextField#returnKeyType) and\n[Titanium.UI.TextArea.returnKeyType](api:Titanium.UI.TextArea#returnKeyType) properties.\n",
       "type": [
@@ -3019,7 +3926,12 @@
     },
     {
       "name": "RETURNKEY_ROUTE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Set the return key text to \"Route\".",
       "description": "Use with the [Titanium.UI.TextField.returnKeyType](api:Titanium.UI.TextField#returnKeyType) and\n[Titanium.UI.TextArea.returnKeyType](api:Titanium.UI.TextArea#returnKeyType) properties.\n",
       "type": [
@@ -3032,7 +3944,12 @@
     },
     {
       "name": "RETURNKEY_SEARCH",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Set the return key text to \"Search\".",
       "description": "Use with the [Titanium.UI.TextField.returnKeyType](api:Titanium.UI.TextField#returnKeyType) and\n[Titanium.UI.TextArea.returnKeyType](api:Titanium.UI.TextArea#returnKeyType) properties.\n",
       "type": [
@@ -3045,7 +3962,12 @@
     },
     {
       "name": "RETURNKEY_SEND",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Set the return key text to \"Send\".",
       "description": "Use with the [Titanium.UI.TextField.returnKeyType](api:Titanium.UI.TextField#returnKeyType) and\n[Titanium.UI.TextArea.returnKeyType](api:Titanium.UI.TextArea#returnKeyType) properties.\n",
       "type": [
@@ -3058,7 +3980,12 @@
     },
     {
       "name": "RETURNKEY_YAHOO",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Set the return key text to \"Yahoo\".",
       "description": "Use with the [Titanium.UI.TextField.returnKeyType](api:Titanium.UI.TextField#returnKeyType) and\n[Titanium.UI.TextArea.returnKeyType](api:Titanium.UI.TextArea#returnKeyType) properties.\n",
       "type": [
@@ -3071,7 +3998,12 @@
     },
     {
       "name": "SELECTION_STYLE_DEFAULT",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Set the selection style to system default.",
       "description": "Use with the <Titanium.UI.ListView.selectionStyle> and\n<Titanium.UI.TableView.selectionStyle> properties.\n",
       "type": [
@@ -3085,7 +4017,12 @@
     },
     {
       "name": "SELECTION_STYLE_NONE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Set the selection style to none.",
       "description": "Use with the <Titanium.UI.ListView.selectionStyle> and\n<Titanium.UI.TableView.selectionStyle> properties.\n",
       "type": [
@@ -3099,7 +4036,12 @@
     },
     {
       "name": "SEMANTIC_COLOR_TYPE_DARK",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The value returned by [Titanium.UI.semanticColorType](api:Titanium.UI#semanticColorType) when the device is in dark/night mode.",
       "type": [
         {
@@ -3117,7 +4059,12 @@
     },
     {
       "name": "SEMANTIC_COLOR_TYPE_LIGHT",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The value returned by [Titanium.UI.semanticColorType](api:Titanium.UI#semanticColorType) when the device is in light/normal mode.",
       "type": [
         {
@@ -3135,7 +4082,12 @@
     },
     {
       "name": "semanticColorType",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The current mode for the device (corresponding to night/dark or light/normal)",
       "type": [
         {
@@ -3148,11 +4100,18 @@
         "since": "9.1.0",
         "notes": "Use [userInterfaceStyle](Titanium.UI.userInterfaceStyle) instead."
       },
-      "constants": ["Titanium.UI.SEMANTIC_COLOR_TYPE_*"]
+      "constants": [
+        "Titanium.UI.SEMANTIC_COLOR_TYPE_*"
+      ]
     },
     {
       "name": "SIZE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "SIZE behavior for UI layout.",
       "description": "The SIZE behavior means the view will constrain its size fit its contents.",
       "type": [
@@ -3166,7 +4125,12 @@
     },
     {
       "name": "statusBarHeight",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The total height of the status bar including safe area padding.",
       "description": "Use this property to determine an absolute spacing to the top in full screen windows. Note: For a more flexible approach, e.g.\nwhen allowing rotation, we recommend using the [Titanium.UI.Window.safeAreaPadding](api:Titanium.UI.Window#safeAreaPadding) property of the related window.\n",
       "type": [
@@ -3180,7 +4144,12 @@
     },
     {
       "name": "SWITCH_STYLE_CHECKBOX",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Switch.style](api:Titanium.UI.Switch#style) to show a checkbox.",
       "description": "This is supported by Android and macOS apps running on Big Sur (v11) or higher. iOS devices do not\nsupport this style and will use [SWITCH_STYLE_SLIDER](api:Titanium.UI#SWITCH_STYLE_SLIDER) instead.\n",
       "type": [
@@ -3194,7 +4163,12 @@
     },
     {
       "name": "SWITCH_STYLE_CHIP",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Switch.style](api:Titanium.UI.Switch#style) to show a material design checkable chip widget.",
       "description": "This style is only supported on Android.\nOn iOS, this will use [SWITCH_STYLE_SLIDER](api:Titanium.UI#SWITCH_STYLE_SLIDER) instead.\n",
       "type": [
@@ -3208,7 +4182,12 @@
     },
     {
       "name": "SWITCH_STYLE_SLIDER",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Switch.style](api:Titanium.UI.Switch#style) to show a slidable button.",
       "type": [
         {
@@ -3221,7 +4200,12 @@
     },
     {
       "name": "SWITCH_STYLE_TOGGLE_BUTTON",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Switch.style](api:Titanium.UI.Switch#style) to show a toggleable button.",
       "description": "This style is only supported on Android.\nOn iOS, this will use [SWITCH_STYLE_SLIDER](api:Titanium.UI#SWITCH_STYLE_SLIDER) instead.\n",
       "type": [
@@ -3235,7 +4219,12 @@
     },
     {
       "name": "TABLE_VIEW_SEPARATOR_STYLE_NONE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The row divider is hidden.",
       "type": [
         {
@@ -3248,7 +4237,12 @@
     },
     {
       "name": "TABLE_VIEW_SEPARATOR_STYLE_SINGLE_LINE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The row divider is shown as a single line.",
       "type": [
         {
@@ -3261,7 +4255,12 @@
     },
     {
       "name": "TABS_STYLE_BOTTOM_NAVIGATION",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Bottom navigation style.",
       "type": [
         {
@@ -3274,7 +4273,12 @@
     },
     {
       "name": "TABS_STYLE_DEFAULT",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Default tab style.",
       "type": [
         {
@@ -3287,7 +4291,12 @@
     },
     {
       "name": "TEXT_ALIGNMENT_CENTER",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Center align text.",
       "description": "Use with the [Titanium.UI.TextField.textAlign](api:Titanium.UI.TextField#textAlign), [Titanium.UI.Button.textAlign](api:Titanium.UI.Button#textAlign) and\n[Titanium.UI.TextArea.textAlign](api:Titanium.UI.TextArea#textAlign) properties.\n\nThis constant is a string on Android, and a number on iOS.\n",
       "type": [
@@ -3304,7 +4313,12 @@
     },
     {
       "name": "TEXT_ALIGNMENT_JUSTIFY",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Justify align text.",
       "description": "Use with the [Titanium.UI.TextField.textAlign](api:Titanium.UI.TextField#textAlign), [Titanium.UI.Button.textAlign](api:Titanium.UI.Button#textAlign) and\n[Titanium.UI.TextArea.textAlign](api:Titanium.UI.TextArea#textAlign) properties.\n\nThis constant is a number on iOS and a string on Android.\n",
       "type": [
@@ -3331,7 +4345,12 @@
     },
     {
       "name": "TEXT_ALIGNMENT_LEFT",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Left align text.",
       "description": "Use with the [Titanium.UI.TextField.textAlign](api:Titanium.UI.TextField#textAlign), [Titanium.UI.Button.textAlign](api:Titanium.UI.Button#textAlign) and\n[Titanium.UI.TextArea.textAlign](api:Titanium.UI.TextArea#textAlign) properties.\n\nThis constant is a string on Android, and a number on iOS.\n",
       "type": [
@@ -3348,7 +4367,12 @@
     },
     {
       "name": "TEXT_ALIGNMENT_RIGHT",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Right align text.",
       "description": "Use with the [Titanium.UI.TextField.textAlign](api:Titanium.UI.TextField#textAlign), [Titanium.UI.Button.textAlign](api:Titanium.UI.Button#textAlign) and\n[Titanium.UI.TextArea.textAlign](api:Titanium.UI.TextArea#textAlign) properties.\n\nThis constant is a string on Android, and a number on iOS.\n",
       "type": [
@@ -3365,7 +4389,12 @@
     },
     {
       "name": "TEXT_AUTOCAPITALIZATION_ALL",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Auto-capitalize all text in the input field.",
       "description": "Use with the [Titanium.UI.TextField.autocapitalization](api:Titanium.UI.TextField#autocapitalization) and\n[Titanium.UI.TextArea.autocapitalization](api:Titanium.UI.TextArea#autocapitalization) properties.\n",
       "type": [
@@ -3378,7 +4407,12 @@
     },
     {
       "name": "TEXT_AUTOCAPITALIZATION_NONE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Do not auto-capitalize.",
       "description": "Use with the [Titanium.UI.TextField.autocapitalization](api:Titanium.UI.TextField#autocapitalization) and\n[Titanium.UI.TextArea.autocapitalization](api:Titanium.UI.TextArea#autocapitalization) properties.\n",
       "type": [
@@ -3391,7 +4425,12 @@
     },
     {
       "name": "TEXT_AUTOCAPITALIZATION_SENTENCES",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use sentence-style auto-capitalization in the input field.",
       "description": "Use with the [Titanium.UI.TextField.autocapitalization](api:Titanium.UI.TextField#autocapitalization) and\n[Titanium.UI.TextArea.autocapitalization](api:Titanium.UI.TextArea#autocapitalization) properties.\n",
       "type": [
@@ -3404,7 +4443,12 @@
     },
     {
       "name": "TEXT_AUTOCAPITALIZATION_WORDS",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Auto-capitalize the first letter of each word in the input field.",
       "description": "Use with the [Titanium.UI.TextField.autocapitalization](api:Titanium.UI.TextField#autocapitalization) and\n[Titanium.UI.TextArea.autocapitalization](api:Titanium.UI.TextArea#autocapitalization) properties.\n",
       "type": [
@@ -3417,7 +4461,11 @@
     },
     {
       "name": "TEXT_ELLIPSIZE_TRUNCATE_CHAR_WRAP",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Add ellipses before the first character that doesn't fit.",
       "description": "One of the group of constants for the [Titanium.UI.Label.ellipsize](api:Titanium.UI.Label#ellipsize) property.\n",
       "type": [
@@ -3431,7 +4479,11 @@
     },
     {
       "name": "TEXT_ELLIPSIZE_TRUNCATE_CLIP",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Lines are simply not drawn past the edge of the text container.",
       "description": "One of the group of constants for the [Titanium.UI.Label.ellipsize](api:Titanium.UI.Label#ellipsize) property.\n",
       "type": [
@@ -3445,7 +4497,12 @@
     },
     {
       "name": "TEXT_ELLIPSIZE_TRUNCATE_END",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Add ellipses at the end of the label if the text is too large to fit.",
       "description": "One of the group of constants for the [Titanium.UI.Label.ellipsize](api:Titanium.UI.Label#ellipsize) property.\n",
       "type": [
@@ -3459,7 +4516,9 @@
     },
     {
       "name": "TEXT_ELLIPSIZE_TRUNCATE_MARQUEE",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Turns on a marquee effect of the label if the text is too large to fit. (This requires [Titanium.UI.Label.focusable](api:Titanium.UI.Label#focusable) to be true)",
       "description": "One of the group of constants for the [Titanium.UI.Label.ellipsize](api:Titanium.UI.Label#ellipsize) property.\n",
       "type": [
@@ -3473,7 +4532,12 @@
     },
     {
       "name": "TEXT_ELLIPSIZE_TRUNCATE_MIDDLE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Add ellipses in the middle of the label if the text is too large to fit.",
       "description": "One of the group of constants for the [Titanium.UI.Label.ellipsize](api:Titanium.UI.Label#ellipsize) property.\n",
       "type": [
@@ -3487,7 +4551,9 @@
     },
     {
       "name": "TEXT_ELLIPSIZE_TRUNCATE_NONE",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Disables ellipsizing of the label. The text will be cut off if it is too long.",
       "description": "One of the group of constants for the [Titanium.UI.Label.ellipsize](api:Titanium.UI.Label#ellipsize) property.\n",
       "type": [
@@ -3501,7 +4567,12 @@
     },
     {
       "name": "TEXT_ELLIPSIZE_TRUNCATE_START",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Add ellipses at the beginning of the label if the text is too large to fit.",
       "description": "One of the group of constants for the [Titanium.UI.Label.ellipsize](api:Titanium.UI.Label#ellipsize) property.\n",
       "type": [
@@ -3515,7 +4586,11 @@
     },
     {
       "name": "TEXT_ELLIPSIZE_TRUNCATE_WORD_WRAP",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Add ellipses at word boundaries, unless the word itself doesn't fit on a single line.",
       "description": "One of the group of constants for the [Titanium.UI.Label.ellipsize](api:Titanium.UI.Label#ellipsize) property.\n",
       "type": [
@@ -3529,7 +4604,11 @@
     },
     {
       "name": "TEXT_STYLE_BODY",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The font used for body texts.",
       "description": "One of the group of textStyle constants for the [Font](api:Font) Object.\n",
       "type": [
@@ -3543,7 +4622,11 @@
     },
     {
       "name": "TEXT_STYLE_CALLOUT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The font used for callouts.",
       "description": "One of the group of textStyle constants for the [Font](api:Font) Object.\n",
       "type": [
@@ -3557,7 +4640,11 @@
     },
     {
       "name": "TEXT_STYLE_CAPTION1",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The font used for standard captions.",
       "description": "One of the group of textStyle constants for the [Font](api:Font) Object.\n",
       "type": [
@@ -3571,7 +4658,11 @@
     },
     {
       "name": "TEXT_STYLE_CAPTION2",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The font used for alternate captions.",
       "description": "One of the group of textStyle constants for the [Font](api:Font) Object.\n",
       "type": [
@@ -3585,7 +4676,11 @@
     },
     {
       "name": "TEXT_STYLE_FOOTNOTE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The font used in footnotes.",
       "description": "One of the group of textStyle constants for the [Font](api:Font) Object.\n",
       "type": [
@@ -3599,7 +4694,11 @@
     },
     {
       "name": "TEXT_STYLE_HEADLINE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The font used for headings.",
       "description": "One of the group of textStyle constants for the [Font](api:Font) Object.\n",
       "type": [
@@ -3613,7 +4712,11 @@
     },
     {
       "name": "TEXT_STYLE_LARGE_TITLE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies the text style for the [Font](api:Font) Object.",
       "description": "One of the group of textStyle constants for the [Font](api:Font) Object.\n",
       "type": [
@@ -3627,7 +4730,11 @@
     },
     {
       "name": "TEXT_STYLE_SUBHEADLINE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The font used for subheadings.",
       "description": "One of the group of textStyle constants for the [Font](api:Font) Object.\n",
       "type": [
@@ -3641,7 +4748,11 @@
     },
     {
       "name": "TEXT_STYLE_TITLE1",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The font used for first level hierarchical headings.",
       "description": "One of the group of textStyle constants for the [Font](api:Font) Object.\n",
       "type": [
@@ -3655,7 +4766,11 @@
     },
     {
       "name": "TEXT_STYLE_TITLE2",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The font used for second level hierarchical headings.",
       "description": "One of the group of textStyle constants for the [Font](api:Font) Object.\n",
       "type": [
@@ -3669,7 +4784,11 @@
     },
     {
       "name": "TEXT_STYLE_TITLE3",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The font used for third level hierarchical headings.",
       "description": "One of the group of textStyle constants for the [Font](api:Font) Object.\n",
       "type": [
@@ -3683,7 +4802,12 @@
     },
     {
       "name": "TEXT_VERTICAL_ALIGNMENT_BOTTOM",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Align text to the bottom of the view.",
       "description": "Use with the [Titanium.UI.TextField.verticalAlign](api:Titanium.UI.TextField#verticalAlign) and\n[Titanium.UI.TextArea.verticalAlign](api:Titanium.UI.TextArea#verticalAlign) properties.\n\nThis constant is a string on Android, and a number on iOS.\n",
       "type": [
@@ -3700,7 +4824,12 @@
     },
     {
       "name": "TEXT_VERTICAL_ALIGNMENT_CENTER",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Vertically align text to the center of the view.",
       "description": "Use with the [Titanium.UI.TextField.verticalAlign](api:Titanium.UI.TextField#verticalAlign) and\n[Titanium.UI.TextArea.verticalAlign](api:Titanium.UI.TextArea#verticalAlign) properties.\n\nThis constant is a string on Android, and a number on iOS.\n",
       "type": [
@@ -3717,7 +4846,12 @@
     },
     {
       "name": "TEXT_VERTICAL_ALIGNMENT_TOP",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Align text to the top of the view.",
       "description": "Use with the [Titanium.UI.TextField.verticalAlign](api:Titanium.UI.TextField#verticalAlign) and\n[Titanium.UI.TextArea.verticalAlign](api:Titanium.UI.TextArea#verticalAlign) properties.\n\nThis constant is a string on Android, and a number on iOS.\n",
       "type": [
@@ -3734,7 +4868,11 @@
     },
     {
       "name": "tintColor",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Sets the global tint color of the application. It is inherited by the child views and can be\noverwritten by them using the `tintColor` property.\n",
       "type": [
         {
@@ -3750,7 +4888,12 @@
     },
     {
       "name": "UNIT_CM",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Unit constant representing units in centimeters.",
       "type": [
         {
@@ -3763,7 +4906,12 @@
     },
     {
       "name": "UNIT_DIP",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Unit constant representing units in density-independent pixels.",
       "type": [
         {
@@ -3776,7 +4924,12 @@
     },
     {
       "name": "UNIT_IN",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Unit constant representing units in inches.",
       "type": [
         {
@@ -3789,7 +4942,12 @@
     },
     {
       "name": "UNIT_MM",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Unit constant representing units in millimeters.",
       "type": [
         {
@@ -3802,7 +4960,12 @@
     },
     {
       "name": "UNIT_PX",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Unit constant representing units in pixels.",
       "type": [
         {
@@ -3815,7 +4978,12 @@
     },
     {
       "name": "UNKNOWN",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Orientation constant representing an unknown orientation.",
       "description": "One of the group of orientation constants for the [Titanium.Gesture](api:Titanium.Gesture) module,\n[Titanium.UI.PORTRAIT](api:Titanium.UI#PORTRAIT),\n[Titanium.UI.UPSIDE_PORTRAIT](api:Titanium.UI#UPSIDE_PORTRAIT),\n[Titanium.UI.LANDSCAPE_LEFT](api:Titanium.UI#LANDSCAPE_LEFT),\n[Titanium.UI.LANDSCAPE_RIGHT](api:Titanium.UI#LANDSCAPE_RIGHT),\n[Titanium.UI.FACE_UP](api:Titanium.UI#FACE_UP),\n[Titanium.UI.FACE_DOWN](api:Titanium.UI#FACE_DOWN),\nand [Titanium.UI.UNKNOWN](api:Titanium.UI#UNKNOWN).\n",
       "type": [
@@ -3828,7 +4996,12 @@
     },
     {
       "name": "UPSIDE_PORTRAIT",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Orientation constant for inverted portrait orientation.",
       "description": "One of the group of orientation constants for the [Titanium.Gesture](api:Titanium.Gesture) module,\n[Titanium.UI.PORTRAIT](api:Titanium.UI#PORTRAIT),\n[Titanium.UI.UPSIDE_PORTRAIT](api:Titanium.UI#UPSIDE_PORTRAIT),\n[Titanium.UI.LANDSCAPE_LEFT](api:Titanium.UI#LANDSCAPE_LEFT),\n[Titanium.UI.LANDSCAPE_RIGHT](api:Titanium.UI#LANDSCAPE_RIGHT),\n[Titanium.UI.FACE_UP](api:Titanium.UI#FACE_UP),\n[Titanium.UI.FACE_DOWN](api:Titanium.UI#FACE_DOWN),\nand [Titanium.UI.UNKNOWN](api:Titanium.UI#UNKNOWN).\n",
       "type": [
@@ -3841,7 +5014,12 @@
     },
     {
       "name": "URL_ERROR_AUTHENTICATION",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Authentication error code reported via [Titanium.UI.WebView.error](api:Titanium.UI.WebView#error).",
       "type": [
         {
@@ -3854,7 +5032,12 @@
     },
     {
       "name": "URL_ERROR_BAD_URL",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Bad URL error code reported via [Titanium.UI.WebView.error](api:Titanium.UI.WebView#error).",
       "type": [
         {
@@ -3867,7 +5050,12 @@
     },
     {
       "name": "URL_ERROR_CONNECT",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Error code reported via [Titanium.UI.WebView.error](api:Titanium.UI.WebView#error) for a failure to connect to host.",
       "type": [
         {
@@ -3880,7 +5068,12 @@
     },
     {
       "name": "URL_ERROR_FILE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Error code reported via [Titanium.UI.WebView.error](api:Titanium.UI.WebView#error) for a failure to access a file resource on a host, except \"file not found\", which has its own constant.",
       "type": [
         {
@@ -3893,7 +5086,12 @@
     },
     {
       "name": "URL_ERROR_FILE_NOT_FOUND",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Error code reported via [Titanium.UI.WebView.error](api:Titanium.UI.WebView#error) when a requested file does not exist on the host.",
       "type": [
         {
@@ -3906,7 +5104,12 @@
     },
     {
       "name": "URL_ERROR_HOST_LOOKUP",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Error code reported via [Titanium.UI.WebView.error](api:Titanium.UI.WebView#error) when a host name cannot be resolved, such as via a DNS lookup error.",
       "type": [
         {
@@ -3919,7 +5122,12 @@
     },
     {
       "name": "URL_ERROR_REDIRECT_LOOP",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Error code reported via [Titanium.UI.WebView.error](api:Titanium.UI.WebView#error) when a redirect loop is detected.",
       "type": [
         {
@@ -3932,7 +5140,12 @@
     },
     {
       "name": "URL_ERROR_SSL_FAILED",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Error code reported via [Titanium.UI.WebView.error](api:Titanium.UI.WebView#error) for an SSL failure.",
       "type": [
         {
@@ -3945,7 +5158,12 @@
     },
     {
       "name": "URL_ERROR_TIMEOUT",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Error code reported via [Titanium.UI.WebView.error](api:Titanium.UI.WebView#error) when a timeout occurs.",
       "type": [
         {
@@ -3958,7 +5176,12 @@
     },
     {
       "name": "URL_ERROR_UNKNOWN",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Error code reported via [Titanium.UI.WebView.error](api:Titanium.UI.WebView#error) when an unknown error occurs.",
       "type": [
         {
@@ -3971,7 +5194,12 @@
     },
     {
       "name": "URL_ERROR_UNSUPPORTED_SCHEME",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Error code reported via [Titanium.UI.WebView.error](api:Titanium.UI.WebView#error) when a URL contains an unsupported scheme.",
       "type": [
         {
@@ -3984,7 +5212,12 @@
     },
     {
       "name": "USER_INTERFACE_STYLE_DARK",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "A dark interface style.",
       "description": "Used in the `userInterfaceStyle` property. Value indicating that night/dark mode has been set.\nSee [UI_MODE_NIGHT_YES](https://developer.android.com/reference/android/content/res/Configuration.html#UI_MODE_NIGHT_YES)\n",
       "type": [
@@ -4003,7 +5236,12 @@
     },
     {
       "name": "USER_INTERFACE_STYLE_LIGHT",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "A light interface style.",
       "description": "Used in the `userInterfaceStyle` property. Value indicating that light/normal mode has been set.\nSee [UI_MODE_NIGHT_NO](https://developer.android.com/reference/android/content/res/Configuration.html#UI_MODE_NIGHT_NO)\n",
       "type": [
@@ -4022,7 +5260,12 @@
     },
     {
       "name": "USER_INTERFACE_STYLE_UNSPECIFIED",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "An unspecified interface style.",
       "description": "Used in the `userInterfaceStyle` property. Value indicating that no mode has been set.\nSee [UI_MODE_NIGHT_UNDEFINED](https://developer.android.com/reference/android/content/res/Configuration.html#UI_MODE_NIGHT_UNDEFINED)\n",
       "type": [
@@ -4041,7 +5284,12 @@
     },
     {
       "name": "userInterfaceStyle",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The style associated with the user interface.",
       "description": "Use this property to determine whether your interface should be configured with a dark or light appearance.\nThe default value of this trait is set to the corresponding appearance setting on the user's device.\n\nSee [UI_MODE_NIGHT_MASK](https://developer.android.com/reference/android/content/res/Configuration.html#UI_MODE_NIGHT_MASK).\n",
       "type": [
@@ -4057,13 +5305,20 @@
           "min": "13.0"
         }
       },
-      "constants": ["Titanium.UI.USER_INTERFACE_STYLE_*"]
+      "constants": [
+        "Titanium.UI.USER_INTERFACE_STYLE_*"
+      ]
     }
   ],
   "methods": [
     {
       "name": "convertUnits",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Converts one type of unit to another using the metrics of the main display.",
       "description": "As this method does not support percentages, `0` is returned if they are specified.",
       "since": "2.0.0",
@@ -4102,7 +5357,12 @@
     },
     {
       "name": "createActivityIndicator",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.ActivityIndicator](api:Titanium.UI.ActivityIndicator).",
       "since": "0.8",
       "factoryFor": "Titanium.UI.ActivityIndicator",
@@ -4138,7 +5398,12 @@
     },
     {
       "name": "createAlertDialog",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.AlertDialog](api:Titanium.UI.AlertDialog).",
       "since": "0.8",
       "factoryFor": "Titanium.UI.AlertDialog",
@@ -4174,7 +5439,12 @@
     },
     {
       "name": "createAnimation",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.Animation](api:Titanium.UI.Animation).",
       "since": "0.9",
       "factoryFor": "Titanium.UI.Animation",
@@ -4210,7 +5480,12 @@
     },
     {
       "name": "createAttributedString",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.AttributedString](api:Titanium.UI.AttributedString).",
       "since": "3.6.0",
       "factoryFor": "Titanium.UI.AttributedString",
@@ -4246,7 +5521,12 @@
     },
     {
       "name": "createButton",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.Button](api:Titanium.UI.Button).",
       "since": "0.8",
       "factoryFor": "Titanium.UI.Button",
@@ -4282,7 +5562,12 @@
     },
     {
       "name": "createButtonBar",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.ButtonBar](api:Titanium.UI.ButtonBar).",
       "since": {
         "android": "10.0.0",
@@ -4323,7 +5608,12 @@
     },
     {
       "name": "createColor",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.Color](api:Titanium.UI.Color).",
       "since": "9.1.0",
       "factoryFor": "Titanium.UI.Color",
@@ -4359,7 +5649,11 @@
     },
     {
       "name": "createDashboardItem",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.DashboardItem](api:Titanium.UI.DashboardItem).",
       "since": "1.2",
       "factoryFor": "Titanium.UI.DashboardItem",
@@ -4395,7 +5689,11 @@
     },
     {
       "name": "createDashboardView",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.DashboardView](api:Titanium.UI.DashboardView).",
       "since": "1.2",
       "factoryFor": "Titanium.UI.DashboardView",
@@ -4431,7 +5729,12 @@
     },
     {
       "name": "createEmailDialog",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.EmailDialog](api:Titanium.UI.EmailDialog).",
       "since": "0.8",
       "factoryFor": "Titanium.UI.EmailDialog",
@@ -4467,7 +5770,12 @@
     },
     {
       "name": "createImageView",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.ImageView](api:Titanium.UI.ImageView).",
       "since": "0.9",
       "factoryFor": "Titanium.UI.ImageView",
@@ -4503,7 +5811,12 @@
     },
     {
       "name": "createLabel",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.Label](api:Titanium.UI.Label).",
       "since": "0.8",
       "factoryFor": "Titanium.UI.Label",
@@ -4539,7 +5852,12 @@
     },
     {
       "name": "createListSection",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.ListSection](api:Titanium.UI.ListSection).",
       "since": "3.1.0",
       "factoryFor": "Titanium.UI.ListSection",
@@ -4575,7 +5893,12 @@
     },
     {
       "name": "createListView",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.ListView](api:Titanium.UI.ListView).",
       "since": "3.1.0",
       "factoryFor": "Titanium.UI.ListView",
@@ -4611,7 +5934,12 @@
     },
     {
       "name": "createMaskedImage",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.MaskedImage](api:Titanium.UI.MaskedImage).",
       "since": {
         "android": "7.3.0",
@@ -4651,7 +5979,12 @@
     },
     {
       "name": "createMatrix2D",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.Matrix2D](api:Titanium.UI.Matrix2D).",
       "parameters": [
         {
@@ -4679,7 +6012,12 @@
     },
     {
       "name": "createMatrix3D",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.Matrix3D](api:Titanium.UI.Matrix3D).",
       "parameters": [
         {
@@ -4699,7 +6037,12 @@
             "properties": [
               {
                 "name": "scale",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Scale the matrix by the specified scaling factor.\n",
                 "type": [
                   {
@@ -4727,7 +6070,12 @@
     },
     {
       "name": "createNavigationWindow",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.NavigationWindow](api:Titanium.UI.NavigationWindow).",
       "since": "8.0.0",
       "factoryFor": "Titanium.UI.NavigationWindow",
@@ -4763,7 +6111,9 @@
     },
     {
       "name": "createNotification",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.Notification](api:Titanium.UI.Notification).",
       "since": "0.8",
       "factoryFor": "Titanium.UI.Notification",
@@ -4799,7 +6149,12 @@
     },
     {
       "name": "createOptionBar",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.OptionBar](api:Titanium.UI.OptionBar).",
       "since": "10.0.0",
       "factoryFor": "Titanium.UI.OptionBar",
@@ -4835,7 +6190,12 @@
     },
     {
       "name": "createOptionDialog",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.OptionDialog](api:Titanium.UI.OptionDialog).",
       "since": "0.8",
       "factoryFor": "Titanium.UI.OptionDialog",
@@ -4871,7 +6231,12 @@
     },
     {
       "name": "createPicker",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.Picker](api:Titanium.UI.Picker).",
       "since": "0.8",
       "factoryFor": "Titanium.UI.Picker",
@@ -4907,7 +6272,12 @@
     },
     {
       "name": "createPickerColumn",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.PickerColumn](api:Titanium.UI.PickerColumn).",
       "since": "0.9",
       "factoryFor": "Titanium.UI.PickerColumn",
@@ -4943,7 +6313,12 @@
     },
     {
       "name": "createPickerRow",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.PickerRow](api:Titanium.UI.PickerRow).",
       "since": "0.9",
       "factoryFor": "Titanium.UI.PickerRow",
@@ -4979,7 +6354,12 @@
     },
     {
       "name": "createProgressBar",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.ProgressBar](api:Titanium.UI.ProgressBar).",
       "since": "0.8",
       "factoryFor": "Titanium.UI.ProgressBar",
@@ -5015,7 +6395,12 @@
     },
     {
       "name": "createRefreshControl",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.RefreshControl](api:Titanium.UI.RefreshControl).",
       "since": {
         "android": "6.2.0",
@@ -5055,7 +6440,12 @@
     },
     {
       "name": "createScrollableView",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.ScrollableView](api:Titanium.UI.ScrollableView).",
       "since": "0.8",
       "factoryFor": "Titanium.UI.ScrollableView",
@@ -5091,7 +6481,12 @@
     },
     {
       "name": "createScrollView",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.ScrollView](api:Titanium.UI.ScrollView).",
       "since": "0.9",
       "factoryFor": "Titanium.UI.ScrollView",
@@ -5127,7 +6522,12 @@
     },
     {
       "name": "createSearchBar",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.SearchBar](api:Titanium.UI.SearchBar).",
       "since": "0.8",
       "factoryFor": "Titanium.UI.SearchBar",
@@ -5163,7 +6563,12 @@
     },
     {
       "name": "createShortcut",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.Shortcut](api:Titanium.UI.Shortcut).",
       "since": {
         "android": "9.1.0",
@@ -5204,7 +6609,12 @@
     },
     {
       "name": "createShortcutItem",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.ShortcutItem](api:Titanium.UI.ShortcutItem).",
       "since": {
         "android": "7.5.0",
@@ -5244,7 +6654,12 @@
     },
     {
       "name": "createSlider",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.Slider](api:Titanium.UI.Slider).",
       "since": "0.8",
       "factoryFor": "Titanium.UI.Slider",
@@ -5280,7 +6695,12 @@
     },
     {
       "name": "createSwitch",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.Switch](api:Titanium.UI.Switch).",
       "since": "0.8",
       "factoryFor": "Titanium.UI.Switch",
@@ -5316,7 +6736,12 @@
     },
     {
       "name": "createTab",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.Tab](api:Titanium.UI.Tab).",
       "since": "0.8",
       "factoryFor": "Titanium.UI.Tab",
@@ -5352,7 +6777,12 @@
     },
     {
       "name": "createTabbedBar",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.TabbedBar](api:Titanium.UI.TabbedBar).",
       "since": {
         "iphone": "0.8",
@@ -5392,7 +6822,12 @@
     },
     {
       "name": "createTabGroup",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.TabGroup](api:Titanium.UI.TabGroup).",
       "since": "0.9",
       "factoryFor": "Titanium.UI.TabGroup",
@@ -5428,7 +6863,12 @@
     },
     {
       "name": "createTableView",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.TableView](api:Titanium.UI.TableView).",
       "since": "0.8",
       "factoryFor": "Titanium.UI.TableView",
@@ -5464,7 +6904,12 @@
     },
     {
       "name": "createTableViewRow",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.TableViewRow](api:Titanium.UI.TableViewRow).",
       "since": "0.9",
       "factoryFor": "Titanium.UI.TableViewRow",
@@ -5500,7 +6945,12 @@
     },
     {
       "name": "createTableViewSection",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.TableViewSection](api:Titanium.UI.TableViewSection).",
       "since": "0.9",
       "factoryFor": "Titanium.UI.TableViewSection",
@@ -5536,7 +6986,12 @@
     },
     {
       "name": "createTextArea",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.TextArea](api:Titanium.UI.TextArea).",
       "since": "0.8",
       "factoryFor": "Titanium.UI.TextArea",
@@ -5572,7 +7027,12 @@
     },
     {
       "name": "createTextField",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.TextField](api:Titanium.UI.TextField).",
       "since": "0.8",
       "factoryFor": "Titanium.UI.TextField",
@@ -5608,7 +7068,12 @@
     },
     {
       "name": "createToolbar",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.Toolbar](api:Titanium.UI.Toolbar).",
       "since": "6.2.0",
       "factoryFor": "Titanium.UI.Toolbar",
@@ -5644,7 +7109,12 @@
     },
     {
       "name": "createView",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.View](api:Titanium.UI.View).",
       "since": "0.9",
       "factoryFor": "Titanium.UI.View",
@@ -5680,7 +7150,12 @@
     },
     {
       "name": "createWebView",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.WebView](api:Titanium.UI.WebView).",
       "since": "0.8",
       "factoryFor": "Titanium.UI.WebView",
@@ -5716,7 +7191,12 @@
     },
     {
       "name": "createWindow",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.Window](api:Titanium.UI.Window).",
       "since": "0.9",
       "factoryFor": "Titanium.UI.Window",
@@ -5752,7 +7232,12 @@
     },
     {
       "name": "fetchSemanticColor",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fetches the correct color to be used with a UI element dependent on the users current dark mode setting on iOS 13 and above, or the [Titanium.UI.semanticColorType](api:Titanium.UI#semanticColorType) setting in other instances.\nWill return a valid string value to be used for color properties on Android. This may be a hex string or an `rgba()` function.\n",
       "since": "8.2.0",
       "parameters": [
@@ -5790,7 +7275,12 @@
   "events": [
     {
       "name": "userinterfacestyle",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when the `userInterfaceStyle` changes.",
       "osver": {
         "ios": {
@@ -5816,39 +7306,71 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "lifecycleContainer",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "events": []

@@ -2,14 +2,24 @@
   "schemaVersion": 1,
   "name": "Titanium.Proxy",
   "kind": "proxy",
-  "platforms": ["android", "iphone", "ipad", "macos"],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": "0.1",
   "summary": "The base for all Titanium objects.",
   "description": "On platforms that use native code (Android and iOS), the `Proxy` type represents a\nJavaScript wrapper or _proxy_ around a native object. Setting or getting a property\non a proxy object results in a method invocation on the native object. Likewise,\ncalling a method on the proxy object results in a method invocation on the native\nobject.\n\nSome Titanium objects are _createable_: new instances of these objects can be created using\nfactory methods. For example, a [Window](api:Titanium.UI.Window) object can be created using the\n[Titanium.UI.createWindow](api:Titanium.UI#createWindow) method.\n\nIn general, developers should avoid modifying the prototype of a Titanium object, or\nadding methods to a Titanium object. (Adding a simple property such as an ID value is\ngenerally OK.)\n",
   "properties": [
     {
       "name": "apiName",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The name of the API that this proxy corresponds to.",
       "description": "The value of this property is the fully qualified name of the API. For example, [Button](api:Titanium.UI.Button)\nreturns `Ti.UI.Button`.\n",
       "type": [
@@ -28,7 +38,12 @@
     },
     {
       "name": "bubbleParent",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Indicates if the proxy will bubble an event to its parent.",
       "description": "Some proxies (most commonly views) have a relationship to other proxies, often\nestablished by the add() method. For example, for a button added to a window, a\nclick event on the button would bubble up to the window. Other common parents are\ntable sections to their rows, table views to their sections, and scrollable views\nto their views. Set this property to false to disable the bubbling to the proxy's parent.\n",
       "type": [
@@ -47,7 +62,9 @@
     },
     {
       "name": "lifecycleContainer",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "The Window or TabGroup whose Activity lifecycle should be triggered on the proxy.",
       "description": "If this property is set to a Window or TabGroup, then the corresponding Activity lifecycle event callbacks\nwill also be called on the proxy. Proxies that require the activity lifecycle will need this property set\nto the appropriate containing Window or TabGroup.\n",
       "type": [
@@ -66,7 +83,12 @@
   "methods": [
     {
       "name": "addEventListener",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Adds the specified callback as an event listener for the named event.",
       "parameters": [
         {
@@ -100,7 +122,12 @@
             "properties": [
               {
                 "name": "bubbles",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "True if the event will try to bubble up if possible.",
                 "type": [
                   {
@@ -118,7 +145,12 @@
               },
               {
                 "name": "cancelBubble",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Set to true to stop the event from bubbling.",
                 "type": [
                   {
@@ -136,7 +168,12 @@
               },
               {
                 "name": "source",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Source object that fired the event.",
                 "type": [
                   {
@@ -148,7 +185,12 @@
               },
               {
                 "name": "type",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Name of the event fired.",
                 "type": [
                   {
@@ -165,7 +207,12 @@
     },
     {
       "name": "applyProperties",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Applies the properties to the proxy.",
       "description": "Properties are supplied as a dictionary. Each key-value pair in the object is applied to the proxy such that\nmyproxy[key] = value.\n",
       "since": {
@@ -188,7 +235,12 @@
     },
     {
       "name": "fireEvent",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fires a synthesized event to any registered listeners.",
       "parameters": [
         {
@@ -216,7 +268,12 @@
     },
     {
       "name": "removeEventListener",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Removes the specified callback as an event listener for the named event.",
       "description": "Multiple listeners can be registered for the same event, so the\n`callback` parameter is used to determine which listener to remove.\n\nWhen adding a listener, you must save a reference to the callback function\nin order to remove the listener later:\n\n``` js\nvar listener = function() { Ti.API.info(\"Event listener called.\"); }\nwindow.addEventListener('click', listener);\n```\n\nTo remove the listener, pass in a reference to the callback function:\n\n``` js\nwindow.removeEventListener('click', listener);\n```\n",
       "parameters": [
@@ -251,7 +308,12 @@
             "properties": [
               {
                 "name": "bubbles",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "True if the event will try to bubble up if possible.",
                 "type": [
                   {
@@ -269,7 +331,12 @@
               },
               {
                 "name": "cancelBubble",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Set to true to stop the event from bubbling.",
                 "type": [
                   {
@@ -287,7 +354,12 @@
               },
               {
                 "name": "source",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Source object that fired the event.",
                 "type": [
                   {
@@ -299,7 +371,12 @@
               },
               {
                 "name": "type",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Name of the event fired.",
                 "type": [
                   {

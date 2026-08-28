@@ -3,8 +3,15 @@
   "name": "Titanium.UI.Shortcut",
   "kind": "proxy",
   "extends": "Titanium.Proxy",
-  "inheritanceChain": ["Titanium.Proxy"],
-  "platforms": ["android", "iphone", "ipad", "macos"],
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": {
     "android": "9.1.0",
     "iphone": "9.1.0",
@@ -22,7 +29,12 @@
   "properties": [
     {
       "name": "items",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "List dynamic shortcuts.",
       "description": "Array of shortcut items that were added to the app via the [Titanium.UI.Shortcut.add](api:Titanium.UI.Shortcut#add) method.",
       "type": [
@@ -41,7 +53,12 @@
     },
     {
       "name": "staticItems",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "List current pinned/static shortcuts.",
       "type": [
         {
@@ -61,7 +78,12 @@
   "methods": [
     {
       "name": "add",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Adds a shortcut item to the application.",
       "parameters": [
         {
@@ -78,7 +100,12 @@
     },
     {
       "name": "getById",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fetches a shortcut item by its unique string identifier.",
       "description": "Returns a shortcut item with a matching string [id](api:Titanium.UI.ShortcutItem#id).\nReturns `null` if a match was not found.\n",
       "parameters": [
@@ -106,7 +133,12 @@
     },
     {
       "name": "remove",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Removes the given shortcut item from the application.",
       "parameters": [
         {
@@ -123,14 +155,24 @@
     },
     {
       "name": "removeAll",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Removes all shortcut items from the application."
     }
   ],
   "events": [
     {
       "name": "click",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when a [Titanium.UI.ShortcutItem](api:Titanium.UI.ShortcutItem) was clicked on.",
       "properties": [
         {
@@ -151,43 +193,79 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "lifecycleContainer",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "events": []
   },
-  "references": ["Titanium.Proxy", "Titanium.UI.ShortcutItem", "Titanium.UI.iOS"],
+  "references": [
+    "Titanium.Proxy",
+    "Titanium.UI.ShortcutItem",
+    "Titanium.UI.iOS"
+  ],
   "source": "Titanium/UI/Shortcut/Shortcut.yml"
 }

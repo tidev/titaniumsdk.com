@@ -3,8 +3,13 @@
   "name": "Titanium.App.Android",
   "kind": "module",
   "extends": "Titanium.Module",
-  "inheritanceChain": ["Titanium.Module", "Titanium.Proxy"],
-  "platforms": ["android"],
+  "inheritanceChain": [
+    "Titanium.Module",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android"
+  ],
   "since": "1.5",
   "summary": "A module used to access Android application resources.",
   "description": "For more information, refer to the official documentation on the Android Developer website about \n[application resources](https://developer.android.com/guide/topics/resources/index.html).\n",
@@ -17,7 +22,9 @@
   "properties": [
     {
       "name": "appVersionCode",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "The version number of the application. \n",
       "type": [
         {
@@ -30,7 +37,9 @@
     },
     {
       "name": "appVersionName",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "The version name of the application. \n",
       "type": [
         {
@@ -43,7 +52,9 @@
     },
     {
       "name": "launchIntent",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Return the intent that was used to launch the application.\n",
       "description": "This intent will not change for the lifetime of the application. Its [action](api:Titanium.Android.Intent#action)\nis typically set to \"android.intent.action.MAIN\" when launched via the app list screen.\n\nThis launch intent can be used to resume the app while backgrounded via the\n[startActivity()](api:Titanium.Android.Activity#startActivity) method or via a notification.\n\nWhen the app is launched via a data intent such as a URL, shortcut, notification, etc. then that intent\nis provided by the [Ti.Android.rootActivity](api:Titanium.Android#rootActivity) object's\n[intent](api:Titanium.Android.Activity#intent) property instead. That intent will initially be set to the\nlaunch intent, but will change when a [\"newintent\"](api:Titanium.Android.Activity#newintent) event has been fired.\nYou should always read the root activity's intent instead of the launch intent for data.\n",
       "type": [
@@ -57,7 +68,9 @@
     },
     {
       "name": "R",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "The `R` namespace for application resources.",
       "description": "The properties and sub-properties of this object relate directly to the\nnative application resources `R` class, and thus have the same syntax.\nFor more information, refer to the official documentation on the\nAndroid Developer website about\n[accessing application resources](https://developer.android.com/guide/topics/resources/accessing-resources.html).\n\nFor example, if the file `platform/android/res/drawable/icon.png`\nexists in the project, it can be accessed using its resource name,\nas follows.\n\n``` js\nvar resid = Titanium.App.Android.R.drawable.icon;\n```\n\nTo access system-wide resources, rather than application resources, use\n[Titanium.Android.R](api:Titanium.Android.R) instead.\n",
       "type": [
@@ -72,7 +85,9 @@
   "methods": [
     {
       "name": "clearUserCache",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Clears app data and cache. This will close the app.",
       "since": "13.1.0"
     }
@@ -80,7 +95,9 @@
   "events": [
     {
       "name": "shortcutitemclick",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Fired when a [Titanium.UI.ShortcutItem](api:Titanium.UI.ShortcutItem) is clicked.",
       "since": "7.5.0",
       "properties": [
@@ -102,39 +119,53 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "lifecycleContainer",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ],
     "events": []

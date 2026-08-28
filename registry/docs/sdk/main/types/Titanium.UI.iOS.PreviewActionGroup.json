@@ -3,15 +3,21 @@
   "name": "Titanium.UI.iOS.PreviewActionGroup",
   "kind": "proxy",
   "extends": "Titanium.Proxy",
-  "inheritanceChain": ["Titanium.Proxy"],
-  "platforms": ["iphone"],
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "iphone"
+  ],
   "since": "5.1.0",
   "summary": "A PreviewActionGroup provides options to configure a group of actions used by the iOS 9 3D-Touch\nfeature \"Peek and Pop\".\n",
   "description": "The PreviewActionGroup is created by the [Titanium.UI.iOS.createPreviewActionGroup](api:Titanium.UI.iOS#createPreviewActionGroup) method. You\nneed to set the `title` property when creating a PreviewActionGroup object.\n\nUse this class to configure a group of preview actions used in the [Titanium.UI.iOS.PreviewContext](api:Titanium.UI.iOS.PreviewContext).\nThe actions are of the type [Titanium.UI.iOS.PreviewAction](api:Titanium.UI.iOS.PreviewAction).\n\nFor an example, see [Titanium.UI.iOS.PreviewContext](api:Titanium.UI.iOS.PreviewContext).\n\nSee also:\n\n* [iOS Developer Library: Adopting 3D Touch on iPhone](https://developer.apple.com/library/content/documentation/UserExperience/Conceptual/Adopting3DTouchOniPhone/3DTouchAPIs.html)\n",
   "properties": [
     {
       "name": "actions",
-      "platforms": ["iphone"],
+      "platforms": [
+        "iphone"
+      ],
       "summary": "The preview actions assigned to this preview action group.",
       "description": "Provides an array with elements of the type [Titanium.UI.iOS.PreviewAction](api:Titanium.UI.iOS.PreviewAction).\nNote: Apple does not allow adding a preview group to another preview group, so only\none hirarchie level is allowed.\n",
       "type": [
@@ -29,7 +35,9 @@
     },
     {
       "name": "style",
-      "platforms": ["iphone"],
+      "platforms": [
+        "iphone"
+      ],
       "summary": "The style of the action group.",
       "type": [
         {
@@ -46,7 +54,9 @@
     },
     {
       "name": "title",
-      "platforms": ["iphone"],
+      "platforms": [
+        "iphone"
+      ],
       "summary": "The title of the action group.",
       "description": "Provides a title to be shown when \"peeking\" a view referenced in the [Titanium.UI.iOS.PreviewContext](api:Titanium.UI.iOS.PreviewContext).\n",
       "type": [
@@ -64,34 +74,46 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone"]
+        "platforms": [
+          "iphone"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone"]
+        "platforms": [
+          "iphone"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone"]
+        "platforms": [
+          "iphone"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone"]
+        "platforms": [
+          "iphone"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone"]
+        "platforms": [
+          "iphone"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone"]
+        "platforms": [
+          "iphone"
+        ]
       }
     ],
     "events": []

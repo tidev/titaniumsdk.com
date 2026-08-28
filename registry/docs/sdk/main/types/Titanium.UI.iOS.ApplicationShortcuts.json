@@ -3,8 +3,12 @@
   "name": "Titanium.UI.iOS.ApplicationShortcuts",
   "kind": "proxy",
   "extends": "Titanium.Proxy",
-  "inheritanceChain": ["Titanium.Proxy"],
-  "platforms": ["iphone"],
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "iphone"
+  ],
   "since": "5.1.0",
   "deprecated": {
     "since": "9.1.0",
@@ -26,7 +30,9 @@
   "methods": [
     {
       "name": "addDynamicShortcut",
-      "platforms": ["iphone"],
+      "platforms": [
+        "iphone"
+      ],
       "summary": "Creates a new dynamic application shortcut item.",
       "parameters": [
         {
@@ -45,7 +51,9 @@
             "properties": [
               {
                 "name": "icon",
-                "platforms": ["iphone"],
+                "platforms": [
+                  "iphone"
+                ],
                 "summary": "The icon to be displayed on the application shortcut. You can either use one of the constants like\n[Titanium.UI.iOS.SHORTCUT_ICON_TYPE_COMPOSE](api:Titanium.UI.iOS#SHORTCUT_ICON_TYPE_COMPOSE), a local image specified by the image path or a reference to a\n[Titanium.Contacts.Person](api:Titanium.Contacts.Person).\n",
                 "description": "If you are using one of the pre-defined constants, you can reference to the list of icons from Apple [here](https://developer.apple.com/documentation/uikit/uiapplicationshortcuticon).\n\nIf you are using an image file, enable slicing (adding the image to an asset catalog) for\nthe project. To enable slicing, add the `use-app-thinning` element to the `ios` element in the\n`tiapp.xml` file and set the value to `true`. If you do not enable slicing, the image will\nnot be displayed.\n\n``` xml\n<ti:app>\n    <ios>\n    <use-app-thinning>true</use-app-thinning>\n    </ios>\n</ti:app>\n```\n\nThe recommended size for image files is 35dp (@2px: 70dp, @3x: 105dp). Also check the [Apple documentation](https://developer.apple.com/documentation/uikit/uiapplicationshortcuticon)  \nfor more information on shortcut icons.\n\nOn iOS 13 and higher, with SDK 8.2.1 or higher, you can pass in the Ti.Blob instance returned from [Ti.UI.iOS.systemImage](api:Titanium.UI.iOS#systemImage).\n",
                 "type": [
@@ -63,11 +71,15 @@
                   }
                 ],
                 "optional": true,
-                "constants": ["Titanium.UI.iOS.SHORTCUT_ICON_TYPE_*"]
+                "constants": [
+                  "Titanium.UI.iOS.SHORTCUT_ICON_TYPE_*"
+                ]
               },
               {
                 "name": "identifier",
-                "platforms": ["iphone"],
+                "platforms": [
+                  "iphone"
+                ],
                 "summary": "The unique key for the application shortcut. Equates to the underlying `UIApplicationShortcutItemIconType` key",
                 "type": [
                   {
@@ -78,7 +90,9 @@
               },
               {
                 "name": "subtitle",
-                "platforms": ["iphone"],
+                "platforms": [
+                  "iphone"
+                ],
                 "summary": "The subtitle displayed on the application shortcut.",
                 "description": "The subtitle can be localized, see here\nfor more infos. \n",
                 "type": [
@@ -91,7 +105,9 @@
               },
               {
                 "name": "title",
-                "platforms": ["iphone"],
+                "platforms": [
+                  "iphone"
+                ],
                 "summary": "The title of the application shortcut.",
                 "description": "The title can be localized, see here\nfor more infos. \n",
                 "type": [
@@ -103,7 +119,9 @@
               },
               {
                 "name": "userInfo",
-                "platforms": ["iphone"],
+                "platforms": [
+                  "iphone"
+                ],
                 "summary": "The userInfo of the application shortcut.",
                 "description": "The userInfo is an object containing information about the shortcut like an ID or details about it.\n",
                 "type": [
@@ -121,7 +139,9 @@
     },
     {
       "name": "dynamicShortcutExists",
-      "platforms": ["iphone"],
+      "platforms": [
+        "iphone"
+      ],
       "summary": "Returns true or false depending if the provided shortcut object already exists.",
       "parameters": [
         {
@@ -148,7 +168,9 @@
     },
     {
       "name": "getDynamicShortcut",
-      "platforms": ["iphone"],
+      "platforms": [
+        "iphone"
+      ],
       "summary": "Gets the dynamic application shortcut item identified by the `identifier`.",
       "parameters": [
         {
@@ -175,7 +197,9 @@
     },
     {
       "name": "listDynamicShortcuts",
-      "platforms": ["iphone"],
+      "platforms": [
+        "iphone"
+      ],
       "summary": "Returns an array of the application shortcuts created dynamically.",
       "returns": [
         {
@@ -196,7 +220,9 @@
     },
     {
       "name": "listStaticShortcuts",
-      "platforms": ["iphone"],
+      "platforms": [
+        "iphone"
+      ],
       "summary": "Returns an array of the application shortcuts listed in your tiapp.xml file.",
       "returns": [
         {
@@ -217,12 +243,16 @@
     },
     {
       "name": "removeAllDynamicShortcuts",
-      "platforms": ["iphone"],
+      "platforms": [
+        "iphone"
+      ],
       "summary": "Removes all dynamically created application shortcuts."
     },
     {
       "name": "removeDynamicShortcut",
-      "platforms": ["iphone"],
+      "platforms": [
+        "iphone"
+      ],
       "summary": "Removes the dynamic application shortcut item identified by the `identifier`.",
       "parameters": [
         {
@@ -244,34 +274,46 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone"]
+        "platforms": [
+          "iphone"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone"]
+        "platforms": [
+          "iphone"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone"]
+        "platforms": [
+          "iphone"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone"]
+        "platforms": [
+          "iphone"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone"]
+        "platforms": [
+          "iphone"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone"]
+        "platforms": [
+          "iphone"
+        ]
       }
     ],
     "events": []

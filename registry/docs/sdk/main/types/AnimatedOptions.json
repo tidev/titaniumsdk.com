@@ -2,12 +2,22 @@
   "schemaVersion": 1,
   "name": "AnimatedOptions",
   "kind": "pseudo",
-  "platforms": ["android", "iphone", "ipad", "macos"],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "summary": "A JavaScript object holding an `animated` property. Used for many UI methods as a means of specifying some transition should be animated.",
   "properties": [
     {
       "name": "animated",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "If `true`, animate a transition for the method/value change.\n\nNote that for most uses cases the default is assumed to be `false`. The exceptions tend to be [Titanium.UI.Window](api:Titanium.UI.Window) methods.\n",
       "type": [
         {
@@ -26,6 +36,8 @@
     "methods": [],
     "events": []
   },
-  "references": ["Titanium.UI.Window"],
+  "references": [
+    "Titanium.UI.Window"
+  ],
   "source": "Titanium/UI/AnimatedOptions.yml"
 }

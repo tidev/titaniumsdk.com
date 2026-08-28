@@ -3,8 +3,16 @@
   "name": "Titanium.UI.iOS.NavigationWindow",
   "kind": "view",
   "extends": "Titanium.UI.Window",
-  "inheritanceChain": ["Titanium.UI.Window", "Titanium.UI.View", "Titanium.Proxy"],
-  "platforms": ["iphone", "ipad", "macos"],
+  "inheritanceChain": [
+    "Titanium.UI.Window",
+    "Titanium.UI.View",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": {
     "iphone": "3.1.3",
     "ipad": "3.1.3",
@@ -30,7 +38,11 @@
   "properties": [
     {
       "name": "window",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Window to add to this navigation window.",
       "type": [
         {
@@ -44,7 +56,11 @@
   "methods": [
     {
       "name": "closeWindow",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Closes a window and removes it from the navigation window.",
       "parameters": [
         {
@@ -71,7 +87,11 @@
     },
     {
       "name": "openWindow",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Opens a window within the navigation window.",
       "parameters": [
         {
@@ -98,7 +118,11 @@
     },
     {
       "name": "popToRootWindow",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Closes all windows that are currently opened inside the navigation window.",
       "description": "Note that only the `close` event of the most recently opened window is fired.",
       "since": "6.0.0",
@@ -122,571 +146,1020 @@
       {
         "name": "accessibilityHidden",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "accessibilityHint",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "accessibilityLabel",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "accessibilityValue",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "anchorPoint",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "animatedCenter",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "autoAdjustScrollViewInsets",
         "from": "Titanium.UI.Window",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "backgroundColor",
         "from": "Titanium.UI.Window",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "backgroundGradient",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "backgroundImage",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "backgroundLeftCap",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "backgroundRepeat",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "backgroundSelectedColor",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "backgroundTopCap",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "borderColor",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "borderRadius",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "borderWidth",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "bottom",
         "from": "Titanium.UI.Window",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "center",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "children",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "clipMode",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "closed",
         "from": "Titanium.UI.Window",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "extendEdges",
         "from": "Titanium.UI.Window",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "extendSafeArea",
         "from": "Titanium.UI.Window",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "focused",
         "from": "Titanium.UI.Window",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "fullscreen",
         "from": "Titanium.UI.Window",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "height",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "hidesBackButton",
         "from": "Titanium.UI.Window",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "hidesBarsOnSwipe",
         "from": "Titanium.UI.Window",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "hidesBarsOnTap",
         "from": "Titanium.UI.Window",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "hidesBarsWhenKeyboardAppears",
         "from": "Titanium.UI.Window",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "hidesSearchBarWhenScrolling",
         "from": "Titanium.UI.Window",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "homeIndicatorAutoHidden",
         "from": "Titanium.UI.Window",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "horizontalMotionEffect",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "horizontalWrap",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "id",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "includeOpaqueBars",
         "from": "Titanium.UI.Window",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "largeTitleDisplayMode",
         "from": "Titanium.UI.Window",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "largeTitleEnabled",
         "from": "Titanium.UI.Window",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "layout",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "left",
         "from": "Titanium.UI.Window",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "leftNavButtons",
         "from": "Titanium.UI.Window",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "modal",
         "from": "Titanium.UI.Window",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "navigationWindow",
         "from": "Titanium.UI.Window",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "opacity",
         "from": "Titanium.UI.Window",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "orientation",
         "from": "Titanium.UI.Window",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "orientationModes",
         "from": "Titanium.UI.Window",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "previewContext",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone"]
+        "platforms": [
+          "iphone"
+        ]
       },
       {
         "name": "pullBackgroundColor",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "rect",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "right",
         "from": "Titanium.UI.Window",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "rightNavButtons",
         "from": "Titanium.UI.Window",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "rotation",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad"]
+        "platforms": [
+          "iphone",
+          "ipad"
+        ]
       },
       {
         "name": "safeAreaPadding",
         "from": "Titanium.UI.Window",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "size",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "statusBarStyle",
         "from": "Titanium.UI.Window",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "tintColor",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "titleAttributes",
         "from": "Titanium.UI.Window",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "tooltip",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "top",
         "from": "Titanium.UI.Window",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "touchEnabled",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "transform",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "verticalMotionEffect",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "viewShadowColor",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "viewShadowOffset",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "viewShadowRadius",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "visible",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "width",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "zIndex",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "methods": [
       {
         "name": "add",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "animate",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "clearMotionEffects",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "close",
         "from": "Titanium.UI.Window",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "convertPointToView",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "getViewById",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "hide",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "hideNavBar",
         "from": "Titanium.UI.Window",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "hideTabBar",
         "from": "Titanium.UI.Window",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "hideToolbar",
         "from": "Titanium.UI.Window",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "insertAt",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "open",
         "from": "Titanium.UI.Window",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "remove",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "replaceAt",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "show",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "showNavBar",
         "from": "Titanium.UI.Window",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "showTabBar",
         "from": "Titanium.UI.Window",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "showToolbar",
         "from": "Titanium.UI.Window",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "toImage",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "events": [
       {
         "name": "blur",
         "from": "Titanium.UI.Window",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "click",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "close",
         "from": "Titanium.UI.Window",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "dblclick",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "doubletap",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "focus",
         "from": "Titanium.UI.Window",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "keypressed",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "longpress",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "open",
         "from": "Titanium.UI.Window",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "pinch",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "postlayout",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "rotate",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "singletap",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "swipe",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "touchcancel",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "touchend",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "touchmove",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "touchstart",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "twofingertap",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ]
   },

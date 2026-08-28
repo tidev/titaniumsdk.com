@@ -3,8 +3,15 @@
   "name": "Titanium.UI.ShortcutItem",
   "kind": "proxy",
   "extends": "Titanium.Proxy",
-  "inheritanceChain": ["Titanium.Proxy"],
-  "platforms": ["android", "iphone", "ipad", "macos"],
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": {
     "android": "7.5.0",
     "iphone": "9.1.0",
@@ -15,7 +22,12 @@
   "properties": [
     {
       "name": "data",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Shortcut data.",
       "description": "Additional data that can be stored with the shortcut.",
       "type": [
@@ -28,7 +40,12 @@
     },
     {
       "name": "description",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Description of the shortcut.",
       "description": "In iOS the description can be localized. See here\nfor more infos. \n",
       "type": [
@@ -41,7 +58,12 @@
     },
     {
       "name": "icon",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Shortcut icon.",
       "description": "This can be set as a resource id or file path.\n\nIn iOS, you can use constants Titanium.UI.iOS.SHORTCUT_ICON_TYPE_* or a reference to a\n[Titanium.Contacts.Person](api:Titanium.Contacts.Person) as well. On iOS 13 and higher, you can pass in the Ti.Blob instance returned from [Ti.UI.iOS.systemImage](api:Titanium.UI.iOS#systemImage) also.\n\nIn iOS, if you are using an image file, enable slicing (adding the image to an asset catalog) for\nthe project. To enable slicing, add the `use-app-thinning` element to the `ios` element in the\n`tiapp.xml` file and set the value to `true`. If you do not enable slicing, the image will\nnot be displayed.\n\n``` xml\n<ti:app>\n    <ios>\n    <use-app-thinning>true</use-app-thinning>\n    </ios>\n</ti:app>\n```\n\nThe recommended size for image files is 35dp (@2px: 70dp, @3x: 105dp). Also check the [Apple documentation](https://developer.apple.com/documentation/uikit/uiapplicationshortcuticon)  \nfor more information on shortcut icons.\n",
       "type": [
@@ -58,7 +80,12 @@
     },
     {
       "name": "id",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Determines shortcut id.",
       "description": "This should be a unique identifier for the shortcut.",
       "type": [
@@ -71,7 +98,12 @@
     },
     {
       "name": "title",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Title of the shortcut.",
       "description": "In iOS the title can be localized. See here\nfor more infos.\n",
       "type": [
@@ -84,7 +116,9 @@
     },
     {
       "name": "visible",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Shortcut visibility.",
       "description": "Determines if the shortcut is visible.",
       "type": [
@@ -102,7 +136,9 @@
   "methods": [
     {
       "name": "hide",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Hide the shortcut.",
       "deprecated": {
         "since": "9.1.0",
@@ -111,7 +147,9 @@
     },
     {
       "name": "pin",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Pin shortcut to launcher.",
       "osver": {
         "android": {
@@ -121,7 +159,9 @@
     },
     {
       "name": "show",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Allow the shortcut to show.",
       "deprecated": {
         "since": "9.1.0",
@@ -135,39 +175,71 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "lifecycleContainer",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "events": []

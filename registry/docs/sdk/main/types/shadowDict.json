@@ -2,12 +2,22 @@
   "schemaVersion": 1,
   "name": "shadowDict",
   "kind": "pseudo",
-  "platforms": ["android", "iphone", "ipad", "macos"],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "summary": "Dictionary describing the shadow effect for text.",
   "properties": [
     {
       "name": "blurRadius",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies the blur radius of the shadow.",
       "description": "A value of `0` means no blur is applied.\n",
       "type": [
@@ -19,7 +29,12 @@
     },
     {
       "name": "color",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Color name or hex triplet specifying the color of the shadow.",
       "type": [
         {
@@ -34,7 +49,12 @@
     },
     {
       "name": "offset",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "[Size](api:Size) with the properties `width` and `height` used as the horizontal\nand vertical offset of the shadow, respectively.\n",
       "type": [
         {
@@ -51,6 +71,9 @@
     "methods": [],
     "events": []
   },
-  "references": ["Size", "Titanium.UI.Color"],
+  "references": [
+    "Size",
+    "Titanium.UI.Color"
+  ],
   "source": "Titanium/UI/Window.yml"
 }

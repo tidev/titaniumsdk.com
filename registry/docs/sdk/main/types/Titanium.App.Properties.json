@@ -3,8 +3,16 @@
   "name": "Titanium.App.Properties",
   "kind": "module",
   "extends": "Titanium.Module",
-  "inheritanceChain": ["Titanium.Module", "Titanium.Proxy"],
-  "platforms": ["android", "iphone", "ipad", "macos"],
+  "inheritanceChain": [
+    "Titanium.Module",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": "0.5",
   "summary": "The App Properties module is used for storing application-related data in property/value pairs \nthat persist beyond application sessions and device power cycles.\n",
   "description": "#### App Properties in the tiapp.xml file\n\nApp properties defined in the `tiapp.xml` file may be accessed using these APIs.  An app\nproperty is defined inside the root-level `<ti:app>` element with the `<property>` element.\nUse the `name` attribute to define your property name and place the value inline with the\n`<property>` element. For example, to define an app property called `foo` with the value `42`:\n\n``` xml\n<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<ti:app xmlns:ti=\"http://ti.tidev.io\">\n    <property name=\"foo\" type=\"string\">42</property>\n</ti:app>\n```\n\nThen, you can retrieve the property during runtime with the following API call:\n\n``` js\nconst foo = Ti.App.Properties.getString('foo');\n```\n\nAny application properties defined in the `tiapp.xml` file are stored in the\ndevice's secure storage, making them read-only.  Additionally, external access to these\nproperties is now restricted.  Other iOS applications cannot access these properties and\nnative Android modules must use the Titanium module API TiApplication.getAppProperties()\nmethod to access these properties.\n\nIf you need to change the values during runtime, initially create the property with these APIs\nrather than defining them in the `tiapp.xml` file.\n\n**Important**: Using this API in the Apple ecosystem requires the `NSPrivacyAccessedAPICategoryUserDefaults`\nproperty set in the privacy manifest that was introduced in iOS 17. You can learn more about it [here](https://developer.apple.com/documentation/bundleresources/privacy_manifest_files/describing_use_of_required_reason_api).\n",
@@ -22,7 +30,12 @@
   "methods": [
     {
       "name": "getBool",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Returns the value of a property as a boolean data type.",
       "parameters": [
         {
@@ -60,7 +73,12 @@
     },
     {
       "name": "getDouble",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Returns the value of a property as a double (double-precision, floating point) data type.",
       "description": "This method must only be used to retrieve properties created with \n[setDouble](api:Titanium.App.Properties#setDouble).  \n",
       "parameters": [
@@ -99,7 +117,12 @@
     },
     {
       "name": "getInt",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Returns the value of a property as an integer data type.\n",
       "description": "This method must only be used to retrieve properties created with \n[setInt](api:Titanium.App.Properties#setInt).  \n\nUse [getDouble](api:Titanium.App.Properties#getDouble) and [setDouble](api:Titanium.App.Properties#setDouble) \nto store values outside the integer data type range of `-2,147,483,648` to `2,147,483,647`.\n",
       "parameters": [
@@ -138,7 +161,12 @@
     },
     {
       "name": "getList",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Returns the value of a property as an array data type.",
       "parameters": [
         {
@@ -188,7 +216,12 @@
     },
     {
       "name": "getObject",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Returns the value of a property as an object.",
       "parameters": [
         {
@@ -226,7 +259,12 @@
     },
     {
       "name": "getString",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Returns the value of a property as a string data type.",
       "parameters": [
         {
@@ -264,7 +302,12 @@
     },
     {
       "name": "hasProperty",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Indicates whether a property exists.",
       "parameters": [
         {
@@ -291,7 +334,12 @@
     },
     {
       "name": "listProperties",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Returns an array of property names.",
       "returns": [
         {
@@ -312,13 +360,23 @@
     },
     {
       "name": "removeAllProperties",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Removes all properties that have been set by the user on runtime, or does nothing otherwise.",
       "since": "6.0.0"
     },
     {
       "name": "removeProperty",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Removes a property if it exists, or does nothing otherwise.",
       "parameters": [
         {
@@ -335,7 +393,12 @@
     },
     {
       "name": "setBool",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Sets the value of a property as a boolean data type. The property will be created if it \ndoes not exist.\n",
       "parameters": [
         {
@@ -362,7 +425,12 @@
     },
     {
       "name": "setDouble",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Sets the value of a property as a double (double-precision, floating point) data type. The \nproperty will be created if it does not exist.\n",
       "parameters": [
         {
@@ -389,7 +457,12 @@
     },
     {
       "name": "setInt",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Sets the value of a property as an integer data type. The property will be created if it \ndoes not exist.\n",
       "description": "Use [getDouble](api:Titanium.App.Properties#getDouble) and [setDouble](api:Titanium.App.Properties#setDouble) \nto store values outside the integer data type range of `-2,147,483,648` to `2,147,483,647`.\n",
       "parameters": [
@@ -417,7 +490,12 @@
     },
     {
       "name": "setList",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Sets the value of a property as an array data type. The property will be created if it \ndoes not exist.\n",
       "parameters": [
         {
@@ -450,7 +528,12 @@
     },
     {
       "name": "setObject",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Sets the value of a property as an object data type. The property will be created if it \ndoes not exist.\n",
       "parameters": [
         {
@@ -477,7 +560,12 @@
     },
     {
       "name": "setString",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Sets the value of a property as a string data type. The property will be created if it \ndoes not exist.\n",
       "parameters": [
         {
@@ -506,7 +594,11 @@
   "events": [
     {
       "name": "change",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when a property is changed.",
       "description": "On iOS, the event is fired when the user re-enters the application after \nmaking a change using the Settings application.\n\nThe event is also fired when the application changes a property directly using one of the \n`Ti.App.iOS.UserDefaults` or `Ti.App.Properties` methods.\n",
       "since": "3.0.0"
@@ -517,43 +609,77 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "lifecycleContainer",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "events": []
   },
-  "references": ["Titanium.Module"],
+  "references": [
+    "Titanium.Module"
+  ],
   "source": "Titanium/App/Properties/Properties.yml"
 }

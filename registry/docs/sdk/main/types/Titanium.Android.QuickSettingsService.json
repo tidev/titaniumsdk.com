@@ -3,8 +3,13 @@
   "name": "Titanium.Android.QuickSettingsService",
   "kind": "proxy",
   "extends": "Titanium.Android.Service",
-  "inheritanceChain": ["Titanium.Android.Service", "Titanium.Proxy"],
-  "platforms": ["android"],
+  "inheritanceChain": [
+    "Titanium.Android.Service",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android"
+  ],
   "since": "7.0",
   "summary": "Android service for creating custom quick settings tiles and handling user's interaction with them.",
   "description": "A special kind of service providing access to a tile in the quick settings menu. Used for customization\nand event handling of the tile. Usage is similar to default [Titanium.Android.Service](api:Titanium.Android.Service) but with the\naddition of some specific attributes and methods. This service is not started from within the application \nwith the help of an Intent, but instead whenever the custom tile is added in the quick settings menu by the\nuser. Applications can have multiple tiles in the quick settings menu, but a [Titanium.Android.QuickSettingsService](api:Titanium.Android.QuickSettingsService)\ncorresponds to a single one - you need separate service file for every tile.\n\nTo create a service file:\n\n  1. Write the JavaScript code you want the service to execute in a separate file.\n     The service can execute any Titanium APIs but you should only use non-UI APIs.\n  2. Register the service in your `tiapp.xml` file. Refer to the example below.\n\n  Icons used for the 'icon' attribute in the service declaration in tiapp.xml must\n  be in the Android drawables folder, so they you should be put under\n  `platform/android/res/drawable`\n  Icons added with the setIcon method can be outside the directory.\n\nTo get a reference to the `Service` inside the JavaScript service code, use the\n[Titanium.Android.currentService](api:Titanium.Android#currentService) property to retrieve a reference to the service,\n\nFurther Reading:\n\n  * [Android Quick Settings Tile API](https://developer.android.com/about/versions/nougat/android-7.0.html#tile_api)\n",
@@ -17,7 +22,9 @@
   "properties": [
     {
       "name": "icon",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Changes the Tile's icon.",
       "description": "If no image is passed as Tile icon it will use the Application's one.\n",
       "type": [
@@ -38,7 +45,9 @@
     },
     {
       "name": "label",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "The Tile's label.",
       "description": "If no label is set the Tile uses the Application name.\n",
       "type": [
@@ -51,7 +60,9 @@
     },
     {
       "name": "state",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Sets the state of the Tile.",
       "description": "State can be one of the following: [TILE_STATE_UNAVAILABLE](api:Titanium.Android#TILE_STATE_UNAVAILABLE),\n[TILE_STATE_INACTIVE](api:Titanium.Android#TILE_STATE_INACTIVE),\n[TILE_STATE_ACTIVE](api:Titanium.Android#TILE_STATE_ACTIVE)\n",
       "type": [
@@ -61,13 +72,17 @@
         }
       ],
       "since": "10.0.0",
-      "constants": ["Titanium.Android.TILE_STATE_*"]
+      "constants": [
+        "Titanium.Android.TILE_STATE_*"
+      ]
     }
   ],
   "methods": [
     {
       "name": "getIcon",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Returns the Tile's current icon.",
       "deprecated": {
         "since": "10.0.0",
@@ -94,7 +109,9 @@
     },
     {
       "name": "getLabel",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Returns the Tile's current label.",
       "deprecated": {
         "since": "10.0.0",
@@ -113,7 +130,9 @@
     },
     {
       "name": "getState",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Returns the Tile's current state.",
       "deprecated": {
         "since": "10.0.0",
@@ -132,7 +151,9 @@
     },
     {
       "name": "isLocked",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Returns 'true' if the device is currently locked, 'false' otherwise.",
       "returns": [
         {
@@ -147,7 +168,9 @@
     },
     {
       "name": "isSecure",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Returns 'true' if the device is in secure state, 'false' otherwise.",
       "returns": [
         {
@@ -162,7 +185,9 @@
     },
     {
       "name": "setIcon",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Changes the Tile's icon.",
       "description": "If no image is passed as Tile icon it will use the Application's one.\n",
       "deprecated": {
@@ -192,7 +217,9 @@
     },
     {
       "name": "setLabel",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Changes the Tile's label.",
       "description": "If no label is set the Tile uses the Application name.\n",
       "deprecated": {
@@ -214,7 +241,9 @@
     },
     {
       "name": "setState",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Sets the state of the Tile.",
       "description": "State can be one of the following: [TILE_STATE_UNAVAILABLE](api:Titanium.Android#TILE_STATE_UNAVAILABLE),\n[TILE_STATE_INACTIVE](api:Titanium.Android#TILE_STATE_INACTIVE),\n[TILE_STATE_ACTIVE](api:Titanium.Android#TILE_STATE_ACTIVE)\n",
       "deprecated": {
@@ -236,7 +265,9 @@
     },
     {
       "name": "showDialog",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Opens an Alert dialog.",
       "description": "Creates and shows a default Alert dialog with the provided options dictionary.\n\nNote: Alert dialog only supports one of the following: message/options.\nIf you pass both - only `message` will be shown.\n",
       "parameters": [
@@ -255,7 +286,12 @@
             "properties": [
               {
                 "name": "buttonNames",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Array of String instances.",
                 "description": "They will be shown as buttons' titles. They are limited up\nto three buttons and with a predefined order - positive, neutral, negative. See events.\n",
                 "type": [
@@ -273,7 +309,12 @@
               },
               {
                 "name": "message",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "String to be used as a message for the dialog.",
                 "type": [
                   {
@@ -284,7 +325,12 @@
               },
               {
                 "name": "options",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Array of String instances.",
                 "description": "They will be shown as a single choice list.\n",
                 "type": [
@@ -302,7 +348,12 @@
               },
               {
                 "name": "title",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "String to be used as title for the dialog.",
                 "type": [
                   {
@@ -318,7 +369,9 @@
     },
     {
       "name": "startActivityAndCollapse",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Collapses the quick settings menu and starts an activity for the passed Intent.",
       "parameters": [
         {
@@ -335,7 +388,9 @@
     },
     {
       "name": "unlockAndRun",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Prompts the user to unlock the device and runs the JS code.",
       "parameters": [
         {
@@ -352,7 +407,9 @@
     },
     {
       "name": "updateTile",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Applies current tile's properties.",
       "description": "Updates the Tile's with it's current label, icon and state.\n"
     }
@@ -360,40 +417,54 @@
   "events": [
     {
       "name": "startlistening",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Tile is listening for events.",
       "description": "Dispatched whenever the user has opened the quick setting menu and the Tile is added in there.\n"
     },
     {
       "name": "stoplistening",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Tile has stopped listening for events.",
       "description": "Dispatched whenever the user has collapsed the quick setting menu and the Tile is not visible.\n"
     },
     {
       "name": "tileadded",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "The Tile has been added in the quick menu.",
       "description": "Dispatched whenever the user has moved the Tile for this service in the quick settings menu.\n"
     },
     {
       "name": "tiledialogcancelled",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Dispatched when the alert dialog has been cancelled."
     },
     {
       "name": "tiledialognegative",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Dispatched when the negative (index 2) button has been clicked."
     },
     {
       "name": "tiledialogneutral",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Dispatched when the neutral (index 1) button has been clicked."
     },
     {
       "name": "tiledialogoptionselected",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "An item from the single choice menu has been selected.",
       "properties": [
         {
@@ -410,12 +481,16 @@
     },
     {
       "name": "tiledialogpositive",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Dispatched when the positive (index 0) button has been clicked."
     },
     {
       "name": "tileremoved",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "The Tile has been removed from the quick menu.",
       "description": "Dispatched whenever the user has removed the Tile for this service from the quick settings menu.\n"
     }
@@ -425,96 +500,132 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "intent",
         "from": "Titanium.Android.Service",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "lifecycleContainer",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "serviceInstanceId",
         "from": "Titanium.Android.Service",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "foregroundCancel",
         "from": "Titanium.Android.Service",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "foregroundNotify",
         "from": "Titanium.Android.Service",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "start",
         "from": "Titanium.Android.Service",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "stop",
         "from": "Titanium.Android.Service",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ],
     "events": [
       {
         "name": "pause",
         "from": "Titanium.Android.Service",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "resume",
         "from": "Titanium.Android.Service",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "start",
         "from": "Titanium.Android.Service",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "stop",
         "from": "Titanium.Android.Service",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "taskremoved",
         "from": "Titanium.Android.Service",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ]
   },

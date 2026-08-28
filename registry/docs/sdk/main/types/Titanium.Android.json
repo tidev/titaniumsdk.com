@@ -3,15 +3,22 @@
   "name": "Titanium.Android",
   "kind": "module",
   "extends": "Titanium.Module",
-  "inheritanceChain": ["Titanium.Module", "Titanium.Proxy"],
-  "platforms": ["android"],
+  "inheritanceChain": [
+    "Titanium.Module",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android"
+  ],
   "since": "1.5",
   "summary": "The top-level Android module.",
   "description": "The Android module allows the application to manage various Android components.\n\n#### Action Bar\n\nAn action bar is a UI feature that identifies the application and user location, and\nprovides user actions and navigation modes.\n\nThe Titanium SDK lets you customize the look of the action bar and add action items.\nAction items are added using the [Titanium.Android.Menu](api:Titanium.Android.Menu) API.\n\nFor more information about the action bar, see the\n[Titanium.Android.ActionBar API reference](api:Titanium.Android.ActionBar).\n\n#### Activities\n\nAn Android application is made up of one or more activities. Each activity represents a single screen\nwith a user interface.\n\nIn Titanium, each `Window` or `TabGroup` has its own activity. The application\ncan access the activity of a `Window` and `TabGroup` object and monitor its lifecycle events.\nTitanium also lets you launch new activities by creating intents to launch them.\nSee the \"Intents\" section below.\n\nFor more information about activities, see the\n[Titanium.Android.Activity API reference](api:Titanium.Android.Activity).\n\n#### Broadcast Intents and Receivers\n\nBroadcast Intents allow your application to send out a message to any application that sets up\na Broadcast Receiver to listen to it. Your application can also register Broadcast Receivers\nto listen to system events sent by the Android OS, such as low battery warnings or airplane\nmode changes.\n\nFor more information about broadcasts, see the\n[Android Broadcast Intents and Receivers guide](https://titaniumsdk.com/guide/Titanium_SDK/Titanium_SDK_How-tos/Platform_API_Deep_Dives/Android_API_Deep_Dives/Android_Broadcast_Intents_and_Receivers.html)\nand [Titanium.Android.BroadcastReceiver API reference](api:Titanium.Android.BroadcastReceiver).\n\n#### Intents\n\nIntents are message objects that specify actions to perform which can start either activities,\nbroadcasts or services.\n\nFor more information about intents, see the\n[Titanium.Android.Intent API reference](api:Titanium.Android.Intent).\n\n#### Intent Filters\n\nIntent Filters advertise to the Android OS that your application handles certain actions and\ndata types. For example, when another application wants to share an image or text, your application\ncan define intent filters to let Android know your application can handle those data types.\n\nFor more information about intent filters, see the\n[Android Intent Filters guide](https://titaniumsdk.com/guide/Titanium_SDK/Titanium_SDK_How-tos/Platform_API_Deep_Dives/Android_API_Deep_Dives/Android_Intent_Filters.html).\n\n#### Notifications\n\nNotifications alert the user that something is happening to your application while it is\nin the background. Notifications appear in the notification drawer until the user\nclears them and on the lock screen for devices running Android 5.0 or greater.\nNote that the user can filter or turn notifications on and off from **Settings**.\nFor more information about notifications, see the\n[Titanium.Android.Notification API reference](api:Titanium.Android.Notification).\n\nFor Android toast notifications (pop-up notifications sent while the application is in the\nforeground), see [Titanium.UI.Notification](api:Titanium.UI.Notification).\n\n#### Options Menu\n\nThe options menu is a feature of older Android devices (prior to Android 3.0 (API 11)), and has been\nreplaced by the action bar. The options menu is accessed by pressing the **Menu** and presents\na pop-up menu of options the user can execute.\n\nThe `Titanium.Android.Menu` API is used to construct both the options menu and action items for\nthe action bar.\n\nFor more information about the options menu, see the\n[Titanium.Android.Menu API reference](api:Titanium.Android.Menu).\n\n#### Services\n\nA service is a component started by an application that runs in the background. The service\ndoes not have any application UI associated with it, so the user does not directly interact\nwith it, only your application.\n\nThe Titanium SDK gives you the ability to write your own Android Services using JavaScript.\nThe service executes your JavaScript code at intervals you specify. Note that the service\nwill stop running when you back out of the app. So, if you want the service to continue running,\nthen it's recommended that you set the root window's [exitOnClose](api:Titanium.UI.Window#exitOnClose)\nproperty to `false` so that the window will persist in the background like iOS.\n\nFor more information about services, see the\n[Titanium.Android.Service API reference](api:Titanium.Android.Service).\n\n#### Permissions\n\nStarting from Android 6.0 (API level 23), users need to grant certain permissions to apps while the\napp is running. You can read it more [here](https://developer.android.com/training/permissions/requesting.html).\nStarting with Android 13 you have to use more granular media permissions. Check the [official documentation](https://developer.android.com/about/versions/13/behavior-changes-13#granular-media-permissions).\nMake sure to add e.g. `<uses-permission android:name=\"android.permission.READ_MEDIA_IMAGES\"/>` to your tiapp.xml too.\n\nIn Titanium SDK, to support this, we have the [Titanium.Android.requestPermissions](api:Titanium.Android#requestPermissions) method. It is used to\nrequest any permission you may need. An example of using it is shown below:\n\n``` js\nvar permissions = [ 'android.permission.CAMERA', 'android.permission.READ_EXTERNAL_STORAGE', 'android.permission.WRITE_EXTERNAL_STORAGE' ];\nif (Ti.Platform.versionMajor >= 13) {\n  // example for camera and image permission on Android 13\n  permissions = [ 'android.permission.CAMERA', 'android.permission.READ_MEDIA_IMAGES' ]\n}\nTi.Android.requestPermissions(permissions, function (e) {\n    if (e.success) {\n        Ti.API.info('SUCCESS');\n    } else {\n        Ti.API.info('ERROR: ' + e.error);\n    }\n});\n```\n",
   "properties": [
     {
       "name": "ACTION_AIRPLANE_MODE_CHANGED",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "User switched airplane mode on or off.",
       "description": "Pass to the [Titanium.Android.registerBroadcastReceiver](api:Titanium.Android#registerBroadcastReceiver) method to listen to the system broadcast.\n\nSee [Intent.ACTION_AIRPLANE_MODE_CHANGED in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_AIRPLANE_MODE_CHANGED).\n",
       "type": [
@@ -24,7 +31,9 @@
     },
     {
       "name": "ACTION_ALL_APPS",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "List all applications.",
       "description": "Use with the [Titanium.Android.Intent.action](api:Titanium.Android.Intent#action) property to create an **Activity Intent**.\n\nSee [Intent.ACTION_ALL_APPS in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_ALL_APPS).\n",
       "type": [
@@ -37,7 +46,9 @@
     },
     {
       "name": "ACTION_ANSWER",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Handle an incoming phone call.",
       "description": "Use with the [Titanium.Android.Intent.action](api:Titanium.Android.Intent#action) property to create an **Activity Intent**.\n\nSee [Intent.ACTION_ANSWER in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_ANSWER).\n",
       "type": [
@@ -50,7 +61,9 @@
     },
     {
       "name": "ACTION_ATTACH_DATA",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Used to indicate that the data is an attachment.",
       "description": "Use with the [Titanium.Android.Intent.action](api:Titanium.Android.Intent#action) property to create an **Activity Intent**.\n\nSee [Intent.ACTION_ATTACH_DATA in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_ATTACH_DATA).\n",
       "type": [
@@ -63,7 +76,9 @@
     },
     {
       "name": "ACTION_BATTERY_CHANGED",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Listen to battery state change status.",
       "description": "Pass to the [Titanium.Android.registerBroadcastReceiver](api:Titanium.Android#registerBroadcastReceiver) method to listen to the system broadcast.\n\nNote that Titanium exposes battery monitoring using the [Titanium.Platform](api:Titanium.Platform) API.\n\nSee [Intent.ACTION_BATTERY_CHANGED in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_BATTERY_CHANGED).\n",
       "type": [
@@ -76,7 +91,9 @@
     },
     {
       "name": "ACTION_BATTERY_LOW",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Indicates low battery condition on the device.",
       "description": "Pass to the [Titanium.Android.registerBroadcastReceiver](api:Titanium.Android#registerBroadcastReceiver) method to listen to the system broadcast.\n\nNote that Titanium exposes battery monitoring using the [Titanium.Platform](api:Titanium.Platform) API.\n\nSee [Intent.ACTION_BATTERY_LOW in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_BATTERY_LOW).\n",
       "type": [
@@ -89,7 +106,9 @@
     },
     {
       "name": "ACTION_BATTERY_OKAY",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Indicates the battery is now okay after being low.",
       "description": "Pass to the [Titanium.Android.registerBroadcastReceiver](api:Titanium.Android#registerBroadcastReceiver) method to listen to the system broadcast.\n\nNote that Titanium exposes battery monitoring using the [Titanium.Platform](api:Titanium.Platform) API.\n\nSee [Intent.ACTION_BATTERY_OKAY in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_BATTERY_OKAY).\n",
       "type": [
@@ -102,7 +121,9 @@
     },
     {
       "name": "ACTION_BOOT_COMPLETED",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Indicates the system has finished booting.",
       "description": "Pass to the [Titanium.Android.registerBroadcastReceiver](api:Titanium.Android#registerBroadcastReceiver) method to listen to the system broadcast.\n\nThe application needs to also set the `android.permission.RECEIVE_BOOT_COMPLETED` permission\nin the Android manifest section of the `tiapp.xml` file.\n\n``` xml\n<ti:app>\n    <android>\n        <manifest>\n            <uses-permission android:name=\"android.permission.RECEIVE_BOOT_COMPLETED\"/>\n        </manifest>\n    </android>\n</ti:app>\n```\n\nSee [Intent.ACTION_BOOT_COMPLETED in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_BOOT_COMPLETED).\n",
       "type": [
@@ -115,7 +136,9 @@
     },
     {
       "name": "ACTION_BUG_REPORT",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Show activity for reporting a bug.",
       "description": "Use with the [Titanium.Android.Intent.action](api:Titanium.Android.Intent#action) property to create an **Activity Intent**.\n\nSee [Intent.ACTION_BUG_REPORT in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_BUG_REPORT).\n",
       "type": [
@@ -128,7 +151,9 @@
     },
     {
       "name": "ACTION_CALL",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Perform a call to someone specified by the `data` property.",
       "description": "Use with the [Titanium.Android.Intent.action](api:Titanium.Android.Intent#action) property to create an **Activity Intent**.\n\nSee [Intent.ACTION_CALL in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_CALL).\n",
       "type": [
@@ -141,7 +166,9 @@
     },
     {
       "name": "ACTION_CALL_BUTTON",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "User pressed the call button.",
       "description": "Use with the [Titanium.Android.Intent.action](api:Titanium.Android.Intent#action) property to create an **Activity Intent**.\n\nSee [Intent.ACTION_CALL_BUTTON in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_CALL_BUTTON).\n",
       "type": [
@@ -154,7 +181,9 @@
     },
     {
       "name": "ACTION_CAMERA_BUTTON",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "The camera button was pressed.",
       "description": "Pass to the [Titanium.Android.registerBroadcastReceiver](api:Titanium.Android#registerBroadcastReceiver) method to listen to the system broadcast.\n\nSee [Intent.ACTION_CAMERA_BUTTON in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_CAMERA_BUTTON).\n",
       "type": [
@@ -167,7 +196,9 @@
     },
     {
       "name": "ACTION_CHOOSER",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Display an activity chooser.",
       "description": "Use with the [Titanium.Android.Intent.action](api:Titanium.Android.Intent#action) property to create an Activity Chooser.\n\nYou can also create an activity chooser using the [Titanium.Android.createIntentChooser](api:Titanium.Android#createIntentChooser) method.\n\nSee [Intent.ACTION_CHOOSER in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_CHOOSER).\n",
       "type": [
@@ -180,7 +211,9 @@
     },
     {
       "name": "ACTION_CLOSE_SYSTEM_DIALOGS",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "User dismissed a temporary system dialog, such as the notification drawer or recent-app drawer.",
       "description": "Pass to the [Titanium.Android.registerBroadcastReceiver](api:Titanium.Android#registerBroadcastReceiver) method to listen to the system broadcast.\n\nSee [Intent.ACTION_CLOSE_SYSTEM_DIALOGS in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_CLOSE_SYSTEM_DIALOGS).\n",
       "type": [
@@ -193,7 +226,9 @@
     },
     {
       "name": "ACTION_CONFIGURATION_CHANGED",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "The device's configuration changed.",
       "description": "Pass to the [Titanium.Android.registerBroadcastReceiver](api:Titanium.Android#registerBroadcastReceiver) method to listen to the system broadcast.\n\nSee [Intent.ACTION_CONFIGURATION_CHANGED in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_CONFIGURATION_CHANGED).\n",
       "type": [
@@ -206,7 +241,9 @@
     },
     {
       "name": "ACTION_CREATE_SHORTCUT",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Create a shortcut.",
       "description": "Use with the [Titanium.Android.Intent.action](api:Titanium.Android.Intent#action) property to create an **Activity Intent**.\n\nSee [Intent.ACTION_CREATE_SHORTCUT in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_CREATE_SHORTCUT).\n",
       "type": [
@@ -219,7 +256,9 @@
     },
     {
       "name": "ACTION_DATE_CHANGED",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Date changed.",
       "description": "Pass to the [Titanium.Android.registerBroadcastReceiver](api:Titanium.Android#registerBroadcastReceiver) method to listen to the system broadcast.\n\nSee [Intent.ACTION_DATE_CHANGED in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_DATE_CHANGED).\n",
       "type": [
@@ -232,7 +271,9 @@
     },
     {
       "name": "ACTION_DEFAULT",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Default action, which is `Titanium.Android.ACTION_VIEW`",
       "description": "Use with the [Titanium.Android.Intent.action](api:Titanium.Android.Intent#action) property to create an **Activity Intent**.\n\nSee [Intent.ACTION_DEFAULT in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_DEFAULT).\n",
       "type": [
@@ -245,7 +286,9 @@
     },
     {
       "name": "ACTION_DELETE",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Delete the data specified by the Intent's `data` property.",
       "description": "Use with the [Titanium.Android.Intent.action](api:Titanium.Android.Intent#action) property to create an **Activity Intent**.\n\nSee [Intent.ACTION_DELETE in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_DELETE).\n",
       "type": [
@@ -258,7 +301,9 @@
     },
     {
       "name": "ACTION_DEVICE_STORAGE_LOW",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Indicates a low memory condition on the device.",
       "description": "Pass to the [Titanium.Android.registerBroadcastReceiver](api:Titanium.Android#registerBroadcastReceiver) method to listen to the system broadcast.\n\nSee [Intent.ACTION_DEVICE_STORAGE_LOW in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_DEVICE_STORAGE_LOW).\n",
       "type": [
@@ -271,7 +316,9 @@
     },
     {
       "name": "ACTION_DIAL",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Dial a number specified by the Intent's `data` property.",
       "description": "Use with the [Titanium.Android.Intent.action](api:Titanium.Android.Intent#action) property to create an **Activity Intent**.\n\nSee [Intent.ACTION_DIAL in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_DIAL).\n",
       "type": [
@@ -284,7 +331,9 @@
     },
     {
       "name": "ACTION_EDIT",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Provide editable access to the data specified by the Intent's `data` property.",
       "description": "Use with the [Titanium.Android.Intent.action](api:Titanium.Android.Intent#action) property to create an **Activity Intent**.\n\nSee [Intent.ACTION_EDIT in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_EDIT).\n",
       "type": [
@@ -297,7 +346,9 @@
     },
     {
       "name": "ACTION_GET_CONTENT",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Allow the user to select a particular kind of data specified by the Intent's `type` property.",
       "description": "Use with the [Titanium.Android.Intent.action](api:Titanium.Android.Intent#action) property to create an **Activity Intent**.\n\nSee [Intent.ACTION_GET_CONTENT in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_GET_CONTENT).\n",
       "type": [
@@ -310,7 +361,9 @@
     },
     {
       "name": "ACTION_GTALK_SERVICE_CONNECTED",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "GTalk connection has been established.",
       "description": "Pass to the [Titanium.Android.registerBroadcastReceiver](api:Titanium.Android#registerBroadcastReceiver) method to listen to the system broadcast.\n\nSee [Intent.ACTION_GTALK_SERVICE_CONNECTED in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_GTALK_SERVICE_CONNECTED).\n",
       "type": [
@@ -323,7 +376,9 @@
     },
     {
       "name": "ACTION_GTALK_SERVICE_DISCONNECTED",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "GTalk connection has been disconnected.",
       "description": "Pass to the [Titanium.Android.registerBroadcastReceiver](api:Titanium.Android#registerBroadcastReceiver) method to listen to the system broadcast.\n\nSee [Intent.ACTION_GTALK_SERVICE_DISCONNECTED in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_GTALK_SERVICE_DISCONNECTED).\n",
       "type": [
@@ -336,7 +391,9 @@
     },
     {
       "name": "ACTION_HEADSET_PLUG",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "A wired headset has been plugged in or unplugged.",
       "description": "Pass to the [Titanium.Android.registerBroadcastReceiver](api:Titanium.Android#registerBroadcastReceiver) method to listen to the system broadcast.\n\nSee [Intent.ACTION_HEADSET_PLUG in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_HEADSET_PLUG).\n",
       "type": [
@@ -349,7 +406,9 @@
     },
     {
       "name": "ACTION_INPUT_METHOD_CHANGED",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "An input method has been changed.",
       "description": "Pass to the [Titanium.Android.registerBroadcastReceiver](api:Titanium.Android#registerBroadcastReceiver) method to listen to the system broadcast.\n\nSee [Intent.ACTION_INPUT_METHOD_CHANGED in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_INPUT_METHOD_CHANGED).\n",
       "type": [
@@ -362,7 +421,9 @@
     },
     {
       "name": "ACTION_INSERT",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Insert an empty item into the given container.",
       "description": "Use with the [Titanium.Android.Intent.action](api:Titanium.Android.Intent#action) property to create an **Activity Intent**.\n\nSee [Intent.ACTION_INSERT in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_INSERT).\n",
       "type": [
@@ -375,7 +436,9 @@
     },
     {
       "name": "ACTION_INSERT_OR_EDIT",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Pick an existing item or insert an empty item, then edit it.",
       "description": "Use with the [Titanium.Android.Intent.action](api:Titanium.Android.Intent#action) property to create an **Activity Intent**.\n\nSee [Intent.ACTION_INSERT_OR_EDIT in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_INSERT_OR_EDIT).\n",
       "type": [
@@ -388,7 +451,9 @@
     },
     {
       "name": "ACTION_MAIN",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Start as the main entry point.",
       "description": "Use with the [Titanium.Android.Intent.action](api:Titanium.Android.Intent#action) property to create an **Activity Intent**.\n\nSee [Intent.ACTION_MAIN in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_MAIN).\n",
       "type": [
@@ -401,7 +466,9 @@
     },
     {
       "name": "ACTION_MANAGE_PACKAGE_STORAGE",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Indicates low memory condition notification acknowledged by user and package management should be started.",
       "description": "Pass to the [Titanium.Android.registerBroadcastReceiver](api:Titanium.Android#registerBroadcastReceiver) method to listen to the system broadcast.\n\nSee [Intent.ACTION_MANAGE_PACKAGE_STORAGE in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_MANAGE_PACKAGE_STORAGE).\n",
       "type": [
@@ -414,7 +481,9 @@
     },
     {
       "name": "ACTION_MEDIA_BAD_REMOVAL",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "External media was removed from SD card slot, but mount point was not unmounted.",
       "description": "Pass to the [Titanium.Android.registerBroadcastReceiver](api:Titanium.Android#registerBroadcastReceiver) method to listen to the system broadcast.\n\nSee [Intent.ACTION_MEDIA_BAD_REMOVAL in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_MEDIA_BAD_REMOVAL).\n",
       "type": [
@@ -427,7 +496,9 @@
     },
     {
       "name": "ACTION_MEDIA_BUTTON",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "The media button was pressed.",
       "description": "Pass to the [Titanium.Android.registerBroadcastReceiver](api:Titanium.Android#registerBroadcastReceiver) method to listen to the system broadcast.\n\nSee [Intent.ACTION_MEDIA_BUTTON in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_MEDIA_BUTTON).\n",
       "type": [
@@ -440,7 +511,9 @@
     },
     {
       "name": "ACTION_MEDIA_CHECKING",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "External media is present and being disk-checked.",
       "description": "Pass to the [Titanium.Android.registerBroadcastReceiver](api:Titanium.Android#registerBroadcastReceiver) method to listen to the system broadcast.\n\nSee [Intent.ACTION_MEDIA_CHECKING in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_MEDIA_CHECKING).\n",
       "type": [
@@ -453,7 +526,9 @@
     },
     {
       "name": "ACTION_MEDIA_EJECT",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "User has expressed the desire to remove the external storage media.",
       "description": "Pass to the [Titanium.Android.registerBroadcastReceiver](api:Titanium.Android#registerBroadcastReceiver) method to listen to the system broadcast.\n\nApplications should close all files they have open within the mount point when they receive this intent.\n\nSee [Intent.ACTION_MEDIA_EJECT in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_MEDIA_EJECT).\n",
       "type": [
@@ -466,7 +541,9 @@
     },
     {
       "name": "ACTION_MEDIA_MOUNTED",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "External media is present and mounted at its mount point.",
       "description": "Pass to the [Titanium.Android.registerBroadcastReceiver](api:Titanium.Android#registerBroadcastReceiver) method to listen to the system broadcast.\n\nSee [Intent.ACTION_MEDIA_MOUNTED in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_MEDIA_MOUNTED).\n",
       "type": [
@@ -479,7 +556,9 @@
     },
     {
       "name": "ACTION_MEDIA_NOFS",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "External media is present, but is using an incompatible filesystem or is blank.",
       "description": "Pass to the [Titanium.Android.registerBroadcastReceiver](api:Titanium.Android#registerBroadcastReceiver) method to listen to the system broadcast.\n\nSee [Intent.ACTION_MEDIA_NOFS in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_MEDIA_NOFS).\n",
       "type": [
@@ -492,7 +571,9 @@
     },
     {
       "name": "ACTION_MEDIA_REMOVED",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "External media has been removed.",
       "description": "Pass to the [Titanium.Android.registerBroadcastReceiver](api:Titanium.Android#registerBroadcastReceiver) method to listen to the system broadcast.\n\nSee [Intent.ACTION_MEDIA_REMOVED in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_MEDIA_REMOVED).\n",
       "type": [
@@ -505,7 +586,9 @@
     },
     {
       "name": "ACTION_MEDIA_SCANNER_FINISHED",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "The media scanner has finished scanning a directory.",
       "description": "Pass to the [Titanium.Android.registerBroadcastReceiver](api:Titanium.Android#registerBroadcastReceiver) method to listen to the system broadcast.\n\nSee [Intent.ACTION_MEDIA_SCANNER_FINISHED in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_MEDIA_SCANNER_FINISHED).\n",
       "type": [
@@ -518,7 +601,9 @@
     },
     {
       "name": "ACTION_MEDIA_SCANNER_SCAN_FILE",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Request the media scanner to scan a file and add it to the media database.",
       "description": "Pass to the [Titanium.Android.registerBroadcastReceiver](api:Titanium.Android#registerBroadcastReceiver) method to listen to the system broadcast.\n\nSee [Intent.ACTION_MEDIA_SCANNER_SCAN_FILE in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_MEDIA_SCANNER_SCAN_FILE).\n",
       "type": [
@@ -531,7 +616,9 @@
     },
     {
       "name": "ACTION_MEDIA_SCANNER_STARTED",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "The media scanner has started scanning a directory.",
       "description": "Pass to the [Titanium.Android.registerBroadcastReceiver](api:Titanium.Android#registerBroadcastReceiver) method to listen to the system broadcast.\n\nSee [Intent.ACTION_MEDIA_SCANNER_STARTED in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_MEDIA_SCANNER_STARTED).\n",
       "type": [
@@ -544,7 +631,9 @@
     },
     {
       "name": "ACTION_MEDIA_SHARED",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "External media is unmounted because it is being shared via USB mass storage.",
       "description": "Pass to the [Titanium.Android.registerBroadcastReceiver](api:Titanium.Android#registerBroadcastReceiver) method to listen to the system broadcast.\n\nSee [Intent.ACTION_MEDIA_SHARED in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_MEDIA_SHARED).\n",
       "type": [
@@ -557,7 +646,9 @@
     },
     {
       "name": "ACTION_MEDIA_UNMOUNTABLE",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Corresponds to the Android `Intent.ACTION_MEDIA_UNMOUNTABLE` constant.",
       "description": "Pass to the [Titanium.Android.registerBroadcastReceiver](api:Titanium.Android#registerBroadcastReceiver) method to listen to the system broadcast.\n\nSee [Intent.ACTION_MEDIA_UNMOUNTABLE in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_MEDIA_UNMOUNTABLE).\n",
       "type": [
@@ -570,7 +661,9 @@
     },
     {
       "name": "ACTION_MEDIA_UNMOUNTED",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "External media is present, but not mounted at its mount point.",
       "description": "Pass to the [Titanium.Android.registerBroadcastReceiver](api:Titanium.Android#registerBroadcastReceiver) method to listen to the system broadcast.\n\nSee [Intent.ACTION_MEDIA_UNMOUNTED in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_MEDIA_UNMOUNTED).\n",
       "type": [
@@ -583,7 +676,9 @@
     },
     {
       "name": "ACTION_NEW_OUTGOING_CALL",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "An outgoing call is about to be placed.",
       "description": "Pass to the [Titanium.Android.registerBroadcastReceiver](api:Titanium.Android#registerBroadcastReceiver) method to listen to the system broadcast.\n\nThe application needs to also set the `android.permission.NEW_OUTGOING_CALL` permission\nin the Android manifest section of the `tiapp.xml` file.\n\n``` xml\n<ti:app>\n    <android>\n        <manifest>\n            <uses-permission android:name=\"android.permission.NEW_OUTGOING_CALL\"/>\n        </manifest>\n    </android>\n</ti:app>\n```\n\nSee [Intent.ACTION_NEW_OUTGOING_CALL in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_NEW_OUTGOING_CALL).\n",
       "type": [
@@ -596,7 +691,9 @@
     },
     {
       "name": "ACTION_PACKAGE_ADDED",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "A new application package has been installed on the device.",
       "description": "Pass to the [Titanium.Android.registerBroadcastReceiver](api:Titanium.Android#registerBroadcastReceiver) method to listen to the system broadcast.\n\nSee [Intent.ACTION_PACKAGE_ADDED in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_PACKAGE_ADDED).\n",
       "type": [
@@ -609,7 +706,9 @@
     },
     {
       "name": "ACTION_PACKAGE_CHANGED",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "An existing application package has been changed.",
       "description": "Pass to the [Titanium.Android.registerBroadcastReceiver](api:Titanium.Android#registerBroadcastReceiver) method to listen to the system broadcast.\n\nSee [Intent.ACTION_PACKAGE_CHANGED in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_PACKAGE_CHANGED).\n",
       "type": [
@@ -622,7 +721,9 @@
     },
     {
       "name": "ACTION_PACKAGE_DATA_CLEARED",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "The user has cleared the data of a package.",
       "description": "Pass to the [Titanium.Android.registerBroadcastReceiver](api:Titanium.Android#registerBroadcastReceiver) method to listen to the system broadcast.\n\nSee [Intent.ACTION_PACKAGE_DATA_CLEARED in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_PACKAGE_DATA_CLEARED).\n",
       "type": [
@@ -635,7 +736,9 @@
     },
     {
       "name": "ACTION_PACKAGE_REMOVED",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "An existing application package has been removed from the device.",
       "description": "Pass to the [Titanium.Android.registerBroadcastReceiver](api:Titanium.Android#registerBroadcastReceiver) method to listen to the system broadcast.\n\nSee [Intent.ACTION_PACKAGE_REMOVED in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_PACKAGE_REMOVED).\n",
       "type": [
@@ -648,7 +751,9 @@
     },
     {
       "name": "ACTION_PACKAGE_REPLACED",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "A new version of an application package has been installed, replacing an existing version that was previously installed.",
       "description": "Pass to the [Titanium.Android.registerBroadcastReceiver](api:Titanium.Android#registerBroadcastReceiver) method to listen to the system broadcast.\n\nSee [Intent.ACTION_PACKAGE_REPLACED in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_PACKAGE_REPLACED).\n",
       "type": [
@@ -661,7 +766,9 @@
     },
     {
       "name": "ACTION_PACKAGE_RESTARTED",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "The user has restarted a package, and all of its processes have been killed.",
       "description": "Pass to the [Titanium.Android.registerBroadcastReceiver](api:Titanium.Android#registerBroadcastReceiver) method to listen to the system broadcast.\n\nSee [Intent.ACTION_PACKAGE_RESTARTED in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_PACKAGE_RESTARTED).\n",
       "type": [
@@ -674,7 +781,9 @@
     },
     {
       "name": "ACTION_PICK",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Pick an item from the directory indicated by the Intent's `data` property.",
       "description": "Use with the [Titanium.Android.Intent.action](api:Titanium.Android.Intent#action) property to create an **Activity Intent**.\n\nSee [Intent.ACTION_PICK in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_PICK).\n",
       "type": [
@@ -687,7 +796,9 @@
     },
     {
       "name": "ACTION_PICK_ACTIVITY",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Pick an activity given an intent.",
       "description": "Use with the [Titanium.Android.Intent.action](api:Titanium.Android.Intent#action) property to create an **Activity Intent**.\n\nAdd the activity intent using the intent's `putExtra()` method. Pass the method\n`Titanium.Android.EXTRA_INTENT` as the `name` parameter and the activity intent\nas the `data` parameter.\n\nSee [Intent.ACTION_PICK_ACTIVITY in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_PICK_ACTIVITY).\n",
       "type": [
@@ -700,7 +811,9 @@
     },
     {
       "name": "ACTION_POWER_CONNECTED",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "External power has been connected to the device.",
       "description": "Pass to the [Titanium.Android.registerBroadcastReceiver](api:Titanium.Android#registerBroadcastReceiver) method to listen to the system broadcast.\n\nSee [Intent.ACTION_POWER_CONNECTED in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_POWER_CONNECTED).\n",
       "type": [
@@ -713,7 +826,9 @@
     },
     {
       "name": "ACTION_POWER_DISCONNECTED",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "External power has been disconnected from the device.",
       "description": "Pass to the [Titanium.Android.registerBroadcastReceiver](api:Titanium.Android#registerBroadcastReceiver) method to listen to the system broadcast.\n\nSee [Intent.ACTION_POWER_DISCONNECTED in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_POWER_DISCONNECTED).\n",
       "type": [
@@ -726,7 +841,9 @@
     },
     {
       "name": "ACTION_POWER_USAGE_SUMMARY",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Show power usage information to the user.",
       "description": "Use with the [Titanium.Android.Intent.action](api:Titanium.Android.Intent#action) property to create an **Activity Intent**.\n\nSee [Intent.ACTION_POWER_USAGE_SUMMARY in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_POWER_USAGE_SUMMARY).\n",
       "type": [
@@ -739,7 +856,9 @@
     },
     {
       "name": "ACTION_PROVIDER_CHANGED",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Content provider published new events or items.",
       "description": "Pass to the [Titanium.Android.registerBroadcastReceiver](api:Titanium.Android#registerBroadcastReceiver) method to listen to the system broadcast.\n\nSee [Intent.ACTION_PROVIDER_CHANGED in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_PROVIDER_CHANGED).\n",
       "type": [
@@ -752,7 +871,9 @@
     },
     {
       "name": "ACTION_REBOOT",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Device rebooted.",
       "description": "**Only used by the system.**\n\nSee [Intent.ACTION_REBOOT in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_REBOOT).\n",
       "type": [
@@ -765,7 +886,9 @@
     },
     {
       "name": "ACTION_RUN",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Run the data.",
       "description": "Use with the [Titanium.Android.Intent.action](api:Titanium.Android.Intent#action) property to create an **Activity Intent**.\n\nSee [Intent.ACTION_RUN in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_RUN).\n",
       "type": [
@@ -778,7 +901,9 @@
     },
     {
       "name": "ACTION_SCREEN_OFF",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Sent when the device goes to sleep and becomes non-interactive.",
       "description": "Pass to the [Titanium.Android.registerBroadcastReceiver](api:Titanium.Android#registerBroadcastReceiver) method to listen to the system broadcast.\n\nSee [Intent.ACTION_SCREEN_OFF in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_SCREEN_OFF).\n",
       "type": [
@@ -791,7 +916,9 @@
     },
     {
       "name": "ACTION_SCREEN_ON",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Sent when the device wakes up and becomes interactive.",
       "description": "Pass to the [Titanium.Android.registerBroadcastReceiver](api:Titanium.Android#registerBroadcastReceiver) method to listen to the system broadcast.\n\nSee [Intent.ACTION_SCREEN_ON in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_SCREEN_ON).\n",
       "type": [
@@ -804,7 +931,9 @@
     },
     {
       "name": "ACTION_SEARCH",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Perform a search.",
       "description": "Use with the [Titanium.Android.Intent.action](api:Titanium.Android.Intent#action) property to create an **Activity Intent**.\n\nSee [Intent.ACTION_SEARCH in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_SEARCH).\n",
       "type": [
@@ -817,7 +946,9 @@
     },
     {
       "name": "ACTION_SEARCH_LONG_PRESS",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Start action associated with long pressing on the search key.",
       "description": "Use with the [Titanium.Android.Intent.action](api:Titanium.Android.Intent#action) property to create an **Activity Intent**.\n\nSee [Intent.ACTION_SEARCH_LONG_PRESS in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_SEARCH_LONG_PRESS).\n",
       "type": [
@@ -830,7 +961,9 @@
     },
     {
       "name": "ACTION_SEND",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Deliver data to another activity.",
       "description": "Use with the [Titanium.Android.Intent.action](api:Titanium.Android.Intent#action) property to create an **Activity Intent**.\n\nSee [Intent.ACTION_SEND in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_SEND).\n",
       "type": [
@@ -843,7 +976,9 @@
     },
     {
       "name": "ACTION_SEND_MULTIPLE",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Deliver multiple data to another activity.",
       "description": "Use with the [Titanium.Android.Intent.action](api:Titanium.Android.Intent#action) property to create an **Activity Intent**.\n\nSee [Intent.ACTION_SEND_MULTIPLE in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_SEND_MULTIPLE).\n",
       "type": [
@@ -856,7 +991,9 @@
     },
     {
       "name": "ACTION_SENDTO",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Deliver data to the recipient specified by the Intent's `data` property.",
       "description": "Use with the [Titanium.Android.Intent.action](api:Titanium.Android.Intent#action) property to create an **Activity Intent**.\n\nSee [Intent.ACTION_SENDTO in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_SENDTO).\n",
       "type": [
@@ -869,7 +1006,9 @@
     },
     {
       "name": "ACTION_SET_WALLPAPER",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Show settings for choosing the system wallpaper.",
       "description": "Use with the [Titanium.Android.Intent.action](api:Titanium.Android.Intent#action) property to create an **Activity Intent**.\n\nSee [Intent.ACTION_SET_WALLPAPER in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_SET_WALLPAPER).\n",
       "type": [
@@ -882,7 +1021,9 @@
     },
     {
       "name": "ACTION_SHUTDOWN",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Device is shutting down.",
       "description": "Pass to the [Titanium.Android.registerBroadcastReceiver](api:Titanium.Android#registerBroadcastReceiver) method to listen to the system broadcast.\n\nSee [Intent.ACTION_SHUTDOWN in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_SHUTDOWN).\n",
       "type": [
@@ -895,7 +1036,9 @@
     },
     {
       "name": "ACTION_SYNC",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Perform data synchronization.",
       "description": "Use with the [Titanium.Android.Intent.action](api:Titanium.Android.Intent#action) property to create an **Activity Intent**.\n\nSee [Intent.ACTION_SYNC in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_SYNC).\n",
       "type": [
@@ -908,7 +1051,9 @@
     },
     {
       "name": "ACTION_SYSTEM_TUTORIAL",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Start the platform-defined tutorial.",
       "description": "Use with the [Titanium.Android.Intent.action](api:Titanium.Android.Intent#action) property to create an **Activity Intent**.\n\nSee [Intent.ACTION_SYSTEM_TUTORIAL in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_SYSTEM_TUTORIAL).\n",
       "type": [
@@ -921,7 +1066,9 @@
     },
     {
       "name": "ACTION_TIME_CHANGED",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "The time was set.",
       "description": "Pass to the [Titanium.Android.registerBroadcastReceiver](api:Titanium.Android#registerBroadcastReceiver) method to listen to the system broadcast.\n\nSee [Intent.ACTION_TIME_CHANGED in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_TIME_CHANGED).\n",
       "type": [
@@ -934,7 +1081,9 @@
     },
     {
       "name": "ACTION_TIME_TICK",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "The current time changed.  Sent every minute.",
       "description": "Pass to the [Titanium.Android.registerBroadcastReceiver](api:Titanium.Android#registerBroadcastReceiver) method to listen to the system broadcast.\n\nSee [Intent.ACTION_TIME_TICK in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_TIME_TICK).\n",
       "type": [
@@ -947,7 +1096,9 @@
     },
     {
       "name": "ACTION_UID_REMOVED",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "A user ID was removed from the system.",
       "description": "Pass to the [Titanium.Android.registerBroadcastReceiver](api:Titanium.Android#registerBroadcastReceiver) method to listen to the system broadcast.\n\nSee [Intent.ACTION_UID_REMOVED in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_UID_REMOVED).\n",
       "type": [
@@ -960,7 +1111,9 @@
     },
     {
       "name": "ACTION_USER_PRESENT",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Sent when the user is present after device wakes up.",
       "description": "Pass to the [Titanium.Android.registerBroadcastReceiver](api:Titanium.Android#registerBroadcastReceiver) method to listen to the system broadcast.\n\nSee [Intent.ACTION_USER_PRESENT in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_USER_PRESENT).\n",
       "type": [
@@ -973,7 +1126,9 @@
     },
     {
       "name": "ACTION_VIEW",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Display data to the user.",
       "description": "Use with the [Titanium.Android.Intent.action](api:Titanium.Android.Intent#action) property to create an **Activity Intent**.\n\nSee [Intent.ACTION_VIEW in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_VIEW).\n",
       "type": [
@@ -986,7 +1141,9 @@
     },
     {
       "name": "ACTION_VOICE_COMMAND",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Start voice command.",
       "description": "Use with the [Titanium.Android.Intent.action](api:Titanium.Android.Intent#action) property to create an **Activity Intent**.\n\nSee [Intent.ACTION_VOICE_COMMAND in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_VOICE_COMMAND).\n",
       "type": [
@@ -999,7 +1156,9 @@
     },
     {
       "name": "ACTION_WALLPAPER_CHANGED",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "The current system wallpaper has changed.",
       "description": "Pass to the [Titanium.Android.registerBroadcastReceiver](api:Titanium.Android#registerBroadcastReceiver) method to listen to the system broadcast.\n\nSee [Intent.ACTION_WALLPAPER_CHANGED in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_WALLPAPER_CHANGED).\n",
       "type": [
@@ -1017,7 +1176,9 @@
     },
     {
       "name": "ACTION_WEB_SEARCH",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Perform a web search.",
       "description": "Use with the [Titanium.Android.Intent.action](api:Titanium.Android.Intent#action) property to create an **Activity Intent**.\n\nSee [Intent.ACTION_WEB_SEARCH in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#ACTION_WEB_SEARCH).\n",
       "type": [
@@ -1030,7 +1191,9 @@
     },
     {
       "name": "CATEGORY_ALARM",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Notification category indicating an alarm or timer.",
       "description": "Use with the [Titanium.Android.Notification.category](api:Titanium.Android.Notification#category) property.\n\nSee [Notification.CATEGORY_ALARM in the Android API Reference](https://developer.android.com/reference/android/app/Notification.html#CATEGORY_ALARM).\n",
       "type": [
@@ -1044,7 +1207,9 @@
     },
     {
       "name": "CATEGORY_ALTERNATIVE",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Set if the activity should be considered as an alternative action to the data the user is currently viewing.",
       "description": "Pass to the Intent's [addCategory()](api:Titanium.Android.Intent#addCategory) method to set a category.\n\nSee [Intent.CATEGORY_ALTERNATIVE in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#CATEGORY_ALTERNATIVE).\n",
       "type": [
@@ -1057,7 +1222,9 @@
     },
     {
       "name": "CATEGORY_BROWSABLE",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Activity can browse the Internet.",
       "description": "Pass to the Intent's [addCategory()](api:Titanium.Android.Intent#addCategory) method to set a category.\n\nThe `Titanium.Android.ACTION_MAIN` constant must also be set in the intent's `action` property.\n\nSee [Intent.CATEGORY_BROWSABLE in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#CATEGORY_BROWSABLE).\n",
       "type": [
@@ -1070,7 +1237,9 @@
     },
     {
       "name": "CATEGORY_CALL",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Notification category indicating an incoming call (voice or video) or similar synchronous\ncommunication request.\n",
       "description": "Use with the [Titanium.Android.Notification.category](api:Titanium.Android.Notification#category) property.\n\nSee [Notification.CATEGORY_CALL in the Android API Reference](https://developer.android.com/reference/android/app/Notification.html#CATEGORY_CALL).\n",
       "type": [
@@ -1084,7 +1253,9 @@
     },
     {
       "name": "CATEGORY_DEFAULT",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Activity should be used as the default action to perform on a piece of data.",
       "description": "Pass to the Intent's [addCategory()](api:Titanium.Android.Intent#addCategory) method to set a category.\n\nSee [Intent.CATEGORY_DEFAULT in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#CATEGORY_DEFAULT).\n",
       "type": [
@@ -1097,7 +1268,9 @@
     },
     {
       "name": "CATEGORY_DEVELOPMENT_PREFERENCE",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Activity is in the development preference panel.",
       "description": "Pass to the Intent's [addCategory()](api:Titanium.Android.Intent#addCategory) method to set a category.\n\nSee [Intent.CATEGORY_DEVELOPMENT_PREFERENCE in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#CATEGORY_DEVELOPMENT_PREFERENCE).\n",
       "type": [
@@ -1110,7 +1283,9 @@
     },
     {
       "name": "CATEGORY_EMAIL",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Notification category indicating an asynchronous bulk message (email).",
       "description": "Use with the [Titanium.Android.Notification.category](api:Titanium.Android.Notification#category) property.\n\nSee [Notification.CATEGORY_EMAIL in the Android API Reference](https://developer.android.com/reference/android/app/Notification.html#CATEGORY_EMAIL).\n",
       "type": [
@@ -1124,7 +1299,9 @@
     },
     {
       "name": "CATEGORY_EMBED",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Activity can run inside a parent activity.",
       "description": "See [Intent.CATEGORY_EMBED in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#CATEGORY_EMBED).\n",
       "type": [
@@ -1137,7 +1314,9 @@
     },
     {
       "name": "CATEGORY_ERROR",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Notification category indicating an error in background operation or authentication status.",
       "description": "Use with the [Titanium.Android.Notification.category](api:Titanium.Android.Notification#category) property.\n\nSee [Notification.CATEGORY_ERROR in the Android API Reference](https://developer.android.com/reference/android/app/Notification.html#CATEGORY_ERROR).\n",
       "type": [
@@ -1151,7 +1330,9 @@
     },
     {
       "name": "CATEGORY_EVENT",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Notification category indicating a calendar event.",
       "description": "Use with the [Titanium.Android.Notification.category](api:Titanium.Android.Notification#category) property.\n\nSee [Notification.CATEGORY_EVENT in the Android API Reference](https://developer.android.com/reference/android/app/Notification.html#CATEGORY_EVENT).\n",
       "type": [
@@ -1165,7 +1346,9 @@
     },
     {
       "name": "CATEGORY_FRAMEWORK_INSTRUMENTATION_TEST",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "To be used as test code for framework instrumentation tests.",
       "description": "See [Intent.CATEGORY_FRAMEWORK_INSTRUMENTATION_TEST in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#CATEGORY_FRAMEWORK_INSTRUMENTATION_TEST).\n",
       "type": [
@@ -1178,7 +1361,9 @@
     },
     {
       "name": "CATEGORY_HOME",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Home activity, the first activity that is displayed when the device boots.",
       "description": "Pass to the Intent's [addCategory()](api:Titanium.Android.Intent#addCategory) method to set a category.\n\nSee [Intent.CATEGORY_HOME in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#CATEGORY_HOME).\n",
       "type": [
@@ -1191,7 +1376,9 @@
     },
     {
       "name": "CATEGORY_INFO",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Provides information about the package it is in.",
       "description": "Pass to the Intent's [addCategory()](api:Titanium.Android.Intent#addCategory) method to set a category.\n\nSee [Intent.CATEGORY_INFO in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#CATEGORY_INFO).\n",
       "type": [
@@ -1204,7 +1391,9 @@
     },
     {
       "name": "CATEGORY_LAUNCHER",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Activity is in the device's launcher.",
       "description": "Pass to the Intent's [addCategory()](api:Titanium.Android.Intent#addCategory) method to set a category.\n\nSee [Intent.CATEGORY_LAUNCHER in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#CATEGORY_LAUNCHER).\n",
       "type": [
@@ -1217,7 +1406,9 @@
     },
     {
       "name": "CATEGORY_MESSAGE",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Notification category indicating an incoming direct message (SMS, instant message, etc.).",
       "description": "Use with the [Titanium.Android.Notification.category](api:Titanium.Android.Notification#category) property.\n\nSee [Notification.CATEGORY_MESSAGE in the Android API Reference](https://developer.android.com/reference/android/app/Notification.html#CATEGORY_MESSAGE).\n",
       "type": [
@@ -1231,7 +1422,9 @@
     },
     {
       "name": "CATEGORY_MONKEY",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "This activity may be exercised by the monkey or other automated test tools.",
       "description": "See [Intent.CATEGORY_MONKEY in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#CATEGORY_MONKEY).\n",
       "type": [
@@ -1244,7 +1437,9 @@
     },
     {
       "name": "CATEGORY_OPENABLE",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Activity can open raw `file://` or `scheme://` URIs.",
       "description": "See [Intent.CATEGORY_OPENABLE in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#CATEGORY_OPENABLE).\n",
       "type": [
@@ -1257,7 +1452,9 @@
     },
     {
       "name": "CATEGORY_PREFERENCE",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "This activity is a preference panel.",
       "description": "Pass to the Intent's [addCategory()](api:Titanium.Android.Intent#addCategory) method to set a category.\n\nSee [Intent.CATEGORY_PREFERENCE in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#CATEGORY_PREFERENCE).\n",
       "type": [
@@ -1270,7 +1467,9 @@
     },
     {
       "name": "CATEGORY_PROGRESS",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Notification category indicating the progress of a long-running background operation.",
       "description": "Use with the [Titanium.Android.Notification.category](api:Titanium.Android.Notification#category) property.\n\nSee [Notification.CATEGORY_PROGRESS in the Android API Reference](https://developer.android.com/reference/android/app/Notification.html#CATEGORY_PROGRESS).\n",
       "type": [
@@ -1284,7 +1483,9 @@
     },
     {
       "name": "CATEGORY_PROMO",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Notification category indicating a promotion or advertisement.",
       "description": "Use with the [Titanium.Android.Notification.category](api:Titanium.Android.Notification#category) property.\n\nSee [Notification.CATEGORY_PROMO in the Android API Reference](https://developer.android.com/reference/android/app/Notification.html#CATEGORY_PROMO).\n",
       "type": [
@@ -1298,7 +1499,9 @@
     },
     {
       "name": "CATEGORY_RECOMMENDATION",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Notification category indicating a specific, timely recommendation for a single thing.",
       "description": "Use with the [Titanium.Android.Notification.category](api:Titanium.Android.Notification#category) property.\n\nSee [Notification.CATEGORY_RECOMMENDATION in the Android API Reference](https://developer.android.com/reference/android/app/Notification.html#CATEGORY_RECOMMENDATION).\n",
       "type": [
@@ -1312,7 +1515,9 @@
     },
     {
       "name": "CATEGORY_SAMPLE_CODE",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "To be used as a sample code example (not part of the normal user experience).",
       "description": "See [Intent.CATEGORY_SAMPLE_CODE in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#CATEGORY_SAMPLE_CODE).\n",
       "type": [
@@ -1325,7 +1530,9 @@
     },
     {
       "name": "CATEGORY_SELECTED_ALTERNATIVE",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Activity should be considered as an alternative selection action to the data the user\nhas currently selected.\n",
       "description": "Pass to the Intent's [addCategory()](api:Titanium.Android.Intent#addCategory) method to set a category.\n\nSee [Intent.CATEGORY_SELECTED_ALTERNATIVE in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#CATEGORY_SELECTED_ALTERNATIVE).\n",
       "type": [
@@ -1338,7 +1545,9 @@
     },
     {
       "name": "CATEGORY_SERVICE",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Notification category for a running background service.",
       "description": "Use with the [Titanium.Android.Notification.category](api:Titanium.Android.Notification#category) property.\n\nSee [Notification.CATEGORY_SERVICE in the Android API Reference](https://developer.android.com/reference/android/app/Notification.html#CATEGORY_SERVICE).\n",
       "type": [
@@ -1352,7 +1561,9 @@
     },
     {
       "name": "CATEGORY_SOCIAL",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Notification category for a social network or sharing update.",
       "description": "Use with the [Titanium.Android.Notification.category](api:Titanium.Android.Notification#category) property.\n\nSee [Notification.CATEGORY_SOCIAL in the Android API Reference](https://developer.android.com/reference/android/app/Notification.html#CATEGORY_SOCIAL).\n",
       "type": [
@@ -1366,7 +1577,9 @@
     },
     {
       "name": "CATEGORY_STATUS",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Notification category indicating ongoing information about device or contextual status.",
       "description": "Use with the [Titanium.Android.Notification.category](api:Titanium.Android.Notification#category) property.\n\nSee [Notification.CATEGORY_STATUS in the Android API Reference](https://developer.android.com/reference/android/app/Notification.html#CATEGORY_STATUS).\n",
       "type": [
@@ -1380,7 +1593,9 @@
     },
     {
       "name": "CATEGORY_TAB",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Activity to be used in a tab activity.",
       "description": "Pass to the Intent's [addCategory()](api:Titanium.Android.Intent#addCategory) method to set a category.\n\nSee [Intent.CATEGORY_TAB in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#CATEGORY_TAB).\n",
       "type": [
@@ -1393,7 +1608,9 @@
     },
     {
       "name": "CATEGORY_TEST",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "To be used as a test (not part of the normal user experience).",
       "description": "Pass to the Intent's [addCategory()](api:Titanium.Android.Intent#addCategory) method to set a category.\n\nSee [Intent.CATEGORY_TEST in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#CATEGORY_TEST).\n",
       "type": [
@@ -1406,7 +1623,9 @@
     },
     {
       "name": "CATEGORY_TRANSPORT",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Notification category indicating media transport control for playback.",
       "description": "Use with the [Titanium.Android.Notification.category](api:Titanium.Android.Notification#category) property.\n\nSee [Notification.CATEGORY_TRANSPORT in the Android API Reference](https://developer.android.com/reference/android/app/Notification.html#CATEGORY_TRANSPORT).\n",
       "type": [
@@ -1420,7 +1639,9 @@
     },
     {
       "name": "CATEGORY_UNIT_TEST",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "To be used as a unit test (run through the Test Harness).",
       "description": "See [Intent.CATEGORY_UNIT_TEST in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#CATEGORY_UNIT_TEST).\n",
       "type": [
@@ -1433,7 +1654,9 @@
     },
     {
       "name": "currentActivity",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "References the top-most window's activity.",
       "type": [
         {
@@ -1445,7 +1668,9 @@
     },
     {
       "name": "currentService",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Service in the active context.",
       "type": [
         {
@@ -1457,7 +1682,9 @@
     },
     {
       "name": "DEFAULT_ALL",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Use all default settings for a notification; see\n[Notification.defaults](api:Titanium.Android.Notification#defaults).\n",
       "description": "See [Notification.DEFAULT_ALL in the Android API Reference](https://developer.android.com/reference/android/app/Notification.html#DEFAULT_ALL).\n",
       "type": [
@@ -1470,7 +1697,9 @@
     },
     {
       "name": "DEFAULT_LIGHTS",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Use the default light settings for a notification; see\n[Notification.defaults](api:Titanium.Android.Notification#defaults).\n",
       "description": "See [Notification.DEFAULT_LIGHTS in the Android API Reference](https://developer.android.com/reference/android/app/Notification.html#DEFAULT_LIGHTS).\n",
       "type": [
@@ -1483,7 +1712,9 @@
     },
     {
       "name": "DEFAULT_SOUND",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Use the default sound settings for a notification; see\n[Notification.defaults](api:Titanium.Android.Notification#defaults).\n",
       "description": "See [Notification.DEFAULT_SOUND in the Android API Reference](https://developer.android.com/reference/android/app/Notification.html#DEFAULT_SOUND).\n",
       "type": [
@@ -1496,7 +1727,9 @@
     },
     {
       "name": "DEFAULT_VIBRATE",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Use the default vibration settings for a notification; see\n[Notification.defaults](api:Titanium.Android.Notification#defaults).\n",
       "description": "See [Notification.DEFAULT_VIBRATE in the Android API Reference](https://developer.android.com/reference/android/app/Notification.html#DEFAULT_VIBRATE).\n",
       "type": [
@@ -1509,7 +1742,9 @@
     },
     {
       "name": "EXTRA_ALARM_COUNT",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Integer indicating how many pending alarms are being delivered with the intent.",
       "description": "See [Intent.EXTRA_ALARM_COUNT in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#EXTRA_ALARM_COUNT).\n",
       "type": [
@@ -1522,7 +1757,9 @@
     },
     {
       "name": "EXTRA_BCC",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "String array containing e-mail addresses for blind carbon copying.",
       "description": "See [Intent.EXTRA_BCC in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#EXTRA_BCC).\n",
       "type": [
@@ -1535,7 +1772,9 @@
     },
     {
       "name": "EXTRA_CC",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "String array containing e-mail addresses for carbon copying.",
       "description": "See [Intent.EXTRA_CC in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#EXTRA_CC).\n",
       "type": [
@@ -1548,7 +1787,9 @@
     },
     {
       "name": "EXTRA_DATA_REMOVED",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Boolean indicating full uninstall (true) or partial uninstall (false).",
       "description": "Sent with the `Titanium.Android.ACTION_PACKAGE_REMOVED` broadcast.\n\nSee [Intent.EXTRA_DATA_REMOVED in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#EXTRA_DATA_REMOVED).\n",
       "type": [
@@ -1561,7 +1802,9 @@
     },
     {
       "name": "EXTRA_DONT_KILL_APP",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Boolean indicating to restart the application or not.",
       "description": "Sent with the `Titanium.Android.ACTION_PACKAGE_REMOVED` and\n`Titanium.Android.ACTION_PACKAGE_CHANGED` broadcasts.\n\nSee [Intent.EXTRA_DONT_KILL_APP in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#EXTRA_DONT_KILL_APP).\n",
       "type": [
@@ -1574,7 +1817,9 @@
     },
     {
       "name": "EXTRA_EMAIL",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "String array containing e-mail addresses.",
       "description": "See [Intent.EXTRA_EMAIL in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#EXTRA_EMAIL).\n",
       "type": [
@@ -1587,7 +1832,9 @@
     },
     {
       "name": "EXTRA_INTENT",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "An Intent describing the choices you would like shown.",
       "description": "Set if the Intent's action is `Titanium.Android.ACTION_PICK_ACTIVITY`.\n\nSee [Intent.EXTRA_INTENT in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#EXTRA_INTENT).\n",
       "type": [
@@ -1600,7 +1847,9 @@
     },
     {
       "name": "EXTRA_KEY_EVENT",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "A KeyEvent object containing the event that triggered the creation of the Intent it is in.",
       "description": "See [Intent.EXTRA_KEY_EVENT in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#EXTRA_KEY_EVENT).\n",
       "type": [
@@ -1613,7 +1862,9 @@
     },
     {
       "name": "EXTRA_PHONE_NUMBER",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "String holding the phone number to call or number that was called.",
       "description": "Sent with the `Titanium.Android.ACTION_NEW_OUTGOING_CALL` broadcast.\n\nSet if the Intent's action is `Titanium.Android.ACTION_CALL`.\n\nSee [Intent.EXTRA_PHONE_NUMBER in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#EXTRA_PHONE_NUMBER).\n",
       "type": [
@@ -1626,7 +1877,9 @@
     },
     {
       "name": "EXTRA_REPLACING",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Boolean indicating if the package is being replaced.",
       "description": "Sent with the `Titanium.Android.ACTION_PACKAGE_REMOVED` broadcast.\n\nSee [Intent.EXTRA_REPLACING in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#EXTRA_REPLACING).\n",
       "type": [
@@ -1639,7 +1892,9 @@
     },
     {
       "name": "EXTRA_SHORTCUT_ICON",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Bitmap icon.",
       "description": "Return value of an intent with a `Titanium.Android.ACTION_CREATE_SHORTCUT` action.\n\nSee [Intent.EXTRA_SHORTCUT_ICON in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#EXTRA_SHORTCUT_ICON).\n",
       "type": [
@@ -1652,7 +1907,9 @@
     },
     {
       "name": "EXTRA_SHORTCUT_ICON_RESOURCE",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Resource of the shortcut.",
       "description": "Return value of an intent with a `Titanium.Android.ACTION_CREATE_SHORTCUT` action.\n\nSee [Intent.EXTRA_SHORTCUT_ICON_RESOURCE in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#EXTRA_SHORTCUT_ICON_RESOURCE).\n",
       "type": [
@@ -1665,7 +1922,9 @@
     },
     {
       "name": "EXTRA_SHORTCUT_INTENT",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Intent of a shortcut.",
       "description": "Return value of an intent with a `Titanium.Android.ACTION_CREATE_SHORTCUT` action.\n\nSee [Intent.EXTRA_SHORTCUT_INTENT in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#EXTRA_SHORTCUT_INTENT).\n",
       "type": [
@@ -1678,7 +1937,9 @@
     },
     {
       "name": "EXTRA_SHORTCUT_NAME",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Name of the shortcut.",
       "description": "Return value of an intent with a `Titanium.Android.ACTION_CREATE_SHORTCUT` action.\n\nSee [Intent.EXTRA_SHORTCUT_NAME in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#EXTRA_SHORTCUT_NAME).\n",
       "type": [
@@ -1691,7 +1952,9 @@
     },
     {
       "name": "EXTRA_STREAM",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "URI containing the stream data.",
       "description": "Use if the Intent's action is `Titanium.Android.ACTION_SEND`.\n\nSee [Intent.EXTRA_STREAM in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#EXTRA_STREAM).\n",
       "type": [
@@ -1704,7 +1967,9 @@
     },
     {
       "name": "EXTRA_SUBJECT",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Subject line of a message.",
       "description": "See [Intent.EXTRA_SUBJECT in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#EXTRA_SUBJECT).\n",
       "type": [
@@ -1717,7 +1982,9 @@
     },
     {
       "name": "EXTRA_TEMPLATE",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Initial data to place in a newly created record.",
       "description": "Use if the Intent's action is `Titanium.Android.ACTION_INSERT`.\n\nSee [Intent.EXTRA_TEMPLATE in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#EXTRA_TEMPLATE).\n",
       "type": [
@@ -1730,7 +1997,9 @@
     },
     {
       "name": "EXTRA_TEXT",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Corresponds to the Android `Intent.EXTRA_TEXT` constant.",
       "description": "See [Intent.EXTRA_TEXT in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#EXTRA_TEXT).\n",
       "type": [
@@ -1743,7 +2012,9 @@
     },
     {
       "name": "EXTRA_TITLE",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Corresponds to the Android `Intent.EXTRA_TITLE` constant.",
       "description": "Set if the Intent's action is `Titanium.Android.ACTION_CHOOSER`.\n\nSee [Intent.EXTRA_TITLE in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#EXTRA_TITLE).\n",
       "type": [
@@ -1756,7 +2027,9 @@
     },
     {
       "name": "EXTRA_UID",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "UID of the assigned packaged.",
       "description": "Sent with the `Titanium.Android.ACTION_UID_REMOVED` broadcast, and may be sent with the\n`Titanium.Android.ACTION_PACKAGE_CHANGED` and `Titanium.Android.ACTION_PACKAGE_REMOVED` broadcasts.\n\nSee [Intent.EXTRA_UID in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#EXTRA_UID).\n",
       "type": [
@@ -1769,7 +2042,9 @@
     },
     {
       "name": "FILL_IN_ACTION",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Not used.",
       "description": "See [Intent.FILL_IN_ACTION in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#FILL_IN_ACTION).\n",
       "type": [
@@ -1782,7 +2057,9 @@
     },
     {
       "name": "FILL_IN_CATEGORIES",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Not used.",
       "description": "See [Intent.FILL_IN_CATEGORIES in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#FILL_IN_CATEGORIES).\n",
       "type": [
@@ -1795,7 +2072,9 @@
     },
     {
       "name": "FILL_IN_COMPONENT",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Not used.",
       "description": "See [Intent.FILL_IN_COMPONENT in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#FILL_IN_COMPONENT).\n",
       "type": [
@@ -1808,7 +2087,9 @@
     },
     {
       "name": "FILL_IN_DATA",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Not used.",
       "description": "See [Intent.FILL_IN_DATA in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#FILL_IN_DATA).\n",
       "type": [
@@ -1821,7 +2102,9 @@
     },
     {
       "name": "FILL_IN_PACKAGE",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Not used.",
       "description": "See [Intent.FILL_IN_PACKAGE in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#FILL_IN_PACKAGE).\n",
       "type": [
@@ -1834,7 +2117,9 @@
     },
     {
       "name": "FLAG_ACTIVITY_BROUGHT_TO_FRONT",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "If activity is already running, bring it to the foreground.",
       "description": "Set by the system when launching a task.\n\nSee [Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#FLAG_ACTIVITY_BROUGHT_TO_FRONT).\n",
       "type": [
@@ -1847,7 +2132,9 @@
     },
     {
       "name": "FLAG_ACTIVITY_CLEAR_TOP",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "If the activity is present, removes any activities on top of it to make it the foreground activity.\n",
       "description": "Bitwise-OR the constant with the Intent's `flags` property.\n\nSee [Intent.FLAG_ACTIVITY_CLEAR_TOP in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#FLAG_ACTIVITY_CLEAR_TOP).\n",
       "type": [
@@ -1860,7 +2147,9 @@
     },
     {
       "name": "FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Corresponds to the Android `Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET` constant.",
       "description": "See [Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET).\n",
       "type": [
@@ -1878,7 +2167,9 @@
     },
     {
       "name": "FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Exclude the activity from recently launched activities.",
       "description": "Bitwise-OR the constant with the Intent's `flags` property.\n\nSee [Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS).\n",
       "type": [
@@ -1891,7 +2182,9 @@
     },
     {
       "name": "FLAG_ACTIVITY_FORWARD_RESULT",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Return result to the original calling activity.",
       "description": "Bitwise-OR the constant with the Intent's `flags` property.\n\nSee [Intent.FLAG_ACTIVITY_FORWARD_RESULT in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#FLAG_ACTIVITY_FORWARD_RESULT).\n",
       "type": [
@@ -1904,7 +2197,9 @@
     },
     {
       "name": "FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Activity was launched from history.",
       "description": "Set by the system when launching a task.\n\nSee [Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY).\n",
       "type": [
@@ -1917,7 +2212,9 @@
     },
     {
       "name": "FLAG_ACTIVITY_MULTIPLE_TASK",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Start the activity as a new task even if it exists.",
       "description": "Must be used with the `Titanium.Android.FLAG_ACTIVITY_NEW_TASK`.\n\nBitwise-OR the constant with the Intent's `flags` property.\n\nSee [Intent.FLAG_ACTIVITY_MULTIPLE_TASK in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#FLAG_ACTIVITY_MULTIPLE_TASK).\n",
       "type": [
@@ -1930,7 +2227,9 @@
     },
     {
       "name": "FLAG_ACTIVITY_NEW_TASK",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Activity will be the start of a new task (collection of activities).",
       "description": "Bitwise-OR the constant with the Intent's `flags` property.\n\nSee [Intent.FLAG_ACTIVITY_NEW_TASK in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#FLAG_ACTIVITY_NEW_TASK).\n",
       "type": [
@@ -1943,7 +2242,9 @@
     },
     {
       "name": "FLAG_ACTIVITY_NO_ANIMATION",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Prevent transition animation.",
       "description": "Bitwise-OR the constant with the Intent's `flags` property.\n\nSee [Intent.FLAG_ACTIVITY_NO_ANIMATION in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#FLAG_ACTIVITY_NO_ANIMATION).\n",
       "type": [
@@ -1956,7 +2257,9 @@
     },
     {
       "name": "FLAG_ACTIVITY_NO_HISTORY",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Do not keep the activity in the history stack.",
       "description": "Bitwise-OR the constant with the Intent's `flags` property.\n\nSee [Intent.FLAG_ACTIVITY_NO_HISTORY in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#FLAG_ACTIVITY_NO_HISTORY).\n",
       "type": [
@@ -1969,7 +2272,9 @@
     },
     {
       "name": "FLAG_ACTIVITY_NO_USER_ACTION",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Disables the [onUserLeaveHint()](https://developer.android.com/reference/android/app/Activity.html#onUserLeaveHint()) callback.\n",
       "description": "Bitwise-OR the constant with the Intent's `flags` property.\n\nSee [Intent.FLAG_ACTIVITY_NO_USER_ACTION in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#FLAG_ACTIVITY_NO_USER_ACTION).\n",
       "type": [
@@ -1982,7 +2287,9 @@
     },
     {
       "name": "FLAG_ACTIVITY_PREVIOUS_IS_TOP",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Corresponds to the Android `Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP` constant.",
       "description": "Bitwise-OR the constant with the Intent's `flags` property.\n\nSee [Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#FLAG_ACTIVITY_PREVIOUS_IS_TOP).\n",
       "type": [
@@ -1995,7 +2302,9 @@
     },
     {
       "name": "FLAG_ACTIVITY_REORDER_TO_FRONT",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "If the activity already exists, place it at the top of the history stack.",
       "description": "Bitwise-OR the constant with the Intent's `flags` property.\n\nSee [Intent.FLAG_ACTIVITY_REORDER_TO_FRONT in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#FLAG_ACTIVITY_REORDER_TO_FRONT).\n",
       "type": [
@@ -2008,7 +2317,9 @@
     },
     {
       "name": "FLAG_ACTIVITY_RESET_TASK_IF_NEEDED",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "If the task already exists, resets the task to its initial state.",
       "description": "Bitwise-OR the constant with the Intent's `flags` property.\n\nSee [Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#FLAG_ACTIVITY_RESET_TASK_IF_NEEDED).\n",
       "type": [
@@ -2021,7 +2332,9 @@
     },
     {
       "name": "FLAG_ACTIVITY_SINGLE_TOP",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Do not launch the activity if it is already running.",
       "description": "Bitwise-OR the constant with the Intent's `flags` property.\n\nSee [Intent.FLAG_ACTIVITY_SINGLE_TOP in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#FLAG_ACTIVITY_SINGLE_TOP).\n",
       "type": [
@@ -2034,7 +2347,9 @@
     },
     {
       "name": "FLAG_AUTO_CANCEL",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Cancel the notification when it is clicked by the user.",
       "description": "Use with [Notification.flags](api:Titanium.Android.Notification#flags).\n\nSee also: [Notification.FLAG_AUTO_CANCEL in the Android API Reference](https://developer.android.com/reference/android/app/Notification.html#FLAG_AUTO_CANCEL).\n",
       "type": [
@@ -2047,7 +2362,9 @@
     },
     {
       "name": "FLAG_CANCEL_CURRENT",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Cancel the current pending intent before creating a new one.",
       "description": "Use with the [Titanium.Android.PendingIntent.flags](api:Titanium.Android.PendingIntent#flags) property.\n\nSee [PendingIntent.FLAG_CANCEL_CURRENT in the Android API Reference](https://developer.android.com/reference/android/app/PendingIntent.html#FLAG_CANCEL_CURRENT).\n",
       "type": [
@@ -2060,7 +2377,9 @@
     },
     {
       "name": "FLAG_DEBUG_LOG_RESOLUTION",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Enable a log message to print out the resolution of the intent.",
       "description": "Bitwise-OR the constant with the Intent's `flags` property.\n\nSee [Intent.FLAG_DEBUG_LOG_RESOLUTION in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#FLAG_DEBUG_LOG_RESOLUTION).\n",
       "type": [
@@ -2073,7 +2392,9 @@
     },
     {
       "name": "FLAG_FROM_BACKGROUND",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Indicates the intent is coming from a background operation.",
       "description": "Bitwise-OR the constant with the Intent's `flags` property.\n\nSee [Intent.FLAG_FROM_BACKGROUND in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#FLAG_FROM_BACKGROUND).\n",
       "type": [
@@ -2086,7 +2407,9 @@
     },
     {
       "name": "FLAG_GRANT_READ_URI_PERMISSION",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Grant read permission on the URI in the Intent's data or clipboard.",
       "description": "Bitwise-OR the constant with the Intent's `flags` property.\n\nSee [Intent.FLAG_GRANT_READ_URI_PERMISSION in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#FLAG_GRANT_READ_URI_PERMISSION).\n",
       "type": [
@@ -2099,7 +2422,9 @@
     },
     {
       "name": "FLAG_GRANT_WRITE_URI_PERMISSION",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Grants write permission on the URI in the Intent's data or clipboard.",
       "description": "Bitwise-OR the constant with the Intent's `flags` property.\n\nSee [Intent.FLAG_GRANT_WRITE_URI_PERMISSION in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#FLAG_GRANT_WRITE_URI_PERMISSION).\n",
       "type": [
@@ -2112,7 +2437,9 @@
     },
     {
       "name": "FLAG_IMMUTABLE",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Pending intent should be immutable.",
       "description": "Use with the [Titanium.Android.PendingIntent.flags](api:Titanium.Android.PendingIntent#flags) property.\n\nSee [PendingIntent.FLAG_IMMUTABLE in the Android API Reference](https://developer.android.com/reference/android/app/PendingIntent.html#FLAG_IMMUTABLE).\n",
       "type": [
@@ -2131,7 +2458,9 @@
     },
     {
       "name": "FLAG_INSISTENT",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Repeat audio until the notification is cancelled or the notification window\nis opened.\n",
       "description": "Use with [Notification.flags](api:Titanium.Android.Notification#flags).\n\nSee also: [Notification.FLAG_INSISTENT in the Android API Reference](https://developer.android.com/reference/android/app/Notification.html#FLAG_INSISTENT).\n",
       "type": [
@@ -2144,7 +2473,9 @@
     },
     {
       "name": "FLAG_MUTABLE",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Pending intent should be mutable.",
       "description": "Use with the [Titanium.Android.PendingIntent.flags](api:Titanium.Android.PendingIntent#flags) property.\n\nSee [PendingIntent.FLAG_MUTABLE in the Android API Reference](https://developer.android.com/reference/android/app/PendingIntent.html#FLAG_MUTABLE).\n",
       "type": [
@@ -2163,7 +2494,9 @@
     },
     {
       "name": "FLAG_NO_CLEAR",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Do not cancel the notification when the user clicks the Clear All button.",
       "description": "Use with [Notification.flags](api:Titanium.Android.Notification#flags).\n\nSee also: [Notification.FLAG_NO_CLEAR in the Android API Reference](https://developer.android.com/reference/android/app/Notification.html#FLAG_NO_CLEAR).\n",
       "type": [
@@ -2176,7 +2509,9 @@
     },
     {
       "name": "FLAG_NO_CREATE",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "If the current intent does not exist, do not create it.",
       "description": "Use with the [Titanium.Android.PendingIntent.flags](api:Titanium.Android.PendingIntent#flags) property.\n\nSee [PendingIntent.FLAG_NO_CREATE in the Android API Reference](https://developer.android.com/reference/android/app/PendingIntent.html#FLAG_NO_CREATE).\n",
       "type": [
@@ -2189,7 +2524,9 @@
     },
     {
       "name": "FLAG_ONE_SHOT",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "The pending intent can only be used once.",
       "description": "Use with the [Titanium.Android.PendingIntent.flags](api:Titanium.Android.PendingIntent#flags) property.\n\nSee [PendingIntent.FLAG_ONE_SHOT in the Android API Reference](https://developer.android.com/reference/android/app/PendingIntent.html#FLAG_ONE_SHOT).\n",
       "type": [
@@ -2202,7 +2539,9 @@
     },
     {
       "name": "FLAG_ONGOING_EVENT",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Specifies that a notification is in reference to something that is ongoing, like a phone call.",
       "description": "Use with [Notification.flags](api:Titanium.Android.Notification#flags).\n\nSee also: [Notification.FLAG_ONGOING_EVENT in the Android API Reference](https://developer.android.com/reference/android/app/Notification.html#FLAG_ONGOING_EVENT).\n",
       "type": [
@@ -2215,7 +2554,9 @@
     },
     {
       "name": "FLAG_ONLY_ALERT_ONCE",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Play an alert (sound, lights, and/or vibration) once each time the notification is sent, even if it has not been canceled before that.",
       "description": "Use with [Notification.flags](api:Titanium.Android.Notification#flags).\n\nSee also: [Notification.FLAG_ONLY_ALERT_ONCE in the Android API Reference](https://developer.android.com/reference/android/app/Notification.html#FLAG_ONLY_ALERT_ONCE).\n",
       "type": [
@@ -2228,7 +2569,9 @@
     },
     {
       "name": "FLAG_RECEIVER_REGISTERED_ONLY",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "When sending a broadcast, only registered receivers will be called.",
       "description": "Bitwise-OR the constant with the Intent's `flags` property.\n\nSee [Intent.FLAG_RECEIVER_REGISTERED_ONLY in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#FLAG_RECEIVER_REGISTERED_ONLY).\n",
       "type": [
@@ -2241,7 +2584,9 @@
     },
     {
       "name": "FLAG_SHOW_LIGHTS",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Use LED lights to alert the user to the notification.",
       "description": "Use with [Notification.flags](api:Titanium.Android.Notification#flags).\n\nSee also: [Notification.FLAG_SHOW_LIGHTS in the Android API Reference](https://developer.android.com/reference/android/app/Notification.html#FLAG_SHOW_LIGHTS).\n",
       "type": [
@@ -2254,7 +2599,9 @@
     },
     {
       "name": "FLAG_UPDATE_CURRENT",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "If the current pending intent already exists, only update the current intent's extra data.",
       "description": "Use with the [Titanium.Android.PendingIntent.flags](api:Titanium.Android.PendingIntent#flags) property.\n\nSee [PendingIntent.FLAG_UPDATE_CURRENT in the Android API\nReference](https://developer.android.com/reference/android/app/PendingIntent.html#FLAG_UPDATE_CURRENT).\n",
       "type": [
@@ -2267,7 +2614,9 @@
     },
     {
       "name": "FOREGROUND_SERVICE_TYPE_CAMERA",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Allows the camera to be used while the app is in the background.",
       "description": "This constant is passed to the [Titanium.Android.Service.foregroundNotify](api:Titanium.Android.Service#foregroundNotify) method.\n\nTo use this constant, you must also set your `<service/>` element to the\n`foregroundServiceType` attribute value as shown below.\n\n``` xml\n<ti:app>\n    <android>\n        <services>\n            <service url=\"<YourService.js>\" android:foregroundServiceType=\"camera\"/>\n        </services>\n    </android>\n</ti:app>\n```\n\nSee Google's [ServiceInfo.FOREGROUND_SERVICE_TYPE_CAMERA](https://developer.android.com/reference/android/content/pm/ServiceInfo.html#FOREGROUND_SERVICE_TYPE_CAMERA)\ndocumentation for more details.\n",
       "type": [
@@ -2281,7 +2630,9 @@
     },
     {
       "name": "FOREGROUND_SERVICE_TYPE_CONNECTED_DEVICE",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Allows connecting to Android Auto, bluetooth, TV or other devices while app is in the background.\n",
       "description": "This constant is passed to the [Titanium.Android.Service.foregroundNotify](api:Titanium.Android.Service#foregroundNotify) method.\n\nTo use this constant, you must also set your `<service/>` element to the\n`foregroundServiceType` attribute value as shown below.\n\n``` xml\n<ti:app>\n    <android>\n        <services>\n            <service url=\"<YourService.js>\" android:foregroundServiceType=\"connectedDevice\"/>\n        </services>\n    </android>\n</ti:app>\n```\n\nSee Google's [ServiceInfo.FOREGROUND_SERVICE_TYPE_CONNECTED_DEVICE](https://developer.android.com/reference/android/content/pm/ServiceInfo.html#FOREGROUND_SERVICE_TYPE_CONNECTED_DEVICE)\ndocumentation for more details.\n",
       "type": [
@@ -2295,7 +2646,9 @@
     },
     {
       "name": "FOREGROUND_SERVICE_TYPE_LOCATION",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Allows accessing location from the GPS, map, etc. while the app is in the background.\n",
       "description": "This constant is passed to the [Titanium.Android.Service.foregroundNotify](api:Titanium.Android.Service#foregroundNotify) method.\n\nTo use this constant, you must also set your `<service/>` element to the\n`foregroundServiceType` attribute value as shown below.\n\n``` xml\n<ti:app>\n    <android>\n        <services>\n            <service url=\"<YourService.js>\" android:foregroundServiceType=\"location\"/>\n        </services>\n    </android>\n</ti:app>\n```\n\nSee Google's [ServiceInfo.FOREGROUND_SERVICE_TYPE_LOCATION](https://developer.android.com/reference/android/content/pm/ServiceInfo.html#FOREGROUND_SERVICE_TYPE_LOCATION)\ndocumentation for more details.\n",
       "type": [
@@ -2309,7 +2662,9 @@
     },
     {
       "name": "FOREGROUND_SERVICE_TYPE_MANIFEST",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "A special value indicates to use all types set in manifest file.\n",
       "description": "This constant is passed to the [Titanium.Android.Service.foregroundNotify](api:Titanium.Android.Service#foregroundNotify) method.\n\nSee Google's [ServiceInfo.FOREGROUND_SERVICE_TYPE_MANIFEST](https://developer.android.com/reference/android/content/pm/ServiceInfo.html#FOREGROUND_SERVICE_TYPE_MANIFEST)\ndocumentation for more details.\n",
       "type": [
@@ -2323,7 +2678,9 @@
     },
     {
       "name": "FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Allows music, video, news or other media playback while the app is in the background.\n",
       "description": "This constant is passed to the [Titanium.Android.Service.foregroundNotify](api:Titanium.Android.Service#foregroundNotify) method.\n\nTo use this constant, you must also set your `<service/>` element to the\n`foregroundServiceType` attribute value as shown below.\n\n``` xml\n<ti:app>\n    <android>\n        <services>\n            <service url=\"<YourService.js>\" android:foregroundServiceType=\"mediaPlayback\"/>\n        </services>\n    </android>\n</ti:app>\n```\n\nSee Google's [ServiceInfo.FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK](https://developer.android.com/reference/android/content/pm/ServiceInfo.html#FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK)\ndocumentation for more details.\n",
       "type": [
@@ -2337,7 +2694,9 @@
     },
     {
       "name": "FOREGROUND_SERVICE_TYPE_MEDIA_PROJECTION",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Allows managing a media projection session for screen recording or taking screenshots\nwhile app is in the background.\n",
       "description": "This constant is passed to the [Titanium.Android.Service.foregroundNotify](api:Titanium.Android.Service#foregroundNotify) method.\n\nTo use this constant, you must also set your `<service/>` element to the\n`foregroundServiceType` attribute value as shown below.\n\n``` xml\n<ti:app>\n    <android>\n        <services>\n            <service url=\"<YourService.js>\" android:foregroundServiceType=\"mediaProjection\"/>\n        </services>\n    </android>\n</ti:app>\n```\n\nSee Google's [ServiceInfo.FOREGROUND_SERVICE_TYPE_MEDIA_PROJECTION](https://developer.android.com/reference/android/content/pm/ServiceInfo.html#FOREGROUND_SERVICE_TYPE_MEDIA_PROJECTION)\ndocumentation for more details.\n",
       "type": [
@@ -2351,7 +2710,9 @@
     },
     {
       "name": "FOREGROUND_SERVICE_TYPE_MICROPHONE",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Allows the microphone to be used while the app is in the background.",
       "description": "This constant is passed to the [Titanium.Android.Service.foregroundNotify](api:Titanium.Android.Service#foregroundNotify) method.\n\nTo use this constant, you must also set your `<service/>` element to the\n`foregroundServiceType` attribute value as shown below.\n\n``` xml\n<ti:app>\n    <android>\n        <services>\n            <service url=\"<YourService.js>\" android:foregroundServiceType=\"microphone\"/>\n        </services>\n    </android>\n</ti:app>\n```\n\nSee Google's [ServiceInfo.FOREGROUND_SERVICE_TYPE_MICROPHONE](https://developer.android.com/reference/android/content/pm/ServiceInfo.html#FOREGROUND_SERVICE_TYPE_MICROPHONE)\ndocumentation for more details.\n",
       "type": [
@@ -2365,7 +2726,9 @@
     },
     {
       "name": "FOREGROUND_SERVICE_TYPE_NONE",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "The default foreground service type.",
       "description": "This constant is passed to the [Titanium.Android.Service.foregroundNotify](api:Titanium.Android.Service#foregroundNotify) method.\n\nSee Google's [ServiceInfo.FOREGROUND_SERVICE_TYPE_NONE](https://developer.android.com/reference/android/content/pm/ServiceInfo.html#FOREGROUND_SERVICE_TYPE_NONE)\ndocumentation for more details.\n",
       "type": [
@@ -2379,7 +2742,9 @@
     },
     {
       "name": "FOREGROUND_SERVICE_TYPE_PHONE_CALL",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Allows ongoing phone call or video conferencing access while the app is in the background.\n",
       "description": "This constant is passed to the [Titanium.Android.Service.foregroundNotify](api:Titanium.Android.Service#foregroundNotify) method.\n\nTo use this constant, you must also set your `<service/>` element to the\n`foregroundServiceType` attribute value as shown below.\n\n``` xml\n<ti:app>\n    <android>\n        <services>\n            <service url=\"<YourService.js>\" android:foregroundServiceType=\"phoneCall\"/>\n        </services>\n    </android>\n</ti:app>\n```\n\nSee Google's [ServiceInfo.FOREGROUND_SERVICE_TYPE_PHONE_CALL](https://developer.android.com/reference/android/content/pm/ServiceInfo.html#FOREGROUND_SERVICE_TYPE_PHONE_CALL)\ndocumentation for more details.\n",
       "type": [
@@ -2393,7 +2758,9 @@
     },
     {
       "name": "IMPORTANCE_DEFAULT",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Used with [NotificationChannel](api:Titanium.Android.NotificationChannel) to specify an importance level.\n",
       "type": [
         {
@@ -2406,7 +2773,9 @@
     },
     {
       "name": "IMPORTANCE_HIGH",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Used with [NotificationChannel](api:Titanium.Android.NotificationChannel) to specify an importance level.\n",
       "type": [
         {
@@ -2419,7 +2788,9 @@
     },
     {
       "name": "IMPORTANCE_LOW",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Used with [NotificationChannel](api:Titanium.Android.NotificationChannel) to specify an importance level.\n",
       "type": [
         {
@@ -2432,7 +2803,9 @@
     },
     {
       "name": "IMPORTANCE_MAX",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Used with [NotificationChannel](api:Titanium.Android.NotificationChannel) to specify an importance level.\n",
       "type": [
         {
@@ -2445,7 +2818,9 @@
     },
     {
       "name": "IMPORTANCE_MIN",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Used with [NotificationChannel](api:Titanium.Android.NotificationChannel) to specify an importance level.\n",
       "type": [
         {
@@ -2458,7 +2833,9 @@
     },
     {
       "name": "IMPORTANCE_NONE",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Used with [NotificationChannel](api:Titanium.Android.NotificationChannel) to specify an importance level.\n",
       "type": [
         {
@@ -2471,7 +2848,9 @@
     },
     {
       "name": "IMPORTANCE_UNSPECIFIED",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Used with [NotificationChannel](api:Titanium.Android.NotificationChannel) to specify an importance level.\n",
       "type": [
         {
@@ -2484,7 +2863,9 @@
     },
     {
       "name": "NAVIGATION_MODE_STANDARD",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Standard Action Bar navigation mode.",
       "description": "Use with the [Titanium.Android.ActionBar.navigationMode](api:Titanium.Android.ActionBar#navigationMode) property. Note: NAVIGATION_MODE_STANDARD has been deprecated in API level 21 and up.\n",
       "type": [
@@ -2498,7 +2879,9 @@
     },
     {
       "name": "NAVIGATION_MODE_TABS",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Action Bar tab navigation mode.",
       "description": "Use with the [Titanium.Android.ActionBar.navigationMode](api:Titanium.Android.ActionBar#navigationMode) property. Note: NAVIGATION_MODE_TABS has been deprecated in API level 21 and up.\n",
       "type": [
@@ -2512,7 +2895,9 @@
     },
     {
       "name": "PENDING_INTENT_FOR_ACTIVITY",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Not used.",
       "type": [
         {
@@ -2528,7 +2913,9 @@
     },
     {
       "name": "PENDING_INTENT_FOR_BROADCAST",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Not used.",
       "type": [
         {
@@ -2544,7 +2931,9 @@
     },
     {
       "name": "PENDING_INTENT_FOR_SERVICE",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Not used.",
       "type": [
         {
@@ -2560,7 +2949,9 @@
     },
     {
       "name": "PENDING_INTENT_MAX_VALUE",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Not used.",
       "type": [
         {
@@ -2576,7 +2967,9 @@
     },
     {
       "name": "PRIORITY_DEFAULT",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Default priority if it does not fit into another priority category.",
       "description": "Use with the [Titanium.Android.Notification.priority](api:Titanium.Android.Notification#priority) property.\n\nSee also: [Notification.PRIORITY_DEFAULT in the Android API Reference](https://developer.android.com/reference/android/app/Notification.html#PRIORITY_DEFAULT).\n",
       "type": [
@@ -2590,7 +2983,9 @@
     },
     {
       "name": "PRIORITY_HIGH",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Use for high priority notifications like real-time chat messages.",
       "description": "Use with the [Titanium.Android.Notification.priority](api:Titanium.Android.Notification#priority) property.\n\nSee also: [Notification.PRIORITY_HIGH in the Android API Reference](https://developer.android.com/reference/android/app/Notification.html#PRIORITY_HIGH).\n",
       "type": [
@@ -2604,7 +2999,9 @@
     },
     {
       "name": "PRIORITY_LOW",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Use for low priority notifications like software updates.",
       "description": "Use with the [Titanium.Android.Notification.priority](api:Titanium.Android.Notification#priority) property.\n\nSee also: [Notification.PRIORITY_LOW in the Android API Reference](https://developer.android.com/reference/android/app/Notification.html#PRIORITY_LOW).\n",
       "type": [
@@ -2618,7 +3015,9 @@
     },
     {
       "name": "PRIORITY_MAX",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Use for urgent or time-critical notifications, for example, turn-by-turn directions or\nemergency alerts.\n",
       "description": "Use with the [Titanium.Android.Notification.priority](api:Titanium.Android.Notification#priority) property.\n\nSee also: [Notification.PRIORITY_MAX in the Android API Reference](https://developer.android.com/reference/android/app/Notification.html#PRIORITY_MAX).\n",
       "type": [
@@ -2632,7 +3031,9 @@
     },
     {
       "name": "PRIORITY_MIN",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Use for expired events.",
       "description": "Use with the [Titanium.Android.Notification.priority](api:Titanium.Android.Notification#priority) property.\n\nNote that the user will not be alerted to the notification (sound, vibration, etc.),\nbut the notification will appear in the drawer.\n\nSee also: [Notification.PRIORITY_MIN in the Android API Reference](https://developer.android.com/reference/android/app/Notification.html#PRIORITY_MIN).\n",
       "type": [
@@ -2646,7 +3047,9 @@
     },
     {
       "name": "R",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Accessor for Android system resources.",
       "description": "To access your application's resources, use [Titanium.App.Android.R](api:Titanium.App.Android#R).\n",
       "type": [
@@ -2659,7 +3062,9 @@
     },
     {
       "name": "RESULT_CANCELED",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Used with [setResult](api:Titanium.Android.Activity#setResult) to specify that\nan activity was canceled.\n",
       "type": [
         {
@@ -2671,7 +3076,9 @@
     },
     {
       "name": "RESULT_FIRST_USER",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Used with [setResult](api:Titanium.Android.Activity#setResult) to specify a\nuser-defined result.\n",
       "description": "User-defined result constants values start at `RESULT_FIRST_USER`.\n",
       "type": [
@@ -2684,7 +3091,9 @@
     },
     {
       "name": "RESULT_OK",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Used with [setResult](api:Titanium.Android.Activity#setResult) to specify that\nan activity succeeded.\n",
       "type": [
         {
@@ -2696,7 +3105,9 @@
     },
     {
       "name": "rootActivity",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "The first activity launched by the application.",
       "description": "This is the main launcher activity defined in the \"AndroidManifest.xml\" which shows the splash screen.\nAll windows opened are child activities below this root activity.\n\nClosing this root activity via its [finish()](api:Titanium.Android.Activity#finish) method will close\nall of its child activity windows as well and exit out of the app.\n\nWhen resuming the app via a data intent such as a URL, notification, shortcut, etc. the root activity\nwill fire a \"newintent\" event and update its [intent](api:Titanium.Android.Activity#intent) property with\nthe newly received intent.\n",
       "type": [
@@ -2710,7 +3121,9 @@
     },
     {
       "name": "SCREEN_ORIENTATION_BEHIND",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Use with [requestedOrientation](api:Titanium.Android.Activity#requestedOrientation) to\nspecify the activity should run in the same orientation as the activity behind it\nin the activity stack.\n",
       "type": [
         {
@@ -2722,7 +3135,9 @@
     },
     {
       "name": "SCREEN_ORIENTATION_LANDSCAPE",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Use with [requestedOrientation](api:Titanium.Android.Activity#requestedOrientation) to\nspecify a landscape screen orientation.\n",
       "type": [
         {
@@ -2734,7 +3149,9 @@
     },
     {
       "name": "SCREEN_ORIENTATION_NOSENSOR",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Use with [requestedOrientation](api:Titanium.Android.Activity#requestedOrientation) to\nspecify that the sensor should be ignored and the display should not rotate.\n",
       "type": [
         {
@@ -2746,7 +3163,9 @@
     },
     {
       "name": "SCREEN_ORIENTATION_PORTRAIT",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Use with [requestedOrientation](api:Titanium.Android.Activity#requestedOrientation) to\nspecify a portrait screen orientation.\n",
       "type": [
         {
@@ -2758,7 +3177,9 @@
     },
     {
       "name": "SCREEN_ORIENTATION_SENSOR",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Use with [requestedOrientation](api:Titanium.Android.Activity#requestedOrientation) to\nspecify that orientation should be determined by the orientation sensor.\n",
       "type": [
         {
@@ -2770,7 +3191,9 @@
     },
     {
       "name": "SCREEN_ORIENTATION_UNSPECIFIED",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Use with [requestedOrientation](api:Titanium.Android.Activity#requestedOrientation) to\nspecify that the system should use its default rules for determining the best\norientation.\n",
       "type": [
         {
@@ -2782,7 +3205,9 @@
     },
     {
       "name": "SCREEN_ORIENTATION_USER",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Use with [requestedOrientation](api:Titanium.Android.Activity#requestedOrientation) to\nspecify that the system should use the user's preferred orientation.\n",
       "type": [
         {
@@ -2794,7 +3219,9 @@
     },
     {
       "name": "SHOW_AS_ACTION_ALWAYS",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Always show this item as an action button in the action bar.",
       "description": "Use with the MenuItem's [Titanium.Android.MenuItem.showAsAction](api:Titanium.Android.MenuItem#showAsAction) property.\n",
       "type": [
@@ -2808,7 +3235,9 @@
     },
     {
       "name": "SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "The action view can collapse to a normal menu item.",
       "description": "Use with the MenuItem's [Titanium.Android.MenuItem.showAsAction](api:Titanium.Android.MenuItem#showAsAction) property.\n",
       "type": [
@@ -2822,7 +3251,9 @@
     },
     {
       "name": "SHOW_AS_ACTION_IF_ROOM",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Show this item as an action button if the system decides there is room for it.\n",
       "description": "Use with the MenuItem's [Titanium.Android.MenuItem.showAsAction](api:Titanium.Android.MenuItem#showAsAction) property.\n",
       "type": [
@@ -2836,7 +3267,9 @@
     },
     {
       "name": "SHOW_AS_ACTION_NEVER",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Never display this item as an action button in the action bar.",
       "description": "Use with the MenuItem's [Titanium.Android.MenuItem.showAsAction](api:Titanium.Android.MenuItem#showAsAction) property.\n",
       "type": [
@@ -2850,7 +3283,9 @@
     },
     {
       "name": "SHOW_AS_ACTION_WITH_TEXT",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "When this item is in the action bar, always show it with a text label.",
       "description": "Use with the MenuItem's [Titanium.Android.MenuItem.showAsAction](api:Titanium.Android.MenuItem#showAsAction) property.\n",
       "type": [
@@ -2864,7 +3299,9 @@
     },
     {
       "name": "START_NOT_STICKY",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "A Service start mode indicating that if the host application is stopped by Android, the service should not be restarted automatically.\n",
       "description": "Use as a `startMode` value in the options object passed to\n[createServiceIntent](api:Titanium.Android#createServiceIntent).\n",
       "type": [
@@ -2877,7 +3314,9 @@
     },
     {
       "name": "START_REDELIVER_INTENT",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "A Service start mode indicating that if the host application is stopped by Android, the service should be restarted automatically and the original Intent re-sent.",
       "description": "Use as a `startMode` value in the options object passed to\n[createServiceIntent](api:Titanium.Android#createServiceIntent).\n",
       "type": [
@@ -2890,7 +3329,9 @@
     },
     {
       "name": "STREAM_ALARM",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Use with [audioStreamType](api:Titanium.Android.Notification#audioStreamType) to\nrequest that the alarm stream type for notifications be used.\n",
       "type": [
         {
@@ -2902,7 +3343,9 @@
     },
     {
       "name": "STREAM_DEFAULT",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Use with [audioStreamType](api:Titanium.Android.Notification#audioStreamType) to request that the\ndefault stream type for notifications be used.\n",
       "type": [
         {
@@ -2914,7 +3357,9 @@
     },
     {
       "name": "STREAM_MUSIC",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Use with [audioStreamType](api:Titanium.Android.Notification#audioStreamType) to\nrequest that the music stream type for notifications be used.\n",
       "type": [
         {
@@ -2926,7 +3371,9 @@
     },
     {
       "name": "STREAM_NOTIFICATION",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Use with [audioStreamType](api:Titanium.Android.Notification#audioStreamType) to request that the\nnotification stream type for notifications be used.\n",
       "type": [
         {
@@ -2938,7 +3385,9 @@
     },
     {
       "name": "STREAM_RING",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Use with [audioStreamType](api:Titanium.Android.Notification#audioStreamType) to request that the\nring stream type for notifications be used.\n",
       "type": [
         {
@@ -2950,7 +3399,9 @@
     },
     {
       "name": "STREAM_SYSTEM",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Use with [audioStreamType](api:Titanium.Android.Notification#audioStreamType) to request that the\nsystem stream type for notifications be used.\n",
       "type": [
         {
@@ -2962,7 +3413,9 @@
     },
     {
       "name": "STREAM_VOICE_CALL",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Use with [audioStreamType](api:Titanium.Android.Notification#audioStreamType) to request that the\nvoice call stream type for notifications be used.\n",
       "type": [
         {
@@ -2974,7 +3427,9 @@
     },
     {
       "name": "TILE_STATE_ACTIVE",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "QuickSettings tile is active.",
       "description": "The Tile is in enabled state and the user can interact with it.\n",
       "type": [
@@ -2988,7 +3443,9 @@
     },
     {
       "name": "TILE_STATE_INACTIVE",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "QuickSettings tile is inactive.",
       "description": "The Tile is in disabled state, but the user can interact with it.\n",
       "type": [
@@ -3002,7 +3459,9 @@
     },
     {
       "name": "TILE_STATE_UNAVAILABLE",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "QuickSettings tile is unavailable.",
       "description": "For some reason the Tile is not available to the user and will have no click action.\n",
       "type": [
@@ -3016,7 +3475,9 @@
     },
     {
       "name": "URI_INTENT_SCHEME",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "The URI scheme used for intent URIs.",
       "type": [
         {
@@ -3028,7 +3489,9 @@
     },
     {
       "name": "VISIBILITY_PRIVATE",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Shows basic information about the notification.",
       "description": "Use with the [Titanium.Android.Notification.visibility](api:Titanium.Android.Notification#visibility) property.\n\nOnly the application name and icon appear in the lock screen with the message: \"Contents hidden\".\n\nSee also: [Notification.VISIBILITY_PRIVATE in the Android API Reference](https://developer.android.com/reference/android/app/Notification.html#VISIBILITY_PRIVATE).\n",
       "type": [
@@ -3042,7 +3505,9 @@
     },
     {
       "name": "VISIBILITY_PUBLIC",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Shows the notification's full content on the lock screen. This is the system default if visibility is left unspecified.",
       "description": "Use with the [Titanium.Android.Notification.visibility](api:Titanium.Android.Notification#visibility) property.\n\nSee also: [Notification.VISIBILITY_PUBLIC in the Android API Reference](https://developer.android.com/reference/android/app/Notification.html#VISIBILITY_PUBLIC).\n",
       "type": [
@@ -3056,7 +3521,9 @@
     },
     {
       "name": "VISIBILITY_SECRET",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Shows the most minimal information of the notification on the lock screen.",
       "description": "Use with the [Titanium.Android.Notification.visibility](api:Titanium.Android.Notification#visibility) property.\n\nSee also: [Notification.VISIBILITY_SECRET in the Android API Reference](https://developer.android.com/reference/android/app/Notification.html#VISIBILITY_SECRET).\n",
       "type": [
@@ -3070,7 +3537,9 @@
     },
     {
       "name": "WAKE_LOCK_ACQUIRE_CAUSES_WAKEUP",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Turn the screen on when the wake lock is acquired.",
       "description": "Use with the [Titanium.Android.Notification.wakeLock](api:Titanium.Android.Notification#wakeLock) property.\n\nSee also: [PowerManager.ACQUIRE_CAUSES_WAKEUP in the Android API Reference](https://developer.android.com/reference/android/os/PowerManager.html#ACQUIRE_CAUSES_WAKEUP).\n",
       "type": [
@@ -3084,7 +3553,9 @@
     },
     {
       "name": "WAKE_LOCK_FULL",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Ensures that the screen and keyboard backlight are on at full brightness.",
       "description": "Use with the [Titanium.Android.Notification.wakeLock](api:Titanium.Android.Notification#wakeLock) property.\n\nSee also: [PowerManager.FULL_WAKE_LOCK in the Android API Reference](https://developer.android.com/reference/android/os/PowerManager.html#FULL_WAKE_LOCK).\n",
       "type": [
@@ -3098,7 +3569,9 @@
     },
     {
       "name": "WAKE_LOCK_ON_AFTER_RELEASE",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "When this wake lock is released, poke the user activity timer so the screen stays on for a little longer.",
       "description": "Use with the [Titanium.Android.Notification.wakeLock](api:Titanium.Android.Notification#wakeLock) property.\n\nSee also: [PowerManager.ON_AFTER_RELEASE in the Android API Reference](https://developer.android.com/reference/android/os/PowerManager.html#ON_AFTER_RELEASE).\n",
       "type": [
@@ -3112,7 +3585,9 @@
     },
     {
       "name": "WAKE_LOCK_PARTIAL",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Ensures that the CPU is running; the screen and keyboard backlight will be allowed to go off.",
       "description": "Use with the [Titanium.Android.Notification.wakeLock](api:Titanium.Android.Notification#wakeLock) property.\n\nSee also: [PowerManager.PARTIAL_WAKE_LOCK in the Android API Reference](https://developer.android.com/reference/android/os/PowerManager.html#PARTIAL_WAKE_LOCK).\n",
       "type": [
@@ -3126,7 +3601,9 @@
     },
     {
       "name": "WAKE_LOCK_SCREEN_BRIGHT",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Ensures that the screen is on at full brightness; the keyboard backlight will be allowed to go off.",
       "description": "Use with the [Titanium.Android.Notification.wakeLock](api:Titanium.Android.Notification#wakeLock) property.\n\nSee also: [PowerManager.SCREEN_BRIGHT_WAKE_LOCK in the Android API Reference](https://developer.android.com/reference/android/os/PowerManager.html#SCREEN_BRIGHT_WAKE_LOCK).\n",
       "type": [
@@ -3140,7 +3617,9 @@
     },
     {
       "name": "WAKE_LOCK_SCREEN_DIM",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Ensures that the screen is on (but may be dimmed); the keyboard backlight will be allowed to go off.",
       "description": "Use with the [Titanium.Android.Notification.wakeLock](api:Titanium.Android.Notification#wakeLock) property.\n\nSee also: [PowerManager.SCREEN_DIM_WAKE_LOCK in the Android API Reference](https://developer.android.com/reference/android/os/PowerManager.html#SCREEN_DIM_WAKE_LOCK).\n",
       "type": [
@@ -3156,7 +3635,9 @@
   "methods": [
     {
       "name": "createBigPictureStyle",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Creates and returns an instance of [Titanium.Android.BigPictureStyle](api:Titanium.Android.BigPictureStyle).",
       "since": "5.4.0",
       "factoryFor": "Titanium.Android.BigPictureStyle",
@@ -3192,7 +3673,9 @@
     },
     {
       "name": "createBigTextStyle",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Creates and returns an instance of [Titanium.Android.BigTextStyle](api:Titanium.Android.BigTextStyle).",
       "since": "5.4.0",
       "factoryFor": "Titanium.Android.BigTextStyle",
@@ -3228,7 +3711,9 @@
     },
     {
       "name": "createBroadcastIntent",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Create an `Intent` to be used in a broadcast.",
       "since": "3.2.0",
       "parameters": [
@@ -3263,7 +3748,9 @@
     },
     {
       "name": "createBroadcastReceiver",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Creates and returns an instance of [Titanium.Android.BroadcastReceiver](api:Titanium.Android.BroadcastReceiver).",
       "since": "3.1.0",
       "factoryFor": "Titanium.Android.BroadcastReceiver",
@@ -3299,7 +3786,9 @@
     },
     {
       "name": "createIntent",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Creates and returns an instance of [Titanium.Android.Intent](api:Titanium.Android.Intent).",
       "since": "1.5",
       "factoryFor": "Titanium.Android.Intent",
@@ -3335,7 +3824,9 @@
     },
     {
       "name": "createIntentChooser",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Creates an activity chooser intent, used to allow the user to select a target activity\nfor an intent.\n",
       "description": "Use this method when the user wants to take an action that could use any one of a\nnumber of applications. For example, when sending a plain text message, the user\nmay choose to send a text message, send an email, or post to a social network.\n\nYou pass in an [Intent](api:Titanium.Android.Intent) representing the action being taken,\nand a title for the chooser.\n\nThe method returns another intent, representing the chooser, which can be used to\nstart an activity. See the code example for details on how to display the chooser.\n\nFor more information, see the official Android documentation for\n[Intent.ACTION_CHOOSER](https://developer.android.com/reference/android/content/Intent.html#ACTION_CHOOSER)\n",
       "examples": [
@@ -3379,7 +3870,9 @@
     },
     {
       "name": "createNotification",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Creates and returns an instance of [Titanium.Android.Notification](api:Titanium.Android.Notification).",
       "since": "1.5",
       "factoryFor": "Titanium.Android.Notification",
@@ -3415,7 +3908,9 @@
     },
     {
       "name": "createNotificationChannel",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Creates and returns an instance of [Titanium.Android.NotificationChannel](api:Titanium.Android.NotificationChannel).",
       "since": "7.0.0",
       "factoryFor": "Titanium.Android.NotificationChannel",
@@ -3451,7 +3946,9 @@
     },
     {
       "name": "createPendingIntent",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Creates a [PendingIntent](api:Titanium.Android.PendingIntent) to be used inside a\n[Notification](api:Titanium.Android.Notification).\n",
       "description": "If `FLAG_NO_CREATE` is specified and no matching pending intent exists, returns\n`null`.\n",
       "parameters": [
@@ -3486,7 +3983,9 @@
     },
     {
       "name": "createQuickSettingsService",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Creates and returns an instance of [Titanium.Android.QuickSettingsService](api:Titanium.Android.QuickSettingsService).",
       "since": "7.0",
       "factoryFor": "Titanium.Android.QuickSettingsService",
@@ -3522,7 +4021,9 @@
     },
     {
       "name": "createRemoteViews",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Creates and returns an instance of [Titanium.Android.RemoteViews](api:Titanium.Android.RemoteViews).",
       "since": "1.6",
       "factoryFor": "Titanium.Android.RemoteViews",
@@ -3558,7 +4059,9 @@
     },
     {
       "name": "createService",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Create a [Titanium.Android.Service](api:Titanium.Android.Service) so you can start/stop it and listen for events from it.",
       "parameters": [
         {
@@ -3585,7 +4088,9 @@
     },
     {
       "name": "createServiceIntent",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Create an `Intent` to be used to start a service.",
       "parameters": [
         {
@@ -3603,7 +4108,12 @@
             "properties": [
               {
                 "name": "startMode",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "One of the `START_*` constants from [Titanium.Android](api:Titanium.Android) to specify the \"stickiness\" of the Service when Android shuts down the host application.",
                 "type": [
                   {
@@ -3613,11 +4123,18 @@
                 ],
                 "default": "Titanium.Android.START_REDELIVER_INTENT",
                 "optional": true,
-                "constants": ["Titanium.Android.START_*"]
+                "constants": [
+                  "Titanium.Android.START_*"
+                ]
               },
               {
                 "name": "url",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "URL for the service's JavaScript.",
                 "type": [
                   {
@@ -3643,7 +4160,9 @@
     },
     {
       "name": "hasPermission",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Returns `true` if the app has permission access.",
       "since": "5.4.0",
       "parameters": [
@@ -3681,7 +4200,9 @@
     },
     {
       "name": "isServiceRunning",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Check on state of Service.",
       "parameters": [
         {
@@ -3708,7 +4229,9 @@
     },
     {
       "name": "registerBroadcastReceiver",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Registers broadcast receiver for the given actions.",
       "since": "3.1.0",
       "parameters": [
@@ -3742,7 +4265,9 @@
     },
     {
       "name": "requestPermissions",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Request for permission access.",
       "since": "5.4.0",
       "parameters": [
@@ -3804,7 +4329,9 @@
     },
     {
       "name": "startService",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Starts a simple service.",
       "parameters": [
         {
@@ -3821,7 +4348,9 @@
     },
     {
       "name": "stopService",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Stop a simple service that was started with `startService`.",
       "parameters": [
         {
@@ -3838,7 +4367,9 @@
     },
     {
       "name": "unregisterBroadcastReceiver",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Unregisters a broadcast receiver.",
       "since": "3.1.0",
       "parameters": [
@@ -3861,39 +4392,53 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "lifecycleContainer",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ],
     "events": []

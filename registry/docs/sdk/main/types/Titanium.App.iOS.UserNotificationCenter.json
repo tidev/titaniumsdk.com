@@ -3,15 +3,26 @@
   "name": "Titanium.App.iOS.UserNotificationCenter",
   "kind": "module",
   "extends": "Titanium.Module",
-  "inheritanceChain": ["Titanium.Module", "Titanium.Proxy"],
-  "platforms": ["iphone", "ipad", "macos"],
+  "inheritanceChain": [
+    "Titanium.Module",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": "7.3.0",
   "summary": "The top-level App iOS Notification Center module. It is used to control scheduled notifications\nand receive details about the system-wide notification settings.\n",
   "properties": [],
   "methods": [
     {
       "name": "getDeliveredNotifications",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fetches the delivered notifications asynchronously.",
       "since": "7.3.0",
       "parameters": [
@@ -36,7 +47,12 @@
             "properties": [
               {
                 "name": "notifications",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "An array of identifiers used to create notifications.",
                 "type": [
                   {
@@ -58,7 +74,11 @@
     },
     {
       "name": "getPendingNotifications",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fetches the pending notifications asynchronously.",
       "since": "7.3.0",
       "parameters": [
@@ -83,7 +103,12 @@
             "properties": [
               {
                 "name": "notifications",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "An array of identifiers used to create notifications.",
                 "type": [
                   {
@@ -105,7 +130,11 @@
     },
     {
       "name": "removeDeliveredNotifications",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Removes the specified delivered notifications from the notification-center.\nIf no notifications are specified, all delivered notifications will be removed.\n",
       "description": "Delivered notifications can be obtained via a call to the [Titanium.App.iOS.UserNotificationCenter.getDeliveredNotifications](api:Titanium.App.iOS.UserNotificationCenter#getDeliveredNotifications)\nmethod.\n",
       "since": "7.3.0",
@@ -130,7 +159,11 @@
     },
     {
       "name": "removePendingNotifications",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Removes the specified pending notifications to prevent them from being triggered.\nIf no notifications are specified, all pending notifications will be removed.\n",
       "description": "Pending notifications can be obtained via a call to the [Titanium.App.iOS.UserNotificationCenter.getPendingNotifications](api:Titanium.App.iOS.UserNotificationCenter#getPendingNotifications)\nmethod.\n",
       "since": "7.3.0",
@@ -155,7 +188,11 @@
     },
     {
       "name": "requestUserNotificationSettings",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Notification types and user notification categories the application is registered to use.\n",
       "since": "7.3.0",
       "parameters": [
@@ -180,7 +217,11 @@
             "properties": [
               {
                 "name": "alertSetting",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "The current alert settings.",
                 "type": [
                   {
@@ -188,11 +229,17 @@
                     "name": "Number"
                   }
                 ],
-                "constants": ["Titanium.App.iOS.USER_NOTIFICATION_SETTING_*"]
+                "constants": [
+                  "Titanium.App.iOS.USER_NOTIFICATION_SETTING_*"
+                ]
               },
               {
                 "name": "alertStyle",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "The current alert style used to display notifications.",
                 "type": [
                   {
@@ -200,11 +247,17 @@
                     "name": "Number"
                   }
                 ],
-                "constants": ["Titanium.App.iOS.USER_NOTIFICATION_ALERT_STYLE_*"]
+                "constants": [
+                  "Titanium.App.iOS.USER_NOTIFICATION_ALERT_STYLE_*"
+                ]
               },
               {
                 "name": "authorizationStatus",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "The current authorization status for using notifications.",
                 "type": [
                   {
@@ -212,11 +265,17 @@
                     "name": "Number"
                   }
                 ],
-                "constants": ["Titanium.App.iOS.USER_NOTIFICATION_AUTHORIZATION_STATUS_*"]
+                "constants": [
+                  "Titanium.App.iOS.USER_NOTIFICATION_AUTHORIZATION_STATUS_*"
+                ]
               },
               {
                 "name": "badgeSetting",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "The current badge settings.",
                 "type": [
                   {
@@ -224,11 +283,17 @@
                     "name": "Number"
                   }
                 ],
-                "constants": ["Titanium.App.iOS.USER_NOTIFICATION_SETTING_*"]
+                "constants": [
+                  "Titanium.App.iOS.USER_NOTIFICATION_SETTING_*"
+                ]
               },
               {
                 "name": "carPlaySetting",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "The current CarPlay settings.",
                 "type": [
                   {
@@ -236,11 +301,17 @@
                     "name": "Number"
                   }
                 ],
-                "constants": ["Titanium.App.iOS.USER_NOTIFICATION_SETTING_*"]
+                "constants": [
+                  "Titanium.App.iOS.USER_NOTIFICATION_SETTING_*"
+                ]
               },
               {
                 "name": "categories",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Set of categories of user notification actions required by the application to use.",
                 "description": "Only available in iOS < 10. iOS 10 and later returns notification settings more detailed,\ncheck the other attributes for more information.\n",
                 "type": [
@@ -258,7 +329,11 @@
               },
               {
                 "name": "criticalAlertSetting",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "The authorization status to play sounds for critical alerts.\nAvailable in Titanium SDK 7.4.0 and later.\n",
                 "type": [
                   {
@@ -266,11 +341,17 @@
                     "name": "Number"
                   }
                 ],
-                "constants": ["Titanium.App.iOS.USER_NOTIFICATION_SETTING_*"]
+                "constants": [
+                  "Titanium.App.iOS.USER_NOTIFICATION_SETTING_*"
+                ]
               },
               {
                 "name": "lockScreenSetting",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "The current lock-screen settings.",
                 "type": [
                   {
@@ -278,11 +359,17 @@
                     "name": "Number"
                   }
                 ],
-                "constants": ["Titanium.App.iOS.USER_NOTIFICATION_SETTING_*"]
+                "constants": [
+                  "Titanium.App.iOS.USER_NOTIFICATION_SETTING_*"
+                ]
               },
               {
                 "name": "notificationCenterSetting",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "The current notification-center settings.",
                 "type": [
                   {
@@ -290,11 +377,17 @@
                     "name": "Number"
                   }
                 ],
-                "constants": ["Titanium.App.iOS.USER_NOTIFICATION_SETTING_*"]
+                "constants": [
+                  "Titanium.App.iOS.USER_NOTIFICATION_SETTING_*"
+                ]
               },
               {
                 "name": "providesAppNotificationSettings",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "A Boolean value indicating the system displays a button for in-app notification settings.\nAvailable in Titanium SDK 7.4.0 and later.\n",
                 "type": [
                   {
@@ -302,11 +395,17 @@
                     "name": "Number"
                   }
                 ],
-                "constants": ["Titanium.App.iOS.USER_NOTIFICATION_SETTING_*"]
+                "constants": [
+                  "Titanium.App.iOS.USER_NOTIFICATION_SETTING_*"
+                ]
               },
               {
                 "name": "soundSetting",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "The current sound settings.",
                 "type": [
                   {
@@ -314,11 +413,17 @@
                     "name": "Number"
                   }
                 ],
-                "constants": ["Titanium.App.iOS.USER_NOTIFICATION_SETTING_*"]
+                "constants": [
+                  "Titanium.App.iOS.USER_NOTIFICATION_SETTING_*"
+                ]
               },
               {
                 "name": "types",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Notification types to use.",
                 "description": "Only available in iOS < 10. iOS 10 and later returns notification settings more detailed,\ncheck the other attributes for more information.\n",
                 "type": [
@@ -333,7 +438,9 @@
                     ]
                   }
                 ],
-                "constants": ["Titanium.App.iOS.USER_NOTIFICATION_TYPE_*"]
+                "constants": [
+                  "Titanium.App.iOS.USER_NOTIFICATION_TYPE_*"
+                ]
               }
             ]
           }
@@ -347,7 +454,11 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "methods": [],

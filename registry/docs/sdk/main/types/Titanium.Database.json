@@ -3,14 +3,27 @@
   "name": "Titanium.Database",
   "kind": "module",
   "extends": "Titanium.Module",
-  "inheritanceChain": ["Titanium.Module", "Titanium.Proxy"],
-  "platforms": ["android", "iphone", "ipad", "macos"],
+  "inheritanceChain": [
+    "Titanium.Module",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": "0.1",
   "summary": "The top-level `Database` module, used for creating and accessing the\nin-application SQLite database.\n",
   "properties": [
     {
       "name": "FIELD_TYPE_DOUBLE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant for requesting a column's value returned in double form.",
       "type": [
         {
@@ -22,7 +35,12 @@
     },
     {
       "name": "FIELD_TYPE_FLOAT",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant for requesting a column's value returned in float form.",
       "type": [
         {
@@ -34,7 +52,12 @@
     },
     {
       "name": "FIELD_TYPE_INT",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant for requesting a column's value returned in integer form.",
       "type": [
         {
@@ -46,7 +69,12 @@
     },
     {
       "name": "FIELD_TYPE_STRING",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant for requesting a column's value returned in string form.",
       "type": [
         {
@@ -60,7 +88,12 @@
   "methods": [
     {
       "name": "install",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Installs an SQLite database to device's internal storage.",
       "description": "Copies an SQLite database file to the device's internal storage (only) and\ncreates a persistent name that is available for the lifetime of the app. \nOn Android, if the source file does not exist, an empty database is created.\n\nReturns a reference to the opened database. If the destination file already\nexists, behaves as [Titanium.Database.open](api:Titanium.Database#open).\n\nThis method is primarily used for iOS.\n\nWith Android, as there is often minimal internal storage available, `install`\nmay only be appropriate for small databases or for prototyping. When database\nfiles are to be stored on external storage (for example, SD Card), a combination of\n[Titanium.Filesystem](api:Titanium.Filesystem) and [Titanium.Database.open](api:Titanium.Database#open) is required.\n\nWith Titanium 1.8.0.1 on iOS, the default database location changed in accordance\nwith Apple's guidelines. If a database file already exists in the old\nlocation, `install` will automatically move it to the new location\nrather than copying the file from the path provided in the first\nargument.\n\nFiles stored in the `Private Documents` directory on iOS 5 will be\nautomatically backed up to iCloud and removed from the device in low\nstorage situations. See\n[How do I prevent files from being backed up to iCloud?](https://developer.apple.com/library/ios/qa/qa1719/_index.html)\nfor details. To prevent this for database files, use the [Titanium.Database.DB.file](api:Titanium.Database.DB#file) \nobject with the [Titanium.Filesystem.File.remoteBackup](api:Titanium.Filesystem.File#remoteBackup) property. \n\nAlways [close](api:Titanium.Database.DB#close) the database after use.\n",
       "examples": [
@@ -112,7 +145,12 @@
     },
     {
       "name": "open",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Opens an SQLite database.",
       "description": "Opens an SQLite database and returns a reference to it. If the database does\nnot exist, creates an empty database file and returns a reference to this\nopened database.\n\nWith Titanium 1.8.0.1 on iOS, the default database location changed in accordance\nwith Apple's guidelines. If a database file already exists in the old\nlocation, `open` will automatically move it to the new location.\n\nAlways [close](api:Titanium.Database.DB#close) the database after use.\n",
       "examples": [
@@ -163,39 +201,71 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "lifecycleContainer",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "events": []

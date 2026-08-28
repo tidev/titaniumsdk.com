@@ -3,8 +3,15 @@
   "name": "Titanium.UI.iOS",
   "kind": "module",
   "extends": "Titanium.Module",
-  "inheritanceChain": ["Titanium.Module", "Titanium.Proxy"],
-  "platforms": ["iphone", "ipad", "macos"],
+  "inheritanceChain": [
+    "Titanium.Module",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": {
     "iphone": "1.4.0",
     "ipad": "1.4.0",
@@ -14,7 +21,11 @@
   "properties": [
     {
       "name": "ACTION_POLICY_ALLOW",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Allow the navigation to continue.",
       "description": "Use with [Titanium.UI.iOS.WebViewDecisionHandler.invoke](api:Titanium.UI.iOS.WebViewDecisionHandler#invoke).\n",
       "type": [
@@ -28,7 +39,11 @@
     },
     {
       "name": "ACTION_POLICY_CANCEL",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Cancel the navigation.",
       "description": "Use with [Titanium.UI.iOS.WebViewDecisionHandler.invoke](api:Titanium.UI.iOS.WebViewDecisionHandler#invoke).\n",
       "type": [
@@ -42,7 +57,11 @@
     },
     {
       "name": "ALERT_SEVERITY_CRITICAL",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Indicates that the system should present the alert using the\ncritical, or caution, style.\n",
       "description": "Use with <Titanium.UI.iOS.createAlertDialog> to specify\nthe alert dialog severity on macOS Catalyst.\n",
       "type": [
@@ -61,7 +80,11 @@
     },
     {
       "name": "ALERT_SEVERITY_DEFAULT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Indicates that the system should present the alert using the standard\nalert style.\n",
       "description": "Use with <Titanium.UI.iOS.createAlertDialog> to specify\nthe alert dialog severity on macOS Catalyst.\n",
       "type": [
@@ -80,7 +103,11 @@
     },
     {
       "name": "appBadge",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Value of the badge for the application's springboard icon.",
       "description": "In order to change the app icon badge number you will need to register for notifications.\nNormally this is done by using local notifications or a push service like [Firebase Cloud Messaging](https://firebase.google.com/docs/cloud-messaging) (FCM).\n``` js\nTi.App.iOS.registerUserNotificationSettings({\n  types: [\n        Ti.App.iOS.USER_NOTIFICATION_TYPE_BADGE\n    ]\n});\n```\n",
       "type": [
@@ -93,7 +120,11 @@
     },
     {
       "name": "appSupportsShakeToEdit",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Determines whether the shake to edit system-wide capability is enabled.",
       "type": [
         {
@@ -105,7 +136,11 @@
     },
     {
       "name": "AUDIOVISUAL_MEDIA_TYPE_ALL",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "All media types require a user gesture to begin playing.",
       "description": "Use with [Titanium.UI.iOS.WebViewConfiguration.mediaTypesRequiringUserActionForPlayback](api:Titanium.UI.iOS.WebViewConfiguration#mediaTypesRequiringUserActionForPlayback)\n",
       "type": [
@@ -119,7 +154,11 @@
     },
     {
       "name": "AUDIOVISUAL_MEDIA_TYPE_AUDIO",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Media types containing audio require a user gesture to begin playing.",
       "description": "Use with [Titanium.UI.iOS.WebViewConfiguration.mediaTypesRequiringUserActionForPlayback](api:Titanium.UI.iOS.WebViewConfiguration#mediaTypesRequiringUserActionForPlayback)\n",
       "type": [
@@ -133,7 +172,11 @@
     },
     {
       "name": "AUDIOVISUAL_MEDIA_TYPE_NONE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "No media types require a user gesture to begin playing.",
       "description": "Use with [Titanium.UI.iOS.WebViewConfiguration.mediaTypesRequiringUserActionForPlayback](api:Titanium.UI.iOS.WebViewConfiguration#mediaTypesRequiringUserActionForPlayback)\n",
       "type": [
@@ -147,7 +190,11 @@
     },
     {
       "name": "AUDIOVISUAL_MEDIA_TYPE_VIDEO",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Media types containing video require a user gesture to begin playing.",
       "description": "Use with [Titanium.UI.iOS.WebViewConfiguration.mediaTypesRequiringUserActionForPlayback](api:Titanium.UI.iOS.WebViewConfiguration#mediaTypesRequiringUserActionForPlayback)\n",
       "type": [
@@ -161,7 +208,11 @@
     },
     {
       "name": "BLUR_EFFECT_STYLE_DARK",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [BlurView.effect](api:Titanium.UI.iOS.BlurView#effect) to specify a blur effect.\n",
       "description": "Creates a blurring effect in the view. The area of the view is darker in hue than the underlying view.\n",
       "type": [
@@ -175,7 +226,11 @@
     },
     {
       "name": "BLUR_EFFECT_STYLE_EXTRA_LIGHT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [BlurView.effect](api:Titanium.UI.iOS.BlurView#effect) to specify a blur effect.\n",
       "description": "Creates a blurring effect in the view. The area of the view is lighter in hue than the underlying view.\n",
       "type": [
@@ -189,7 +244,11 @@
     },
     {
       "name": "BLUR_EFFECT_STYLE_LIGHT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [BlurView.effect](api:Titanium.UI.iOS.BlurView#effect) to specify a blur effect.\n",
       "description": "Creates a blurring effect in the view. The area of the view is the same approximate hue\nof the underlying view.\n",
       "type": [
@@ -203,7 +262,11 @@
     },
     {
       "name": "BLUR_EFFECT_STYLE_PROMINENT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [BlurView.effect](api:Titanium.UI.iOS.BlurView#effect) to specify a blur effect.\n",
       "description": "Creates a blurring effect in the view. The area of the view is presented more prominent than the underlying view.\n",
       "type": [
@@ -217,7 +280,11 @@
     },
     {
       "name": "BLUR_EFFECT_STYLE_REGULAR",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [BlurView.effect](api:Titanium.UI.iOS.BlurView#effect) to specify a blur effect.\n",
       "description": "Creates a blurring effect in the view. The blurring effect is the default one specified in iOS 10.\n",
       "type": [
@@ -231,7 +298,11 @@
     },
     {
       "name": "BLUR_EFFECT_STYLE_SYSTEM_CHROME_MATERIAL",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [BlurView.effect](api:Titanium.UI.iOS.BlurView#effect) to specify a blur effect.\n",
       "description": "Creates a blurring effect in the view. This is an adaptable blur effect that creates the appearance of the system chrome.\n",
       "type": [
@@ -250,7 +321,11 @@
     },
     {
       "name": "BLUR_EFFECT_STYLE_SYSTEM_CHROME_MATERIAL_DARK",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [BlurView.effect](api:Titanium.UI.iOS.BlurView#effect) to specify a blur effect.\n",
       "description": "Creates a blurring effect in the view. This blur effect creates the appearance of an ultra-thin material and is always dark.\n",
       "type": [
@@ -269,7 +344,11 @@
     },
     {
       "name": "BLUR_EFFECT_STYLE_SYSTEM_CHROME_MATERIAL_LIGHT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [BlurView.effect](api:Titanium.UI.iOS.BlurView#effect) to specify a blur effect.\n",
       "description": "Creates a blurring effect in the view. This blur effect creates the appearance of the system chrome and is always light.\n",
       "type": [
@@ -288,7 +367,11 @@
     },
     {
       "name": "BLUR_EFFECT_STYLE_SYSTEM_MATERIAL",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [BlurView.effect](api:Titanium.UI.iOS.BlurView#effect) to specify a blur effect.\n",
       "description": "Creates a blurring effect in the view. This is an adaptable blur effect that creates the appearance of a material with normal thickness.\n",
       "type": [
@@ -307,7 +390,11 @@
     },
     {
       "name": "BLUR_EFFECT_STYLE_SYSTEM_MATERIAL_DARK",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [BlurView.effect](api:Titanium.UI.iOS.BlurView#effect) to specify a blur effect.\n",
       "description": "Creates a blurring effect in the view. This blur effect creates the appearance of a thin material and is always dark.\n",
       "type": [
@@ -326,7 +413,11 @@
     },
     {
       "name": "BLUR_EFFECT_STYLE_SYSTEM_MATERIAL_LIGHT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [BlurView.effect](api:Titanium.UI.iOS.BlurView#effect) to specify a blur effect.\n",
       "description": "Creates a blurring effect in the view. This blur effect creates the appearance of a material with normal thickness and is always light.\n",
       "type": [
@@ -345,7 +436,11 @@
     },
     {
       "name": "BLUR_EFFECT_STYLE_SYSTEM_THICK_MATERIAL",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [BlurView.effect](api:Titanium.UI.iOS.BlurView#effect) to specify a blur effect.\n",
       "description": "Creates a blurring effect in the view. This is an adaptable blur effect that creates the appearance of a material that is thicker than normal.\n",
       "type": [
@@ -364,7 +459,11 @@
     },
     {
       "name": "BLUR_EFFECT_STYLE_SYSTEM_THICK_MATERIAL_DARK",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [BlurView.effect](api:Titanium.UI.iOS.BlurView#effect) to specify a blur effect.\n",
       "description": "Creates a blurring effect in the view. This blur effect creates the appearance of a material with normal thickness and is always dark.\n",
       "type": [
@@ -383,7 +482,11 @@
     },
     {
       "name": "BLUR_EFFECT_STYLE_SYSTEM_THICK_MATERIAL_LIGHT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [BlurView.effect](api:Titanium.UI.iOS.BlurView#effect) to specify a blur effect.\n",
       "description": "Creates a blurring effect in the view. This blur effect creates the appearance of a material that is thicker than normal and is always light.\n",
       "type": [
@@ -402,7 +505,11 @@
     },
     {
       "name": "BLUR_EFFECT_STYLE_SYSTEM_THIN_MATERIAL",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [BlurView.effect](api:Titanium.UI.iOS.BlurView#effect) to specify a blur effect.\n",
       "description": "Creates a blurring effect in the view. This is an adaptable blur effect that creates the appearance of a thin material.\n",
       "type": [
@@ -421,7 +528,11 @@
     },
     {
       "name": "BLUR_EFFECT_STYLE_SYSTEM_THIN_MATERIAL_DARK",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [BlurView.effect](api:Titanium.UI.iOS.BlurView#effect) to specify a blur effect.\n",
       "description": "Creates a blurring effect in the view. This blur effect creates the appearance of a material that is thicker than normal and is always dark.\n",
       "type": [
@@ -440,7 +551,11 @@
     },
     {
       "name": "BLUR_EFFECT_STYLE_SYSTEM_THIN_MATERIAL_LIGHT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [BlurView.effect](api:Titanium.UI.iOS.BlurView#effect) to specify a blur effect.\n",
       "description": "Creates a blurring effect in the view. This blur effect creates the appearance of a thin material and is always light.\n",
       "type": [
@@ -459,7 +574,11 @@
     },
     {
       "name": "BLUR_EFFECT_STYLE_SYSTEM_ULTRA_THIN_MATERIAL",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [BlurView.effect](api:Titanium.UI.iOS.BlurView#effect) to specify a blur effect.\n",
       "description": "Creates a blurring effect in the view. This is an adaptable blur effect that creates the appearance of a material with normal thickness.\n",
       "type": [
@@ -478,7 +597,11 @@
     },
     {
       "name": "BLUR_EFFECT_STYLE_SYSTEM_ULTRA_THIN_MATERIAL_DARK",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [BlurView.effect](api:Titanium.UI.iOS.BlurView#effect) to specify a blur effect.\n",
       "description": "Creates a blurring effect in the view. This blur effect creates the appearance of the system chrome and is always dark.\n",
       "type": [
@@ -497,7 +620,11 @@
     },
     {
       "name": "BLUR_EFFECT_STYLE_SYSTEM_ULTRA_THIN_MATERIAL_LIGHT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [BlurView.effect](api:Titanium.UI.iOS.BlurView#effect) to specify a blur effect.\n",
       "description": "Creates a blurring effect in the view. This blur effect creates the appearance of an ultra-thin material and is always light.\n",
       "type": [
@@ -516,7 +643,11 @@
     },
     {
       "name": "CACHE_POLICY_RELOAD_IGNORING_LOCAL_CACHE_DATA",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies that the data for the URL load should be loaded from the originating source.\nNo existing cache data should be used to satisfy a URL load request.\n",
       "description": "Use with [Titanium.UI.WebView.cachePolicy](api:Titanium.UI.WebView#cachePolicy).",
       "type": [
@@ -530,7 +661,11 @@
     },
     {
       "name": "CACHE_POLICY_RETURN_CACHE_DATA_DONT_LOAD",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies that the existing cache data should be used to satisfy a request,\nregardless of its age or expiration date.\n",
       "description": "Use with [Titanium.UI.WebView.cachePolicy](api:Titanium.UI.WebView#cachePolicy). If there is no existing data in the cache corresponding\nto a URL load request, no attempt is made to load the data from the originating source, and the load\nis considered to have failed. This constant specifies a behavior that is similar to an offline mode.\n",
       "type": [
@@ -544,7 +679,11 @@
     },
     {
       "name": "CACHE_POLICY_RETURN_CACHE_DATA_ELSE_LOAD",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies that the existing cached data should be used to satisfy the request,\nregardless of its age or expiration date.\n",
       "description": "Use with [Titanium.UI.WebView.cachePolicy](api:Titanium.UI.WebView#cachePolicy). If there is no existing data in the cache\ncorresponding the request, the data is loaded from the originating source.\n",
       "type": [
@@ -558,7 +697,11 @@
     },
     {
       "name": "CACHE_POLICY_USE_PROTOCOL_CACHE_POLICY",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies that the caching logic defined in the protocol implementation, if any,\nis used for a particular URL load request.\n",
       "description": "Use with [Titanium.UI.WebView.cachePolicy](api:Titanium.UI.WebView#cachePolicy). This is the default policy for URL load requests.\nIf you are making HTTP or HTTPS byte-range requests, always use the\n[Titanium.UI.iOS.CACHE_POLICY_RELOAD_IGNORING_LOCAL_CACHE_DATA](api:Titanium.UI.iOS#CACHE_POLICY_RELOAD_IGNORING_LOCAL_CACHE_DATA) policy.\n",
       "type": [
@@ -572,7 +715,11 @@
     },
     {
       "name": "CLIP_MODE_DEFAULT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Titanium.UI.View.clipMode](api:Titanium.UI.View#clipMode) to specify clipping behavior.\n",
       "type": [
         {
@@ -585,7 +732,11 @@
     },
     {
       "name": "CLIP_MODE_DISABLED",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Titanium.UI.View.clipMode](api:Titanium.UI.View#clipMode) to specify clipping behavior.\n",
       "type": [
         {
@@ -598,7 +749,11 @@
     },
     {
       "name": "CLIP_MODE_ENABLED",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Titanium.UI.View.clipMode](api:Titanium.UI.View#clipMode) to specify clipping behavior.\n",
       "type": [
         {
@@ -611,7 +766,11 @@
     },
     {
       "name": "COLLISION_MODE_ALL",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Titanium.UI.iOS.CollisionBehavior.collisionMode](api:Titanium.UI.iOS.CollisionBehavior#collisionMode) to specify collisions with both items and\nboundaries.\n",
       "type": [
         {
@@ -624,7 +783,11 @@
     },
     {
       "name": "COLLISION_MODE_BOUNDARY",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Titanium.UI.iOS.CollisionBehavior.collisionMode](api:Titanium.UI.iOS.CollisionBehavior#collisionMode) to specify collisions with\nboundaries only.\n",
       "type": [
         {
@@ -637,7 +800,11 @@
     },
     {
       "name": "COLLISION_MODE_ITEM",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Titanium.UI.iOS.CollisionBehavior.collisionMode](api:Titanium.UI.iOS.CollisionBehavior#collisionMode) to specify collisions with items only.\n",
       "type": [
         {
@@ -650,7 +817,11 @@
     },
     {
       "name": "CREDENTIAL_PERSISTENCE_FOR_SESSION",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Credential should be stored only for this session.",
       "description": "Used with the `persistence` argument of [Titanium.UI.WebView.setBasicAuthentication](api:Titanium.UI.WebView#setBasicAuthentication) to set the persistence level.\n",
       "type": [
@@ -664,7 +835,11 @@
     },
     {
       "name": "CREDENTIAL_PERSISTENCE_NONE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Credential should not be stored.",
       "description": "Used with the `persistence` argument of [Titanium.UI.WebView.setBasicAuthentication](api:Titanium.UI.WebView#setBasicAuthentication) to set the persistence level.\n",
       "type": [
@@ -678,7 +853,11 @@
     },
     {
       "name": "CREDENTIAL_PERSISTENCE_PERMANENT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Credential should be stored in the keychain.",
       "description": "Used with the `persistence` argument of [Titanium.UI.WebView.setBasicAuthentication](api:Titanium.UI.WebView#setBasicAuthentication) to set the persistence level.\n",
       "type": [
@@ -692,7 +871,11 @@
     },
     {
       "name": "CREDENTIAL_PERSISTENCE_SYNCHRONIZABLE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Credential should be stored permanently in the keychain, and in addition should be\ndistributed to other devices based on the owning AppleID.\n",
       "description": "Used with the `persistence` argument of [Titanium.UI.WebView.setBasicAuthentication](api:Titanium.UI.WebView#setBasicAuthentication) to set the persistence level.\n",
       "type": [
@@ -706,7 +889,11 @@
     },
     {
       "name": "DATE_PICKER_STYLE_AUTOMATIC",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Titanium.UI.Picker.datePickerStyle](api:Titanium.UI.Picker#datePickerStyle) to automatically pick the best style\navailable for the current platform & mode.\n",
       "description": "Note: Prior to iOS 14, this property is only used on iOS Catalyst apps.",
       "type": [
@@ -729,7 +916,11 @@
     },
     {
       "name": "DATE_PICKER_STYLE_COMPACT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Titanium.UI.Picker.datePickerStyle](api:Titanium.UI.Picker#datePickerStyle) to show the picker with a compact style. Editing occurs in an overlay.\n",
       "description": "Note: Prior to iOS 14, this property is only used on iOS Catalyst apps.",
       "type": [
@@ -752,7 +943,11 @@
     },
     {
       "name": "DATE_PICKER_STYLE_INLINE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Titanium.UI.Picker.datePickerStyle](api:Titanium.UI.Picker#datePickerStyle) to allow editing in place (as a calendar).\n",
       "type": [
         {
@@ -774,7 +969,11 @@
     },
     {
       "name": "DATE_PICKER_STYLE_WHEELS",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Titanium.UI.Picker.datePickerStyle](api:Titanium.UI.Picker#datePickerStyle) to show the picker the wheels. Editing occurs inline.\n",
       "type": [
         {
@@ -796,7 +995,11 @@
     },
     {
       "name": "FEEDBACK_GENERATOR_IMPACT_STYLE_HEAVY",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The heavy impact style used as the `style` argument when creating a [Titanium.UI.iOS.FeedbackGenerator](api:Titanium.UI.iOS.FeedbackGenerator) with the\ntype [Titanium.UI.iOS.FEEDBACK_GENERATOR_TYPE_IMPACT](api:Titanium.UI.iOS#FEEDBACK_GENERATOR_TYPE_IMPACT).\n",
       "type": [
         {
@@ -809,7 +1012,11 @@
     },
     {
       "name": "FEEDBACK_GENERATOR_IMPACT_STYLE_LIGHT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The light impact style used as the `style` argument when creating a [Titanium.UI.iOS.FeedbackGenerator](api:Titanium.UI.iOS.FeedbackGenerator) with the\ntype [Titanium.UI.iOS.FEEDBACK_GENERATOR_TYPE_IMPACT](api:Titanium.UI.iOS#FEEDBACK_GENERATOR_TYPE_IMPACT).\n",
       "type": [
         {
@@ -822,7 +1029,11 @@
     },
     {
       "name": "FEEDBACK_GENERATOR_IMPACT_STYLE_MEDIUM",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The medium impact style used as the `style` argument when creating a [Titanium.UI.iOS.FeedbackGenerator](api:Titanium.UI.iOS.FeedbackGenerator) with the\ntype [Titanium.UI.iOS.FEEDBACK_GENERATOR_TYPE_IMPACT](api:Titanium.UI.iOS#FEEDBACK_GENERATOR_TYPE_IMPACT).\n",
       "type": [
         {
@@ -835,7 +1046,11 @@
     },
     {
       "name": "FEEDBACK_GENERATOR_NOTIFICATION_TYPE_ERROR",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The error notification type used as the argument in [Titanium.UI.iOS.FeedbackGenerator.notificationOccurred](api:Titanium.UI.iOS.FeedbackGenerator#notificationOccurred).",
       "type": [
         {
@@ -848,7 +1063,11 @@
     },
     {
       "name": "FEEDBACK_GENERATOR_NOTIFICATION_TYPE_SUCCESS",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The success notification type used as the argument in [Titanium.UI.iOS.FeedbackGenerator.notificationOccurred](api:Titanium.UI.iOS.FeedbackGenerator#notificationOccurred).",
       "type": [
         {
@@ -861,7 +1080,11 @@
     },
     {
       "name": "FEEDBACK_GENERATOR_NOTIFICATION_TYPE_WARNING",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The warning notification type used as the argument in [Titanium.UI.iOS.FeedbackGenerator.notificationOccurred](api:Titanium.UI.iOS.FeedbackGenerator#notificationOccurred).",
       "type": [
         {
@@ -874,7 +1097,11 @@
     },
     {
       "name": "FEEDBACK_GENERATOR_TYPE_IMPACT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The feedback type to be used when specifying an impact in [Titanium.UI.iOS.FeedbackGenerator](api:Titanium.UI.iOS.FeedbackGenerator).",
       "type": [
         {
@@ -887,7 +1114,11 @@
     },
     {
       "name": "FEEDBACK_GENERATOR_TYPE_NOTIFICATION",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The feedback type to be used when specifying a received notification in [Titanium.UI.iOS.FeedbackGenerator](api:Titanium.UI.iOS.FeedbackGenerator).",
       "type": [
         {
@@ -900,7 +1131,11 @@
     },
     {
       "name": "FEEDBACK_GENERATOR_TYPE_SELECTION",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The feedback type to be used when specifying a selection in [Titanium.UI.iOS.FeedbackGenerator](api:Titanium.UI.iOS.FeedbackGenerator).",
       "type": [
         {
@@ -913,7 +1148,11 @@
     },
     {
       "name": "forceTouchSupported",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Determines if the 3D-Touch capability \"Force Touch\" is supported (`true`) or not (`false`) by the device.",
       "description": "Returns `true` if the device supports 3D-Touch (iPhone 6S / iPhone 6S Plus and later) or `false` if not.\n",
       "type": [
@@ -927,7 +1166,11 @@
     },
     {
       "name": "GLASS_EFFECT_STYLE_CLEAR",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [BlurView.glassEffect](api:Titanium.UI.iOS.BlurView#glassEffect) to specify a clear glass effect style.\n",
       "description": "Creates a glass effect with higher translucency and lighter blur intensity compared to the regular style.\nThis style provides a more transparent appearance while still maintaining the glass effect characteristics.\n",
       "type": [
@@ -946,7 +1189,11 @@
     },
     {
       "name": "GLASS_EFFECT_STYLE_REGULAR",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [BlurView.glassEffect](api:Titanium.UI.iOS.BlurView#glassEffect) to specify a regular glass effect style.\n",
       "description": "Creates a standard glass effect with regular translucency and blur intensity. This is the default\nstyle for glass effects and provides a balanced appearance suitable for most use cases.\n",
       "type": [
@@ -965,7 +1212,11 @@
     },
     {
       "name": "INJECTION_TIME_DOCUMENT_END",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Inject the script after the document finishes loading, but before other subresources finish loading.\n",
       "description": "Used to set the `injectionTime` argument of [Titanium.UI.WebView.addUserScript](api:Titanium.UI.WebView#addUserScript).\n",
       "type": [
@@ -979,7 +1230,11 @@
     },
     {
       "name": "INJECTION_TIME_DOCUMENT_START",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Inject the script after the document element is created, but before any other content is loaded.\n",
       "description": "Used to set the `injectionTime` argument of [Titanium.UI.WebView.addUserScript](api:Titanium.UI.WebView#addUserScript).\n",
       "type": [
@@ -993,7 +1248,11 @@
     },
     {
       "name": "KEYBOARD_DISMISS_MODE_INTERACTIVE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Titanium.UI.ScrollView.keyboardDismissMode](api:Titanium.UI.ScrollView#keyboardDismissMode) to control keyboard dismiss mode.\n",
       "description": "The keyboard follows the dragging touch offscreen, and can be pulled\nupward again to cancel the dismiss.\n",
       "type": [
@@ -1007,7 +1266,11 @@
     },
     {
       "name": "KEYBOARD_DISMISS_MODE_NONE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Titanium.UI.ScrollView.keyboardDismissMode](api:Titanium.UI.ScrollView#keyboardDismissMode) to control keyboard dismiss mode.\n",
       "description": "The keyboard does not get dismissed with a drag.",
       "type": [
@@ -1021,7 +1284,11 @@
     },
     {
       "name": "KEYBOARD_DISMISS_MODE_ON_DRAG",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Titanium.UI.ScrollView.keyboardDismissMode](api:Titanium.UI.ScrollView#keyboardDismissMode) to control keyboard dismiss mode.\n",
       "description": "The keyboard is dismissed when a drag begins.",
       "type": [
@@ -1035,7 +1302,11 @@
     },
     {
       "name": "LARGE_TITLE_DISPLAY_MODE_ALWAYS",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Always use a larger title when this item is top most.",
       "description": "Use with [Titanium.UI.Window.largeTitleDisplayMode](api:Titanium.UI.Window#largeTitleDisplayMode).",
       "type": [
@@ -1049,7 +1320,11 @@
     },
     {
       "name": "LARGE_TITLE_DISPLAY_MODE_AUTOMATIC",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Automatically use the large out-of-line title based on the state of the p\nrevious item in the navigation bar.\n",
       "description": "Use with [Titanium.UI.Window.largeTitleDisplayMode](api:Titanium.UI.Window#largeTitleDisplayMode). An item with this\nconstant will show or hide the large title based on the request of the\nprevious navigation item. If the first item pushed is set to Automatic,\nthen it will show the large title if the navigation bar has the property\n[Titanium.UI.Window.largeTitleEnabled](api:Titanium.UI.Window#largeTitleEnabled) set to `true`.\n",
       "type": [
@@ -1063,7 +1338,11 @@
     },
     {
       "name": "LARGE_TITLE_DISPLAY_MODE_NEVER",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Never use a larger title when this item is top most.",
       "description": "Use with [Titanium.UI.Window.largeTitleDisplayMode](api:Titanium.UI.Window#largeTitleDisplayMode).",
       "type": [
@@ -1077,7 +1356,11 @@
     },
     {
       "name": "LIVEPHOTO_BADGE_OPTIONS_LIVE_OFF",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "To indicate that the Live Photo aspect is turned off and it will\nbe treated as a still (e.g. for sharing).\n",
       "description": "Use with [Titanium.UI.iOS.createLivePhotoBadge](api:Titanium.UI.iOS#createLivePhotoBadge) to specify\nthe badge behavior.\n",
       "type": [
@@ -1096,7 +1379,11 @@
     },
     {
       "name": "LIVEPHOTO_BADGE_OPTIONS_OVER_CONTENT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Include treatments so this image can be shown directly over the content\nof the Live Photo.\n",
       "description": "Use with [Titanium.UI.iOS.createLivePhotoBadge](api:Titanium.UI.iOS#createLivePhotoBadge) to specify\nthe badge behavior.\n",
       "type": [
@@ -1115,7 +1402,11 @@
     },
     {
       "name": "LIVEPHOTO_PLAYBACK_STYLE_FULL",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Plays back the entire motion and sound content of the Live Photo, including transition\neffects at the start and end.\n",
       "description": "This style matches the effect seen when pressing on a photo in the Photos app.",
       "type": [
@@ -1134,7 +1425,11 @@
     },
     {
       "name": "LIVEPHOTO_PLAYBACK_STYLE_HINT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Plays back only a brief section of the motion content of the Live Photo, without sound.",
       "description": "This style matches the effect seen in various iOS interface elements for hinting to the user\nwhen an asset contains Live Photo content.\n",
       "type": [
@@ -1153,7 +1448,11 @@
     },
     {
       "name": "MENU_POPUP_ARROW_DIRECTION_DEFAULT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "An arrow that is automatically aligned.",
       "type": [
         {
@@ -1165,7 +1464,11 @@
     },
     {
       "name": "MENU_POPUP_ARROW_DIRECTION_DOWN",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "An arrow that points downward.",
       "type": [
         {
@@ -1177,7 +1480,11 @@
     },
     {
       "name": "MENU_POPUP_ARROW_DIRECTION_LEFT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "An arrow that points toward the left.",
       "type": [
         {
@@ -1189,7 +1496,11 @@
     },
     {
       "name": "MENU_POPUP_ARROW_DIRECTION_RIGHT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "An arrow that points toward the right.",
       "type": [
         {
@@ -1201,7 +1512,11 @@
     },
     {
       "name": "MENU_POPUP_ARROW_DIRECTION_UP",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "An arrow that points upward.",
       "type": [
         {
@@ -1213,7 +1528,11 @@
     },
     {
       "name": "MODAL_PRESENTATION_CURRENT_CONTEXT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "View presented with the same style as its parent window.",
       "description": "Used with the [Titanium.UI.Window.open](api:Titanium.UI.Window#open) and [Titanium.UI.Window.close](api:Titanium.UI.Window#close) methods.\n\nOne of the group of modal window presentation style constants\n[MODAL_PRESENTATION_OVER_CURRENT_FULL_SCREEN](api:Titanium.UI.iOS#MODAL_PRESENTATION_OVER_CURRENT_FULL_SCREEN),\n[MODAL_PRESENTATION_OVER_CURRENT_CONTEXT](api:Titanium.UI.iOS#MODAL_PRESENTATION_OVER_CURRENT_CONTEXT),\n[MODAL_PRESENTATION_CURRENT_CONTEXT](api:Titanium.UI.iOS#MODAL_PRESENTATION_CURRENT_CONTEXT),\n[MODAL_PRESENTATION_FORMSHEET](api:Titanium.UI.iOS#MODAL_PRESENTATION_FORMSHEET),\n[MODAL_PRESENTATION_FULLSCREEN](api:Titanium.UI.iOS#MODAL_PRESENTATION_FULLSCREEN),\nand [MODAL_PRESENTATION_PAGESHEET](api:Titanium.UI.iOS#MODAL_PRESENTATION_PAGESHEET).\n",
       "type": [
@@ -1226,7 +1545,11 @@
     },
     {
       "name": "MODAL_PRESENTATION_FORMSHEET",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Window width and height are smaller than those of the screen and the view is centered on\nthe screen.\n",
       "description": "If the system is in a landscape orientation and the keyboard is visible, the position of the\nview is adjusted upward so that the view remains visible. All uncovered areas are dimmed\nand do not respond to touch to prevent the user from interacting with them.\n\nUsed with the [Titanium.UI.Window.open](api:Titanium.UI.Window#open) and [Titanium.UI.Window.close](api:Titanium.UI.Window#close) methods.\n\nOne of the group of modal window presentation style constants\n[MODAL_PRESENTATION_OVER_CURRENT_FULL_SCREEN](api:Titanium.UI.iOS#MODAL_PRESENTATION_OVER_CURRENT_FULL_SCREEN),\n[MODAL_PRESENTATION_OVER_CURRENT_CONTEXT](api:Titanium.UI.iOS#MODAL_PRESENTATION_OVER_CURRENT_CONTEXT),\n[MODAL_PRESENTATION_CURRENT_CONTEXT](api:Titanium.UI.iOS#MODAL_PRESENTATION_CURRENT_CONTEXT),\n[MODAL_PRESENTATION_FORMSHEET](api:Titanium.UI.iOS#MODAL_PRESENTATION_FORMSHEET),\n[MODAL_PRESENTATION_FULLSCREEN](api:Titanium.UI.iOS#MODAL_PRESENTATION_FULLSCREEN),\nand [MODAL_PRESENTATION_PAGESHEET](api:Titanium.UI.iOS#MODAL_PRESENTATION_PAGESHEET).\n",
       "type": [
@@ -1240,7 +1563,11 @@
     },
     {
       "name": "MODAL_PRESENTATION_FULLSCREEN",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Window covers the screen.",
       "description": "Used with the [Titanium.UI.Window.open](api:Titanium.UI.Window#open) and [Titanium.UI.Window.close](api:Titanium.UI.Window#close) methods.\n\nOne of the group of modal window presentation style constants\n[MODAL_PRESENTATION_OVER_CURRENT_FULL_SCREEN](api:Titanium.UI.iOS#MODAL_PRESENTATION_OVER_CURRENT_FULL_SCREEN),\n[MODAL_PRESENTATION_OVER_CURRENT_CONTEXT](api:Titanium.UI.iOS#MODAL_PRESENTATION_OVER_CURRENT_CONTEXT),\n[MODAL_PRESENTATION_CURRENT_CONTEXT](api:Titanium.UI.iOS#MODAL_PRESENTATION_CURRENT_CONTEXT),\n[MODAL_PRESENTATION_FORMSHEET](api:Titanium.UI.iOS#MODAL_PRESENTATION_FORMSHEET),\n[MODAL_PRESENTATION_FULLSCREEN](api:Titanium.UI.iOS#MODAL_PRESENTATION_FULLSCREEN),\nand [MODAL_PRESENTATION_PAGESHEET](api:Titanium.UI.iOS#MODAL_PRESENTATION_PAGESHEET).\n",
       "type": [
@@ -1254,7 +1581,11 @@
     },
     {
       "name": "MODAL_PRESENTATION_OVER_CURRENT_CONTEXT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "View presented over its parent window.",
       "description": "Used with the [Titanium.UI.Window.open](api:Titanium.UI.Window#open) and [Titanium.UI.Window.close](api:Titanium.UI.Window#close) methods.\n\nOne of the group of modal window presentation style constants\n[MODAL_PRESENTATION_OVER_CURRENT_FULL_SCREEN](api:Titanium.UI.iOS#MODAL_PRESENTATION_OVER_CURRENT_FULL_SCREEN),\n[MODAL_PRESENTATION_OVER_CURRENT_CONTEXT](api:Titanium.UI.iOS#MODAL_PRESENTATION_OVER_CURRENT_CONTEXT),\n[MODAL_PRESENTATION_CURRENT_CONTEXT](api:Titanium.UI.iOS#MODAL_PRESENTATION_CURRENT_CONTEXT),\n[MODAL_PRESENTATION_FORMSHEET](api:Titanium.UI.iOS#MODAL_PRESENTATION_FORMSHEET),\n[MODAL_PRESENTATION_FULLSCREEN](api:Titanium.UI.iOS#MODAL_PRESENTATION_FULLSCREEN),\nand [MODAL_PRESENTATION_PAGESHEET](api:Titanium.UI.iOS#MODAL_PRESENTATION_PAGESHEET).\n",
       "type": [
@@ -1267,7 +1598,11 @@
     },
     {
       "name": "MODAL_PRESENTATION_OVER_CURRENT_FULL_SCREEN",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Presented view covers the screen.",
       "description": "The views beneath the presented content are not removed from the view hierarchy when the presentation finishes. So if the presented view controller does not fill the screen with opaque content, the underlying content shows through.\n\nUsed with the [Titanium.UI.Window.open](api:Titanium.UI.Window#open) and [Titanium.UI.Window.close](api:Titanium.UI.Window#close) methods.\n\nOne of the group of modal window presentation style constants\n[MODAL_PRESENTATION_OVER_CURRENT_FULL_SCREEN](api:Titanium.UI.iOS#MODAL_PRESENTATION_OVER_CURRENT_FULL_SCREEN),\n[MODAL_PRESENTATION_OVER_CURRENT_CONTEXT](api:Titanium.UI.iOS#MODAL_PRESENTATION_OVER_CURRENT_CONTEXT),\n[MODAL_PRESENTATION_CURRENT_CONTEXT](api:Titanium.UI.iOS#MODAL_PRESENTATION_CURRENT_CONTEXT),\n[MODAL_PRESENTATION_FORMSHEET](api:Titanium.UI.iOS#MODAL_PRESENTATION_FORMSHEET),\n[MODAL_PRESENTATION_FULLSCREEN](api:Titanium.UI.iOS#MODAL_PRESENTATION_FULLSCREEN),\nand [MODAL_PRESENTATION_PAGESHEET](api:Titanium.UI.iOS#MODAL_PRESENTATION_PAGESHEET).\n",
       "type": [
@@ -1280,7 +1615,11 @@
     },
     {
       "name": "MODAL_PRESENTATION_PAGESHEET",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Window height is the height of the screen and width is equal to screen width in a portrait\norientation.\n",
       "description": "Any uncovered areas are dimmed and do not respond to touch, to prevent the user from\ninteracting with them. In portrait orientations, this option is essentially the same as\n[Titanium.UI.iOS.MODAL_PRESENTATION_FULLSCREEN](api:Titanium.UI.iOS#MODAL_PRESENTATION_FULLSCREEN).\n\nUsed with the [Titanium.UI.Window.open](api:Titanium.UI.Window#open) and [Titanium.UI.Window.close](api:Titanium.UI.Window#close) methods.\n\nOne of the group of modal window presentation style constants\n[MODAL_PRESENTATION_OVER_CURRENT_FULL_SCREEN](api:Titanium.UI.iOS#MODAL_PRESENTATION_OVER_CURRENT_FULL_SCREEN),\n[MODAL_PRESENTATION_OVER_CURRENT_CONTEXT](api:Titanium.UI.iOS#MODAL_PRESENTATION_OVER_CURRENT_CONTEXT),\n[MODAL_PRESENTATION_CURRENT_CONTEXT](api:Titanium.UI.iOS#MODAL_PRESENTATION_CURRENT_CONTEXT),\n[MODAL_PRESENTATION_FORMSHEET](api:Titanium.UI.iOS#MODAL_PRESENTATION_FORMSHEET),\n[MODAL_PRESENTATION_FULLSCREEN](api:Titanium.UI.iOS#MODAL_PRESENTATION_FULLSCREEN),\nand [MODAL_PRESENTATION_PAGESHEET](api:Titanium.UI.iOS#MODAL_PRESENTATION_PAGESHEET).\n",
       "type": [
@@ -1294,7 +1633,11 @@
     },
     {
       "name": "MODAL_TRANSITION_STYLE_COVER_VERTICAL",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "When the window is presented, its view slides up from the bottom of the screen. On dismissal,\nthe view slides back down (default.)\n",
       "description": "Used with the [Titanium.UI.Window.open](api:Titanium.UI.Window#open) and [Titanium.UI.Window.close](api:Titanium.UI.Window#close) methods.\n\nOne of the group of modal window transition style constants\n[MODAL_TRANSITION_STYLE_COVER_VERTICAL](api:Titanium.UI.iOS#MODAL_TRANSITION_STYLE_COVER_VERTICAL),\n[MODAL_TRANSITION_STYLE_CROSS_DISSOLVE](api:Titanium.UI.iOS#MODAL_TRANSITION_STYLE_CROSS_DISSOLVE),\n[MODAL_TRANSITION_STYLE_FLIP_HORIZONTAL](api:Titanium.UI.iOS#MODAL_TRANSITION_STYLE_FLIP_HORIZONTAL),\nand [MODAL_TRANSITION_STYLE_PARTIAL_CURL](api:Titanium.UI.iOS#MODAL_TRANSITION_STYLE_PARTIAL_CURL).\n",
       "type": [
@@ -1308,7 +1651,11 @@
     },
     {
       "name": "MODAL_TRANSITION_STYLE_CROSS_DISSOLVE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "When the window is presented, the current view fades out while the new view fades in at the\nsame time. On dismissal, a similar type of cross-fade is used to return to the original view.\n",
       "description": "Used with the [Titanium.UI.Window.open](api:Titanium.UI.Window#open) and [Titanium.UI.Window.close](api:Titanium.UI.Window#close) methods.\n\nOne of the group of modal window transition style constants\n[MODAL_TRANSITION_STYLE_COVER_VERTICAL](api:Titanium.UI.iOS#MODAL_TRANSITION_STYLE_COVER_VERTICAL),\n[MODAL_TRANSITION_STYLE_CROSS_DISSOLVE](api:Titanium.UI.iOS#MODAL_TRANSITION_STYLE_CROSS_DISSOLVE),\n[MODAL_TRANSITION_STYLE_FLIP_HORIZONTAL](api:Titanium.UI.iOS#MODAL_TRANSITION_STYLE_FLIP_HORIZONTAL),\nand [MODAL_TRANSITION_STYLE_PARTIAL_CURL](api:Titanium.UI.iOS#MODAL_TRANSITION_STYLE_PARTIAL_CURL).\n",
       "type": [
@@ -1322,7 +1669,11 @@
     },
     {
       "name": "MODAL_TRANSITION_STYLE_FLIP_HORIZONTAL",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "When the window is presented, the current view initiates a horizontal 3D flip from\nright-to-left, resulting in the revealing of the new view as if it were on the back of the\nprevious view. On dismissal, the flip occurs from left-to-right, returning to the original\nview.\n",
       "description": "Used with the [Titanium.UI.Window.open](api:Titanium.UI.Window#open) and [Titanium.UI.Window.close](api:Titanium.UI.Window#close) methods.\n\nOne of the group of modal window transition style constants\n[MODAL_TRANSITION_STYLE_COVER_VERTICAL](api:Titanium.UI.iOS#MODAL_TRANSITION_STYLE_COVER_VERTICAL),\n[MODAL_TRANSITION_STYLE_CROSS_DISSOLVE](api:Titanium.UI.iOS#MODAL_TRANSITION_STYLE_CROSS_DISSOLVE),\n[MODAL_TRANSITION_STYLE_FLIP_HORIZONTAL](api:Titanium.UI.iOS#MODAL_TRANSITION_STYLE_FLIP_HORIZONTAL),\nand [MODAL_TRANSITION_STYLE_PARTIAL_CURL](api:Titanium.UI.iOS#MODAL_TRANSITION_STYLE_PARTIAL_CURL).\n",
       "type": [
@@ -1336,7 +1687,11 @@
     },
     {
       "name": "MODAL_TRANSITION_STYLE_PARTIAL_CURL",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "When the window is presented, one corner of the current view curls up to reveal the modal\nview underneath. On dismissal, the curled up page unfurls itself back on top of the modal\nview.\n",
       "description": "A modal view presented using this transition is itself prevented from presenting any\nadditional modal views. This transition style is supported only if the window is presenting\na [Titanium.UI.iOS.MODAL_PRESENTATION_FULLSCREEN](api:Titanium.UI.iOS#MODAL_PRESENTATION_FULLSCREEN) modal presentation style.\n\nUsed with the [Titanium.UI.Window.open](api:Titanium.UI.Window#open) and [Titanium.UI.Window.close](api:Titanium.UI.Window#close) methods.\n\nOne of the group of modal window transition style constants\n[MODAL_TRANSITION_STYLE_COVER_VERTICAL](api:Titanium.UI.iOS#MODAL_TRANSITION_STYLE_COVER_VERTICAL),\n[MODAL_TRANSITION_STYLE_CROSS_DISSOLVE](api:Titanium.UI.iOS#MODAL_TRANSITION_STYLE_CROSS_DISSOLVE),\n[MODAL_TRANSITION_STYLE_FLIP_HORIZONTAL](api:Titanium.UI.iOS#MODAL_TRANSITION_STYLE_FLIP_HORIZONTAL),\nand [MODAL_TRANSITION_STYLE_PARTIAL_CURL](api:Titanium.UI.iOS#MODAL_TRANSITION_STYLE_PARTIAL_CURL).\n",
       "type": [
@@ -1350,7 +1705,11 @@
     },
     {
       "name": "PREVIEW_ACTION_STYLE_DEFAULT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The normal style for preview actions.\n",
       "description": "Used in conjunction with [Titanium.UI.iOS.PreviewAction.style](api:Titanium.UI.iOS.PreviewAction#style) / [Titanium.UI.iOS.PreviewActionGroup.style](api:Titanium.UI.iOS.PreviewActionGroup#style)\nproperty.\n",
       "type": [
@@ -1364,7 +1723,11 @@
     },
     {
       "name": "PREVIEW_ACTION_STYLE_DESTRUCTIVE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The destructive style for preview actions.",
       "description": "Used in conjunction with [Titanium.UI.iOS.PreviewAction.style](api:Titanium.UI.iOS.PreviewAction#style) / [Titanium.UI.iOS.PreviewActionGroup.style](api:Titanium.UI.iOS.PreviewActionGroup#style)\nproperty.\n",
       "type": [
@@ -1378,7 +1741,11 @@
     },
     {
       "name": "PREVIEW_ACTION_STYLE_SELECTED",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The selected style for preview actions.",
       "description": "Used in conjunction with [Titanium.UI.iOS.PreviewAction.style](api:Titanium.UI.iOS.PreviewAction#style) / [Titanium.UI.iOS.PreviewActionGroup.style](api:Titanium.UI.iOS.PreviewActionGroup#style)\nproperty.\n",
       "type": [
@@ -1392,7 +1759,11 @@
     },
     {
       "name": "PUSH_MODE_CONTINUOUS",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Titanium.UI.iOS.PushBehavior.pushMode](api:Titanium.UI.iOS.PushBehavior#pushMode) to specifiy a continuous force.\n",
       "type": [
         {
@@ -1405,7 +1776,11 @@
     },
     {
       "name": "PUSH_MODE_INSTANTANEOUS",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Titanium.UI.iOS.PushBehavior.pushMode](api:Titanium.UI.iOS.PushBehavior#pushMode) to specifiy an instantaneous force.\n",
       "type": [
         {
@@ -1418,7 +1793,11 @@
     },
     {
       "name": "ROW_ACTION_STYLE_DEFAULT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The default style for [RowActionType](api:RowActionType).",
       "description": "Used in conjunction with [Titanium.UI.ListItem.editActions](api:Titanium.UI.ListItem#editActions) property and [Titanium.UI.ListView.editaction](api:Titanium.UI.ListView#editaction) event.\n",
       "type": [
@@ -1432,7 +1811,11 @@
     },
     {
       "name": "ROW_ACTION_STYLE_DESTRUCTIVE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The destructive style for [RowActionType](api:RowActionType).",
       "description": "Used in conjunction with [Titanium.UI.ListItem.editActions](api:Titanium.UI.ListItem#editActions) property and [Titanium.UI.ListView.editaction](api:Titanium.UI.ListView#editaction) event.\n",
       "type": [
@@ -1446,7 +1829,11 @@
     },
     {
       "name": "ROW_ACTION_STYLE_NORMAL",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The normal style for [RowActionType](api:RowActionType).",
       "description": "Used in conjunction with [Titanium.UI.ListItem.editActions](api:Titanium.UI.ListItem#editActions) property and [Titanium.UI.ListView.editaction](api:Titanium.UI.ListView#editaction) event.\n",
       "type": [
@@ -1460,7 +1847,11 @@
     },
     {
       "name": "SCROLL_DECELERATION_RATE_FAST",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Titanium.UI.ScrollView.decelerationRate](api:Titanium.UI.ScrollView#decelerationRate) to control deceleration rate.\n",
       "type": [
         {
@@ -1473,7 +1864,11 @@
     },
     {
       "name": "SCROLL_DECELERATION_RATE_NORMAL",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Titanium.UI.ScrollView.decelerationRate](api:Titanium.UI.ScrollView#decelerationRate) to control deceleration rate.\n",
       "type": [
         {
@@ -1486,7 +1881,11 @@
     },
     {
       "name": "SCROLL_VIEW_EDGE_EFFECT_STYLE_AUTOMATIC",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Titanium.UI.ScrollView.edgeEffect](api:Titanium.UI.ScrollView#edgeEffect) to apply the system default edge effect style.\n",
       "type": [
         {
@@ -1504,7 +1903,11 @@
     },
     {
       "name": "SCROLL_VIEW_EDGE_EFFECT_STYLE_HARD",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Titanium.UI.ScrollView.edgeEffect](api:Titanium.UI.ScrollView#edgeEffect) to apply a scroll edge effect with a hard cutoff and dividing line.\n",
       "type": [
         {
@@ -1522,7 +1925,11 @@
     },
     {
       "name": "SCROLL_VIEW_EDGE_EFFECT_STYLE_SOFT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Titanium.UI.ScrollView.edgeEffect](api:Titanium.UI.ScrollView#edgeEffect) to apply a soft-edged scroll edge effect.\n",
       "type": [
         {
@@ -1540,7 +1947,11 @@
     },
     {
       "name": "SEARCH_BAR_STYLE_MINIMAL",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Titanium.UI.SearchBar.style](api:Titanium.UI.SearchBar#style) to change the search bar style.\n",
       "description": "The search bar has no background, and the search field is translucent.\n",
       "type": [
@@ -1554,7 +1965,11 @@
     },
     {
       "name": "SEARCH_BAR_STYLE_PROMINENT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Titanium.UI.SearchBar.style](api:Titanium.UI.SearchBar#style) to change the search bar style.\n",
       "description": "The search bar has a translucent background, and the search field is opaque.\n",
       "type": [
@@ -1568,7 +1983,11 @@
     },
     {
       "name": "SELECTION_GRANULARITY_CHARACTER",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Selection endpoints can be placed at any character boundary.",
       "description": "Use with [Titanium.UI.WebView.selectionGranularity](api:Titanium.UI.WebView#selectionGranularity).\n",
       "type": [
@@ -1582,7 +2001,11 @@
     },
     {
       "name": "SELECTION_GRANULARITY_DYNAMIC",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Selection granularity varies automatically depending on the selection.",
       "description": "Use with [Titanium.UI.WebView.selectionGranularity](api:Titanium.UI.WebView#selectionGranularity).\n",
       "type": [
@@ -1596,7 +2019,11 @@
     },
     {
       "name": "SHORTCUT_ICON_TYPE_ADD",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Number that represents the icon used for the application shortcut",
       "description": "An icon for a quick action that adds an item.\n",
       "type": [
@@ -1610,7 +2037,11 @@
     },
     {
       "name": "SHORTCUT_ICON_TYPE_ALARM",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Number that represents the icon used for the application shortcut",
       "description": "An icon for a quick action that offers creation of an alarm.\n",
       "type": [
@@ -1629,7 +2060,11 @@
     },
     {
       "name": "SHORTCUT_ICON_TYPE_AUDIO",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Number that represents the icon used for the application shortcut",
       "description": "An icon for a quick action that offers use of audio.\n",
       "type": [
@@ -1648,7 +2083,11 @@
     },
     {
       "name": "SHORTCUT_ICON_TYPE_BOOKMARK",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Number that represents the icon used for the application shortcut",
       "description": "An icon for a quick action that offers creation of a bookmark.\n",
       "type": [
@@ -1667,7 +2106,11 @@
     },
     {
       "name": "SHORTCUT_ICON_TYPE_CAPTURE_PHOTO",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Number that represents the icon used for the application shortcut",
       "description": "An icon for a quick action that offers photo capture.\n",
       "type": [
@@ -1686,7 +2129,11 @@
     },
     {
       "name": "SHORTCUT_ICON_TYPE_CAPTURE_VIDEO",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Number that represents the icon used for the application shortcut",
       "description": "An icon for a quick action that offers video capture.\n",
       "type": [
@@ -1705,7 +2152,11 @@
     },
     {
       "name": "SHORTCUT_ICON_TYPE_CLOUD",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Number that represents the icon used for the application shortcut",
       "description": "An icon for a quick action that offers cloud access.\n",
       "type": [
@@ -1724,7 +2175,11 @@
     },
     {
       "name": "SHORTCUT_ICON_TYPE_COMPOSE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Number that represents the icon used for the application shortcut",
       "description": "An icon for a quick action that lets a user compose new content.\n",
       "type": [
@@ -1738,7 +2193,11 @@
     },
     {
       "name": "SHORTCUT_ICON_TYPE_CONFIRMATION",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Number that represents the icon used for the application shortcut",
       "description": "An icon for a quick action that indicates confirmation.\n",
       "type": [
@@ -1757,7 +2216,11 @@
     },
     {
       "name": "SHORTCUT_ICON_TYPE_CONTACT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Number that represents the icon used for the application shortcut",
       "description": "An icon for a quick action that chooses a generic contact.\n",
       "type": [
@@ -1776,7 +2239,11 @@
     },
     {
       "name": "SHORTCUT_ICON_TYPE_DATE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Number that represents the icon used for the application shortcut",
       "description": "An icon for a quick action that offers use of a calendar.\n",
       "type": [
@@ -1795,7 +2262,11 @@
     },
     {
       "name": "SHORTCUT_ICON_TYPE_FAVORITE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Number that represents the icon used for the application shortcut",
       "description": "An icon for a quick action that lets a user designate a favorite item.\n",
       "type": [
@@ -1814,7 +2285,11 @@
     },
     {
       "name": "SHORTCUT_ICON_TYPE_HOME",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Number that represents the icon used for the application shortcut",
       "description": "An icon for a quick action that indicates home.\n",
       "type": [
@@ -1833,7 +2308,11 @@
     },
     {
       "name": "SHORTCUT_ICON_TYPE_INVITATION",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Number that represents the icon used for the application shortcut",
       "description": "An icon for a quick action that indicates an invitation.\n",
       "type": [
@@ -1852,7 +2331,11 @@
     },
     {
       "name": "SHORTCUT_ICON_TYPE_LOCATION",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Number that represents the icon used for the application shortcut",
       "description": "Will cause a magnifying glass icon to be displayed at that location in the index.\nThis should generally only be used as the first title in the index.\n",
       "type": [
@@ -1866,7 +2349,11 @@
     },
     {
       "name": "SHORTCUT_ICON_TYPE_LOVE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Number that represents the icon used for the application shortcut",
       "description": "An icon for a quick action that lets a user designate a loved item.\n",
       "type": [
@@ -1885,7 +2372,11 @@
     },
     {
       "name": "SHORTCUT_ICON_TYPE_MAIL",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Number that represents the icon used for the application shortcut",
       "description": "An icon for a quick action that offers use of mail.\n",
       "type": [
@@ -1904,7 +2395,11 @@
     },
     {
       "name": "SHORTCUT_ICON_TYPE_MARK_LOCATION",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Number that represents the icon used for the application shortcut",
       "description": "An icon for a quick action that lets a user mark a location.\n",
       "type": [
@@ -1923,7 +2418,11 @@
     },
     {
       "name": "SHORTCUT_ICON_TYPE_MESSAGE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Number that represents the icon used for the application shortcut",
       "description": "An icon for a quick action that offers use of messaging.\n",
       "type": [
@@ -1942,7 +2441,11 @@
     },
     {
       "name": "SHORTCUT_ICON_TYPE_PAUSE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Number that represents the icon used for the application shortcut",
       "description": "An icon for a quick action that pauses media playback.\n",
       "type": [
@@ -1956,7 +2459,11 @@
     },
     {
       "name": "SHORTCUT_ICON_TYPE_PLAY",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Number that represents the icon used for the application shortcut",
       "description": "An icon for a quick action that plays media.\n",
       "type": [
@@ -1970,7 +2477,11 @@
     },
     {
       "name": "SHORTCUT_ICON_TYPE_PROHIBIT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Number that represents the icon used for the application shortcut",
       "description": "An icon for a quick action that disallows something.\n",
       "type": [
@@ -1989,7 +2500,11 @@
     },
     {
       "name": "SHORTCUT_ICON_TYPE_SEARCH",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Number that represents the icon used for the application shortcut",
       "description": "An icon for a quick action that accesses the user's current location.\n",
       "type": [
@@ -2003,7 +2518,11 @@
     },
     {
       "name": "SHORTCUT_ICON_TYPE_SHARE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Number that represents the icon used for the application shortcut",
       "description": "An icon for a quick action that offers content sharing.\n",
       "type": [
@@ -2017,7 +2536,11 @@
     },
     {
       "name": "SHORTCUT_ICON_TYPE_SHUFFLE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Number that represents the icon used for the application shortcut",
       "description": "An icon for a quick action that offers shuffle mode.\n",
       "type": [
@@ -2036,7 +2559,11 @@
     },
     {
       "name": "SHORTCUT_ICON_TYPE_TASK",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Number that represents the icon used for the application shortcut",
       "description": "An icon for a quick action that offers task creation.\n",
       "type": [
@@ -2055,7 +2582,11 @@
     },
     {
       "name": "SHORTCUT_ICON_TYPE_TASK_COMPLETED",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Number that represents the icon used for the application shortcut",
       "description": "An icon for a quick action that offers task completion.\n",
       "type": [
@@ -2074,7 +2605,11 @@
     },
     {
       "name": "SHORTCUT_ICON_TYPE_TIME",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Number that represents the icon used for the application shortcut",
       "description": "An icon for a quick action that offers use of a clock or timer.\n",
       "type": [
@@ -2093,7 +2628,11 @@
     },
     {
       "name": "SHORTCUT_ICON_TYPE_UPDATE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Number that represents the icon used for the application shortcut",
       "description": "An icon for a quick action that offers updating.\n",
       "type": [
@@ -2112,7 +2651,11 @@
     },
     {
       "name": "statusBarBackgroundColor",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Sets the global status bar background color for the application. Android does not support setting instances of [Titanium.UI.Color](api:Titanium.UI.Color)",
       "type": [
         {
@@ -2129,7 +2672,11 @@
     },
     {
       "name": "TAB_GROUP_MINIMIZE_BEHAVIOR_AUTOMATIC",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Automatically determine when the tab group minimizes.",
       "description": "Use with [Titanium.UI.TabGroup.minimizeBehavior](api:Titanium.UI.TabGroup#minimizeBehavior) to let the system choose the appropriate\nminimize behavior based on context and platform conventions.\n",
       "type": [
@@ -2148,7 +2695,11 @@
     },
     {
       "name": "TAB_GROUP_MINIMIZE_BEHAVIOR_NEVER",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Do not minimize the tab group.",
       "description": "Use with [Titanium.UI.TabGroup.minimizeBehavior](api:Titanium.UI.TabGroup#minimizeBehavior) to keep the tab group visible and prevent\nit from minimizing in response to scrolling.\n",
       "type": [
@@ -2167,7 +2718,11 @@
     },
     {
       "name": "TAB_GROUP_MINIMIZE_BEHAVIOR_ON_SCROLL_DOWN",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Minimize the tab group when scrolling down.",
       "description": "Use with [Titanium.UI.TabGroup.minimizeBehavior](api:Titanium.UI.TabGroup#minimizeBehavior) to minimize the tab group as the user scrolls\ndownward.\n",
       "type": [
@@ -2186,7 +2741,11 @@
     },
     {
       "name": "TAB_GROUP_MINIMIZE_BEHAVIOR_ON_SCROLL_UP",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Minimize the tab group when scrolling up.",
       "description": "Use with [Titanium.UI.TabGroup.minimizeBehavior](api:Titanium.UI.TabGroup#minimizeBehavior) to minimize the tab group as the user scrolls\nupward.\n",
       "type": [
@@ -2205,7 +2764,11 @@
     },
     {
       "name": "TABLEVIEW_INDEX_SEARCH",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "String that represents the magnifying glass on the table view index bar",
       "description": "Will cause a magnifying glass icon to be displayed at that location in the index.\nThis should generally only be used as the first title in the index.\n",
       "type": [
@@ -2221,7 +2784,11 @@
   "methods": [
     {
       "name": "createAnchorAttachmentBehavior",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.iOS.AnchorAttachmentBehavior](api:Titanium.UI.iOS.AnchorAttachmentBehavior).",
       "since": {
         "iphone": "3.2.0",
@@ -2261,7 +2828,11 @@
     },
     {
       "name": "createAnimator",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.iOS.Animator](api:Titanium.UI.iOS.Animator).",
       "since": {
         "iphone": "3.2.0",
@@ -2301,7 +2872,9 @@
     },
     {
       "name": "createApplicationShortcuts",
-      "platforms": ["iphone"],
+      "platforms": [
+        "iphone"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.iOS.ApplicationShortcuts](api:Titanium.UI.iOS.ApplicationShortcuts).",
       "since": "5.1.0",
       "deprecated": {
@@ -2341,7 +2914,11 @@
     },
     {
       "name": "createBlurView",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.iOS.BlurView](api:Titanium.UI.iOS.BlurView).",
       "since": {
         "iphone": "5.4.0",
@@ -2381,7 +2958,11 @@
     },
     {
       "name": "createButtonConfiguration",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates a button configuration object for customizing button appearance.\n",
       "description": "Creates a [Titanium.UI.iOS.ButtonConfiguration](api:Titanium.UI.iOS.ButtonConfiguration) object that can be used to configure\nthe appearance and behavior of buttons with modern styling options.\n",
       "since": "13.0.0",
@@ -2421,7 +3002,11 @@
     },
     {
       "name": "createCollisionBehavior",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.iOS.CollisionBehavior](api:Titanium.UI.iOS.CollisionBehavior).",
       "since": {
         "iphone": "3.2.0",
@@ -2461,7 +3046,11 @@
     },
     {
       "name": "createCoverFlowView",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.iOS.CoverFlowView](api:Titanium.UI.iOS.CoverFlowView).",
       "since": {
         "iphone": "0.8",
@@ -2501,7 +3090,11 @@
     },
     {
       "name": "createDocumentViewer",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.iOS.DocumentViewer](api:Titanium.UI.iOS.DocumentViewer).",
       "since": {
         "iphone": "2.1.1",
@@ -2541,7 +3134,11 @@
     },
     {
       "name": "createDynamicItemBehavior",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.iOS.DynamicItemBehavior](api:Titanium.UI.iOS.DynamicItemBehavior).",
       "since": {
         "iphone": "3.2.0",
@@ -2581,7 +3178,9 @@
     },
     {
       "name": "createFeedbackGenerator",
-      "platforms": ["iphone"],
+      "platforms": [
+        "iphone"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.iOS.FeedbackGenerator](api:Titanium.UI.iOS.FeedbackGenerator).",
       "since": "6.0.0",
       "factoryFor": "Titanium.UI.iOS.FeedbackGenerator",
@@ -2617,7 +3216,11 @@
     },
     {
       "name": "createGravityBehavior",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.iOS.GravityBehavior](api:Titanium.UI.iOS.GravityBehavior).",
       "since": {
         "iphone": "3.2.0",
@@ -2657,7 +3260,11 @@
     },
     {
       "name": "createLivePhotoBadge",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates a live photo badge to be used together with the\n[Titanium.UI.iOS.LivePhotoView](api:Titanium.UI.iOS.LivePhotoView) API.\n",
       "description": "Supported on iOS 9.1 and later.\n",
       "since": "5.2.0",
@@ -2691,7 +3298,11 @@
     },
     {
       "name": "createLivePhotoView",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.iOS.LivePhotoView](api:Titanium.UI.iOS.LivePhotoView).",
       "since": {
         "iphone": "5.2.0",
@@ -2731,7 +3342,11 @@
     },
     {
       "name": "createMenuPopup",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.iOS.MenuPopup](api:Titanium.UI.iOS.MenuPopup).",
       "since": {
         "iphone": "5.2.0",
@@ -2771,7 +3386,11 @@
     },
     {
       "name": "createNavigationWindow",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.iOS.NavigationWindow](api:Titanium.UI.iOS.NavigationWindow).",
       "since": {
         "iphone": "3.1.3",
@@ -2816,7 +3435,9 @@
     },
     {
       "name": "createPreviewAction",
-      "platforms": ["iphone"],
+      "platforms": [
+        "iphone"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.iOS.PreviewAction](api:Titanium.UI.iOS.PreviewAction).",
       "since": "5.1.0",
       "factoryFor": "Titanium.UI.iOS.PreviewAction",
@@ -2852,7 +3473,9 @@
     },
     {
       "name": "createPreviewActionGroup",
-      "platforms": ["iphone"],
+      "platforms": [
+        "iphone"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.iOS.PreviewActionGroup](api:Titanium.UI.iOS.PreviewActionGroup).",
       "since": "5.1.0",
       "factoryFor": "Titanium.UI.iOS.PreviewActionGroup",
@@ -2888,7 +3511,9 @@
     },
     {
       "name": "createPreviewContext",
-      "platforms": ["iphone"],
+      "platforms": [
+        "iphone"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.iOS.PreviewContext](api:Titanium.UI.iOS.PreviewContext).",
       "since": "5.1.0",
       "factoryFor": "Titanium.UI.iOS.PreviewContext",
@@ -2924,7 +3549,11 @@
     },
     {
       "name": "createPushBehavior",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.iOS.PushBehavior](api:Titanium.UI.iOS.PushBehavior).",
       "since": {
         "iphone": "3.2.0",
@@ -2964,7 +3593,11 @@
     },
     {
       "name": "createSnapBehavior",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.iOS.SnapBehavior](api:Titanium.UI.iOS.SnapBehavior).",
       "since": {
         "iphone": "3.2.0",
@@ -3004,7 +3637,11 @@
     },
     {
       "name": "createSplitWindow",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.iOS.SplitWindow](api:Titanium.UI.iOS.SplitWindow).",
       "since": {
         "iphone": "3.6.0",
@@ -3044,7 +3681,11 @@
     },
     {
       "name": "createStepper",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.iOS.Stepper](api:Titanium.UI.iOS.Stepper).",
       "since": {
         "iphone": "5.4.0",
@@ -3084,7 +3725,11 @@
     },
     {
       "name": "createSystemButton",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.iOS.SystemButton](api:Titanium.UI.iOS.SystemButton).",
       "since": {
         "iphone": "5.4.0",
@@ -3124,7 +3769,11 @@
     },
     {
       "name": "createTabbedBar",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.iOS.TabbedBar](api:Titanium.UI.iOS.TabbedBar).",
       "since": {
         "iphone": "0.8",
@@ -3169,7 +3818,11 @@
     },
     {
       "name": "createToolbar",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.iOS.Toolbar](api:Titanium.UI.iOS.Toolbar).",
       "since": {
         "iphone": "0.8",
@@ -3214,7 +3867,11 @@
     },
     {
       "name": "createTransitionAnimation",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.iOS.TransitionAnimation](api:Titanium.UI.iOS.TransitionAnimation).",
       "since": {
         "iphone": "3.2.0",
@@ -3254,7 +3911,11 @@
     },
     {
       "name": "createViewAttachmentBehavior",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.iOS.ViewAttachmentBehavior](api:Titanium.UI.iOS.ViewAttachmentBehavior).",
       "since": {
         "iphone": "3.2.0",
@@ -3294,7 +3955,11 @@
     },
     {
       "name": "createWebViewConfiguration",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.iOS.WebViewConfiguration](api:Titanium.UI.iOS.WebViewConfiguration).",
       "since": {
         "iphone": "8.0.0",
@@ -3334,7 +3999,11 @@
     },
     {
       "name": "createWebViewDecisionHandler",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.iOS.WebViewDecisionHandler](api:Titanium.UI.iOS.WebViewDecisionHandler).",
       "since": {
         "iphone": "8.0.0",
@@ -3374,7 +4043,11 @@
     },
     {
       "name": "createWebViewProcessPool",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.iOS.WebViewProcessPool](api:Titanium.UI.iOS.WebViewProcessPool).",
       "since": {
         "iphone": "8.0.0",
@@ -3414,7 +4087,11 @@
     },
     {
       "name": "systemImage",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Get image from SF Symbols provided by Apple.\n",
       "description": "More details on SF Symbols can be found [here](https://developer.apple.com/design/human-interface-guidelines/sf-symbols/overview).\nOne can download SF Symbols app from [here](https://developer.apple.com/design/downloads/SF-Symbols.dmg) and\nuse it to lookup the built-in SF Symbol name. Example:\n``` js\nconst win = Ti.UI.createWindow({ backgroundColor: '#fff' });\n\nconst imageView = Ti.UI.createImageView({\n  image:  Ti.UI.iOS.systemImage('folder'), // folder icon\n  height: Ti.UI.FILL\n});\n\n// iOS 17+ symbol effect\nimageView.addSymbolEffect({\n  symbolEffect: 'bounce',\n  animated: true,\n  options: { repeatCount: 4 }\n});\n\nwin.add(imageView);\nwin.open();\n```\n",
       "since": "8.2.0",
@@ -3450,7 +4127,12 @@
             "properties": [
               {
                 "name": "size",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "The symbol point size to use for the SF Symbol",
                 "type": [
                   {
@@ -3461,7 +4143,12 @@
               },
               {
                 "name": "weight",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "The symbol weight to use for the SF Symbol.\nCan be one of `ultralight`, `light`, `thin`, `normal`, `semibold`, `bold`, `heavy` or `black`.\n",
                 "type": [
                   {
@@ -3492,34 +4179,58 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "events": []

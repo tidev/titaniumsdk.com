@@ -3,8 +3,14 @@
   "name": "Titanium.UI.iOS.AlertDialogStyle",
   "kind": "proxy",
   "extends": "Titanium.Proxy",
-  "inheritanceChain": ["Titanium.Proxy"],
-  "platforms": ["iphone", "ipad", "macos"],
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": {
     "iphone": "5.4.0",
     "ipad": "5.4.0",
@@ -14,7 +20,11 @@
   "properties": [
     {
       "name": "DEFAULT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "A standard alert dialog. This is the default value.",
       "type": [
         {
@@ -26,7 +36,11 @@
     },
     {
       "name": "LOGIN_AND_PASSWORD_INPUT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "An alert dialog that allows the user to enter login identifier and password.",
       "type": [
         {
@@ -38,7 +52,11 @@
     },
     {
       "name": "PLAIN_TEXT_INPUT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "An alert dialog that allows the user to enter text.",
       "type": [
         {
@@ -50,7 +68,11 @@
     },
     {
       "name": "SECURE_TEXT_INPUT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "An alert dialog that allows the user to enter text. The text field is obscured.",
       "type": [
         {
@@ -68,38 +90,65 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "events": []
   },
-  "references": ["Titanium.Proxy", "Titanium.UI.AlertDialog"],
+  "references": [
+    "Titanium.Proxy",
+    "Titanium.UI.AlertDialog"
+  ],
   "source": "Titanium/UI/iOS/AlertDialogStyle.yml"
 }

@@ -2,14 +2,24 @@
   "schemaVersion": 1,
   "name": "fs",
   "kind": "pseudo",
-  "platforms": ["android", "iphone", "ipad", "macos"],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": "8.3.0",
   "summary": "A Node.js-compatible implementation of the core `fs` module",
   "description": "Titanium provides a number of shims and ports of core Node.js module functionality.\n\nThis module is intended to provide a Node-compatible port of the `fs` core module.\n\nMore details on the Node.js API can be found in their [fs module documentation](https://nodejs.org/api/fs.html)\n\nThe `fs` module enables interacting with the file system in a way modeled on standard POSIX functions.\n\nTo use this module:\n\n``` javascript\nconst fs = require('fs');\n```\n\nAll file system operations have synchronous and asynchronous callback forms.\n\n**NOTE:** The Titanium shim for this module does not support the new Promises API yet, nor does it support some of the newer (and a subset of older) APIs.\n\nSome of the APIs are implemented as no-ops:\n\n- `chmod`\n- `chmodSync`\n- `chown`\n- `chownSync`\n- `fchmod`\n- `fchmodSync`\n- `fchown`\n- `fchownSync`\n- `fdatasync`\n- `fdatasyncSync`\n- `symlink`\n- `symlinkSync`\n- `unwatchFile`\n- `utimes`\n- `utimesSync`\n- `watch`\n- `watchFile`\n\nExplicitly unsupported for now are:\n\n- `fs.createReadStream`\n- `fs.createWriteStream`\n- `fs.fsync(fd, callback)`\n- `fs.fsyncSync(fd)`\n- `fs.ftruncate(fd[, len], callback)`\n- `fs.ftruncateSync(fd[, len])`\n- `fs.futimes(fd, atime, mtime, callback)`\n- `fs.futimesSync(fd, atime, mtime)`\n- `fs.lchmod(path, mode, callback)`\n- `fs.lchmodSync(path, mode)`\n- `fs.lchown(path, uid, gid, callback)`\n- `fs.lchownSync(path, uid, gid)`\n- `fs.link(existingPath, newPath, callback)`\n- `fs.linkSync(existingPath, newPath)`\n- `fs.opendir`\n- `fs.opendirSync`\n- `fs.readlink(path[, options], callback)`\n- `fs.readlinkSync(path[, options])`\n- `fs.rm`\n- `fs.rmSync`\n",
   "properties": [
     {
       "name": "constants",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Returns an object containing commonly used constants for file system operations. The specific constants currently defined are described in [FS constants](api:fs.constants).",
       "type": [
         {
@@ -23,7 +33,12 @@
         "properties": [
           {
             "name": "COPYFILE_EXCL",
-            "platforms": ["android", "iphone", "ipad", "macos"],
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "The copy operation will fail if dest already exists.",
             "type": [
               {
@@ -35,7 +50,12 @@
           },
           {
             "name": "F_OK",
-            "platforms": ["android", "iphone", "ipad", "macos"],
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "Flag indicating that the file is visible to the calling process. This is useful for determining if a file exists, but says nothing about `rwx` permissions. Default if no mode is specified.",
             "type": [
               {
@@ -47,7 +67,12 @@
           },
           {
             "name": "O_APPEND",
-            "platforms": ["android", "iphone", "ipad", "macos"],
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "Flag indicating that data will be appended to the end of the file.",
             "type": [
               {
@@ -59,7 +84,12 @@
           },
           {
             "name": "O_CREAT",
-            "platforms": ["android", "iphone", "ipad", "macos"],
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "Flag indicating to create the file if it does not already exist.",
             "type": [
               {
@@ -71,7 +101,12 @@
           },
           {
             "name": "O_DIRECTORY",
-            "platforms": ["android", "iphone", "ipad", "macos"],
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "Flag indicating that the open should fail if the path is not a directory.",
             "type": [
               {
@@ -83,7 +118,12 @@
           },
           {
             "name": "O_DSYNC",
-            "platforms": ["android", "iphone", "ipad", "macos"],
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "Flag indicating that the file is opened for synchronized I/O with write operations waiting for data integrity.",
             "type": [
               {
@@ -95,7 +135,12 @@
           },
           {
             "name": "O_EXCL",
-            "platforms": ["android", "iphone", "ipad", "macos"],
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "Flag indicating that opening a file should fail if the `O_CREAT` flag is set and the file already exists.",
             "type": [
               {
@@ -107,7 +152,12 @@
           },
           {
             "name": "O_NOCTTY",
-            "platforms": ["android", "iphone", "ipad", "macos"],
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "Flag indicating that if path identifies a terminal device, opening the path shall not cause that terminal to become the controlling terminal for the process (if the process does not already have one).",
             "type": [
               {
@@ -119,7 +169,12 @@
           },
           {
             "name": "O_NOFOLLOW",
-            "platforms": ["android", "iphone", "ipad", "macos"],
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "Flag indicating that the open should fail if the path is a symbolic link.",
             "type": [
               {
@@ -131,7 +186,12 @@
           },
           {
             "name": "O_NONBLOCK",
-            "platforms": ["android", "iphone", "ipad", "macos"],
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "Flag indicating to open the file in non-blocking mode when possible.",
             "type": [
               {
@@ -143,7 +203,12 @@
           },
           {
             "name": "O_RDONLY",
-            "platforms": ["android", "iphone", "ipad", "macos"],
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "Flag indicating to open a file for read-only access.",
             "type": [
               {
@@ -155,7 +220,12 @@
           },
           {
             "name": "O_RDWR",
-            "platforms": ["android", "iphone", "ipad", "macos"],
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "Flag indicating to open a file for read-write access.",
             "type": [
               {
@@ -167,7 +237,12 @@
           },
           {
             "name": "O_SYMLINK",
-            "platforms": ["android", "iphone", "ipad", "macos"],
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "Flag indicating to open the symbolic link itself rather than the resource it is pointing to.",
             "type": [
               {
@@ -179,7 +254,12 @@
           },
           {
             "name": "O_SYNC",
-            "platforms": ["android", "iphone", "ipad", "macos"],
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "Flag indicating that the file is opened for synchronized I/O with write operations waiting for file integrity.",
             "type": [
               {
@@ -191,7 +271,12 @@
           },
           {
             "name": "O_TRUNC",
-            "platforms": ["android", "iphone", "ipad", "macos"],
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "Flag indicating that if the file exists and is a regular file, and the file is opened successfully for write access, its length shall be truncated to zero.",
             "type": [
               {
@@ -203,7 +288,12 @@
           },
           {
             "name": "O_WRONLY",
-            "platforms": ["android", "iphone", "ipad", "macos"],
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "Flag indicating to open a file for write-only access.",
             "type": [
               {
@@ -215,7 +305,12 @@
           },
           {
             "name": "R_OK",
-            "platforms": ["android", "iphone", "ipad", "macos"],
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "Flag indicating that the file can be read by the calling process.",
             "type": [
               {
@@ -227,7 +322,12 @@
           },
           {
             "name": "S_IFBLK",
-            "platforms": ["android", "iphone", "ipad", "macos"],
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "File type constant for a block-oriented device file.",
             "type": [
               {
@@ -239,7 +339,12 @@
           },
           {
             "name": "S_IFCHR",
-            "platforms": ["android", "iphone", "ipad", "macos"],
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "File type constant for a character-oriented device file.",
             "type": [
               {
@@ -251,7 +356,12 @@
           },
           {
             "name": "S_IFDIR",
-            "platforms": ["android", "iphone", "ipad", "macos"],
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "File type constant for a directory.",
             "type": [
               {
@@ -263,7 +373,12 @@
           },
           {
             "name": "S_IFIFO",
-            "platforms": ["android", "iphone", "ipad", "macos"],
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "File type constant for a FIFO/pipe.",
             "type": [
               {
@@ -275,7 +390,12 @@
           },
           {
             "name": "S_IFLNK",
-            "platforms": ["android", "iphone", "ipad", "macos"],
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "File type constant for a symbolic link.",
             "type": [
               {
@@ -287,7 +407,12 @@
           },
           {
             "name": "S_IFMT",
-            "platforms": ["android", "iphone", "ipad", "macos"],
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "Bit mask used to extract the file type code.",
             "type": [
               {
@@ -299,7 +424,12 @@
           },
           {
             "name": "S_IFREG",
-            "platforms": ["android", "iphone", "ipad", "macos"],
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "File type constant for a regular file.",
             "type": [
               {
@@ -311,7 +441,12 @@
           },
           {
             "name": "S_IFSOCK",
-            "platforms": ["android", "iphone", "ipad", "macos"],
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "File type constant for a socket.",
             "type": [
               {
@@ -323,7 +458,12 @@
           },
           {
             "name": "S_IRGRP",
-            "platforms": ["android", "iphone", "ipad", "macos"],
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "File mode indicating readable by group.",
             "type": [
               {
@@ -335,7 +475,12 @@
           },
           {
             "name": "S_IROTH",
-            "platforms": ["android", "iphone", "ipad", "macos"],
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "File mode indicating readable by others.",
             "type": [
               {
@@ -347,7 +492,12 @@
           },
           {
             "name": "S_IRUSR",
-            "platforms": ["android", "iphone", "ipad", "macos"],
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "File mode indicating readable by owner.",
             "type": [
               {
@@ -359,7 +509,12 @@
           },
           {
             "name": "S_IRWXG",
-            "platforms": ["android", "iphone", "ipad", "macos"],
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "File mode indicating readable, writable, and executable by group.",
             "type": [
               {
@@ -371,7 +526,12 @@
           },
           {
             "name": "S_IRWXO",
-            "platforms": ["android", "iphone", "ipad", "macos"],
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "File mode indicating readable, writable, and executable by others.",
             "type": [
               {
@@ -383,7 +543,12 @@
           },
           {
             "name": "S_IRWXU",
-            "platforms": ["android", "iphone", "ipad", "macos"],
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "File mode indicating readable, writable, and executable by owner.",
             "type": [
               {
@@ -395,7 +560,12 @@
           },
           {
             "name": "S_IWGRP",
-            "platforms": ["android", "iphone", "ipad", "macos"],
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "File mode indicating writable by group.",
             "type": [
               {
@@ -407,7 +577,12 @@
           },
           {
             "name": "S_IWOTH",
-            "platforms": ["android", "iphone", "ipad", "macos"],
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "File mode indicating writable by others.",
             "type": [
               {
@@ -419,7 +594,12 @@
           },
           {
             "name": "S_IWUSR",
-            "platforms": ["android", "iphone", "ipad", "macos"],
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "File mode indicating writable by owner.",
             "type": [
               {
@@ -431,7 +611,12 @@
           },
           {
             "name": "S_IXGRP",
-            "platforms": ["android", "iphone", "ipad", "macos"],
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "File mode indicating executable by group.",
             "type": [
               {
@@ -443,7 +628,12 @@
           },
           {
             "name": "S_IXOTH",
-            "platforms": ["android", "iphone", "ipad", "macos"],
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "File mode indicating executable by others.",
             "type": [
               {
@@ -455,7 +645,12 @@
           },
           {
             "name": "S_IXUSR",
-            "platforms": ["android", "iphone", "ipad", "macos"],
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "File mode indicating executable by owner.",
             "type": [
               {
@@ -467,7 +662,12 @@
           },
           {
             "name": "UV_FS_COPYFILE_EXCL",
-            "platforms": ["android", "iphone", "ipad", "macos"],
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "alias for `COPYFILE_EXCL`?",
             "type": [
               {
@@ -479,7 +679,12 @@
           },
           {
             "name": "W_OK",
-            "platforms": ["android", "iphone", "ipad", "macos"],
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "Flag indicating that the file can be written by the calling process.",
             "type": [
               {
@@ -491,7 +696,12 @@
           },
           {
             "name": "X_OK",
-            "platforms": ["android", "iphone", "ipad", "macos"],
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "Flag indicating that the file can be executed by the calling process. This has no effect on Windows (will behave like `fs.constants.F_OK`).",
             "type": [
               {
@@ -506,7 +716,12 @@
     },
     {
       "name": "ReadStream",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The class `fs.ReadStream`",
       "type": [
         {
@@ -517,7 +732,12 @@
     },
     {
       "name": "Stats",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The class `fs.Stats`",
       "type": [
         {
@@ -528,7 +748,12 @@
     },
     {
       "name": "WriteStream",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The class `fs.WriteStream`",
       "type": [
         {
@@ -541,7 +766,12 @@
   "methods": [
     {
       "name": "access",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Tests a user's permissions for the file or directory specified by `path`.\nThe `mode` argument is an optional integer that specifies the accessibility checks to be performed.\nCheck File access constants for possible values of `mode`.\nIt is possible to create a mask consisting of the bitwise OR of two or more values (e.g. `fs.constants.W_OK | fs.constants.R_OK`).\n",
       "parameters": [
         {
@@ -590,7 +820,12 @@
     },
     {
       "name": "accessSync",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Synchronously tests a user's permissions for the file or directory specified by `path`.\nThe `mode` argument is an optional integer that specifies the accessibility checks to be performed.\nCheck File access constants for possible values of `mode`.\nIt is possible to create a mask consisting of the bitwise OR of two or more values (e.g. `fs.constants.W_OK | fs.constants.R_OK`).\n",
       "parameters": [
         {
@@ -623,7 +858,12 @@
     },
     {
       "name": "appendFile",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Asynchronously append `data` to a file, creating the file if it does not yet exist. `data` can be a `string` or a [buffer.Buffer](api:buffer.Buffer).\n",
       "parameters": [
         {
@@ -678,7 +918,12 @@
             "properties": [
               {
                 "name": "encoding",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "character encoding",
                 "type": [
                   {
@@ -691,7 +936,12 @@
               },
               {
                 "name": "flag",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "See support of file system flags.",
                 "type": [
                   {
@@ -704,7 +954,12 @@
               },
               {
                 "name": "mode",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "file permissions/mode",
                 "type": [
                   {
@@ -737,7 +992,12 @@
     },
     {
       "name": "appendFileSync",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Synchronously append `data` to a file, creating the file if it does not yet exist. `data` can be a `string` or a [buffer.Buffer](api:buffer.Buffer).\n",
       "parameters": [
         {
@@ -792,7 +1052,12 @@
             "properties": [
               {
                 "name": "encoding",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "character encoding",
                 "type": [
                   {
@@ -805,7 +1070,12 @@
               },
               {
                 "name": "flag",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "See support of file system flags.",
                 "type": [
                   {
@@ -818,7 +1088,12 @@
               },
               {
                 "name": "mode",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "file permissions/mode",
                 "type": [
                   {
@@ -835,7 +1110,12 @@
     },
     {
       "name": "chmod",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Asynchronously changes the permissions of a file. No arguments other than a possible exception are given to the completion callback.\n\n**This is a no-op on Titanium.**\n",
       "parameters": [
         {
@@ -886,7 +1166,12 @@
     },
     {
       "name": "chmodSync",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Synchronously changes the permissions of a file.\n\n**This is a no-op on Titanium.**\n",
       "parameters": [
         {
@@ -921,7 +1206,12 @@
     },
     {
       "name": "chown",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Asynchronously changes owner and group of a file. No arguments other than a possible exception are given to the completion callback.\n\n**This is a no-op on Titanium.**\n",
       "parameters": [
         {
@@ -978,7 +1268,12 @@
     },
     {
       "name": "chownSync",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Synchronously changes owner and group of a file.\n\n**This is a no-op on Titanium.**\n",
       "parameters": [
         {
@@ -1019,7 +1314,12 @@
     },
     {
       "name": "close",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Asynchronous `close`. No arguments other than a possible exception are given to the completion `callback`.\n\nCalling `fs.close()` on any file descriptor (`fd`) that is currently in use through any other fs operation may lead to undefined behavior.\n",
       "parameters": [
         {
@@ -1052,7 +1352,12 @@
     },
     {
       "name": "closeSync",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Synchronous `close`.\n\nCalling `fs.close()` on any file descriptor (`fd`) that is currently in use through any other fs operation may lead to undefined behavior.\n",
       "parameters": [
         {
@@ -1069,7 +1374,12 @@
     },
     {
       "name": "copyFile",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Asynchronously copies `src` to `dest`. By default, `dest` is overwritten if it already exists. No arguments other than a possible exception are given to the callback function. Node.js makes no guarantees about the atomicity of the copy operation. If an error occurs after the destination file has been opened for writing, Node.js will attempt to remove the destination.\n\n`mode` is an optional integer that specifies the behavior of the copy operation. It is possible to create a mask consisting of the bitwise OR of two or more values (e.g. `fs.constants.COPYFILE_EXCL | fs.constants.COPYFILE_FICLONE`).\n\n- `fs.constants.COPYFILE_EXCL`: The copy operation will fail if dest already exists.\n- `fs.constants.COPYFILE_FICLONE`: The copy operation will attempt to create a copy-on-write reflink. If the platform does not support copy-on-write, then a fallback copy mechanism is used.\n- `fs.constants.COPYFILE_FICLONE_FORCE`: The copy operation will attempt to create a copy-on-write reflink. If the platform does not support copy-on-write, then the operation will fail.\n",
       "parameters": [
         {
@@ -1124,7 +1434,12 @@
     },
     {
       "name": "copyFileSync",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Synchronously copies `src` to `dest`. By default, `dest` is overwritten if it already exists. Node.js makes no guarantees about the atomicity of the copy operation. If an error occurs after the destination file has been opened for writing, Node.js will attempt to remove the destination.\n\n`mode` is an optional integer that specifies the behavior of the copy operation. It is possible to create a mask consisting of the bitwise OR of two or more values (e.g. `fs.constants.COPYFILE_EXCL | fs.constants.COPYFILE_FICLONE`).\n\n- `fs.constants.COPYFILE_EXCL`: The copy operation will fail if dest already exists.\n- `fs.constants.COPYFILE_FICLONE`: The copy operation will attempt to create a copy-on-write reflink. If the platform does not support copy-on-write, then a fallback copy mechanism is used.\n- `fs.constants.COPYFILE_FICLONE_FORCE`: The copy operation will attempt to create a copy-on-write reflink. If the platform does not support copy-on-write, then the operation will fail.\n",
       "parameters": [
         {
@@ -1163,7 +1478,12 @@
     },
     {
       "name": "exists",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Test whether or not the given path exists by checking with the file system.",
       "parameters": [
         {
@@ -1200,7 +1520,12 @@
     },
     {
       "name": "existsSync(path)",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Test whether or not the given path exists by checking with the file system.",
       "parameters": [
         {
@@ -1231,7 +1556,12 @@
     },
     {
       "name": "fchmod",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Asynchronous `fchmod`.\n\n**This is a no-op on Titanium.**\n",
       "parameters": [
         {
@@ -1278,7 +1608,12 @@
     },
     {
       "name": "fchmodSync",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Synchronous `fchmod`.\n\n**This is a no-op on Titanium.**\n",
       "parameters": [
         {
@@ -1309,7 +1644,12 @@
     },
     {
       "name": "fchown",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Asynchronous `fchown`.\n\n**This is a no-op on Titanium.**\n",
       "parameters": [
         {
@@ -1362,7 +1702,12 @@
     },
     {
       "name": "fchownSync",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Synchronous `fchown`.\n\n**This is a no-op on Titanium.**\n",
       "parameters": [
         {
@@ -1399,7 +1744,12 @@
     },
     {
       "name": "fdatasync",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Asynchronous `fdatasync`.\n\n**This is a no-op on Titanium.**\n",
       "parameters": [
         {
@@ -1432,7 +1782,12 @@
     },
     {
       "name": "fdatasyncSync",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Synchronous `fdatasync`.\n\n**This is a no-op on Titanium.**\n",
       "parameters": [
         {
@@ -1449,7 +1804,12 @@
     },
     {
       "name": "fstat",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Asynchronous `fstat`.\nThe `callback` gets two arguments `(err, stats)` where `stats` is an [fs.Stats](api:fs.Stats) object.\n`fstat()` is identical to `stat()`, except that the file to be stat-ed is specified by the file descriptor `fd`.\n",
       "parameters": [
         {
@@ -1478,7 +1838,12 @@
             "properties": [
               {
                 "name": "bigint",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Whether the numeric values in the returned [fs.Stats](api:fs.Stats) object should be `bigint`.\n",
                 "type": [
                   {
@@ -1516,7 +1881,12 @@
     },
     {
       "name": "fstatSync",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Synchronous `fstat`.",
       "parameters": [
         {
@@ -1545,7 +1915,12 @@
             "properties": [
               {
                 "name": "bigint",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Whether the numeric values in the returned [fs.Stats](api:fs.Stats) object should be `bigint`.\n",
                 "type": [
                   {
@@ -1573,7 +1948,12 @@
     },
     {
       "name": "lstat",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Asynchronous `lstat`.",
       "parameters": [
         {
@@ -1606,7 +1986,12 @@
             "properties": [
               {
                 "name": "bigint",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Whether the numeric values in the returned [fs.Stats](api:fs.Stats) object should be `bigint`.\n",
                 "type": [
                   {
@@ -1644,7 +2029,12 @@
     },
     {
       "name": "lstatSync",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Synchronous `lstat`.",
       "parameters": [
         {
@@ -1677,7 +2067,12 @@
             "properties": [
               {
                 "name": "bigint",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Whether the numeric values in the returned [fs.Stats](api:fs.Stats) object should be `bigint`.\n",
                 "type": [
                   {
@@ -1705,7 +2100,12 @@
     },
     {
       "name": "mkdir",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Asynchronously creates a directory.\n\nThe `callback` is given a possible exception and, if `recursive` is `true`, the first directory path created, `(err, [path])`.\n\nThe optional `options` argument can be an integer specifying `mode` (permission and sticky bits), or an object with a `mode` property and a `recursive` property indicating whether parent directories should be created.\nCalling `fs.mkdir()` when `path` is a directory that exists results in an error only when `recursive` is `false`.\n",
       "parameters": [
         {
@@ -1738,7 +2138,12 @@
             "properties": [
               {
                 "name": "mode",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Not supported on Windows.",
                 "type": [
                   {
@@ -1755,7 +2160,12 @@
               },
               {
                 "name": "recursive",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Whether to recursively create the directories.",
                 "type": [
                   {
@@ -1793,7 +2203,12 @@
     },
     {
       "name": "mkdirSync",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Synchronously creates a directory.\nReturns `undefined`, or if `recursive is `true`, the first directory path created. This is the synchronous version of `fs.mkdir()`.\n",
       "parameters": [
         {
@@ -1826,7 +2241,12 @@
             "properties": [
               {
                 "name": "mode",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Not supported on Windows.",
                 "type": [
                   {
@@ -1843,7 +2263,12 @@
               },
               {
                 "name": "recursive",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Whether to recursively create the directories.",
                 "type": [
                   {
@@ -1872,7 +2297,12 @@
     },
     {
       "name": "mkdtemp",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates a unique temporary directory.\n\nGenerates six random characters to be appended behind a required `prefix` to create a unique temporary directory. Due to platform inconsistencies, avoid trailing `X` characters in `prefix`. Some platforms, notably the BSDs, can return more than six random characters, and replace trailing `X` characters in `prefix` with random characters.\n\nThe created directory path is passed as a string to the `callback`'s second parameter.\n\nThe optional `options` argument can be a string specifying an encoding, or an object with an `encoding` property specifying the character encoding to use.\n",
       "parameters": [
         {
@@ -1905,7 +2335,12 @@
             "properties": [
               {
                 "name": "encoding",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "The character encoding to use.",
                 "type": [
                   {
@@ -1943,7 +2378,12 @@
     },
     {
       "name": "mkdtempSync",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "For detailed information, see the documentation of the asynchronous version of this API: [fs.mkdtemp](api:fs#mkdtemp).\n\nThe optional `options` argument can be a string specifying an encoding, or an object with an `encoding` property specifying the character encoding to use.\n",
       "parameters": [
         {
@@ -1976,7 +2416,12 @@
             "properties": [
               {
                 "name": "encoding",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "The character encoding to use.",
                 "type": [
                   {
@@ -2005,7 +2450,12 @@
     },
     {
       "name": "open",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Asynchronous file open. See open(2).\n\n`mode` sets the file mode (permission and sticky bits), but only if the file was created. On Windows, only the write permission can be manipulated; see fs.chmod().\n\nThe `callback` gets two arguments `(err, fd)`.\n",
       "parameters": [
         {
@@ -2078,7 +2528,12 @@
     },
     {
       "name": "openSync",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "For detailed information, see the documentation of the asynchronous version of this API: `fs.open()`.\n",
       "parameters": [
         {
@@ -2142,7 +2597,12 @@
     },
     {
       "name": "read",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Read data from the file specified by fd.\n\n`buffer` is the buffer that the data (read from the fd) will be written to.\n\n`offset` is the offset in the buffer to start writing at.\n\n`length` is an integer specifying the number of bytes to read.\n\n`position` is an argument specifying where to begin reading from in the file. If position is `null`, data will be read from the current file position, and the file position will be updated. If position is an integer, the file position will remain unchanged.\n\nThe `callback` is given the three arguments, `(err, bytesRead, buffer)`.\n\nIf the file is not modified concurrently, the end-of-file is reached when the number of bytes read is zero.\n",
       "parameters": [
         {
@@ -2227,7 +2687,12 @@
     },
     {
       "name": "readdir",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Asynchronous `readdir`. Reads the contents of a directory. The `callback` gets two arguments `(err, files)` where `files` is an array of the names of the files in the directory excluding `'.'` and `'..'`.\n\nThe optional `options` argument can be a string specifying an encoding, or an object with an encoding property specifying the character encoding to use for the filenames passed to the callback. If the encoding is set to 'buffer', the filenames returned will be passed as Buffer objects.\n\nIf `options.withFileTypes` is set to `true`, the `files` array will contain `fs.Dirent` objects. **NOTE:** Titanium does not yet support this.\n",
       "parameters": [
         {
@@ -2260,7 +2725,12 @@
             "properties": [
               {
                 "name": "encoding",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "If the encoding is set to `'buffer'`, the filenames returned will be passed as [buffer.Buffer](api:buffer.Buffer) objects.\n",
                 "type": [
                   {
@@ -2273,7 +2743,12 @@
               },
               {
                 "name": "withFileTypes",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "If `true`, the results will be returned as [fs.Dirent](api:fs.Dirent)s",
                 "type": [
                   {
@@ -2317,7 +2792,12 @@
     },
     {
       "name": "readdirSync",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Synchronous `readdir`.\n\nThe optional `options` argument can be a string specifying an encoding, or an object with an encoding property specifying the character encoding to use for the filenames returned. If the encoding is set to 'buffer', the filenames returned will be passed as Buffer objects.\n\nIf `options.withFileTypes` is set to `true`, the result will contain `fs.Dirent` objects. **Note:** Titanium does not yet support this.\n",
       "parameters": [
         {
@@ -2350,7 +2830,12 @@
             "properties": [
               {
                 "name": "encoding",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "If the encoding is set to `'buffer'`, the filenames returned will be passed as [buffer.Buffer](api:buffer.Buffer) objects.\n",
                 "type": [
                   {
@@ -2363,7 +2848,12 @@
               },
               {
                 "name": "withFileTypes",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "If `true`, the results will be returned as [fs.Dirent](api:fs.Dirent)s",
                 "type": [
                   {
@@ -2418,7 +2908,12 @@
     },
     {
       "name": "readFile",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Asynchronously reads the entire contents of a file.\n",
       "parameters": [
         {
@@ -2455,7 +2950,12 @@
             "properties": [
               {
                 "name": "encoding",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "If no encoding is specified, then the raw buffer is returned.",
                 "type": [
                   {
@@ -2468,7 +2968,12 @@
               },
               {
                 "name": "flag",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "See support of file system flags.",
                 "type": [
                   {
@@ -2506,7 +3011,12 @@
     },
     {
       "name": "readFileSync",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Synchronously reads the entire contents of a file.\n",
       "parameters": [
         {
@@ -2543,7 +3053,12 @@
             "properties": [
               {
                 "name": "encoding",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "If no encoding is specified, then the raw buffer is returned.",
                 "type": [
                   {
@@ -2556,7 +3071,12 @@
               },
               {
                 "name": "flag",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "See support of file system flags.",
                 "type": [
                   {
@@ -2589,7 +3109,12 @@
     },
     {
       "name": "readSync",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "For detailed information, see the documentation of the asynchronous version of this API: `fs.read()`.\n",
       "parameters": [
         {
@@ -2662,7 +3187,12 @@
     },
     {
       "name": "realpath",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Asynchronously computes the canonical pathname by resolving `.`, `..` and symbolic links.\n\nA canonical pathname is not necessarily unique. Hard links and bind mounts can expose a file system entity through many pathnames.\n",
       "parameters": [
         {
@@ -2714,7 +3244,12 @@
     },
     {
       "name": "realpath.native",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Asynchronous `realpath`.\n\nThe `callback` gets two arguments `(err, resolvedPath)`.\n\nOnly paths that can be converted to UTF8 strings are supported.\n\nThe optional `options` argument can be a string specifying an encoding, or an object with an encoding property specifying the character encoding to use for the path passed to the callback. If the encoding is set to 'buffer', the path returned will be passed as a Buffer object.\n",
       "parameters": [
         {
@@ -2766,7 +3301,12 @@
     },
     {
       "name": "realpathSync",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Returns the resolved pathname.\n\nFor detailed information, see the documentation of the asynchronous version of this API: `fs.realpath()`.\n",
       "parameters": [
         {
@@ -2808,7 +3348,12 @@
     },
     {
       "name": "realpathSync.native",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Synchronous `realpath`.\n\nOnly paths that can be converted to UTF8 strings are supported.\n",
       "parameters": [
         {
@@ -2850,7 +3395,12 @@
     },
     {
       "name": "rename",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Asynchronously rename file at `oldPath` to the pathname provided as `newPath`.\nIn the case that `newPath` already exists, it will be overwritten.\nIf there is a directory at `newPath`, an error will be raised instead.\nNo arguments other than a possible exception are given to the completion `callback`.\n",
       "parameters": [
         {
@@ -2901,7 +3451,12 @@
     },
     {
       "name": "renameSync",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Synchronous `rename`. Returns `undefined`.",
       "parameters": [
         {
@@ -2936,7 +3491,12 @@
     },
     {
       "name": "rmdir",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Asynchronous `rmdir`",
       "parameters": [
         {
@@ -2969,7 +3529,12 @@
             "properties": [
               {
                 "name": "maxRetries",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "If an `EBUSY`, `EMFILE`, `ENFILE`, `ENOTEMPTY`, or `EPERM` error is encountered, Node.js will retry the operation with a linear backoff wait of `retryDelay` milliseconds longer on each try.\nThis option represents the number of retries.\nThis option is ignored if the `recursive` option is not `true`.\n",
                 "type": [
                   {
@@ -2982,7 +3547,12 @@
               },
               {
                 "name": "recursive",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "If `true`, perform a recursive removal. In recursive mode operations are retried on failure.",
                 "type": [
                   {
@@ -2995,7 +3565,12 @@
               },
               {
                 "name": "retryDelay",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "The amount of time in milliseconds to wait between retries. This option is ignored if the `recursive` option is not `true`.",
                 "type": [
                   {
@@ -3029,7 +3604,12 @@
     },
     {
       "name": "rmSync",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Synchronously removes files and directories (modeled on the standard POSIX `rm` utility). Returns `undefined`.",
       "parameters": [
         {
@@ -3062,7 +3642,12 @@
             "properties": [
               {
                 "name": "force",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "When `true`, exceptions will be ignored if path does not exist.",
                 "type": [
                   {
@@ -3075,7 +3660,12 @@
               },
               {
                 "name": "maxRetries",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "If an `EBUSY`, `EMFILE`, `ENFILE`, `ENOTEMPTY`, or `EPERM` error is encountered, Node.js will retry the operation with a linear backoff wait of `retryDelay` milliseconds longer on each try.\nThis option represents the number of retries.\nThis option is ignored if the `recursive` option is not `true`.\n",
                 "type": [
                   {
@@ -3088,7 +3678,12 @@
               },
               {
                 "name": "recursive",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "If `true`, perform a recursive removal. In recursive mode operations are retried on failure.",
                 "type": [
                   {
@@ -3101,7 +3696,12 @@
               },
               {
                 "name": "retryDelay",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "The amount of time in milliseconds to wait between retries. This option is ignored if the `recursive` option is not `true`.",
                 "type": [
                   {
@@ -3119,7 +3719,12 @@
     },
     {
       "name": "stat",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Asynchronous `stat`. The `callback` gets two arguments `(err, stats)` where `stats` is an [fs.Stats](api:fs.Stats) object.\n\nIn case of an error, the `err.code` will be one of Common System Errors.\n\nUsing `fs.stat()` to check for the existence of a file before calling `fs.open()`, `fs.readFile()` or `fs.writeFile()` is not recommended. Instead, user code should open/read/write the file directly and handle the error raised if the file is not available.\n\nTo check if a file exists without manipulating it afterwards, `fs.access()` is recommended.\n",
       "parameters": [
         {
@@ -3171,7 +3776,12 @@
     },
     {
       "name": "statSync",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Synchronous `stat`.",
       "parameters": [
         {
@@ -3204,7 +3814,12 @@
             "properties": [
               {
                 "name": "bigint",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Whether the numeric values in the returned [fs.Stats](api:fs.Stats) object should be `bigint`.\n",
                 "type": [
                   {
@@ -3232,7 +3847,12 @@
     },
     {
       "name": "symlink",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Asynchronous `symlink` which creates the link called `path` pointing to `target`. No arguments other than a possible exception are given to the completion callback.\n\n**This is a no-op on Titanium.**\n",
       "parameters": [
         {
@@ -3283,7 +3903,12 @@
     },
     {
       "name": "symlinkSync",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Synchronous `symlink` which creates the link called `path` pointing to `target`. No arguments other than a possible exception are given to the completion callback.\n\n**This is a no-op on Titanium.**\n",
       "parameters": [
         {
@@ -3318,7 +3943,12 @@
     },
     {
       "name": "truncate",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Asynchronous `truncate`. Returns `undefined`.\nA file descriptor can also be passed as the first argument. In this case, `fs.ftruncateSync()` is called.\n",
       "parameters": [
         {
@@ -3367,7 +3997,12 @@
     },
     {
       "name": "truncateSync",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Synchronous `truncate`. Returns `undefined`.\nA file descriptor can also be passed as the first argument. In this case, `fs.ftruncateSync()` is called.\n",
       "parameters": [
         {
@@ -3400,7 +4035,12 @@
     },
     {
       "name": "unlink",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Asynchronous `unlink`. Returns `undefined`.\n",
       "parameters": [
         {
@@ -3437,7 +4077,12 @@
     },
     {
       "name": "unlinkSync",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Synchronous `unlink`. Returns `undefined`.\n",
       "parameters": [
         {
@@ -3458,7 +4103,12 @@
     },
     {
       "name": "unwatchFile",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Stop watching for changes on `filename`. If `listener` is specified, only that particular `listener` is removed. Otherwise, all listeners are removed, effectively stopping watching of `filename`.\n\n**This is a no-op on Titanium.**\n",
       "parameters": [
         {
@@ -3491,7 +4141,12 @@
     },
     {
       "name": "utimes",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Change the file system timestamps of the object referenced by `path`.\n\n**This is a no-op on Titanium.**\n",
       "parameters": [
         {
@@ -3564,7 +4219,12 @@
     },
     {
       "name": "utimesSync",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Change the file system timestamps of the object referenced by `path`.\n\n**This is a no-op on Titanium.**\n",
       "parameters": [
         {
@@ -3621,7 +4281,12 @@
     },
     {
       "name": "watch",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Watch for changes on `filename`, where `filename` is either a file or a directory.\n\n**This is a no-op on Titanium.**\n",
       "parameters": [
         {
@@ -3665,7 +4330,12 @@
     },
     {
       "name": "watchFile",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Watch for changes on `filename`. The callback `listener` will be called each time the file is accessed.\n\n**This is a no-op on Titanium.**\n",
       "parameters": [
         {
@@ -3707,7 +4377,12 @@
     },
     {
       "name": "write",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "For detailed information, see the documentation of the asynchronous version of this API.",
       "parameters": [
         {
@@ -3791,7 +4466,12 @@
     },
     {
       "name": "writeFile",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "When `file` is a filename, asynchronously writes data to the file, replacing the file if it already exists. `data` can be a string or a buffer.\n\nWhen `file` is a file descriptor, the behavior is similar to calling `fs.write()` directly (which is recommended). See the notes below on using a file descriptor.\n\nThe `encoding` option is ignored if `data` is a buffer. If `data` is a normal object, it must have an own `toString` function property.\n",
       "parameters": [
         {
@@ -3846,7 +4526,12 @@
             "properties": [
               {
                 "name": "encoding",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "character encoding",
                 "type": [
                   {
@@ -3859,7 +4544,12 @@
               },
               {
                 "name": "flag",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "See support of file system flags.",
                 "type": [
                   {
@@ -3872,7 +4562,12 @@
               },
               {
                 "name": "mode",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "file permissions/mode",
                 "type": [
                   {
@@ -3905,7 +4600,12 @@
     },
     {
       "name": "writeFileSync",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "For detailed information, see the documentation of the asynchronous version of this API: `fs.writeFile()`.\n",
       "parameters": [
         {
@@ -3960,7 +4660,12 @@
             "properties": [
               {
                 "name": "encoding",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "character encoding",
                 "type": [
                   {
@@ -3973,7 +4678,12 @@
               },
               {
                 "name": "flag",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "See support of file system flags.",
                 "type": [
                   {
@@ -3986,7 +4696,12 @@
               },
               {
                 "name": "mode",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "file permissions/mode",
                 "type": [
                   {
@@ -4003,7 +4718,12 @@
     },
     {
       "name": "writeSync",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "For detailed information, see the documentation of the asynchronous version of this API.",
       "parameters": [
         {

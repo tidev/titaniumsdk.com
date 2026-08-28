@@ -3,8 +3,14 @@
   "name": "Titanium.UI.iOS.DynamicItemBehavior",
   "kind": "proxy",
   "extends": "Titanium.Proxy",
-  "inheritanceChain": ["Titanium.Proxy"],
-  "platforms": ["iphone", "ipad", "macos"],
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": {
     "iphone": "3.2.0",
     "ipad": "3.2.0",
@@ -21,7 +27,11 @@
   "properties": [
     {
       "name": "allowsRotation",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies if this item can rotate.",
       "description": "Set to `true` to enable this behavior or `false` to disable.",
       "type": [
@@ -34,7 +44,11 @@
     },
     {
       "name": "angularResistance",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies the angular resistance of this item.",
       "description": "The greater the value, the greater the angular damping and rotation slows to a stop faster.\n",
       "type": [
@@ -47,7 +61,11 @@
     },
     {
       "name": "density",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies the relative mass density of this item.",
       "description": "An item's density along with its size determines its effective mass and affects its dynamic\nbehavior.\n",
       "type": [
@@ -60,7 +78,11 @@
     },
     {
       "name": "elasticity",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies the elasticity applied to collisions for this item.",
       "description": "A value of 0.0 indicates no bounce upon collision, while 1.0 indicates a completely elastic\ncollision.\n",
       "type": [
@@ -73,7 +95,11 @@
     },
     {
       "name": "friction",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies the linear resistance of the item when it slides against another item.",
       "description": "A value of 0.0 indicates no friction, while 1.0 indicates strong friction. Use higher\nnumbers to apply even higher friction.\n",
       "type": [
@@ -86,7 +112,11 @@
     },
     {
       "name": "items",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Items added to this behavior.",
       "type": [
         {
@@ -104,7 +134,11 @@
     },
     {
       "name": "resistance",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies the linear resistance of this item which reduces linear velocity over time.",
       "description": "A value of 0.0 indicates no velocity damping.\n",
       "type": [
@@ -119,7 +153,11 @@
   "methods": [
     {
       "name": "addAngularVelocityForItem",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Adds a specified angular velocity for the item.",
       "parameters": [
         {
@@ -146,7 +184,11 @@
     },
     {
       "name": "addItem",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Adds an item to this behavior.",
       "parameters": [
         {
@@ -163,7 +205,11 @@
     },
     {
       "name": "addLinearVelocityForItem",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Adds a specified linear velocity for the item.",
       "parameters": [
         {
@@ -190,7 +236,11 @@
     },
     {
       "name": "angularVelocityForItem",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Returns the angular velocity of the item.",
       "parameters": [
         {
@@ -217,7 +267,11 @@
     },
     {
       "name": "linearVelocityForItem",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Returns the linear velocity of the item.",
       "parameters": [
         {
@@ -244,7 +298,11 @@
     },
     {
       "name": "removeItem",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Removes the specified item from this behavior.",
       "parameters": [
         {
@@ -266,34 +324,58 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "events": []

@@ -3,15 +3,25 @@
   "name": "Titanium.Network.BonjourBrowser",
   "kind": "proxy",
   "extends": "Titanium.Proxy",
-  "inheritanceChain": ["Titanium.Proxy"],
-  "platforms": ["iphone", "ipad", "macos"],
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": "1.2.0",
   "summary": "A browser for the discovery and retrieval of Bonjour services available on the network.",
   "description": "Use the [Titanium.Network.createBonjourBrowser](api:Titanium.Network#createBonjourBrowser) method to create a `BonjourBrowser` instance.\n\nIf your application publishes Bonjour services itself, that service will be discovered \nby the browser if necessary; be prepared to perform a check if you do not want to list \nlocal services as available.  Bonjour service browsing is an asynchronous operation, \nmeaning that you should be extremely careful when caching values from the `services` \nproperty returned by the `updatedservices` event.  In particular, if you maintain a \nlocal copy of available services and a user tries to connect to one, you should be prepared \nto handle failures gracefully; the next `updatedservices` event should provide the new \nservices list, but you should not rely on it being delivered before user input.  When \na window which uses Bonjour browsing is closed, if you do not want to continue searching, \nyou must call the stop() method.\n\nIn iOS 14.0+, to browse services add key `NSLocalNetworkUsageDescription` and `NSBonjourServices` to the `ios plist` section of the tiapp.xml file.\n\nExample:\n\n``` xml\n<ti:app>\n  <!-- ... -->\n  <ios>\n    <plist>\n      <dict>\n        <!-- Reason to access local network-->\n        <key>NSLocalNetworkUsageDescription</key>\n        [string](api:Global.String)\n            Specify the reason for accessing the local network.\n            This appears in the alert dialog when asking the user \n            for permission to access local network.\n        </string>\n        <!-- List of bonjour service type-->\n        <key>NSBonjourServices</key>\n        <array>\n          [string](api:Global.String)_test._tcp</string>\n        <array/>\n      </dict>\n    </plist>\n  </ios>\n  <!-- ... -->\n</ti:app>\n```\n",
   "properties": [
     {
       "name": "domain",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The domain the browser is searching in",
       "type": [
         {
@@ -23,7 +33,11 @@
     },
     {
       "name": "isSearching",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Whether or not the browser is currently searching",
       "type": [
         {
@@ -35,7 +49,11 @@
     },
     {
       "name": "serviceType",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The type of the service the browser searches for",
       "type": [
         {
@@ -49,19 +67,31 @@
   "methods": [
     {
       "name": "search",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Conduct a search for Bonjour services matching the type and domain specified during creation"
     },
     {
       "name": "stopSearch",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Halt an ongoing search"
     }
   ],
   "events": [
     {
       "name": "updatedservices",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when the discovered services list is updated",
       "since": "3.0.0",
       "properties": [
@@ -89,34 +119,58 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "events": []

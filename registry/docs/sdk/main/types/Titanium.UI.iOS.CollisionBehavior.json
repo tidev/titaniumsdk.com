@@ -3,8 +3,14 @@
   "name": "Titanium.UI.iOS.CollisionBehavior",
   "kind": "proxy",
   "extends": "Titanium.Proxy",
-  "inheritanceChain": ["Titanium.Proxy"],
-  "platforms": ["iphone", "ipad", "macos"],
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": {
     "iphone": "3.2.0",
     "ipad": "3.2.0",
@@ -21,7 +27,11 @@
   "properties": [
     {
       "name": "boundaryIdentifiers",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Boundary identfiers added to this behavior.",
       "type": [
         {
@@ -42,7 +52,11 @@
         "properties": [
           {
             "name": "identifier",
-            "platforms": ["iphone", "ipad", "macos"],
+            "platforms": [
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "Arbitrary identifier for the boundary",
             "type": [
               {
@@ -53,7 +67,11 @@
           },
           {
             "name": "point1",
-            "platforms": ["iphone", "ipad", "macos"],
+            "platforms": [
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "Start point for the boundary",
             "type": [
               {
@@ -64,7 +82,11 @@
           },
           {
             "name": "point2",
-            "platforms": ["iphone", "ipad", "macos"],
+            "platforms": [
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "End point for the boundary",
             "type": [
               {
@@ -78,7 +100,11 @@
     },
     {
       "name": "collisionMode",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies the collision behavior.",
       "type": [
         {
@@ -87,11 +113,17 @@
         }
       ],
       "default": "<Titanium.UI.iOS.COLLISION_MODE_ALL>",
-      "constants": ["Titanium.UI.iOS.COLLISION_MODE_*"]
+      "constants": [
+        "Titanium.UI.iOS.COLLISION_MODE_*"
+      ]
     },
     {
       "name": "items",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Items added to this behavior.",
       "type": [
         {
@@ -109,7 +141,11 @@
     },
     {
       "name": "referenceInsets",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Insets to apply when using the animator's reference view as the boundary.",
       "description": "The `treatReferenceAsBoundary` property needs to be set to `true` to use this property.",
       "type": [
@@ -122,7 +158,11 @@
     },
     {
       "name": "treatReferenceAsBoundary",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use the animator's reference view as the boundary.",
       "description": "Set to `true` to enable this behavior or `false` to disable it.",
       "type": [
@@ -137,7 +177,11 @@
   "methods": [
     {
       "name": "addBoundary",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Adds a boundary to this behavior.",
       "parameters": [
         {
@@ -155,7 +199,11 @@
             "properties": [
               {
                 "name": "identifier",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Arbitrary identifier for the boundary",
                 "type": [
                   {
@@ -166,7 +214,11 @@
               },
               {
                 "name": "point1",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Start point for the boundary",
                 "type": [
                   {
@@ -177,7 +229,11 @@
               },
               {
                 "name": "point2",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "End point for the boundary",
                 "type": [
                   {
@@ -193,7 +249,11 @@
     },
     {
       "name": "addItem",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Adds an item to this behavior.",
       "parameters": [
         {
@@ -210,12 +270,20 @@
     },
     {
       "name": "removeAllBoundaries",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Removes all boundaries from this behavior."
     },
     {
       "name": "removeBoundary",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Removes the specified boundary from this behavior.",
       "parameters": [
         {
@@ -233,7 +301,11 @@
             "properties": [
               {
                 "name": "identifier",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Arbitrary identifier for the boundary",
                 "type": [
                   {
@@ -244,7 +316,11 @@
               },
               {
                 "name": "point1",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Start point for the boundary",
                 "type": [
                   {
@@ -255,7 +331,11 @@
               },
               {
                 "name": "point2",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "End point for the boundary",
                 "type": [
                   {
@@ -271,7 +351,11 @@
     },
     {
       "name": "removeItem",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Removes the specified item from this behavior.",
       "parameters": [
         {
@@ -290,7 +374,11 @@
   "events": [
     {
       "name": "boundarycollision",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when an item collides with a boundary.",
       "properties": [
         {
@@ -337,7 +425,11 @@
     },
     {
       "name": "itemcollision",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when two items collide.",
       "properties": [
         {
@@ -388,34 +480,58 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "events": []

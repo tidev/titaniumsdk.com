@@ -2,7 +2,12 @@
   "schemaVersion": 1,
   "name": "Global.Intl.Collator",
   "kind": "module",
-  "platforms": ["android", "iphone", "ipad", "macos"],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": {
     "iphone": "6.0.0",
     "ipad": "6.0.0",
@@ -24,7 +29,12 @@
   "properties": [
     {
       "name": "constructor",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates a new `Intl.Collator` object with the given locale and comparison options.",
       "description": "#### Syntax\n\n``` js\nnew Intl.Collator([locales[, options]])\n```\n\n#### Parameters\n\n*    `locales`: [String](api:Global.String)/[String](api:Global.String)`[]` (optional)\n\n     The [BCP 47](https://www.unicode.org/reports/tr35/tr35.html#BCP_47_Conformance) language and country\n     code(s) to use for localized string comparisons. Can provide multiple locales where the best-supported\n     locale will be favored in the order provided by the array. If parameter is not assigned, then\n     the system may use the `'en-US'` locale by default instead of the system's current locale.\n     It's recommended to set this parameter using [Titanium.Locale.currentLocale](api:Titanium.Locale#currentLocale).\n\n*    `options`: [CollatorOptions](api:CollatorOptions) (optional)\n\n     Provides settings indicating how strings should be compared.\n",
       "type": [
@@ -39,7 +49,12 @@
   "methods": [
     {
       "name": "compare",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Determines the sort order of the given strings or if they match.",
       "parameters": [
         {
@@ -77,7 +92,12 @@
     },
     {
       "name": "resolvedOptions",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Gets the object's collation options.",
       "description": "Returns the collation options the collator object uses.\n\nFor more detail, see the MDN website about\n[resolvedOptions](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Intl/Collator/resolvedOptions).\n",
       "returns": [
@@ -94,7 +114,12 @@
     },
     {
       "name": "supportedLocalesOf",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Static method indicating what locales are supported by collators from the given locale(s).",
       "description": "For more detail, see the MDN website about\n[supportedLocalesOf](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Intl/Collator/supportedLocalesOf).\n",
       "parameters": [
@@ -144,6 +169,10 @@
     "methods": [],
     "events": []
   },
-  "references": ["CollatorOptions", "Global.String", "Titanium.Locale"],
+  "references": [
+    "CollatorOptions",
+    "Global.String",
+    "Titanium.Locale"
+  ],
   "source": "Global/Intl/Collator.yml"
 }

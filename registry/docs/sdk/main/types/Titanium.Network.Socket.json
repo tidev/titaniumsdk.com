@@ -3,14 +3,27 @@
   "name": "Titanium.Network.Socket",
   "kind": "module",
   "extends": "Titanium.Module",
-  "inheritanceChain": ["Titanium.Module", "Titanium.Proxy"],
-  "platforms": ["android", "iphone", "ipad", "macos"],
+  "inheritanceChain": [
+    "Titanium.Module",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": "1.7",
   "summary": "Socket module, used for creating sockets.",
   "properties": [
     {
       "name": "CLOSED",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "State value representing a closed socket.",
       "type": [
         {
@@ -22,7 +35,12 @@
     },
     {
       "name": "CONNECTED",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "State value representing a connected socket.",
       "type": [
         {
@@ -34,7 +52,12 @@
     },
     {
       "name": "ERROR",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "State value indicating an error has occurred on the socket.",
       "type": [
         {
@@ -46,7 +69,12 @@
     },
     {
       "name": "INITIALIZED",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "State value representing an initialized socket.",
       "description": "The initial state of a newly-created socket.\n",
       "type": [
@@ -59,7 +87,12 @@
     },
     {
       "name": "LISTENING",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "State value representing a socket that is listening for connections.",
       "type": [
         {
@@ -73,7 +106,12 @@
   "methods": [
     {
       "name": "createTCP",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Returns a new TCP socket object.",
       "description": "Takes a dictionary containing properties defined in [Titanium.Network.Socket.TCP](api:Titanium.Network.Socket.TCP).  \nSome properties are only needed based on whether the socket will be a connecting \n(client) socket or a listening (server) socket.\n",
       "parameters": [
@@ -114,43 +152,78 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "lifecycleContainer",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "events": []
   },
-  "references": ["Titanium.Module", "Titanium.Network.Socket.TCP"],
+  "references": [
+    "Titanium.Module",
+    "Titanium.Network.Socket.TCP"
+  ],
   "source": "Titanium/Network/Socket/Socket.yml"
 }

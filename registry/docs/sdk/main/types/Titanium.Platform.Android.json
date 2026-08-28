@@ -3,14 +3,21 @@
   "name": "Titanium.Platform.Android",
   "kind": "module",
   "extends": "Titanium.Module",
-  "inheritanceChain": ["Titanium.Module", "Titanium.Proxy"],
-  "platforms": ["android"],
+  "inheritanceChain": [
+    "Titanium.Module",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android"
+  ],
   "since": "1.8.2",
   "summary": "The Android-specific Platform module, used to access the device's platform-related functionality.\n",
   "properties": [
     {
       "name": "API_LEVEL",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Android API level identifier of the Operating System.",
       "description": "See the official Android Developers documentation for more information about \n[API levels](https://developer.android.com/guide/appendix/api-levels.html).\n",
       "type": [
@@ -23,7 +30,9 @@
     },
     {
       "name": "PHYSICAL_SIZE_CATEGORY_LARGE",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Constant to indicate that the physical size category of the current device/emulator is large",
       "description": "See the official Android Developers documentation for more information about\n[large screen sizes](https://developer.android.com/reference/android/content/res/Configuration.html#SCREENLAYOUT_SIZE_LARGE)\n",
       "type": [
@@ -36,7 +45,9 @@
     },
     {
       "name": "PHYSICAL_SIZE_CATEGORY_NORMAL",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Constant to indicate that the physical size category of the current device/emulator is normal",
       "description": "See the official Android Developers documentation for more information about\n[normal screen sizes](https://developer.android.com/reference/android/content/res/Configuration.html#SCREENLAYOUT_SIZE_NORMAL)\n",
       "type": [
@@ -49,7 +60,9 @@
     },
     {
       "name": "PHYSICAL_SIZE_CATEGORY_SMALL",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Constant to indicate that the physical size category of the current device/emulator is small",
       "description": "See the official Android Developers documentation for more information about\n[small screen sizes](https://developer.android.com/reference/android/content/res/Configuration.html#SCREENLAYOUT_SIZE_SMALL)\n",
       "type": [
@@ -62,7 +75,9 @@
     },
     {
       "name": "PHYSICAL_SIZE_CATEGORY_UNDEFINED",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Constant to indicate that the physical size category of the current device/emulator is undefined",
       "description": "See the official Android Developers documentation for more information about\n[undefined screen sizes](https://developer.android.com/reference/android/content/res/Configuration.html#SCREENLAYOUT_SIZE_UNDEFINED)\n",
       "type": [
@@ -75,7 +90,9 @@
     },
     {
       "name": "PHYSICAL_SIZE_CATEGORY_XLARGE",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Constant to indicate that the physical size category of the current device/emulator is extra large",
       "description": "See the official Android Developers documentation for more information about\n[extra large screen sizes](https://developer.android.com/reference/android/content/res/Configuration.html#SCREENLAYOUT_SIZE_XLARGE)\n",
       "type": [
@@ -88,7 +105,9 @@
     },
     {
       "name": "physicalSizeCategory",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "The physical size category of the Android device or emulator. \n",
       "type": [
         {
@@ -97,7 +116,9 @@
         }
       ],
       "permission": "read-only",
-      "constants": ["Titanium.Platform.Android.PHYSICAL_SIZE_CATEGORY_*"]
+      "constants": [
+        "Titanium.Platform.Android.PHYSICAL_SIZE_CATEGORY_*"
+      ]
     }
   ],
   "methods": [],
@@ -107,43 +128,59 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "lifecycleContainer",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ],
     "events": []
   },
-  "references": ["Titanium.Module"],
+  "references": [
+    "Titanium.Module"
+  ],
   "source": "Titanium/Platform/Android/Android.yml"
 }

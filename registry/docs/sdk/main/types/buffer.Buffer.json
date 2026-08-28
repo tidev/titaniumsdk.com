@@ -2,14 +2,24 @@
   "schemaVersion": 1,
   "name": "buffer.Buffer",
   "kind": "pseudo",
-  "platforms": ["android", "iphone", "ipad", "macos"],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": "8.2.0",
   "summary": "The `Buffer` class is a global type for dealing with binary data directly. It can be constructed in a variety of ways.",
   "description": "Note that this `Buffer` class is highly related to the [Titanium.Buffer](api:Titanium.Buffer) type. Both are wrappers around an underlying array of bytes and can be accessed in an array-like manner:\n\n``` javascript\nconst value = buffer[index];\nbuffer[index] = 1;\n```\n\nIn fact, this Node.js shim has been written to allow wrapping a [Titanium.Buffer](api:Titanium.Buffer) into a Node.js compatible instance:\n\n``` javascript\nconst wrapped = Buffer.from(tiBuffer);\n```\n\nNote that this will result in a **slow** `Buffer` instance (because reads/writes pass-through to the underlying\n`Ti.Buffer` which in turn goes through the JS/native binding layer). If you only intend to *read* the data\n(or do not need to write back to the original [Titanium.Buffer](api:Titanium.Buffer)) you can perform a one-time copy\nof the underlying bytes to a faster JS-only `Uint8Array`:\n\n```javascript\nconst fastBuffer = Buffer.from(tiBuffer.toBlob().toArrayBuffer()); // here we're converting from Blob to Ti.Buffer to ArrayBuffer and the shim wraps that copy\n```\n",
   "properties": [
     {
       "name": "buffer",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The underlying `ArrayBuffer` object based on which this `Buffer` object is created.",
       "description": "This `ArrayBuffer` is not guaranteed to correspond exactly to the original `Buffer`. See the notes on [buffer.Buffer.byteOffset](api:buffer.Buffer#byteOffset) for details.",
       "type": [
@@ -21,7 +31,12 @@
     },
     {
       "name": "byteOffset",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The `byteOffset` of the `Buffer`s underlying `ArrayBuffer` object.",
       "type": [
         {
@@ -32,7 +47,12 @@
     },
     {
       "name": "length",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Returns the number of bytes in buf.",
       "type": [
         {
@@ -45,7 +65,12 @@
   "methods": [
     {
       "name": "compare",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Compares `buf` with `target` and returns a number indicating whether buf comes before, after, or is the same as target in sort order. Comparison is based on the actual sequence of bytes in each `Buffer`.",
       "description": "`0` is returned if target is the same as buf\n`1` is returned if target should come before buf when sorted.\n`-1` is returned if target should come after buf when sorted.\n",
       "parameters": [
@@ -125,7 +150,12 @@
     },
     {
       "name": "copy",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Copies data from a region of `buf` to a region in `target`, even if the target memory region overlaps with `buf`.",
       "parameters": [
         {
@@ -193,7 +223,12 @@
     },
     {
       "name": "entries",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an [iterator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterator_protocol) of `[index, byte]` pairs from the contents of `buf`.",
       "returns": [
         {
@@ -208,7 +243,12 @@
     },
     {
       "name": "equals",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Returns `true` if both `buf` and `otherBuffer` have exactly the same bytes, false otherwise. Equivalent to `buf.compare(otherBuffer) === 0`.",
       "parameters": [
         {
@@ -239,7 +279,12 @@
     },
     {
       "name": "fill",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fills `buf` with the specified value. If the `offset` and `end` are not given, the entire `buf` will be filled.",
       "parameters": [
         {
@@ -315,7 +360,12 @@
     },
     {
       "name": "includes",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Equivalent to `buf.indexOf() !== -1`.",
       "parameters": [
         {
@@ -379,7 +429,12 @@
     },
     {
       "name": "indexOf",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "If value is:\n\n- a string, `value` is interpreted according to the character encoding in `encoding`.\n- a `Buffer` or `Uint8Array`, value will be used in its entirety. To compare a partial `Buffer`, use [buf.slice()](api:buffer.Buffer#slice).\n- a number, `value` will be interpreted as an unsigned 8-bit integer value between `0` and `255`.\n",
       "parameters": [
         {
@@ -443,7 +498,12 @@
     },
     {
       "name": "keys",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an [iterator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterator_protocol) of `buf` keys (indices).",
       "returns": [
         {
@@ -458,7 +518,12 @@
     },
     {
       "name": "lastIndexOf",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Identical to `buf.indexOf()`, except the last occurrence of `value` is found rather than the first occurrence.",
       "parameters": [
         {
@@ -522,7 +587,12 @@
     },
     {
       "name": "readDoubleBE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Reads a 64-bit, big-endian double from `buf` at the specified `offset`.",
       "parameters": [
         {
@@ -551,7 +621,12 @@
     },
     {
       "name": "readDoubleLE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Reads a 64-bit, little-endian double from `buf` at the specified `offset`.",
       "parameters": [
         {
@@ -580,7 +655,12 @@
     },
     {
       "name": "readFloatBE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Reads a 32-bit, big-endian float from `buf` at the specified `offset`.",
       "parameters": [
         {
@@ -609,7 +689,12 @@
     },
     {
       "name": "readFloatLE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Reads a 32-bit, little-endian float from `buf` at the specified `offset`.",
       "parameters": [
         {
@@ -638,7 +723,12 @@
     },
     {
       "name": "readInt16BE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Reads a signed 16-bit, big-endian integer from `buf` at the specified `offset`.",
       "parameters": [
         {
@@ -667,7 +757,12 @@
     },
     {
       "name": "readInt16LE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Reads a signed 16-bit, little-endian integer from `buf` at the specified `offset`.",
       "parameters": [
         {
@@ -696,7 +791,12 @@
     },
     {
       "name": "readInt32BE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Reads a signed 32-bit, big-endian integer from `buf` at the specified `offset`.",
       "parameters": [
         {
@@ -725,7 +825,12 @@
     },
     {
       "name": "readInt32LE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Reads a signed 32-bit, little-endian integer from `buf` at the specified `offset`.",
       "parameters": [
         {
@@ -754,7 +859,12 @@
     },
     {
       "name": "readInt8",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Reads a signed 8-bit integer from `buf` at the specified `offset`.\n\nIntegers read from a Buffer are interpreted as two's complement signed values.\n",
       "parameters": [
         {
@@ -783,7 +893,12 @@
     },
     {
       "name": "readIntBE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Reads `byteLength` number of bytes from `buf` at the specified `offset` and interprets the result as a big-endian, two's complement signed value supporting up to 48 bits of accuracy.",
       "parameters": [
         {
@@ -820,7 +935,12 @@
     },
     {
       "name": "readIntLE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Reads `byteLength` number of bytes from `buf` at the specified `offset` and interprets the result as a little-endian, two's complement signed value supporting up to 48 bits of accuracy.",
       "parameters": [
         {
@@ -857,7 +977,12 @@
     },
     {
       "name": "readUInt16BE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Reads an unsigned 16-bit, big-endian integer from `buf` at the specified `offset`.",
       "parameters": [
         {
@@ -886,7 +1011,12 @@
     },
     {
       "name": "readUInt16LE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Reads an unsigned 16-bit, little-endian integer from `buf` at the specified `offset`.",
       "parameters": [
         {
@@ -915,7 +1045,12 @@
     },
     {
       "name": "readUInt32BE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Reads an unsigned 32-bit, big-endian integer from `buf` at the specified `offset`.",
       "parameters": [
         {
@@ -944,7 +1079,12 @@
     },
     {
       "name": "readUInt32LE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Reads an unsigned 32-bit, little-endian integer from `buf` at the specified `offset`.",
       "parameters": [
         {
@@ -973,7 +1113,12 @@
     },
     {
       "name": "readUInt8",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Reads an unsigned 8-bit integer from `buf` at the specified `offset`.",
       "parameters": [
         {
@@ -1002,7 +1147,12 @@
     },
     {
       "name": "readUIntBE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Reads `byteLength` number of bytes from `buf` at the specified `offset` and interprets the result as an unsigned big-endian value supporting up to 48 bits of accuracy.",
       "parameters": [
         {
@@ -1039,7 +1189,12 @@
     },
     {
       "name": "readUIntLE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Reads `byteLength` number of bytes from `buf` at the specified `offset` and interprets the result as an unsigned little-endian value supporting up to 48 bits of accuracy.",
       "parameters": [
         {
@@ -1076,7 +1231,12 @@
     },
     {
       "name": "slice",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Returns a new `Buffer` that references the same memory as the original, but offset and cropped by the `start` and `end` indices.",
       "parameters": [
         {
@@ -1117,7 +1277,12 @@
     },
     {
       "name": "subarray",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Returns a new `Buffer` that references the same memory as the original, but offset and cropped by the `start` and `end` indices.",
       "parameters": [
         {
@@ -1158,7 +1323,12 @@
     },
     {
       "name": "swap16",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Interprets `buf` as an array of unsigned 16-bit integers and swaps the byte order *in-place*.",
       "returns": [
         {
@@ -1173,7 +1343,12 @@
     },
     {
       "name": "swap32",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Interprets `buf` as an array of unsigned 32-bit integers and swaps the byte order *in-place*.",
       "returns": [
         {
@@ -1188,7 +1363,12 @@
     },
     {
       "name": "swap64",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Interprets `buf` as an array of unsigned 64-bit integers and swaps the byte order *in-place*.",
       "returns": [
         {
@@ -1203,7 +1383,12 @@
     },
     {
       "name": "toJSON",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Returns a JSON representation of `buf`. `JSON.stringify()` implicitly calls this function when stringifying a `Buffer` instance.",
       "returns": [
         {
@@ -1218,7 +1403,12 @@
     },
     {
       "name": "toString",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Decodes `buf` to a string according to the specified character encoding in `encoding`. `start` and `end` may be passed to decode only a subset of `buf`.",
       "parameters": [
         {
@@ -1271,7 +1461,12 @@
     },
     {
       "name": "values",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an [iterator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterator_protocol) for `buf` values (bytes). This function is called automatically when a `Buffer` is used in a `for..of` statement.",
       "returns": [
         {
@@ -1286,7 +1481,12 @@
     },
     {
       "name": "write",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Writes `string` to `buf` at `offset` according to the character encoding in `encoding`. The `length` parameter is the number of bytes to write. If `buf` did not contain enough space to fit the entire string, only part of `string` will be written. However, partially encoded characters will not be written.",
       "parameters": [
         {
@@ -1350,7 +1550,12 @@
     },
     {
       "name": "writeDoubleBE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Writes `value` to `buf` at the specified `offset` as big-endian. The `value` must be a JavaScript number. Behavior is undefined when `value` is anything other than a JavaScript number.",
       "parameters": [
         {
@@ -1390,7 +1595,12 @@
     },
     {
       "name": "writeDoubleLE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Writes `value` to `buf` at the specified `offset` as little-endian. The `value` must be a JavaScript number. Behavior is undefined when `value` is anything other than a JavaScript number.",
       "parameters": [
         {
@@ -1430,7 +1640,12 @@
     },
     {
       "name": "writeFloatBE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Writes `value` to `buf` at the specified `offset` as big-endian. The `value` must be a JavaScript number. Behavior is undefined when `value` is anything other than a JavaScript number.",
       "parameters": [
         {
@@ -1470,7 +1685,12 @@
     },
     {
       "name": "writeFloatLE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Writes `value` to `buf` at the specified `offset` as little-endian. The `value` must be a JavaScript number. Behavior is undefined when `value` is anything other than a JavaScript number.",
       "parameters": [
         {
@@ -1510,7 +1730,12 @@
     },
     {
       "name": "writeInt16BE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Writes `value` to `buf` at the specified `offset`. `value` must be a valid signed 16-bit integer. Behavior is undefined when `value` is anything other than a signed 16-bit integer.\n\n`value` is interpreted and written as a two's complement signed integer.\n",
       "parameters": [
         {
@@ -1550,7 +1775,12 @@
     },
     {
       "name": "writeInt16LE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Writes `value` to `buf` at the specified `offset`. `value` must be a valid signed 16-bit integer. Behavior is undefined when `value` is anything other than a signed 16-bit integer.\n\n`value` is interpreted and written as a two's complement signed integer.\n",
       "parameters": [
         {
@@ -1590,7 +1820,12 @@
     },
     {
       "name": "writeInt32BE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Writes `value` to `buf` at the specified `offset`. `value` must be a valid signed 32-bit integer. Behavior is undefined when `value` is anything other than a signed 32-bit integer.\n\n`value` is interpreted and written as a two's complement signed integer.\n",
       "parameters": [
         {
@@ -1630,7 +1865,12 @@
     },
     {
       "name": "writeInt32LE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Writes `value` to `buf` at the specified `offset`. `value` must be a valid signed 32-bit integer. Behavior is undefined when `value` is anything other than a signed 32-bit integer.\n\n`value` is interpreted and written as a two's complement signed integer.\n",
       "parameters": [
         {
@@ -1670,7 +1910,12 @@
     },
     {
       "name": "writeInt8",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Writes `value` to `buf` at the specified `offset`. `value` must be a valid signed 8-bit integer. Behavior is undefined when `value` is anything other than a signed 8-bit integer.\n\n`value` is interpreted and written as a two's complement signed integer.\n",
       "parameters": [
         {
@@ -1710,7 +1955,12 @@
     },
     {
       "name": "writeIntBE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Writes `byteLength` bytes of `value` to `buf` at the specified `offset` as big-endian. Supports up to 48 bits of accuracy. Behavior is undefined when `value` is anything other than a signed integer.",
       "parameters": [
         {
@@ -1758,7 +2008,12 @@
     },
     {
       "name": "writeIntLE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Writes `byteLength` bytes of `value` to `buf` at the specified `offset` as little-endian. Supports up to 48 bits of accuracy. Behavior is undefined when `value` is anything other than a signed integer.",
       "parameters": [
         {
@@ -1806,7 +2061,12 @@
     },
     {
       "name": "writeUInt16BE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Writes `value` to `buf` at the specified `offset`. `value` must be a valid unsigned 16-bit integer. Behavior is undefined when `value` is anything other than an unsigned 16-bit integer.",
       "parameters": [
         {
@@ -1846,7 +2106,12 @@
     },
     {
       "name": "writeUInt16LE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Writes `value` to `buf` at the specified `offset`. `value` must be a valid unsigned 16-bit integer. Behavior is undefined when `value` is anything other than an unsigned 16-bit integer.",
       "parameters": [
         {
@@ -1886,7 +2151,12 @@
     },
     {
       "name": "writeUInt32BE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Writes `value` to `buf` at the specified `offset`. `value` must be a valid unsigned 32-bit integer. Behavior is undefined when `value` is anything other than an unsigned 32-bit integer.",
       "parameters": [
         {
@@ -1926,7 +2196,12 @@
     },
     {
       "name": "writeUInt32LE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Writes `value` to `buf` at the specified `offset`. `value` must be a valid unsigned 32-bit integer. Behavior is undefined when `value` is anything other than an unsigned 32-bit integer.",
       "parameters": [
         {
@@ -1966,7 +2241,12 @@
     },
     {
       "name": "writeUInt8",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Writes `value` to `buf` at the specified `offset`. `value` must be a valid unsigned 8-bit integer. Behavior is undefined when `value` is anything other than an unsigned 8-bit integer.",
       "parameters": [
         {
@@ -2006,7 +2286,12 @@
     },
     {
       "name": "writeUIntBE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Writes `byteLength` bytes of `value` to `buf` at the specified `offset` as big-endian. Supports up to 48 bits of accuracy. Behavior is undefined when `value` is anything other than an unsigned integer.",
       "parameters": [
         {
@@ -2054,7 +2339,12 @@
     },
     {
       "name": "writeUIntLE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Writes `byteLength` bytes of `value` to `buf` at the specified `offset` as little-endian. Supports up to 48 bits of accuracy. Behavior is undefined when `value` is anything other than an unsigned integer.",
       "parameters": [
         {
@@ -2107,6 +2397,8 @@
     "methods": [],
     "events": []
   },
-  "references": ["Titanium.Buffer"],
+  "references": [
+    "Titanium.Buffer"
+  ],
   "source": "NodeJS/buffer.yml"
 }

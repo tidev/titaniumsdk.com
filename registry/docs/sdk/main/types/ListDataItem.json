@@ -2,14 +2,24 @@
   "schemaVersion": 1,
   "name": "ListDataItem",
   "kind": "pseudo",
-  "platforms": ["android", "iphone", "ipad", "macos"],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": "3.1.0",
   "summary": "Represents displayed item data.",
   "description": "In addition to the properties defined below, you can define custom key-value pairs, which bind to\nthe child templates of an [ItemTemplate](api:ItemTemplate).  The key for these pairs match the `bindId` of\nthe child view templates and the values are a dictionary of view properties applied to the view components.\nAny other properties that are not identified by a `bindId` are permitted but are ignored by the item template.\n\nSee [Titanium.UI.ListItem](api:Titanium.UI.ListItem) for examples of using a list data item.\n",
   "properties": [
     {
       "name": "properties",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Contains key-value pairs of view properties and their values that are applied to the\n`ListItem`.\n",
       "description": "If there are properties set in the [ItemTemplate](api:ItemTemplate) (not the children view templates),\nthe values set in the list data item override the template's properties.\n",
       "type": [
@@ -27,7 +37,12 @@
     },
     {
       "name": "template",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Template ID configured with the [Titanium.UI.ListView.templates](api:Titanium.UI.ListView#templates) property or\n[Titanium.UI.LIST_ITEM_TEMPLATE_DEFAULT](api:Titanium.UI#LIST_ITEM_TEMPLATE_DEFAULT).\n",
       "description": "On iOS, you can specify one of the following pre-defined templates:\n[Titanium.UI.LIST_ITEM_TEMPLATE_CONTACTS](api:Titanium.UI#LIST_ITEM_TEMPLATE_CONTACTS),\n[Titanium.UI.LIST_ITEM_TEMPLATE_SETTINGS](api:Titanium.UI#LIST_ITEM_TEMPLATE_SETTINGS) or [Titanium.UI.LIST_ITEM_TEMPLATE_SUBTITLE](api:Titanium.UI#LIST_ITEM_TEMPLATE_SUBTITLE).\n",
       "type": [
@@ -50,6 +65,11 @@
     "methods": [],
     "events": []
   },
-  "references": ["ItemTemplate", "Titanium.UI", "Titanium.UI.ListItem", "Titanium.UI.ListView"],
+  "references": [
+    "ItemTemplate",
+    "Titanium.UI",
+    "Titanium.UI.ListItem",
+    "Titanium.UI.ListView"
+  ],
   "source": "Titanium/UI/ListItem.yml"
 }

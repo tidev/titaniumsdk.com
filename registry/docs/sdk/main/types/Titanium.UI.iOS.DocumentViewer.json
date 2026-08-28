@@ -3,8 +3,14 @@
   "name": "Titanium.UI.iOS.DocumentViewer",
   "kind": "proxy",
   "extends": "Titanium.Proxy",
-  "inheritanceChain": ["Titanium.Proxy"],
-  "platforms": ["iphone", "ipad", "macos"],
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": {
     "iphone": "2.1.1",
     "ipad": "2.1.1",
@@ -21,7 +27,11 @@
   "properties": [
     {
       "name": "annotation",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Custom property list information for the target file.",
       "description": "Use this property to pass information about the document type to the app responsible for opening it.\n",
       "type": [
@@ -49,7 +59,11 @@
     },
     {
       "name": "name",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Name of the file (without the path).",
       "description": "Only returns a value after the document has been previewed.\n",
       "type": [
@@ -62,7 +76,11 @@
     },
     {
       "name": "title",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Title of the file.",
       "description": "Use this property to specify the document title that is displayed in the navigation bar.\nIf not set, it uses the URL path of the loaded document.\n",
       "type": [
@@ -75,7 +93,11 @@
     },
     {
       "name": "url",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "URL of the document being previewed.",
       "description": "Important note: For iOS 11.2 and later, you need to reference this URL\nfrom either the application data directory or temporary directory. Read\nmore about this change in the \"Note for iOS 11.2 and later\" paragraph of\nthe API summary.\n",
       "type": [
@@ -89,7 +111,11 @@
   "methods": [
     {
       "name": "hide",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Dismisses the document viewer.",
       "parameters": [
         {
@@ -109,7 +135,11 @@
             "properties": [
               {
                 "name": "animated",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Indicates whether to animate the transition.",
                 "type": [
                   {
@@ -121,7 +151,11 @@
               },
               {
                 "name": "view",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Anchors the options menu to the specified view.",
                 "description": "Only used with the `show` method.\n\nCurrently, this property can only be set to a button in the [Titanium.UI.iOS.Toolbar](api:Titanium.UI.iOS.Toolbar),\nor the window's `leftNavButton` or `rightNavButton` property.\n\nIf this property is not specified, the `show` method launches the document in the viewer\nwithout showing the options menu.\n",
                 "type": [
@@ -138,7 +172,11 @@
     },
     {
       "name": "show",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Displays the document viewer over the current view.",
       "description": "To show the options menu, set the `view` key of the options object.\n",
       "parameters": [
@@ -159,7 +197,11 @@
             "properties": [
               {
                 "name": "animated",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Indicates whether to animate the transition.",
                 "type": [
                   {
@@ -171,7 +213,11 @@
               },
               {
                 "name": "view",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Anchors the options menu to the specified view.",
                 "description": "Only used with the `show` method.\n\nCurrently, this property can only be set to a button in the [Titanium.UI.iOS.Toolbar](api:Titanium.UI.iOS.Toolbar),\nor the window's `leftNavButton` or `rightNavButton` property.\n\nIf this property is not specified, the `show` method launches the document in the viewer\nwithout showing the options menu.\n",
                 "type": [
@@ -190,17 +236,29 @@
   "events": [
     {
       "name": "load",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fires when the document is previewed."
     },
     {
       "name": "menu",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fires when the options menu appears before the document is previewed."
     },
     {
       "name": "unload",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fires when the document is dismissed."
     }
   ],
@@ -209,34 +267,58 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "events": []

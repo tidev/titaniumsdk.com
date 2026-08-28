@@ -3,8 +3,16 @@
   "name": "Titanium.UI.TextField",
   "kind": "view",
   "extends": "Titanium.UI.View",
-  "inheritanceChain": ["Titanium.UI.View", "Titanium.Proxy"],
-  "platforms": ["android", "iphone", "ipad", "macos"],
+  "inheritanceChain": [
+    "Titanium.UI.View",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": "0.8",
   "summary": "A single line text field.",
   "description": "| Android | iOS |\n| ------- | --- |\n| ![Android](./textfield_android.png) | ![iOS](./textfield_ios.png) |\n\nUse the [Titanium.UI.createTextField](api:Titanium.UI#createTextField) method or **`<TextField>`** Alloy element to create a text field.\n\n#### `click` event in iOS\n\nIn iOS 11+, `click` event in text field is not fired due to changes from apple.\nUse `touchstart` event instead of `click` event.\n",
@@ -29,7 +37,12 @@
   "properties": [
     {
       "name": "attributedHintText",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Hint text attributed string.",
       "description": "The attributed hint text by the textField. If set, avoid setting common attributes\nin textField, such as `hintText`, `color` and `font`, as unexpected behaviors may result.\n\nThis has no effect when used with `hintType` Ti.UI.HINT_TYPE_ANIMATED.\n\nFor Alloy, you can use an `<AttributedHintText>`\nelement inside a `<TextField>` element and set the text property as node text:\n\n``` xml\n<Alloy>\n  <Window>\n      <TextField>\n        <AttributedHintText>\n            Alloy is great!\n        </AttributedHintText>\n      </TextField>\n  </Window>\n</Alloy>\n```\n\nThen set attributes in the TSS file:\n\n``` js\n\"AttributedString\" : {\n  attributes: [\n    {\n      type: Ti.UI.ATTRIBUTE_FOREGROUND_COLOR,\n      value: 'red',\n      range: [0, 5]\n    },\n    {\n      type: Ti.UI.ATTRIBUTE_UNDERLINES_STYLE,\n      value: Ti.UI.ATTRIBUTE_UNDERLINE_STYLE_SINGLE,\n      range: [9, 5]\n    }\n  ]\n}\n```\n",
       "type": [
@@ -46,7 +59,12 @@
     },
     {
       "name": "attributedString",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "TextField attributed string.",
       "description": "The underlying attributed string drawn by the textField. If set, avoid setting common attributes\nin TextField, such as `value`, `color` and `font`, as unexpected behaviors may result.\n\nFor Alloy, you can use an `<AttributedString>` element inside a `<TextField>` element and set\nthe text property as node text:\n\n``` xml\n<Alloy>\n  <Window>\n      <TextField>\n        <AttributedString>\n            Alloy is great!\n        </AttributedString>\n      </TextField>\n  </Window>\n</Alloy>\n```\n\nThen set attributes in the TSS file:\n\n``` js\n\"AttributedString\" : {\n  attributes: [\n    {\n      type: Ti.UI.ATTRIBUTE_FOREGROUND_COLOR,\n      value: 'red',\n      range: [0, 5]\n    },\n    {\n      type: Ti.UI.ATTRIBUTE_UNDERLINES_STYLE,\n      value: Ti.UI.ATTRIBUTE_UNDERLINE_STYLE_SINGLE,\n      range: [9, 5]\n    }\n  ]\n}\n```\n\nSince 13.2.0 you can also use the AttributedString object without `Titanium.UI.createAttributedString()`:\n``` js\nconst text =  'Bacon ipsum dolor Titanium SDK rocks! sit amet fatback leberkas salami sausage tongue strip steak.';\nconst label = Titanium.UI.createLabel({\n    attributedString: {\n        text: text,\n        attributes: [\n            {\n                type: Titanium.UI.ATTRIBUTE_UNDERLINES_STYLE,\n                value: Ti.UI.ATTRIBUTE_UNDERLINE_STYLE_SINGLE,\n                range: [text.indexOf('Titanium'), ('Titanium').length]\n            },\n            {\n                type: Titanium.UI.ATTRIBUTE_BACKGROUND_COLOR,\n                value: \"red\",\n                range: [text.indexOf('Titanium'), ('Titanium').length]\n            }\n        ]\n    }\n});\n```\n",
       "type": [
@@ -63,7 +81,12 @@
     },
     {
       "name": "autocapitalization",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Determines how text is capitalized during typing.",
       "type": [
         {
@@ -72,11 +95,18 @@
         }
       ],
       "default": "<Titanium.UI.TEXT_AUTOCAPITALIZATION_NONE>",
-      "constants": ["Titanium.UI.TEXT_AUTOCAPITALIZATION_*"]
+      "constants": [
+        "Titanium.UI.TEXT_AUTOCAPITALIZATION_*"
+      ]
     },
     {
       "name": "autocorrect",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Determines whether to automatically correct text entered into this text field.\n",
       "description": "Set to `true` to enable automatic spelling correction. On iOS 9+, this can be used to disable QuickType suggestions.\n\nIf this property is not explicitly defined, it behaves as though it were set to `true`.\n\nOn iOS, the returned default value is `false`, and on Android, the returned\ndefault value is undefined, but all behave as if the value is `true`.\n",
       "type": [
@@ -88,7 +118,12 @@
     },
     {
       "name": "autofillType",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Sets the autofill type for the text field.",
       "description": "This sets the hint or content type to aid the autofill feature of iOS and Android to function.\n",
       "type": [
@@ -104,11 +139,15 @@
           "min": "8.0"
         }
       },
-      "constants": ["Titanium.UI.AUTOFILL_TYPE_*"]
+      "constants": [
+        "Titanium.UI.AUTOFILL_TYPE_*"
+      ]
     },
     {
       "name": "autoLink",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Automatically convert text to clickable links.",
       "description": "Multiple autolink values can be combined with a bitwise OR. For example:\n\n``` js\ntextField.autoLink = Ti.UI.AUTOLINK_MAP_ADDRESSES | Ti.UI.AUTOLINK_PHONE_NUMBERS;\n```\n\nThe Android-specific `LINKIFY` legacy constants are defined in [Titanium.UI.Android](api:Titanium.UI.Android).\n",
       "type": [
@@ -119,11 +158,18 @@
       ],
       "since": "3.0.0",
       "default": "undefined",
-      "constants": ["Titanium.UI.AUTOLINK_*"]
+      "constants": [
+        "Titanium.UI.AUTOLINK_*"
+      ]
     },
     {
       "name": "borderStyle",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Border style for the field.",
       "description": "On Android, this is a creation-only property and cannot be changed dynamically.",
       "type": [
@@ -139,11 +185,17 @@
         "macos": "9.2.0"
       },
       "default": "<Titanium.UI.INPUT_BORDERSTYLE_NONE> (on iOS),\n<Titanium.UI.INPUT_BORDERSTYLE_FILLED> (on Android)\n",
-      "constants": ["Titanium.UI.INPUT_BORDERSTYLE_*"]
+      "constants": [
+        "Titanium.UI.INPUT_BORDERSTYLE_*"
+      ]
     },
     {
       "name": "clearButtonMode",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Determines when the clear button is displayed.",
       "type": [
         {
@@ -152,11 +204,18 @@
         }
       ],
       "default": "Titanium.UI.INPUT_BUTTONMODE_NEVER",
-      "constants": ["Titanium.UI.INPUT_BUTTONMODE_*"]
+      "constants": [
+        "Titanium.UI.INPUT_BUTTONMODE_*"
+      ]
     },
     {
       "name": "clearOnEdit",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Determines whether the value of this text field should be cleared when it is focused.",
       "type": [
         {
@@ -168,7 +227,12 @@
     },
     {
       "name": "color",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Color of the text in this text field, as a color name or hex triplet.",
       "description": "For information about color values, see the \"Colors\" section of [Titanium.UI](api:Titanium.UI).\n",
       "type": [
@@ -184,7 +248,12 @@
     },
     {
       "name": "editable",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Determines whether this field can be edited.",
       "type": [
         {
@@ -196,7 +265,9 @@
     },
     {
       "name": "ellipsize",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Determines whether an ellipsis (`...`) should be used to indicate truncated text.",
       "type": [
         {
@@ -208,7 +279,12 @@
     },
     {
       "name": "enableCopy",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Determines if user can copy or cut text from the text field.",
       "description": "When set `false`, the \"copy\" and \"cut\" options will not appear in the context menu.\nThe `Command+C` and `Command+X` keyboard shortcuts will be ignored as well.\n\nIf [Titanium.UI.TextField.passwordMask](api:Titanium.UI.TextField#passwordMask) is set `true`, then copy support is always disabled,\neven if you set this property `true`.\n",
       "type": [
@@ -222,7 +298,12 @@
     },
     {
       "name": "enableReturnKey",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Determines whether the return key is enabled automatically when there is text in this text\nfield.\n",
       "description": "If `true`, the return key is **disabled** when this text field is empty, and\nautomatically enabled as soon as the user types any text in the field.\n\nOn Android, if `true`, `return` event will not fire. Clicking on the return key will do nothing, but\nthe key itself won't be **disabled**.\n",
       "type": [
@@ -235,7 +316,12 @@
     },
     {
       "name": "focused",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Determines whether this TextField has focus.",
       "type": [
         {
@@ -249,7 +335,12 @@
     },
     {
       "name": "font",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Font to use for text.",
       "type": [
         {
@@ -260,7 +351,9 @@
     },
     {
       "name": "fullscreen",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Leave some space above the keyboard in landscape mode or not.\n",
       "description": "Switch between a fullscreen keyboard in landscape mode (default) or a non-fullscreen keyboard which\nwill leave some space to display UI elements.\n",
       "type": [
@@ -276,7 +369,12 @@
     },
     {
       "name": "hintText",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Hint text to display when the field is empty.",
       "description": "Hint text is hidden when the user enters text into this text field.\n\nUse the backslash and letter `n` line feed character combination, ie `\\n`, to force a new\nline.\n\nUse unicode characters, such as those included in (but not limited to) the\n[Unicode List of Useful Symbols](http://en.wikibooks.org/w/index.php?title=Unicode/List_of_useful_symbols)\nsection of wikipedia, to insert special characters and symbols.\n",
       "type": [
@@ -289,7 +387,12 @@
     },
     {
       "name": "hintTextColor",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Hint text color to display when the field is empty.",
       "description": "Sets the color of the [Titanium.UI.TextField.hintText](api:Titanium.UI.TextField#hintText). Please not that this can be overridden\nby the [Titanium.UI.TextField.attributedHintText](api:Titanium.UI.TextField#attributedHintText) which provides an advanced configuration to\nstyle hint texts.\n\nThis has no effect when used with `hintType` Ti.UI.HINT_TYPE_ANIMATED. Instead a theme must be\nused that defines the `android:textColorHint` attribute.\n\n**Android Note**:\nThe hint text color in Android is determined by the theme of the application.\nBy default, a Titanium app uses a Dark theme. When you create the background to be white,\nthe hint text color would also be white, hence not visible to the user. To change this, you can\nedit the tiapp.xml file with another theme. Example as follows:\n\n``` xml\n<android xmlns:android=\"http://schemas.android.com/apk/res/android\">\n    <manifest>\n        <application android:theme=\"@style/Theme.MaterialComponents.Light.Bridge\"/>\n    </manifest>\n</android>\n```\n\nAnother way to change the hint text color is to use this property and specify a color.\n",
       "type": [
@@ -311,7 +414,12 @@
     },
     {
       "name": "hinttextid",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Key identifying a string from the locale file to use for the\n[hintText](api:Titanium.UI.TextField#hintText) property.\n",
       "description": "Only one of `hintText` or `hinttextid` should be specified.",
       "type": [
@@ -324,7 +432,9 @@
     },
     {
       "name": "hintType",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Hint type to display on the text field.",
       "description": "Setting this to [Titanium.UI.HINT_TYPE_ANIMATED](api:Titanium.UI#HINT_TYPE_ANIMATED) will use the animated TextInputLayout on Android.\n",
       "type": [
@@ -337,11 +447,15 @@
         "android": "7.0.0"
       },
       "default": "<Titanium.UI.HINT_TYPE_STATIC>",
-      "constants": ["Titanium.UI.HINT_TYPE_*"]
+      "constants": [
+        "Titanium.UI.HINT_TYPE_*"
+      ]
     },
     {
       "name": "inputType",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Input type to accept in the text field. Also influences the Keyboard type to display.",
       "description": "When asking for a specific kind of user input, such as a phone number or email\naddress, you should always specify the input type that is accepted. This overrides\nany changes to the keyboard done by the property [Titanium.UI.TextField.keyboardType](api:Titanium.UI.TextField#keyboardType).\n",
       "type": [
@@ -358,11 +472,17 @@
       ],
       "since": "5.2.0",
       "default": "Empty array. If not defined, default is Keyboard type specified by <Titanium.UI.TextField.keyboardType>.",
-      "constants": ["Titanium.UI.INPUT_TYPE_*"]
+      "constants": [
+        "Titanium.UI.INPUT_TYPE_*"
+      ]
     },
     {
       "name": "keyboardAppearance",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Determines the appearance of the keyboard displayed when this field is focused.",
       "type": [
         {
@@ -379,7 +499,11 @@
     },
     {
       "name": "keyboardToolbar",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Array of toolbar button objects or a [toolbar](api:Titanium.UI.Toolbar) to be used when the\nkeyboard is displayed.\n",
       "description": "In Alloy, you can use a `<KeyboardToolbar>` element inside a `<TextField>` element to create\na `KeyboardToolbar`.\n\n``` xml\n<Alloy>\n    <TextField id=\"textfield\" platform=\"ios\" hintText=\"Tap here...\">\n        <!-- Nested properties -->\n        <KeyboardToolbar >\n            <Toolbar >\n                <Items >\n                    <Button>button 1</Button>\n                    <FlexSpace />\n                    <Button>button 2</Button>\n                </Items>\n            </Toolbar>\n        </KeyboardToolbar>\n    </TextField>\n</Alloy>\n```\n",
       "type": [
@@ -401,7 +525,11 @@
     },
     {
       "name": "keyboardToolbarColor",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Color of the keyboard toolbar if keyboardToolbar is an array, as a color name or hex triplet.\n",
       "description": "For information about color values, see the \"Colors\" section of [Titanium.UI](api:Titanium.UI).\n",
       "type": [
@@ -417,7 +545,11 @@
     },
     {
       "name": "keyboardToolbarHeight",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Height of the keyboard toolbar if keyboardToolbar is an array.",
       "type": [
         {
@@ -428,7 +560,12 @@
     },
     {
       "name": "keyboardType",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Keyboard type to display when this text field is focused.",
       "description": "When asking for a specific kind of user input, such as a phone number or email\naddress, you should always specify the appropriate keyboard type.\n",
       "type": [
@@ -438,11 +575,17 @@
         }
       ],
       "default": "<Titanium.UI.KEYBOARD_TYPE_DEFAULT>",
-      "constants": ["Titanium.UI.KEYBOARD_TYPE_*"]
+      "constants": [
+        "Titanium.UI.KEYBOARD_TYPE_*"
+      ]
     },
     {
       "name": "leftButton",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Left button view to display in the `TextField`.",
       "description": "Set the `width` and `height` properties of the button or else it does not display in the\ntext field.\n\nUsing an object other than a [Button](api:Titanium.UI.Button) may have unpredictable results.\n\nIn Alloy you can use a `<LeftButton>` element inside the `<TextField>` element.\n\n``` xml\n<Alloy>\n    <Window>\n        <!-- iOS TextField properties -->\n        <TextField id=\"textfield\" platform=\"ios\">\n            <LeftButton>\n                <Button onClick=\"sayHi\">Say Hi</Button>\n            </LeftButton>\n            <RightButton>\n                <Button onClick=\"doAlert\">Do Alert</Button>\n            </RightButton>\n        </TextField>\n    </Window>\n</Alloy>\n```\n",
       "type": [
@@ -454,7 +597,11 @@
     },
     {
       "name": "leftButtonMode",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Determines when to display the left button view.",
       "type": [
         {
@@ -463,11 +610,17 @@
         }
       ],
       "default": "<Titanium.UI.INPUT_BUTTONMODE_NEVER>",
-      "constants": ["Titanium.UI.INPUT_BUTTONMODE_*"]
+      "constants": [
+        "Titanium.UI.INPUT_BUTTONMODE_*"
+      ]
     },
     {
       "name": "leftButtonPadding",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Padding between the left button and the edge of the field.",
       "type": [
         {
@@ -478,7 +631,10 @@
     },
     {
       "name": "maxLength",
-      "platforms": ["android", "iphone"],
+      "platforms": [
+        "android",
+        "iphone"
+      ],
       "summary": "Maximum length of text field input.",
       "description": "Any attempt to input text beyond this length (including pasting a string larger than `maxLength`) will not edit the field's contents. A value of -1 indicates unlimited length.",
       "type": [
@@ -494,7 +650,11 @@
     },
     {
       "name": "minimumFontSize",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Minimum size of the font when the font is sized based on the contents.  Enables font\nscaling to fit.\n",
       "type": [
         {
@@ -505,7 +665,12 @@
     },
     {
       "name": "padding",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Sets the padding of this text field.",
       "type": [
         {
@@ -520,7 +685,9 @@
         "properties": [
           {
             "name": "bottom",
-            "platforms": ["android"],
+            "platforms": [
+              "android"
+            ],
             "summary": "Bottom padding (Android only, since 6.1.0)",
             "type": [
               {
@@ -534,7 +701,12 @@
           },
           {
             "name": "left",
-            "platforms": ["android", "iphone", "ipad", "macos"],
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "Left padding",
             "type": [
               {
@@ -545,7 +717,12 @@
           },
           {
             "name": "right",
-            "platforms": ["android", "iphone", "ipad", "macos"],
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "Right padding",
             "type": [
               {
@@ -556,7 +733,9 @@
           },
           {
             "name": "top",
-            "platforms": ["android"],
+            "platforms": [
+              "android"
+            ],
             "summary": "Top padding (Android only, since 6.1.0)",
             "type": [
               {
@@ -573,7 +752,12 @@
     },
     {
       "name": "passwordMask",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Obscure the input text from the user.",
       "description": "Set to `true` to hide entered characters.\n\nNote: on iOS, `passwordMask` *must* be specified when this text field is created.\n",
       "type": [
@@ -586,7 +770,11 @@
     },
     {
       "name": "passwordRules",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Set password rules that should be used for this text field.",
       "description": "This property is used to communicate requirements for passwords for your service\nto ensure iOS can generate compatible passwords for users. It only works when [Titanium.UI.TextField.passwordMask](api:Titanium.UI.TextField#passwordMask)\nis `true`. You do not need to use this property if the passwords that iOS generates are already\ncompatible with your service. You can learn more about the purpose of and syntax for these rules\non the [Password Rules documentation guide](https://developer.apple.com/documentation/security/password_autofill/customizing_password_autofill_rules).\n",
       "type": [
@@ -599,7 +787,12 @@
     },
     {
       "name": "returnKeyType",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies the text to display on the keyboard `Return` key when this field is focused.",
       "type": [
         {
@@ -608,11 +801,17 @@
         }
       ],
       "default": "<Titanium.UI.RETURNKEY_DEFAULT>",
-      "constants": ["Titanium.UI.RETURNKEY_*"]
+      "constants": [
+        "Titanium.UI.RETURNKEY_*"
+      ]
     },
     {
       "name": "rightButton",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Right button view.",
       "description": "Set the `width` and `height` properties of the button or else it does not display in the\ntext field.\n\nUsing an object other than a [Button](api:Titanium.UI.Button) may have unpredictable results.\nIn Alloy you can use a `<RightButton>` element inside the `<TextField>` element.\n\n``` xml\n<Alloy>\n    <Window>\n        <!-- iOS TextField properties -->\n        <TextField id=\"textfield\" platform=\"ios\">\n            <LeftButton>\n                <Button onClick=\"sayHi\">Say Hi</Button>\n            </LeftButton>\n            <RightButton>\n                <Button onClick=\"doAlert\">Do Alert</Button>\n            </RightButton>\n        </TextField>\n    </Window>\n</Alloy>\n```\n\nThe `sayHi` and `doAlert` methods are defined in the Alloy controller.\n",
       "type": [
@@ -624,7 +823,11 @@
     },
     {
       "name": "rightButtonMode",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Determines when to display the right button view.",
       "type": [
         {
@@ -633,11 +836,17 @@
         }
       ],
       "default": "Titanium.UI.INPUT_BUTTONMODE_NEVER",
-      "constants": ["Titanium.UI.INPUT_BUTTONMODE_*"]
+      "constants": [
+        "Titanium.UI.INPUT_BUTTONMODE_*"
+      ]
     },
     {
       "name": "rightButtonPadding",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Padding between the right button and the edge of the field.",
       "type": [
         {
@@ -648,7 +857,12 @@
     },
     {
       "name": "selection",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Returns the currently selected text of the text field.",
       "description": "This property is useful to track the current cursor position of the text field. On iOS this property\ncan only be used when the text field has focus. Accessing this property when text field does not have\nfocus will return an undefined value.\n\nThis method will return null on Android and undefined on iOS if the view has not yet been attached\nto the window.\n",
       "type": [
@@ -665,7 +879,12 @@
         "properties": [
           {
             "name": "length",
-            "platforms": ["android", "iphone", "ipad", "macos"],
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "Number of characters selected.",
             "type": [
               {
@@ -676,7 +895,12 @@
           },
           {
             "name": "location",
-            "platforms": ["android", "iphone", "ipad", "macos"],
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "Starting position of selected text.",
             "type": [
               {
@@ -690,7 +914,10 @@
     },
     {
       "name": "showUndoRedoActions",
-      "platforms": ["ipad", "macos"],
+      "platforms": [
+        "ipad",
+        "macos"
+      ],
       "summary": "Determines if the undo and redo buttons on the left side of the keyboard should be displayed or not. Only valid on iOS 9 and above.",
       "type": [
         {
@@ -703,7 +930,11 @@
     },
     {
       "name": "suppressReturn",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Determines whether the return key should be suppressed during entry.",
       "type": [
         {
@@ -714,7 +945,12 @@
     },
     {
       "name": "textAlign",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Text alignment within this text field.\n\nThis has no effect on `hintText` when `hintType` is Ti.UI.HINT_TYPE_ANIMATED.\n",
       "type": [
         {
@@ -727,11 +963,18 @@
         }
       ],
       "default": "<Titanium.UI.TEXT_ALIGNMENT_LEFT>",
-      "constants": ["Titanium.UI.TEXT_ALIGNMENT_*"]
+      "constants": [
+        "Titanium.UI.TEXT_ALIGNMENT_*"
+      ]
     },
     {
       "name": "value",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Value of this text field, which may be set programmatically and modified by the user.",
       "description": "Use the backslash and letter `n` line feed character combination, ie `\\n`, to force a new\nline.\n\nUse unicode characters, such as those included in (but not limited to) the\n[Unicode List of Useful Symbols](http://en.wikibooks.org/w/index.php?title=Unicode/List_of_useful_symbols)\nsection of wikipedia, to insert special characters and symbols.\n",
       "type": [
@@ -743,7 +986,12 @@
     },
     {
       "name": "verticalAlign",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Vertical alignment within this text field.",
       "type": [
         {
@@ -756,23 +1004,40 @@
         }
       ],
       "default": "<Titanium.UI.TEXT_VERTICAL_ALIGNMENT_CENTER>",
-      "constants": ["Titanium.UI.TEXT_VERTICAL_ALIGNMENT_*"]
+      "constants": [
+        "Titanium.UI.TEXT_VERTICAL_ALIGNMENT_*"
+      ]
     }
   ],
   "methods": [
     {
       "name": "blur",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Forces the field to lose focus."
     },
     {
       "name": "focus",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Forces the field to gain focus."
     },
     {
       "name": "hasText",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Returns `true` if this text field contains text.",
       "since": "2.1.0",
       "returns": [
@@ -789,7 +1054,12 @@
     },
     {
       "name": "setSelection",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Selects the text in range (start, end).",
       "description": "Selects the text in range (start, end). If start equals end, no text will be selected,\nand the cursor will move to the start position. End is not inclusive, meaning setSelection(0,0)\nwill not select the first character, but will move the cursor to the position before the first character.\n\nOn iOS, soft keyboard would show when text is selected.\n",
       "since": "3.0.0",
@@ -820,7 +1090,12 @@
   "events": [
     {
       "name": "blur",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when the field loses focus.",
       "properties": [
         {
@@ -837,7 +1112,12 @@
     },
     {
       "name": "change",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when the field value changes.",
       "properties": [
         {
@@ -854,7 +1134,9 @@
     },
     {
       "name": "empty",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Fired when the field is empty and you press backspace key again.",
       "since": {
         "android": "12.4.0"
@@ -874,7 +1156,12 @@
     },
     {
       "name": "focus",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when the field gains focus.",
       "properties": [
         {
@@ -891,7 +1178,12 @@
     },
     {
       "name": "return",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when the return key is pressed on the keyboard.",
       "properties": [
         {
@@ -912,506 +1204,910 @@
       {
         "name": "accessibilityDisableLongPress",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "accessibilityHidden",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "accessibilityHint",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "accessibilityLabel",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "accessibilityValue",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "anchorPoint",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "animatedCenter",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "backgroundColor",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "backgroundDisabledColor",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "backgroundDisabledImage",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "backgroundFocusedColor",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "backgroundFocusedImage",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "backgroundGradient",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "backgroundImage",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "backgroundLeftCap",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "backgroundRepeat",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "backgroundSelectedColor",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "backgroundSelectedImage",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "backgroundTopCap",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "borderColor",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "borderRadius",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "borderWidth",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "bottom",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "center",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "clipMode",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "elevation",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "filterTouchesWhenObscured",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "focusable",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "height",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "hiddenBehavior",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "horizontalMotionEffect",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "horizontalWrap",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "id",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "keepHardwareMode",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "keepScreenOn",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "layout",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "left",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "lifecycleContainer",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "opacity",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "overrideCurrentAnimation",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "previewContext",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone"]
+        "platforms": [
+          "iphone"
+        ]
       },
       {
         "name": "pullBackgroundColor",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "rect",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "right",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "rotation",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad"
+        ]
       },
       {
         "name": "rotationX",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "rotationY",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "scaleX",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "scaleY",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "size",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "softKeyboardOnFocus",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "tintColor",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "tooltip",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "top",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "touchEnabled",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "touchFeedback",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "touchFeedbackColor",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "transform",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "transitionName",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "translationX",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "translationY",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "translationZ",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "verticalMotionEffect",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "viewShadowColor",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "viewShadowOffset",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "viewShadowRadius",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "visible",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "width",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "zIndex",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "animate",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "clearMotionEffects",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "convertPointToView",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "getViewById",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "hide",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "insertAt",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "show",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "stopAnimation",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "toImage",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "events": [
       {
         "name": "click",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "dblclick",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "doubletap",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "keypressed",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "longclick",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "longpress",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "pinch",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "postlayout",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "rotate",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "singletap",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "swipe",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "touchcancel",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "touchend",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "touchmove",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "touchstart",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "twofingertap",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ]
   },

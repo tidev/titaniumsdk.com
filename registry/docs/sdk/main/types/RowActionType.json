@@ -2,14 +2,22 @@
   "schemaVersion": 1,
   "name": "RowActionType",
   "kind": "pseudo",
-  "platforms": ["iphone", "ipad", "macos"],
+  "platforms": [
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": "4.1.0",
   "summary": "Represents the custom edit action for a ListItem or TableViewRow.",
   "description": "Edit actions can be used to add contextual buttons to your list items / table view rows. The configuration of\nthis API is the same for list items (if you use [Titanium.UI.ListView](api:Titanium.UI.ListView)) and table view rows (if you use <Titanium.UI.TableView).\n\nBut please note that the trigger to activate these edit actions can defer based on the API you're integrating the edit actions:\n\n*List Views*:\nBy default when a ListItem has [canEdit](api:Titanium.UI.ListItem#canEdit) set to `true`, a left swipe on the the row presents the localized 'Delete' button.\nThis object lets developers define custom titles for editing actions supported on the row.\nThis object is used in conjunction with the [editActions](api:Titanium.UI.ListItem#editActions) property and\n[editaction](api:Titanium.UI.ListView#editaction) event.\n\n*Table Views*:\nBy default when a TableViewRow has [editable](api:Titanium.UI.TableViewRow#editable) set to `true`, a left swipe on the the row presents the localized 'Delete' button.\nThis object lets developers define custom titles for editing actions supported on the row.\nThis object is used in conjunction with the [editActions](api:Titanium.UI.TableViewRow#editActions) property and\n[editaction](api:Titanium.UI.TableView#editaction) event. For table views, this property was added in Titanium SDK 12.4.0.\n\nIn addition, the new property \"state\" was added in 12.4.0 and can either equal \"leading\" or \"trailing\" to show them on a right swipe (leading)\nor left swipe (trailing). If the \"state\" property is not set, it defaults to \"trailing\" for backwards compatibility.\n",
   "properties": [
     {
       "name": "color",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The background color of the row action.",
       "description": "By default the background color of the row action is defined by the style applied. Use this property to\noverride the default background color of the row action.\n",
       "type": [
@@ -22,7 +30,11 @@
     },
     {
       "name": "identifier",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The [identifier](RowActionType. identifier) of the row action. Only included in the event\nif previously defined. Available in Titanium 6.0.0 and later.\n",
       "type": [
         {
@@ -33,7 +45,11 @@
     },
     {
       "name": "image",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The image/icon of the row action.",
       "description": "You can combine this property with the `color` property to apply an icon + background color in combination.\nNote: When using this property, the `title` property is ignored.\n",
       "type": [
@@ -47,7 +63,11 @@
     },
     {
       "name": "state",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The state to show this edit action. Either \"trailing\" (default) or \"leading\".",
       "description": "In a LTR layout (e.g English, German), the \"leading\" state is the left area of the screen and the \"trailing\" state in the right.\nIn a RTL layout (e.g. Hebrew, Arabic), the \"leading\" state is the right area of the screen and the \"trailing\" state in the left.\n",
       "type": [
@@ -61,7 +81,11 @@
     },
     {
       "name": "style",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The style of the row action.",
       "description": "Use one of [Titanium.UI.iOS.ROW_ACTION_STYLE_DEFAULT](api:Titanium.UI.iOS#ROW_ACTION_STYLE_DEFAULT), [Titanium.UI.iOS.ROW_ACTION_STYLE_DESTRUCTIVE](api:Titanium.UI.iOS#ROW_ACTION_STYLE_DESTRUCTIVE) or\n[Titanium.UI.iOS.ROW_ACTION_STYLE_NORMAL](api:Titanium.UI.iOS#ROW_ACTION_STYLE_NORMAL)\n",
       "type": [
@@ -73,7 +97,11 @@
     },
     {
       "name": "title",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The title of the row action.",
       "type": [
         {

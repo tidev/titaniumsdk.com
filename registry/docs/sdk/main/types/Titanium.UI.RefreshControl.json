@@ -3,8 +3,15 @@
   "name": "Titanium.UI.RefreshControl",
   "kind": "proxy",
   "extends": "Titanium.Proxy",
-  "inheritanceChain": ["Titanium.Proxy"],
-  "platforms": ["android", "iphone", "ipad", "macos"],
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": {
     "android": "6.2.0",
     "iphone": "3.2.0",
@@ -25,7 +32,11 @@
   "properties": [
     {
       "name": "backgroundColor",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The background color for the refresh control, as a color name or hex triplet.",
       "description": "For information about color values, see the \"Colors\" section of [Titanium.UI](api:Titanium.UI).\n",
       "type": [
@@ -46,7 +57,9 @@
     },
     {
       "name": "offset",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Offset of the refresh control view.",
       "type": [
         {
@@ -64,7 +77,12 @@
         "properties": [
           {
             "name": "end",
-            "platforms": ["android", "iphone", "ipad", "macos"],
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "The offset from the top of this view at which the progress spinner should come to rest after a successful swipe gesture.",
             "type": [
               {
@@ -75,7 +93,12 @@
           },
           {
             "name": "start",
-            "platforms": ["android", "iphone", "ipad", "macos"],
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "The offset from the top of this view at which the progress spinner should appear.",
             "type": [
               {
@@ -89,7 +112,12 @@
     },
     {
       "name": "tintColor",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The tint color for the refresh control, as a color name or hex triplet.",
       "description": "For information about color values, see the \"Colors\" section of [Titanium.UI](api:Titanium.UI).\n",
       "type": [
@@ -110,7 +138,11 @@
     },
     {
       "name": "title",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The attributed title of the control.",
       "description": "Title text is only supported on iOS. Android will ignore this property.\n",
       "type": [
@@ -128,13 +160,23 @@
   "methods": [
     {
       "name": "beginRefreshing",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Tells the control that a refresh operation was started programmatically.",
       "description": "Call this method when an external event source triggers a programmatic refresh of your table.\nThis method updates the state of the refresh control to reflect the in-progress refresh operation.\nWhen the refresh operation ends, be sure to call the [endRefreshing](api:Titanium.UI.RefreshControl#endRefreshing)\nmethod to return the control to its default state.\nNote: When triggering the refreshing programmatically, the styling is not applied and the refresh control is tinted\nin the native gray.\n"
     },
     {
       "name": "endRefreshing",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Tells the control that a refresh operation has ended.",
       "description": "Call this method at the end of any refresh operation (whether it was initiated programmatically or by the user)\nto return the refresh control to its default state.\n"
     }
@@ -142,7 +184,12 @@
   "events": [
     {
       "name": "refreshend",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired in response to a user finished action to refresh the contents of the\ntable view, list view or scroll view.\n",
       "since": {
         "android": "6.2.0",
@@ -164,7 +211,12 @@
     },
     {
       "name": "refreshstart",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired in response to a user initiated an action to refresh the contents of the\ntable view, list view or scroll view.\n",
       "since": {
         "android": "6.2.0",
@@ -190,39 +242,71 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "lifecycleContainer",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "events": []

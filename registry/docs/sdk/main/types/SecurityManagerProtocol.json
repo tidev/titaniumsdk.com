@@ -2,7 +2,12 @@
   "schemaVersion": 1,
   "name": "SecurityManagerProtocol",
   "kind": "pseudo",
-  "platforms": ["android", "iphone", "ipad", "macos"],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": "3.3.0",
   "summary": "The protocol that the [Titanium.Network.HTTPClient.securityManager](api:Titanium.Network.HTTPClient#securityManager) must implement.",
   "description": "The object representing [Titanium.Network.HTTPClient.securityManager](api:Titanium.Network.HTTPClient#securityManager) must implement this protocol.\nAssigning the securityManager property to an object that does not implement this protocol will cause an exception to be raised.\nAll methods in this protocol are required.\n",
@@ -10,7 +15,11 @@
   "methods": [
     {
       "name": "connectionDelegateForUrl",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The [APSConnectionDelegate](api:APSConnectionDelegate) for this connection.",
       "description": "This method is only called if [SecurityManagerProtocol.willHandleURL](api:SecurityManagerProtocol#willHandleURL) returns true.\nSee [APSConnectionDelegate](api:APSConnectionDelegate) for further information.\n",
       "parameters": [
@@ -38,7 +47,9 @@
     },
     {
       "name": "getKeyManagers",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Returns an array of objects implementing the [X509KeyManager](https://developer.android.com/reference/javax/net/ssl/X509KeyManager.html) protocol for the SSL Context.",
       "description": "This method is only called if [SecurityManagerProtocol.willHandleURL](api:SecurityManagerProtocol#willHandleURL) returns true.\n\nReturn null to set up a SSL Context with the default system key managers.\n",
       "parameters": [
@@ -72,7 +83,9 @@
     },
     {
       "name": "getTrustManagers",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Returns an array of objects implementing the [X509TrustManager](https://developer.android.com/reference/javax/net/ssl/X509TrustManager.html) protocol for the SSL Context.",
       "description": "This method is only called if [SecurityManagerProtocol.willHandleURL](api:SecurityManagerProtocol#willHandleURL) returns true.\n\nReturn null to set up a SSL Context with the default system trust managers.\n",
       "parameters": [
@@ -106,7 +119,12 @@
     },
     {
       "name": "willHandleURL",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Returns if the security manager will participate in authentication of this end point.",
       "description": "The parameter passed to this method is a [NSURL](https://developer.apple.com/documentation/foundation/nsurl?language=objc)\non iOS and a [Uri](https://developer.android.com/reference/android/net/Uri.html) on android.\n\nReturn **true** to participate, **false** to allow default authentication flow.\n",
       "parameters": [
@@ -139,6 +157,9 @@
     "methods": [],
     "events": []
   },
-  "references": ["APSConnectionDelegate", "Titanium.Network.HTTPClient"],
+  "references": [
+    "APSConnectionDelegate",
+    "Titanium.Network.HTTPClient"
+  ],
   "source": "Titanium/Network/HTTPClient.yml"
 }

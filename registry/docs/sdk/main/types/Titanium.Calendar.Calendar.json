@@ -3,8 +3,15 @@
   "name": "Titanium.Calendar.Calendar",
   "kind": "proxy",
   "extends": "Titanium.Proxy",
-  "inheritanceChain": ["Titanium.Proxy"],
-  "platforms": ["android", "iphone", "ipad", "macos"],
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": {
     "android": "3.2.0",
     "iphone": "3.1.0",
@@ -14,7 +21,12 @@
   "properties": [
     {
       "name": "hidden",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Indicates whether this calendar can be edited or deleted.",
       "description": "This property is `true` when this calendar is editable.",
       "type": [
@@ -27,7 +39,12 @@
     },
     {
       "name": "id",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Identifier of this calendar.",
       "type": [
         {
@@ -39,7 +56,12 @@
     },
     {
       "name": "name",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Display name of this calendar.",
       "type": [
         {
@@ -51,7 +73,9 @@
     },
     {
       "name": "selected",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Indicates whether the calendar is selected.",
       "description": "Set to `true` when this calendar is selected.\n\nSee [Titanium.Calendar](api:Titanium.Calendar) for examples.\n",
       "type": [
@@ -64,7 +88,11 @@
     },
     {
       "name": "sourceIdentifier",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Displays the source identifier.",
       "type": [
         {
@@ -77,7 +105,11 @@
     },
     {
       "name": "sourceTitle",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Displays the source title.",
       "type": [
         {
@@ -90,7 +122,11 @@
     },
     {
       "name": "sourceType",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Displays the source type.",
       "type": [
         {
@@ -100,13 +136,20 @@
       ],
       "since": "6.1.0",
       "permission": "read-only",
-      "constants": ["Titanium.Calendar.SOURCE_TYPE_*"]
+      "constants": [
+        "Titanium.Calendar.SOURCE_TYPE_*"
+      ]
     }
   ],
   "methods": [
     {
       "name": "createEvent",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates an event in this calendar.",
       "parameters": [
         {
@@ -139,7 +182,9 @@
     },
     {
       "name": "createEvents",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Creates multiple events at once in this calendar.",
       "description": "Use this method to bulk-create events for faster performance.\nSuccessful or failed results are returned at the same position as passed in the parameters list.\nFor failed events, it will return `null` and [Titanium.Calendar.Event](api:Titanium.Calendar.Event) for successful events.\n",
       "since": {
@@ -188,7 +233,9 @@
     },
     {
       "name": "deleteEvents",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Deletes multiple events with their specified identifier(s).",
       "description": "Use this method to bulk-delete events for faster performance.\nThis method only returns the count of successfully deleted events.\nIf it is important for apps to know whether the event was deleted or not,\neither use the [remove()](api:Titanium.Calendar.Event#remove) method, or \na single identifier that is passed as an array to this method.\nIf a specified identifier event does not exist, it will not be treated as a count,\nso the count range can be in `0 <= count <= ids.length`.\n",
       "since": {
@@ -236,7 +283,12 @@
     },
     {
       "name": "getEventById",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Gets the event with the specified identifier.",
       "parameters": [
         {
@@ -263,7 +315,12 @@
     },
     {
       "name": "getEventsBetweenDates",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Gets events that occur between two dates.",
       "parameters": [
         {
@@ -314,7 +371,9 @@
     },
     {
       "name": "getEventsById",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Gets multiple events with their specified identifier(s).",
       "description": "Use this method to bulk-fetch events for faster performance.\nOnly successful events are returned, so the identifier of events\nshould be used to compare which events were not fetched successfully.\n",
       "since": {
@@ -367,7 +426,12 @@
     },
     {
       "name": "getEventsInDate",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Gets events that occur on a specified date.",
       "deprecated": {
         "since": "7.0.0",
@@ -424,7 +488,12 @@
     },
     {
       "name": "getEventsInMonth",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Gets events that occur during a specified month.",
       "deprecated": {
         "since": "7.0.0",
@@ -471,7 +540,12 @@
     },
     {
       "name": "getEventsInYear",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Gets all events that occur during a specified year.",
       "deprecated": {
         "since": "7.0.0",
@@ -513,43 +587,79 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "lifecycleContainer",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "events": []
   },
-  "references": ["Titanium.Calendar", "Titanium.Calendar.Event", "Titanium.Proxy"],
+  "references": [
+    "Titanium.Calendar",
+    "Titanium.Calendar.Event",
+    "Titanium.Proxy"
+  ],
   "source": "Titanium/Calendar/CalendarProxy.yml"
 }

@@ -3,8 +3,15 @@
   "name": "Titanium.App.iOS",
   "kind": "module",
   "extends": "Titanium.Module",
-  "inheritanceChain": ["Titanium.Module", "Titanium.Proxy"],
-  "platforms": ["iphone", "ipad", "macos"],
+  "inheritanceChain": [
+    "Titanium.Module",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": {
     "iphone": "1.5.0",
     "ipad": "1.5.0",
@@ -15,7 +22,11 @@
   "properties": [
     {
       "name": "applicationOpenSettingsURL",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Returns a URL to open the app's settings.",
       "description": "Used to create a URL that you can pass to the [openURL](api:Titanium.Platform#openURL) method.\nWhen you open the URL built from this string, the system launches the Settings app and displays the app's custom settings, if it has any.\n\n``` js\nvar settingsURL = Ti.App.iOS.applicationOpenSettingsURL;\nif (Ti.Platform.canOpenURL(settingsURL)) {\n    Ti.Platform.openURL(settingsURL);\n}\n```\n",
       "type": [
@@ -29,7 +40,11 @@
     },
     {
       "name": "BACKGROUNDFETCHINTERVAL_MIN",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [setMinimumBackgroundFetchInterval](api:Titanium.App.iOS#setMinimumBackgroundFetchInterval) method.\nSpecifies the smallest fetch interval supported by the system.\n",
       "type": [
         {
@@ -42,7 +57,11 @@
     },
     {
       "name": "BACKGROUNDFETCHINTERVAL_NEVER",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [setMinimumBackgroundFetchInterval](api:Titanium.App.iOS#setMinimumBackgroundFetchInterval) method.\nUsed to specify a fetch interval large enough to prevent fetch operations from occurring.\n",
       "type": [
         {
@@ -55,7 +74,11 @@
     },
     {
       "name": "currentUserNotificationSettings",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Notification types and user notification categories the application is registered to use.\n",
       "type": [
         {
@@ -75,7 +98,11 @@
         "properties": [
           {
             "name": "categories",
-            "platforms": ["iphone", "ipad", "macos"],
+            "platforms": [
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "Set of categories of user notification actions required by the application to use.",
             "type": [
               {
@@ -92,7 +119,11 @@
           },
           {
             "name": "types",
-            "platforms": ["iphone", "ipad", "macos"],
+            "platforms": [
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "Notification types to use.",
             "type": [
               {
@@ -106,14 +137,20 @@
                 ]
               }
             ],
-            "constants": ["Titanium.App.iOS.USER_NOTIFICATION_TYPE_*"]
+            "constants": [
+              "Titanium.App.iOS.USER_NOTIFICATION_TYPE_*"
+            ]
           }
         ]
       }
     },
     {
       "name": "EVENT_ACCESSIBILITY_LAYOUT_CHANGED",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Convenience constant for system event \"accessibilitylayoutchanged\".",
       "type": [
         {
@@ -126,7 +163,11 @@
     },
     {
       "name": "EVENT_ACCESSIBILITY_SCREEN_CHANGED",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Convenience constant for system event \"accessibilityscreenchanged\".",
       "type": [
         {
@@ -139,7 +180,11 @@
     },
     {
       "name": "supportedUserActivityTypes",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Provides an Array of the NSUserActivityTypes keys defined within your Titanium project.\n",
       "description": "Used to obtain a list of the NSUserActivityTypes keys defined in your Titanium project's tiapp.xml file.\nThese NSUserActivityTypes keys are the keys which you can use working with iOS Titanium User Activities.\nNSUserActivityTypes must be defined at build time in your tiapp.xml file as shown below:\n\n``` xml\n<ios>\n  <plist>\n  <dict>\n    <key>NSUserActivityTypes</key>\n      <array>\n        [string](api:Global.String)com.setdirection.home</string>\n        [string](api:Global.String)com.setdirection.shelf</string>\n        [string](api:Global.String)com.setdirection.item</string>\n      </array>\n    </dict>\n    </plist>\n  </ios>\n```\n",
       "type": [
@@ -159,7 +204,11 @@
     },
     {
       "name": "USER_INTERFACE_STYLE_DARK",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "A dark interface style.",
       "description": "Used in the `userInterfaceStyle` property.",
       "type": [
@@ -182,7 +231,11 @@
     },
     {
       "name": "USER_INTERFACE_STYLE_LIGHT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "A light interface style.",
       "description": "Used in the `userInterfaceStyle` property.",
       "type": [
@@ -205,7 +258,11 @@
     },
     {
       "name": "USER_INTERFACE_STYLE_UNSPECIFIED",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "An unspecified interface style.",
       "description": "Used in the `userInterfaceStyle` property.",
       "type": [
@@ -228,7 +285,11 @@
     },
     {
       "name": "USER_NOTIFICATION_ACTIVATION_MODE_BACKGROUND",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The action will execute in background. Use with the\n[activationMode](api:Titanium.App.iOS.UserNotificationAction#activationMode) property.\n",
       "type": [
         {
@@ -241,7 +302,11 @@
     },
     {
       "name": "USER_NOTIFICATION_ACTIVATION_MODE_FOREGROUND",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The action will launch the application and execute in the foreground.\nUse with the [activationMode](api:Titanium.App.iOS.UserNotificationAction#activationMode) property.\n",
       "type": [
         {
@@ -254,7 +319,11 @@
     },
     {
       "name": "USER_NOTIFICATION_ALERT_STYLE_ALERT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "A alert dialog is presented when the notification is received.",
       "description": "Used to check the `alertStyle` attribute received in\n[Titanium.App.iOS.UserNotificationCenter.requestUserNotificationSettings](api:Titanium.App.iOS.UserNotificationCenter#requestUserNotificationSettings).\n",
       "type": [
@@ -268,7 +337,11 @@
     },
     {
       "name": "USER_NOTIFICATION_ALERT_STYLE_BANNER",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "A banner is presented when the notification is received.",
       "description": "Used to check the `alertStyle` attribute received in\n[Titanium.App.iOS.UserNotificationCenter.requestUserNotificationSettings](api:Titanium.App.iOS.UserNotificationCenter#requestUserNotificationSettings).\n",
       "type": [
@@ -282,7 +355,11 @@
     },
     {
       "name": "USER_NOTIFICATION_ALERT_STYLE_NONE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "No banner or alert dialog is presented when the notification is received.",
       "description": "Used to check the `alertStyle` attribute received in\n[Titanium.App.iOS.UserNotificationCenter.requestUserNotificationSettings](api:Titanium.App.iOS.UserNotificationCenter#requestUserNotificationSettings).\n",
       "type": [
@@ -296,7 +373,11 @@
     },
     {
       "name": "USER_NOTIFICATION_AUTHORIZATION_STATUS_AUTHORIZED",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The application is authorized to post user notifications.",
       "description": "Used to check the `authorizationStatus` attribute received in\n[Titanium.App.iOS.UserNotificationCenter.requestUserNotificationSettings](api:Titanium.App.iOS.UserNotificationCenter#requestUserNotificationSettings).\n",
       "type": [
@@ -310,7 +391,11 @@
     },
     {
       "name": "USER_NOTIFICATION_AUTHORIZATION_STATUS_DENIED",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The application is not authorized to post user notifications.",
       "description": "Used to check the `authorizationStatus` attribute received in\n[Titanium.App.iOS.UserNotificationCenter.requestUserNotificationSettings](api:Titanium.App.iOS.UserNotificationCenter#requestUserNotificationSettings).\n",
       "type": [
@@ -324,7 +409,11 @@
     },
     {
       "name": "USER_NOTIFICATION_AUTHORIZATION_STATUS_NOT_DETERMINED",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The user has not yet made a choice regarding whether the application may post\nuser notifications.\n",
       "description": "Used to check the `authorizationStatus` attribute received in\n[Titanium.App.iOS.UserNotificationCenter.requestUserNotificationSettings](api:Titanium.App.iOS.UserNotificationCenter#requestUserNotificationSettings).\n",
       "type": [
@@ -338,7 +427,11 @@
     },
     {
       "name": "USER_NOTIFICATION_AUTHORIZATION_STATUS_PROVISIONAL",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The application is provisionally authorized to post non-interruptive user notifications.",
       "description": "Used to check the `authorizationStatus` attribute received in\n[Titanium.App.iOS.UserNotificationCenter.requestUserNotificationSettings](api:Titanium.App.iOS.UserNotificationCenter#requestUserNotificationSettings).\n",
       "type": [
@@ -352,7 +445,11 @@
     },
     {
       "name": "USER_NOTIFICATION_BEHAVIOR_DEFAULT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Default action behavior with no additional action support.\n",
       "description": "Use with the [behavior](api:Titanium.App.iOS.UserNotificationAction#behavior) property.\n",
       "type": [
@@ -366,7 +463,11 @@
     },
     {
       "name": "USER_NOTIFICATION_BEHAVIOR_TEXTINPUT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Provides a textfield with the notification for the user to enter a text response.\n",
       "description": "The user input will be passed to the `typedText` field of the object passed to the callback\nhandling the `localnotification` event.\n\nUse with the [behavior](api:Titanium.App.iOS.UserNotificationAction#behavior) property.\n",
       "type": [
@@ -380,7 +481,11 @@
     },
     {
       "name": "USER_NOTIFICATION_CATEGORY_OPTION_ALLOW_IN_CARPLAY",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Allow CarPlay to display notifications of this type.",
       "description": "Used in the `options` attribute when creating a [Titanium.App.iOS.UserNotificationCategory](api:Titanium.App.iOS.UserNotificationCategory).\n",
       "type": [
@@ -394,7 +499,11 @@
     },
     {
       "name": "USER_NOTIFICATION_CATEGORY_OPTION_CUSTOM_DISMISS_ACTION",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Send dismiss actions to the UNUserNotificationCenter object's delegate for handling.",
       "description": "Used in the `options` attribute when creating a [Titanium.App.iOS.UserNotificationCategory](api:Titanium.App.iOS.UserNotificationCategory).\n",
       "type": [
@@ -408,7 +517,11 @@
     },
     {
       "name": "USER_NOTIFICATION_CATEGORY_OPTION_HIDDEN_PREVIEWS_SHOW_SUBTITLE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Show the notification's subtitle, even if the user has disabled notification previews for the app.",
       "description": "Used in the `options` attribute when creating a [Titanium.App.iOS.UserNotificationCategory](api:Titanium.App.iOS.UserNotificationCategory).\n",
       "type": [
@@ -422,7 +535,11 @@
     },
     {
       "name": "USER_NOTIFICATION_CATEGORY_OPTION_HIDDEN_PREVIEWS_SHOW_TITLE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Show the notification's title, even if the user has disabled notification previews for the app.",
       "description": "Used in the `options` attribute when creating a [Titanium.App.iOS.UserNotificationCategory](api:Titanium.App.iOS.UserNotificationCategory).\n",
       "type": [
@@ -436,7 +553,11 @@
     },
     {
       "name": "USER_NOTIFICATION_CATEGORY_OPTION_NONE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "No options.",
       "description": "Used in the `options` attribute when creating a [Titanium.App.iOS.UserNotificationCategory](api:Titanium.App.iOS.UserNotificationCategory).\n",
       "type": [
@@ -450,7 +571,11 @@
     },
     {
       "name": "USER_NOTIFICATION_SETTING_DISABLED",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The notification setting is turned off.",
       "description": "Used to check application-wide enabled notification settings received in\n[Titanium.App.iOS.UserNotificationCenter.requestUserNotificationSettings](api:Titanium.App.iOS.UserNotificationCenter#requestUserNotificationSettings).\n",
       "type": [
@@ -464,7 +589,11 @@
     },
     {
       "name": "USER_NOTIFICATION_SETTING_ENABLED",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The notification setting is turned on.",
       "description": "Used to check application-wide enabled notification settings received in\n[Titanium.App.iOS.UserNotificationCenter.requestUserNotificationSettings](api:Titanium.App.iOS.UserNotificationCenter#requestUserNotificationSettings).\n",
       "type": [
@@ -478,7 +607,11 @@
     },
     {
       "name": "USER_NOTIFICATION_SETTING_NOT_SUPPORTED",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The application does not support this notification type.",
       "description": "Used to check application-wide enabled notification settings received in\n[Titanium.App.iOS.UserNotificationCenter.requestUserNotificationSettings](api:Titanium.App.iOS.UserNotificationCenter#requestUserNotificationSettings).\n",
       "type": [
@@ -492,7 +625,11 @@
     },
     {
       "name": "USER_NOTIFICATION_TYPE_ALERT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The application may display an alert upon a notification being received.\nUse with the [types](api:UserNotificationSettings#types) property.\n",
       "type": [
         {
@@ -505,7 +642,11 @@
     },
     {
       "name": "USER_NOTIFICATION_TYPE_BADGE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The application may badge its icon upon a notification being received.\nUse with the [types](api:UserNotificationSettings#types) property.\n",
       "type": [
         {
@@ -518,7 +659,11 @@
     },
     {
       "name": "USER_NOTIFICATION_TYPE_CRITICAL_ALERT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The ability to play sounds for critical alerts.\nUse with the [types](api:UserNotificationSettings#types) property.\n",
       "type": [
         {
@@ -531,7 +676,11 @@
     },
     {
       "name": "USER_NOTIFICATION_TYPE_NONE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The application may not present any UI upon a notification being received.\nUse with the [types](api:UserNotificationSettings#types) property.\n",
       "type": [
         {
@@ -544,7 +693,11 @@
     },
     {
       "name": "USER_NOTIFICATION_TYPE_PROVIDES_APP_NOTIFICATION_SETTINGS",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "An option indicating the system should display a button for in-app notification settings.\nUse with the [types](api:UserNotificationSettings#types) property.\n",
       "type": [
         {
@@ -557,7 +710,11 @@
     },
     {
       "name": "USER_NOTIFICATION_TYPE_PROVISIONAL",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The ability to post non-interrupting notifications provisionally to the Notification Center.\nUse with the [types](api:UserNotificationSettings#types) property.\n",
       "type": [
         {
@@ -570,7 +727,11 @@
     },
     {
       "name": "USER_NOTIFICATION_TYPE_SOUND",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The application may play a sound upon a notification being received.\nUse with the [types](api:UserNotificationSettings#types) property.\n",
       "type": [
         {
@@ -583,7 +744,11 @@
     },
     {
       "name": "userInterfaceStyle",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The style associated with the user interface.",
       "description": "Use this property to determine whether your interface should be configured with a dark or light appearance.\nThe default value of this trait is set to the corresponding appearance setting on the user's device.\n",
       "type": [
@@ -603,11 +768,17 @@
           "min": "13.0"
         }
       },
-      "constants": ["Titanium.App.iOS.USER_INTERFACE_STYLE_*"]
+      "constants": [
+        "Titanium.App.iOS.USER_INTERFACE_STYLE_*"
+      ]
     },
     {
       "name": "UTTYPE_APPLE_ICNS",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Uniform type identifier for macOS icon images.\n",
       "type": [
         {
@@ -621,7 +792,11 @@
     },
     {
       "name": "UTTYPE_APPLE_PROTECTED_MPEG4_AUDIO",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Uniform type identifier for Apple-protected MPEG-4 audio.\n",
       "type": [
         {
@@ -634,7 +809,11 @@
     },
     {
       "name": "UTTYPE_AUDIO",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Uniform type identifier for all audio content.\n",
       "type": [
         {
@@ -648,7 +827,11 @@
     },
     {
       "name": "UTTYPE_BMP",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Uniform type identifier for Windows bitmap images.\n",
       "type": [
         {
@@ -662,7 +845,11 @@
     },
     {
       "name": "UTTYPE_FLAT_RTFD",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Uniform type identifier for Rich Text with content embedding, pasteboard format.\n",
       "type": [
         {
@@ -676,7 +863,11 @@
     },
     {
       "name": "UTTYPE_GIF",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Uniform type identifier for GIF images.\n",
       "type": [
         {
@@ -690,7 +881,11 @@
     },
     {
       "name": "UTTYPE_HTML",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Uniform type identifier for HTML.\n",
       "type": [
         {
@@ -704,7 +899,11 @@
     },
     {
       "name": "UTTYPE_ICO",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Uniform type identifier for Windows icon images.\n",
       "type": [
         {
@@ -718,7 +917,11 @@
     },
     {
       "name": "UTTYPE_IMAGE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Uniform type identifier for all image types.\n",
       "type": [
         {
@@ -732,7 +935,11 @@
     },
     {
       "name": "UTTYPE_JPEG",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Uniform type identifier for JPEG images.\n",
       "type": [
         {
@@ -746,7 +953,11 @@
     },
     {
       "name": "UTTYPE_JPEG2000",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Uniform type identifier for JPEG 2000 images.\n",
       "type": [
         {
@@ -760,7 +971,11 @@
     },
     {
       "name": "UTTYPE_MOVIE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Uniform type identifier for all audiovisual content.\n",
       "type": [
         {
@@ -774,7 +989,11 @@
     },
     {
       "name": "UTTYPE_MP3",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Uniform type identifier for MP3 audio.\n",
       "type": [
         {
@@ -788,7 +1007,11 @@
     },
     {
       "name": "UTTYPE_MPEG",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Uniform type identifier for MPEG-1 and MPEG-2 content.\n",
       "type": [
         {
@@ -802,7 +1025,11 @@
     },
     {
       "name": "UTTYPE_MPEG4",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Uniform type identifier for MPEG-4 content.\n",
       "type": [
         {
@@ -816,7 +1043,11 @@
     },
     {
       "name": "UTTYPE_MPEG4_AUDIO",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Uniform type identifier for MPEG-4 audio.\n",
       "type": [
         {
@@ -830,7 +1061,11 @@
     },
     {
       "name": "UTTYPE_PDF",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Uniform type identifier for PDF data.\n",
       "type": [
         {
@@ -844,7 +1079,11 @@
     },
     {
       "name": "UTTYPE_PICT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Uniform type identifier for PICT images.\n",
       "type": [
         {
@@ -858,7 +1097,11 @@
     },
     {
       "name": "UTTYPE_PLAIN_TEXT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Uniform type identifier for a plain text type, equivalent to MIME type text/plain.\n",
       "type": [
         {
@@ -872,7 +1115,11 @@
     },
     {
       "name": "UTTYPE_PNG",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Uniform type identifier for PNG images.\n",
       "type": [
         {
@@ -886,7 +1133,11 @@
     },
     {
       "name": "UTTYPE_QUICKTIME_IMAGE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Uniform type identifier for QuickTime images.\n",
       "type": [
         {
@@ -900,7 +1151,11 @@
     },
     {
       "name": "UTTYPE_QUICKTIME_MOVIE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Uniform type identifier for QuickTime movies.\n",
       "type": [
         {
@@ -914,7 +1169,11 @@
     },
     {
       "name": "UTTYPE_RTF",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Uniform type identifier for Rich Text.\n",
       "type": [
         {
@@ -928,7 +1187,11 @@
     },
     {
       "name": "UTTYPE_RTFD",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Uniform type identifier for Rich Text Format Directory, that is, Rich Text with content embedding, on-disk format.\n",
       "type": [
         {
@@ -942,7 +1205,11 @@
     },
     {
       "name": "UTTYPE_TEXT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Uniform type identifier for all text types.\n",
       "type": [
         {
@@ -956,7 +1223,11 @@
     },
     {
       "name": "UTTYPE_TIFF",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Uniform type identifier for TIFF images.\n",
       "type": [
         {
@@ -970,7 +1241,11 @@
     },
     {
       "name": "UTTYPE_TXN_TEXT_AND_MULTIMEDIA_DATA",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Uniform type identifier for MLTE (Textension) format for mixed text and multimedia data.\n",
       "type": [
         {
@@ -983,7 +1258,11 @@
     },
     {
       "name": "UTTYPE_UTF16_EXTERNAL_PLAIN_TEXT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Uniform type identifier for Unicode-16 with byte-order mark (BOM), or if BOM is not present,\nan external representation byte order (big-endian).\n",
       "type": [
         {
@@ -996,7 +1275,11 @@
     },
     {
       "name": "UTTYPE_UTF16_PLAIN_TEXT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Uniform type identifier for Unicode-16, native byte order, with an optional byte-order mark (BOM).\n",
       "type": [
         {
@@ -1009,7 +1292,11 @@
     },
     {
       "name": "UTTYPE_UTF8_PLAIN_TEXT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Uniform type identifier for Unicode-8 plain text type.\n",
       "type": [
         {
@@ -1023,7 +1310,11 @@
     },
     {
       "name": "UTTYPE_VIDEO",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Uniform type identifier for all video content without audio.\n",
       "type": [
         {
@@ -1037,7 +1328,11 @@
     },
     {
       "name": "UTTYPE_WEB_ARCHIVE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Uniform type identifier for WebKit webarchive format.\n",
       "type": [
         {
@@ -1051,7 +1346,11 @@
     },
     {
       "name": "UTTYPE_XML",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Uniform type identifier for XML.\n",
       "type": [
         {
@@ -1067,7 +1366,11 @@
   "methods": [
     {
       "name": "cancelAllLocalNotifications",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Cancels all scheduled local notifications.",
       "deprecated": {
         "since": "7.3.0",
@@ -1076,7 +1379,11 @@
     },
     {
       "name": "cancelLocalNotification",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Cancels a local notification.",
       "deprecated": {
         "since": "7.3.0",
@@ -1101,7 +1408,11 @@
     },
     {
       "name": "createSearchableIndex",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.App.iOS.SearchableIndex](api:Titanium.App.iOS.SearchableIndex).",
       "since": "5.0.0",
       "factoryFor": "Titanium.App.iOS.SearchableIndex",
@@ -1137,7 +1448,11 @@
     },
     {
       "name": "createSearchableItem",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.App.iOS.SearchableItem](api:Titanium.App.iOS.SearchableItem).",
       "since": "5.0.0",
       "factoryFor": "Titanium.App.iOS.SearchableItem",
@@ -1173,7 +1488,11 @@
     },
     {
       "name": "createSearchableItemAttributeSet",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.App.iOS.SearchableItemAttributeSet](api:Titanium.App.iOS.SearchableItemAttributeSet).",
       "since": "5.0.0",
       "factoryFor": "Titanium.App.iOS.SearchableItemAttributeSet",
@@ -1209,7 +1528,11 @@
     },
     {
       "name": "createSearchQuery",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.App.iOS.SearchQuery](api:Titanium.App.iOS.SearchQuery).",
       "since": "5.5.0",
       "factoryFor": "Titanium.App.iOS.SearchQuery",
@@ -1245,7 +1568,11 @@
     },
     {
       "name": "createUserActivity",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.App.iOS.UserActivity](api:Titanium.App.iOS.UserActivity).",
       "since": "5.0.0",
       "factoryFor": "Titanium.App.iOS.UserActivity",
@@ -1281,7 +1608,11 @@
     },
     {
       "name": "createUserDefaults",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of Titanium.App.iOS.UserDefaults.\n",
       "since": "4.0.0",
       "parameters": [
@@ -1315,7 +1646,11 @@
     },
     {
       "name": "createUserNotificationAction",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.App.iOS.UserNotificationAction](api:Titanium.App.iOS.UserNotificationAction).",
       "since": "3.4.0",
       "factoryFor": "Titanium.App.iOS.UserNotificationAction",
@@ -1351,7 +1686,11 @@
     },
     {
       "name": "createUserNotificationCategory",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.App.iOS.UserNotificationCategory](api:Titanium.App.iOS.UserNotificationCategory).",
       "since": "3.4.0",
       "factoryFor": "Titanium.App.iOS.UserNotificationCategory",
@@ -1387,7 +1726,11 @@
     },
     {
       "name": "endBackgroundHandler",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Marks the end of the app execution after initiating the download operation. Available only on iOS 7 and later.",
       "description": "When calling this method, pass in the `handlerID` value that initiated the background state.\nYou must call this handler after initiating the download operation and should do so as soon as possible.\n",
       "since": "3.2.0",
@@ -1406,7 +1749,11 @@
     },
     {
       "name": "registerBackgroundService",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Registers a service to run when the application is placed in the background.",
       "parameters": [
         {
@@ -1433,7 +1780,11 @@
     },
     {
       "name": "registerUserNotificationSettings",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Registers the application to use the requested notification types and categories.\n",
       "description": "Call this method at application start up. If the application needs to register for remote\nnotifications, call this method before calling\n[Titanium.Network.registerForPushNotifications](api:Titanium.Network#registerForPushNotifications).\n",
       "since": "3.4.0",
@@ -1453,7 +1804,11 @@
             "properties": [
               {
                 "name": "categories",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Set of categories of user notification actions required by the application to use.",
                 "type": [
                   {
@@ -1470,7 +1825,11 @@
               },
               {
                 "name": "types",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Notification types to use.",
                 "type": [
                   {
@@ -1484,7 +1843,9 @@
                     ]
                   }
                 ],
-                "constants": ["Titanium.App.iOS.USER_NOTIFICATION_TYPE_*"]
+                "constants": [
+                  "Titanium.App.iOS.USER_NOTIFICATION_TYPE_*"
+                ]
               }
             ]
           }
@@ -1493,7 +1854,11 @@
     },
     {
       "name": "scheduleLocalNotification",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Schedule a local notification.",
       "parameters": [
         {
@@ -1511,7 +1876,11 @@
             "properties": [
               {
                 "name": "alertAction",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Alert button text ('Open', by default) or home text ('Press Home to unlock', by default)\nto display.\n",
                 "type": [
                   {
@@ -1523,7 +1892,11 @@
               },
               {
                 "name": "alertBody",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Alert message to display.",
                 "type": [
                   {
@@ -1535,7 +1908,11 @@
               },
               {
                 "name": "alertLaunchImage",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Image to display instead of `Default.png` when launching the application.",
                 "type": [
                   {
@@ -1547,7 +1924,11 @@
               },
               {
                 "name": "alertSubtitle",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Alert subtitle to display.",
                 "type": [
                   {
@@ -1560,7 +1941,11 @@
               },
               {
                 "name": "alertTitle",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Alert title to display.",
                 "type": [
                   {
@@ -1578,7 +1963,11 @@
               },
               {
                 "name": "attachments",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Notification attachments to display.",
                 "type": [
                   {
@@ -1600,7 +1989,11 @@
                   "properties": [
                     {
                       "name": "identifier",
-                      "platforms": ["iphone", "ipad", "macos"],
+                      "platforms": [
+                        "iphone",
+                        "ipad",
+                        "macos"
+                      ],
                       "summary": "The identifier of this attachment.",
                       "type": [
                         {
@@ -1611,7 +2004,11 @@
                     },
                     {
                       "name": "options",
-                      "platforms": ["iphone", "ipad", "macos"],
+                      "platforms": [
+                        "iphone",
+                        "ipad",
+                        "macos"
+                      ],
                       "summary": "An additional dictionary of options to provide.",
                       "description": "Allowed options are:\n  * `typeHint` - File type hint (String)\n  * `clipping` - Clipping enabled or not (Boolean)\n  * `thumbnailHidden` - Thumbnail hidden or not (Boolean)\n  * `thumbnailTime` - Video frame in milliseconds (Number)\n",
                       "type": [
@@ -1624,7 +2021,11 @@
                     },
                     {
                       "name": "url",
-                      "platforms": ["iphone", "ipad", "macos"],
+                      "platforms": [
+                        "iphone",
+                        "ipad",
+                        "macos"
+                      ],
                       "summary": "The URL to the attachment's data. If you have obtained this attachment from\nthe notification-center then the URL will be security-scoped.\n",
                       "type": [
                         {
@@ -1638,7 +2039,11 @@
               },
               {
                 "name": "badge",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Application badge value.",
                 "type": [
                   {
@@ -1650,7 +2055,11 @@
               },
               {
                 "name": "category",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "String identifier of category of actions to be displayed for an interactive notification.\n",
                 "type": [
                   {
@@ -1662,7 +2071,11 @@
               },
               {
                 "name": "date",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Date and time for the notification to occur.",
                 "type": [
                   {
@@ -1673,7 +2086,11 @@
               },
               {
                 "name": "identifier",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "The notification identifier.",
                 "description": "This property is required in iOS 10+ and will fallback to a generated\nUUID-string if not set. It is recommended to manage the identifier\nyourself, but you can also get the generated UUID by accessing via\nthe \"userInfo.id\" field for parity with older iOS versions.\n",
                 "type": [
@@ -1686,7 +2103,11 @@
               },
               {
                 "name": "region",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Region the notification will be triggered in. Allowed parameter are:\n\n- `latitude`: Latitude of the location center, in decimal degrees (required).\n- `longitude`: Longitude of the location center, in decimal degrees (required).\n- `triggersOnce`: Whether or not the notification will only fire once (optional, default: true).\n",
                 "type": [
                   {
@@ -1699,7 +2120,11 @@
               },
               {
                 "name": "repeat",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Interval to repeat the notification. One of `weekly`, `daily`, `yearly,` `monthly`.",
                 "type": [
                   {
@@ -1711,7 +2136,11 @@
               },
               {
                 "name": "sound",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Path to the sound file to play when notification occurs, relative to the `Resources` folder.\n",
                 "type": [
                   {
@@ -1723,7 +2152,11 @@
               },
               {
                 "name": "summaryArgument",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "The string the notification adds to the category's summary format string.",
                 "type": [
                   {
@@ -1735,7 +2168,11 @@
               },
               {
                 "name": "summaryArgumentCount",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "The number of items the notification adds to the category's summary format string.",
                 "type": [
                   {
@@ -1747,7 +2184,11 @@
               },
               {
                 "name": "timezone",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Timezone of the date configured for the notification. If not set, the system timezone is used.\n",
                 "type": [
                   {
@@ -1759,7 +2200,11 @@
               },
               {
                 "name": "userInfo",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Data to pass to the application with the notification event.",
                 "type": [
                   {
@@ -1786,7 +2231,11 @@
     },
     {
       "name": "sendWatchExtensionReply",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Marks the end of an `openParentApplication:reply` execution by a WatchKit extension.",
       "description": "This method must be called after your Titanium application has finished processing the `watchkitextensionrequest` event. Optional\ninformation can be provided in the userInfo argument will be provided back to the WatchKit extension as part of the reply method.\nIf no userInfo is provide nil will be sent to the WatchKit extension to during the reply callback.\n\nThis method should be used as part of the `watchkitextensionrequest` event as shown below.\n\n``` js\nTi.App.iOS.addEventListener(\"watchkitextensionrequest\", function(e) {\n    var replyContent = {foo: \"bar\"};\n    Ti.App.iOS.sendWatchExtensionReply(e.handlerId,replyContent);\n});\n```\n",
       "since": "4.1.0",
@@ -1824,7 +2273,11 @@
     },
     {
       "name": "setMinimumBackgroundFetchInterval",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies the minimum amount of time that must elapse between background fetch operations.\nAvailable only on iOS 7 and later.\n",
       "description": "This property has no effect for apps that do not have the UIBackgroundModes key with\nthe fetch value in its Info.plist file. The default fetch interval for apps is\n[Titanium.App.iOS.BACKGROUNDFETCHINTERVAL_NEVER](api:Titanium.App.iOS#BACKGROUNDFETCHINTERVAL_NEVER). Therefore, you must call this\nmethod and set a fetch interval before your app is given background execution time.\n",
       "since": "3.2.0",
@@ -1845,7 +2298,11 @@
   "events": [
     {
       "name": "backgroundfetch",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when the application is woken up for a fetch operation. Available only on iOS 7 and later.",
       "description": "Add this event if your app supports the `fetch` UIBackground mode. When an opportunity arises to\ndownload data, the system fires this event to give your app a chance to download any data it needs.\nYour callback of this event should download the data, prepare that data for use, and call the\n[endBackgroundHandler](api:Titanium.App.iOS#endBackgroundHandler) method with the `handlerID` parameter from this event.\n\nWhen this event is fired, your app has up to 30 seconds of wall-clock time to perform the download\noperation and call the `endBackgroundHandler` method. In practice,\nyour app should call the `endBackgroundHandler` method as soon as possible\nafter initiating the download. If you do not call the `endBackgroundHandler` method in time, your app is suspended.\nMore importantly, the system uses the elapsed time to calculate power usage and data costs for your\napp's background downloads. If your app takes a long time to call `endBackgroundHandler` method, it may be given fewer\nfuture opportunities to fetch data in the future.\n\nIf you are downloading large content, initiate the download using a\n[urlSession](Modules.URLSession) background download task, then call the `endBackgroundHandler` method.\nListen for the [downloadcompleted](api:Titanium.App.iOS#downloadcompleted) event to prepare the data for use.\n\nThe event returns the dictionary containing the `handlerID` property, which is a unique handler ID for the\ncurrent event. This identifier should be passed as the argument to the\n[endBackgroundHandler](api:Titanium.App.iOS#endBackgroundHandler) method.\n",
       "since": {
@@ -1868,7 +2325,11 @@
     },
     {
       "name": "backgroundtransfer",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when the events related to a [urlSession](Modules.URLSession) are waiting to be processed.\nAvailable only on iOS 7 and later.\n",
       "description": "The app fires this events when all background transfers associated with a `urlSession` object\nhave finished or failed. Use this method to reconnect any `urlSession`s and to update your\napp's user interface. For example, you might use this method to update progress indicators\nor to incorporate new content into your views. After processing the events, call the\n[endBackgroundHandler](api:Titanium.App.iOS#endBackgroundHandler) method with the `handlerID`\nparameter. If a `urlSession` finishes its work when your app is not running, the system\nlaunches your app in the background so that it can process the event. In that situation,\nuse the provided identifier to create a new `urlSessionConfiguration` and `urlSession` objects.\nUpon creating urlSession object, that object calls the appropriate delegate methods to\nprocess the events.\n\nIf your app already has a session object with the specified identifier and is running or suspended,\nyou do not need to create a new session object using this method. Suspended apps are moved into the\nbackground. As soon as the app is running again, the `urlSession` object with the identifier receives\nthe events and processes them normally.\n\nAt launch time, the app does not call this method if there are uploads or downloads in progress.\nIf you want to display the current progress of those transfers in your app's user\ninterface, you must recreate the session object yourself. In that situation, cache the session\nidentifier value persistently and use it to recreate your session object.\n",
       "since": "3.2.0",
@@ -1897,7 +2358,11 @@
     },
     {
       "name": "continueactivity",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when iOS continueactivity calls `continueUserActivity`.",
       "description": "Add this event if your Titanium application if you are responding to an iOS Handoff or Core Spotlight `continueUserActivity` request. This event will\nfire when a user taps on the handoff icon or the Core Spotlight search item. Your Titanium application will be opened in the background and provides\nyour Titanium app the information from the NSUserActivity. When this event is fired you should implement logic within your application to allow the\nuser to pick-up from where they left off on their other device.\n\n``` js\nTi.App.iOS.addEventListener(\"continueactivity\", function(e) {\n    console.log('activityType: '' + e.activityType);\n});\n```\n",
       "since": "5.0.0",
@@ -1961,7 +2426,11 @@
     },
     {
       "name": "downloadcompleted",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired to indicate that a [urlSession's](Modules.URLSession) download task has finished downloading.\nAvailable only on iOS 7 and later.\n",
       "description": "This event only needs to be used if your app is using the `urlSession` module to download data.\n",
       "since": "3.2.0",
@@ -2000,7 +2469,11 @@
     },
     {
       "name": "downloadprogress",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired periodically to inform the app about the download's progress of a [urlSession](Modules.URLSession).\nAvailable only on iOS 7 and later.\n",
       "description": "This event only needs to be used if your app is using the `urlSession` module to download data.\n",
       "since": "3.2.0",
@@ -2059,7 +2532,11 @@
     },
     {
       "name": "handleurl",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when a new URL is handled by the application.",
       "description": "Incoming URL's can either be triggered by an external application or\nlinks inside your [Titanium.UI.WebView](api:Titanium.UI.WebView) / <Modules.SafariDialog>.\n",
       "since": "6.0.0",
@@ -2079,7 +2556,11 @@
             "properties": [
               {
                 "name": "source",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "The application or service that triggered the handled URL.",
                 "type": [
                   {
@@ -2090,7 +2571,11 @@
               },
               {
                 "name": "url",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "The URL that was triggered by the application or service.",
                 "type": [
                   {
@@ -2106,7 +2591,11 @@
     },
     {
       "name": "localnotificationaction",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when a user selects an action for an interactive local notification.",
       "properties": [
         {
@@ -2243,7 +2732,11 @@
     },
     {
       "name": "notification",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when a local notification is received by the application.",
       "properties": [
         {
@@ -2360,7 +2853,11 @@
     },
     {
       "name": "remotenotificationaction",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when a user selects an action for an interactive remote notification.",
       "properties": [
         {
@@ -2397,7 +2894,11 @@
     },
     {
       "name": "screenshotcaptured",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired after the user takes a screenshot, e.g. by pressing both the home and lock screen buttons.",
       "since": "9.1.0",
       "deprecated": {
@@ -2407,7 +2908,11 @@
     },
     {
       "name": "sessioncompleted",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired to indicate that a [urlSession](Modules.URLSession) task finished transferring data.\nAvailable only on iOS 7 and later.\n",
       "description": "This event only needs to be used if your app is using the `urlSession` module to download or upload data.\n\nServer errors are not reported through the error parameter. The only error events sent\nthrough the error parameter are client-side errors, such as being unable to resolve\nthe hostname or connect to the host.\n",
       "since": "3.2.0",
@@ -2486,7 +2991,11 @@
     },
     {
       "name": "sessioneventscompleted",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired to indicate that all messages enqueued for a [urlSession](Modules.URLSession) have been delivered.\nAvailable only on iOS 7 and later.\n",
       "description": "This event only needs to be used if your app is using the `urlSession` module to download data.\n\nIn iOS, when a background transfer completes and if your app is no longer running, your app\nis automatically relaunched in the background, and the app fires the [backgroundtransfer](api:Titanium.App.iOS#backgroundtransfer) event.\nThis event should contain the identifier of the session that caused your app to be launched.\nYour app should then store that `handlerID` before creating a background session configuration object\nwith the same identifier, and creating a URL session object with that configuration.\nThe newly created session is automatically reassociated with ongoing background activity.\n\nWhen your app later receives a `sessioneventscompleted` event, this indicates that\nall messages previously enqueued for this session have been delivered, and that it\nis now safe to invoke [endBackgroundHandler](api:Titanium.App.iOS#endBackgroundHandler)\nmethod with the `handlerID` or to begin any internal updates that may result in invoking\nthis method.\n",
       "since": "3.2.0",
@@ -2505,7 +3014,9 @@
     },
     {
       "name": "shortcutitemclick",
-      "platforms": ["iphone"],
+      "platforms": [
+        "iphone"
+      ],
       "summary": "Fired when a user taps the Application Shortcut.",
       "since": "5.1.0",
       "properties": [
@@ -2553,7 +3064,11 @@
     },
     {
       "name": "silentpush",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when the application is woken up by a silent remote notification. Available only on iOS 7 and later.",
       "description": "Add this event if your app supports the `remote-notification` UIBackground mode.\nThis event is intended as a means for apps to minimize the time that elapses between\nthe user seeing a push notification and the app displaying the associated data.\nWhen a push notification arrives, the system displays the notification to the user and\nlaunches the app in the background (if needed) so that it can call this event.\nUse this event to download any data related to the push notification. When your method\nis done, call the [endBackgroundHandler](api:Titanium.App.iOS#endBackgroundHandler) method with\n`handlerID` parameter from this event.\n\nThe system fires this event regardless of the state of your app. If your app is suspended\nor not running, the system wakes up or launches your app and puts it into the background\nrunning state before firing the event.\n\nWhen this event is fired, your app has up to 30 seconds of wall-clock time to perform the download\noperation and call the `endBackgroundHandler` method. In practice,\nyour app should call the `endBackgroundHandler` method as soon as possible\nafter initiating the download. If you do not call the `endBackgroundHandler` method in time, your app is suspended.\nMore importantly, the system uses the elapsed time to calculate power usage and data costs for your\napp's background downloads. If your app takes a long time to call `endBackgroundHandler` method, it may be given fewer\nfuture opportunities to fetch data in the future.\n\nIf you are downloading large content, initiate the download using a\n[urlSession](Modules.URLSession) background download task, then call the `endBackgroundHandler` method.\nListen for the [downloadcompleted](api:Titanium.App.iOS#downloadcompleted) event to prepare the data for use.\n\nThe event returns the dictionary containing the `handlerID` property, which is a unique handler ID for the\ncurrent event. This identifier should be passed as the argument to the\n[endBackgroundHandler](api:Titanium.App.iOS#endBackgroundHandler) method.\n\nYou can send extra information with a silent push using extra:\n\n``` js\n{\n  aps: {\n    'content-available': 1\n  },\n  extra: {\n    foo: 'bar'\n  }\n}\n```\n\nIn the event handler for <code>silentpush</code>, your code may look something like this:\n``` json\n{\n  \"handlerId\": \"SilentPush-1415976886.375816\",\n  \"aps\": {\n    \"content-available\": 1,\n  },\n  \"extra\": {\n    \"foo\": \"bar\"\n  },\n  \"bubbles\": true,\n  \"type\": \"silentpush\",\n  \"source\": {},\n  \"cancelBubble\": false\n}\n```\n",
       "since": "3.2.0",
@@ -2572,13 +3087,21 @@
     },
     {
       "name": "traitcollectionchange",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when the trait collection of the device changes, e.g. the user interface style.",
       "since": "8.2.0"
     },
     {
       "name": "uploadprogress",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired periodically to inform the app about the upload's progress of a [urlSession](Modules.URLSession).\nAvailable only on iOS 7 and later.\n",
       "description": "This event only needs to be used if your app is using the `urlSession` module to upload data.\n",
       "since": "3.2.0",
@@ -2637,7 +3160,11 @@
     },
     {
       "name": "usernotificationsettings",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when the user notification settings are registered.\n",
       "since": "3.4.0",
       "properties": [
@@ -2677,7 +3204,11 @@
     },
     {
       "name": "watchkitextensionrequest",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when openParentApplication:reply is called from a WatchKit extension. Available only on iOS 8.2 and later.",
       "description": "Add this event if your Titanium application if you are using a WatchKit extension. When your WatchKit extension uses the openParentApplication:reply\nmethod your Titanium application will be opened in the background and provides your Titanium app the information from the extension. When this\nevent is fired you must provide a reply by calling the [sendWatchExtensionReply](api:Titanium.App.iOS#sendWatchExtensionReply) method with\nthe `handlerID` parameter from this event.\n\nThe event returns the dictionary containing the `handlerID` property, which is a unique handler ID for the\ncurrent event and the `userInfo` property, containing the dictionary passed from the WatchKit extension. The `handlerID` identifier\nmust be passed as the an argument to the [sendWatchExtensionReply](api:Titanium.App.iOS#sendWatchExtensionReply) method.\n\n``` js\nTi.App.iOS.addEventListener(\"watchkitextensionrequest\",function(e){\n    var replyContent = {foo:\"bar\"};\n    Ti.App.iOS.sendWatchExtensionReply(e.handlerId,replyContent);\n});\n```\n",
       "since": "4.1.0",
@@ -2719,34 +3250,58 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "events": []

@@ -3,8 +3,16 @@
   "name": "Titanium.UI.Clipboard",
   "kind": "module",
   "extends": "Titanium.Module",
-  "inheritanceChain": ["Titanium.Module", "Titanium.Proxy"],
-  "platforms": ["android", "iphone", "ipad", "macos"],
+  "inheritanceChain": [
+    "Titanium.Module",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": {
     "android": "1.8.0",
     "iphone": "1.5.0",
@@ -34,7 +42,11 @@
   "properties": [
     {
       "name": "allowCreation",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Create a clipboard identified by name if it doesn't exist.",
       "description": "If \"create\" is false, it will return the existing named clipboard but will\nnot create new one.\nIf \"create\" is true, it will return the existing clipboard (if exists). Otherwise\nit will create new clipboard with given name.\n",
       "type": [
@@ -48,7 +60,11 @@
     },
     {
       "name": "name",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Create a new named clipboard.",
       "description": "Create a new clipboard with a given name. See the example on how to use this.",
       "type": [
@@ -62,7 +78,11 @@
     },
     {
       "name": "unique",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Create a new clipboard identified by a unique system-generated name.",
       "description": "Create a new clipboard identified by a unique system-generated name.\nSee the example on how to use this.\n",
       "type": [
@@ -78,7 +98,12 @@
   "methods": [
     {
       "name": "clearData",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Deletes data of the specified MIME type stored in the clipboard. If MIME type omitted, all\ndata is deleted.\n",
       "description": "On Android, identical to the `clearText()` method.",
       "parameters": [
@@ -97,13 +122,23 @@
     },
     {
       "name": "clearText",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Deletes all text data stored in the clipboard.",
       "description": "This method deletes any data saved using the `setText` method, or that has a `text` or\n`text/plain` MIME type.\n"
     },
     {
       "name": "getData",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Gets data of the specified MIME type stored in the clipboard. Returns null if non-text mimetype on Android.",
       "parameters": [
         {
@@ -134,7 +169,11 @@
     },
     {
       "name": "getItems",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Gets the items that have been specified earlier using [Titanium.UI.Clipboard.setItems](api:Titanium.UI.Clipboard#setItems).",
       "description": "The returned Array contains simple Objects whose keys are the reported\n[Universal Type Identifiers](https://developer.apple.com/library/archive/documentation/Miscellaneous/Reference/UTIRef/Articles/System-DeclaredUniformTypeIdentifiers.html)\nreported by iOS; and values are the underlying object/data.\n",
       "since": {
@@ -161,7 +200,12 @@
     },
     {
       "name": "getText",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Gets text data stored in the clipboard.",
       "returns": [
         {
@@ -176,7 +220,11 @@
     },
     {
       "name": "hasColors",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Indicates whether any colors are stored in the clipboard.",
       "since": {
         "iphone": "6.0.0",
@@ -196,7 +244,12 @@
     },
     {
       "name": "hasData",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Indicates whether any data of the specified MIME type is stored in the clipboard.",
       "parameters": [
         {
@@ -224,7 +277,11 @@
     },
     {
       "name": "hasImages",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Indicates whether any images are stored in the clipboard.",
       "since": {
         "iphone": "6.0.0",
@@ -244,7 +301,12 @@
     },
     {
       "name": "hasText",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Indicates whether any text data is stored in the clipboard.",
       "returns": [
         {
@@ -259,7 +321,11 @@
     },
     {
       "name": "hasURLs",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Indicates whether any URLs are stored in the clipboard.",
       "since": {
         "iphone": "6.0.0",
@@ -279,13 +345,22 @@
     },
     {
       "name": "remove",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Removes the clipboard.",
       "since": "6.1.0"
     },
     {
       "name": "setData",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Stores data of the specified MIME type in the clipboard.",
       "description": "This method will overwrite any existing data for the specified MIME type.\n\nNote that the clipboard is intended to store only one item of data at a time. This method\nenables different representations/formats of a data item to be saved.\n",
       "parameters": [
@@ -329,7 +404,11 @@
     },
     {
       "name": "setItems",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Adds an array of items to a clipboard, and sets privacy options for all included items.",
       "description": "You can pass multiple options to the options object. Note that this API is mime-type based.\nThe key must be a valid mime-type and the value must be the value that matches the given\nmime-type. If no valid mime-type is provided a a key, receiving items with\n[Titanium.UI.Clipboard.getItems](api:Titanium.UI.Clipboard#getItems) will crash the app. See the below example for more information\non the usage.\n",
       "since": {
@@ -353,7 +432,12 @@
             "properties": [
               {
                 "name": "items",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "An array of key-value items to add to the clipboard. The key must a valid mime-type\nmatching the mime-type of the value.\nAlterntaively, iOS supports using [Universal Type Identifiers](https://developer.apple.com/library/archive/documentation/Miscellaneous/Reference/UTIRef/Articles/System-DeclaredUniformTypeIdentifiers.html)\n",
                 "type": [
                   {
@@ -370,7 +454,12 @@
               },
               {
                 "name": "options",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "The privacy options to apply to all the items on the clipboard. The available options are\ndescribed in `Ti.UI.CLIPBOARD_OPTION_*`. Depending on the key, the value can be a Date or\nBoolean.\n",
                 "type": [
                   {
@@ -386,7 +475,12 @@
     },
     {
       "name": "setText",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Stores text data in the clipboard.",
       "description": "This method will overwrite any existing text data.",
       "parameters": [
@@ -409,39 +503,71 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "lifecycleContainer",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "events": []

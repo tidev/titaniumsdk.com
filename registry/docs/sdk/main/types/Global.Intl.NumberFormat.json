@@ -2,7 +2,12 @@
   "schemaVersion": 1,
   "name": "Global.Intl.NumberFormat",
   "kind": "module",
-  "platforms": ["android", "iphone", "ipad", "macos"],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": {
     "iphone": "6.0.0",
     "ipad": "6.0.0",
@@ -36,7 +41,12 @@
   "properties": [
     {
       "name": "constructor",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates a new `Intl.NumberFormat` object with the given locale and formatting options.",
       "description": "#### Syntax\n\n``` js\nnew Intl.NumberFormat([locales[, options]])\n```\n\n#### Parameters\n\n*    `locales`: [String](api:Global.String)/[String](api:Global.String)`[]` (optional)\n\n     The [BCP 47](https://www.unicode.org/reports/tr35/tr35.html#BCP_47_Conformance) language and country\n     code(s) to use for localized formatting. Can provide multiple locales where the best-supported\n     locale will be favored in the order provided by the array. If parameter is not assigned, then\n     the system may use the `'en-US'` locale by default instead of the system's current locale.\n     It's recommended to set this parameter using [Titanium.Locale.currentLocale](api:Titanium.Locale#currentLocale).\n\n*    `options`: [NumberFormatOptions](api:NumberFormatOptions) (optional)\n\n     Provides settings indicating how a number should be formatted to a string.\n",
       "type": [
@@ -51,7 +61,12 @@
   "methods": [
     {
       "name": "format",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Formats the given number to a localized numeric string.",
       "parameters": [
         {
@@ -79,7 +94,12 @@
     },
     {
       "name": "formatToParts",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Formats given number to an array of components describing what the formatted string would produce.",
       "description": "Returns an array of objects providing the \"type\" and \"value\" of each component the formatted\nstring would produce. Can be used to fetch localized separator characters, currency characters,\ncurrency symbol positions, etc.\n\nFor more detail, see the MDN website about\n[formatToParts](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/formatToParts).\n",
       "osver": {
@@ -119,7 +139,12 @@
     },
     {
       "name": "resolvedOptions",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Gets the object's formatting options.",
       "description": "Returns the formatting options the format object uses.\n\nFor more detail, see the MDN website about\n[resolvedOptions](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/resolvedOptions).\n",
       "returns": [
@@ -136,7 +161,12 @@
     },
     {
       "name": "supportedLocalesOf",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Static method indicating what locales are supported by `NumberFormat` from the given locale(s).",
       "description": "For more detail, see the MDN website about\n[supportedLocalesOf](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/supportedLocalesOf).\n",
       "parameters": [
@@ -186,6 +216,11 @@
     "methods": [],
     "events": []
   },
-  "references": ["Global.String", "NumberFormatOptions", "NumberFormattedPart", "Titanium.Locale"],
+  "references": [
+    "Global.String",
+    "NumberFormatOptions",
+    "NumberFormattedPart",
+    "Titanium.Locale"
+  ],
   "source": "Global/Intl/NumberFormat.yml"
 }

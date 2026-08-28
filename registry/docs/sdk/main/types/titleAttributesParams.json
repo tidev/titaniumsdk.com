@@ -2,7 +2,12 @@
   "schemaVersion": 1,
   "name": "titleAttributesParams",
   "kind": "pseudo",
-  "platforms": ["android", "iphone", "ipad", "macos"],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": {
     "android": "12.3.0",
     "iphone": "3.2.0",
@@ -19,7 +24,12 @@
   "properties": [
     {
       "name": "color",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Color of the window title, as a color name or hex triplet.",
       "description": "For information about color values, see the \"Colors\" section of [Titanium.UI](api:Titanium.UI).\n",
       "type": [
@@ -41,7 +51,11 @@
     },
     {
       "name": "font",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Font to use for the window title.",
       "type": [
         {
@@ -52,7 +66,11 @@
     },
     {
       "name": "shadow",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Shadow color and offset for the window title.",
       "type": [
         {
@@ -69,6 +87,12 @@
     "methods": [],
     "events": []
   },
-  "references": ["Font", "Titanium.UI", "Titanium.UI.Color", "Titanium.UI.Window", "shadowDict"],
+  "references": [
+    "Font",
+    "Titanium.UI",
+    "Titanium.UI.Color",
+    "Titanium.UI.Window",
+    "shadowDict"
+  ],
   "source": "Titanium/UI/Window.yml"
 }

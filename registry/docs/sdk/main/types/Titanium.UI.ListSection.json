@@ -3,8 +3,15 @@
   "name": "Titanium.UI.ListSection",
   "kind": "proxy",
   "extends": "Titanium.Proxy",
-  "inheritanceChain": ["Titanium.Proxy"],
-  "platforms": ["android", "iphone", "ipad", "macos"],
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": "3.1.0",
   "summary": "A list section is a container within a list view used to organize list items.",
   "description": "Use the [Titanium.UI.createListSection](api:Titanium.UI#createListSection) method or **`<ListSection>`** Alloy element to create a `ListSection`.\n\nList sections are used to manipulate and organize list items contained within it. For examples \nof using list sections, see the examples in [Titanium.UI.ListView](api:Titanium.UI.ListView) and [Titanium.UI.ListItem](api:Titanium.UI.ListItem).\n",
@@ -17,7 +24,9 @@
   "properties": [
     {
       "name": "filteredItemCount",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Returns the item count of the section, also incorporating the search filter if active.",
       "type": [
         {
@@ -30,7 +39,12 @@
     },
     {
       "name": "footerTitle",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Title of this section footer.",
       "description": "Using this property and `footerView` together is not supported. Use one or the other.\n",
       "type": [
@@ -42,7 +56,12 @@
     },
     {
       "name": "footerView",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "View to use for this section footer.",
       "description": "Using this property and `footerTitle` together is not supported. Use one or the other. \nIn Alloy you can specify this property with a `<FooterView>` child element of a `<ListSection>`\nelement (see Examples).\n",
       "type": [
@@ -55,7 +74,12 @@
     },
     {
       "name": "headerTitle",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Title of this section header.",
       "description": "Using this property and `headerView` together is not supported. Use one or the other.\n",
       "type": [
@@ -67,7 +91,12 @@
     },
     {
       "name": "headerView",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "View to use for this section header.",
       "description": "Using this property and `headerTitle` together is not supported. Use one or the other. \nIn Alloy you can specify this property with a `<HeaderView>` child element of a `<ListSection>`\nelement (see Examples).\n",
       "type": [
@@ -80,7 +109,11 @@
     },
     {
       "name": "itemCount",
-      "platforms": ["android", "iphone", "ipad"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
       "summary": "Returns the item count of the section.",
       "type": [
         {
@@ -93,7 +126,12 @@
     },
     {
       "name": "items",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Items of this list section.",
       "type": [
         {
@@ -112,7 +150,12 @@
   "methods": [
     {
       "name": "appendItems",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Appends the data entries to the end of the list section.",
       "description": "On iOS, the list item(s) can be inserted with an animation by specifying the `animation` parameter.\n",
       "parameters": [
@@ -147,7 +190,12 @@
     },
     {
       "name": "deleteItemsAt",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Removes count entries from the list section at the specified index.",
       "description": "On iOS, the list item(s) can be removed with an animation by specifying the `animation` parameter.\n",
       "parameters": [
@@ -186,7 +234,12 @@
     },
     {
       "name": "getItemAt",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Returns the item entry from the list view at the specified index.",
       "parameters": [
         {
@@ -213,7 +266,12 @@
     },
     {
       "name": "insertItemsAt",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Inserts data entries to the list section at the specified index.",
       "description": "On iOS, the list item(s) can be inserted with an animation by specifying the `animation` parameter.\n",
       "parameters": [
@@ -258,7 +316,12 @@
     },
     {
       "name": "replaceItemsAt",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Removes count entries from the list section at the specified index,\nthen inserts data entries to the list section at the same index.\n",
       "description": "On iOS, the list item(s) can be replaced with an animation by specifying the `animation` parameter.\n",
       "parameters": [
@@ -313,7 +376,12 @@
     },
     {
       "name": "setItems",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Sets the data entries in the list section.",
       "description": "On iOS, the list item(s) can be inserted with an animation by specifying the `animation` parameter.\n",
       "parameters": [
@@ -348,7 +416,12 @@
     },
     {
       "name": "updateItemAt",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Updates an item at the specified index.\n",
       "description": "On iOS, the list item can be updated with an animation by specifying the `animation` parameter.\n",
       "parameters": [
@@ -392,19 +465,31 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "lifecycleContainer",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ],
     "methods": [
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "events": []

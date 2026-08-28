@@ -109,7 +109,7 @@ if (version !== MUTABLE && !force) {
 }
 
 try {
-  const result = compile({ apidoc, outDir, log: (m) => console.log(m) });
+  const result = compile({ apidoc, outDir, sourceRepo: repo, log: (m) => console.log(m) });
 
   // The workflow reads these to decide whether to commit and what to say.
   const changed = result.written.length + result.removed.length;

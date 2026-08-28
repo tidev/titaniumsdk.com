@@ -3,8 +3,15 @@
   "name": "Titanium.Calendar.RecurrenceRule",
   "kind": "proxy",
   "extends": "Titanium.Proxy",
-  "inheritanceChain": ["Titanium.Proxy"],
-  "platforms": ["android", "iphone", "ipad", "macos"],
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": {
     "android": "7.1.0",
     "iphone": "3.1.0",
@@ -15,7 +22,12 @@
   "properties": [
     {
       "name": "calendarID",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Identifier for the recurrence rule's calendar.",
       "type": [
         {
@@ -27,7 +39,12 @@
     },
     {
       "name": "daysOfTheMonth",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The days of the month that the event occurs, as an array of number objects.\nValues can be from 1 to 31 and from -1 to -31. This parameter is only valid for\nrecurrence rules of type\n[RECURRENCEFREQUENCY_MONTHLY](api:Titanium.Calendar#RECURRENCEFREQUENCY_MONTHLY).\n",
       "type": [
         {
@@ -45,7 +62,12 @@
     },
     {
       "name": "daysOfTheWeek",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The days of the week that the event occurs, as an array of objects `daysOfWeek` and `Week`.\n",
       "description": "On Android daysOfTheWeek is not valid for recurrence rules of type\n[RECURRENCEFREQUENCY_YEARLY](api:Titanium.Calendar#RECURRENCEFREQUENCY_YEARLY).\n",
       "type": [
@@ -67,7 +89,12 @@
         "properties": [
           {
             "name": "daysOfWeek",
-            "platforms": ["android", "iphone", "ipad", "macos"],
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "The day of the week. Values are from 1 to 7, with Sunday being 1.",
             "type": [
               {
@@ -78,7 +105,12 @@
           },
           {
             "name": "week",
-            "platforms": ["android", "iphone", "ipad", "macos"],
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "The week number of the day of the week.\nValues range from -53 to 53. A negative value indicates a value from the end of\nthe range. 0 indicates the week number is irrelevant.\n",
             "type": [
               {
@@ -92,7 +124,12 @@
     },
     {
       "name": "daysOfTheYear",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The days of the year that the event occurs, as an array of number objects.\nValues can be from 1 to 366 and from -1 to -366. This parameter is only valid for\nrecurrence rules of type [RECURRENCEFREQUENCY_YEARLY](api:Titanium.Calendar#RECURRENCEFREQUENCY_YEARLY).\n",
       "type": [
         {
@@ -110,7 +147,12 @@
     },
     {
       "name": "end",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "End of a recurrence rule.",
       "description": "The recurrence end can be specified by a date (date-based) or by a maximum count\nof occurrences (count-based). An event which is set to never end **should not**\nhave its `recurrenceEnd set. Either `endDate` or `occurrenceCount` property will be\npresent.\n",
       "type": [
@@ -126,7 +168,12 @@
         "properties": [
           {
             "name": "endDate",
-            "platforms": ["android", "iphone", "ipad", "macos"],
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "End date of the recurrence end, or undefined if the recurrence end is count-based.",
             "type": [
               {
@@ -137,7 +184,12 @@
           },
           {
             "name": "occurrenceCount",
-            "platforms": ["android", "iphone", "ipad", "macos"],
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "Occurrence count of the recurrence end, or 0 if the recurrence end is date-based.",
             "type": [
               {
@@ -151,7 +203,12 @@
     },
     {
       "name": "frequency",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Frequency of the recurrence rule.\n",
       "type": [
         {
@@ -160,11 +217,18 @@
         }
       ],
       "permission": "read-only",
-      "constants": ["Titanium.Calendar.RECURRENCEFREQUENCY_*"]
+      "constants": [
+        "Titanium.Calendar.RECURRENCEFREQUENCY_*"
+      ]
     },
     {
       "name": "interval",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The interval between instances of this recurrence. For example, a weekly\nrecurrence rule with an interval of 2 occurs every other week. Must be greater than 0.\n",
       "type": [
         {
@@ -177,7 +241,12 @@
     },
     {
       "name": "monthsOfTheYear",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The months of the year that the event occurs, as an array of Number objects.\nValues can be from 1 to 12. This parameter is only valid for recurrence rules of\ntype [RECURRENCEFREQUENCY_YEARLY](api:Titanium.Calendar#RECURRENCEFREQUENCY_YEARLY).\n",
       "type": [
         {
@@ -195,7 +264,11 @@
     },
     {
       "name": "setPositions",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "An array of ordinal numbers that filters which recurrences to include in the\nrecurrence rule's frequency. For example, a yearly recurrence rule that has a\n[daysOfTheWeek](api:Titanium.Calendar.RecurrenceRule#daysOfTheWeek) value that specifies\nMonday through Friday, and a `setPositions` array containing 2 and -1, occurs only\non the second weekday and last weekday of every year.\n",
       "type": [
         {
@@ -213,7 +286,12 @@
     },
     {
       "name": "weeksOfTheYear",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The weeks of the year that the event occurs, as an array of number objects.\nValues can be from 1 to 53 and from -1 to -53. This parameter is only valid for\nrecurrence rules of type [RECURRENCEFREQUENCY_YEARLY](api:Titanium.Calendar#RECURRENCEFREQUENCY_YEARLY).\n",
       "type": [
         {
@@ -237,39 +315,71 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "lifecycleContainer",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "events": []

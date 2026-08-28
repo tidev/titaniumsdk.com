@@ -3,15 +3,28 @@
   "name": "Titanium.Codec",
   "kind": "module",
   "extends": "Titanium.Module",
-  "inheritanceChain": ["Titanium.Module", "Titanium.Proxy"],
-  "platforms": ["android", "iphone", "ipad", "macos"],
+  "inheritanceChain": [
+    "Titanium.Module",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": "1.7",
   "summary": "A module for translating between primitive types and raw byte streams.\n",
   "description": "The `Codec` module can be used for encoding strings and numbers into [Buffer](api:Titanium.Buffer)\nobjects, and decoding primitive types from buffers.\n\n#### Byte Order\n\nMulti-byte data can be stored in two different byte orders: big-endian or\nlittle-endian. In big-endian byte order, the most significant or highest-value\nbyte is stored first. For example, the 4-byte integer 0xFEDCBA98 is made up of the\nbytes 0xFE, 0xDC, 0xBA and 0x98, from most-significant to least-significant.\n\nIf we represent a buffer as an array of byte values, a big-endian encoding of\n0xFEDCBA98 would look like this:\n\n``` js\n[ 0xFE, 0xDC, 0xBA, 0x98 ]\n```\n\nIn little-endian order, the bytes would be stored in this order:\n\n``` js\n[ 0x98, 0xBA, 0xDC, 0xFE ]\n```\n\nFor 8-bit character encodings, including ASCII, Latin-1 and UTF-8, byte order is not\nsignificant: the text is a sequence of individual bytes.\n\nFor UTF-16, text is represented as a sequence of 16-bit values. For example,\na capital T in UTF-16 is 0x0054, and lowercase i is 0x0069. If we encode the string\n\"Ti\" with UTF-16 in big-endian byte order, we get:\n\n``` js\n[ 0x00, 0x54, 0x00, 0x69 ]\n```\n\nIn UTF-16 with little-endian byte order, \"Ti\" is encoded as:\n\n``` js\n[ 0x54, 0x00, 0x69, 0x00 ]\n```\n\nNote that the bytes for each character are stored least-significant byte first, but\nthe order of the characters is unchanged.\n",
   "properties": [
     {
       "name": "BIG_ENDIAN",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Big endian (network) byte order -- that is, the most significant byte first.",
       "description": "See \"Byte Order\" in the main discussion of [Titanium.Codec](api:Titanium.Codec) for more information.\n",
       "type": [
@@ -24,7 +37,12 @@
     },
     {
       "name": "CHARSET_ASCII",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "ASCII character encoding..",
       "description": "See also: [ASCII](http://en.wikipedia.org/wiki/ASCII) on Wikipedia.\n",
       "type": [
@@ -38,7 +56,12 @@
     },
     {
       "name": "CHARSET_ISO_LATIN_1",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "ISO 8859-1 (Latin-1) character encoding.",
       "description": "See also: [ISO/IEC 8859-1](http://en.wikipedia.org/wiki/ISO/IEC_8859-1) on Wikipedia.\n",
       "type": [
@@ -52,7 +75,12 @@
     },
     {
       "name": "CHARSET_UTF16",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "UTF-16 character encoding with default byte order.",
       "description": "See also: [UTF-16/UCS2](http://en.wikipedia.org/wiki/UTF-16/UCS-2) on Wikipedia.\n",
       "type": [
@@ -66,7 +94,12 @@
     },
     {
       "name": "CHARSET_UTF16BE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "UTF-16 character encoding with big endian byte order.",
       "description": "See also: [UTF-16/UCS2](http://en.wikipedia.org/wiki/UTF-16/UCS-2) on Wikipedia.\n",
       "type": [
@@ -80,7 +113,12 @@
     },
     {
       "name": "CHARSET_UTF16LE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "UTF-16 character encoding with little endian byte order.",
       "description": "See also: [UTF-16/UCS2](http://en.wikipedia.org/wiki/UTF-16/UCS-2) on Wikipedia.\n",
       "type": [
@@ -94,7 +132,12 @@
     },
     {
       "name": "CHARSET_UTF8",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "UTF-8 character encoding.",
       "description": "See also: [UTF-8](http://en.wikipedia.org/wiki/UTF-8) on Wikipedia.\n",
       "type": [
@@ -108,7 +151,12 @@
     },
     {
       "name": "LITTLE_ENDIAN",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Little endian byte order -- that is, the least significant byte first.",
       "description": "See \"Byte Order\" in the main discussion of [Titanium.Codec](api:Titanium.Codec) for more information.\n",
       "type": [
@@ -121,7 +169,12 @@
     },
     {
       "name": "TYPE_BYTE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "8-bit integer encoding type.",
       "type": [
         {
@@ -134,7 +187,12 @@
     },
     {
       "name": "TYPE_DOUBLE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "64-bit double precision floating-point type.",
       "type": [
         {
@@ -147,7 +205,12 @@
     },
     {
       "name": "TYPE_FLOAT",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "32-bit single precision floating-point type.",
       "type": [
         {
@@ -160,7 +223,12 @@
     },
     {
       "name": "TYPE_INT",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "32-bit integer encoding type.",
       "type": [
         {
@@ -173,7 +241,12 @@
     },
     {
       "name": "TYPE_LONG",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "64-bit integer encoding type.",
       "type": [
         {
@@ -186,7 +259,12 @@
     },
     {
       "name": "TYPE_SHORT",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "16-bit integer encoding type.",
       "type": [
         {
@@ -201,7 +279,12 @@
   "methods": [
     {
       "name": "decodeNumber",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Decodes a number from the `source` buffer using the specified data type.\n",
       "description": "Takes a set of named parameters in the `options` argument.\n\nBytes are read from  the `source` buffer and decoded as the specified data type, `type`.\n\nTwo optional parameters can also be specified in `options`:\n\n*   If `position` is included in the `options` dictionary, reads data from the\n    buffer starting at `position`.\n\n*   If `byteOrder` is included in the `options` dictionary, the specified byte order\n    is used -- otherwise, the native byte order is assumed.\n\nThrows an exception if `source` is null, or `position` is greater than `source.length`\n",
       "examples": [
@@ -230,7 +313,12 @@
             "properties": [
               {
                 "name": "byteOrder",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "byte order to decode with.",
                 "type": [
                   {
@@ -243,7 +331,12 @@
               },
               {
                 "name": "position",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Index in the `source` buffer of the first byte of data to decode.",
                 "type": [
                   {
@@ -256,7 +349,12 @@
               },
               {
                 "name": "source",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Buffer to decode.",
                 "type": [
                   {
@@ -267,7 +365,12 @@
               },
               {
                 "name": "type",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "The encoding type to use.",
                 "type": [
                   {
@@ -275,7 +378,9 @@
                     "name": "String"
                   }
                 ],
-                "constants": ["Titanium.Codec.TYPE_*"]
+                "constants": [
+                  "Titanium.Codec.TYPE_*"
+                ]
               }
             ]
           }
@@ -295,7 +400,12 @@
     },
     {
       "name": "decodeString",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Decodes the source buffer into a String using the supplied character set.\n",
       "description": "Takes a set of named parameters in the `options` argument.\n\nBytes are read from the `source` buffer and decoded as a string.\n\nSeveral optional parameters can also be specified in `options`:\n\n*   If `position` is specified, bytes are read from `source` starting at `position`.\n\n*   If `length` is specified, no more than `length` bytes are read.\n\n*   If `charset` is specified, it determines the character encoding used to decode the\n    string. Otherwise, UTF-8 is assumed.\n\nThrows an exception if `charset` is not a valid character set, `source` is null,\nor either `position`, `length`, or `position`+`length` is greater than `source.length`.\n",
       "examples": [
@@ -324,7 +434,12 @@
             "properties": [
               {
                 "name": "charset",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Character set to use when encoding this string to bytes.",
                 "type": [
                   {
@@ -334,11 +449,18 @@
                 ],
                 "default": "<Titanium.Codec.CHARSET_UTF8>",
                 "optional": true,
-                "constants": ["Titanium.Codec.CHARSET_*"]
+                "constants": [
+                  "Titanium.Codec.CHARSET_*"
+                ]
               },
               {
                 "name": "length",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Number of bytes to decode.",
                 "type": [
                   {
@@ -351,7 +473,12 @@
               },
               {
                 "name": "position",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Index in the `source` buffer of the first byte of data to decode.",
                 "type": [
                   {
@@ -364,7 +491,12 @@
               },
               {
                 "name": "source",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Buffer to decode.",
                 "type": [
                   {
@@ -391,7 +523,12 @@
     },
     {
       "name": "encodeNumber",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Encodes a number and writes it to a buffer.",
       "description": "Takes a set of named parameters passed in the `options` argument.\n\nEncodes the number `source` into `dest` using the passed in data `type`.\n\nTwo optional parameters can also be specified in `options`:\n\n*   If `position` is included in the `options` dictionary, writes the encoded number\n    to the buffer starting at `position`.\n\n*   If `byteOrder` is included in the `options` dictionary, the specified byte order\n    is used -- otherwise, the native byte order is assumed.\n",
       "examples": [
@@ -420,7 +557,12 @@
             "properties": [
               {
                 "name": "byteOrder",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Byte order to encode with.",
                 "type": [
                   {
@@ -433,7 +575,12 @@
               },
               {
                 "name": "dest",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Destination buffer.",
                 "type": [
                   {
@@ -444,7 +591,12 @@
               },
               {
                 "name": "position",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Index in the `dest` buffer of the first byte of encoded data.",
                 "type": [
                   {
@@ -457,7 +609,12 @@
               },
               {
                 "name": "source",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Number to encode.",
                 "type": [
                   {
@@ -468,7 +625,12 @@
               },
               {
                 "name": "type",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Encoding type to use.",
                 "type": [
                   {
@@ -476,7 +638,9 @@
                     "name": "String"
                   }
                 ],
-                "constants": ["Titanium.Codec.TYPE_*"]
+                "constants": [
+                  "Titanium.Codec.TYPE_*"
+                ]
               }
             ]
           }
@@ -496,7 +660,12 @@
     },
     {
       "name": "encodeString",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Encodes a string into a series of bytes in a buffer using the specified character set.\n",
       "description": "Takes a set of named parameters in the `options` argument.\n\nThe string is read from `source` and written to the buffer `dest`.\n\nSeveral optional parameters can also be specified in `options`:\n\n*   If `charset` is included, the string is encoded using the specified character\n    encoding.\n\n*   If `destPosition` is included, data is written into the buffer starting at\n    the specified position.\n\n*   If `sourcePosition` is included, a substring of the source string starting at the\n    specified position is encoded.\n\n*   If `sourceLength` is included, at most the specified number of characters\n    are encoded.\n\nThrows an exception if `charset` is not a valid character set,\n`source` is null, or either `sourcePosition`, `sourceLength`, or\n`sourcePosition`+`sourceLength` is greater than `source.length`.\n",
       "examples": [
@@ -531,7 +700,12 @@
             "properties": [
               {
                 "name": "charset",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Character encoding to use when encoding this string to bytes.",
                 "type": [
                   {
@@ -541,11 +715,18 @@
                 ],
                 "default": "<Titanium.Codec.CHARSET_UTF8>",
                 "optional": true,
-                "constants": ["Titanium.Codec.CHARSET_*"]
+                "constants": [
+                  "Titanium.Codec.CHARSET_*"
+                ]
               },
               {
                 "name": "dest",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Destination buffer.",
                 "type": [
                   {
@@ -556,7 +737,12 @@
               },
               {
                 "name": "destPosition",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Index in the `dest` buffer of the first byte of the encoded string.",
                 "type": [
                   {
@@ -569,7 +755,12 @@
               },
               {
                 "name": "source",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Source string to encode.",
                 "type": [
                   {
@@ -580,7 +771,12 @@
               },
               {
                 "name": "sourceLength",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Number of characters in `source` to encode.",
                 "type": [
                   {
@@ -593,7 +789,12 @@
               },
               {
                 "name": "sourcePosition",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Position in `source` to start encoding.",
                 "type": [
                   {
@@ -622,7 +823,12 @@
     },
     {
       "name": "getNativeByteOrder",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Get the OS native byte order (either [Titanium.Codec.BIG_ENDIAN](api:Titanium.Codec#BIG_ENDIAN) or\n[Titanium.Codec.LITTLE_ENDIAN](api:Titanium.Codec#LITTLE_ENDIAN)).\n",
       "description": "See \"Byte Order\" in the main discussion of [Titanium.Codec](api:Titanium.Codec) for more information.\n",
       "returns": [
@@ -644,39 +850,71 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "lifecycleContainer",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "events": []

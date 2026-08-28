@@ -2,13 +2,23 @@
   "schemaVersion": 1,
   "name": "Gradient",
   "kind": "pseudo",
-  "platforms": ["android", "iphone", "ipad", "macos"],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": "1.8.0",
   "summary": "A simple object defining a color gradient.",
   "properties": [
     {
       "name": "backfillEnd",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Set to `true` to continue filling with the final color beyond the `endPoint`.",
       "description": "On Android, this property is only supported by radial gradients.",
       "type": [
@@ -24,7 +34,12 @@
     },
     {
       "name": "backfillStart",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Set to `true` to continue filling with the starting color beyond the `startPoint`.",
       "description": "On Android, this property is only supported by radial gradients.",
       "type": [
@@ -40,7 +55,12 @@
     },
     {
       "name": "colors",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "An array of colors, as a color name or hex triplet.\n",
       "description": "For information about color values, see the \"Colors\" section of [Titanium.UI](api:Titanium.UI).\n",
       "type": [
@@ -71,7 +91,12 @@
         "properties": [
           {
             "name": "color",
-            "platforms": ["android", "iphone", "ipad", "macos"],
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "Color value at this point in the gradient, as a color name or hex triplet.\n",
             "description": "For information about color values, see the \"Colors\" section of [Titanium.UI](api:Titanium.UI).\n",
             "type": [
@@ -87,7 +112,12 @@
           },
           {
             "name": "offset",
-            "platforms": ["android", "iphone", "ipad", "macos"],
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "The color's normalized position within the gradient, ranging from 0 (start) to 1 (end).",
             "description": "For a linear gradient, the offset ranges between [startPoint](api:Gradient#startPoint)\nand [endPoint](api:Gradient#endPoint).\n\nFor a radial gradient, the offset ranges between [startRadius](api:Gradient#startRadius)\nand [endRadius](api:Gradient#endRadius).\n",
             "type": [
@@ -102,7 +132,12 @@
     },
     {
       "name": "endPoint",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "End point for the gradient.",
       "type": [
         {
@@ -114,7 +149,12 @@
     },
     {
       "name": "endRadius",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "For a radial gradient, the radius at the `endPoint`.",
       "type": [
         {
@@ -128,7 +168,12 @@
     },
     {
       "name": "startPoint",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Start point for the gradient.",
       "type": [
         {
@@ -140,7 +185,12 @@
     },
     {
       "name": "startRadius",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "For a radial gradient, the radius at the `startPoint`.",
       "type": [
         {
@@ -154,7 +204,12 @@
     },
     {
       "name": "type",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Type of gradient, either 'linear' or 'radial'.",
       "type": [
         {
@@ -172,6 +227,10 @@
     "methods": [],
     "events": []
   },
-  "references": ["GradientColorRef", "Point", "Titanium.UI"],
+  "references": [
+    "GradientColorRef",
+    "Point",
+    "Titanium.UI"
+  ],
   "source": "Titanium/UI/View.yml"
 }

@@ -3,8 +3,16 @@
   "name": "Titanium.UI.Toolbar",
   "kind": "view",
   "extends": "Titanium.UI.View",
-  "inheritanceChain": ["Titanium.UI.View", "Titanium.Proxy"],
-  "platforms": ["android", "iphone", "ipad", "macos"],
+  "inheritanceChain": [
+    "Titanium.UI.View",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": "6.2.0",
   "summary": "A Toolbar can contain buttons, as well as certain other widgets, including text fields and labels.",
   "description": "A `Toolbar` is created by the [Titanium.UI.createToolbar](api:Titanium.UI#createToolbar) factory method or **`<Toolbar>`** Alloy element.\n\nTo provide spacing between items in the toolbar, on iOS you can use the special system button types,\n[FIXED_SPACE](api:Titanium.UI.iOS.SystemButton#FIXED_SPACE) and\n[FLEXIBLE_SPACE](api:Titanium.UI.iOS.SystemButton#FLEXIBLE_SPACE).\n\nNote that toolbars are positioned like other views (using the `top` and `bottom` properties,\nfor example), but the [iOS Human Interface Guidelines](https://developer.apple.com/ios/human-interface-guidelines/overview/themes/#//apple_ref/doc/uid/TP40006556-CH12-SW4)\nhave specific requirements for placing toolbars, specifically:\n\n* On the iPhone and Android, a toolbar should be at the bottom of the window.\n* On the iPad, a toolbar should appear at the top or bottom of a window.\n\nDue to an iOS limitation, the buttons in the toolbar only support the `click` event.\nThe native object underlying a toolbar button does not generate standard view events,\nsuch as `touchstart` and `touchend`.\n\nOn Android a toolbar can also be used as an ActionBar for [activities](api:Titanium.Android.Activity). This allows a toolbar to\ninherit [ActionBar's](api:Titanium.Android.ActionBar) methods, properties and events as well as provide a better customization of this\ndesign element. For example you can provide your own images to be used as navigation button icon, overflow menu icon and logo.\nIn order to do that, an application must use a theme without a title bar. For Titanium 9.3.0 and higher,\nset the theme to `Theme.Titanium.NoTitleBar`. For older Titanium versions, set the theme to `Theme.AppCompat.NoTitleBar`.\n\nSee also:\n\n*  [Toolbar in the iOS Human Interface Guidelines.](https://developer.apple.com/ios/human-interface-guidelines/bars/toolbars/)\n",
@@ -29,7 +37,12 @@
   "properties": [
     {
       "name": "barColor",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Background color for the toolbar, as a color name or hex triplet.",
       "description": "To use a background image on the toolbar, either `barColor` must be a fully or\npartially transparent color,\nor the [translucent](api:Titanium.UI.Toolbar#translucent) property must be `true`.\n\nTo use a background gradient on a toolbar, `barColor` must be `'transparent'`\n*and* the the [translucent](api:Titanium.UI.Toolbar#translucent) property must be `true`.\n\nFor information about color values, see the \"Colors\" section of [Titanium.UI](api:Titanium.UI).\n",
       "type": [
@@ -45,7 +58,9 @@
     },
     {
       "name": "contentInsetEndWithActions",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Returns the margin after the toolbar's content when there are action buttons.",
       "type": [
         {
@@ -56,7 +71,9 @@
     },
     {
       "name": "contentInsetStartWithNavigation",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Returns the margin at the toolbar's content start when there is a navigation button.",
       "type": [
         {
@@ -67,7 +84,12 @@
     },
     {
       "name": "extendBackground",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "If `true`, the background of the toolbar extends upwards.",
       "description": "This property allows the user to specify that the toolbar's background show through the status bar.\nand is only intended to be used with toolbars hosted in windows with **no navigation controllers**.\nThe toolbar must be placed at the top of the screen just below the status bar and used as an ActionBar on Android for this\nproperty to work as expected.\nThis **must** be specified at creation.\n",
       "type": [
@@ -81,7 +103,10 @@
     },
     {
       "name": "hideSharedBackground",
-      "platforms": ["iphone", "ipad"],
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
       "summary": "If `true`, each toolbar item is rendered in its own separate visual container.",
       "description": "On iOS 26 and later, UIToolbar uses the \"Liquid Glass\" design and automatically\ngroups adjacent items into shared glass backgrounds. Setting this property to `true`\nprevents this grouping, giving each item its own separate glass container.\n\nFor finer control, individual toolbar items (buttons, labels, etc.) can set the\n`hideSharedBackground` property to `true` to separate only those specific items, while\nleaving others grouped.\n\nThis property has no effect on iOS versions prior to 26.0.\n",
       "type": [
@@ -95,7 +120,12 @@
     },
     {
       "name": "items",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "An array of buttons (or other widgets) contained in the toolbar.",
       "type": [
         {
@@ -112,7 +142,9 @@
     },
     {
       "name": "logo",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Image to be used as a logo in the Toolbar.",
       "description": "This property is used only when the Toolbar is used as an ActionBar.\n",
       "type": [
@@ -132,7 +164,9 @@
     },
     {
       "name": "navigationIcon",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Image to be used for a navigation icon.",
       "description": "This property is used only when the Toolbar is used as an ActionBar.\n",
       "type": [
@@ -152,7 +186,9 @@
     },
     {
       "name": "navigationIconColor",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Tint color of the navigation icon (e.g. home arrow)",
       "type": [
         {
@@ -164,7 +200,9 @@
     },
     {
       "name": "overflowIcon",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Image to be used for the overflow menu.",
       "description": "This property is used only when the Toolbar is used as an ActionBar.\n",
       "type": [
@@ -184,7 +222,9 @@
     },
     {
       "name": "subtitle",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Text of the subtitle.",
       "type": [
         {
@@ -195,7 +235,9 @@
     },
     {
       "name": "subtitleTextColor",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Color for toolbar's subtitle",
       "type": [
         {
@@ -206,7 +248,9 @@
     },
     {
       "name": "title",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Text of the title.",
       "type": [
         {
@@ -217,7 +261,9 @@
     },
     {
       "name": "titleTextColor",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Color string with any Titanium supported format",
       "type": [
         {
@@ -228,7 +274,11 @@
     },
     {
       "name": "translucent",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "If `true`, a translucent background color is used for the toolbar.",
       "description": "Note that if `translucent` is `false`, views under the toolbar are hidden, even\nif [barColor](api:Titanium.UI.Toolbar#barColor) is set to a semi-transparent or\ntransparent color.\n",
       "type": [
@@ -243,17 +293,23 @@
   "methods": [
     {
       "name": "collapseActionViews",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Collapses expanded ActionViews if there is any"
     },
     {
       "name": "dismissPopupMenus",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Collapses expanded ActionViews and hides overflow menu"
     },
     {
       "name": "getContentInsetEnd",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Returns the margin at the toolbar's content end.",
       "returns": [
         {
@@ -268,7 +324,9 @@
     },
     {
       "name": "getContentInsetLeft",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Returns the margin on the left of the toolbar's content.",
       "returns": [
         {
@@ -283,7 +341,9 @@
     },
     {
       "name": "getContentInsetRight",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Returns the margin on the right of the toolbar's content.",
       "returns": [
         {
@@ -298,7 +358,9 @@
     },
     {
       "name": "getContentInsetStart",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Returns the margin at the toolbar's content start.",
       "returns": [
         {
@@ -313,7 +375,9 @@
     },
     {
       "name": "getCurrentContentInsetEnd",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Returns the margin at the toolbar's content end that will be used with the current configuration of the toolbar.",
       "returns": [
         {
@@ -328,7 +392,9 @@
     },
     {
       "name": "getCurrentContentInsetLeft",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Returns the margin on the left of the toolbar's content that will be used with the current configuration of the toolbar.",
       "returns": [
         {
@@ -343,7 +409,9 @@
     },
     {
       "name": "getCurrentContentInsetRight",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Returns the margin on the right of the toolbar's content that will be used with the current configuration of the toolbar.",
       "returns": [
         {
@@ -358,7 +426,9 @@
     },
     {
       "name": "getCurrentContentInsetStart",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Returns the margin at the toolbar's content start that will be used with the current configuration of the toolbar.",
       "returns": [
         {
@@ -373,7 +443,9 @@
     },
     {
       "name": "hasExpandedActionView",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Checks if the toolbar is currently hosting an expanded action view.",
       "returns": [
         {
@@ -388,12 +460,16 @@
     },
     {
       "name": "hideOverflowMenu",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Hides the overflow menu if there is one."
     },
     {
       "name": "isOverflowMenuShowing",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Checks if the toolbar is currently hosting an expanded action view.",
       "returns": [
         {
@@ -408,7 +484,9 @@
     },
     {
       "name": "setContentInsetsAbsolute",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Sets the content margins of the toolbar",
       "parameters": [
         {
@@ -435,7 +513,9 @@
     },
     {
       "name": "setContentInsetsRelative",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Sets the content margins relative to the layout direction",
       "parameters": [
         {
@@ -462,7 +542,9 @@
     },
     {
       "name": "showOverflowMenu",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Shows the overflow menu if there is one"
     }
   ],
@@ -472,441 +554,800 @@
       {
         "name": "accessibilityDisableLongPress",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "accessibilityHidden",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "accessibilityHint",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "accessibilityLabel",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "accessibilityValue",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "anchorPoint",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "animatedCenter",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "backgroundGradient",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "backgroundImage",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "borderColor",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "borderRadius",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "borderWidth",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "bottom",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "center",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "clipMode",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "elevation",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "filterTouchesWhenObscured",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "focusable",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "height",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "hiddenBehavior",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "horizontalMotionEffect",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "horizontalWrap",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "id",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "keepHardwareMode",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "keepScreenOn",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "left",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "lifecycleContainer",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "opacity",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "overrideCurrentAnimation",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "previewContext",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone"]
+        "platforms": [
+          "iphone"
+        ]
       },
       {
         "name": "pullBackgroundColor",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "rect",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "right",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "rotation",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad"
+        ]
       },
       {
         "name": "rotationX",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "rotationY",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "scaleX",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "scaleY",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "size",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "tintColor",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "tooltip",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "top",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "touchEnabled",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "touchFeedback",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "touchFeedbackColor",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "transform",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "transitionName",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "translationX",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "translationY",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "translationZ",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "verticalMotionEffect",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "viewShadowColor",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "viewShadowOffset",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "viewShadowRadius",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "visible",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "width",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "zIndex",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "animate",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "clearMotionEffects",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "convertPointToView",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "getViewById",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "hide",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "insertAt",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "show",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "stopAnimation",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "toImage",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "events": [
       {
         "name": "click",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "dblclick",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "doubletap",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "focus",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "keypressed",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "longpress",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "pinch",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "postlayout",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "rotate",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "singletap",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "swipe",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "touchcancel",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "touchend",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "touchmove",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "touchstart",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ]
   },

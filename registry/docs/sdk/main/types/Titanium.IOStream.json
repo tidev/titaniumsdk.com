@@ -3,8 +3,15 @@
   "name": "Titanium.IOStream",
   "kind": "proxy",
   "extends": "Titanium.Proxy",
-  "inheritanceChain": ["Titanium.Proxy"],
-  "platforms": ["android", "iphone", "ipad", "macos"],
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": {
     "android": "1.7",
     "iphone": "1.7",
@@ -31,13 +38,23 @@
   "methods": [
     {
       "name": "close",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Closes this stream.",
       "description": "Throws an exception on error.\n"
     },
     {
       "name": "isReadable",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Indicates whether this stream is readable.",
       "returns": [
         {
@@ -53,7 +70,12 @@
     },
     {
       "name": "isWritable",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Indicates whether this stream is writable.",
       "returns": [
         {
@@ -69,7 +91,12 @@
     },
     {
       "name": "read",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Reads data from this stream into a buffer.",
       "description": "Takes an optional `resultsCallback` function as the last argument. If specified,\nthe operation is done asynchronously. If no callback is passed in, the\noperation is done synchronously.\n\nIf `offset` and `length` are specified, data is written into the buffer starting at\nposition `offset`. Data is read from this stream until one of the following occurs:\n\n*   the end of this stream is reached\n*   the end of the buffer is reached\n*   a total of `length` bytes have been read from the stream\n\nIf `offset` and `length` are omitted, data is written starting at the beginning\nof the buffer.\n\nWhen called synchronously: returns the number of bytes read, or -1 if the end of\nstream was reached before any data was read.\n\nReturns 0 when called asynchronously.\n\nThrows an exception on error. For example, if the `offset` value is past\nthe last byte of `buffer`.\n",
       "parameters": [
@@ -139,7 +166,12 @@
     },
     {
       "name": "write",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Writes data from a buffer to this stream.",
       "description": "Takes an optional `resultsCallback` function as the last argument. If specified,\nthe operation is done asynchronously. If no callback is passed in, the\noperation is done synchronously.\n\nIf `offset` and `length` are specified, data is read from the buffer starting at\n`offset`. Bytes are read from the buffer and written to the stream until:\n\n* the end of the buffer is reached\n* `length` bytes have been written\n* the stream returns an error\n\nIf `offset` and `length` are omitted, all of the data in the buffer is written to\nthis stream.\n\nReturns the number of bytes actually written when called synchronously.\n\nReturns 0 when called asynchronously.\n\nThrows an exception if an error is encountered.\n",
       "parameters": [
@@ -214,39 +246,71 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "lifecycleContainer",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "events": []

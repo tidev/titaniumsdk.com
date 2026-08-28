@@ -3,8 +3,14 @@
   "name": "Titanium.UI.iOS.Animator",
   "kind": "proxy",
   "extends": "Titanium.Proxy",
-  "inheritanceChain": ["Titanium.Proxy"],
-  "platforms": ["iphone", "ipad", "macos"],
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": {
     "iphone": "3.2.0",
     "ipad": "3.2.0",
@@ -15,7 +21,11 @@
   "properties": [
     {
       "name": "behaviors",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Behaviors associated with this animator.",
       "type": [
         {
@@ -32,7 +42,11 @@
     },
     {
       "name": "referenceView",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Titanium View object to initialize as the reference view for the animator.",
       "description": "When adding behavior and dynamic items to the animator, the animator bases its\ncoordindate system on the reference view.\n",
       "type": [
@@ -44,7 +58,11 @@
     },
     {
       "name": "running",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Returns `true` if the animator is running else `false`.",
       "type": [
         {
@@ -58,7 +76,11 @@
   "methods": [
     {
       "name": "addBehavior",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Adds a dynamic behavior to the animator.",
       "description": "Specify an instance of one of the following Titanium behavior proxies:\n\n  * [Titanium.UI.iOS.AnchorAttachmentBehavior](api:Titanium.UI.iOS.AnchorAttachmentBehavior)\n  * [Titanium.UI.iOS.CollisionBehavior](api:Titanium.UI.iOS.CollisionBehavior)\n  * [Titanium.UI.iOS.DynamicItemBehavior](api:Titanium.UI.iOS.DynamicItemBehavior)\n  * [Titanium.UI.iOS.GravityBehavior](api:Titanium.UI.iOS.GravityBehavior)\n  * [Titanium.UI.iOS.PushBehavior](api:Titanium.UI.iOS.PushBehavior)\n  * [Titanium.UI.iOS.SnapBehavior](api:Titanium.UI.iOS.SnapBehavior)\n  * [Titanium.UI.iOS.ViewAttachmentBehavior](api:Titanium.UI.iOS.ViewAttachmentBehavior)\n",
       "parameters": [
@@ -76,12 +98,20 @@
     },
     {
       "name": "removeAllBehaviors",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Removes all behaviors from this animator."
     },
     {
       "name": "removeBehavior",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Removes the specified behavior from the animator.",
       "description": "Specifiy an instance of one of the following Titanium behavior proxies:\n\n  * [Titanium.UI.iOS.AnchorAttachmentBehavior](api:Titanium.UI.iOS.AnchorAttachmentBehavior)\n  * [Titanium.UI.iOS.CollisionBehavior](api:Titanium.UI.iOS.CollisionBehavior)\n  * [Titanium.UI.iOS.DynamicItemBehavior](api:Titanium.UI.iOS.DynamicItemBehavior)\n  * [Titanium.UI.iOS.GravityBehavior](api:Titanium.UI.iOS.GravityBehavior)\n  * [Titanium.UI.iOS.PushBehavior](api:Titanium.UI.iOS.PushBehavior)\n  * [Titanium.UI.iOS.SnapBehavior](api:Titanium.UI.iOS.SnapBehavior)\n  * [Titanium.UI.iOS.ViewAttachmentBehavior](api:Titanium.UI.iOS.ViewAttachmentBehavior)\n",
       "parameters": [
@@ -99,17 +129,29 @@
     },
     {
       "name": "startAnimator",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Starts the animation behaviors."
     },
     {
       "name": "stopAnimator",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Stops the animation behaviors."
     },
     {
       "name": "updateItemUsingCurrentState",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Updates the animator's state information with the current state of the specified item.",
       "description": "When an item is first added to the animator, the animator reads the initial state of the\nitem, then takes responsibility for updating it.  If you actively make changes to the item's properties,\nsuch as changing its position or dimensions, use this method to update the item's new state.\n",
       "parameters": [
@@ -129,12 +171,20 @@
   "events": [
     {
       "name": "pause",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when the animator paused its animations."
     },
     {
       "name": "resume",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when the animator resumes its animations."
     }
   ],
@@ -143,34 +193,58 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "events": []

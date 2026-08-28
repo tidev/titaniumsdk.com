@@ -3,8 +3,15 @@
   "name": "LocationAuthorizationResponse",
   "kind": "pseudo",
   "extends": "ErrorResponse",
-  "inheritanceChain": ["ErrorResponse"],
-  "platforms": ["android", "iphone", "ipad", "macos"],
+  "inheritanceChain": [
+    "ErrorResponse"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "summary": "Argument passed to the callback when a request finishes successfully or erroneously.",
   "properties": [],
   "methods": [],
@@ -14,22 +21,39 @@
       {
         "name": "code",
         "from": "ErrorResponse",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "error",
         "from": "ErrorResponse",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "success",
         "from": "ErrorResponse",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "methods": [],
     "events": []
   },
-  "references": ["ErrorResponse"],
+  "references": [
+    "ErrorResponse"
+  ],
   "source": "Titanium/Geolocation/Geolocation.yml"
 }

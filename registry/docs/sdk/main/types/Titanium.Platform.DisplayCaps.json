@@ -3,8 +3,15 @@
   "name": "Titanium.Platform.DisplayCaps",
   "kind": "proxy",
   "extends": "Titanium.Proxy",
-  "inheritanceChain": ["Titanium.Proxy"],
-  "platforms": ["android", "iphone", "ipad", "macos"],
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": "0.8",
   "summary": "The Display Caps object returned by the [Titanium.Platform.displayCaps](api:Titanium.Platform.DisplayCaps) property.\n",
   "description": "On iPhone and iPod devices with retina display, the `density` property is `high` and the `dpi`\nproperty is `320`. For other iPhone and iPod devices, `density` is `medium` and `dpi` is `160`.\n\nOn iPad devices with retina display, the `density` property is `high` and the `dpi`\nproperty is `260`. For other iPad devices, `density` is `medium` and `dpi` is `130`.\n\nNote that Xcode versions prior to 4.3.1 do not have the correct tools to detect the iPad 3\nretina display. Apps must be built with Xcode 4.3.1 or later to detect iPad 3 retina display.\n\nNote that the `displayCaps` property begins with a lowercase letter, which differentiates it\nfrom the `DisplayCaps` object that it returns. Refer to the example to understand how it should\nbe called.\n\nOn Android you have to make sure that the Activity is created before you fetch the displayCaps\nvalues. Use the window `onOpen` event or `win.activity.onCreate = () => {};`.\n",
@@ -17,7 +24,12 @@
   "properties": [
     {
       "name": "density",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Logical density of the display.",
       "type": [
         {
@@ -29,7 +41,12 @@
     },
     {
       "name": "dpi",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Display density expressed as dots-per-inch.",
       "type": [
         {
@@ -41,7 +58,12 @@
     },
     {
       "name": "logicalDensityFactor",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Logical density of the display, as a scaling factor for the Density Independent Pixel (dip)\nunit.\n",
       "description": "One dip is one pixel on a 160dpi display, approximately, with a 240x320, 1.5\"x2\" display\nproviding a baseline. For example, for a 160dpi display, this value will be 1, and for 120dpi,\nit will be .75.\n\nThis value does not precisely follow the real display size, as given by `xdpi` and `ydpi`,\nbut instead is used to scale the size of the overall UI in steps based on changes in the\ndisplay dpi. For example, a 240x320 screen will have a density of 1, whether its width is\n1.8\" or 1.3\". However, if the resolution is increased to 320x480 but the display remains\n1.5\"x2\" then the density would be increased to about 1.5.\n\nOn iOS devices, this property returns 1, 2 and 3 for &#64;1x, &#64;2x and &#64;3x respectively.\nNote for iPhone 6+, this value is 3.\n",
       "type": [
@@ -58,7 +80,12 @@
     },
     {
       "name": "platformHeight",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Absolute height of the display in relation to UI orientation. Measured in platform-specific\nunits; pixels on Android and density-independent pixels (dip) on iOS.\n",
       "description": "This property depends on the orientation of the UI, rather than the physical orientation of\nthe device. While these may often be one in the same, it is not necessarily the case when\norientation is restricted by [Titanium.UI.Window.orientationModes](api:Titanium.UI.Window#orientationModes). See example for\nclarification.\n",
       "type": [
@@ -77,7 +104,12 @@
     },
     {
       "name": "platformWidth",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Absolute width of the display in relation to UI orientation. Measured in platform-specific\nunits; pixels on Android and density-independent pixels (dip) on iOS.\n",
       "description": "This property depends on the orientation of the UI, rather than the physical orientation of\nthe device. While these may often be one in the same, it is not necessarily the case when\norientation is restricted by [Titanium.UI.Window.orientationModes](api:Titanium.UI.Window#orientationModes). See example for\nclarification.\n",
       "type": [
@@ -96,7 +128,9 @@
     },
     {
       "name": "xdpi",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Physical pixels per inch of the display in the X dimension.",
       "type": [
         {
@@ -108,7 +142,9 @@
     },
     {
       "name": "ydpi",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Physical pixels per inch of the display in the Y dimension.",
       "type": [
         {
@@ -126,43 +162,78 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "lifecycleContainer",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "events": []
   },
-  "references": ["Titanium.Proxy", "Titanium.UI.Window"],
+  "references": [
+    "Titanium.Proxy",
+    "Titanium.UI.Window"
+  ],
   "source": "Titanium/Platform/DisplayCaps.yml"
 }

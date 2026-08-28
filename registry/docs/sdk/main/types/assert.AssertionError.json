@@ -3,13 +3,25 @@
   "name": "assert.AssertionError",
   "kind": "pseudo",
   "extends": "Error",
-  "inheritanceChain": ["Error"],
-  "platforms": ["android", "iphone", "ipad", "macos"],
+  "inheritanceChain": [
+    "Error"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "summary": "Indicates the failure of an assertion. All errors thrown by the [assert](api:assert) module will be instances of the `AssertionError` class.\n",
   "properties": [
     {
       "name": "actual",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Set to the actual argument for methods such as `assert.strictEqual()`.",
       "type": [
         {
@@ -20,7 +32,12 @@
     },
     {
       "name": "code",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Value is always `ERR_ASSERTION` to show that the error is an assertion error.",
       "type": [
         {
@@ -31,7 +48,12 @@
     },
     {
       "name": "expected",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Set to the expected value for methods such as `assert.strictEqual()`.",
       "type": [
         {
@@ -42,7 +64,12 @@
     },
     {
       "name": "generatedMessage",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Indicates if the message was auto-generated (`true`) or not.",
       "type": [
         {
@@ -53,7 +80,12 @@
     },
     {
       "name": "operator",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Set to the passed in operator value.",
       "type": [
         {
@@ -66,7 +98,12 @@
   "methods": [
     {
       "name": "constructor",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "A subclass of `Error` that indicates the failure of an assertion.",
       "parameters": [
         {
@@ -85,7 +122,12 @@
             "properties": [
               {
                 "name": "actual",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "The `actual` property on the error instance.",
                 "type": [
                   {
@@ -96,7 +138,12 @@
               },
               {
                 "name": "expected",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "The `expected` property on the error instance.",
                 "type": [
                   {
@@ -107,7 +154,12 @@
               },
               {
                 "name": "message",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "If provided, the error message is set to this value.",
                 "type": [
                   {
@@ -119,7 +171,12 @@
               },
               {
                 "name": "operator",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "The `operator` property on the error instance.",
                 "type": [
                   {
@@ -130,7 +187,12 @@
               },
               {
                 "name": "stackStartFn",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "If provided, the generated stack trace omits frames before this function.",
                 "type": [
                   {
@@ -162,6 +224,9 @@
     "methods": [],
     "events": []
   },
-  "references": ["assert", "assert.AssertionError.options"],
+  "references": [
+    "assert",
+    "assert.AssertionError.options"
+  ],
   "source": "NodeJS/assert.yml"
 }

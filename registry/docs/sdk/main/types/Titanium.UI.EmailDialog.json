@@ -3,8 +3,16 @@
   "name": "Titanium.UI.EmailDialog",
   "kind": "view",
   "extends": "Titanium.UI.View",
-  "inheritanceChain": ["Titanium.UI.View", "Titanium.Proxy"],
-  "platforms": ["android", "iphone", "ipad", "macos"],
+  "inheritanceChain": [
+    "Titanium.UI.View",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": "0.8",
   "summary": "An email dialog is a modal window that allows users to compose and send an email.\n",
   "description": "| Android | iOS |\n| ------- | --- |\n| ![Android](./emaildialog_android.png) | ![iOS](./emaildialog_ios.png) |\n\nThe Email Dialog is created with the [Titanium.UI.createEmailDialog](api:Titanium.UI#createEmailDialog) method. The user needs to\nregister an e-mail account on the device in order to open the dialog.  The dialog will not\nopen when there is not a registered e-mail account.\n\n**iOS Platform Notes**\n\nOn iOS, you cannot test the e-mail dialog on the iOS Simulator. Test the email dialog on device.\n",
@@ -17,7 +25,11 @@
   "properties": [
     {
       "name": "barColor",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Bar color of the email dialog window, as a color name or hex triplet.\n",
       "description": "For information about color values, see the \"Colors\" section of [Titanium.UI](api:Titanium.UI).\n",
       "type": [
@@ -33,7 +45,12 @@
     },
     {
       "name": "bccRecipients",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Recipients of the email included via the `BCC` (Blind Carbon Copy) field.",
       "type": [
         {
@@ -50,7 +67,11 @@
     },
     {
       "name": "CANCELLED",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant for the `CANCELLED` status result. On Android, this property exists but is not used.",
       "type": [
         {
@@ -62,7 +83,12 @@
     },
     {
       "name": "ccRecipients",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Recipients of the email included via the `CC` (Carbon Copy) field.",
       "type": [
         {
@@ -79,7 +105,12 @@
     },
     {
       "name": "FAILED",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant for the `FAILED` status result.",
       "type": [
         {
@@ -91,7 +122,12 @@
     },
     {
       "name": "html",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Determines whether the email message, specifically the contents of\n[messageBody](api:Titanium.UI.EmailDialog#messageBody), should be sent as HTML content type\nrather than plain text.\n",
       "type": [
         {
@@ -103,7 +139,12 @@
     },
     {
       "name": "messageBody",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Email message body.",
       "type": [
         {
@@ -114,7 +155,12 @@
     },
     {
       "name": "SAVED",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant for the `SAVED` status result. On Android, this property exists but is not used.",
       "type": [
         {
@@ -126,7 +172,12 @@
     },
     {
       "name": "SENT",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant for the `SENT` status result.",
       "type": [
         {
@@ -138,7 +189,12 @@
     },
     {
       "name": "subject",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Subject line for the email.",
       "type": [
         {
@@ -149,7 +205,12 @@
     },
     {
       "name": "toRecipients",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Recipients of the email included via the main `TO` field.",
       "type": [
         {
@@ -168,7 +229,12 @@
   "methods": [
     {
       "name": "addAttachment",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Adds an attachment.",
       "description": "On Android, multiple attachments may be added, but will only work if the user chooses to\nsend via the Android Gmail or K9 mail clients.\n\nThe Android \"Mail\" app, which is only available on some handsets, will only accept one\nattachment from a Titanium app.\n",
       "parameters": [
@@ -190,7 +256,12 @@
     },
     {
       "name": "isSupported",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Indicates whether sending email is supported by the system.",
       "description": "On iOS 10, the user is able to uninstall the built-in applications including Mail. Because\nof that, you should ensure to check if the email dialog is supported on the current device.\n",
       "returns": [
@@ -206,7 +277,12 @@
     },
     {
       "name": "open",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Opens this email dialog.",
       "parameters": [
         {
@@ -227,7 +303,12 @@
   "events": [
     {
       "name": "complete",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when this email dialog has completed sending an email.",
       "properties": [
         {
@@ -278,186 +359,308 @@
       {
         "name": "accessibilityDisableLongPress",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "elevation",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "filterTouchesWhenObscured",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "hiddenBehavior",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "horizontalMotionEffect",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "id",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "keepHardwareMode",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "lifecycleContainer",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "previewContext",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone"]
+        "platforms": [
+          "iphone"
+        ]
       },
       {
         "name": "rotation",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad"
+        ]
       },
       {
         "name": "rotationX",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "rotationY",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "scaleX",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "scaleY",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "tooltip",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "touchFeedback",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "touchFeedbackColor",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "transitionName",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "translationX",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "translationY",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "translationZ",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "verticalMotionEffect",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "clearMotionEffects",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "getViewById",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "hide",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "insertAt",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "replaceAt",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "show",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "stopAnimation",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ],
     "events": [
       {
         "name": "rotate",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ]
   },

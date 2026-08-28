@@ -3,15 +3,21 @@
   "name": "Titanium.Calendar.Reminder",
   "kind": "proxy",
   "extends": "Titanium.Proxy",
-  "inheritanceChain": ["Titanium.Proxy"],
-  "platforms": ["android"],
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android"
+  ],
   "since": "3.2.0",
   "summary": "An object that represents a single reminder for an event in a calendar.",
   "description": "Reminders should be created using the [Titanium.Calendar.Event.createReminder](api:Titanium.Calendar.Event#createReminder) method \nrather than directly.\n\nSee [Titanium.Calendar](api:Titanium.Calendar) for examples of retrieving reminder information and creating \nreminders for events.\n",
   "properties": [
     {
       "name": "id",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Identifier of this reminder.",
       "type": [
         {
@@ -23,7 +29,9 @@
     },
     {
       "name": "method",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Method by which this reminder will be delivered.",
       "type": [
         {
@@ -32,11 +40,15 @@
         }
       ],
       "permission": "read-only",
-      "constants": ["Titanium.Calendar.METHOD_*"]
+      "constants": [
+        "Titanium.Calendar.METHOD_*"
+      ]
     },
     {
       "name": "minutes",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Reminder notice period in minutes, that determines how long prior to the event this reminder \nshould trigger.\n",
       "type": [
         {
@@ -54,43 +66,61 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "lifecycleContainer",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ],
     "events": []
   },
-  "references": ["Titanium.Calendar", "Titanium.Calendar.Event", "Titanium.Proxy"],
+  "references": [
+    "Titanium.Calendar",
+    "Titanium.Calendar.Event",
+    "Titanium.Proxy"
+  ],
   "source": "Titanium/Calendar/Reminder.yml"
 }

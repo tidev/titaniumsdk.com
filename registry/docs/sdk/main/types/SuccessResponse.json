@@ -3,13 +3,25 @@
   "name": "SuccessResponse",
   "kind": "pseudo",
   "extends": "ErrorResponse",
-  "inheritanceChain": ["ErrorResponse"],
-  "platforms": ["android", "iphone", "ipad", "macos"],
+  "inheritanceChain": [
+    "ErrorResponse"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "summary": "Properties used in any event or callback which needs to report a success.",
   "properties": [
     {
       "name": "code",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Error code. Returns 0.",
       "description": "Error code will be 0.",
       "type": [
@@ -21,7 +33,12 @@
     },
     {
       "name": "error",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Error message, if any returned.",
       "description": "Will be undefined.",
       "type": [
@@ -33,7 +50,12 @@
     },
     {
       "name": "success",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Indicates if the operation succeeded. Returns `true`.",
       "description": "Returns `true`.",
       "type": [
@@ -51,6 +73,8 @@
     "methods": [],
     "events": []
   },
-  "references": ["ErrorResponse"],
+  "references": [
+    "ErrorResponse"
+  ],
   "source": "Titanium/ErrorResponse.yml"
 }

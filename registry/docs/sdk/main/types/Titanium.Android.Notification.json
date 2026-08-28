@@ -3,8 +3,12 @@
   "name": "Titanium.Android.Notification",
   "kind": "proxy",
   "extends": "Titanium.Proxy",
-  "inheritanceChain": ["Titanium.Proxy"],
-  "platforms": ["android"],
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android"
+  ],
   "since": "1.5",
   "summary": "UI notifications that can be sent while the application is in the background.",
   "description": "Notifications alert the user that something is happening to your application while it is\nin the background. Notifications appear in the notification drawer until the user\nclears them and on the lock screen for devices running Android 5.0 or greater.\nNote that the user can filter or turn notifications on and off from **Settings**.\n\nFor Android toast notifications (pop-up notifications sent while the application is in the\nforeground), see [Titanium.UI.Notification](api:Titanium.UI.Notification).\n\nTo create a notification, use the [Titanium.Android.createNotification](api:Titanium.Android#createNotification) method.\n\nPass the Notification object to the methods of the [Titanium.Android.NotificationManager](api:Titanium.Android.NotificationManager) class\nto send or cancel notifications.\n\nFor examples of using Notifications, see [Android Notifications](#!/guide/Android_Notifications).\n\nFurther Reading:\n\n  * [Android Developers: Notifications](https://developer.android.com/design/patterns/notifications.html)\n\n#### Android 5.0 Changes\n\nStarting with Android 5.0 (API 21), ticker text, defined with the `tickerText` property,\nno longer appears in the status bar when the notification is first sent but is used as an\naudible notification if accessibility services are enabled.\n\nNotifications now appear in the lock screen.  The user can customize the visibility level of\nthese notifications from **Settings**.  The visibility level is based on the `visibility`\nproperty set on the notification.\n",
@@ -21,7 +25,9 @@
   "properties": [
     {
       "name": "audioStreamType",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "The audio stream type to use when playing the sound.",
       "description": "Specify one of the `STREAM` constants from [Titanium.Android](api:Titanium.Android).\n",
       "type": [
@@ -30,11 +36,15 @@
           "name": "Number"
         }
       ],
-      "constants": ["Titanium.Android.STREAM*"]
+      "constants": [
+        "Titanium.Android.STREAM*"
+      ]
     },
     {
       "name": "category",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Sets the notification's category.",
       "description": "If your notification falls into one of the predefined categories, assign it accordingly.\nAspects of the system UI such as the notification shade may use this information\nto make ranking and filtering decisions. This property only works for devices running Android 5.0 (API 21)\nand greater.\n",
       "type": [
@@ -44,11 +54,15 @@
         }
       ],
       "since": "3.6.0",
-      "constants": ["Titanium.Android.CATEGORY_*"]
+      "constants": [
+        "Titanium.Android.CATEGORY_*"
+      ]
     },
     {
       "name": "channelId",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "The channel id specified for the notification.",
       "type": [
         {
@@ -65,7 +79,9 @@
     },
     {
       "name": "color",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Accent color used behind icon.",
       "description": "Accent color of the circle used behind icon. The Icon will be stenciled in white on top of a\ncircle of the color set. For information about color values, see the \"Colors\" section of [Titanium.UI](api:Titanium.UI).\n\nSee Android Reference for the [color](https://developer.android.com/reference/android/app/Notification.html#color) property.\n",
       "type": [
@@ -78,7 +94,9 @@
     },
     {
       "name": "contentIntent",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "The `PendingIntent` to execute when the expanded status entry is clicked.",
       "type": [
         {
@@ -89,7 +107,9 @@
     },
     {
       "name": "contentText",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Description text of the notification.",
       "type": [
         {
@@ -100,7 +120,9 @@
     },
     {
       "name": "contentTitle",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Title of the notification.",
       "type": [
         {
@@ -111,7 +133,9 @@
     },
     {
       "name": "contentView",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Custom layout to display in the notification.",
       "description": "Calling [setLatestEventInfo](api:Titanium.Android.Notification#setLatestEventInfo) or\nsetting the `contentText` or `contentTitle` properties causes the notification to use\nthe default notification layout, overriding any custom layout set through\n`contentView`.\n\nIf you use a custom layout, you can use the\n[RemoteViews](api:Titanium.Android.RemoteViews) methods to update the displayed\nnotification.\n",
       "type": [
@@ -124,7 +148,9 @@
     },
     {
       "name": "defaults",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Specifies which values should be taken from the defaults.",
       "description": "Specify the bitwise OR of the desired values:\n[Titanium.Android.DEFAULT_LIGHTS](api:Titanium.Android#DEFAULT_LIGHTS), [Titanium.Android.DEFAULT_SOUND](api:Titanium.Android#DEFAULT_SOUND), and\n[Titanium.Android.DEFAULT_VIBRATE](api:Titanium.Android#DEFAULT_VIBRATE). Use [Titanium.Android.DEFAULT_ALL](api:Titanium.Android#DEFAULT_ALL) to specify\nthat all values should be taken from the defaults.\n",
       "type": [
@@ -133,11 +159,15 @@
           "name": "Number"
         }
       ],
-      "constants": ["Titanium.Android.DEFAULT_*"]
+      "constants": [
+        "Titanium.Android.DEFAULT_*"
+      ]
     },
     {
       "name": "deleteIntent",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "The `PendingIntent` to execute when the status entry is deleted by the user with the \"Clear All Notifications\" button.",
       "type": [
         {
@@ -148,7 +178,9 @@
     },
     {
       "name": "flags",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Set of flags for the notification.",
       "type": [
         {
@@ -168,7 +200,9 @@
     },
     {
       "name": "groupKey",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "The group key that the notification will belong to.",
       "type": [
         {
@@ -185,7 +219,9 @@
     },
     {
       "name": "groupSummary",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Specifies if this is a group summary notification.",
       "type": [
         {
@@ -202,7 +238,9 @@
     },
     {
       "name": "icon",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Notification icon, specified as an Android resource ID, or a local URL to a density-specific image.",
       "description": "If specified as a URL, the icon must be placed in one of the density-specific\nfolders under `Resources/android/images`. For example, if your icon is called\n`my_icon.png`, you would create high- and medium-density versions of the icons\nwith the following paths:\n\n```\nResources/android/images/res-hdpi/my_icon.png\nResources/android/images/res-mdpi/my_icon.png\n```\n\nTo access this icon, you'd use the URL '/images/my_icon.png'.\n\nTo access the same icon using an Android resource ID, place the icon in:\n\n```\nplatform/android/res/drawable/my_icon.png\n```\n\nThis icon's resource ID can be referenced through the [Titanium.App.Android.R](api:Titanium.App.Android#R)\nobject:\n\n``` js\nicon: Ti.App.Android.R.drawable.my_icon,\n```\n\nSee [Titanium.App.Android.R](api:Titanium.App.Android#R) for more information on accessing\nAndroid resources by ID.\n",
       "type": [
@@ -218,7 +256,9 @@
     },
     {
       "name": "largeIcon",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Add a large icon to the notification (and the ticker on some devices) specified as an Android resource ID, or a local URL to a density-specific image.",
       "description": "If specified as a URL, the icon must be placed in one of the density-specific\nfolders under `Resources/android/images`. For example, if your icon is called\n`my_large_icon.png`, you would create high- and medium-density versions of the icons\nwith the following paths:\n\n```\nResources/android/images/res-hdpi/my_large_icon.png\nResources/android/images/res-mdpi/my_large_icon.png\n```\n\nTo access this large icon, you'd use the URL '/images/my_large_icon.png'.\n\nTo access the same large icon using an Android resource ID, place the icon in:\n\n```\nplatform/android/res/drawable/my_large_icon.png\n```\n\nThis large icon's resource ID can be referenced through the [Titanium.App.Android.R](api:Titanium.App.Android#R)\nobject:\n\n``` js\nicon: Ti.App.Android.R.drawable.my_large_icon,\n```\n\nSee [Titanium.App.Android.R](api:Titanium.App.Android#R) for more information on accessing\nAndroid resources by ID.\n",
       "type": [
@@ -235,7 +275,9 @@
     },
     {
       "name": "ledARGB",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "The color for the LED to blink.",
       "type": [
         {
@@ -246,7 +288,9 @@
     },
     {
       "name": "ledOffMS",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "The number of milliseconds for the LED to be off while it's flashing.",
       "type": [
         {
@@ -257,7 +301,9 @@
     },
     {
       "name": "ledOnMS",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "The number of milliseconds for the LED to be on while it's flashing.",
       "type": [
         {
@@ -268,7 +314,9 @@
     },
     {
       "name": "number",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "The number of events that this notification represents.",
       "type": [
         {
@@ -279,7 +327,9 @@
     },
     {
       "name": "priority",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Sets the priority of the notification.",
       "description": "This property only works for devices running Android 4.1 (API 16) and greater.\n",
       "type": [
@@ -290,11 +340,15 @@
       ],
       "since": "3.6.0",
       "default": "undefined but behaves as Titanium.Android.PRIORITY_DEFAULT",
-      "constants": ["Titanium.Android.PRIORITY_*"]
+      "constants": [
+        "Titanium.Android.PRIORITY_*"
+      ]
     },
     {
       "name": "sound",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "A URL to the sound to play.",
       "description": "The URL cannot refer to a file in the Resources directory, but it can refer to\na file in the raw resources directory\n([Filesystem.resRawDirectory](api:Titanium.Filesystem#resRawDirectory)) or the\nexternal storage directory\n([Filesystem.externalStorageDirectory](api:Titanium.Filesystem#externalStorageDirectory)).\n\nNote that this sound property is ignored on Android 8.0 and above. On these OS versions,\nyou must use the [NotificationChannel.sound](api:Titanium.Android.NotificationChannel#sound)\nproperty and that sound will play for any notification posted under that channel. Also, you will\nstill need to set this notification's sound property for OS versions older than Android 8.0 too,\nmeaning that the sound URL needs to be set in both places.\n\nTo play a raw resource file, place the audio file in the `platform/android/res/raw`\nfolder and reference it as:\n\n``` js\nnotification.sound = Ti.Filesystem.resRawDirectory + audioFileName;\n```\n\nTo play a file from the Resources directory, first copy it to external storage. For example, you\ncould define the following function:\n\n``` js\n// Copy resource file to SD card, and return a native path.\n// Return undefined if we can't copy the file.\nfunction getOrCopyAudioFile(resourceFilename) {\n    var outFile = Ti.Filesystem.getFile(Ti.Filesystem.externalStorageDirectory, 'sound', 'cricket.wav');\n    var outPath = outFile.nativePath;\n\n    if (! outFile.exists()) {\n        var outDir = Ti.Filesystem.getFile(Ti.Filesystem.externalStorageDirectory, 'sound');\n        if (! outDir.isDirectory()) {\n            if (! outDir.createDirectory()) {\n                Ti.API.debug(\"Failed to create directory.\");\n                outDir = null;\n                return undefined;\n            }\n        }\n        outDir = null;\n\n        var inFile = Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, 'cricket.wav');\n        try {\n            inFile.copy(outPath);\n        } catch (ex) {\n            Ti.API.debug(\"Failed to copy file.\");\n            inFile = null;\n            return undefined;\n        }\n        inFile = null;\n    }\n    outFile = null;\n    return outPath;\n}\n```\n\nThen when creating a notification, specify the sound like this:\n\n``` js\nvar sound = getOrCopyAudioFile();\nif (sound) {\n    notification.sound = sound;\n}\n```\n",
       "type": [
@@ -311,7 +365,9 @@
     },
     {
       "name": "style",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Style object that can apply a rich notification style.",
       "description": "Notifications in the notification drawer appear in two main visual styles, normal view and big view.\nThe big view of a notification only appears when the notification is expanded.\nThis happens when the notification is at the top of the drawer, or the user clicks the notification.\nOn platform versions that don't offer expanded notifications, styles that depend on expanded notifications have no effect.\n",
       "type": [
@@ -328,7 +384,9 @@
     },
     {
       "name": "tickerText",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Text to scroll across the screen when this item is added to the status bar.",
       "description": "For devices running Android 5.0 (API 21) and greater, the ticket text is no longer displayed\nin the status bar.  However, this property is used as an audible notification if accessibility\nservices are enabled.\n",
       "type": [
@@ -340,7 +398,9 @@
     },
     {
       "name": "visibility",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Allows user to conceal private information of the notification on the lock screen.",
       "description": "This property only works on devices running Android 5.0 (API 21) and greater.\n",
       "type": [
@@ -351,11 +411,15 @@
       ],
       "since": "3.6.0",
       "default": "undefined but behaves as Titanium.Android.VISIBILITY_PUBLIC",
-      "constants": ["Titanium.Android.VISIBILITY_*"]
+      "constants": [
+        "Titanium.Android.VISIBILITY_*"
+      ]
     },
     {
       "name": "wakeLock",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Will wake up the device for the given time (in milliseconds) when the notification is shown.\nThe application needs to also set the `android.permission.WAKE_LOCK` permission\nin the Android manifest section of the `tiapp.xml` file.\n\n``` xml\n<ti:app>\n    <android>\n        <manifest>\n            <uses-permission android:name=\"android.permission.WAKE_LOCK\" />\n        </manifest>\n    </android>\n</ti:app>\n```\n",
       "type": [
         {
@@ -371,7 +435,12 @@
         "properties": [
           {
             "name": "flags",
-            "platforms": ["android", "iphone", "ipad", "macos"],
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "Wake lock level and flag. See [PowerManager.newWakeLock in the Android API Reference](https://developer.android.com/reference/android/os/PowerManager.html#newWakeLock(int,%20java.lang.String))",
             "type": [
               {
@@ -380,11 +449,18 @@
               }
             ],
             "default": "Titanium.Android.WAKE_LOCK_FULL | Titanium.Android.WAKE_LOCK_ACQUIRE_CAUSES_WAKEUP | Titanium.Android.WAKE_LOCK_ON_AFTER_RELEASE",
-            "constants": ["Titanium.Android.WAKE_LOCK_*"]
+            "constants": [
+              "Titanium.Android.WAKE_LOCK_*"
+            ]
           },
           {
             "name": "time",
-            "platforms": ["android", "iphone", "ipad", "macos"],
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "Minimum time the device will be switched on (plus device switch-off time)",
             "type": [
               {
@@ -399,7 +475,9 @@
     },
     {
       "name": "when",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "The timestamp for the notification (defaults to the current time).",
       "description": "If the timestamp is set to 0, no time is displayed in the notification\nwindow for this notification.\n",
       "type": [
@@ -417,7 +495,9 @@
   "methods": [
     {
       "name": "addAction",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Add an action button to the notification",
       "description": "Up to three actions buttons can be added, additional buttons will be ignored.\n",
       "since": "6.2.0",
@@ -460,7 +540,9 @@
     },
     {
       "name": "setLatestEventInfo",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Sets the latest event info using the built-in notification view for this notification.",
       "parameters": [
         {
@@ -497,7 +579,9 @@
     },
     {
       "name": "setProgress",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Set the progress this notification represents.",
       "since": "6.1.0",
       "parameters": [
@@ -540,39 +624,53 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "lifecycleContainer",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ],
     "events": []

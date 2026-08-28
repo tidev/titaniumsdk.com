@@ -3,15 +3,22 @@
   "name": "Titanium.WatchSession",
   "kind": "module",
   "extends": "Titanium.Module",
-  "inheritanceChain": ["Titanium.Module", "Titanium.Proxy"],
-  "platforms": ["iphone"],
+  "inheritanceChain": [
+    "Titanium.Module",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "iphone"
+  ],
   "since": "5.0.0",
   "summary": "Used to enable data and file transfers between a watchOS and iOS application.",
   "description": "WatchSession enables data and file transfers between a WatchKit application and a Titanium application\nusing the iOS Watch Connectivity framework introduced in iOS 9 and watchOS 2.\n",
   "properties": [
     {
       "name": "ACTIVATION_STATE_ACTIVATED",
-      "platforms": ["iphone"],
+      "platforms": [
+        "iphone"
+      ],
       "summary": "The watch is currently activated.",
       "type": [
         {
@@ -29,7 +36,9 @@
     },
     {
       "name": "ACTIVATION_STATE_INACTIVE",
-      "platforms": ["iphone"],
+      "platforms": [
+        "iphone"
+      ],
       "summary": "The watch is currently inactive.",
       "type": [
         {
@@ -47,7 +56,9 @@
     },
     {
       "name": "ACTIVATION_STATE_NOT_ACTIVATED",
-      "platforms": ["iphone"],
+      "platforms": [
+        "iphone"
+      ],
       "summary": "The watch is currently not activated.",
       "type": [
         {
@@ -65,7 +76,9 @@
     },
     {
       "name": "activationState",
-      "platforms": ["iphone"],
+      "platforms": [
+        "iphone"
+      ],
       "summary": "Returns the current activation state of the watch.",
       "type": [
         {
@@ -80,11 +93,15 @@
           "min": "9.3"
         }
       },
-      "constants": ["Titanium.WatchSession.ACTIVATION_STATE_*"]
+      "constants": [
+        "Titanium.WatchSession.ACTIVATION_STATE_*"
+      ]
     },
     {
       "name": "hasContentPending",
-      "platforms": ["iphone"],
+      "platforms": [
+        "iphone"
+      ],
       "summary": "Returns `true` if there is more content for the session to deliver.",
       "type": [
         {
@@ -97,7 +114,9 @@
     },
     {
       "name": "isActivated",
-      "platforms": ["iphone"],
+      "platforms": [
+        "iphone"
+      ],
       "summary": "Returns `true` if the watch is currently activated.",
       "type": [
         {
@@ -115,7 +134,9 @@
     },
     {
       "name": "isComplicationEnabled",
-      "platforms": ["iphone"],
+      "platforms": [
+        "iphone"
+      ],
       "summary": "Returns `true` if complication is enabled on the installed watch app.",
       "type": [
         {
@@ -127,7 +148,9 @@
     },
     {
       "name": "isPaired",
-      "platforms": ["iphone"],
+      "platforms": [
+        "iphone"
+      ],
       "summary": "Returns `true` if the device is paired with a watch.",
       "type": [
         {
@@ -139,7 +162,9 @@
     },
     {
       "name": "isReachable",
-      "platforms": ["iphone"],
+      "platforms": [
+        "iphone"
+      ],
       "summary": "Returns `true` if the watch is currently reachable.",
       "type": [
         {
@@ -151,7 +176,9 @@
     },
     {
       "name": "isSupported",
-      "platforms": ["iphone"],
+      "platforms": [
+        "iphone"
+      ],
       "summary": "Returns `true` if the device supports watch connectivity.",
       "type": [
         {
@@ -163,7 +190,9 @@
     },
     {
       "name": "isWatchAppInstalled",
-      "platforms": ["iphone"],
+      "platforms": [
+        "iphone"
+      ],
       "summary": "Returns `true` if the accompanying watch app is installed.",
       "type": [
         {
@@ -175,7 +204,9 @@
     },
     {
       "name": "recentApplicationContext",
-      "platforms": ["iphone"],
+      "platforms": [
+        "iphone"
+      ],
       "summary": "The most recent application context sent to the watch app.",
       "type": [
         {
@@ -187,7 +218,9 @@
     },
     {
       "name": "remainingComplicationUserInfoTransfers",
-      "platforms": ["iphone"],
+      "platforms": [
+        "iphone"
+      ],
       "summary": "The number of calls remaining to `transferCurrentComplication` before the system starts \ntransferring the complicationUserInfo as regular userInfos.\n",
       "type": [
         {
@@ -203,31 +236,41 @@
   "methods": [
     {
       "name": "activateSession",
-      "platforms": ["iphone"],
+      "platforms": [
+        "iphone"
+      ],
       "summary": "Activates the watch session\n",
       "description": "Activates the watch session to make the app ready to receive messages from the watch app.\n"
     },
     {
       "name": "cancelAllFileTransfers",
-      "platforms": ["iphone"],
+      "platforms": [
+        "iphone"
+      ],
       "summary": "Cancels all incomplete file transfers to the Apple Watch.\n",
       "description": "Cancels all incomplete file transfers to the Apple Watch.\n"
     },
     {
       "name": "cancelAllTransfers",
-      "platforms": ["iphone"],
+      "platforms": [
+        "iphone"
+      ],
       "summary": "Cancels all incomplete transfers to the Apple Watch.\n",
       "description": "Cancels all incomplete transfers to the Apple Watch, including user info, complication and file.\n"
     },
     {
       "name": "cancelAllUserInfoTransfers",
-      "platforms": ["iphone"],
+      "platforms": [
+        "iphone"
+      ],
       "summary": "Cancels all incomplete user info and complication transfers to the Apple Watch.\n",
       "description": "Cancels all incomplete user info and complication transfers to the Apple Watch.\n"
     },
     {
       "name": "sendMessage",
-      "platforms": ["iphone"],
+      "platforms": [
+        "iphone"
+      ],
       "summary": "Sends a message to the Apple Watch.\n",
       "description": "Sends a message to the installed watch app on the Apple Watch in the foreground. \n",
       "parameters": [
@@ -263,7 +306,9 @@
             "properties": [
               {
                 "name": "code",
-                "platforms": ["iphone"],
+                "platforms": [
+                  "iphone"
+                ],
                 "summary": "Error code. Returns 0 if `success` is `true`.",
                 "description": "Error code will be 0 if `success` is `true`, nonzero otherwise. If the error\nwas generated by the operating system, that system's error value is used.\nOtherwise, this value will be -1.\n",
                 "type": [
@@ -275,7 +320,9 @@
               },
               {
                 "name": "error",
-                "platforms": ["iphone"],
+                "platforms": [
+                  "iphone"
+                ],
                 "summary": "Error message, if any returned.",
                 "description": "Will be undefined if `success` is `true`.",
                 "type": [
@@ -287,7 +334,9 @@
               },
               {
                 "name": "message",
-                "platforms": ["iphone"],
+                "platforms": [
+                  "iphone"
+                ],
                 "summary": "Reply message from watch app.",
                 "description": "Will be undefined if `success` is `false`.",
                 "type": [
@@ -299,7 +348,9 @@
               },
               {
                 "name": "success",
-                "platforms": ["iphone"],
+                "platforms": [
+                  "iphone"
+                ],
                 "summary": "Indicates if the operation succeeded.",
                 "description": "Returns `true` if request succeeded, `false` otherwise.",
                 "type": [
@@ -316,7 +367,9 @@
     },
     {
       "name": "transferCurrentComplication",
-      "platforms": ["iphone"],
+      "platforms": [
+        "iphone"
+      ],
       "summary": "Transfers complication data to the watch application.\n",
       "description": "Transfers complication data to the installed watch app. This is only for\nwatch apps with complications enabled.\n",
       "parameters": [
@@ -334,7 +387,9 @@
     },
     {
       "name": "transferFile",
-      "platforms": ["iphone"],
+      "platforms": [
+        "iphone"
+      ],
       "summary": "Transfers a file to the Apple Watch.\n",
       "description": "Transfers a file to the installed watch app on the Apple Watch in the background. Subsequent\ntransfers are queued. \n",
       "parameters": [
@@ -352,7 +407,9 @@
     },
     {
       "name": "transferUserInfo",
-      "platforms": ["iphone"],
+      "platforms": [
+        "iphone"
+      ],
       "summary": "Transfers an user info to the Apple Watch.\n",
       "description": "Transfers an user info object to the installed watch app on the Apple Watch in the background.\nSubsequent transfers are queued. \n",
       "parameters": [
@@ -370,7 +427,9 @@
     },
     {
       "name": "updateApplicationContext",
-      "platforms": ["iphone"],
+      "platforms": [
+        "iphone"
+      ],
       "summary": "Sends an app context update to the Apple Watch.\n",
       "description": "Sends an app context update to the Apple Watch. If watch app is in background during transfer,\nwatch app will fire the [Titanium.WatchSession.receiveapplicationcontext](api:Titanium.WatchSession#receiveapplicationcontext) event immediately when \nit becomes active. Only one app context is stored at any one time. Subsequent updates will simply \nreplace the earlier one sent.\n",
       "parameters": [
@@ -390,7 +449,9 @@
   "events": [
     {
       "name": "activationCompleted",
-      "platforms": ["iphone"],
+      "platforms": [
+        "iphone"
+      ],
       "summary": "Called when the session has completed activation. If session state is \n[Titanium.WatchSession.ACTIVATION_STATE_NOT_ACTIVATED](api:Titanium.WatchSession#ACTIVATION_STATE_NOT_ACTIVATED) there will be an error \nwith more details. \n",
       "since": "5.4.0",
       "osver": {
@@ -463,7 +524,9 @@
     },
     {
       "name": "deactivate",
-      "platforms": ["iphone"],
+      "platforms": [
+        "iphone"
+      ],
       "summary": "Called when all events for the previously selected watch has occurred. \nThe session can be re-activated for the now selected watch using activateSession.\n",
       "since": "5.4.0",
       "osver": {
@@ -556,7 +619,9 @@
     },
     {
       "name": "finishfiletransfer",
-      "platforms": ["iphone"],
+      "platforms": [
+        "iphone"
+      ],
       "summary": "App completed file transfer to watch app.\n",
       "properties": [
         {
@@ -613,7 +678,9 @@
     },
     {
       "name": "finishuserinfotransfer",
-      "platforms": ["iphone"],
+      "platforms": [
+        "iphone"
+      ],
       "summary": "Fired when the application completed user info transfer to the watch app.\n",
       "properties": [
         {
@@ -660,7 +727,9 @@
     },
     {
       "name": "inactive",
-      "platforms": ["iphone"],
+      "platforms": [
+        "iphone"
+      ],
       "summary": "Called when the session can no longer be used to modify or add any new transfers and, \nall interactive messages will be cancelled, but events for background transfers can still fire. \nThis will happen when the selected watch is being changed. \n",
       "since": "5.4.0",
       "osver": {
@@ -733,7 +802,9 @@
     },
     {
       "name": "reachabilitychanged",
-      "platforms": ["iphone"],
+      "platforms": [
+        "iphone"
+      ],
       "summary": "The watch reachability state has changed.\n",
       "properties": [
         {
@@ -800,7 +871,9 @@
     },
     {
       "name": "receiveapplicationcontext",
-      "platforms": ["iphone"],
+      "platforms": [
+        "iphone"
+      ],
       "summary": "App received app context from Apple Watch. Will be called on startup if an applicationContext is available.\n",
       "properties": [
         {
@@ -817,7 +890,9 @@
     },
     {
       "name": "receivefile",
-      "platforms": ["iphone"],
+      "platforms": [
+        "iphone"
+      ],
       "summary": "App received file from Apple Watch in background.\n",
       "properties": [
         {
@@ -874,7 +949,9 @@
     },
     {
       "name": "receivemessage",
-      "platforms": ["iphone"],
+      "platforms": [
+        "iphone"
+      ],
       "summary": "App received message from Apple Watch in foreground. Will be called on startup if the \nincoming message caused the receiver to launch.\n",
       "properties": [
         {
@@ -891,7 +968,9 @@
     },
     {
       "name": "receiveuserinfo",
-      "platforms": ["iphone"],
+      "platforms": [
+        "iphone"
+      ],
       "summary": "App received user info from Apple Watch in background. Will be called on startup if the user info finished \ntransferring when the receiver was not running.\n",
       "properties": [
         {
@@ -908,7 +987,9 @@
     },
     {
       "name": "watchstatechanged",
-      "platforms": ["iphone"],
+      "platforms": [
+        "iphone"
+      ],
       "summary": "The watch state has changed.\n",
       "properties": [
         {
@@ -979,38 +1060,55 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone"]
+        "platforms": [
+          "iphone"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone"]
+        "platforms": [
+          "iphone"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone"]
+        "platforms": [
+          "iphone"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone"]
+        "platforms": [
+          "iphone"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone"]
+        "platforms": [
+          "iphone"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone"]
+        "platforms": [
+          "iphone"
+        ]
       }
     ],
     "events": []
   },
-  "references": ["Dictionary", "MessageReply", "Titanium.Blob", "Titanium.Module"],
+  "references": [
+    "Dictionary",
+    "MessageReply",
+    "Titanium.Blob",
+    "Titanium.Module"
+  ],
   "source": "Titanium/WatchSession/WatchSession.yml"
 }

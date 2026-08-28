@@ -3,15 +3,22 @@
   "name": "Titanium.Android.NotificationManager",
   "kind": "module",
   "extends": "Titanium.Module",
-  "inheritanceChain": ["Titanium.Module", "Titanium.Proxy"],
-  "platforms": ["android"],
+  "inheritanceChain": [
+    "Titanium.Module",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android"
+  ],
   "since": "1.5",
   "summary": "Module for managing notifications.",
   "description": "This module provides methods for sending and canceling notifications,\nwhich are represented by the [Titanium.Android.Notification](api:Titanium.Android.Notification) object.\n\nFurther Reading:\n\n  * [Android Notifications guide](https://titaniumsdk.com/guide/Titanium_SDK/Titanium_SDK_How-tos/Notification_Services/Android_Notifications.html)\n  * [Android Developer: Notifications](https://developer.android.com/guide/topics/ui/notifiers/notifications.html)\n",
   "properties": [
     {
       "name": "DEFAULT_ALL",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Use [Titanium.Android.DEFAULT_ALL](api:Titanium.Android#DEFAULT_ALL) instead.",
       "type": [
         {
@@ -23,7 +30,9 @@
     },
     {
       "name": "DEFAULT_LIGHTS",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Use [Titanium.Android.DEFAULT_LIGHTS](api:Titanium.Android#DEFAULT_LIGHTS) instead.",
       "type": [
         {
@@ -35,7 +44,9 @@
     },
     {
       "name": "DEFAULT_SOUND",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Use [Titanium.Android.DEFAULT_SOUND](api:Titanium.Android#DEFAULT_SOUND) instead.",
       "type": [
         {
@@ -47,7 +58,9 @@
     },
     {
       "name": "DEFAULT_VIBRATE",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Use [Titanium.Android.DEFAULT_VIBRATE](api:Titanium.Android#DEFAULT_VIBRATE) instead.",
       "type": [
         {
@@ -59,7 +72,9 @@
     },
     {
       "name": "FLAG_AUTO_CANCEL",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Use [Titanium.Android.FLAG_AUTO_CANCEL](api:Titanium.Android#FLAG_AUTO_CANCEL) instead.",
       "type": [
         {
@@ -71,7 +86,9 @@
     },
     {
       "name": "FLAG_INSISTENT",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Use [Titanium.Android.FLAG_INSISTENT](api:Titanium.Android#FLAG_INSISTENT) instead.",
       "type": [
         {
@@ -83,7 +100,9 @@
     },
     {
       "name": "FLAG_NO_CLEAR",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Use [Titanium.Android.FLAG_NO_CLEAR](api:Titanium.Android#FLAG_NO_CLEAR) instead.",
       "type": [
         {
@@ -95,7 +114,9 @@
     },
     {
       "name": "FLAG_ONGOING_EVENT",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Use [Titanium.Android.FLAG_ONGOING_EVENT](api:Titanium.Android#FLAG_ONGOING_EVENT) instead.",
       "type": [
         {
@@ -107,7 +128,9 @@
     },
     {
       "name": "FLAG_ONLY_ALERT_ONCE",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Use [Titanium.Android.FLAG_ONLY_ALERT_ONCE](api:Titanium.Android#FLAG_ONLY_ALERT_ONCE) instead.",
       "type": [
         {
@@ -119,7 +142,9 @@
     },
     {
       "name": "FLAG_SHOW_LIGHTS",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Use [Titanium.Android.FLAG_SHOW_LIGHTS](api:Titanium.Android#FLAG_SHOW_LIGHTS) instead.",
       "type": [
         {
@@ -131,7 +156,9 @@
     },
     {
       "name": "notificationChannels",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Returns an object with the ID and name of the notification channels",
       "type": [
         {
@@ -152,7 +179,12 @@
         "properties": [
           {
             "name": "id",
-            "platforms": ["android", "iphone", "ipad", "macos"],
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "ID of the channel",
             "type": [
               {
@@ -163,7 +195,12 @@
           },
           {
             "name": "name",
-            "platforms": ["android", "iphone", "ipad", "macos"],
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "Name of the channel",
             "type": [
               {
@@ -177,7 +214,9 @@
     },
     {
       "name": "STREAM_DEFAULT",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Use [Titanium.Android.STREAM_DEFAULT](api:Titanium.Android#STREAM_DEFAULT) instead.",
       "type": [
         {
@@ -191,7 +230,9 @@
   "methods": [
     {
       "name": "areNotificationsEnabled",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Returns whether showing notifications is enabled for the application.",
       "since": "7.1.0",
       "returns": [
@@ -207,7 +248,9 @@
     },
     {
       "name": "cancel",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Cancels a previously displayed notification.",
       "parameters": [
         {
@@ -224,12 +267,16 @@
     },
     {
       "name": "cancelAll",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Cancels all previously displayed notifications."
     },
     {
       "name": "createNotificationChannel",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Create a notification channel.",
       "description": "This will return `null` when used on Android versions lower than 8.0.",
       "osver": {
@@ -268,7 +315,9 @@
     },
     {
       "name": "deleteNotificationChannel",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Deletes a notification channel.",
       "since": "12.0.0",
       "osver": {
@@ -291,7 +340,9 @@
     },
     {
       "name": "notify",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Adds a persistent notification to the status bar.",
       "description": "The new notification *replaces* any previous notification with the same `id`.",
       "parameters": [
@@ -324,39 +375,53 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "lifecycleContainer",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ],
     "events": []

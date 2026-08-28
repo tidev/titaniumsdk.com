@@ -3,15 +3,21 @@
   "name": "Titanium.Android.R",
   "kind": "proxy",
   "extends": "Titanium.Proxy",
-  "inheritanceChain": ["Titanium.Proxy"],
-  "platforms": ["android"],
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android"
+  ],
   "since": "1.5",
   "summary": "The Titanium binding of the native Android `R` class, giving access to\nAndroid system-wide resources or application resources.\n",
   "description": "To access system-wide resources your application's resources, use\n[Titanium.Android.R](api:Titanium.Android.R).\nTo access your application's resources, use [Titanium.App.Android.R](api:Titanium.App.Android#R).\n\nThese properties and sub-properties correspond directly to the properties\nof the the `android.R` class, and should have the same syntax.\nTo retrieve the \"OK\" string from system resources in Android:\n\n``` js\nTi.Android.currentActivity.getString(Ti.Android.R.string.ok);\n```\n\nIf the file  `platform/android/res/drawable/icon.png` exists in the\nproject, it can be accessed using its resource name, as follows:\n\n``` js\nvar resid = Titanium.App.Android.R.drawable.icon;\n```\n\nSee also:\n[android.R](https://developer.android.com/reference/android/R.html) in the\nAndroid Developer Reference.\nFor more information, refer to the official documentation on the Android\nDeveloper website about\n[accessing application resources](https://developer.android.com/guide/topics/resources/accessing-resources.html).\n\nStarting in Titanium SDK 7.3.0, this API exposes all Android related R classes\nfor the usage in Hyperloop. For example, it can be used to access `menu` resources\nas part of native user interfaces, e.g. `BottomNavigationView` or `RecyclerView`.\nSee an example in the [Hyperloop Sample App](https://github.com/tidev/hyperloop-examples) for details!\n",
   "properties": [
     {
       "name": "anim",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Animation resources. See\n[R.anim](https://developer.android.com/reference/android/R.anim.html)\nin the Android Developer Reference.\n",
       "type": [
         {
@@ -23,7 +29,9 @@
     },
     {
       "name": "animator",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Animator resources. See\n[R.animator](https://developer.android.com/reference/android/R.animator.html)\nin the Android Developer Reference.\n",
       "type": [
         {
@@ -36,7 +44,9 @@
     },
     {
       "name": "array",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Array resources. See [R.array](https://developer.android.com/reference/android/R.array.html)\nin the Android Developer Reference.\n",
       "type": [
         {
@@ -48,7 +58,9 @@
     },
     {
       "name": "attr",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Attribute resources. See\n[R.attr](https://developer.android.com/reference/android/R.attr.html)\nin the Android Developer Reference.\n",
       "type": [
         {
@@ -60,7 +72,9 @@
     },
     {
       "name": "bool",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Boolean resources. See\n[R.bool](https://developer.android.com/reference/android/R.bool.html)\nin the Android Developer Reference.\n",
       "type": [
         {
@@ -73,7 +87,9 @@
     },
     {
       "name": "color",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Color resources. See\n[R.color](https://developer.android.com/reference/android/R.color.html)\nin the Android Developer Reference.\n",
       "type": [
         {
@@ -85,7 +101,9 @@
     },
     {
       "name": "dimen",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Dimension resources.  See\n[https://developer.android.com/reference/android/R.dimen.html](https://developer.android.com/reference/android/R.dimen.html)\nin the Android Developer Reference.\n",
       "type": [
         {
@@ -97,7 +115,9 @@
     },
     {
       "name": "drawable",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Drawable resources. See\n[R.drawable](https://developer.android.com/reference/android/R.drawable.html)\nin the Android Developer Reference.\n",
       "type": [
         {
@@ -109,7 +129,9 @@
     },
     {
       "name": "fraction",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Fraction resources. See\n[R.fraction](https://developer.android.com/reference/android/R.fraction.html)\nin the Android Developer Reference.\n",
       "type": [
         {
@@ -122,7 +144,9 @@
     },
     {
       "name": "id",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "ID resources.  See\n[R.id](https://developer.android.com/reference/android/R.id.html)\nin the Android Developer Reference.\n",
       "type": [
         {
@@ -134,7 +158,9 @@
     },
     {
       "name": "integer",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Integer resources. See\n[R.integer](https://developer.android.com/reference/android/R.integer.html)\nin the Android Developer Reference.\n",
       "type": [
         {
@@ -146,7 +172,9 @@
     },
     {
       "name": "interpolator",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Interpolator resources. See\n[R.fraction](https://developer.android.com/reference/android/R.interpolator.html)\nin the Android Developer Reference.\n",
       "type": [
         {
@@ -159,7 +187,9 @@
     },
     {
       "name": "layout",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Layout resources. See\n[R.layout](https://developer.android.com/reference/android/R.layout.html)\nin the Android Developer Reference.\n",
       "type": [
         {
@@ -171,7 +201,9 @@
     },
     {
       "name": "menu",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Menu resources. See\n[R.menu](https://developer.android.com/reference/android/R.menu.html)\nin the Android Developer Reference.\n",
       "type": [
         {
@@ -184,7 +216,9 @@
     },
     {
       "name": "mipmap",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Mipmap resources. See\n[R.mipmap](https://developer.android.com/reference/android/R.mipmap.html)\nin the Android Developer Reference.\n",
       "type": [
         {
@@ -197,7 +231,9 @@
     },
     {
       "name": "plurals",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Plurals resources. See\n[R.plurals](https://developer.android.com/reference/android/R.plurals.html)\nin the Android Developer Reference.\n",
       "type": [
         {
@@ -210,7 +246,9 @@
     },
     {
       "name": "raw",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Raw resources. See\n[R.raw](https://developer.android.com/reference/android/R.raw.html)\nin the Android Developer Reference.\n",
       "type": [
         {
@@ -223,7 +261,9 @@
     },
     {
       "name": "string",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "String resources. See\n[R.string](https://developer.android.com/reference/android/R.string.html)\nin the Android Developer Reference.\n",
       "type": [
         {
@@ -235,7 +275,9 @@
     },
     {
       "name": "style",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Style resources. See\n[R.style](https://developer.android.com/reference/android/R.style.html)\nin the Android Developer Reference.\n",
       "type": [
         {
@@ -247,7 +289,9 @@
     },
     {
       "name": "styleable",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Styleable resources. See\n[R.styleable](https://developer.android.com/reference/android/R.styleable.html)\nin the Android Developer Reference.\n",
       "type": [
         {
@@ -259,7 +303,9 @@
     },
     {
       "name": "transition",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Transition resources. See\n[R.transition](https://developer.android.com/reference/android/R.transition.html)\nin the Android Developer Reference.\n",
       "type": [
         {
@@ -272,7 +318,9 @@
     },
     {
       "name": "xml",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "XML resources. See\n[R.xml](https://developer.android.com/reference/android/R.xml.html)\nin the Android Developer Reference.\n",
       "type": [
         {
@@ -291,43 +339,60 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "lifecycleContainer",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ],
     "events": []
   },
-  "references": ["Titanium.App.Android", "Titanium.Proxy"],
+  "references": [
+    "Titanium.App.Android",
+    "Titanium.Proxy"
+  ],
   "source": "Titanium/Android/R.yml"
 }

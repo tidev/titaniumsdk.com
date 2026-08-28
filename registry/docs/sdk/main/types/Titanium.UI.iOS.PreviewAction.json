@@ -3,15 +3,21 @@
   "name": "Titanium.UI.iOS.PreviewAction",
   "kind": "proxy",
   "extends": "Titanium.Proxy",
-  "inheritanceChain": ["Titanium.Proxy"],
-  "platforms": ["iphone"],
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "iphone"
+  ],
   "since": "5.1.0",
   "summary": "A PreviewAction provides options to configure actions used by the iOS 9 3D-Touch \"Peek and Pop\"\nfeature.\n",
   "description": "The PreviewAction is created by the [Titanium.UI.iOS.createPreviewAction](api:Titanium.UI.iOS#createPreviewAction) method. Set the\n`title` property when creating a PreviewAction object.\n\nUse this class to configure preview actions used in the [Titanium.UI.iOS.PreviewContext](api:Titanium.UI.iOS.PreviewContext). The actions\ncan also be part of the [Titanium.UI.iOS.PreviewActionGroup.actions](api:Titanium.UI.iOS.PreviewActionGroup#actions) property.\n\nFor an example, see [Titanium.UI.iOS.PreviewContext](api:Titanium.UI.iOS.PreviewContext).\n\nSee also:\n\n* [iOS Developer Library: Adopting 3D Touch on iPhone](https://developer.apple.com/library/content/documentation/UserExperience/Conceptual/Adopting3DTouchOniPhone/3DTouchAPIs.html)\n",
   "properties": [
     {
       "name": "style",
-      "platforms": ["iphone"],
+      "platforms": [
+        "iphone"
+      ],
       "summary": "The style of the action.",
       "type": [
         {
@@ -28,7 +34,9 @@
     },
     {
       "name": "title",
-      "platforms": ["iphone"],
+      "platforms": [
+        "iphone"
+      ],
       "summary": "The title of the action.",
       "description": "Provides a title to be shown when \"peeking\" a view referenced in the [Titanium.UI.iOS.PreviewContext](api:Titanium.UI.iOS.PreviewContext).\n",
       "type": [
@@ -43,7 +51,9 @@
   "events": [
     {
       "name": "click",
-      "platforms": ["iphone"],
+      "platforms": [
+        "iphone"
+      ],
       "summary": "Fired when the device detects a click against a preview action.",
       "description": "This event provides different properties depending on the view the [Titanium.UI.iOS.PreviewContext](api:Titanium.UI.iOS.PreviewContext)\nis assigned to. Every event has the `index` property to identify the clicked action. If the [Titanium.UI.iOS.PreviewContext](api:Titanium.UI.iOS.PreviewContext)\nis assigned to a [Titanium.UI.ListView](api:Titanium.UI.ListView), the event provides the additional properties `itemIndex`, `sectionIndex` \nand `itemId` to identify the previewed row and section, respectively.\n",
       "properties": [
@@ -95,34 +105,46 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone"]
+        "platforms": [
+          "iphone"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone"]
+        "platforms": [
+          "iphone"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone"]
+        "platforms": [
+          "iphone"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone"]
+        "platforms": [
+          "iphone"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone"]
+        "platforms": [
+          "iphone"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone"]
+        "platforms": [
+          "iphone"
+        ]
       }
     ],
     "events": []

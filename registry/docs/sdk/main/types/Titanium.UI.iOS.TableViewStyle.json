@@ -3,8 +3,14 @@
   "name": "Titanium.UI.iOS.TableViewStyle",
   "kind": "proxy",
   "extends": "Titanium.Proxy",
-  "inheritanceChain": ["Titanium.Proxy"],
-  "platforms": ["iphone", "ipad", "macos"],
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": {
     "iphone": "0.9",
     "ipad": "0.9",
@@ -14,7 +20,11 @@
   "properties": [
     {
       "name": "GROUPED",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "A table view whose sections present distinct groups of rows. The section headers and footers \ndo not float.\n",
       "type": [
         {
@@ -26,7 +36,11 @@
     },
     {
       "name": "INSET_GROUPED",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "A table view whose sections present distinct groups of rows  and grouped sections are inset with rounded corners. \nThe section headers and footers do not float.\n",
       "type": [
         {
@@ -48,7 +62,11 @@
     },
     {
       "name": "PLAIN",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "A plain table view. Any section headers or footers are displayed as inline separators and \nfloat when the table view is scrolled.\n",
       "type": [
         {
@@ -66,38 +84,66 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "events": []
   },
-  "references": ["Titanium.Proxy", "Titanium.UI.ListView", "Titanium.UI.TableView"],
+  "references": [
+    "Titanium.Proxy",
+    "Titanium.UI.ListView",
+    "Titanium.UI.TableView"
+  ],
   "source": "Titanium/UI/iOS/TableViewStyle.yml"
 }

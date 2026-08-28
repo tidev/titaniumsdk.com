@@ -3,8 +3,14 @@
   "name": "Titanium.UI.iOS.SystemIcon",
   "kind": "proxy",
   "extends": "Titanium.Proxy",
-  "inheritanceChain": ["Titanium.Proxy"],
-  "platforms": ["iphone", "ipad", "macos"],
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": {
     "iphone": "5.4.0",
     "ipad": "5.4.0",
@@ -14,7 +20,11 @@
   "properties": [
     {
       "name": "BOOKMARKS",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Bookmark style icon",
       "type": [
         {
@@ -26,7 +36,11 @@
     },
     {
       "name": "CONTACTS",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Contacts style icon",
       "type": [
         {
@@ -38,7 +52,11 @@
     },
     {
       "name": "DOWNLOADS",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Downloads style icon",
       "type": [
         {
@@ -50,7 +68,11 @@
     },
     {
       "name": "FAVORITES",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Favorites style icon",
       "type": [
         {
@@ -62,7 +84,11 @@
     },
     {
       "name": "FEATURED",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Featured style icon",
       "type": [
         {
@@ -74,7 +100,11 @@
     },
     {
       "name": "HISTORY",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "History style icon",
       "type": [
         {
@@ -86,7 +116,11 @@
     },
     {
       "name": "MORE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "More style icon",
       "type": [
         {
@@ -98,7 +132,11 @@
     },
     {
       "name": "MOST_RECENT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Most recent style icon",
       "type": [
         {
@@ -110,7 +148,11 @@
     },
     {
       "name": "MOST_VIEWED",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Most viewed style icon",
       "type": [
         {
@@ -122,7 +164,11 @@
     },
     {
       "name": "RECENTS",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Recents style icon",
       "type": [
         {
@@ -134,7 +180,11 @@
     },
     {
       "name": "SEARCH",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Search style icon",
       "type": [
         {
@@ -146,7 +196,11 @@
     },
     {
       "name": "TOP_RATED",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Top rated style icon",
       "type": [
         {
@@ -164,38 +218,64 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "events": []
   },
-  "references": ["Titanium.Proxy"],
+  "references": [
+    "Titanium.Proxy"
+  ],
   "source": "Titanium/UI/iOS/SystemIcon.yml"
 }

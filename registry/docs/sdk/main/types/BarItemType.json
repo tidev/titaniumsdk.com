@@ -2,13 +2,22 @@
   "schemaVersion": 1,
   "name": "BarItemType",
   "kind": "pseudo",
-  "platforms": ["android", "iphone", "ipad", "macos"],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "summary": "Object describing a button bar or tabbed bar item.",
   "description": "A button bar or tabbed bar item can have an image or a title, but not both. \nButtons with images and buttons with text can be mixed in the same bar, however. \n\nIf both `image` and `title` properties are specified for a given item, the `image` property \ntakes precedence and the `title` property is ignored.\n",
   "properties": [
     {
       "name": "accessibilityLabel",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "A succint label associated with the bar item for the device's accessibility service.",
       "description": "See [Titanium.UI.View.accessibilityLabel](api:Titanium.UI.View#accessibilityLabel) description.\n",
       "type": [
@@ -25,7 +34,12 @@
     },
     {
       "name": "enabled",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Whether the button is enabled initially.",
       "type": [
         {
@@ -37,7 +51,12 @@
     },
     {
       "name": "image",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Button icon. If specified, takes precedence over `title`.",
       "type": [
         {
@@ -56,7 +75,12 @@
     },
     {
       "name": "title",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Button title, used if no `image` is specified.",
       "type": [
         {
@@ -67,7 +91,12 @@
     },
     {
       "name": "width",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Width for this button.",
       "type": [
         {
@@ -84,6 +113,10 @@
     "methods": [],
     "events": []
   },
-  "references": ["Titanium.Blob", "Titanium.Filesystem.File", "Titanium.UI.View"],
+  "references": [
+    "Titanium.Blob",
+    "Titanium.Filesystem.File",
+    "Titanium.UI.View"
+  ],
   "source": "Titanium/UI/iOS/TabbedBar.yml"
 }

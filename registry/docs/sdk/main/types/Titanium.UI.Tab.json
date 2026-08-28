@@ -3,8 +3,16 @@
   "name": "Titanium.UI.Tab",
   "kind": "view",
   "extends": "Titanium.UI.View",
-  "inheritanceChain": ["Titanium.UI.View", "Titanium.Proxy"],
-  "platforms": ["android", "iphone", "ipad", "macos"],
+  "inheritanceChain": [
+    "Titanium.UI.View",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": "0.8",
   "summary": "A tab instance for a [TabGroup](api:Titanium.UI.TabGroup).",
   "description": "A `TabGroup` tab instance. Each tab includes a button and one or more windows, which\nholds the \"contents\" of the tab. Users can select a tab by clicking on the tab button.\n\nUse the [Titanium.UI.createTab](api:Titanium.UI#createTab) method or **`<Tab>`** Alloy element to create a tab.\n\nUse [TabGroup.setActiveTab](api:Titanium.UI.TabGroup#setActiveTab) to switch between tabs\nin a tab group.\n\nThe behavior of tabs and tab groups follows the platform's native navigation style,\nwhich varies significantly between platforms.\n\n#### iOS Platform Implementation Notes\n\nOn iOS, the tab maintains a stack of windows. Windows on top\nof the stack can partially or totally obscure windows lower in the stack.  Calling\n[open](api:Titanium.UI.Tab#open) opens a new window on top of the window stack. When a window\nis closed, either by the user or by code, the window is removed from the stack, making\nthe previous window visible. The root tab window cannot be removed.\n\nOn iOS the tab controls are generally kept on screen to allow a user to\nnavigate inside the app. Tab controls are hidden when the user is performing a modal\ntask (for example, composing a message). In this case, the app should provide a button\nin the navigation bar to return to the previous screen. On iOS, the window should also\nbe opened as modal. On iOS, The tab controls can also be hidden by opening the new window\nwith [tabBarHidden](api:Titanium.UI.Window#tabBarHidden) set to `true`.\n\nWhen closing a tab window in iOS, you should always use the\n[Tab.close](api:Titanium.UI.Tab#close) method to ensure that the tab group maintains its\nnavigation state.\n\n#### Android Platform Implementation Notes\n\nOn Android, the tab does not maintain a stack of windows.\nCalling [open](api:Titanium.UI.Tab#open) opens a new, heavyweight window, which\nby default covers the tab group entirely. This seems quite different from the iOS model,\nbut it is the standard model for Android applications. Users can use the **Back** button\nto close the window and return to the tab group.\n\nOn Android, tab windows can be closed using either\n[Tab.close](api:Titanium.UI.Tab#close) or [Window.close](api:Titanium.UI.Window#close). Since\nno window stack is maintained, only a single window opened using\n[Tab.open](api:Titanium.UI.Tab#open) can be closed using `Tab.close`.\n\nAs on iOS, the root tab window cannot be closed.\n",
@@ -21,7 +29,11 @@
   "properties": [
     {
       "name": "active",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "`true` if this tab is active, `false` if it is not.\n",
       "description": "The tab can be activated by setting the property, but since this property is\nplatform-specific, using [TabGroup.setActiveTab](api:Titanium.UI.TabGroup#setActiveTab)\nis recommended instead.\n",
       "type": [
@@ -33,7 +45,11 @@
     },
     {
       "name": "activeIcon",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Icon URL for this tab when active.",
       "description": "If unspecified, iOS uses a tint color to indicate the active tab. See\n[icon](api:Titanium.UI.Tab#icon) for more information.\n\nIf the icon provided is larger than [30 pixels (60 pixels for retina, 90 pixels for super-retina)]\n(https://developer.apple.com/ios/human-interface-guidelines/icons-and-images/image-size-and-resolution/),\nthis image will be scaled to fit.\n",
       "type": [
@@ -46,7 +62,11 @@
     },
     {
       "name": "activeIconIsMask",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Defines if the active icon property of the tab must be used as a mask.",
       "description": "This is the equivalent of the [iconIsMask](api:Titanium.UI.Tab#iconIsMask) property, but for the active icon. When this is true, the active icon is\ntinted with the color specified in [tabsTintColor](api:Titanium.UI.TabGroup#tabsTintColor). When this is false the image is rendered as is, though the\ntitle of the tab is still tinted.\n",
       "type": [
@@ -60,7 +80,12 @@
     },
     {
       "name": "activeTintColor",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Defines the color of the tab icon when it is active.",
       "type": [
         {
@@ -74,7 +99,12 @@
     },
     {
       "name": "activeTitleColor",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Defines the color of the title of tab when it's active.",
       "description": "The color of the title of the tab when it's active.\n",
       "type": [
@@ -95,7 +125,9 @@
     },
     {
       "name": "backgroundColor",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Sets the color of the tab when it is inactive.",
       "description": "For information about color values, see the \"Colors\" section of [Titanium.UI](api:Titanium.UI).",
       "since": {
@@ -104,7 +136,9 @@
     },
     {
       "name": "backgroundFocusedColor",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Sets the color of the tab when it is focused.",
       "description": "On the Android platform, this sets the color of the active tab and is only supported by\n[TABS_STYLE_BOTTOM_NAVIGATION](api:Titanium.UI.Android#TABS_STYLE_BOTTOM_NAVIGATION).\n\nFor information about color values, see the \"Colors\" section of [Titanium.UI](api:Titanium.UI).\n",
       "since": {
@@ -113,7 +147,12 @@
     },
     {
       "name": "badge",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Badge value for this tab. `null` indicates no badge.",
       "description": "On the Android platform you will need to use a Theme with `parent=\"Theme.MaterialComponents.*\"`\nin order to use a badge. You have to pass a number as a string. Non-numeric characters will not be displayed.\n\nOn iOS, a badge will only be shown if the tab has been assigned an icon. Text only tabs do not support badges.\n",
       "type": [
@@ -128,7 +167,12 @@
     },
     {
       "name": "badgeBackgroundColor",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "If this item displays a badge, this color will be used for the badge's background.\nIf set to null, the default background color will be used instead.\n",
       "description": "For information about color values, see the \"Colors\" section of [Titanium.UI](api:Titanium.UI).\n",
       "type": [
@@ -147,7 +191,12 @@
     },
     {
       "name": "badgeColor",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "If this item displays a badge, this color will be used for the badge's background.\nIf set to null, the default background color will be used instead.\n",
       "description": "For information about color values, see the \"Colors\" section of [Titanium.UI](api:Titanium.UI).\n",
       "type": [
@@ -173,7 +222,9 @@
     },
     {
       "name": "badgeTextColor",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Set the text color of the badge.\n",
       "description": "For information about color values, see the \"Colors\" section of [Titanium.UI](api:Titanium.UI).\n",
       "type": [
@@ -192,7 +243,12 @@
     },
     {
       "name": "icon",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Icon URL for this tab.",
       "description": "#### iOS Tab Icons\n\nOn iOS, tab icons are usually white with a transparent background. The system uses\na transparent tint color to indicate whether the tab is active or inactive. In the\ninactive state, the tint color is based on the tab bar's color\n[tabsBackgroundColor](api:Titanium.UI.TabGroup#tabsBackgroundColor), which defaults\nto black. In the active state, the tint color is usually blue. Prior to Titanium\n3.1, there was no way to override the default active icon tint.\n\nSome icon-related features:\n\n*   You can specify the active tab's tint color as\n[activeTabIconTint](api:Titanium.UI.TabGroup#activeTabIconTint).\n\n*   You can set separate icon images for the active and inactive states. If\n[activeIcon](api:Titanium.UI.Tab#activeIcon) is set, then `icon` is used in the\ninactive state, and `activeIcon` is used in the active state. **No default tint\nis applied to either icon.**\n\n If the icon provided is larger than [30 pixels (60 pixels for retina, 90 pixels for super-retina)]\n (https://developer.apple.com/ios/human-interface-guidelines/icons-and-images/image-size-and-resolution/),\n this image will be scaled to fit if used with activeIcon, and cropped at the bottom\n otherwise.\n\n #### Android Tab Icons\n Can be used in combination with `iconFamily` in a BottomNavigation setup with `experimental:true`.\n",
       "type": [
@@ -204,7 +260,9 @@
     },
     {
       "name": "iconFamily",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Specifies the font family or specific font to use.",
       "description": "When using a BottomNavigation setup with `experimental:true` you can use this property in combination\nwith an `icon` to use an icon-font for the tab icons:\n\n``` js\n'#tab1': {\n  icon: \"\\ueac1\",\n  iconFamily: \"tabler-icons\"\n}\n```\n",
       "type": [
@@ -217,7 +275,11 @@
     },
     {
       "name": "iconInsets",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The icon inset or outset for each edge.",
       "description": "Use this property for example to center an icon without providing a title. To do that, set the\ninsets to `{ top: 6 }` and/or `{ left: 6 }`. The `right` and `bottom` are calculated internally to prevent the\nicon from mutating.\n",
       "type": [
@@ -234,7 +296,11 @@
         "properties": [
           {
             "name": "left",
-            "platforms": ["iphone", "ipad", "macos"],
+            "platforms": [
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "Left inset.",
             "type": [
               {
@@ -246,7 +312,11 @@
           },
           {
             "name": "top",
-            "platforms": ["iphone", "ipad", "macos"],
+            "platforms": [
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "Top inset.",
             "type": [
               {
@@ -261,7 +331,11 @@
     },
     {
       "name": "iconIsMask",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Defines if the icon property of the tab must be used as a mask.",
       "description": "When this property is true, the color data of the image specified as the icon is ignored and the image is used as an alpha mask.\nWhen this is false, the color data of the image is preserved.\n",
       "type": [
@@ -275,7 +349,12 @@
     },
     {
       "name": "tintColor",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Defines the color of the tab icon.",
       "type": [
         {
@@ -291,7 +370,12 @@
     },
     {
       "name": "title",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Title for this tab.",
       "type": [
         {
@@ -302,7 +386,12 @@
     },
     {
       "name": "titleColor",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Defines the color of the title of tab when it's inactive.",
       "description": "The color of the title of the tab when it's inactive.\n",
       "type": [
@@ -323,7 +412,12 @@
     },
     {
       "name": "titleid",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Key identifying a string from the locale file to use for the tab title. Only one of `title` or `titleid` should be specified.",
       "type": [
         {
@@ -334,7 +428,12 @@
     },
     {
       "name": "window",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Root-level tab window.  All tabs must have at least one root-level tab window.",
       "type": [
         {
@@ -348,7 +447,12 @@
   "methods": [
     {
       "name": "close",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Closes the top-level window for this tab.",
       "description": "On iOS, this method should be used when closing a window opened from a tab, to\ncorrectly maintain the iOS tab group's navigation state. Note that the window to\nbe closed **must** be passed in as a parameter:\n\n``` js\nmyTab.close(tabWin);\n```\n\nOn Android, this method does **not** take a `window` parameter.\n\n``` js\nmyTab.close();\n```\n\nOn Android, if a window has been opened in front of the tab using `Tab.open`,\na subsequent call to `Tab.close` is equivalent to calling `close` on that window.\nNo window stack is maintained, so only the most-recently opened window on a given\ntab can be closed in this way.\n\nAll platforms accept an optional `options` parameter. The only supported property\nfor this dictionary is the `animated` flag, which specifies whether the window\nclose should be animated. `animated` is true by default.\n",
       "parameters": [
@@ -377,7 +481,12 @@
     },
     {
       "name": "open",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Opens a new window.",
       "description": "On iOS, the new window is opened as the top window in the tab's window stack. On Android, the new window is opened as a new, heavyweight window, obscuring the tab group.",
       "parameters": [
@@ -406,7 +515,12 @@
     },
     {
       "name": "popToRootWindow",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Closes all windows that are currently opened inside the tab.",
       "description": "Note that only the `close` event of the most recently opened window is fired.",
       "since": {
@@ -432,7 +546,12 @@
     },
     {
       "name": "setWindow",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Sets the root window that appears in the tab.",
       "description": "You can only use this method to set the tab's root window before the TabGroup containing this tab\nis opened, that is, once the TabGroup is displayed, you cannot change the root window\nthat appears in the tab.\n",
       "deprecated": {
@@ -456,12 +575,19 @@
   "events": [
     {
       "name": "click",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Fired when this tab is clicked in the tab group."
     },
     {
       "name": "selected",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when the tab is selected.",
       "since": {
         "android": "3.5.1",
@@ -513,7 +639,12 @@
     },
     {
       "name": "unselected",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when the tab is no longer selected.",
       "since": {
         "android": "3.5.1",
@@ -569,301 +700,516 @@
       {
         "name": "accessibilityDisableLongPress",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "backgroundDisabledColor",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "backgroundDisabledImage",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "backgroundFocusedImage",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "backgroundImage",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "backgroundSelectedColor",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "backgroundSelectedImage",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "clipMode",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "elevation",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "filterTouchesWhenObscured",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "hiddenBehavior",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "horizontalMotionEffect",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "id",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "keepHardwareMode",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "lifecycleContainer",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "overrideCurrentAnimation",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "previewContext",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone"]
+        "platforms": [
+          "iphone"
+        ]
       },
       {
         "name": "pullBackgroundColor",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "rotation",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad"
+        ]
       },
       {
         "name": "rotationX",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "rotationY",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "scaleX",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "scaleY",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "tooltip",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "touchEnabled",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "touchFeedback",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "touchFeedbackColor",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "transitionName",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "translationX",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "translationY",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "translationZ",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "verticalMotionEffect",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "viewShadowColor",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "viewShadowOffset",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "viewShadowRadius",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "clearMotionEffects",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "convertPointToView",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "getViewById",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "insertAt",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "stopAnimation",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "toImage",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "events": [
       {
         "name": "dblclick",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "doubletap",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "focus",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "longpress",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "postlayout",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "rotate",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "singletap",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "swipe",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "touchcancel",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "touchend",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "touchmove",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "touchstart",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ]
   },

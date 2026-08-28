@@ -31,6 +31,14 @@ export type CompileOptions = {
   planOnly?: boolean;
   /** Ignore known-broken-refs.json, to see what it is still hiding. */
   strict?: boolean;
+  /**
+   * Which source this tree came from, e.g. `tidev/ti.map`.
+   *
+   * Selects that repo's slice of the known-broken allowlist. Omitted, every
+   * entry is allowed but none is reported stale — a compile that does not know
+   * whose corpus it is holding cannot tell a fixed reference from an absent one.
+   */
+  sourceRepo?: string;
   log?: (message: string) => void;
 };
 
@@ -51,14 +59,17 @@ export type CompileResult = {
 
 const refOf = (reason: string) => /<(.+)>/.exec(reason)?.[1] ?? reason;
 
-function allowlist(strict: boolean): Record<string, string> {
+function allowlist(strict: boolean, sourceRepo?: string): Record<string, string> {
   if (strict) return {};
   const file = new URL('./known-broken-refs.json', import.meta.url);
-  return JSON.parse(readFileSync(file, 'utf8')).refs ?? {};
+  const byRepo: Record<string, Record<string, string>> = JSON.parse(readFileSync(file, 'utf8'))
+    .refs ?? {};
+  if (sourceRepo) return byRepo[sourceRepo] ?? {};
+  return Object.assign({}, ...Object.values(byRepo));
 }
 
 export function compile(options: CompileOptions): CompileResult {
-  const { apidoc, outDir, planOnly = false, strict = false } = options;
+  const { apidoc, outDir, planOnly = false, strict = false, sourceRepo } = options;
   const log = options.log ?? (() => {});
 
   if (!existsSync(apidoc)) throw new CompileError(`no such directory: ${apidoc}`);
@@ -104,7 +115,7 @@ export function compile(options: CompileOptions): CompileResult {
   // Broken cross-references fail the compile rather than shipping a dead link.
   // The ones already in the source are listed in known-broken-refs.json so that
   // new breakage still fails; see that file for why each is there.
-  const allowed = allowlist(strict);
+  const allowed = allowlist(strict, sourceRepo);
   const unexpected = resolved.problems.filter((p) => !(refOf(p.reason) in allowed));
 
   if (unexpected.length) {
@@ -119,7 +130,8 @@ export function compile(options: CompileOptions): CompileResult {
   }
 
   const hit = new Set(resolved.problems.map((p) => refOf(p.reason)));
-  const stale = Object.keys(allowed).filter((r) => !hit.has(r));
+  // Only meaningful when the compile knows whose corpus it holds; see above.
+  const stale = sourceRepo ? Object.keys(allowed).filter((r) => !hit.has(r)) : [];
   if (stale.length) {
     // Upstream fixed something. Say so, so the allowlist shrinks instead of rotting.
     log(`\n${stale.length} entr(ies) in known-broken-refs.json no longer occur — remove them:`);

@@ -3,8 +3,16 @@
   "name": "Titanium.Media.VideoPlayer",
   "kind": "view",
   "extends": "Titanium.UI.View",
-  "inheritanceChain": ["Titanium.UI.View", "Titanium.Proxy"],
-  "platforms": ["android", "iphone", "ipad", "macos"],
+  "inheritanceChain": [
+    "Titanium.UI.View",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": "0.9",
   "summary": "A native control for playing videos.",
   "description": "The video player is a native view that can be used to play videos, either stored\nlocally or streamed from a web server. The player can occupy the full screen, or can\nbe used as a view that can be added to other views.\n\nUse the [Titanium.Media.createVideoPlayer](api:Titanium.Media#createVideoPlayer) method to create a video player.\n\nAll platforms support specifying the video content as a URL, either to a local file or\na remote stream. This is done by setting the [url](api:Titanium.Media.VideoPlayer#url) property.\n\n#### iOS Implementation Notes\n\nOn iOS, video content can also be specified as a [Blob](api:Titanium.Blob) or\n[File](api:Titanium.Filesystem.File) object using the\n[media](api:Titanium.Media.VideoPlayer#media) property.\n\nOn iOS, a video player can dynamically switch back and forth between fullscreen mode\nand standard mode. If the native video controls are displayed, the user can use them\nto switch between standard and fullscreen mode.\n\n#### Android Implementation Notes\n\nOn Android, the video player cannot switch modes. To create a fullscreen player, you\nmust specify `fullscreen: true` when you create the player. This fullscreen player\ncreates its own Android [Activity](api:Titanium.Android.Activity) on top of the activity stack.\nUnlike a normal view, this fullscreen video player appears as soon as it is created.\nThe user can close the player by pressing the **Back** button. See the code examples for\na sample using the fullscreen player on Android.\n\nThere are several known issues with clipping on the Android video player.\n\n* When used with `scalingMode` set to VIDEO_SCALING_ASPECT_FILL or VIDEO_SCALING_NONE,\n  the video content is not correctly clipped to the boundaries of the view.\n  ([TIMOB-7628](https://jira-archive.titaniumsdk.com/TIMOB-7628))\n\n* When a border is set on the view, the video content does not take the border width\n  into account, so the video content covers the border.\n  ([TIMOB-7628](https://jira-archive.titaniumsdk.com/TIMOB-7628))\n\n* If a borderRadius is specified, the video content is not clipped to the rounded\n  corners. ([TIMOB-7629](https://jira-archive.titaniumsdk.com/TIMOB-7629))\n\nOn Android, using a video player inside a scroll view is not recommended. When scrolling,\nblack bars may appear over the video content.\n\nThis is because the video player is rendered on a special Android UI element called a SurfaceView.\nAndroid renders the SurfaceView behind the main window and punches a hole in the window\nto reveal the video.  Because the content of the SurfaceView does not reside in the application\nwindow, the video content cannot be transformed (moved, scaled or rotated) with the window.\nThis makes it difficult for the content to render properly inside a ScrollView.\n",
@@ -25,7 +33,11 @@
   "properties": [
     {
       "name": "allowsAirPlay",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Whether or not the current movie can be played on a remote device.",
       "type": [
         {
@@ -41,7 +53,9 @@
     },
     {
       "name": "autoHide",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Indicates if player is hidden by default and shown when its ready.",
       "description": "On Android the background of the video player is set to the primary background color.\nWhen switching on `autoHide` it will hide the player until the video is loaded.\nThen it will automatically show the player. In a [Titanium.UI.ListView](api:Titanium.UI.ListView) it will hide\nit again when it is outside the viewport.\n",
       "type": [
@@ -55,7 +69,12 @@
     },
     {
       "name": "autoplay",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Indicates if a movie should automatically start playback.",
       "description": "On iOS, playback starts automatically if `autoplay` is `true` *and* the movie is likely to\nfinish uninterrupted. The OS determines whether the movie is likely to finish\nuninterrupted based on factors including the bit rate of the movie and network\nconditions (if the movie is being streamed from a remote source).\n",
       "type": [
@@ -68,7 +87,11 @@
     },
     {
       "name": "backgroundView",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Sets the background view for customization which is always displayed behind movie content.",
       "description": "To create a background behind the movie content on iOS, you can specify a\nbackground view. On iOS, you can set the `backgroundColor` property directly on\nthe video player, but not a background image or background gradient. For this kind\nof effect, specify a background view.\n\nNote that the background view must be sized explicitly: percentage sizes do not work properly.\n\nThe following code sample creates a video player with a background image:\n\n``` js\nvar videoPlayer = Ti.Media.createVideoPlayer({\n    height: 300,\n    width: 300,\n    backgroundView: Ti.UI.createView({\n        backgroundImage: 'videoPlayerBG.png\n        width: 300,\n        height: 300\n    }),\n    borderRadius: 20,\n    borderWidth: 2,\n    borderColor: 'blue',\n});\n```\n\nNote that if [scalingMode](api:Titanium.Media.VideoPlayer#scalingMode) is set to\n[VIDEO_SCALING_RESIZE](api:Titanium.Media#VIDEO_SCALING_RESIZE) or\n[VIDEO_SCALING_RESIZE_ASPECT_FILL](api:Titanium.Media#VIDEO_SCALING_RESIZE_ASPECT_FILL),\nthe playing video will fill the entire video player area, obscuring any background\nview.\n",
       "type": [
@@ -84,7 +107,12 @@
     },
     {
       "name": "currentPlaybackTime",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Current playback time of the current movie in milliseconds.",
       "type": [
         {
@@ -95,7 +123,12 @@
     },
     {
       "name": "duration",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The duration of the current movie in milliseconds, or 0.0 if not known.",
       "description": "The duration of the movie may not be available when playback is started. The\n[durationavailable](api:Titanium.Media.VideoPlayer#durationavailable) event is\nfired when the duration is known.\n",
       "type": [
@@ -108,7 +141,12 @@
     },
     {
       "name": "endPlaybackTime",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The end time of movie playback, in milliseconds.",
       "description": "On iOS, defaults to 0, which indicates natural end time of the movie.\nChanging the value to a value less than `duration` causes the movie to\nstop playing at the specified point. On iOS, this value is not applicable to\nstreaming media, so 0 is returned if the current media is being streamed.\n\nOn Android, this is always the same as [duration](api:Titanium.Media.VideoPlayer#duration)\n(the natural end time), and changing the value has no effect.\n",
       "type": [
@@ -121,7 +159,11 @@
     },
     {
       "name": "fairPlayConfiguration",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Handle DRM-encrypted video assets using the [Apple FairPlay Streaming API](https://developer.apple.com/streaming/fps/).",
       "description": "Secure the delivery of streaming media to devices through the HTTP Live Streaming (HLS) protocol. Using FairPlay Streaming (FPS) technology, content providers, encoding vendors, and delivery networks can encrypt content, securely exchange keys, and protect playback on iOS, iPadOS and macOS.",
       "type": [
@@ -138,7 +180,11 @@
         "properties": [
           {
             "name": "certificate",
-            "platforms": ["iphone", "ipad", "macos"],
+            "platforms": [
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "The FairPlay Streaming public certificate to authenticate the content key request.",
             "type": [
               {
@@ -149,7 +195,11 @@
           },
           {
             "name": "licenseURL",
-            "platforms": ["iphone", "ipad", "macos"],
+            "platforms": [
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "The FairPlay Streaming license URL to handle the server-side authentication flow.",
             "type": [
               {
@@ -163,7 +213,9 @@
     },
     {
       "name": "fullscreen",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Determines if the movie is presented in the entire screen (obscuring all other application content).\n",
       "description": "Note that this must be set at different times on different platforms:\n\nOn Android, this property must be set at creation time. For example:\n\n``` js\nvar player = Ti.Media.createVideoPlayer({fullscreen: true});\n```\n\nOn Android, setting this value to `true` means that the video will have its own Android Activity\nrather than being embedded as a view.\n\nThis property was removed on iOS in SDK 7.0.0\n",
       "type": [
@@ -181,7 +233,12 @@
     },
     {
       "name": "initialPlaybackTime",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The start time of movie playback, in milliseconds.",
       "type": [
         {
@@ -193,7 +250,12 @@
     },
     {
       "name": "loadState",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Returns the network load state of the movie player.",
       "type": [
         {
@@ -209,7 +271,11 @@
     },
     {
       "name": "media",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Media object to play, as either a `Ti.Filesystem.File`, a `Ti.Blob`, or an URL `String`.",
       "type": [
         {
@@ -229,7 +295,9 @@
     },
     {
       "name": "mediaControlStyle",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "The style of the playback controls.",
       "description": "Removed from iOS in SDK 7.0.0",
       "type": [
@@ -243,11 +311,17 @@
         "notes": "On iOS, use [Titanium.Media.VideoPlayer.showsControls](Titanium.Media.VideoPlayer.showsControls) instead."
       },
       "default": "System default video controls (<Titanium.Media.VIDEO_CONTROL_DEFAULT>).",
-      "constants": ["Titanium.Media.VIDEO_CONTROL_*"]
+      "constants": [
+        "Titanium.Media.VIDEO_CONTROL_*"
+      ]
     },
     {
       "name": "mediaTypes",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The type of media in the player's current item first track.",
       "type": [
         {
@@ -257,11 +331,17 @@
       ],
       "permission": "read-only",
       "default": "<Titanium.Media.VIDEO_MEDIA_TYPE_VIDEO>",
-      "constants": ["Titanium.Media.VIDEO_MEDIA_TYPE_*"]
+      "constants": [
+        "Titanium.Media.VIDEO_MEDIA_TYPE_*"
+      ]
     },
     {
       "name": "moviePlayerStatus",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Returns the status of the movie player.",
       "type": [
         {
@@ -270,11 +350,17 @@
         }
       ],
       "permission": "read-only",
-      "constants": ["Titanium.Media.VIDEO_LOAD_STATE_*"]
+      "constants": [
+        "Titanium.Media.VIDEO_LOAD_STATE_*"
+      ]
     },
     {
       "name": "naturalSize",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Returns the natural size of the movie.",
       "description": "Returns a dictionary with properties `width` and `height`. Returns 0 for both properties if not\nknown or applicable.\n\nThe [naturalSizeAvailable](api:Titanium.Media.VideoPlayer#naturalsizeavailable) event is\nfired when the natural size is known.\n",
       "type": [
@@ -289,7 +375,11 @@
         "properties": [
           {
             "name": "height",
-            "platforms": ["iphone", "ipad", "macos"],
+            "platforms": [
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "Height of the movie.",
             "type": [
               {
@@ -300,7 +390,11 @@
           },
           {
             "name": "width",
-            "platforms": ["iphone", "ipad", "macos"],
+            "platforms": [
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "Width of the movie.",
             "type": [
               {
@@ -314,7 +408,11 @@
     },
     {
       "name": "overlayView",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use the overlay view to add additional custom views between the video content and the controls.",
       "description": "Note that the overlay view must be sized explicitly: percentage sizes do not work properly.\n\nThe following code sample creates a video player with a background image:\n\n``` js\nvar videoPlayer = Ti.Media.createVideoPlayer({\n    height : 300,\n    width : 300,\n    overlayView : Ti.UI.createView({\n        backgroundImage: 'videoPlayerBG.png\n        width : 300,\n        height : 300\n    }),\n    borderRadius : 20,\n    borderWidth : 2,\n    borderColor : 'blue',\n});\n```\n",
       "type": [
@@ -326,7 +424,11 @@
     },
     {
       "name": "pictureInPictureEnabled",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Whether or not the receiver allows Picture in Picture playback.",
       "type": [
         {
@@ -338,7 +440,12 @@
     },
     {
       "name": "playableDuration",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Currently playable duration of the movie, in milliseconds, for progressively\ndownloaded network content, or 0.0 if not known.\n",
       "description": "On Android, this is always the same as [duration](api:Titanium.Media.VideoPlayer#duration).\n",
       "type": [
@@ -352,7 +459,12 @@
     },
     {
       "name": "playbackState",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Current playback state of the video player.",
       "description": "One of the `VIDEO_PLAYBACK_STATE` constants defined in [Titanium.Media](api:Titanium.Media).\n",
       "type": [
@@ -362,11 +474,18 @@
         }
       ],
       "permission": "read-only",
-      "constants": ["Titanium.Media.VIDEO_PLAYBACK_STATE_*"]
+      "constants": [
+        "Titanium.Media.VIDEO_PLAYBACK_STATE_*"
+      ]
     },
     {
       "name": "playing",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Boolean to indicate if the player has started playing.",
       "type": [
         {
@@ -378,7 +497,12 @@
     },
     {
       "name": "repeatMode",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Determines how the movie player repeats when reaching the end of playback.",
       "type": [
         {
@@ -392,11 +516,18 @@
         "ipad": "0.9.0"
       },
       "default": "Titanium.Media.VIDEO_REPEAT_MODE_NONE",
-      "constants": ["Titanium.Media.VIDEO_REPEAT_MODE_*"]
+      "constants": [
+        "Titanium.Media.VIDEO_REPEAT_MODE_*"
+      ]
     },
     {
       "name": "scalingMode",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Determines how the content scales to fit the view.",
       "type": [
         {
@@ -405,11 +536,18 @@
         }
       ],
       "default": "<Titanium.Media.VIDEO_SCALING_RESIZE_ASPECT> on Android, <Titanium.Media.VIDEO_SCALING_RESIZE> on iOS",
-      "constants": ["Titanium.Media.VIDEO_SCALING_*"]
+      "constants": [
+        "Titanium.Media.VIDEO_SCALING_*"
+      ]
     },
     {
       "name": "showsControls",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Whether or not the receiver shows playback controls. Default is true.",
       "description": "Clients can set this property to false when they don't want to have any playback controls on top of\nthe visual content (e.g. for a game splash screen). This property should not be used to temporarily\n change the visibility of the playback controls since it will create or destroy UI elements.\n",
       "type": [
@@ -428,7 +566,9 @@
     },
     {
       "name": "speed",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Playback speed of the video.",
       "description": "Playback speed of the video. Android: only available for API level >= 23.\n",
       "type": [
@@ -442,7 +582,12 @@
     },
     {
       "name": "url",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "URL of the media to play.",
       "description": "URL identifying a local or remote video to play.\n",
       "type": [
@@ -454,7 +599,12 @@
     },
     {
       "name": "volume",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Volume of the audio portion of the video.\n",
       "description": "On iOS, this adjusts the volume of the application's session as well, and will\nnot work if useApplicationAudioSession has been set false. On the iOS device,\nsetting this will be accompanied by an OS-provided indicator. However, the iOS\nsimulator does not honor this volume setting, and is a known issue with Apple's\nsimulator.\n",
       "type": [
@@ -470,7 +620,12 @@
   "methods": [
     {
       "name": "cancelAllThumbnailImageRequests",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Cancels all pending asynchronous thumbnail requests.",
       "description": "Asynchronous thumbnail requests initiated with\n[requestThumbnailImagesAtTimes](api:Titanium.Media.VideoPlayer#requestThumbnailImagesAtTimes).\n",
       "since": {
@@ -479,23 +634,43 @@
     },
     {
       "name": "pause",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Pauses playing the video."
     },
     {
       "name": "play",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Starts playing the video."
     },
     {
       "name": "release",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Releases the internal video resources immediately.",
       "description": "This is not usually necessary but can help if you no longer need to use the player after\nit is used to help converse memory.\n"
     },
     {
       "name": "requestThumbnailImagesAtTimes",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Asynchronously request thumbnail images for one or more points in time in the video.",
       "description": "The `times` parameter specifies an array of time values, in\n**seconds**. For each time value, the platform generates an image\nrepresenting the video at that point in time.\n\nThe callback function is invoked when a thumbnail is available.\n\nCalling this method will cancel all pending asynchronous thumbnail requests.\n",
       "since": {
@@ -550,7 +725,12 @@
             "properties": [
               {
                 "name": "code",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Error code. Returns `0` if `success` is `true`.",
                 "description": "Error code will be `0` if `success` is `true`, nonzero otherwise. If the error\nwas generated by the operating system, that system's error value is used.\nOtherwise, this value will be `-1`.\n",
                 "type": [
@@ -567,7 +747,12 @@
               },
               {
                 "name": "image",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Thumbnail image, as a `Blob`.",
                 "type": [
                   {
@@ -581,7 +766,12 @@
               },
               {
                 "name": "time",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Time offset for the thumbnail, in seconds.",
                 "type": [
                   {
@@ -600,14 +790,21 @@
     },
     {
       "name": "stop",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Stops playing the video."
     }
   ],
   "events": [
     {
       "name": "click",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Fired when the device detects a click against the view.",
       "description": "There is a subtle difference between singletap and click events.\n\nA singletap event is generated when the user taps the screen briefly\nwithout moving their finger. This gesture will also generate a click event.\n\nHowever, a click event can also be generated when the user touches,\nmoves their finger, and then removes it from the screen.\n\nOn Android, a click event can also be generated by a trackball click.\n",
       "properties": [
@@ -635,7 +832,12 @@
     },
     {
       "name": "complete",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when movie playback ends or a user exits playback.",
       "description": "On iOS, the `reason` property is only included if this information is available.\n",
       "properties": [
@@ -683,7 +885,12 @@
     },
     {
       "name": "durationavailable",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when the video duration is available.",
       "since": "3.0.0",
       "properties": [
@@ -701,7 +908,12 @@
     },
     {
       "name": "error",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when movie playback encounters an error.",
       "properties": [
         {
@@ -748,12 +960,22 @@
     },
     {
       "name": "load",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when the movie play loads."
     },
     {
       "name": "loadstate",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when the network [loadState](api:Titanium.Media.VideoPlayer#loadState) changes.\n",
       "properties": [
         {
@@ -770,7 +992,11 @@
     },
     {
       "name": "naturalsizeavailable",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when the natural size of the current movie is determined.",
       "since": "3.0.0",
       "properties": [
@@ -788,7 +1014,12 @@
     },
     {
       "name": "playbackstate",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when the [playbackState](api:Titanium.Media.VideoPlayer#playbackState) changes.",
       "since": "3.0.0",
       "properties": [
@@ -806,7 +1037,12 @@
     },
     {
       "name": "playing",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when the currently playing movie changes.",
       "properties": [
         {
@@ -823,17 +1059,25 @@
     },
     {
       "name": "preload",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Fired when the movie has preloaded and is ready to play."
     },
     {
       "name": "resize",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when the movie player is resized."
     },
     {
       "name": "singletap",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Fired when the device detects a single tap against the view.",
       "properties": [
         {
@@ -860,7 +1104,9 @@
     },
     {
       "name": "touchcancel",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Fired when a touch event is interrupted by the device.",
       "description": "A touchcancel can happen in circumstances such as an incoming call to allow the\nUI to clean up state.\n",
       "properties": [
@@ -888,7 +1134,9 @@
     },
     {
       "name": "touchend",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Fired when a touch event is completed.",
       "description": "On the Android platform, other gesture events, such as `longpress` or `swipe`, cancel touch events,\nso this event may not be triggered after a `touchstart` event.\n",
       "properties": [
@@ -916,7 +1164,9 @@
     },
     {
       "name": "touchmove",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Fired as soon as the device detects movement of a touch.",
       "description": "Event coordinates are always relative to the view in which the initial touch occurred\n",
       "properties": [
@@ -948,491 +1198,883 @@
       {
         "name": "accessibilityDisableLongPress",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "accessibilityHidden",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "accessibilityHint",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "accessibilityLabel",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "accessibilityValue",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "anchorPoint",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "animatedCenter",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "backgroundColor",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "backgroundDisabledColor",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "backgroundDisabledImage",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "backgroundFocusedColor",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "backgroundFocusedImage",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "backgroundGradient",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "backgroundImage",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "backgroundLeftCap",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "backgroundRepeat",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "backgroundSelectedColor",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "backgroundSelectedImage",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "backgroundTopCap",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "borderColor",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "borderRadius",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "borderWidth",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "bottom",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "center",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "children",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "clipMode",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "elevation",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "filterTouchesWhenObscured",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "focusable",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "height",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "hiddenBehavior",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "horizontalMotionEffect",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "horizontalWrap",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "id",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "keepHardwareMode",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "keepScreenOn",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "layout",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "left",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "lifecycleContainer",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "opacity",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "overrideCurrentAnimation",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "previewContext",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone"]
+        "platforms": [
+          "iphone"
+        ]
       },
       {
         "name": "pullBackgroundColor",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "rect",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "right",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "rotation",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad"
+        ]
       },
       {
         "name": "rotationX",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "rotationY",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "scaleX",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "scaleY",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "size",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "softKeyboardOnFocus",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "tintColor",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "tooltip",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "top",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "touchEnabled",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "touchFeedback",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "touchFeedbackColor",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "transform",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "transitionName",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "translationX",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "translationY",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "translationZ",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "verticalMotionEffect",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "viewShadowColor",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "viewShadowOffset",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "viewShadowRadius",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "visible",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "width",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "zIndex",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "methods": [
       {
         "name": "add",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "animate",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "clearMotionEffects",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "convertPointToView",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "getViewById",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "hide",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "insertAt",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "remove",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "removeAllChildren",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "replaceAt",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "show",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "stopAnimation",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "toImage",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "events": [
       {
         "name": "dblclick",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "doubletap",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "keypressed",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "longpress",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "postlayout",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "rotate",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "swipe",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "touchstart",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ]
   },

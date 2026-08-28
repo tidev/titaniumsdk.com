@@ -3,8 +3,14 @@
   "name": "Titanium.UI.iOS.WebViewConfiguration",
   "kind": "proxy",
   "extends": "Titanium.Proxy",
-  "inheritanceChain": ["Titanium.Proxy"],
-  "platforms": ["iphone", "ipad", "macos"],
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": {
     "iphone": "8.0.0",
     "ipad": "8.0.0",
@@ -15,7 +21,11 @@
   "properties": [
     {
       "name": "allowsAirPlayMediaPlayback",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "A Boolean value indicating whether AirPlay is allowed.",
       "type": [
         {
@@ -27,7 +37,11 @@
     },
     {
       "name": "allowsInlineMediaPlayback",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "A Boolean value indicating whether HTML5 videos play inline or use the native full-screen controller.\n",
       "description": "You must set this property to play inline video. Set this property to true to play videos inline.\nSet this property to false to use the native full-screen controller. When adding a video element\nto a HTML document on the iPhone, you must also include the playsinline attribute.\nThe default value for iPhone is false and the default value for iPad is true.\n",
       "type": [
@@ -40,7 +54,11 @@
     },
     {
       "name": "allowsPictureInPictureMediaPlayback",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "A Boolean value indicating whether HTML5 videos can play picture-in-picture.",
       "type": [
         {
@@ -52,7 +70,11 @@
     },
     {
       "name": "mediaTypesRequiringUserActionForPlayback",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Determines which media types require a user gesture to begin playing.",
       "type": [
         {
@@ -61,11 +83,17 @@
         }
       ],
       "default": "Titanium.UI.iOS.AUDIOVISUAL_MEDIA_TYPE_NONE",
-      "constants": ["Titanium.UI.iOS.AUDIOVISUAL_MEDIA_TYPE_*"]
+      "constants": [
+        "Titanium.UI.iOS.AUDIOVISUAL_MEDIA_TYPE_*"
+      ]
     },
     {
       "name": "preferences",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The preference settings to be used by the web view.",
       "type": [
         {
@@ -79,7 +107,11 @@
         "properties": [
           {
             "name": "javaScriptCanOpenWindowsAutomatically",
-            "platforms": ["iphone", "ipad", "macos"],
+            "platforms": [
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "A Boolean value indicating whether JavaScript can open windows without user interaction.\n",
             "type": [
               {
@@ -91,7 +123,11 @@
           },
           {
             "name": "javaScriptEnabled",
-            "platforms": ["iphone", "ipad", "macos"],
+            "platforms": [
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "A Boolean value indicating whether JavaScript is enabled.",
             "description": "Setting this property to false disables JavaScripts that are loaded or executed by the web page.\nThis setting does not affect user scripts.\n",
             "type": [
@@ -104,7 +140,11 @@
           },
           {
             "name": "minimumFontSize",
-            "platforms": ["iphone", "ipad", "macos"],
+            "platforms": [
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "The minimum font size in points.",
             "type": [
               {
@@ -119,7 +159,11 @@
     },
     {
       "name": "processPool",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The process pool from which to obtain the  Web Content process of view.",
       "description": "When a web view is initialized, either a new web content process is created for it from the\nspecified pool or an existing process in that pool is used.\n",
       "type": [
@@ -131,7 +175,11 @@
     },
     {
       "name": "selectionGranularity",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The level of granularity with which the user can interactively select content in the web view.\n",
       "type": [
         {
@@ -140,11 +188,17 @@
         }
       ],
       "default": "Titanium.UI.iOS.SELECTION_GRANULARITY_DYNAMIC",
-      "constants": ["Titanium.UI.iOS.SELECTION_GRANULARITY_*"]
+      "constants": [
+        "Titanium.UI.iOS.SELECTION_GRANULARITY_*"
+      ]
     },
     {
       "name": "suppressesIncrementalRendering",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "A Boolean value indicating whether the web view suppresses content rendering until it is fully\nloaded into memory.\n",
       "type": [
         {
@@ -162,34 +216,58 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "events": []

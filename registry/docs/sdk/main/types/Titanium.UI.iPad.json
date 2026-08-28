@@ -3,8 +3,14 @@
   "name": "Titanium.UI.iPad",
   "kind": "module",
   "extends": "Titanium.Module",
-  "inheritanceChain": ["Titanium.Module", "Titanium.Proxy"],
-  "platforms": ["ipad", "macos"],
+  "inheritanceChain": [
+    "Titanium.Module",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "ipad",
+    "macos"
+  ],
   "since": {
     "ipad": "1.2.0",
     "macos": "9.2.0"
@@ -14,7 +20,10 @@
   "properties": [
     {
       "name": "POPOVER_ARROW_DIRECTION_ANY",
-      "platforms": ["ipad", "macos"],
+      "platforms": [
+        "ipad",
+        "macos"
+      ],
       "summary": "An arrow that points in any direction.",
       "type": [
         {
@@ -26,7 +35,10 @@
     },
     {
       "name": "POPOVER_ARROW_DIRECTION_DOWN",
-      "platforms": ["ipad", "macos"],
+      "platforms": [
+        "ipad",
+        "macos"
+      ],
       "summary": "An arrow that points downward.",
       "type": [
         {
@@ -38,7 +50,10 @@
     },
     {
       "name": "POPOVER_ARROW_DIRECTION_LEFT",
-      "platforms": ["ipad", "macos"],
+      "platforms": [
+        "ipad",
+        "macos"
+      ],
       "summary": "An arrow that points toward the left.",
       "type": [
         {
@@ -50,7 +65,10 @@
     },
     {
       "name": "POPOVER_ARROW_DIRECTION_RIGHT",
-      "platforms": ["ipad", "macos"],
+      "platforms": [
+        "ipad",
+        "macos"
+      ],
       "summary": "An arrow that points toward the right.",
       "type": [
         {
@@ -62,7 +80,10 @@
     },
     {
       "name": "POPOVER_ARROW_DIRECTION_UNKNOWN",
-      "platforms": ["ipad", "macos"],
+      "platforms": [
+        "ipad",
+        "macos"
+      ],
       "summary": "The status of the arrow is currently unknown.",
       "type": [
         {
@@ -74,7 +95,10 @@
     },
     {
       "name": "POPOVER_ARROW_DIRECTION_UP",
-      "platforms": ["ipad", "macos"],
+      "platforms": [
+        "ipad",
+        "macos"
+      ],
       "summary": "An arrow that points upward.",
       "type": [
         {
@@ -88,7 +112,10 @@
   "methods": [
     {
       "name": "createPopover",
-      "platforms": ["ipad", "macos"],
+      "platforms": [
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.UI.iPad.Popover](api:Titanium.UI.iPad.Popover).",
       "since": {
         "ipad": "1.2.0",
@@ -132,38 +159,59 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["ipad", "macos"]
+        "platforms": [
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["ipad", "macos"]
+        "platforms": [
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["ipad", "macos"]
+        "platforms": [
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["ipad", "macos"]
+        "platforms": [
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["ipad", "macos"]
+        "platforms": [
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["ipad", "macos"]
+        "platforms": [
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "events": []
   },
-  "references": ["Titanium.Module", "Titanium.UI.iPad.Popover"],
+  "references": [
+    "Titanium.Module",
+    "Titanium.UI.iPad.Popover"
+  ],
   "source": "Titanium/UI/iPad/iPad.yml"
 }

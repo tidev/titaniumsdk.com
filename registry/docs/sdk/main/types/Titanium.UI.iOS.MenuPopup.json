@@ -3,8 +3,14 @@
   "name": "Titanium.UI.iOS.MenuPopup",
   "kind": "proxy",
   "extends": "Titanium.Proxy",
-  "inheritanceChain": ["Titanium.Proxy"],
-  "platforms": ["iphone", "ipad", "macos"],
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": {
     "iphone": "5.2.0",
     "ipad": "5.2.0",
@@ -20,7 +26,11 @@
   "properties": [
     {
       "name": "items",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The items of the menu popup.",
       "description": "The items will be shown as soon in the menu popup when the `show` method is called.\nTo hide them again, use the `hide` method in conjunction.\n",
       "type": [
@@ -40,7 +50,11 @@
   "methods": [
     {
       "name": "hide",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Hides the menu popup.",
       "parameters": [
         {
@@ -59,12 +73,20 @@
     },
     {
       "name": "isVisible",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Indicates whether the menu popup is currently visible."
     },
     {
       "name": "show",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Shows the menu popup.",
       "parameters": [
         {
@@ -83,7 +105,11 @@
             "properties": [
               {
                 "name": "animated",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Determines whether the menu popup should be opened or closed animated.",
                 "type": [
                   {
@@ -96,7 +122,11 @@
               },
               {
                 "name": "arrowDirection",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Indicates the arrow direction of the menu popup.",
                 "description": "Use this property to indicate the menu popups arrow to use.",
                 "type": [
@@ -116,7 +146,11 @@
               },
               {
                 "name": "view",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "The view where the menu pop is shown at.",
                 "type": [
                   {
@@ -134,7 +168,11 @@
   "events": [
     {
       "name": "click",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when the user clicks at one of the menu popup items.",
       "description": "This event provides the properties `title` and `index` which relate to the name and position\nof the clicked item inside the `items` property.\n",
       "properties": [
@@ -166,38 +204,66 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "events": []
   },
-  "references": ["AnimatedOptions", "MenuPopupShowParams", "Titanium.Proxy"],
+  "references": [
+    "AnimatedOptions",
+    "MenuPopupShowParams",
+    "Titanium.Proxy"
+  ],
   "source": "Titanium/UI/iOS/MenuPopup.yml"
 }

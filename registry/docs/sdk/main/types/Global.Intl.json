@@ -2,7 +2,12 @@
   "schemaVersion": 1,
   "name": "Global.Intl",
   "kind": "module",
-  "platforms": ["android", "iphone", "ipad", "macos"],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": {
     "iphone": "6.0.0",
     "ipad": "6.0.0",
@@ -15,7 +20,12 @@
   "methods": [
     {
       "name": "getCanonicalLocales",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Gets canonical locale identifiers matching given BCP 47 locale identifiers.",
       "description": "``` js\n// Will return ['en-US'].\nTi.API.info(Intl.getCanonicalLocales('EN-US'));\n\n// Will return ['en-US', 'fr'].\nTi.API.info(Intl.getCanonicalLocales(['EN-US', 'Fr']));\n```\n",
       "osver": {

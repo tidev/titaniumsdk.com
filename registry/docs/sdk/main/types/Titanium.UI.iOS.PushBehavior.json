@@ -3,8 +3,14 @@
   "name": "Titanium.UI.iOS.PushBehavior",
   "kind": "proxy",
   "extends": "Titanium.Proxy",
-  "inheritanceChain": ["Titanium.Proxy"],
-  "platforms": ["iphone", "ipad", "macos"],
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": {
     "iphone": "3.2.0",
     "ipad": "3.2.0",
@@ -21,7 +27,11 @@
   "properties": [
     {
       "name": "active",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "State of the push behavior's force.",
       "description": "Set to `true` to activate the force or `false` to deactivate it.  Use this property rather\nthan removing and re-adding the behavior to the animator.\n",
       "type": [
@@ -34,7 +44,11 @@
     },
     {
       "name": "angle",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies the angle of the force vector in radians.",
       "description": "To configure the force vector, you need to also specify the\n[magnitude](api:Titanium.UI.iOS.PushBehavior#magnitude) property.\n",
       "type": [
@@ -47,7 +61,11 @@
     },
     {
       "name": "items",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Items added to this behavior.",
       "type": [
         {
@@ -65,7 +83,11 @@
     },
     {
       "name": "magnitude",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies the magnitude of the force vector.",
       "description": "A value of 1.0 represents an acceleration of 100 points per second squared if the item is\n100 x 100 points with a `density` of 1.0.\n\nTo configure the push vector, you need to also specify the\n[angle](api:Titanium.UI.iOS.PushBehavior#angle) property.\n",
       "type": [
@@ -78,7 +100,11 @@
     },
     {
       "name": "pushDirection",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies the direction of the force vector as an x, y pair.",
       "description": "For example, specifiying `{x: 0.0, y: 1.0}` indicates a positive upward force of 100\npoints per second squared if the item is 100 x 100 points with a `density` of 1.0.\n\nSpecifiying a negative value reverses the direction of the force.\n",
       "type": [
@@ -91,7 +117,11 @@
     },
     {
       "name": "pushMode",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies the push mode.",
       "type": [
         {
@@ -100,13 +130,19 @@
         }
       ],
       "default": "<Titanium.UI.iOS.PUSH_MODE_CONTINUOUS>",
-      "constants": ["Titanium.UI.iOS.PUSH_MODE_*"]
+      "constants": [
+        "Titanium.UI.iOS.PUSH_MODE_*"
+      ]
     }
   ],
   "methods": [
     {
       "name": "addItem",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Adds an item to this behavior.",
       "parameters": [
         {
@@ -123,7 +159,11 @@
     },
     {
       "name": "removeItem",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Removes the specified item from this behavior.",
       "parameters": [
         {
@@ -145,34 +185,58 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "events": []

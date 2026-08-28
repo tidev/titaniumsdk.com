@@ -3,8 +3,12 @@
   "name": "Titanium.Android.NotificationChannel",
   "kind": "proxy",
   "extends": "Titanium.Proxy",
-  "inheritanceChain": ["Titanium.Proxy"],
-  "platforms": ["android"],
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android"
+  ],
   "since": "7.0.0",
   "summary": "Module for notification channels.",
   "description": "You can create a notification channel for each distinct type of notification you need to send.\n\nTo create a notification channel, use the [Titanium.Android.createNotificationChannel](api:Titanium.Android#createNotificationChannel) method.\n\nFurther Reading:\n\n  * [Android Developers: Notification Channel](https://developer.android.com/reference/android/app/NotificationChannel.html)\n",
@@ -17,7 +21,9 @@
   "properties": [
     {
       "name": "bypassDnd",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Whether or not notifications posted to this channel can interrupt the user.",
       "type": [
         {
@@ -28,7 +34,9 @@
     },
     {
       "name": "description",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "User visible description of this channel.",
       "type": [
         {
@@ -39,7 +47,9 @@
     },
     {
       "name": "enableLights",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Whether notifications posted to this channel should display notification lights",
       "type": [
         {
@@ -50,7 +60,9 @@
     },
     {
       "name": "enableVibration",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Whether notification posted to this channel should vibrate.",
       "type": [
         {
@@ -61,7 +73,9 @@
     },
     {
       "name": "groupId",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Group id this channel belongs to.",
       "type": [
         {
@@ -72,7 +86,9 @@
     },
     {
       "name": "id",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "The channel id specified for the notification channel.",
       "type": [
         {
@@ -83,7 +99,9 @@
     },
     {
       "name": "importance",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "The audio stream type to use when playing the sound.",
       "description": "Specify one of the `IMPORTANCE` constants from [Titanium.Android](api:Titanium.Android).",
       "type": [
@@ -92,11 +110,15 @@
           "name": "Number"
         }
       ],
-      "constants": ["Titanium.Android.IMPORTANCE_*"]
+      "constants": [
+        "Titanium.Android.IMPORTANCE_*"
+      ]
     },
     {
       "name": "lightColor",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "The notification light color for notifications posted to this channel.",
       "type": [
         {
@@ -107,7 +129,9 @@
     },
     {
       "name": "lockscreenVisibility",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Whether or not notifications posted to this channel are shown on the lock screen in full or redacted form.",
       "type": [
         {
@@ -115,11 +139,15 @@
           "name": "Number"
         }
       ],
-      "constants": ["Titanium.Android.VISIBILITY_*"]
+      "constants": [
+        "Titanium.Android.VISIBILITY_*"
+      ]
     },
     {
       "name": "name",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "The visible name of this channel.\nThe recommended maximum length is 40 characters; the value may be truncated if it is too long.\n",
       "type": [
         {
@@ -130,7 +158,9 @@
     },
     {
       "name": "showBadge",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Whether notifications posted to this channel can appear as application icon badges in a Launcher.",
       "type": [
         {
@@ -141,7 +171,9 @@
     },
     {
       "name": "sound",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "A URL to the sound to play.",
       "description": "The URL cannot refer to a file in the Resources directory, but it can refer to\na file in the raw resources directory\n([Filesystem.resRawDirectory](api:Titanium.Filesystem#resRawDirectory)).\n\nTo create a raw resource, place the audio file in the `platform/android/res/raw`\nfolder and reference it as:\n\n``` js\nnotificationChannel.sound = Ti.Filesystem.resRawDirectory + 'my_sound.wav';\n```\n",
       "type": [
@@ -154,7 +186,9 @@
     },
     {
       "name": "vibratePattern",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "The vibration pattern for notifications posted to this channel.",
       "description": "Specify the pattern in milliseconds as an array. (e.g [100, 100, 100, 400, 400, 100, 100, 100])",
       "type": [
@@ -178,43 +212,61 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "lifecycleContainer",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ],
     "events": []
   },
-  "references": ["Titanium.Android", "Titanium.Filesystem", "Titanium.Proxy"],
+  "references": [
+    "Titanium.Android",
+    "Titanium.Filesystem",
+    "Titanium.Proxy"
+  ],
   "source": "Titanium/Android/NotificationChannel.yml"
 }

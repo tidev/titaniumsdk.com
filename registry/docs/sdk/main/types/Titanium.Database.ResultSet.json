@@ -3,8 +3,15 @@
   "name": "Titanium.Database.ResultSet",
   "kind": "proxy",
   "extends": "Titanium.Proxy",
-  "inheritanceChain": ["Titanium.Proxy"],
-  "platforms": ["android", "iphone", "ipad", "macos"],
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": "0.1",
   "summary": "The ResultSet instance returned by [Titanium.Database.DB.execute](api:Titanium.Database.DB#execute).",
   "description": "A result set represents the results returned by a database query.\n\nThe [rowCount](api:Titanium.Database.ResultSet#rowCount) property identifies the number of\nrows in the result set. The `ResultSet` object maintains an internal record of the \ncurrent row. As shown in the example, you can use the \n[next](api:Titanium.Database.ResultSet#next) method to iterate through the rows in the set.\n\nUse the [field](api:Titanium.Database.ResultSet#field) or\n[fieldByName](api:Titanium.Database.ResultSet#fieldByName) methods to query the fields for\nthe current row.\n\nOn the iOS platform, closing the database also closes the result set, that is,\nyou can only access the result set if the database is currently open.\n",
@@ -17,7 +24,12 @@
   "properties": [
     {
       "name": "fieldCount",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The number of columns in this result set.",
       "type": [
         {
@@ -33,7 +45,12 @@
     },
     {
       "name": "rowCount",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The number of rows in this result set.",
       "type": [
         {
@@ -45,7 +62,12 @@
     },
     {
       "name": "validRow",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Indicates whether the current row is valid.",
       "type": [
         {
@@ -59,12 +81,22 @@
   "methods": [
     {
       "name": "close",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Closes this result set and release resources. Once closed, the result set must no longer \nbe used.\n"
     },
     {
       "name": "field",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Retrieves the value for the specified field in the current row, \nand casts it to the specified type (String, Integer, Float or Double.)\n",
       "description": "All of the numeric types (Integer, Float or Double) are returned as JavaScript Number objects.  \n\nIf no `type` parameter is specified, the returned data type depends on the data in the column.  \n\n* If the data in the column is TEXT, the data is returned as a String.\n* If the data in the column is any kind of number, the data is returned as a Number.\n* If the data in the column is a BLOB, the data is returned as a [Titanium.Blob](api:Titanium.Blob) object.  \n\nWhen a `type` is specified and the data cannot be converted to the specified type, an \nexception is thrown.  \n\nReturns null if the value in the table is NULL.\n",
       "parameters": [
@@ -112,7 +144,12 @@
     },
     {
       "name": "fieldByName",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Retrieves the value for the specified field in the current row, \nand casts it to the specified type (String, Integer, Float or Double.)\n",
       "description": "All of the numeric types (Integer, Float or Double) are returned as JavaScript Number objects.  \n\nIf no `type` parameter is specified, the returned data type depends on the data in the column.  \n\n* If the data in the column is TEXT, the data is returned as a String.\n* If the data in the column is any kind of number, the data is returned as a Number.\n* If the data in the column is a BLOB, the data is returned as a [Titanium.Blob](api:Titanium.Blob) object.  \n\nWhen a `type` is specified and the data cannot be converted to the specified type, an \nexception is thrown.  \n\nReturns null if the value in the table is NULL.        \n",
       "parameters": [
@@ -160,7 +197,12 @@
     },
     {
       "name": "fieldName",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Returns the field name for the specified field index.",
       "parameters": [
         {
@@ -187,7 +229,9 @@
     },
     {
       "name": "getFieldName",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Returns the field name for the specified field index.",
       "parameters": [
         {
@@ -214,7 +258,12 @@
     },
     {
       "name": "isValidRow",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Returns whether the current row is valid.",
       "returns": [
         {
@@ -229,7 +278,12 @@
     },
     {
       "name": "next",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Advances to the next row in the result set and returns `true` if one exists, \nor `false` otherwise.\n",
       "returns": [
         {
@@ -249,43 +303,79 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "lifecycleContainer",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "events": []
   },
-  "references": ["Titanium.Blob", "Titanium.Database.DB", "Titanium.Proxy"],
+  "references": [
+    "Titanium.Blob",
+    "Titanium.Database.DB",
+    "Titanium.Proxy"
+  ],
   "source": "Titanium/Database/ResultSet.yml"
 }

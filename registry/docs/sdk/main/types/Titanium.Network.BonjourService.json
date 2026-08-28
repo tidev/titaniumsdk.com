@@ -3,8 +3,14 @@
   "name": "Titanium.Network.BonjourService",
   "kind": "proxy",
   "extends": "Titanium.Proxy",
-  "inheritanceChain": ["Titanium.Proxy"],
-  "platforms": ["iphone", "ipad", "macos"],
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": "1.2.0",
   "summary": "Describes a service on the network which is published by Bonjour.",
   "description": "You can obtain a `BonjourService` instance by calling [Titanium.Network.createBonjourService](api:Titanium.Network#createBonjourService) \nor from the `service` list from a [BonjourBrowser](api:Titanium.Network.BonjourBrowser)  \n`updatedservices` event.   \n\nYou can only publish Bonjour services attached to a socket which is currently listening; \nyou cannot publish a service for a remotely connected socket.  If you stop the Bonjour \nservice and wish to close the socket it uses, it is strongly recommended that you stop \nthe service first.  When a window which publishes a Bonjour service is closed, you must \nstop the service if the associated socket is also to be closed, or if it is no longer \nnecessary to publish.  Bonjour service resolution and publishing is asynchronous.\n\nIn iOS 14.0+, to publish service add key `NSLocalNetworkUsageDescription` and `NSBonjourServices` in tiapp.xml file.\n\nExample:\n\n``` xml\n<ti:app>\n  <!-- ... -->\n  <ios>\n    <plist>\n      <dict>\n        <!-- Reason to access local network-->\n        <key>NSLocalNetworkUsageDescription</key>\n        [string](api:Global.String)\n            Specify the reason for accessing the local network.\n            This appears in the alert dialog when asking the user \n            for permission to access local network.\n        </string>\n        <!-- List of bonjour service type-->\n        <key>NSBonjourServices</key>\n        <array>\n          [string](api:Global.String)_test._tcp</string>\n        <array/>\n      </dict>\n    </plist>\n  </ios>\n  <!-- ... -->\n</ti:app>\n```\n",
@@ -21,7 +27,11 @@
   "properties": [
     {
       "name": "domain",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "the domain of the service",
       "type": [
         {
@@ -32,7 +42,11 @@
     },
     {
       "name": "isLocal",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "whether or not the service is local to the device",
       "type": [
         {
@@ -44,7 +58,11 @@
     },
     {
       "name": "name",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "the name of the service",
       "type": [
         {
@@ -55,7 +73,11 @@
     },
     {
       "name": "socket",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "the TCPSocket object that is used to connect to the service",
       "type": [
         {
@@ -66,7 +88,11 @@
     },
     {
       "name": "type",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "the type of the service",
       "type": [
         {
@@ -79,7 +105,11 @@
   "methods": [
     {
       "name": "publish",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Asynchronously publish a Bonjour service to the network.  Only works if isLocal is TRUE",
       "parameters": [
         {
@@ -117,7 +147,11 @@
     },
     {
       "name": "resolve",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Asynchronously resolve a Bonjour service from the network.  Must be done before attempting to access the service's socket information, if a remote service.  You cannot resolve a locally published service.",
       "parameters": [
         {
@@ -157,7 +191,11 @@
     },
     {
       "name": "stop",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Asynchronously halts a currently running attempt to publish or resolve a service.",
       "parameters": [
         {
@@ -187,7 +225,11 @@
   "events": [
     {
       "name": "publish",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when the service has been published (or errored).",
       "properties": [
         {
@@ -234,7 +276,11 @@
     },
     {
       "name": "resolve",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when the service has been resolved (or errored). If successful, the [socket](api:Titanium.Network.BonjourService#socket) property should now be available.",
       "properties": [
         {
@@ -281,7 +327,11 @@
     },
     {
       "name": "stop",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when a service's publish or resolution was stopped via [Titanium.Network.BonjourService.stop](api:Titanium.Network.BonjourService#stop)",
       "properties": [
         {
@@ -332,34 +382,58 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "events": []

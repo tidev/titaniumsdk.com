@@ -2,13 +2,23 @@
   "schemaVersion": 1,
   "name": "UserNotificationDictionary",
   "kind": "pseudo",
-  "platforms": ["android", "iphone", "ipad", "macos"],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": "7.3.0",
   "summary": "Dictionary of notification data used in the array of `notifications`\nwhen receiving pending or local notifications in\n[Titanium.App.iOS.UserNotificationCenter.getPendingNotifications](api:Titanium.App.iOS.UserNotificationCenter#getPendingNotifications) and\n[Titanium.App.iOS.UserNotificationCenter.getDeliveredNotifications](api:Titanium.App.iOS.UserNotificationCenter#getDeliveredNotifications).\n",
   "properties": [
     {
       "name": "alertAction",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Alert button text ('Open', by default) or home text ('Press Home to unlock', by default)\ntype: String\n",
       "type": [
         {
@@ -19,7 +29,12 @@
     },
     {
       "name": "alertBody",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Alert message.",
       "type": [
         {
@@ -30,7 +45,12 @@
     },
     {
       "name": "alertLaunchImage",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Image displayed instead of `Default.png` when launching the application.",
       "type": [
         {
@@ -41,7 +61,12 @@
     },
     {
       "name": "alertSubtitle",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Subtitle of the notification.",
       "type": [
         {
@@ -52,7 +77,12 @@
     },
     {
       "name": "alertTitle",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Title of the notification.",
       "type": [
         {
@@ -68,7 +98,12 @@
     },
     {
       "name": "badge",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Application badge value.",
       "type": [
         {
@@ -79,7 +114,12 @@
     },
     {
       "name": "category",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Category identifier of the notification.",
       "type": [
         {
@@ -90,7 +130,12 @@
     },
     {
       "name": "date",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Date and time when the notification was configured to fire.",
       "type": [
         {
@@ -101,7 +146,12 @@
     },
     {
       "name": "identifier",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The notification identifier.",
       "description": "This property is required in iOS 10+ and will fallback to a generated\nUUID-string if not set. It is recommended to manage the identifier\nyourself, but you can also get the generated UUID by accessing via\nthe \"userInfo.id\" field for parity with older iOS versions.\n",
       "type": [
@@ -114,7 +164,12 @@
     },
     {
       "name": "region",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Region of the notification.",
       "description": "The following keys are included:\n  - latitude: The latitude of the region.\n  - longitude: The longitude of the region.\n  - radius: The radius of the region.\n  - identifier: The identifier of the region.\n",
       "type": [
@@ -126,7 +181,12 @@
     },
     {
       "name": "sound",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Path to the sound file configured to play when the notification was fired.",
       "type": [
         {
@@ -137,7 +197,12 @@
     },
     {
       "name": "timezone",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Timezone of the date when the notification was configured to fire.",
       "type": [
         {
@@ -148,7 +213,12 @@
     },
     {
       "name": "userInfo",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Custom data object.",
       "type": [
         {
@@ -162,7 +232,11 @@
         "properties": [
           {
             "name": "showInForeground",
-            "platforms": ["iphone", "ipad", "macos"],
+            "platforms": [
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "Show notification if app is in foreground",
             "description": "Boolean if a notification banner is shown if the app is in foreground.\n",
             "type": [
@@ -183,6 +257,10 @@
     "methods": [],
     "events": []
   },
-  "references": ["Dictionary", "Titanium.App.iOS.UserNotificationCenter", "UserInfoDictionary"],
+  "references": [
+    "Dictionary",
+    "Titanium.App.iOS.UserNotificationCenter",
+    "UserInfoDictionary"
+  ],
   "source": "Titanium/App/iOS/UserNotificationCenter.yml"
 }

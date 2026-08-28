@@ -2,13 +2,21 @@
   "schemaVersion": 1,
   "name": "MediaQueryType",
   "kind": "pseudo",
-  "platforms": ["iphone", "ipad", "macos"],
+  "platforms": [
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": "1.8",
   "summary": "A specifier for a media library query. By default, filters perform an exact match.",
   "properties": [
     {
       "name": "albumArtist",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The album artist to filter on. Value should be a String.",
       "type": [
         {
@@ -26,7 +34,11 @@
         "properties": [
           {
             "name": "exact",
-            "platforms": ["iphone", "ipad", "macos"],
+            "platforms": [
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "Whether or not the predicate is for an exact match.  The default is `true`.",
             "type": [
               {
@@ -38,7 +50,11 @@
           },
           {
             "name": "value",
-            "platforms": ["iphone", "ipad", "macos"],
+            "platforms": [
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "The value for the given predicate. See the descriptions in [MediaQueryType](api:MediaQueryType) for information about which properties require which values.",
             "type": [
               {
@@ -60,7 +76,11 @@
     },
     {
       "name": "albumArtistPersistentID",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The album artist persistent ID to filter on. Value should be a Number.",
       "description": "Available in Titanium SDK 6.1.0 and later.",
       "type": [
@@ -79,7 +99,11 @@
         "properties": [
           {
             "name": "exact",
-            "platforms": ["iphone", "ipad", "macos"],
+            "platforms": [
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "Whether or not the predicate is for an exact match.  The default is `true`.",
             "type": [
               {
@@ -91,7 +115,11 @@
           },
           {
             "name": "value",
-            "platforms": ["iphone", "ipad", "macos"],
+            "platforms": [
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "The value for the given predicate. See the descriptions in [MediaQueryType](api:MediaQueryType) for information about which properties require which values.",
             "type": [
               {
@@ -113,7 +141,11 @@
     },
     {
       "name": "albumPersistentID",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The album persistent ID to filter on. Value should be a Number.",
       "description": "Available in Titanium SDK 6.1.0 and later.",
       "type": [
@@ -132,7 +164,11 @@
         "properties": [
           {
             "name": "exact",
-            "platforms": ["iphone", "ipad", "macos"],
+            "platforms": [
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "Whether or not the predicate is for an exact match.  The default is `true`.",
             "type": [
               {
@@ -144,7 +180,11 @@
           },
           {
             "name": "value",
-            "platforms": ["iphone", "ipad", "macos"],
+            "platforms": [
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "The value for the given predicate. See the descriptions in [MediaQueryType](api:MediaQueryType) for information about which properties require which values.",
             "type": [
               {
@@ -166,7 +206,11 @@
     },
     {
       "name": "albumTitle",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The album title to filter on. Value should be a String.",
       "type": [
         {
@@ -184,7 +228,11 @@
         "properties": [
           {
             "name": "exact",
-            "platforms": ["iphone", "ipad", "macos"],
+            "platforms": [
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "Whether or not the predicate is for an exact match.  The default is `true`.",
             "type": [
               {
@@ -196,7 +244,11 @@
           },
           {
             "name": "value",
-            "platforms": ["iphone", "ipad", "macos"],
+            "platforms": [
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "The value for the given predicate. See the descriptions in [MediaQueryType](api:MediaQueryType) for information about which properties require which values.",
             "type": [
               {
@@ -218,7 +270,11 @@
     },
     {
       "name": "artist",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The artist to filter on. Value should be a String.",
       "type": [
         {
@@ -236,7 +292,11 @@
         "properties": [
           {
             "name": "exact",
-            "platforms": ["iphone", "ipad", "macos"],
+            "platforms": [
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "Whether or not the predicate is for an exact match.  The default is `true`.",
             "type": [
               {
@@ -248,7 +308,11 @@
           },
           {
             "name": "value",
-            "platforms": ["iphone", "ipad", "macos"],
+            "platforms": [
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "The value for the given predicate. See the descriptions in [MediaQueryType](api:MediaQueryType) for information about which properties require which values.",
             "type": [
               {
@@ -270,7 +334,11 @@
     },
     {
       "name": "composer",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The composer to filter on. Value should be a String.",
       "type": [
         {
@@ -288,7 +356,11 @@
         "properties": [
           {
             "name": "exact",
-            "platforms": ["iphone", "ipad", "macos"],
+            "platforms": [
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "Whether or not the predicate is for an exact match.  The default is `true`.",
             "type": [
               {
@@ -300,7 +372,11 @@
           },
           {
             "name": "value",
-            "platforms": ["iphone", "ipad", "macos"],
+            "platforms": [
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "The value for the given predicate. See the descriptions in [MediaQueryType](api:MediaQueryType) for information about which properties require which values.",
             "type": [
               {
@@ -322,7 +398,11 @@
     },
     {
       "name": "composerPersistentID",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The composer persistent ID to filter on. Value should be a Number.",
       "description": "Available in Titanium SDK 6.1.0 and later.",
       "type": [
@@ -341,7 +421,11 @@
         "properties": [
           {
             "name": "exact",
-            "platforms": ["iphone", "ipad", "macos"],
+            "platforms": [
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "Whether or not the predicate is for an exact match.  The default is `true`.",
             "type": [
               {
@@ -353,7 +437,11 @@
           },
           {
             "name": "value",
-            "platforms": ["iphone", "ipad", "macos"],
+            "platforms": [
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "The value for the given predicate. See the descriptions in [MediaQueryType](api:MediaQueryType) for information about which properties require which values.",
             "type": [
               {
@@ -375,7 +463,11 @@
     },
     {
       "name": "genre",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The genre to filter on. Value should be a String.",
       "type": [
         {
@@ -393,7 +485,11 @@
         "properties": [
           {
             "name": "exact",
-            "platforms": ["iphone", "ipad", "macos"],
+            "platforms": [
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "Whether or not the predicate is for an exact match.  The default is `true`.",
             "type": [
               {
@@ -405,7 +501,11 @@
           },
           {
             "name": "value",
-            "platforms": ["iphone", "ipad", "macos"],
+            "platforms": [
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "The value for the given predicate. See the descriptions in [MediaQueryType](api:MediaQueryType) for information about which properties require which values.",
             "type": [
               {
@@ -427,7 +527,11 @@
     },
     {
       "name": "genrePersistentID",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The genre persistent ID to filter on. Value should be a Number.",
       "description": "Available in Titanium SDK 6.1.0 and later.",
       "type": [
@@ -446,7 +550,11 @@
         "properties": [
           {
             "name": "exact",
-            "platforms": ["iphone", "ipad", "macos"],
+            "platforms": [
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "Whether or not the predicate is for an exact match.  The default is `true`.",
             "type": [
               {
@@ -458,7 +566,11 @@
           },
           {
             "name": "value",
-            "platforms": ["iphone", "ipad", "macos"],
+            "platforms": [
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "The value for the given predicate. See the descriptions in [MediaQueryType](api:MediaQueryType) for information about which properties require which values.",
             "type": [
               {
@@ -480,7 +592,11 @@
     },
     {
       "name": "grouping",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "A constant that specifies the ordering of the result array.",
       "type": [
         {
@@ -488,11 +604,17 @@
           "name": "Number"
         }
       ],
-      "constants": ["Titanium.Media.MUSIC_MEDIA_GROUP_*"]
+      "constants": [
+        "Titanium.Media.MUSIC_MEDIA_GROUP_*"
+      ]
     },
     {
       "name": "hasProtectedAsset",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Filter by whether or not the item is a protected asset.\nValue should be a Boolean.\n",
       "description": "Available in Titanium SDK 6.1.0 and later.",
       "type": [
@@ -511,7 +633,11 @@
         "properties": [
           {
             "name": "exact",
-            "platforms": ["iphone", "ipad", "macos"],
+            "platforms": [
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "Whether or not the predicate is for an exact match.  The default is `true`.",
             "type": [
               {
@@ -523,7 +649,11 @@
           },
           {
             "name": "value",
-            "platforms": ["iphone", "ipad", "macos"],
+            "platforms": [
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "The value for the given predicate. See the descriptions in [MediaQueryType](api:MediaQueryType) for information about which properties require which values.",
             "type": [
               {
@@ -545,7 +675,11 @@
     },
     {
       "name": "isCloudItem",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Filter by whether or not the item is a cloud item.\nValue should be a Boolean.\n",
       "description": "Available in Titanium SDK 6.1.0 and later.",
       "type": [
@@ -564,7 +698,11 @@
         "properties": [
           {
             "name": "exact",
-            "platforms": ["iphone", "ipad", "macos"],
+            "platforms": [
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "Whether or not the predicate is for an exact match.  The default is `true`.",
             "type": [
               {
@@ -576,7 +714,11 @@
           },
           {
             "name": "value",
-            "platforms": ["iphone", "ipad", "macos"],
+            "platforms": [
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "The value for the given predicate. See the descriptions in [MediaQueryType](api:MediaQueryType) for information about which properties require which values.",
             "type": [
               {
@@ -598,7 +740,11 @@
     },
     {
       "name": "isCompilation",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Filter by whether or not the item is a compilation.\nThe value should be a Boolean.\n",
       "type": [
         {
@@ -616,7 +762,11 @@
         "properties": [
           {
             "name": "exact",
-            "platforms": ["iphone", "ipad", "macos"],
+            "platforms": [
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "Whether or not the predicate is for an exact match.  The default is `true`.",
             "type": [
               {
@@ -628,7 +778,11 @@
           },
           {
             "name": "value",
-            "platforms": ["iphone", "ipad", "macos"],
+            "platforms": [
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "The value for the given predicate. See the descriptions in [MediaQueryType](api:MediaQueryType) for information about which properties require which values.",
             "type": [
               {
@@ -650,7 +804,11 @@
     },
     {
       "name": "mediaType",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The media type to filter on.",
       "type": [
         {
@@ -662,14 +820,20 @@
           "name": "Number"
         }
       ],
-      "constants": ["Titanium.Media.MUSIC_MEDIA_TYPE_*"],
+      "constants": [
+        "Titanium.Media.MUSIC_MEDIA_TYPE_*"
+      ],
       "inlined": {
         "name": "MediaQueryInfoType",
         "summary": "A full query descriptor for a filtering predicate.",
         "properties": [
           {
             "name": "exact",
-            "platforms": ["iphone", "ipad", "macos"],
+            "platforms": [
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "Whether or not the predicate is for an exact match.  The default is `true`.",
             "type": [
               {
@@ -681,7 +845,11 @@
           },
           {
             "name": "value",
-            "platforms": ["iphone", "ipad", "macos"],
+            "platforms": [
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "The value for the given predicate. See the descriptions in [MediaQueryType](api:MediaQueryType) for information about which properties require which values.",
             "type": [
               {
@@ -703,7 +871,11 @@
     },
     {
       "name": "persistentID",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The persistent ID to filter on. Value should be a Number.",
       "description": "Available in Titanium SDK 6.1.0 and later.",
       "type": [
@@ -722,7 +894,11 @@
         "properties": [
           {
             "name": "exact",
-            "platforms": ["iphone", "ipad", "macos"],
+            "platforms": [
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "Whether or not the predicate is for an exact match.  The default is `true`.",
             "type": [
               {
@@ -734,7 +910,11 @@
           },
           {
             "name": "value",
-            "platforms": ["iphone", "ipad", "macos"],
+            "platforms": [
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "The value for the given predicate. See the descriptions in [MediaQueryType](api:MediaQueryType) for information about which properties require which values.",
             "type": [
               {
@@ -756,7 +936,11 @@
     },
     {
       "name": "playCount",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The play count to filter on. Value should be a Number.",
       "description": "Available in Titanium SDK 6.1.0 and later.",
       "type": [
@@ -775,7 +959,11 @@
         "properties": [
           {
             "name": "exact",
-            "platforms": ["iphone", "ipad", "macos"],
+            "platforms": [
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "Whether or not the predicate is for an exact match.  The default is `true`.",
             "type": [
               {
@@ -787,7 +975,11 @@
           },
           {
             "name": "value",
-            "platforms": ["iphone", "ipad", "macos"],
+            "platforms": [
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "The value for the given predicate. See the descriptions in [MediaQueryType](api:MediaQueryType) for information about which properties require which values.",
             "type": [
               {
@@ -809,7 +1001,11 @@
     },
     {
       "name": "podcastPersistentID",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The podcast persistent ID to filter on. Value should be a Number.",
       "description": "Available in Titanium SDK 6.1.0 and later.",
       "type": [
@@ -828,7 +1024,11 @@
         "properties": [
           {
             "name": "exact",
-            "platforms": ["iphone", "ipad", "macos"],
+            "platforms": [
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "Whether or not the predicate is for an exact match.  The default is `true`.",
             "type": [
               {
@@ -840,7 +1040,11 @@
           },
           {
             "name": "value",
-            "platforms": ["iphone", "ipad", "macos"],
+            "platforms": [
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "The value for the given predicate. See the descriptions in [MediaQueryType](api:MediaQueryType) for information about which properties require which values.",
             "type": [
               {
@@ -862,7 +1066,11 @@
     },
     {
       "name": "podcastTitle",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The podcast title to filter on. Value should be a String.",
       "description": "Available in Titanium SDK 6.1.0 and later.",
       "type": [
@@ -881,7 +1089,11 @@
         "properties": [
           {
             "name": "exact",
-            "platforms": ["iphone", "ipad", "macos"],
+            "platforms": [
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "Whether or not the predicate is for an exact match.  The default is `true`.",
             "type": [
               {
@@ -893,7 +1105,11 @@
           },
           {
             "name": "value",
-            "platforms": ["iphone", "ipad", "macos"],
+            "platforms": [
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "The value for the given predicate. See the descriptions in [MediaQueryType](api:MediaQueryType) for information about which properties require which values.",
             "type": [
               {
@@ -915,7 +1131,11 @@
     },
     {
       "name": "title",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The title to filter on. Value should be a String.",
       "type": [
         {
@@ -933,7 +1153,11 @@
         "properties": [
           {
             "name": "exact",
-            "platforms": ["iphone", "ipad", "macos"],
+            "platforms": [
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "Whether or not the predicate is for an exact match.  The default is `true`.",
             "type": [
               {
@@ -945,7 +1169,11 @@
           },
           {
             "name": "value",
-            "platforms": ["iphone", "ipad", "macos"],
+            "platforms": [
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "The value for the given predicate. See the descriptions in [MediaQueryType](api:MediaQueryType) for information about which properties require which values.",
             "type": [
               {
@@ -973,6 +1201,8 @@
     "methods": [],
     "events": []
   },
-  "references": ["MediaQueryInfoType"],
+  "references": [
+    "MediaQueryInfoType"
+  ],
   "source": "Titanium/Media/Media.yml"
 }

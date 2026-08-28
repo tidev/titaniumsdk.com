@@ -3,8 +3,13 @@
   "name": "Titanium.UI.Android.ProgressIndicator",
   "kind": "view",
   "extends": "Titanium.UI.View",
-  "inheritanceChain": ["Titanium.UI.View", "Titanium.Proxy"],
-  "platforms": ["android"],
+  "inheritanceChain": [
+    "Titanium.UI.View",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android"
+  ],
   "since": "3.0.0",
   "summary": "A progress dialog or a horizontal progress bar in the title of the window.",
   "description": "| Android |\n| ------- |\n| ![Android](./progressindicator_android.png) |\n\nA progress indicator can be used to show the progress of an operation in the UI to let the\nuser know that some action is taking place. It is used to indicate an ongoing activity of\ndeterminate or indeterminate length.\n\nUse the [Titanium.UI.Android.createProgressIndicator](api:Titanium.UI.Android#createProgressIndicator) method or **`<ProgressIndicator>`** Alloy\nelement to create a progress indicator.\n\nA progress indicator can be either a progress dialog or a horizontal progress bar in the title\nof the window. The progress dialog is a modal dialog that blocks the UI. See also:\n[Titanium.UI.Android.PROGRESS_INDICATOR_DIALOG](api:Titanium.UI.Android#PROGRESS_INDICATOR_DIALOG),\n[Titanium.UI.Android.PROGRESS_INDICATOR_STATUS_BAR](api:Titanium.UI.Android#PROGRESS_INDICATOR_STATUS_BAR).\n\n**NOTE:** [Titanium.UI.Android.PROGRESS_INDICATOR_STATUS_BAR](api:Titanium.UI.Android#PROGRESS_INDICATOR_STATUS_BAR) does not work anymore on devices\nrunning Android 4.4+ since the underlying API was deprecated and removed by Google. See\n[TIMOB-27312](https://jira-archive.titaniumsdk.com/TIMOB-27312) for more details.\n\nCalling [Titanium.UI.Android.ProgressIndicator.show](api:Titanium.UI.Android.ProgressIndicator#show) displays the indicator,\nand calling [Titanium.UI.Android.ProgressIndicator.hide](api:Titanium.UI.Android.ProgressIndicator#hide) removes it.\n",
@@ -21,7 +26,9 @@
   "properties": [
     {
       "name": "cancelable",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "When `true` allows the user to cancel the progress dialog by pressing the BACK button.\n",
       "type": [
         {
@@ -32,7 +39,9 @@
     },
     {
       "name": "canceledOnTouchOutside",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "When `cancelable` is set to `true` and this is set to `true`, the dialog is canceled when touched outside the window's bounds.\n",
       "type": [
         {
@@ -45,7 +54,9 @@
     },
     {
       "name": "location",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Location for the progress indicator.",
       "type": [
         {
@@ -61,7 +72,9 @@
     },
     {
       "name": "max",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Maximum value of the progress bar.",
       "type": [
         {
@@ -72,7 +85,9 @@
     },
     {
       "name": "message",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Message text.",
       "type": [
         {
@@ -83,7 +98,9 @@
     },
     {
       "name": "messageid",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Key identifying a string in the locale file to use for the message text.",
       "description": "Only one of `message` or `messageid` should be specified.",
       "type": [
@@ -95,7 +112,9 @@
     },
     {
       "name": "min",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Minimum value of the progress bar.",
       "type": [
         {
@@ -106,7 +125,9 @@
     },
     {
       "name": "type",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Type for the progress indicator.",
       "type": [
         {
@@ -124,19 +145,25 @@
   "methods": [
     {
       "name": "hide",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Hides the progress indicator and stops the animation."
     },
     {
       "name": "show",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Shows the progress indicator and starts the animation."
     }
   ],
   "events": [
     {
       "name": "cancel",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Fired when the user has canceled the progress indicator dialog.",
       "description": "The user triggers this event by pressing the BACK button when the dialog is visible.\nThe dialog will be hidden and this event dispatched.\n"
     }
@@ -146,159 +173,222 @@
       {
         "name": "accessibilityDisableLongPress",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "elevation",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "filterTouchesWhenObscured",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "hiddenBehavior",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "id",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "keepHardwareMode",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "lifecycleContainer",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "rotation",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "rotationX",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "rotationY",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "scaleX",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "scaleY",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "tooltip",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "touchFeedback",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "touchFeedbackColor",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "transitionName",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "translationX",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "translationY",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "translationZ",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "getViewById",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "insertAt",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "replaceAt",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "stopAnimation",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ],
     "events": [
       {
         "name": "rotate",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ]
   },
-  "references": ["Titanium.UI.Android", "Titanium.UI.View"],
+  "references": [
+    "Titanium.UI.Android",
+    "Titanium.UI.View"
+  ],
   "source": "Titanium/UI/Android/ProgressIndicator.yml"
 }

@@ -2,7 +2,10 @@
   "schemaVersion": 1,
   "name": "Titanium.App.iOS.ActivityAttributes",
   "kind": "pseudo",
-  "platforms": ["iphone", "ipad"],
+  "platforms": [
+    "iphone",
+    "ipad"
+  ],
   "since": "12.0.0",
   "summary": "Use this module to communicate with the native iOS 16+ Dynamic Island APIs.\n",
   "description": "To properly use these APIs, you need to have your Widget Extension ready.\nYou can follow this [sample repository](https://github.com/hansemannn/titanium-widget-kit-sample-app) for an extended example.\n",
@@ -16,7 +19,10 @@
   "methods": [
     {
       "name": "startActivity",
-      "platforms": ["iphone", "ipad"],
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
       "summary": "Starts a new activity (aka the Dynamic Island) with the provided parameters",
       "parameters": [
         {

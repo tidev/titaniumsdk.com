@@ -3,8 +3,14 @@
   "name": "Titanium.UI.iPad.Popover",
   "kind": "view",
   "extends": "Titanium.UI.View",
-  "inheritanceChain": ["Titanium.UI.View", "Titanium.Proxy"],
-  "platforms": ["ipad", "macos"],
+  "inheritanceChain": [
+    "Titanium.UI.View",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "ipad",
+    "macos"
+  ],
   "since": {
     "ipad": "1.2.0",
     "macos": "9.2.0"
@@ -24,7 +30,10 @@
   "properties": [
     {
       "name": "arrowDirection",
-      "platforms": ["ipad", "macos"],
+      "platforms": [
+        "ipad",
+        "macos"
+      ],
       "summary": "Indicates the arrow direction of the popover.",
       "description": "Use this property to indicate the popover arrows to use.  You can bitwise-OR the constant\nvalues together.\n\nDo not set this property to [Titanium.UI.iPad.POPOVER_ARROW_DIRECTION_UNKNOWN](api:Titanium.UI.iPad#POPOVER_ARROW_DIRECTION_UNKNOWN).\n",
       "type": [
@@ -43,7 +52,10 @@
     },
     {
       "name": "backgroundColor",
-      "platforms": ["ipad", "macos"],
+      "platforms": [
+        "ipad",
+        "macos"
+      ],
       "summary": "Sets the background color of the popover.",
       "description": "It is recommended to set this property to colorize the whole popover instead of only\nits content view.\n",
       "since": "5.2.0",
@@ -52,7 +64,10 @@
     },
     {
       "name": "contentView",
-      "platforms": ["ipad", "macos"],
+      "platforms": [
+        "ipad",
+        "macos"
+      ],
       "summary": "View to use for the popover content. Must be set before calling the `show()` method.",
       "description": "Set this property to any [Titanium.UI.View](api:Titanium.UI.View) object, including a [Titanium.UI.Window](api:Titanium.UI.Window) or\n[Titanium.UI.NavigationWindow](api:Titanium.UI.NavigationWindow) object.\n\nThis property does not support the [Titanium.UI.iOS.SplitWindow](api:Titanium.UI.iOS.SplitWindow) or [Titanium.UI.TabGroup](api:Titanium.UI.TabGroup) objects.\n\nWhen this property is set to a valid object, the popover **does not include the navigation\ncontroller** unless it is set to a [Titanium.UI.NavigationWindow](api:Titanium.UI.NavigationWindow) object.\n\nIn an Alloy application, you can specify this property as a `<ContentView>` child element\nof the `<Popover>` element:\n\n``` xml\n<Alloy>\n    <Popover>\n        <ContentView>\n            <Window title=\"Popover\">\n                <Label>Popover!</Label>\n            </Window>\n        </ContentView>\n    </Popover>\n</Alloy>\n```\n",
       "type": [
@@ -65,7 +80,10 @@
     },
     {
       "name": "passthroughViews",
-      "platforms": ["ipad", "macos"],
+      "platforms": [
+        "ipad",
+        "macos"
+      ],
       "summary": "Passthrough views to use when the popover is shown.",
       "description": "Specify view objects that the user can interact with while the popover is open. While\ninteracting with these view, the popover will not be dismissed.\n",
       "type": [
@@ -85,7 +103,10 @@
   "methods": [
     {
       "name": "hide",
-      "platforms": ["ipad", "macos"],
+      "platforms": [
+        "ipad",
+        "macos"
+      ],
       "summary": "Hides the popover.",
       "parameters": [
         {
@@ -104,7 +125,10 @@
     },
     {
       "name": "show",
-      "platforms": ["ipad", "macos"],
+      "platforms": [
+        "ipad",
+        "macos"
+      ],
       "summary": "Displays the popover.",
       "parameters": [
         {
@@ -123,7 +147,12 @@
             "properties": [
               {
                 "name": "animated",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Indicates whether to animate showing the popover.",
                 "type": [
                   {
@@ -136,7 +165,12 @@
               },
               {
                 "name": "rect",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Sets the arrow position of the popover relative to the attached view object's dimensions\nwhen showing the popover.\n",
                 "description": "Setting the x, y coordinates to (0, 0) places the popover in the top-left corner of the view object.  Set both the `width` and `height` properties to 1.",
                 "type": [
@@ -150,7 +184,12 @@
               },
               {
                 "name": "view",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Attaches the popover to the specified view when showing the popover.",
                 "type": [
                   {
@@ -168,7 +207,10 @@
   "events": [
     {
       "name": "hide",
-      "platforms": ["ipad", "macos"],
+      "platforms": [
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when the popover is hidden."
     }
   ],
@@ -177,91 +219,141 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["ipad", "macos"]
+        "platforms": [
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["ipad", "macos"]
+        "platforms": [
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "height",
         "from": "Titanium.UI.View",
-        "platforms": ["ipad", "macos"]
+        "platforms": [
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "horizontalMotionEffect",
         "from": "Titanium.UI.View",
-        "platforms": ["ipad", "macos"]
+        "platforms": [
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "id",
         "from": "Titanium.UI.View",
-        "platforms": ["ipad", "macos"]
+        "platforms": [
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "rotation",
         "from": "Titanium.UI.View",
-        "platforms": ["ipad"]
+        "platforms": [
+          "ipad"
+        ]
       },
       {
         "name": "tooltip",
         "from": "Titanium.UI.View",
-        "platforms": ["ipad", "macos"]
+        "platforms": [
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "verticalMotionEffect",
         "from": "Titanium.UI.View",
-        "platforms": ["ipad", "macos"]
+        "platforms": [
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "width",
         "from": "Titanium.UI.View",
-        "platforms": ["ipad", "macos"]
+        "platforms": [
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["ipad", "macos"]
+        "platforms": [
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["ipad", "macos"]
+        "platforms": [
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "clearMotionEffects",
         "from": "Titanium.UI.View",
-        "platforms": ["ipad", "macos"]
+        "platforms": [
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["ipad", "macos"]
+        "platforms": [
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "getViewById",
         "from": "Titanium.UI.View",
-        "platforms": ["ipad", "macos"]
+        "platforms": [
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "insertAt",
         "from": "Titanium.UI.View",
-        "platforms": ["ipad", "macos"]
+        "platforms": [
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["ipad", "macos"]
+        "platforms": [
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "events": [
       {
         "name": "rotate",
         "from": "Titanium.UI.View",
-        "platforms": ["ipad", "macos"]
+        "platforms": [
+          "ipad",
+          "macos"
+        ]
       }
     ]
   },

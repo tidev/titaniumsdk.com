@@ -3,8 +3,13 @@
   "name": "Titanium.UI.Android.CollapseToolbar",
   "kind": "view",
   "extends": "Titanium.UI.View",
-  "inheritanceChain": ["Titanium.UI.View", "Titanium.Proxy"],
-  "platforms": ["android"],
+  "inheritanceChain": [
+    "Titanium.UI.View",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android"
+  ],
   "since": "12.1.0",
   "summary": "A collapsing toolbar layout.",
   "description": "| Android |\n| ------- |\n| ![Android](./collpasetoolbar_android.jpg) |\n\nCollapseToolbar acts as a top-level container for window content that allows to set a parallax image and title\nin the toolbar. The main content goes into `centerView` and will automatically be scrollable.\n",
@@ -21,7 +26,9 @@
   "properties": [
     {
       "name": "barColor",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Background color of the extended toolbar when no image is shown.",
       "type": [
         {
@@ -32,7 +39,9 @@
     },
     {
       "name": "color",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Color of the title.",
       "type": [
         {
@@ -43,7 +52,9 @@
     },
     {
       "name": "contentScrimColor",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Background color of the small toolbar when the content is scrolled up.",
       "type": [
         {
@@ -54,7 +65,9 @@
     },
     {
       "name": "contentView",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Main view below the toolbar.",
       "type": [
         {
@@ -65,7 +78,9 @@
     },
     {
       "name": "displayHomeAsUp",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Displays an \"up\" affordance on the \"home\" area of the action bar.",
       "description": "See also: [setDisplayHomeAsUpEnabled](https://developer.android.com/reference/android/app/ActionBar.html#setDisplayHomeAsUpEnabled(boolean))\nin the Android Developer Reference.\n",
       "type": [
@@ -78,7 +93,9 @@
     },
     {
       "name": "flags",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Scroll flags. Check [Android documentation](https://developer.android.com/reference/com/google/android/material/appbar/AppBarLayout.LayoutParams#constants_1) for more details.",
       "type": [
         {
@@ -86,11 +103,15 @@
           "name": "Number"
         }
       ],
-      "constants": ["Titanium.UI.Android.SCROLL_FLAG_*"]
+      "constants": [
+        "Titanium.UI.Android.SCROLL_FLAG_*"
+      ]
     },
     {
       "name": "image",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Background image for the full size toolbar. Has a parallax effect when scrolling upwards.",
       "type": [
         {
@@ -101,7 +122,9 @@
     },
     {
       "name": "imageHeight",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Height of the image. Use `height` for the height of the extended toolbar.",
       "type": [
         {
@@ -113,7 +136,9 @@
     },
     {
       "name": "navigationIconColor",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Color of the back arrow.",
       "type": [
         {
@@ -124,7 +149,9 @@
     },
     {
       "name": "onHomeIconItemSelected",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Callback function called when the home icon is clicked.",
       "type": [
         {
@@ -136,7 +163,9 @@
     },
     {
       "name": "title",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Title of the toolbar.",
       "type": [
         {
@@ -153,63 +182,87 @@
       {
         "name": "accessibilityDisableLongPress",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "height",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "id",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "keepHardwareMode",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "tooltip",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "top",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "stopAnimation",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ],
     "events": []
   },
-  "references": ["Titanium.UI.View"],
+  "references": [
+    "Titanium.UI.View"
+  ],
   "source": "Titanium/UI/Android/CollapseToolbar.yml"
 }

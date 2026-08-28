@@ -3,8 +3,14 @@
   "name": "Titanium.UI.iOS.SystemButton",
   "kind": "proxy",
   "extends": "Titanium.Proxy",
-  "inheritanceChain": ["Titanium.Proxy"],
-  "platforms": ["iphone", "ipad", "macos"],
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": {
     "iphone": "5.4.0",
     "ipad": "5.4.0",
@@ -15,7 +21,11 @@
   "properties": [
     {
       "name": "ACTION",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Button.systemButton](api:Titanium.UI.Button#systemButton) to specify an **Action** button.",
       "description": "The resulting button can only be used in navigation bars and toolbars.\n",
       "type": [
@@ -28,7 +38,11 @@
     },
     {
       "name": "ACTIVITY",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Button.systemButton](api:Titanium.UI.Button#systemButton) to create an activity indicator that\ncan be used in navigation bars and toolbars. \n",
       "description": "When visible, the activity indicator is already started.\n",
       "type": [
@@ -41,7 +55,11 @@
     },
     {
       "name": "ADD",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Button.systemButton](api:Titanium.UI.Button#systemButton) to specify an **Add** button.",
       "description": "The resulting button can only be used in navigation bars and toolbars.\n",
       "type": [
@@ -54,7 +72,11 @@
     },
     {
       "name": "BOOKMARKS",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Button.systemButton](api:Titanium.UI.Button#systemButton) to specify a **Bookmarks** button.",
       "description": "The resulting button can only be used in navigation bars and toolbars.\n",
       "type": [
@@ -67,7 +89,11 @@
     },
     {
       "name": "CAMERA",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Button.systemButton](api:Titanium.UI.Button#systemButton) to specify a **Camera** button.",
       "description": "The resulting button can only be used in navigation bars and toolbars.\n",
       "type": [
@@ -80,7 +106,11 @@
     },
     {
       "name": "CANCEL",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Button.systemButton](api:Titanium.UI.Button#systemButton) to specify a **Cancel** button.",
       "description": "This button is displayed as a bordered button with localized text.\n\nThe resulting button can only be used in navigation bars and toolbars.\n",
       "type": [
@@ -93,7 +123,11 @@
     },
     {
       "name": "COMPOSE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Button.systemButton](api:Titanium.UI.Button#systemButton) to specify a **Compose** button.",
       "description": "The resulting button can only be used in navigation bars and toolbars.\n",
       "type": [
@@ -106,7 +140,11 @@
     },
     {
       "name": "CONTACT_ADD",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Button.style](api:Titanium.UI.Button#style) to specify a **ContactAdd** button.",
       "description": "The resulting button is not restricted to use in navigation bars and toolbars.   \n",
       "type": [
@@ -119,7 +157,11 @@
     },
     {
       "name": "DISCLOSURE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Button.style](api:Titanium.UI.Button#style) to specify a **Disclosure** button.",
       "description": "The resulting button is not restricted to use in navigation bars and toolbars.\n",
       "type": [
@@ -132,7 +174,11 @@
     },
     {
       "name": "DONE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Button.systemButton](api:Titanium.UI.Button#systemButton) to specify a **Done** button.",
       "description": "This button is displayed as a bordered button with localized text.\n\nThe resulting button can only be used in navigation bars and toolbars.\n",
       "type": [
@@ -145,7 +191,11 @@
     },
     {
       "name": "EDIT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Button.systemButton](api:Titanium.UI.Button#systemButton) to specify an **Edit** button.",
       "description": "This button is displayed as a bordered button with localized text.\n\nThe resulting button can only be used in navigation bars and toolbars.\n",
       "type": [
@@ -158,7 +208,11 @@
     },
     {
       "name": "FAST_FORWARD",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Button.systemButton](api:Titanium.UI.Button#systemButton) to specify a **Fast Forward** button.",
       "description": "The resulting button can only be used in navigation bars and toolbars.\n",
       "type": [
@@ -171,7 +225,11 @@
     },
     {
       "name": "FIXED_SPACE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Button.systemButton](api:Titanium.UI.Button#systemButton) to create a fixed-width blank space \nfor spacing items in toolbars.\n",
       "description": "Only the `width` property is used when this value is set.\n",
       "type": [
@@ -184,7 +242,11 @@
     },
     {
       "name": "FLEXIBLE_SPACE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Button.systemButton](api:Titanium.UI.Button#systemButton) to create a flexible blank space \nfor spacing items in toolbars.\n",
       "description": "The space is distributed equally between the other \nitems. Other item properties are ignored when this value is set.\n",
       "type": [
@@ -197,7 +259,11 @@
     },
     {
       "name": "INFO_DARK",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Button.style](api:Titanium.UI.Button#style) to specify a dark-colored **Info** button.",
       "description": "The resulting button is not restricted to use in navigation bars and toolbars.   \n",
       "type": [
@@ -210,7 +276,11 @@
     },
     {
       "name": "INFO_LIGHT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Button.style](api:Titanium.UI.Button#style) to specify a light-colored **Info** button.",
       "description": "The resulting button is not restricted to use in navigation bars and toolbars.   \n",
       "type": [
@@ -223,7 +293,11 @@
     },
     {
       "name": "ORGANIZE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Button.systemButton](api:Titanium.UI.Button#systemButton) to specify an **Organize** button.",
       "description": "The resulting button can only be used in navigation bars and toolbars.\n",
       "type": [
@@ -236,7 +310,11 @@
     },
     {
       "name": "PAUSE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Button.systemButton](api:Titanium.UI.Button#systemButton) to specify a **Pause** button.",
       "description": "The resulting button can only be used in navigation bars and toolbars.\n",
       "type": [
@@ -249,7 +327,11 @@
     },
     {
       "name": "PLAY",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Button.systemButton](api:Titanium.UI.Button#systemButton) to specify a **Play** button.",
       "description": "The resulting button can only be used in navigation bars and toolbars.\n",
       "type": [
@@ -262,7 +344,11 @@
     },
     {
       "name": "REFRESH",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Button.systemButton](api:Titanium.UI.Button#systemButton) to specify a **Refresh** button.",
       "description": "The resulting button can only be used in navigation bars and toolbars.\n",
       "type": [
@@ -275,7 +361,11 @@
     },
     {
       "name": "REPLY",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Button.systemButton](api:Titanium.UI.Button#systemButton) to specify a **Reply** button.",
       "description": "The resulting button can only be used in navigation bars and toolbars.\n",
       "type": [
@@ -288,7 +378,11 @@
     },
     {
       "name": "REWIND",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Button.systemButton](api:Titanium.UI.Button#systemButton) to specify a **Rewind** button.",
       "description": "The resulting button can only be used in navigation bars and toolbars.\n",
       "type": [
@@ -301,7 +395,11 @@
     },
     {
       "name": "SAVE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Button.systemButton](api:Titanium.UI.Button#systemButton) to specify a **Save** button.",
       "description": "This button is displayed as a bordered button with localized text.\n\nThe resulting button can only be used in navigation bars and toolbars.\n",
       "type": [
@@ -314,7 +412,11 @@
     },
     {
       "name": "SPINNER",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Identical to [ACTIVITY](api:Titanium.UI.iOS.SystemButton#ACTIVITY).",
       "type": [
         {
@@ -326,7 +428,11 @@
     },
     {
       "name": "STOP",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Button.systemButton](api:Titanium.UI.Button#systemButton) to specify a **Stop** button.",
       "description": "The resulting button can only be used in navigation bars and toolbars.\n",
       "type": [
@@ -339,7 +445,11 @@
     },
     {
       "name": "TRASH",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use with [Button.systemButton](api:Titanium.UI.Button#systemButton) to specify a **Trash** button.",
       "description": "The resulting button can only be used in navigation bars and toolbars.\n",
       "type": [
@@ -358,38 +468,65 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "events": []
   },
-  "references": ["Titanium.Proxy", "Titanium.UI.Button"],
+  "references": [
+    "Titanium.Proxy",
+    "Titanium.UI.Button"
+  ],
   "source": "Titanium/UI/iOS/SystemButton.yml"
 }

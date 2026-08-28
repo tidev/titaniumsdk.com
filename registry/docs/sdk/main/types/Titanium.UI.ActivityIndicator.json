@@ -3,8 +3,16 @@
   "name": "Titanium.UI.ActivityIndicator",
   "kind": "view",
   "extends": "Titanium.UI.View",
-  "inheritanceChain": ["Titanium.UI.View", "Titanium.Proxy"],
-  "platforms": ["android", "iphone", "ipad", "macos"],
+  "inheritanceChain": [
+    "Titanium.UI.View",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": "0.8",
   "summary": "An activity indicator that lets the user know an action is taking place.",
   "description": "| Android | iOS |\n| ------- | --- |\n| ![Android](./activityindicator_android.png) | ![iOS](./activityindicator_ios.png) |\n\nAn activity indicator can be used to show the progress of an operation in the UI to let the\nuser know that some action is taking place. An activity indicator consists of a spinning\nanimation and an optional text message, and is used to indicate an ongoing activity of\nindeterminate length. To show progress, use [Titanium.UI.ProgressBar](api:Titanium.UI.ProgressBar) instead.\n\nUse the [Titanium.UI.createActivityIndicator](api:Titanium.UI#createActivityIndicator) method or **`<ActivityIndicator>`** Alloy element to\ncreate an `ActivityIndicator` object.\n\n`ActivityIndicator` is a view and, like any view, must be added to a window or other top-level\nview before it can be shown. Unlike most views, `ActivityIndicator` is hidden by\ndefault and must be shown explicitly by calling its [Titanium.UI.ActivityIndicator.show](api:Titanium.UI.ActivityIndicator#show) method.\n",
@@ -21,7 +29,12 @@
   "properties": [
     {
       "name": "bottom",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Bottom position of the view.",
       "description": "Determines the absolute position of the view relative to its parent.\n\nCan be either a float value or a dimension string (for example `100` or `'50%'`.)\n",
       "type": [
@@ -37,7 +50,12 @@
     },
     {
       "name": "color",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Color of the message text, as a color name or hex triplet.\n",
       "description": "For information about color values, see the \"Colors\" section of [Titanium.UI](api:Titanium.UI).\n",
       "type": [
@@ -53,7 +71,12 @@
     },
     {
       "name": "font",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Font used for the message text.",
       "type": [
         {
@@ -64,7 +87,12 @@
     },
     {
       "name": "height",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Width of the view. Only accepts value of [Titanium.UI.SIZE](api:Titanium.UI#SIZE), which must be explicitly set in order to\ndisplay the message and to position the view correctly.\n",
       "type": [
         {
@@ -72,11 +100,18 @@
           "name": "String"
         }
       ],
-      "constants": ["Titanium.UI.SIZE"]
+      "constants": [
+        "Titanium.UI.SIZE"
+      ]
     },
     {
       "name": "indicatorColor",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Color of the animated indicator.",
       "description": "For information about color values, see the \"Colors\" section of [Titanium.UI](api:Titanium.UI).",
       "type": [
@@ -94,7 +129,12 @@
     },
     {
       "name": "left",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Left position of the view.",
       "description": "Determines the absolute position of the view relative to its parent.\n\nCan be either a float value or a dimension string (for example `100` or `'50%'`.)\n",
       "type": [
@@ -110,7 +150,12 @@
     },
     {
       "name": "message",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Message text.",
       "type": [
         {
@@ -121,7 +166,12 @@
     },
     {
       "name": "messageid",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Key identifying a string in the locale file to use for the message text.",
       "description": "Only one of `message` or `messageid` should be specified.",
       "type": [
@@ -133,7 +183,12 @@
     },
     {
       "name": "right",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Right position of the view.",
       "description": "Determines the absolute position of the view relative to its parent.\n\nCan be either a float value or a dimension string (for example `100` or `'50%'`.)\n",
       "type": [
@@ -149,7 +204,12 @@
     },
     {
       "name": "style",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The style for the activity indicator.",
       "description": "One of the activity indicator style constants.\n\nSee also: [indicatorColor](api:Titanium.UI.ActivityIndicator#indicatorColor)\n",
       "type": [
@@ -159,11 +219,18 @@
         }
       ],
       "default": "<Titanium.UI.ActivityIndicatorStyle.PLAIN>",
-      "constants": ["Titanium.UI.ActivityIndicatorStyle.*"]
+      "constants": [
+        "Titanium.UI.ActivityIndicatorStyle.*"
+      ]
     },
     {
       "name": "top",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Top position of the view.",
       "description": "Determines the absolute position of the view relative to its parent.\n\nCan be either a float value or a dimension string (for example `100` or`'50%'`.)\n",
       "type": [
@@ -179,7 +246,12 @@
     },
     {
       "name": "width",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Width of the view. Only accepts value of [Titanium.UI.SIZE](api:Titanium.UI#SIZE), which must be explicitly set in order to\ndisplay the message and to position the view correctly.\n",
       "type": [
         {
@@ -187,18 +259,30 @@
           "name": "String"
         }
       ],
-      "constants": ["Titanium.UI.SIZE"]
+      "constants": [
+        "Titanium.UI.SIZE"
+      ]
     }
   ],
   "methods": [
     {
       "name": "hide",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Hides the activity indicator and stops the animation."
     },
     {
       "name": "show",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Shows the activity indicator and starts the animation.",
       "description": "Remember to add the activity indicator to a parent view first,\nso it centers properly. This is optional for Android and required\nfor iOS.\n"
     }
@@ -209,171 +293,278 @@
       {
         "name": "accessibilityDisableLongPress",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "elevation",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "filterTouchesWhenObscured",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "hiddenBehavior",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "horizontalMotionEffect",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "id",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "keepHardwareMode",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "lifecycleContainer",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "previewContext",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone"]
+        "platforms": [
+          "iphone"
+        ]
       },
       {
         "name": "rotation",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad"
+        ]
       },
       {
         "name": "rotationX",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "rotationY",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "scaleX",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "scaleY",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "tooltip",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "touchFeedback",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "touchFeedbackColor",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "transitionName",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "translationX",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "translationY",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "translationZ",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "verticalMotionEffect",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "clearMotionEffects",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "getViewById",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "insertAt",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "stopAnimation",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ],
     "events": [
       {
         "name": "rotate",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ]
   },

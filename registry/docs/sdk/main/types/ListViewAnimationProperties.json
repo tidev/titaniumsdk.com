@@ -2,7 +2,12 @@
   "schemaVersion": 1,
   "name": "ListViewAnimationProperties",
   "kind": "pseudo",
-  "platforms": ["android", "iphone", "ipad", "macos"],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": {
     "android": "10.1.0",
     "iphone": "3.1.0",
@@ -14,7 +19,12 @@
   "properties": [
     {
       "name": "animated",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Whether this list change should be animated. Ignored if any `animationStyle` value is specified.",
       "type": [
         {
@@ -26,7 +36,12 @@
     },
     {
       "name": "animationStyle",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Type of animation to use for cell insertions and deletions.",
       "type": [
         {
@@ -35,11 +50,18 @@
         }
       ],
       "default": "If `animated` is `true` but no `animationStyle` is specified, the style defaults to\n[FADE](Titanium.UI.iOS.RowAnimationStyle.FADE).\n",
-      "constants": ["Titanium.UI.iOS.RowAnimationStyle.*"]
+      "constants": [
+        "Titanium.UI.iOS.RowAnimationStyle.*"
+      ]
     },
     {
       "name": "position",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies what position to scroll the selected cell to.",
       "type": [
         {

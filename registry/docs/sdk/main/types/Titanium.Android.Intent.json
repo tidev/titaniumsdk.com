@@ -3,8 +3,12 @@
   "name": "Titanium.Android.Intent",
   "kind": "proxy",
   "extends": "Titanium.Proxy",
-  "inheritanceChain": ["Titanium.Proxy"],
-  "platforms": ["android"],
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android"
+  ],
   "since": "1.5",
   "summary": "Message objects passed between Android application components.",
   "description": "In Android, applications and application components cannot directly communicate with each other.\nIn order to communicate with another application, use an intent. An intent is a message sent\nto the Android OS. Android directs the message to an application or application component based\non the intent's settings.\n\nTo receive an intent, an application needs to declare an Intent Filter. An intent filter\nindicates to the Android OS that your application can handle certain data types or URIs.\nFor details on using Intent Filters, see the\n[Android Intent Filters guide](https://titaniumsdk.com/guide/Titanium_SDK/Titanium_SDK_How-tos/Platform_API_Deep_Dives/Android_API_Deep_Dives/Android_Intent_Filters.html).\n\nIntents can be used to start an activity, start a service or start a broadcast.\n\n  * To create an intent to start an **Activity**, use the [Titanium.Android.createIntent](api:Titanium.Android#createIntent) method.\n  * To create an intent to start a **Broadcast**, use the [Titanium.Android.createBroadcastIntent](api:Titanium.Android#createBroadcastIntent) method.\n  * To create an intent to start a **Service**, use the [Titanium.Android.createServiceIntent](api:Titanium.Android#createServiceIntent) method.\n\nYou can create either an implicit intent or an explicit intent.\n\nAn *explicit intent* specifies the application or application component to launch. To create an\nexplicit intent, specify the Intent's `className` and `packageName` properties to specify the\napplication component to launch or the `url` property to specify a JavaScript file to handle\nthe data.\n\nAn *implicit intent* does not specify a particular application.  Android will present the options\nto the user of which applications to launch if a default application was not selected to handle\na particular data type or content URI. To create an implicit intent, do not specify the\n`className`, `packageName` or `url` properties.\n\nNote that the parameters to create a Service Intent are different than the ones used to\ncreate an Activity or Broadcast.  The properties and methods listed below\nare used for Activity and Broadcast Intents.  See the [Titanium.Android.createServiceIntent](api:Titanium.Android#createServiceIntent) method\nfor the parameters to create a Service Intent.\n\n#### Action\n\nThe `action` property specifies the action you want the activity to perform, or in the case of\nbroadcasts, the action that just completed you want to report.\n\nTitanium exposes some of the Android Intent actions as the `Titanium.Android.ACTION_*` constants.\nNote that some of these actions are for system-level broadcasts that only Android can send.\nIf Titanium has not exposed a particular constant, you can pass the string value listed in the\nAndroid API reference guide instead.\n\nYou can also define your own custom action names. Use a reverse domain scheme to name the\naction to avoid potential conflicts, for example, `com.appcelerator.action.LINT`.\nCustom actions are only useful to communicate between your applications and application\nactivities using intents.\n\n#### Data\n\nThe [data](api:Titanium.Android.Intent#data) property specifies a content URI you want the activity to handle.\n\nThe [type](api:Titanium.Android.Intent#type) property specifies a MIME type the activity can handle.\n\nFor Broadcast Intents, do not use the `data` or `type` properties. Use extras to pass data.\nSee the *Extras* section below.\n\n#### Category\n\nAdd a category to your Intent by invoking the [addCategory()](api:Titanium.Android.Intent#addCategory)\nmethod on it.  A category provides additional details about the purpose of the intent.\nNote that most categories are only useful for intent filters.\n\nTitanium exposes some of the Android Intent categories as the `Titanium.Android.CATEGORY_*` constants.\nNote that some of these categories are for Notifications.  If Titanium has not exposed a\nparticular constant, you can pass the string value listed in the Android API reference instead.\n\nYou can also define your own custom category names. Use a reverse domain scheme to name the\ncategory to avoid potential conflicts, for example, `org.foo.category.SUPER`.\nCustom categories are only useful to communicate between your applications and application\nactivities using intents.\n\n#### Flags\n\nBitwise-OR flags with the Intent's [flags](api:Titanium.Android.Intent#flags) property\nor pass a flag to the [addFlags()](api:Titanium.Android.Intent#addFlags) method.\nFlags modify the behavior of the intent.\n\nTitanium exposes some of the Android Intent flags as the `Titanium.Android.FLAG_*` constants.\nIf Titanium has not exposed a particular constant, you can pass the constant value listed in\nthe Android API reference instead.\n\n#### Extras\n\nExtras are key-value pairs that are useful to pass on extra data with the Intent that can be\nused by another application component.\n\n  * Use one of the `get*Extra()` methods to retrieve the data. Pass the method the extra key.\n  * Use the [hasExtra()](api:Titanium.Android.Intent#hasExtra) method to check if the intent contains an extra.\n    Pass the method the key of the extra.\n  * Use the [putExtra()](api:Titanium.Android.Intent#putExtra) method to add data to the intent.\n    Pass the method the extra key and data.\n\nTitanium exposes the Android-defined extra keys as the `Titanium.Android.EXTRA_*` constants.\nYou can also define your own custom extra keys to use between your applications and application\ncomponents.\n\n#### Further Reading\n\n  * [Android Intents guide](https://titaniumsdk.com/guide/Titanium_SDK/Titanium_SDK_How-tos/Platform_API_Deep_Dives/Android_API_Deep_Dives/Android_Intent_Filters.html)\n  * [Android Developer: Intent](https://developer.android.com/reference/android/content/Intent.html)\n",
@@ -29,7 +33,9 @@
   "properties": [
     {
       "name": "action",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "The action associated with this intent.",
       "description": "Specify one of the `ACTION` constants from [Titanium.Android](api:Titanium.Android), or an application-specific custom action string.",
       "type": [
@@ -42,7 +48,9 @@
     },
     {
       "name": "className",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "The Java class name of the activity associated with this intent\n([packageName](api:Titanium.Android.Intent#packageName) must also be set).\n",
       "type": [
         {
@@ -54,7 +62,9 @@
     },
     {
       "name": "data",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "The Intent's Data URI.",
       "description": "The data URI can be set when the intent is created. It is read-only after the\nintent is created.\n\nFor more information on data URIs, see:\n[Intent.setData in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#setData(android.net.Uri))\n",
       "type": [
@@ -68,7 +78,9 @@
     },
     {
       "name": "flags",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Intent flags.",
       "type": [
         {
@@ -76,11 +88,15 @@
           "name": "Number"
         }
       ],
-      "constants": ["Titanium.Android.FLAG_*"]
+      "constants": [
+        "Titanium.Android.FLAG_*"
+      ]
     },
     {
       "name": "packageName",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "The fully-qualified Java package name of the activity.",
       "type": [
         {
@@ -92,7 +108,9 @@
     },
     {
       "name": "type",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "The MIME type for this Intent.",
       "description": "The MIME type can be set when the intent is created. It is read-only after the\nintent is created.\n\nFor information on MIME types and intents, see:\n[Intent.setType in the Android API Reference](https://developer.android.com/reference/android/content/Intent.html#setType(java.lang.String)).\n",
       "type": [
@@ -106,7 +124,9 @@
     },
     {
       "name": "url",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "The URL to a Titanium JavaScript Activity.",
       "type": [
         {
@@ -120,7 +140,9 @@
   "methods": [
     {
       "name": "addCategory",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Adds a category to this Intent.",
       "parameters": [
         {
@@ -137,7 +159,9 @@
     },
     {
       "name": "addFlags",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Adds to the existing flags on the `Intent`.",
       "description": "The specified flag are combined with the existing flags using a bitwise OR.\n",
       "parameters": [
@@ -155,7 +179,9 @@
     },
     {
       "name": "getBlobExtra",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Get a [Titanium.Blob](api:Titanium.Blob) property from this `Intent`.",
       "since": "2.1.0",
       "parameters": [
@@ -183,7 +209,9 @@
     },
     {
       "name": "getBooleanExtra",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Get a boolean property from this Intent.",
       "parameters": [
         {
@@ -220,7 +248,9 @@
     },
     {
       "name": "getData",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Get the Data URI from this `Intent`.",
       "deprecated": {
         "since": "10.0.0",
@@ -240,7 +270,9 @@
     },
     {
       "name": "getDoubleExtra",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Get a double property from this `Intent`.",
       "parameters": [
         {
@@ -277,7 +309,9 @@
     },
     {
       "name": "getIntExtra",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Get an integer property from this `Intent`.",
       "parameters": [
         {
@@ -314,7 +348,9 @@
     },
     {
       "name": "getLongExtra",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Get a long property from this `Intent`.",
       "parameters": [
         {
@@ -351,7 +387,9 @@
     },
     {
       "name": "getStringExtra",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Get a string property from this `Intent`.",
       "description": "Can also be used to get the string representation of a property that's stored\nas an Android `Parcel`, such as a URI.\n\nTitanium does not support `getParcelableExtra` due to the inability to translate\nall of its possible return types to JavaScript.\n\nSee also:\n[getParcelableExtra](https://developer.android.com/reference/android/content/Intent.html#getParcelableExtra(java.lang.String)\nin the Android Developer Reference.\n",
       "parameters": [
@@ -379,7 +417,9 @@
     },
     {
       "name": "hasExtra",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Returns `true` if this `Intent` has the specified property.",
       "parameters": [
         {
@@ -406,7 +446,9 @@
     },
     {
       "name": "putExtra",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Puts an extra property on this `Intent`.",
       "parameters": [
         {
@@ -433,7 +475,9 @@
     },
     {
       "name": "putExtraUri",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Put a URI property on this `Intent` (useful for [Titanium.Android.EXTRA_STREAM](api:Titanium.Android#EXTRA_STREAM)).",
       "parameters": [
         {
@@ -475,43 +519,61 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "lifecycleContainer",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ],
     "events": []
   },
-  "references": ["Titanium.Android", "Titanium.Blob", "Titanium.Proxy"],
+  "references": [
+    "Titanium.Android",
+    "Titanium.Blob",
+    "Titanium.Proxy"
+  ],
   "source": "Titanium/Android/Intent.yml"
 }

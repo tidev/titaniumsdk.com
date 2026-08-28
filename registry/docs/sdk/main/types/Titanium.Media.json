@@ -3,15 +3,27 @@
   "name": "Titanium.Media",
   "kind": "module",
   "extends": "Titanium.Module",
-  "inheritanceChain": ["Titanium.Module", "Titanium.Proxy"],
-  "platforms": ["android", "iphone", "ipad", "macos"],
+  "inheritanceChain": [
+    "Titanium.Module",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": "0.1",
   "summary": "The top-level Media module.",
   "description": "The Media module is used to access the device's media-related functionality, such\nas using the device's camera and photo gallery, playing media files, or recording\naudio or video.\nFor examples of using the Media APIs, refer to the\n[Working with Media APIs guide](https://titaniumsdk.com/guide/Titanium_SDK/Titanium_SDK_How-tos/Working_with_Media_APIs/)\nin addition to the other media submodule API documentation.\n**Note**: Some third party Android camera apps may choose to ignore video recording quality\nsettings. If you wish to specifically set the video quality, don't assume\n`EXTRA_VIDEO_QUALITY` intent will be respected by the camera app and use Titanium's built-in\ncamera window which can be used to assign the `overlay` property when calling the\n`showCamera()` method.\n",
   "properties": [
     {
       "name": "appMusicPlayer",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "An instance of [Titanium.Media.MusicPlayer](api:Titanium.Media.MusicPlayer) representing the app-specific music player.",
       "type": [
         {
@@ -23,7 +35,9 @@
     },
     {
       "name": "ASPECT_RATIO_16_9",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Aspect ratio 16:9",
       "type": [
         {
@@ -36,7 +50,9 @@
     },
     {
       "name": "ASPECT_RATIO_4_3",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Aspect ratio 4:3",
       "type": [
         {
@@ -49,7 +65,9 @@
     },
     {
       "name": "aspectRatio",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Aspect ratio of the image.",
       "type": [
         {
@@ -62,11 +80,17 @@
       },
       "permission": "read-only",
       "default": "Titanium.Media.ASPECT_RATIO_4_3",
-      "constants": ["Titanium.Media.ASPECT_RATIO_*"]
+      "constants": [
+        "Titanium.Media.ASPECT_RATIO_*"
+      ]
     },
     {
       "name": "AUDIO_FILEFORMAT_3GP2",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Audio file format 3GPP2.",
       "type": [
         {
@@ -78,7 +102,11 @@
     },
     {
       "name": "AUDIO_FILEFORMAT_3GPP",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Audio file format 3GPP.",
       "type": [
         {
@@ -90,7 +118,11 @@
     },
     {
       "name": "AUDIO_FILEFORMAT_AIFF",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Audio file format Audio Interchange File Format (AIFF).",
       "type": [
         {
@@ -102,7 +134,11 @@
     },
     {
       "name": "AUDIO_FILEFORMAT_AMR",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Audio file format Adaptive Multi-Rate (AMR).",
       "type": [
         {
@@ -114,7 +150,11 @@
     },
     {
       "name": "AUDIO_FILEFORMAT_CAF",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Audio file format Apple Compressed Audio Format (CAF).",
       "type": [
         {
@@ -126,7 +166,11 @@
     },
     {
       "name": "AUDIO_FILEFORMAT_MP3",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Audio file format MP3.",
       "type": [
         {
@@ -138,7 +182,11 @@
     },
     {
       "name": "AUDIO_FILEFORMAT_MP4",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Audio file format MP4.",
       "type": [
         {
@@ -150,7 +198,11 @@
     },
     {
       "name": "AUDIO_FILEFORMAT_MP4A",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Audio file format MP4A.",
       "type": [
         {
@@ -162,7 +214,11 @@
     },
     {
       "name": "AUDIO_FILEFORMAT_WAVE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Audio file format WAVE.",
       "type": [
         {
@@ -174,7 +230,11 @@
     },
     {
       "name": "AUDIO_FORMAT_AAC",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Audio format MPEG4 AAC encoding.",
       "type": [
         {
@@ -186,7 +246,11 @@
     },
     {
       "name": "AUDIO_FORMAT_ALAW",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Audio format 8-bit [aLaw encoding](https://en.wikipedia.org/wiki/A-law_algorithm).",
       "type": [
         {
@@ -198,7 +262,11 @@
     },
     {
       "name": "AUDIO_FORMAT_APPLE_LOSSLESS",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Audio format Apple lossless encoding.",
       "type": [
         {
@@ -210,7 +278,11 @@
     },
     {
       "name": "AUDIO_FORMAT_ILBC",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Audio format [iLBC encoding](https://en.wikipedia.org/wiki/Internet_Low_Bitrate_Codec).",
       "type": [
         {
@@ -222,7 +294,11 @@
     },
     {
       "name": "AUDIO_FORMAT_IMA4",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Audio format Apple IMA4 encoding.",
       "type": [
         {
@@ -234,7 +310,11 @@
     },
     {
       "name": "AUDIO_FORMAT_LINEAR_PCM",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Audio format 16-bit, [linear PCM encoding](https://en.wikipedia.org/wiki/Pulse-code_modulation).",
       "type": [
         {
@@ -246,7 +326,11 @@
     },
     {
       "name": "AUDIO_FORMAT_ULAW",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Audio format 8-bit [muLaw encoding](https://en.wikipedia.org/wiki/M-law_algorithm).",
       "type": [
         {
@@ -258,7 +342,11 @@
     },
     {
       "name": "AUDIO_SESSION_CATEGORY_AMBIENT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "For long-duration sounds such as rain, car engine noise, and so on.",
       "description": "Also used for for 'play along' style applications, such a virtual piano that a\nuser plays over iPod audio.\n\nSee also: [AUDIO_SESSION_CATEGORY_SOLO_AMBIENT](api:Titanium.Media#AUDIO_SESSION_CATEGORY_SOLO_AMBIENT).\n",
       "type": [
@@ -272,7 +360,11 @@
     },
     {
       "name": "AUDIO_SESSION_CATEGORY_PLAY_AND_RECORD",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Session mode for recording (input) and playback (output) of audio, such as for a VOIP (voice over IP) application.",
       "description": "This category is appropriate for simultaneous recording and playback, and also for\napplications that record and play back but not simultaneously. If you want to ensure\nthat sounds such as Messages alerts do not play while your application is recording,\nuse  [Titanium.Media.AUDIO_SESSION_CATEGORY_RECORD](api:Titanium.Media#AUDIO_SESSION_CATEGORY_RECORD) instead. This category normally\ndisallows mixing iPod audio with application audio.\n\nIn this mode, by default audio playback is routed to the speaker in the iPhone receiver. To have audio playback through the iPhone speaker, use [Titanium.Media.setOverrideAudioRoute](api:Titanium.Media#setOverrideAudioRoute).\n",
       "type": [
@@ -286,7 +378,11 @@
     },
     {
       "name": "AUDIO_SESSION_CATEGORY_PLAYBACK",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Session mode for playing recorded music or other sounds that are central to the successful use of your application.",
       "description": "When using this mode, your application audio continues with the Ring/Silent switch set\nto silent or when the screen locks. This property normally disallows mixing iPod audio\nwith application audio.\n",
       "type": [
@@ -300,7 +396,11 @@
     },
     {
       "name": "AUDIO_SESSION_CATEGORY_RECORD",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Session mode for recording audio; it silences playback audio.",
       "type": [
         {
@@ -313,7 +413,11 @@
     },
     {
       "name": "AUDIO_SESSION_CATEGORY_SOLO_AMBIENT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Session mode for long-duration sounds such as rain, car engine noise, and so on.",
       "description": "When you use this category, audio from built-in applications, such as the iPod,\nis silenced. Your audio is silenced when the Ring/Silent switch is set to `silent`\nor when the screen locks.\n\nTo use long-duration sounds without silencing built-in applications,\nsee [AUDIO_SESSION_CATEGORY_AMBIENT](api:Titanium.Media#AUDIO_SESSION_CATEGORY_AMBIENT).\n",
       "type": [
@@ -327,7 +431,11 @@
     },
     {
       "name": "AUDIO_SESSION_OVERRIDE_ROUTE_NONE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant that specifies audio should output to the default audio route. See [Titanium.Media.setOverrideAudioRoute](api:Titanium.Media#setOverrideAudioRoute) for more information.",
       "type": [
         {
@@ -339,7 +447,11 @@
     },
     {
       "name": "AUDIO_SESSION_OVERRIDE_ROUTE_SPEAKER",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant that specifies audio should output to the speaker. See [Titanium.Media.setOverrideAudioRoute](api:Titanium.Media#setOverrideAudioRoute) for more information.",
       "type": [
         {
@@ -351,7 +463,11 @@
     },
     {
       "name": "AUDIO_SESSION_PORT_AIRPLAY",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant for output on a remote Air Play device. This is an output port.",
       "type": [
         {
@@ -364,7 +480,11 @@
     },
     {
       "name": "AUDIO_SESSION_PORT_BLUETOOTHA2DP",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant for output on a Bluetooth A2DP device. This is an output port.",
       "type": [
         {
@@ -377,7 +497,11 @@
     },
     {
       "name": "AUDIO_SESSION_PORT_BLUETOOTHHFP",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant for input or output on a Bluetooth Hands-Free Profile device. This can be both an input and output port.",
       "type": [
         {
@@ -390,7 +514,11 @@
     },
     {
       "name": "AUDIO_SESSION_PORT_BLUETOOTHLE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant for output on a Bluetooth Low Energy device. This is an output port. This is available on iOS 7 and later.",
       "type": [
         {
@@ -403,7 +531,11 @@
     },
     {
       "name": "AUDIO_SESSION_PORT_BUILTINMIC",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant for built-in microphone on an iOS device. This is an input port.",
       "type": [
         {
@@ -416,7 +548,11 @@
     },
     {
       "name": "AUDIO_SESSION_PORT_BUILTINRECEIVER",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant for the speaker you hold to your ear when on a phone call. This is an output port.",
       "type": [
         {
@@ -429,7 +565,11 @@
     },
     {
       "name": "AUDIO_SESSION_PORT_BUILTINSPEAKER",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant for built-in speaker on an iOS device. This is an output port.",
       "type": [
         {
@@ -442,7 +582,11 @@
     },
     {
       "name": "AUDIO_SESSION_PORT_CARAUDIO",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant for Input or output via Car Audio. This can be both an input and output port. This is available on iOS 7 and later.",
       "type": [
         {
@@ -455,7 +599,11 @@
     },
     {
       "name": "AUDIO_SESSION_PORT_HDMI",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant for output via High-Definition Multimedia Interface. This is an output port",
       "type": [
         {
@@ -468,7 +616,11 @@
     },
     {
       "name": "AUDIO_SESSION_PORT_HEADPHONES",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant for headphone or headset output. This is an output port.",
       "type": [
         {
@@ -481,7 +633,11 @@
     },
     {
       "name": "AUDIO_SESSION_PORT_HEADSETMIC",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant for microphone on a wired headset. This is an input port.",
       "type": [
         {
@@ -494,7 +650,11 @@
     },
     {
       "name": "AUDIO_SESSION_PORT_LINEIN",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant for line level input on a dock connector. This is an input port.",
       "type": [
         {
@@ -507,7 +667,11 @@
     },
     {
       "name": "AUDIO_SESSION_PORT_LINEOUT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant for line level output on a dock connector. This is an output port.",
       "type": [
         {
@@ -520,7 +684,11 @@
     },
     {
       "name": "AUDIO_SESSION_PORT_USBAUDIO",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant for input or output on a Universal Serial Bus device. This can be both an input and output port.",
       "type": [
         {
@@ -533,7 +701,12 @@
     },
     {
       "name": "AUDIO_STATE_BUFFERING",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Audio data is being buffered from the network.",
       "type": [
         {
@@ -546,7 +719,12 @@
     },
     {
       "name": "AUDIO_STATE_INITIALIZED",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Audio playback is being initialized.",
       "type": [
         {
@@ -559,7 +737,12 @@
     },
     {
       "name": "AUDIO_STATE_PAUSED",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Playback is paused.",
       "type": [
         {
@@ -572,7 +755,12 @@
     },
     {
       "name": "AUDIO_STATE_PLAYING",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Audio playback is active.",
       "type": [
         {
@@ -585,7 +773,12 @@
     },
     {
       "name": "AUDIO_STATE_STARTING",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Audio playback is starting.",
       "type": [
         {
@@ -598,7 +791,12 @@
     },
     {
       "name": "AUDIO_STATE_STOPPED",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Audio playback is stopped.",
       "type": [
         {
@@ -611,7 +809,12 @@
     },
     {
       "name": "AUDIO_STATE_STOPPING",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Audio playback is stopping.",
       "type": [
         {
@@ -624,7 +827,12 @@
     },
     {
       "name": "AUDIO_STATE_WAITING_FOR_DATA",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Player is waiting for audio data from the network.",
       "type": [
         {
@@ -637,7 +845,11 @@
     },
     {
       "name": "audioPlaying",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Returns `true` if the device is playing audio.",
       "type": [
         {
@@ -649,7 +861,11 @@
     },
     {
       "name": "audioSessionCategory",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "A constant for the audio session category to be used.",
       "description": "Set to one of the `AUDIO_SESSION_CATEGORY` constants defined in [Titanium.Media](api:Titanium.Media).\n\nMust be set while the audio session is inactive (no sounds are playing, no listeners\nfor audio properties on the Media module, but the iPod may be active).\n",
       "type": [
@@ -659,11 +875,17 @@
         }
       ],
       "since": "3.4.2",
-      "constants": ["Titanium.Media.AUDIO_SESSION_CATEGORY*"]
+      "constants": [
+        "Titanium.Media.AUDIO_SESSION_CATEGORY*"
+      ]
     },
     {
       "name": "availableCameraMediaTypes",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Array of media type constants supported for the camera.",
       "type": [
         {
@@ -677,11 +899,18 @@
           ]
         }
       ],
-      "constants": ["Titanium.Media.MEDIA_TYPE_*"]
+      "constants": [
+        "Titanium.Media.MEDIA_TYPE_*"
+      ]
     },
     {
       "name": "availableCameras",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Array indicating which cameras are available, `CAMERA_FRONT`, `CAMERA_REAR` or both.",
       "type": [
         {
@@ -699,11 +928,18 @@
         "android": "3.2.0"
       },
       "permission": "read-only",
-      "constants": ["Titanium.Media.CAMERA_FRONT", "Titanium.Media.CAMERA_REAR"]
+      "constants": [
+        "Titanium.Media.CAMERA_FRONT",
+        "Titanium.Media.CAMERA_REAR"
+      ]
     },
     {
       "name": "availablePhotoGalleryMediaTypes",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Array of media type constants supported for saving to the device's camera roll or saved images album.",
       "type": [
         {
@@ -717,11 +953,17 @@
           ]
         }
       ],
-      "constants": ["Titanium.Media.MEDIA_TYPE_*"]
+      "constants": [
+        "Titanium.Media.MEDIA_TYPE_*"
+      ]
     },
     {
       "name": "availablePhotoMediaTypes",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Array of media type constants supported for the photo library.",
       "type": [
         {
@@ -735,11 +977,17 @@
           ]
         }
       ],
-      "constants": ["Titanium.Media.MEDIA_TYPE_*"]
+      "constants": [
+        "Titanium.Media.MEDIA_TYPE_*"
+      ]
     },
     {
       "name": "averageMicrophonePower",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Current average microphone level in dB or -1 if microphone monitoring is disabled.",
       "description": "See [startMicrophoneMonitor](api:Titanium.Media#startMicrophoneMonitor),\n[stopMicrophoneMonitor](api:Titanium.Media#stopMicrophoneMonitor).\n",
       "type": [
@@ -751,7 +999,11 @@
     },
     {
       "name": "CAMERA_AUTHORIZATION_AUTHORIZED",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant specifying that app is authorized to use camera. This is available on iOS 7 and later.",
       "type": [
         {
@@ -764,7 +1016,11 @@
     },
     {
       "name": "CAMERA_AUTHORIZATION_DENIED",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant specifying that app is denied usage of camera. This is available on iOS 7 and later.",
       "type": [
         {
@@ -777,7 +1033,11 @@
     },
     {
       "name": "CAMERA_AUTHORIZATION_RESTRICTED",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant specifying that app is restricted from using camera. This is available on iOS 7 and later.",
       "type": [
         {
@@ -790,7 +1050,11 @@
     },
     {
       "name": "CAMERA_AUTHORIZATION_UNKNOWN",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant specifying that app is not yet authorized to use camera. This is available on iOS 7 and later.",
       "type": [
         {
@@ -803,7 +1067,12 @@
     },
     {
       "name": "CAMERA_FLASH_AUTO",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant specifying to have the device determine to use the flash or not.",
       "type": [
         {
@@ -820,7 +1089,12 @@
     },
     {
       "name": "CAMERA_FLASH_OFF",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant specifying to never fire the flash.",
       "type": [
         {
@@ -837,7 +1111,12 @@
     },
     {
       "name": "CAMERA_FLASH_ON",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant specifying to always fire the flash.",
       "type": [
         {
@@ -854,7 +1133,12 @@
     },
     {
       "name": "CAMERA_FRONT",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant specifying the front camera.",
       "type": [
         {
@@ -869,7 +1153,12 @@
     },
     {
       "name": "CAMERA_REAR",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant indicating the rear camera.",
       "type": [
         {
@@ -884,7 +1173,11 @@
     },
     {
       "name": "cameraAuthorization",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Returns the authorization status for the camera.\n",
       "type": [
         {
@@ -894,11 +1187,18 @@
       ],
       "since": "5.2.0",
       "permission": "read-only",
-      "constants": ["Titanium.Media.CAMERA_AUTHORIZATION_*"]
+      "constants": [
+        "Titanium.Media.CAMERA_AUTHORIZATION_*"
+      ]
     },
     {
       "name": "cameraFlashMode",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Determines how the flash is fired when using the device's camera.",
       "type": [
         {
@@ -912,11 +1212,15 @@
         "ipad": "1.4.0"
       },
       "default": "<Titanium.Media.CAMERA_FLASH_AUTO> on iOS, <Titanium.Media.CAMERA_FLASH_OFF> on Android",
-      "constants": ["Titanium.Media.CAMERA_FLASH_*"]
+      "constants": [
+        "Titanium.Media.CAMERA_FLASH_*"
+      ]
     },
     {
       "name": "cameraOutputSizes",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Returns an object of possible `targetImageWidth` and `targetImageHeight` values. The output\ncontains a `cameraType` (front or back) and object of width/height values. You have to set\n`targetImageWidth` and `targetImageHeight` if you want to change the camera image output size.\nNote: depending on your phone and camera the values won't be used or can be different.\n",
       "type": [
         {
@@ -929,7 +1233,12 @@
     },
     {
       "name": "canRecord",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "`true` if the device has a recording input device available.\n",
       "type": [
         {
@@ -944,7 +1253,11 @@
     },
     {
       "name": "currentRoute",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Returns a description of the current route, consisting of zero or more input ports and zero or more output ports.\n",
       "type": [
         {
@@ -960,7 +1273,11 @@
         "properties": [
           {
             "name": "inputs",
-            "platforms": ["iphone", "ipad", "macos"],
+            "platforms": [
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "An Array of current input ports for the session. See the `AUDIO_SESSION_PORT` constants.",
             "type": [
               {
@@ -974,11 +1291,17 @@
                 ]
               }
             ],
-            "constants": ["Titanium.Media.AUDIO_SESSION_PORT_*"]
+            "constants": [
+              "Titanium.Media.AUDIO_SESSION_PORT_*"
+            ]
           },
           {
             "name": "outputs",
-            "platforms": ["iphone", "ipad", "macos"],
+            "platforms": [
+              "iphone",
+              "ipad",
+              "macos"
+            ],
             "summary": "An Array of current output ports for the session. See the `AUDIO_SESSION_PORT` constants.",
             "type": [
               {
@@ -992,14 +1315,21 @@
                 ]
               }
             ],
-            "constants": ["Titanium.Media.AUDIO_SESSION_PORT_*"]
+            "constants": [
+              "Titanium.Media.AUDIO_SESSION_PORT_*"
+            ]
           }
         ]
       }
     },
     {
       "name": "DEVICE_BUSY",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant for media device busy error.",
       "type": [
         {
@@ -1011,7 +1341,12 @@
     },
     {
       "name": "IMAGE_SCALING_ASPECT_FILL",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Crops the image proportionally causing its content to be clipped either horizontally or vertically.",
       "type": [
         {
@@ -1024,7 +1359,12 @@
     },
     {
       "name": "IMAGE_SCALING_ASPECT_FIT",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Letterbox or pillarbox scales the image proportionally to fit the container.",
       "type": [
         {
@@ -1037,7 +1377,12 @@
     },
     {
       "name": "IMAGE_SCALING_AUTO",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Scales the image depending on how the view container is sized.",
       "description": "If a [width](api:Titanium.UI.View#width) and [height](api:Titanium.UI.View#height) are both configured on the\nimage view, then it will use [IMAGE_SCALING_FILL](api:Titanium.Media#IMAGE_SCALING_FILL)\nto stretch the image disproportionally to fill the view. Otherwise it will use\n[IMAGE_SCALING_ASPECT_FIT](api:Titanium.Media#IMAGE_SCALING_ASPECT_FIT) to letterbox/pillarbox the image.\n",
       "type": [
@@ -1051,7 +1396,12 @@
     },
     {
       "name": "IMAGE_SCALING_FILL",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Stretches the image disproportionally to completely fill the container's bounds.",
       "type": [
         {
@@ -1064,7 +1414,12 @@
     },
     {
       "name": "IMAGE_SCALING_NONE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Disables scaling and displays the image as-is.",
       "type": [
         {
@@ -1077,7 +1432,12 @@
     },
     {
       "name": "isCameraSupported",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "`true` if the device has camera support.\n",
       "type": [
         {
@@ -1089,7 +1449,9 @@
     },
     {
       "name": "maxZoomLevel",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Returns the max zoom level of the camera.\n",
       "type": [
         {
@@ -1102,7 +1464,11 @@
     },
     {
       "name": "MEDIA_TYPE_LIVEPHOTO",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Media type constant for live photo media.",
       "type": [
         {
@@ -1121,7 +1487,12 @@
     },
     {
       "name": "MEDIA_TYPE_PHOTO",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Media type constant for photo media.",
       "type": [
         {
@@ -1134,7 +1505,12 @@
     },
     {
       "name": "MEDIA_TYPE_VIDEO",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Media type constant for video media.",
       "type": [
         {
@@ -1147,7 +1523,9 @@
     },
     {
       "name": "minZoomLevel",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Returns the min zoom level of the camera.\n",
       "type": [
         {
@@ -1160,7 +1538,11 @@
     },
     {
       "name": "MUSIC_MEDIA_GROUP_ALBUM",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant for grouping query results by album.",
       "type": [
         {
@@ -1173,7 +1555,11 @@
     },
     {
       "name": "MUSIC_MEDIA_GROUP_ALBUM_ARTIST",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant for grouping query results by album and artist.",
       "type": [
         {
@@ -1186,7 +1572,11 @@
     },
     {
       "name": "MUSIC_MEDIA_GROUP_ARTIST",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant for grouping query results by artist.",
       "type": [
         {
@@ -1199,7 +1589,11 @@
     },
     {
       "name": "MUSIC_MEDIA_GROUP_COMPOSER",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant for grouping query results by composer.",
       "type": [
         {
@@ -1212,7 +1606,11 @@
     },
     {
       "name": "MUSIC_MEDIA_GROUP_GENRE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant for grouping query results by genre.",
       "type": [
         {
@@ -1225,7 +1623,11 @@
     },
     {
       "name": "MUSIC_MEDIA_GROUP_PLAYLIST",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant for grouping query results by playlist.",
       "type": [
         {
@@ -1238,7 +1640,11 @@
     },
     {
       "name": "MUSIC_MEDIA_GROUP_PODCAST_TITLE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant for grouping query results by podcast title.",
       "type": [
         {
@@ -1251,7 +1657,11 @@
     },
     {
       "name": "MUSIC_MEDIA_GROUP_TITLE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant for grouping query results by title.",
       "type": [
         {
@@ -1264,7 +1674,11 @@
     },
     {
       "name": "MUSIC_MEDIA_TYPE_ALL",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Music library media containing any type of content.",
       "type": [
         {
@@ -1276,7 +1690,11 @@
     },
     {
       "name": "MUSIC_MEDIA_TYPE_ANY_AUDIO",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Music library media containing any type of audio content.",
       "type": [
         {
@@ -1288,7 +1706,11 @@
     },
     {
       "name": "MUSIC_MEDIA_TYPE_AUDIOBOOK",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Music library media containing audiobook content.",
       "type": [
         {
@@ -1300,7 +1722,11 @@
     },
     {
       "name": "MUSIC_MEDIA_TYPE_MUSIC",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Music library media containing music content.",
       "type": [
         {
@@ -1312,7 +1738,11 @@
     },
     {
       "name": "MUSIC_MEDIA_TYPE_PODCAST",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Music library media containing podcast content.",
       "type": [
         {
@@ -1324,7 +1754,11 @@
     },
     {
       "name": "MUSIC_PLAYER_REPEAT_ALL",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant for \"Repeat All\" setting.",
       "type": [
         {
@@ -1336,7 +1770,11 @@
     },
     {
       "name": "MUSIC_PLAYER_REPEAT_DEFAULT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant for user's default repeat setting.",
       "type": [
         {
@@ -1348,7 +1786,11 @@
     },
     {
       "name": "MUSIC_PLAYER_REPEAT_NONE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant for \"No Repeat\" setting.",
       "type": [
         {
@@ -1360,7 +1802,11 @@
     },
     {
       "name": "MUSIC_PLAYER_REPEAT_ONE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant for \"Repeat one item\" setting.",
       "type": [
         {
@@ -1372,7 +1818,11 @@
     },
     {
       "name": "MUSIC_PLAYER_SHUFFLE_ALBUMS",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant for shuffling complete albums setting.",
       "type": [
         {
@@ -1384,7 +1834,11 @@
     },
     {
       "name": "MUSIC_PLAYER_SHUFFLE_DEFAULT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant for user's default shuffle setting.",
       "type": [
         {
@@ -1396,7 +1850,11 @@
     },
     {
       "name": "MUSIC_PLAYER_SHUFFLE_NONE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant for \"no shuffle\" setting.",
       "type": [
         {
@@ -1408,7 +1866,11 @@
     },
     {
       "name": "MUSIC_PLAYER_SHUFFLE_SONGS",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant for shuffling songs setting.",
       "type": [
         {
@@ -1420,7 +1882,11 @@
     },
     {
       "name": "MUSIC_PLAYER_STATE_INTERRUPTED",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant for interrupted state.",
       "type": [
         {
@@ -1432,7 +1898,11 @@
     },
     {
       "name": "MUSIC_PLAYER_STATE_PAUSED",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant for paused state.",
       "type": [
         {
@@ -1444,7 +1914,11 @@
     },
     {
       "name": "MUSIC_PLAYER_STATE_PLAYING",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant for playing state.",
       "type": [
         {
@@ -1456,7 +1930,11 @@
     },
     {
       "name": "MUSIC_PLAYER_STATE_SEEK_BACKWARD",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant for backward seek state.",
       "type": [
         {
@@ -1468,7 +1946,11 @@
     },
     {
       "name": "MUSIC_PLAYER_STATE_SEEK_FORWARD",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant for forward seek state.",
       "type": [
         {
@@ -1480,7 +1962,11 @@
     },
     {
       "name": "MUSIC_PLAYER_STATE_STOPPED",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant for stopped state.",
       "type": [
         {
@@ -1492,7 +1978,12 @@
     },
     {
       "name": "NO_CAMERA",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant for media no camera error.",
       "type": [
         {
@@ -1504,7 +1995,12 @@
     },
     {
       "name": "NO_FOCUS",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant for camera didn't focus when taking a trying to take a picture.",
       "type": [
         {
@@ -1519,7 +2015,12 @@
     },
     {
       "name": "NO_VIDEO",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant for media no video error.",
       "type": [
         {
@@ -1531,7 +2032,11 @@
     },
     {
       "name": "peakMicrophonePower",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Current microphone level peak power in dB or -1 if microphone monitoring is disabled.",
       "description": "See [startMicrophoneMonitor](api:Titanium.Media#startMicrophoneMonitor),\n[stopMicrophoneMonitor](api:Titanium.Media#stopMicrophoneMonitor).\n",
       "type": [
@@ -1544,7 +2049,12 @@
     },
     {
       "name": "QUALITY_640x480",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Media type constant for medium-quality video recording.",
       "description": "If recording, specifies that you want to use VGA-quality video recording (pixel dimensions\nof 640x480).\n",
       "type": [
@@ -1562,7 +2072,9 @@
     },
     {
       "name": "QUALITY_FHD",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Media type constant for FHD video recording.",
       "type": [
         {
@@ -1577,7 +2089,9 @@
     },
     {
       "name": "QUALITY_HD",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Media type constant for HD video recording.",
       "type": [
         {
@@ -1592,7 +2106,12 @@
     },
     {
       "name": "QUALITY_HIGH",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Media type constant for high-quality video recording.",
       "description": "Recorded files are suitable for on-device playback and for wired transfer to the\nDesktop using Image Capture; they are likely to be too large for transfer using Wi-Fi.\n",
       "type": [
@@ -1610,7 +2129,12 @@
     },
     {
       "name": "QUALITY_IFRAME_1280x720",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Media type constant for medium-quality video recording.",
       "description": "If recording, specifies that you want to use 1280x720 iFrame format.",
       "type": [
@@ -1628,7 +2152,11 @@
     },
     {
       "name": "QUALITY_IFRAME_960x540",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Media type constant for medium-quality video recording.",
       "description": "If recording, specifies that you want to use 960x540 iFrame format.",
       "type": [
@@ -1642,7 +2170,12 @@
     },
     {
       "name": "QUALITY_LOW",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Media type constant for low-quality video recording.",
       "description": "Recorded files can usually be transferred over the cellular network.\n",
       "type": [
@@ -1660,7 +2193,11 @@
     },
     {
       "name": "QUALITY_MEDIUM",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Media type constant for medium-quality video recording.",
       "description": "Recorded files can usually be transferred using Wi-Fi. This is the default video\nquality setting.\n",
       "type": [
@@ -1673,7 +2210,9 @@
     },
     {
       "name": "QUALITY_SD",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Media type constant for SD video recording.",
       "type": [
         {
@@ -1688,7 +2227,9 @@
     },
     {
       "name": "QUALITY_UHD",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Media type constant for UHD video recording.",
       "type": [
         {
@@ -1703,7 +2244,9 @@
     },
     {
       "name": "scalingMode",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Scaling mode of the preview image.",
       "type": [
         {
@@ -1723,7 +2266,11 @@
     },
     {
       "name": "systemMusicPlayer",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "An instance of [Titanium.Media.MusicPlayer](api:Titanium.Media.MusicPlayer) representing the system-wide music player.",
       "type": [
         {
@@ -1735,7 +2282,9 @@
     },
     {
       "name": "torch",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Enable or disable the camera torch.\n",
       "type": [
         {
@@ -1749,7 +2298,12 @@
     },
     {
       "name": "UNKNOWN_ERROR",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant for unknown media error.",
       "type": [
         {
@@ -1761,7 +2315,9 @@
     },
     {
       "name": "useCameraX",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "To use the new CameraX classes for \"camera with overlay\" set `useCameraX` to `true`",
       "type": [
         {
@@ -1777,7 +2333,9 @@
     },
     {
       "name": "VERTICAL_ALIGN_BOTTOM",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Vertical align center",
       "type": [
         {
@@ -1790,7 +2348,9 @@
     },
     {
       "name": "VERTICAL_ALIGN_CENTER",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Vertical align center",
       "type": [
         {
@@ -1803,7 +2363,9 @@
     },
     {
       "name": "VERTICAL_ALIGN_TOP",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Vertical align center",
       "type": [
         {
@@ -1816,7 +2378,9 @@
     },
     {
       "name": "verticalAlign",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Vertical align of the preview image for aspect fit.",
       "type": [
         {
@@ -1829,11 +2393,15 @@
       },
       "permission": "read-only",
       "default": "Titanium.Media.VERTICAL_ALIGN_CENTER",
-      "constants": ["Titanium.Media.VERTICAL_ALIGN_*"]
+      "constants": [
+        "Titanium.Media.VERTICAL_ALIGN_*"
+      ]
     },
     {
       "name": "VIDEO_CONTROL_DEFAULT",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Constant for default video controls.",
       "description": "Used in conjunction with the\n[mediaControlStyle](api:Titanium.Media.VideoPlayer#mediaControlStyle) property\nof [Titanium.Media.VideoPlayer](api:Titanium.Media.VideoPlayer).\n\nRemoved on iOS in SDK 7.0.0.\n",
       "type": [
@@ -1850,7 +2418,9 @@
     },
     {
       "name": "VIDEO_CONTROL_EMBEDDED",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Constant for video controls for an embedded view.",
       "description": "Used in conjunction with the\n[mediaControlStyle](api:Titanium.Media.VideoPlayer#mediaControlStyle) property\nof [Titanium.Media.VideoPlayer](api:Titanium.Media.VideoPlayer).\n\nOn Android, this constant has the same effect as VIDEO_CONTROL_DEFAULT. Video controls may\nonly be shown or hidden.\n\nRemoved on iOS in SDK 7.0.0.\n",
       "type": [
@@ -1867,7 +2437,9 @@
     },
     {
       "name": "VIDEO_CONTROL_FULLSCREEN",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Constant for fullscreen video controls.",
       "description": "Used in conjunction with the\n[mediaControlStyle](api:Titanium.Media.VideoPlayer#mediaControlStyle) property\nof [Titanium.Media.VideoPlayer](api:Titanium.Media.VideoPlayer).\n\nOn iOS, use VIDEO_CONTROL_FULLSCREEN when creating a video player that occupies the entire\nscreen, that is, the parent window should be a fullscreen window\n([fullscreen](api:Titanium.UI.Window#fullscreen) set to `true`) and the video player should\noccupy the entirety of the parent window.\n\nIf the user clicks the **Done** button in the fullscreen control bar, the video player\npauses playback and generates a [complete](api:Titanium.Media.VideoPlayer#complete) event.\n\nNote that if you create a video player that does *not* occupy the entire screen, and later\nswitch to fullscreen mode, the video controls are switched automatically. That is, if\n`mediaControlStyle` is set to VIDEO_CONTROL_DEFAULT or VIDEO_CONTROL_EMBEDDED, it is\nautomatically switched to the fullscreen controls when the player enters fullscreen mode.\nThis is true whether the user initiates the mode switch by clicking the fullscreen button\nin the embedded controls, or if you programmatically switch to full screen mode (by setting\nthe `fullscreen` property to true).\n\nOn Android, this constant has the same effect as VIDEO_CONTROL_DEFAULT. Video controls may\nonly be shown or hidden.\n\nRemoved on iOS in SDK 7.0.0.\n",
       "type": [
@@ -1884,7 +2456,9 @@
     },
     {
       "name": "VIDEO_CONTROL_HIDDEN",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Constant for video controls hidden.",
       "description": "Used in conjunction with the\n[mediaControlStyle](api:Titanium.Media.VideoPlayer#mediaControlStyle) property\nof [Titanium.Media.VideoPlayer](api:Titanium.Media.VideoPlayer).\n\nRemoved on iOS in SDK 7.0.0.\n",
       "type": [
@@ -1901,7 +2475,9 @@
     },
     {
       "name": "VIDEO_CONTROL_NONE",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Constant for no video controls.",
       "description": "Used in conjunction with the\n[mediaControlStyle](api:Titanium.Media.VideoPlayer#mediaControlStyle) property\nof [Titanium.Media.VideoPlayer](api:Titanium.Media.VideoPlayer).\n\nRemoved on iOS in SDK 7.0.0.\n",
       "type": [
@@ -1918,7 +2494,9 @@
     },
     {
       "name": "VIDEO_FINISH_REASON_PLAYBACK_ENDED",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Video playback ended normally.",
       "type": [
         {
@@ -1930,7 +2508,9 @@
     },
     {
       "name": "VIDEO_FINISH_REASON_PLAYBACK_ERROR",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Video playback ended abnormally.",
       "type": [
         {
@@ -1942,7 +2522,9 @@
     },
     {
       "name": "VIDEO_FINISH_REASON_USER_EXITED",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Video playback ended by user action (such as clicking the `Done` button).",
       "type": [
         {
@@ -1954,7 +2536,11 @@
     },
     {
       "name": "VIDEO_LOAD_STATE_FAILED",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Indicates that the player can no longer play media items because of an error.",
       "type": [
         {
@@ -1966,7 +2552,12 @@
     },
     {
       "name": "VIDEO_LOAD_STATE_PLAYABLE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Current media is playable.",
       "type": [
         {
@@ -1978,7 +2569,12 @@
     },
     {
       "name": "VIDEO_LOAD_STATE_UNKNOWN",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Current load state is not known.",
       "type": [
         {
@@ -1990,7 +2586,11 @@
     },
     {
       "name": "VIDEO_MEDIA_TYPE_AUDIO",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The media contains audio media.",
       "type": [
         {
@@ -2002,7 +2602,11 @@
     },
     {
       "name": "VIDEO_MEDIA_TYPE_CLOSED_CAPTION",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The media contains closed-caption content.",
       "type": [
         {
@@ -2014,7 +2618,11 @@
     },
     {
       "name": "VIDEO_MEDIA_TYPE_DEPTH_DATA",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The media contains depth data.",
       "type": [
         {
@@ -2026,7 +2634,11 @@
     },
     {
       "name": "VIDEO_MEDIA_TYPE_METADATA",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The media contains metadata.",
       "type": [
         {
@@ -2038,7 +2650,11 @@
     },
     {
       "name": "VIDEO_MEDIA_TYPE_METADATA_OBJECT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The media contains metadata objects.",
       "type": [
         {
@@ -2050,7 +2666,11 @@
     },
     {
       "name": "VIDEO_MEDIA_TYPE_MUXED",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The media contains muxed media.",
       "type": [
         {
@@ -2062,7 +2682,11 @@
     },
     {
       "name": "VIDEO_MEDIA_TYPE_SUBTITLE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The media contains subtitles.",
       "type": [
         {
@@ -2074,7 +2698,11 @@
     },
     {
       "name": "VIDEO_MEDIA_TYPE_TEXT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The media contains text.",
       "type": [
         {
@@ -2086,7 +2714,11 @@
     },
     {
       "name": "VIDEO_MEDIA_TYPE_TIMECODE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The media contains a time code.",
       "type": [
         {
@@ -2098,7 +2730,11 @@
     },
     {
       "name": "VIDEO_MEDIA_TYPE_VIDEO",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The media contains video.",
       "type": [
         {
@@ -2110,7 +2746,12 @@
     },
     {
       "name": "VIDEO_PLAYBACK_STATE_INTERRUPTED",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Video playback has been interrupted.",
       "type": [
         {
@@ -2122,7 +2763,12 @@
     },
     {
       "name": "VIDEO_PLAYBACK_STATE_PAUSED",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Video playback is paused.",
       "type": [
         {
@@ -2134,7 +2780,12 @@
     },
     {
       "name": "VIDEO_PLAYBACK_STATE_PLAYING",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Video is being played.",
       "type": [
         {
@@ -2146,7 +2797,9 @@
     },
     {
       "name": "VIDEO_PLAYBACK_STATE_SEEKING_BACKWARD",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Video playback is rewinding.",
       "description": "This constant has been removed on iOS in SDK 7.0.0 by using the official Apple AVPlayer that does not expose this functionality so far.\n",
       "type": [
@@ -2159,7 +2812,9 @@
     },
     {
       "name": "VIDEO_PLAYBACK_STATE_SEEKING_FORWARD",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Video playback is seeking forward.",
       "description": "This constant has been removed on iOS in SDK 7.0.0 by using the official Apple AVPlayer that does not expose this functionality so far.\n",
       "type": [
@@ -2172,7 +2827,12 @@
     },
     {
       "name": "VIDEO_PLAYBACK_STATE_STOPPED",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Video playback is stopped.",
       "type": [
         {
@@ -2184,7 +2844,12 @@
     },
     {
       "name": "VIDEO_REPEAT_MODE_NONE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant for disabling repeat on video playback.",
       "type": [
         {
@@ -2201,7 +2866,12 @@
     },
     {
       "name": "VIDEO_REPEAT_MODE_ONE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Constant for repeating one video (e.g., the one video will repeat constantly) during playback.",
       "type": [
         {
@@ -2218,7 +2888,9 @@
     },
     {
       "name": "VIDEO_SCALING_ASPECT_FILL",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Scale video to fill the screen, clipping edges if necessary.",
       "description": "Video is scaled until the video fills the entire screen. Content at the edges\nof the larger of the two dimensions is clipped so that the other dimension fits the\nscreen exactly. The aspect ratio of the movie is preserved.\n",
       "type": [
@@ -2235,7 +2907,9 @@
     },
     {
       "name": "VIDEO_SCALING_ASPECT_FIT",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Scale video to fit the screen, letterboxing if necessary.",
       "description": "Video is scaled until the larger dimension fits on the screen exactly. In the\nother dimension, the region between the edge of the movie and the edge of the screen\nis filled with a black bar. The aspect ratio of the movie is preserved.\n\nThis constant was removed on iOS in SDK 7.0.0\n",
       "type": [
@@ -2252,7 +2926,9 @@
     },
     {
       "name": "VIDEO_SCALING_MODE_FILL",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Video is scaled until both dimensions fit the screen exactly, stretching if necessary.",
       "description": "This constant was removed on iOS in SDK 7.0.0",
       "type": [
@@ -2269,7 +2945,9 @@
     },
     {
       "name": "VIDEO_SCALING_NONE",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Video scaling is disabled.",
       "description": "This constant was removed on iOS in SDK 7.0.0",
       "type": [
@@ -2286,7 +2964,12 @@
     },
     {
       "name": "VIDEO_SCALING_RESIZE",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies that the video should be stretched to fill the bounds of layer.",
       "description": "This is a `String` on iOS, a `Number` on Android.",
       "type": [
@@ -2308,7 +2991,12 @@
     },
     {
       "name": "VIDEO_SCALING_RESIZE_ASPECT",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies that the player should preserve the aspect ratio of video and fit the video within the bounds of layer.",
       "description": "This is a `String` on iOS, a `Number` on Android.",
       "type": [
@@ -2330,7 +3018,12 @@
     },
     {
       "name": "VIDEO_SCALING_RESIZE_ASPECT_FILL",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies that the player should preserve the aspect ratio of video and fill the bounds of layer.",
       "description": "This is a `String` on iOS, a `Number` on Android.",
       "type": [
@@ -2352,7 +3045,9 @@
     },
     {
       "name": "VIDEO_TIME_OPTION_CLOSEST_SYNC",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Use the closest sync (or key) frame at given the time.",
       "type": [
         {
@@ -2367,7 +3062,11 @@
     },
     {
       "name": "VIDEO_TIME_OPTION_EXACT",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use the exact time.",
       "type": [
         {
@@ -2379,7 +3078,12 @@
     },
     {
       "name": "VIDEO_TIME_OPTION_NEAREST_KEYFRAME",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Use the closest keyframe in the time.",
       "type": [
         {
@@ -2394,7 +3098,9 @@
     },
     {
       "name": "VIDEO_TIME_OPTION_NEXT_SYNC",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Use the sync (or key) frame located right after or at given the time.",
       "type": [
         {
@@ -2409,7 +3115,9 @@
     },
     {
       "name": "VIDEO_TIME_OPTION_PREVIOUS_SYNC",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Use the sync (or key) frame located right before or at given the time.",
       "type": [
         {
@@ -2424,7 +3132,11 @@
     },
     {
       "name": "volume",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Current volume of the playback device.",
       "description": "A value in the range `0.0` to `1.0`, with `0.0` representing the minimum volume and `1.0` representing the maximum volume.\n",
       "type": [
@@ -2437,7 +3149,9 @@
     },
     {
       "name": "zoomLevel",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Sets the zoom level of the camera.\n",
       "type": [
         {
@@ -2451,12 +3165,21 @@
   "methods": [
     {
       "name": "beep",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Plays a device beep notification."
     },
     {
       "name": "createAudioPlayer",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.Media.AudioPlayer](api:Titanium.Media.AudioPlayer).",
       "since": "0.9",
       "factoryFor": "Titanium.Media.AudioPlayer",
@@ -2492,7 +3215,12 @@
     },
     {
       "name": "createAudioRecorder",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.Media.AudioRecorder](api:Titanium.Media.AudioRecorder).",
       "since": {
         "iphone": "0.9",
@@ -2532,7 +3260,12 @@
     },
     {
       "name": "createSound",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.Media.Sound](api:Titanium.Media.Sound).",
       "since": "0.8",
       "factoryFor": "Titanium.Media.Sound",
@@ -2568,7 +3301,11 @@
     },
     {
       "name": "createSystemAlert",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.Media.SystemAlert](api:Titanium.Media.SystemAlert).",
       "since": "6.1.0",
       "deprecated": {
@@ -2608,7 +3345,12 @@
     },
     {
       "name": "createVideoPlayer",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.Media.VideoPlayer](api:Titanium.Media.VideoPlayer).",
       "since": "0.9",
       "factoryFor": "Titanium.Media.VideoPlayer",
@@ -2644,7 +3386,11 @@
     },
     {
       "name": "hasAudioPermissions",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Returns `true` if the app has audio permissions.",
       "description": "Recording audio requires explicit permission from the user. After the user\ngrants or denies permission, the system remembers the choice for future use in the same app.\nIf permission is not granted, or if the user has not yet responded to the permission prompt,\nany audio recording sessions record only silence.\n\nIn addition, Apple introduced the Info.plist key `NSMicrophoneUsageDescription` that is used to display an\nown description while authorizing microphone permissions. In iOS 10, this key is mandatory and the application\nwill crash if your app does not include the key. Check the [Apple docs](https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html)\nfor more information.\n",
       "since": "6.0.0",
@@ -2666,7 +3412,12 @@
     },
     {
       "name": "hasAudioRecorderPermissions",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Returns `true` if the app has audio permissions.",
       "description": "Recording audio requires explicit permission from the user. After the user\ngrants or denies permission, the system remembers the choice for future use in the same app.\nIf permission is not granted, or if the user has not yet responded to the permission prompt,\nany audio recording sessions record only silence.\n\nIn addition, Apple introduced the Info.plist key `NSMicrophoneUsageDescription` that is used to display an\nown description while authorizing microphone permissions. In iOS 10, this key is mandatory and the application\nwill crash if your app does not include the key. Check the [Apple docs](https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html)\nfor more information.\n",
       "since": {
@@ -2687,7 +3438,12 @@
     },
     {
       "name": "hasCameraPermissions",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Returns `true` if the app has camera access.",
       "since": "5.1.0",
       "returns": [
@@ -2703,7 +3459,11 @@
     },
     {
       "name": "hasMusicLibraryPermissions",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Returns `true` if the app has music library access.",
       "description": "Music-library permissions are only needed in iOS 9.3 and later and will be ignored on older\niOS versions. Because of that, the method will return `true` for devices that run iOS < 9.3.\n",
       "since": "6.0.0",
@@ -2720,7 +3480,12 @@
     },
     {
       "name": "hasPhotoGalleryPermissions",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Returns `true` if the app has photo gallery permissions.",
       "description": "If you use Android 13+ you have to add the following permissions to your tiapp.xml:\n``` xml\n<uses-permission android:name=\"android.permission.READ_MEDIA_VIDEO\"/>\n<uses-permission android:name=\"android.permission.READ_MEDIA_IMAGES\"/>\n```\n\nYou don't need to check this before using [Titanium.Media.requestPhotoGalleryPermissions](api:Titanium.Media#requestPhotoGalleryPermissions). If you already have the permission and use\n[Titanium.Media.requestPhotoGalleryPermissions](api:Titanium.Media#requestPhotoGalleryPermissions) it will call the success event, no second permission request is displayed.\n",
       "since": {
@@ -2741,7 +3506,12 @@
     },
     {
       "name": "hideCamera",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Hides the device camera UI.",
       "description": "Must be called after calling `showCamera` and only when `autohide` is set to `false`.\nThis method causes the media capture UI to be hidden.\n",
       "since": {
@@ -2750,13 +3520,21 @@
     },
     {
       "name": "hideMusicLibrary",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Hides the music library.",
       "description": "Must be called after calling [openMusicLibrary](api:Titanium.Media#openMusicLibrary)\nand only when `autohide` is set to `false`.\n"
     },
     {
       "name": "isMediaTypeSupported",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Returns `true` if the source supports the specified media type.",
       "description": "You can query whether a given media type is supported by the device's\ncamera (`source` == 'camera') or photo library (`source` == 'photo').\n\nAn additional value, `photogallery` can be  used to query the media\nsupported by the device's camera roll or saved image album, which is a\nsubset of the iOS photo library. However, when calling\n[openPhotoGallery](api:Titanium.Media#openPhotoGallery) on iOS, the entire\nlibrary is displayed, and there is currently no way to restrict the\ngallery to show only the camera roll/saved images album.\n",
       "parameters": [
@@ -2794,7 +3572,11 @@
     },
     {
       "name": "openMusicLibrary",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Shows the music library and allows the user to select one or more tracks.",
       "description": "If `autohide` is set to `false`, you must hide the library explicitly using\n[hideMusicLibrary](api:Titanium.Media#hideMusicLibrary).\n",
       "parameters": [
@@ -2813,7 +3595,11 @@
             "properties": [
               {
                 "name": "allowMultipleSelections",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Set to `true` to allow the user to select multiple items from the library.",
                 "type": [
                   {
@@ -2825,7 +3611,11 @@
               },
               {
                 "name": "animated",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Boolean if the dialog should be animated when showing and hiding.",
                 "type": [
                   {
@@ -2837,7 +3627,11 @@
               },
               {
                 "name": "autohide",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Specifies that the library should be hidden automatically after media selection is completed.",
                 "type": [
                   {
@@ -2849,7 +3643,11 @@
               },
               {
                 "name": "cancel",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Function to call if the user presses the cancel button.",
                 "type": [
                   {
@@ -2866,7 +3664,11 @@
               },
               {
                 "name": "error",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Function to call upon receiving an error.",
                 "type": [
                   {
@@ -2883,7 +3685,11 @@
               },
               {
                 "name": "mediaTypes",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "An array of media type constants defining selectable media.",
                 "description": "Specify one or more of the `MUSIC_MEDIA_TYPE` constants from [Titanium.Media](api:Titanium.Media). To\nspecify multiple types, either pass an array of values, or pass a\nsingle value that represents the bitwise-OR of the desired media types. For example,\nthe following values are equivalent:\n\n``` js\nmediaTypes: [Titanium.Media.MUSIC_MEDIA_TYPE_MUSIC, Titanium.Media.MUSIC_MEDIA_TYPE_PODCAST]\n```\n\nOr:\n``` js\nmediaTypes: Titanium.Media.MUSIC_MEDIA_TYPE_MUSIC|Titanium.Media.MUSIC_MEDIA_TYPE_PODCAST\n```\n",
                 "type": [
@@ -2903,11 +3709,17 @@
                   }
                 ],
                 "default": "All available types.",
-                "constants": ["Titanium.Media.MUSIC_MEDIA_TYPE_*"]
+                "constants": [
+                  "Titanium.Media.MUSIC_MEDIA_TYPE_*"
+                ]
               },
               {
                 "name": "success",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Function to call when the music library selection is made.",
                 "type": [
                   {
@@ -2927,7 +3739,12 @@
                   "properties": [
                     {
                       "name": "items",
-                      "platforms": ["android", "iphone", "ipad", "macos"],
+                      "platforms": [
+                        "android",
+                        "iphone",
+                        "ipad",
+                        "macos"
+                      ],
                       "summary": "A list of all the items chosen by the user.",
                       "type": [
                         {
@@ -2944,7 +3761,12 @@
                     },
                     {
                       "name": "representative",
-                      "platforms": ["android", "iphone", "ipad", "macos"],
+                      "platforms": [
+                        "android",
+                        "iphone",
+                        "ipad",
+                        "macos"
+                      ],
                       "summary": "A single representative of the selected items.",
                       "type": [
                         {
@@ -2955,7 +3777,12 @@
                     },
                     {
                       "name": "types",
-                      "platforms": ["android", "iphone", "ipad", "macos"],
+                      "platforms": [
+                        "android",
+                        "iphone",
+                        "ipad",
+                        "macos"
+                      ],
                       "summary": "Media types in this collection, represented as the bitwise OR of the media type\nvalues for all media types represented in `items`.\n",
                       "type": [
                         {
@@ -2974,7 +3801,12 @@
     },
     {
       "name": "openPhotoGallery",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Opens the photo gallery image picker.",
       "description": "In iOS 6, Apple introduced the Info.plist key `NSPhotoLibraryUsageDescription` that is used to display an\nown description while authorizing gallery permissions. In iOS 10, this key is mandatory and the application\nwill crash if your app does not include the key. Check the [Apple docs](https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html)\nfor more information.\n",
       "parameters": [
@@ -2993,7 +3825,11 @@
             "properties": [
               {
                 "name": "allowEditing",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Specifies if the media should be editable after capture/selection.",
                 "type": [
                   {
@@ -3004,7 +3840,11 @@
               },
               {
                 "name": "allowMultiple",
-                "platforms": ["android", "iphone", "ipad"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad"
+                ],
                 "summary": "Specifies if the user should be able to select multiple photos.",
                 "description": "The allowMultiple property is only available on Android API 18 and above.\n",
                 "type": [
@@ -3026,7 +3866,11 @@
               },
               {
                 "name": "allowTranscoding",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Specifies if the video should be transcoded (using highest quality preset) . If set to false no video transcoding will be performed.",
                 "type": [
                   {
@@ -3039,7 +3883,11 @@
               },
               {
                 "name": "animated",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Specifies if the dialog should be animated upon showing and hiding.",
                 "type": [
                   {
@@ -3051,7 +3899,10 @@
               },
               {
                 "name": "arrowDirection",
-                "platforms": ["ipad", "macos"],
+                "platforms": [
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Controls the type of arrow and position of the popover.",
                 "type": [
                   {
@@ -3059,11 +3910,17 @@
                     "name": "Number"
                   }
                 ],
-                "constants": ["Titanium.UI.iPad.POPOVER_ARROW_DIRECTION*"]
+                "constants": [
+                  "Titanium.UI.iPad.POPOVER_ARROW_DIRECTION*"
+                ]
               },
               {
                 "name": "autohide",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Specifies if the photo gallery should be hidden automatically after the media\nselection is completed.\n",
                 "type": [
                   {
@@ -3075,7 +3932,12 @@
               },
               {
                 "name": "cancel",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Function to call if the user presses the cancel button.",
                 "type": [
                   {
@@ -3092,7 +3954,12 @@
               },
               {
                 "name": "error",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Function to call upon receiving an error.",
                 "type": [
                   {
@@ -3109,7 +3976,9 @@
               },
               {
                 "name": "maxImages",
-                "platforms": ["android"],
+                "platforms": [
+                  "android"
+                ],
                 "summary": "Specifies the number of images a user can select at maximum.",
                 "description": "Only available on Android API 21 and above and with `allowMultiple:true`\n",
                 "type": [
@@ -3124,7 +3993,12 @@
               },
               {
                 "name": "mediaTypes",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Array of media type constants to allow.\n\nLive photos is only supported on the iOS platform, starting with iOS 9.1. If you want\nto allow live photos with [Titanium.Media.MEDIA_TYPE_LIVEPHOTO](api:Titanium.Media#MEDIA_TYPE_LIVEPHOTO), you also need to specify\nat least [Titanium.Media.MEDIA_TYPE_PHOTO](api:Titanium.Media#MEDIA_TYPE_PHOTO) as a fallback. If you do not allow live\nphotos, they still can be selected, but will be represented as a normal static photo.\n",
                 "type": [
                   {
@@ -3144,11 +4018,15 @@
                   "ipad": "0.8"
                 },
                 "default": "Only photo and video allowed.",
-                "constants": ["Titanium.Media.MEDIA_TYPE_*"]
+                "constants": [
+                  "Titanium.Media.MEDIA_TYPE_*"
+                ]
               },
               {
                 "name": "pathOnly",
-                "platforms": ["android"],
+                "platforms": [
+                  "android"
+                ],
                 "summary": "Do not include the blob in the result",
                 "type": [
                   {
@@ -3162,7 +4040,10 @@
               },
               {
                 "name": "popoverView",
-                "platforms": ["ipad", "macos"],
+                "platforms": [
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "View to position the photo gallery popover on top of.",
                 "type": [
                   {
@@ -3173,7 +4054,10 @@
               },
               {
                 "name": "selectionLimit",
-                "platforms": ["iphone", "ipad"],
+                "platforms": [
+                  "iphone",
+                  "ipad"
+                ],
                 "summary": "Specifies number of media item that can be selected.",
                 "description": "Setting this property to zero allows you to select maximum number of media supported by system.\nThis will work only when <Titanium.Media.allowMultiple> is `true`.\n",
                 "type": [
@@ -3191,7 +4075,12 @@
               },
               {
                 "name": "success",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Function to call when the photo gallery is closed after a successful selection.",
                 "description": "If <Titanium.Media.allowMultiple> is `true`, then Callback[CameraMediaMultipleItemsType](api:CameraMediaMultipleItemsType) will be invoked.\nOtherwise Callback[CameraMediaItemType](api:CameraMediaItemType) will be invoked for single selection.\n",
                 "type": [
@@ -3222,7 +4111,12 @@
                   "properties": [
                     {
                       "name": "images",
-                      "platforms": ["android", "iphone", "ipad", "macos"],
+                      "platforms": [
+                        "android",
+                        "iphone",
+                        "ipad",
+                        "macos"
+                      ],
                       "summary": "The list of selected images.\n",
                       "type": [
                         {
@@ -3240,7 +4134,10 @@
                     },
                     {
                       "name": "livePhotos",
-                      "platforms": ["iphone", "ipad"],
+                      "platforms": [
+                        "iphone",
+                        "ipad"
+                      ],
                       "summary": "The list of selected live photo objects.\n",
                       "type": [
                         {
@@ -3258,7 +4155,12 @@
                     },
                     {
                       "name": "videos",
-                      "platforms": ["android", "iphone", "ipad", "macos"],
+                      "platforms": [
+                        "android",
+                        "iphone",
+                        "ipad",
+                        "macos"
+                      ],
                       "summary": "The list of selected videos.\n",
                       "type": [
                         {
@@ -3284,7 +4186,9 @@
     },
     {
       "name": "pauseVideoCapture",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Pauses video capturing.",
       "since": {
         "android": "12.2.0"
@@ -3292,7 +4196,9 @@
     },
     {
       "name": "previewImage",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Displays the given image.",
       "parameters": [
         {
@@ -3315,7 +4221,11 @@
     },
     {
       "name": "queryMusicLibrary",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Searches the music library for items matching the specified search predicates.",
       "description": "Use [Titanium.Media.hasMusicLibraryPermissions](api:Titanium.Media#hasMusicLibraryPermissions) to check the granted permissions and\n[Titanium.Media.requestMusicLibraryPermissions](api:Titanium.Media#requestMusicLibraryPermissions) to request the permissions. This is especially important\nwhen running on an iOS 10 device, because the music-library access will crash without having the privacy-key\n`NSAppleMusicUsageDescription` that is specified in [Titanium.Media.requestMusicLibraryPermissions](api:Titanium.Media#requestMusicLibraryPermissions).\n",
       "parameters": [
@@ -3349,7 +4259,12 @@
     },
     {
       "name": "requestAudioRecorderPermissions",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Request the user's permission for audio recording.",
       "description": "Recording audio requires explicit permission from the user. After the user\ngrants or denies permission, the system remembers the choice for future use in the same app.\nIf permission is not granted, or if the user has not yet responded to the permission prompt,\nany audio recording sessions record only silence.\n\nIn addition, Apple introduced the Info.plist key `NSMicrophoneUsageDescription` that is used to display an\nown description while authorizing microphone permissions. In iOS 10, this key is mandatory and the application\nwill crash if your app does not include the key. Check the [Apple docs](https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html)\nfor more information.\n",
       "since": {
@@ -3396,7 +4311,12 @@
     },
     {
       "name": "requestCameraPermissions",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Requests for camera access.",
       "description": "On Android, the request view will show if the permission is not accepted by the user, and the user did\nnot check the box \"Never ask again\" when denying the request. If the user checks the box \"Never ask again,\"\nthe user has to manually enable the permission in device settings.\n\nThis method requests `Manifest.permission.CAMERA`, `Manifest.permission.READ_EXTERNAL_STORAGE` and `Manifest.permission.WRITE_EXTERNAL_STORAGE` on Android.\nIf you require other permissions, you can also use [Titanium.Android.requestPermissions](api:Titanium.Android#requestPermissions).\n\nIn iOS 6, Apple introduced the Info.plist key `NSCameraUsageDescription` that is used to display an\nown description while authorizing camera permissions. In iOS 10, this key is mandatory when taking a photo\nand the application will crash if your app does not include the key. Check the [Apple docs](https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html)\nfor more information. When using the camera to take a video, you also need the `NSMicrophoneUsageDescription` key.\nIn addition, the authorization dialog will only show if user has not made a decision, yet.\nIf the user has, the callback will return the earlier decision. To change the permission the user needs to\nchange it in the device settings.\n",
       "since": "5.1.0",
@@ -3439,7 +4359,11 @@
     },
     {
       "name": "requestMusicLibraryPermissions",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Request permissions for the native music-library.",
       "description": "Music-library permissions are only needed in iOS 9.3 and later and will be ignored on older\niOS versions. Because of that, the callback will ignore the permission-check and always return\n`{success: true}` for devices that run iOS < 9.3.\n\nImportant: On iOS 10, Apple introduced the Info.plist key `NSAppleMusicUsageDescription` that is used to\ndisplay an own description while authorizing the music library. This key is mandatory and the application\nwill crash if your app does not include the key. Check the [Apple docs](https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html)\nfor more information.\n",
       "since": "6.0.0",
@@ -3464,7 +4388,12 @@
     },
     {
       "name": "requestPhotoGalleryPermissions",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Requests for photo gallery permissions.",
       "description": "In iOS 6, Apple introduced the Info.plist key `NSPhotoLibraryUsageDescription` that is used to display an\nown description while authorizing photo gallery permissions. In iOS 10, this key is mandatory when accessing the\nphoto gallery and the application will crash if your app does not include the key. Check the [Apple docs](https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html)\nfor more information. If the user has, the callback will return the earlier decision. To change the permission the\nuser needs to change it in the device settings.\n\niOS Apps that do not include this method, will present the system-dialog while the dialog is opened with [Titanium.Media.openPhotoGallery](api:Titanium.Media#openPhotoGallery).\n\nIf you use Android 13+ you have to add the following permissions to your tiapp.xml:\n``` xml\n<uses-permission android:name=\"android.permission.READ_MEDIA_VIDEO\"/>\n<uses-permission android:name=\"android.permission.READ_MEDIA_IMAGES\"/>\n```\nWhen you only want to use it for images you can use `[Titanium.Android.requestPermissions](api:Titanium.Android#requestPermissions)` and request `android.permission.READ_MEDIA_IMAGES`.\n",
       "since": {
@@ -3511,7 +4440,9 @@
     },
     {
       "name": "resumeVideoCapture",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Resumes video capturing.",
       "since": {
         "android": "12.2.0"
@@ -3519,7 +4450,12 @@
     },
     {
       "name": "saveToPhotoGallery",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Saves media to the device's photo gallery / camera roll.",
       "description": "This operation is asynchronous. The caller can supply callbacks to be triggered when the\nsave operation completes.\n\nMedia can be passed as either a `Blob` object or a `File` object. If the `media` argument\nis not one of these types, an error is generated.\n\nNote that when passing a file (or a blob created from a file), the file name must\nhave the appropriate extension for the data--for example, `image.jpg` or `video1.mov` work,\nbut `video1.tmp` does not. Currently, the `.mp4` extension is not supported, but MP4\nfiles may be imported by saving them with the `.mov` extension.\n\nMake sure to check for gallery access permissions with [Titanium.Media.hasPhotoGalleryPermissions](api:Titanium.Media#hasPhotoGalleryPermissions)\nand request the permissions with [Titanium.Media.requestPhotoGalleryPermissions](api:Titanium.Media#requestPhotoGalleryPermissions) if not granted.\nOn iOS, the `NSPhotoLibraryAddUsageDescription` plist key is required in the tiapp.xml in order\nto use this API.\n\nOn Android, this method does not support saving videos to the gallery prior to Titanium SDK 6.1.0.\n",
       "since": {
@@ -3554,7 +4490,11 @@
     },
     {
       "name": "setOverrideAudioRoute",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Overrides the default audio route when using the [Titanium.Media.AUDIO_SESSION_CATEGORY_PLAY_AND_RECORD](api:Titanium.Media#AUDIO_SESSION_CATEGORY_PLAY_AND_RECORD) session mode.",
       "description": "By default, when using the [Titanium.Media.AUDIO_SESSION_CATEGORY_PLAY_AND_RECORD](api:Titanium.Media#AUDIO_SESSION_CATEGORY_PLAY_AND_RECORD) session mode,\nthe audio output is routed to the speaker in the receiver. This method lets you specify\nthat audio should be routed to the built-in speaker.\n\nIf you override the audio route while audio is playing the changes won't not take effect until  the audio is restarted.\n",
       "parameters": [
@@ -3572,7 +4512,12 @@
     },
     {
       "name": "showCamera",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Shows the camera.",
       "description": "By default, the native camera controls are displayed. To add your own camera controls,\nyou can add an overlay view by setting the `overlay` property on the `options` argument.\n\n#### Android Platform Notes\n\n* To suppress the default controls, set `autohide` to `false` and then set the\n`overlay` property to a view that contains a control (such as a button) to\ntake the photo. You must then control the camera explicitly, using\nthe [takePicture](api:Titanium.Media#takePicture) and [hideCamera](api:Titanium.Media#hideCamera)\nmethods.\n* Setting `saveToPhotoGallery` to `false` is not guaranteed to work with all camera apps. If this setting is desired, then you should use Titanium's internal camera overlay instead.\n* You can only use one or the other (video or photo) types in the array.\n\n#### iOS Platform Notes\n\nTo suppress the default controls, set `showControls` and `autohide` to `false`.\n\nIf the `showControls` option is `false`, you must control the camera explicitly, using\nthe [takePicture](api:Titanium.Media#takePicture) and [hideCamera](api:Titanium.Media#hideCamera)\nmethods.\n\nImages taken with the camera will not have accurate geolocation data embedded in the images;\nthe latitude and longitude will be set to '0'.  This is not an error, but a limitation which\nApple has put on the camera API.\n\nImportant: Use [Titanium.Media.hasCameraPermissions](api:Titanium.Media#hasCameraPermissions) and [Titanium.Media.requestCameraPermissions](api:Titanium.Media#requestCameraPermissions)\nto ask for camera permissions. This is especially important when running on iOS 10 and later, since\nthe application may crash otherwise.\n",
       "parameters": [
@@ -3591,7 +4536,11 @@
             "properties": [
               {
                 "name": "allowEditing",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Specifies if the media should be editable after capture/selection.",
                 "type": [
                   {
@@ -3603,7 +4552,9 @@
               },
               {
                 "name": "androidback",
-                "platforms": ["android"],
+                "platforms": [
+                  "android"
+                ],
                 "summary": "Function to call if the user presses the back button.",
                 "description": "On Android, this property is considered only if `overlay` is also set. If the user presses\nthe back button on the phone this callback function will be called. The camera view stays\nopen and you will need to call `Ti.Media.hideCamera();` if you want to close it.\n",
                 "type": [
@@ -3624,7 +4575,11 @@
               },
               {
                 "name": "animated",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Specifies if the dialog should be animated upon showing and hiding.",
                 "type": [
                   {
@@ -3636,7 +4591,10 @@
               },
               {
                 "name": "arrowDirection",
-                "platforms": ["ipad", "macos"],
+                "platforms": [
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Controls the type of arrow and position of the popover.",
                 "description": "This property is only used if the camera is displayed in a\npopover (`inPopOver` is `true`).\n",
                 "type": [
@@ -3645,11 +4603,18 @@
                     "name": "Number"
                   }
                 ],
-                "constants": ["Titanium.UI.iPad.POPOVER_ARROW_DIRECTION*"]
+                "constants": [
+                  "Titanium.UI.iPad.POPOVER_ARROW_DIRECTION*"
+                ]
               },
               {
                 "name": "autohide",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Specifies if the camera should be hidden automatically after the media capture is completed.",
                 "description": "On Android, this property is considered only if `overlay` is also set. When an\noverlay is not set, the default Android Camera Activity is used, which is only\ncapable of reporting back the results of one taken photo, making `autohide`\nmeaningless in that context.\n",
                 "type": [
@@ -3665,7 +4630,10 @@
               },
               {
                 "name": "autorotate",
-                "platforms": ["ipad", "macos"],
+                "platforms": [
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Determines if the camera preview should rotate or not.",
                 "description": "Set to `false` to disable rotating the camera preview. The camera preview will remain\nin the same orientation it was opened in.\n\nSet to `true` to allow the camera preview to rotate when the device rotates.\nBlack bars will appear and disappear as the device is rotated.\n",
                 "type": [
@@ -3679,7 +4647,12 @@
               },
               {
                 "name": "cancel",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Function to call if the user presses the cancel button.",
                 "type": [
                   {
@@ -3696,7 +4669,12 @@
               },
               {
                 "name": "error",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Function to call upon receiving an error.",
                 "type": [
                   {
@@ -3713,7 +4691,10 @@
               },
               {
                 "name": "inPopOver",
-                "platforms": ["ipad", "macos"],
+                "platforms": [
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Show the camera in a popover.",
                 "description": "Use `inPopOver: true` on iPad to display the camera view in a popover.\n",
                 "type": [
@@ -3726,7 +4707,12 @@
               },
               {
                 "name": "mediaTypes",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Array of media type constants to allow. Note: If you want to select live photos, iOS only  allows\nyou to select existing live photos from the gallery, capturing new live photos is not supported by\niOS public API, yet.\n",
                 "type": [
                   {
@@ -3752,7 +4738,9 @@
               },
               {
                 "name": "open",
-                "platforms": ["android"],
+                "platforms": [
+                  "android"
+                ],
                 "summary": "Function to call when the camera is shown",
                 "type": [
                   {
@@ -3775,7 +4763,9 @@
                   "properties": [
                     {
                       "name": "height",
-                      "platforms": ["android"],
+                      "platforms": [
+                        "android"
+                      ],
                       "summary": "Height of the preview camera image",
                       "type": [
                         {
@@ -3789,7 +4779,9 @@
                     },
                     {
                       "name": "width",
-                      "platforms": ["android"],
+                      "platforms": [
+                        "android"
+                      ],
                       "summary": "Width of the preview camera image",
                       "type": [
                         {
@@ -3806,7 +4798,12 @@
               },
               {
                 "name": "overlay",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "View to added as an overlay to the camera UI (on top).",
                 "description": "On iOS, the overlay view is usually used in conjunction with `showControls: false`.\nThe `transform` property can be used to scale and position the camera preview inside\nthe overlay view.\n",
                 "type": [
@@ -3819,7 +4816,10 @@
               },
               {
                 "name": "popoverView",
-                "platforms": ["ipad", "macos"],
+                "platforms": [
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "View to position the camera or photo gallery popover on top of.",
                 "description": "This property is only used if the camera is displayed in a\npopover (`inPopOver` is `true`).\n",
                 "type": [
@@ -3831,7 +4831,9 @@
               },
               {
                 "name": "recording",
-                "platforms": ["android"],
+                "platforms": [
+                  "android"
+                ],
                 "summary": "Function to call during recording. Returns size and duration.",
                 "type": [
                   {
@@ -3854,7 +4856,12 @@
                   "properties": [
                     {
                       "name": "duration",
-                      "platforms": ["android", "iphone", "ipad", "macos"],
+                      "platforms": [
+                        "android",
+                        "iphone",
+                        "ipad",
+                        "macos"
+                      ],
                       "summary": "Length in milliseconds",
                       "type": [
                         {
@@ -3865,7 +4872,12 @@
                     },
                     {
                       "name": "size",
-                      "platforms": ["android", "iphone", "ipad", "macos"],
+                      "platforms": [
+                        "android",
+                        "iphone",
+                        "ipad",
+                        "macos"
+                      ],
                       "summary": "Size of the video in bytes",
                       "type": [
                         {
@@ -3879,7 +4891,12 @@
               },
               {
                 "name": "saveToPhotoGallery",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Specifies if the media should be saved to the photo gallery upon successful capture.",
                 "type": [
                   {
@@ -3891,7 +4908,11 @@
               },
               {
                 "name": "showControls",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Indicates if the built-in camera controls should be displayed.",
                 "type": [
                   {
@@ -3903,7 +4924,12 @@
               },
               {
                 "name": "success",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Function to call when the camera is closed after a successful capture/selection.",
                 "type": [
                   {
@@ -3920,7 +4946,9 @@
               },
               {
                 "name": "targetImageHeight",
-                "platforms": ["android"],
+                "platforms": [
+                  "android"
+                ],
                 "summary": "Maximum height of the saved image. Depending on your phone and your value this might not be\nexactly the value you specify. Check `Ti.Media.cameraOutputSizes` first.\n",
                 "type": [
                   {
@@ -3935,7 +4963,9 @@
               },
               {
                 "name": "targetImageWidth",
-                "platforms": ["android"],
+                "platforms": [
+                  "android"
+                ],
                 "summary": "Maximum width of the saved image. Depending on your phone and your value this might not be\nexactly the value you specify. Check `Ti.Media.cameraOutputSizes` first.\n",
                 "type": [
                   {
@@ -3950,7 +4980,11 @@
               },
               {
                 "name": "transform",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Transformation matrix to apply to the camera or photogallery view.",
                 "description": "Can be used to size and position the camera or photogallery view behind an overlay view.\niOS 10 note: There was a [known iOS 10 issue](http://openradar.appspot.com/28232651) caused by Apple\nthat breaks the native camera transformation. Apple fixed this issue in the iOS 10.2 release.\n",
                 "type": [
@@ -3963,7 +4997,12 @@
               },
               {
                 "name": "videoMaximumDuration",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Maximum duration (in milliseconds) to allow video capture before completing.",
                 "type": [
                   {
@@ -3977,7 +5016,12 @@
               },
               {
                 "name": "videoQuality",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Constant to indicate the video quality during capture.",
                 "type": [
                   {
@@ -3988,11 +5032,15 @@
                 "since": {
                   "android": "5.4.0"
                 },
-                "constants": ["Titanium.Media.QUALITY_*"]
+                "constants": [
+                  "Titanium.Media.QUALITY_*"
+                ]
               },
               {
                 "name": "whichCamera",
-                "platforms": ["android"],
+                "platforms": [
+                  "android"
+                ],
                 "summary": "Opens the camera with the specified camera direction.",
                 "type": [
                   {
@@ -4003,11 +5051,16 @@
                 "since": {
                   "android": "5.4.0"
                 },
-                "constants": ["Titanium.Media.CAMERA_FRONT", "Titanium.Media.CAMERA_REAR"]
+                "constants": [
+                  "Titanium.Media.CAMERA_FRONT",
+                  "Titanium.Media.CAMERA_REAR"
+                ]
               },
               {
                 "name": "zoomEnabled",
-                "platforms": ["android"],
+                "platforms": [
+                  "android"
+                ],
                 "summary": "Specifies if pinch to zoom is enabled or not.",
                 "type": [
                   {
@@ -4027,29 +5080,52 @@
     },
     {
       "name": "startMicrophoneMonitor",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Starts monitoring the microphone sound level."
     },
     {
       "name": "startVideoCapture",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Starts video capture using the camera specified.",
       "since": "5.4.0"
     },
     {
       "name": "stopMicrophoneMonitor",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Stops monitoring the microphone sound level."
     },
     {
       "name": "stopVideoCapture",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Stops video capture using the camera specified.",
       "since": "5.4.0"
     },
     {
       "name": "switchCamera",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Switches between front and rear-facing cameras. Make sure to set one of the below constants to determine\nthe camera you want to switch to.\n",
       "description": "In Android, this can only be called when using a custom overlay (see [Titanium.Media.showCamera](api:Titanium.Media#showCamera)).\n",
       "since": {
@@ -4072,13 +5148,23 @@
     },
     {
       "name": "takePicture",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Uses the device camera to capture a photo.",
       "description": "Must be called after calling `showCamera` and only when `autohide` is set to `false`.\n\nThis method causes the media capture device to capture a photo and call the\n`success` callback.\n"
     },
     {
       "name": "takeScreenshot",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Takes a screen shot of the visible UI on the device.",
       "description": "This method is asynchronous. The screenshot is returned in the callback argument.\nThe callback argument's `media` property contains the screenshot image as a\n[Blob](api:Titanium.Blob) object.\n",
       "parameters": [
@@ -4103,7 +5189,12 @@
             "properties": [
               {
                 "name": "media",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "The screenshot image.",
                 "type": [
                   {
@@ -4119,7 +5210,12 @@
     },
     {
       "name": "vibrate",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Makes the device vibrate.",
       "description": "On Android, a `pattern` argument can be provided to specify a\nvibration pattern.\n\nThe `pattern` is an array of Number values.  Each number in the array is\ninterpreted as a duration in milliseconds. The first number is the *delay*\nbefore the pattern starts, and the remaining numbers are interpreted as\nalternating periods of on and off times. For example, the following pattern:\n\n``` js\n[ 0, 500, 100, 500, 100, 500 ]\n```\n\nWould cause the vibration to start immediately (delay = 0), and perform three\nlong vibrations (500 ms) separated by short pauses (100ms).\n",
       "parameters": [
@@ -4146,13 +5242,19 @@
   "events": [
     {
       "name": "cameraready",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Fires when the camera overlay is ready to take pictures.",
       "since": "6.0.0"
     },
     {
       "name": "routechange",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when an audio line type change is detected.",
       "since": "3.4.2",
       "properties": [
@@ -4181,7 +5283,11 @@
             "properties": [
               {
                 "name": "inputs",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "An Array of current input ports for the session. See the `AUDIO_SESSION_PORT` constants.",
                 "type": [
                   {
@@ -4195,11 +5301,17 @@
                     ]
                   }
                 ],
-                "constants": ["Titanium.Media.AUDIO_SESSION_PORT_*"]
+                "constants": [
+                  "Titanium.Media.AUDIO_SESSION_PORT_*"
+                ]
               },
               {
                 "name": "outputs",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "An Array of current output ports for the session. See the `AUDIO_SESSION_PORT` constants.",
                 "type": [
                   {
@@ -4213,7 +5325,9 @@
                     ]
                   }
                 ],
-                "constants": ["Titanium.Media.AUDIO_SESSION_PORT_*"]
+                "constants": [
+                  "Titanium.Media.AUDIO_SESSION_PORT_*"
+                ]
               }
             ]
           }
@@ -4233,7 +5347,11 @@
             "properties": [
               {
                 "name": "inputs",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "An Array of current input ports for the session. See the `AUDIO_SESSION_PORT` constants.",
                 "type": [
                   {
@@ -4247,11 +5365,17 @@
                     ]
                   }
                 ],
-                "constants": ["Titanium.Media.AUDIO_SESSION_PORT_*"]
+                "constants": [
+                  "Titanium.Media.AUDIO_SESSION_PORT_*"
+                ]
               },
               {
                 "name": "outputs",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "An Array of current output ports for the session. See the `AUDIO_SESSION_PORT` constants.",
                 "type": [
                   {
@@ -4265,7 +5389,9 @@
                     ]
                   }
                 ],
-                "constants": ["Titanium.Media.AUDIO_SESSION_PORT_*"]
+                "constants": [
+                  "Titanium.Media.AUDIO_SESSION_PORT_*"
+                ]
               }
             ]
           }
@@ -4274,7 +5400,11 @@
     },
     {
       "name": "volume",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when the volume output changes.",
       "properties": [
         {
@@ -4295,39 +5425,71 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "lifecycleContainer",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "events": []

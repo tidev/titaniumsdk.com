@@ -3,8 +3,15 @@
   "name": "Titanium.UI.AttributedString",
   "kind": "proxy",
   "extends": "Titanium.Proxy",
-  "inheritanceChain": ["Titanium.Proxy"],
-  "platforms": ["android", "iphone", "ipad", "macos"],
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": "3.6.0",
   "summary": "An attributed string proxy manages character strings and associated sets of attributes (for example,\nfont and foregroundcolor) that apply to individual characters or ranges of characters in the string.\n",
   "description": "The AttributedString proxy is created with the [Titanium.UI.createAttributedString](api:Titanium.UI#createAttributedString) method.\n\nThe `text` property must be set initially in the constructor when creating an attributed string.\nThe [attributes](api:Titanium.UI.AttributedString#attributes) can either be set in the constructor or after it has been created.\n\nFor examples of Attributed Strings, see the\n[Attributed Strings guide](https://titaniumsdk.com/guide/Titanium_SDK/Titanium_SDK_How-tos/User_Interface_Deep_Dives/Attributed_Strings.html).\n",
@@ -25,7 +32,12 @@
   "properties": [
     {
       "name": "attributes",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "An array of attributes to add.\n",
       "description": "Internally, this calls the [addAttribute](api:Titanium.UI.AttributedString#addAttribute)\nmethod for each of the attributes passed in.\n",
       "type": [
@@ -43,7 +55,12 @@
     },
     {
       "name": "text",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The text applied to the attributed string.\n",
       "description": "The `text` property must be set in the constructor and cannot be changed.\n",
       "type": [
@@ -57,7 +74,12 @@
   "methods": [
     {
       "name": "addAttribute",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Adds an [attribute](api:Attribute) with the given name and value to the characters in the specified range.",
       "parameters": [
         {
@@ -79,43 +101,79 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "lifecycleContainer",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "events": []
   },
-  "references": ["Attribute", "Titanium.Proxy", "Titanium.UI"],
+  "references": [
+    "Attribute",
+    "Titanium.Proxy",
+    "Titanium.UI"
+  ],
   "source": "Titanium/UI/AttributedString.yml"
 }

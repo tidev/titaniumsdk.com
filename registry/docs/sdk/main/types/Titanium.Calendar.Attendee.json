@@ -3,15 +3,25 @@
   "name": "Titanium.Calendar.Attendee",
   "kind": "proxy",
   "extends": "Titanium.Proxy",
-  "inheritanceChain": ["Titanium.Proxy"],
-  "platforms": ["iphone", "ipad", "macos"],
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": "6.0.0",
   "summary": "An object that represents a single attendee of an event.",
   "description": "The API supports retrieving information about the attendee of an event.\n",
   "properties": [
     {
       "name": "email",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The attendee email.",
       "description": "Due to privacy concerns in iOS, this value will be empty if the attendee\nis the device owner.\n",
       "type": [
@@ -29,7 +39,11 @@
     },
     {
       "name": "isOrganizer",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Indicates whether this attendee is the event organizer.",
       "type": [
         {
@@ -41,7 +55,11 @@
     },
     {
       "name": "name",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The attendee name.",
       "type": [
         {
@@ -58,7 +76,11 @@
     },
     {
       "name": "role",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The role of the attendee.",
       "type": [
         {
@@ -67,11 +89,17 @@
         }
       ],
       "permission": "read-only",
-      "constants": ["Titanium.Calendar.ATTENDEE_ROLE_*"]
+      "constants": [
+        "Titanium.Calendar.ATTENDEE_ROLE_*"
+      ]
     },
     {
       "name": "status",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The status of the attendee.",
       "type": [
         {
@@ -85,11 +113,17 @@
         "ipad": "6.0.0"
       },
       "permission": "read-only",
-      "constants": ["Titanium.Calendar.ATTENDEE_STATUS_*"]
+      "constants": [
+        "Titanium.Calendar.ATTENDEE_STATUS_*"
+      ]
     },
     {
       "name": "type",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The type of the attendee.",
       "type": [
         {
@@ -103,7 +137,9 @@
         "ipad": "6.0.0"
       },
       "permission": "read-only",
-      "constants": ["Titanium.Calendar.ATTENDEE_TYPE_*"]
+      "constants": [
+        "Titanium.Calendar.ATTENDEE_TYPE_*"
+      ]
     }
   ],
   "methods": [],
@@ -113,38 +149,64 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "events": []
   },
-  "references": ["Titanium.Proxy"],
+  "references": [
+    "Titanium.Proxy"
+  ],
   "source": "Titanium/Calendar/Attendee.yml"
 }

@@ -3,8 +3,14 @@
   "name": "Titanium.UI.iOS.ListViewCellSelectionStyle",
   "kind": "proxy",
   "extends": "Titanium.Proxy",
-  "inheritanceChain": ["Titanium.Proxy"],
-  "platforms": ["iphone", "ipad", "macos"],
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": {
     "iphone": "5.4.0",
     "ipad": "5.4.0",
@@ -18,7 +24,11 @@
   "properties": [
     {
       "name": "BLUE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The cell when selected has a blue background. This is the default value.",
       "type": [
         {
@@ -30,7 +40,11 @@
     },
     {
       "name": "GRAY",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The cell when selected has a gray background.",
       "type": [
         {
@@ -42,7 +56,11 @@
     },
     {
       "name": "NONE",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The cell has no distinct style for when it is selected.",
       "type": [
         {
@@ -60,12 +78,20 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "methods": [],
     "events": []
   },
-  "references": ["ItemTemplate", "ListDataItem", "Titanium.Proxy"],
+  "references": [
+    "ItemTemplate",
+    "ListDataItem",
+    "Titanium.Proxy"
+  ],
   "source": "Titanium/UI/iOS/ListViewCellSelectionStyle.yml"
 }

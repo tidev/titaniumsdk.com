@@ -3,8 +3,16 @@
   "name": "Titanium.UI.AlertDialog",
   "kind": "view",
   "extends": "Titanium.UI.View",
-  "inheritanceChain": ["Titanium.UI.View", "Titanium.Proxy"],
-  "platforms": ["android", "iphone", "ipad", "macos"],
+  "inheritanceChain": [
+    "Titanium.UI.View",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": "0.8",
   "summary": "An alert dialog is a modal view that includes an optional title, a message and buttons,\npositioned in the middle of the display.\n",
   "description": "| Android | iOS |\n| ------- | --- |\n| ![Android](./alertdialog_android.png) | ![iOS](./alertdialog_ios.png) |\n\nAn alert dialog is created using [Titanium.UI.createAlertDialog](api:Titanium.UI#createAlertDialog) or **`<AlertDialog>`** Alloy element.\n\nAlthough this dialog always appears in the middle of the display (not touching the edges),\nother aspects of its aesthetics and the way the user interacts with it are different for each\nplatform, as described below.\n\n#### Android\n\nOn Android, the default alert dialog displays text information, via a title and message, without\nany buttons. As the user can use the system hardware `back` button to dismiss it, a button is\noptional.\n\nButtons are shown if the `buttonNames` property is defined, and are rendered horizontally below\nthe message.\n\nTo create a custom layout, a view may be added and, in turn, a hierarchy of views added to that\nchild view.\n\n#### iOS\n\nOn iOS, the default alert dialog displays text information, via a title and message, with\na single button to allow it to be dismissed.\n\nButtons are defined using the `buttonNames` property and are rendered vertically below\nthe message. Alert dialogs are automatically cancelled when the application is\npaused/suspended. This behavior can be avoided by setting `persistent` property on alert dialog\nto be `true`.\n\nThe `style` property can be used to allow the user to enter plain text,\nobscured text or login identifier and password. Entered values can be captured with listening\n`cancel` event.\n\nStarting at Titanium SDK 5.1.0, you can also specify the `placeholder`, `keyboardType` and `returnKeyType`\nproperties when using the alert dialog style [Titanium.UI.iOS.AlertDialogStyle.PLAIN_TEXT_INPUT](api:Titanium.UI.iOS.AlertDialogStyle#PLAIN_TEXT_INPUT) or\n[Titanium.UI.iOS.AlertDialogStyle.SECURE_TEXT_INPUT](api:Titanium.UI.iOS.AlertDialogStyle#SECURE_TEXT_INPUT).\nWhen using the alert dialog style [Titanium.UI.iOS.AlertDialogStyle.LOGIN_AND_PASSWORD_INPUT](api:Titanium.UI.iOS.AlertDialogStyle#LOGIN_AND_PASSWORD_INPUT), you can\nspecify the `loginPlaceholder`, `loginKeyboardType` and `loginReturnKeyType` properties for the login field,\nas well as the `passwordPlaceholder`, `passwordKeyboardType` and `passwordReturnKeyType` properties for the password field.\n\n#### Global Alias\n\nA global method `alert()` is aliased to this object, and can be invoked with a single message.\nFor example\n\n``` js\nalert('this is a message');\n```\n\nThis will generate an alert with a title of \"Alert\" and an \"OK\" button.\n\n#### Caveats\n\nMultiple alerts should not be shown at once.\n\nThe `title` and `ok` properties cannot be changed while the alert dialog is being displayed. On\nAndroid only, you can change the `message` property while the alert dialog is being displayed.\n",
@@ -33,7 +41,9 @@
   "properties": [
     {
       "name": "androidView",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "View to load inside the message area, to create a custom layout.",
       "description": "In an Alloy application you can specify this property with either an `<AndroidView/>` or\n`<View/>` element inside the `<AlertDialog/>` element, for example:\n\n``` xml\n<Alloy>\n    <AlertDialog onClick=\"doClick\" title=\"Delete\"\n        message=\"Would you like to delete the file?\" cancel=\"1\">\n\n        <!--  Add View or AndroidView for the androidView property  -->\n        <View platform=\"android\">\n            <Label color=\"red\" text=\"Warning!  This change is permanent and you cannot undo it!\" />\n        </View>\n\n        <ButtonNames>\n            <ButtonName>Confirm</ButtonName>\n            <ButtonName>Cancel</ButtonName>\n        </ButtonNames>\n    </AlertDialog>\n</Alloy>\n```\n",
       "type": [
@@ -46,7 +56,9 @@
     },
     {
       "name": "buttonClickRequired",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Setting this to true requires the end-user to click a dialog button to close the dialog.\n",
       "description": "Set to true to prevent the dialog from being dismissed via back navigation or tapping outside of the dialog.\nThis requires the end-user to click on one of the dialog buttons provided by property buttonNames. Note that\nif the dialog does not have any buttons, then the dialog can only be closed programmatically via the hide() method.\n",
       "type": [
@@ -60,7 +72,12 @@
     },
     {
       "name": "buttonNames",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Name of each button to create.",
       "description": "On iOS, a button will automatically be created if none are explicitly defined, because\nwithout it users would be unable to dismiss the dialog. Conversely, a dialog with no\nbuttons may be created on Android, as the hardware `back` button may be used instead.\n\nA maximum of 3 buttons is supported on Android.\n\nAlloy applications can specify this property with a `<ButtonNames>` element containing\none or more `<ButtonName>` elements (see example).\n\n``` xml\n<Alloy>\n    <AlertDialog id=\"dialog\" onClick=\"doClick\" title=\"Decide!\" message=\"Do you really want to do that?\" cancel=\"1\">\n        <ButtonNames>\n            <ButtonName>Confirm</ButtonName>\n            <ButtonName>Cancel</ButtonName>\n            <ButtonName>Help</ButtonName>\n        </ButtonNames>\n    </AlertDialog>\n</Alloy>\n```\n",
       "type": [
@@ -80,7 +97,12 @@
     },
     {
       "name": "cancel",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Index to define the cancel button.",
       "description": "On iOS, set to `-1` to disable the cancel option.\n",
       "type": [
@@ -93,7 +115,9 @@
     },
     {
       "name": "canceledOnTouchOutside",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "When this is set to `true`, the dialog is canceled when touched outside the window's bounds.\n",
       "type": [
         {
@@ -106,7 +130,11 @@
     },
     {
       "name": "destructive",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Index to define the destructive button.",
       "description": "Setting this property to -1 disables this option.",
       "type": [
@@ -120,7 +148,11 @@
     },
     {
       "name": "hintText",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Hint text of the text field inside the dialog.",
       "description": "Note that this property is only available if dialog `style` property is defined as\n[Titanium.UI.iOS.AlertDialogStyle.PLAIN_TEXT_INPUT](api:Titanium.UI.iOS.AlertDialogStyle#PLAIN_TEXT_INPUT) or\n[Titanium.UI.iOS.AlertDialogStyle.SECURE_TEXT_INPUT](api:Titanium.UI.iOS.AlertDialogStyle#SECURE_TEXT_INPUT).\n",
       "type": [
@@ -133,7 +165,11 @@
     },
     {
       "name": "hinttextid",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Key identifying a string from the locale file to use for the\n[hintText](api:Titanium.UI.AlertDialog#hintText) property.\n",
       "description": "Only one of `hintText` or `hinttextid` should be specified.",
       "type": [
@@ -146,7 +182,11 @@
     },
     {
       "name": "keyboardAppearance",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Keyboard appearance to be displayed when the text field inside the dialog is focused.",
       "description": "Note that this property is only available if dialog `style` property is defined as\n[Titanium.UI.iOS.AlertDialogStyle.PLAIN_TEXT_INPUT](api:Titanium.UI.iOS.AlertDialogStyle#PLAIN_TEXT_INPUT) or\n[Titanium.UI.iOS.AlertDialogStyle.SECURE_TEXT_INPUT](api:Titanium.UI.iOS.AlertDialogStyle#SECURE_TEXT_INPUT).\n",
       "type": [
@@ -157,11 +197,17 @@
       ],
       "since": "5.2.0",
       "default": "<Titanium.UI.KEYBOARD_APPEARANCE_DEFAULT>",
-      "constants": ["Titanium.UI.KEYBOARD_APPEARANCE_*"]
+      "constants": [
+        "Titanium.UI.KEYBOARD_APPEARANCE_*"
+      ]
     },
     {
       "name": "keyboardType",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Keyboard type to display when this text field inside the dialog is focused.",
       "description": "Note that this property is only available if dialog `style` property is defined as\n[Titanium.UI.iOS.AlertDialogStyle.PLAIN_TEXT_INPUT](api:Titanium.UI.iOS.AlertDialogStyle#PLAIN_TEXT_INPUT) or\n[Titanium.UI.iOS.AlertDialogStyle.SECURE_TEXT_INPUT](api:Titanium.UI.iOS.AlertDialogStyle#SECURE_TEXT_INPUT).\n",
       "type": [
@@ -172,11 +218,17 @@
       ],
       "since": "5.1.0",
       "default": "<Titanium.UI.KEYBOARD_TYPE_DEFAULT>",
-      "constants": ["Titanium.UI.KEYBOARD_TYPE_*"]
+      "constants": [
+        "Titanium.UI.KEYBOARD_TYPE_*"
+      ]
     },
     {
       "name": "loginHintText",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Hint text of the login text field inside the dialog.",
       "description": "Note that this property is only available if dialog `style` property is defined as\n[Titanium.UI.iOS.AlertDialogStyle.LOGIN_AND_PASSWORD_INPUT](api:Titanium.UI.iOS.AlertDialogStyle#LOGIN_AND_PASSWORD_INPUT).\n",
       "type": [
@@ -189,7 +241,11 @@
     },
     {
       "name": "loginhinttextid",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Key identifying a string from the locale file to use for the\n[loginHintText](api:Titanium.UI.AlertDialog#loginHintText) property.\n",
       "description": "Only one of `loginHintText` or `loginhinttextid` should be specified.",
       "type": [
@@ -202,7 +258,12 @@
     },
     {
       "name": "loginKeyboardType",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Keyboard type to display when this text field inside the dialog is focused.",
       "description": "Note that this property is only available if dialog `style` property is defined as\n[Titanium.UI.iOS.AlertDialogStyle.LOGIN_AND_PASSWORD_INPUT](api:Titanium.UI.iOS.AlertDialogStyle#LOGIN_AND_PASSWORD_INPUT).\n",
       "type": [
@@ -213,11 +274,17 @@
       ],
       "since": "5.1.0",
       "default": "<Titanium.UI.KEYBOARD_DEFAULT>",
-      "constants": ["Titanium.UI.KEYBOARD_*"]
+      "constants": [
+        "Titanium.UI.KEYBOARD_*"
+      ]
     },
     {
       "name": "loginPlaceholder",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Placeholder of the login text field inside the dialog.",
       "description": "Note that this property is only available if dialog `style` property is defined as\n[Titanium.UI.iOS.AlertDialogStyle.LOGIN_AND_PASSWORD_INPUT](api:Titanium.UI.iOS.AlertDialogStyle#LOGIN_AND_PASSWORD_INPUT).\n",
       "type": [
@@ -234,7 +301,12 @@
     },
     {
       "name": "loginReturnKeyType",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies the text to display on the keyboard `Return` key when this field is focused.",
       "description": "Note that this property is only available if dialog `style` property is defined as\n[Titanium.UI.iOS.AlertDialogStyle.LOGIN_AND_PASSWORD_INPUT](api:Titanium.UI.iOS.AlertDialogStyle#LOGIN_AND_PASSWORD_INPUT).\n",
       "type": [
@@ -245,11 +317,17 @@
       ],
       "since": "5.1.0",
       "default": "<Titanium.UI.RETURNKEY_NEXT>",
-      "constants": ["Titanium.UI.RETURNKEY_*"]
+      "constants": [
+        "Titanium.UI.RETURNKEY_*"
+      ]
     },
     {
       "name": "loginValue",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Value of the login text field inside the dialog.",
       "description": "Note that this property is only available if dialog `style` property is defined as\n[Titanium.UI.iOS.AlertDialogStyle.LOGIN_AND_PASSWORD_INPUT](api:Titanium.UI.iOS.AlertDialogStyle#LOGIN_AND_PASSWORD_INPUT).\n",
       "type": [
@@ -262,7 +340,12 @@
     },
     {
       "name": "message",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Dialog message.",
       "type": [
         {
@@ -273,7 +356,12 @@
     },
     {
       "name": "messageid",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Key identifying a string in the locale file to use for the message text.",
       "type": [
         {
@@ -284,7 +372,12 @@
     },
     {
       "name": "ok",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Text for the `OK` button.",
       "description": "This property is useful when only one button is required, as it negates the need to define\nthe `buttonNames` property. If `buttonNames` is defined, this property is ignored.\n",
       "type": [
@@ -296,7 +389,11 @@
     },
     {
       "name": "okid",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Key identifying a string in the locale file to use for the `ok` text.",
       "description": "If `buttonNames` is defined, this property is ignored.\n",
       "type": [
@@ -308,7 +405,11 @@
     },
     {
       "name": "passwordHintText",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Hint text of the password text field inside the dialog.",
       "description": "Note that this property is only available if dialog `style` property is defined as\n[Titanium.UI.iOS.AlertDialogStyle.LOGIN_AND_PASSWORD_INPUT](api:Titanium.UI.iOS.AlertDialogStyle#LOGIN_AND_PASSWORD_INPUT).\n",
       "type": [
@@ -321,7 +422,11 @@
     },
     {
       "name": "passwordhinttextid",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Key identifying a string from the locale file to use for the\n[passwordHintText](api:Titanium.UI.AlertDialog#passwordHintText) property.\n",
       "description": "Only one of `passwordHintText` or `hinttextid` should be specified.",
       "type": [
@@ -334,7 +439,12 @@
     },
     {
       "name": "passwordKeyboardType",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Keyboard type to display when this text field inside the dialog is focused.",
       "description": "Note that this property is only available if dialog `style` property is defined as\n[Titanium.UI.iOS.AlertDialogStyle.LOGIN_AND_PASSWORD_INPUT](api:Titanium.UI.iOS.AlertDialogStyle#LOGIN_AND_PASSWORD_INPUT).\n",
       "type": [
@@ -345,11 +455,17 @@
       ],
       "since": "5.1.0",
       "default": "<Titanium.UI.KEYBOARD_DEFAULT>",
-      "constants": ["Titanium.UI.KEYBOARD_*"]
+      "constants": [
+        "Titanium.UI.KEYBOARD_*"
+      ]
     },
     {
       "name": "passwordPlaceholder",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Placeholder of the password text field inside the dialog.",
       "description": "Note that this property is only available if dialog `style` property is defined as\n[Titanium.UI.iOS.AlertDialogStyle.LOGIN_AND_PASSWORD_INPUT](api:Titanium.UI.iOS.AlertDialogStyle#LOGIN_AND_PASSWORD_INPUT).\n",
       "type": [
@@ -366,7 +482,12 @@
     },
     {
       "name": "passwordReturnKeyType",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies the text to display on the keyboard `Return` key when this field is focused.",
       "description": "Note that this property is only available if dialog `style` property is defined as\n[Titanium.UI.iOS.AlertDialogStyle.LOGIN_AND_PASSWORD_INPUT](api:Titanium.UI.iOS.AlertDialogStyle#LOGIN_AND_PASSWORD_INPUT).\n",
       "type": [
@@ -377,11 +498,17 @@
       ],
       "since": "5.1.0",
       "default": "<Titanium.UI.RETURNKEY_DONE>",
-      "constants": ["Titanium.UI.RETURNKEY_*"]
+      "constants": [
+        "Titanium.UI.RETURNKEY_*"
+      ]
     },
     {
       "name": "passwordValue",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Value of the password text field inside the dialog.",
       "description": "Note that this property is only available if dialog `style` property is defined as\n[Titanium.UI.iOS.AlertDialogStyle.LOGIN_AND_PASSWORD_INPUT](api:Titanium.UI.iOS.AlertDialogStyle#LOGIN_AND_PASSWORD_INPUT).\n",
       "type": [
@@ -394,7 +521,12 @@
     },
     {
       "name": "persistent",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Boolean value indicating if the alert dialog should only be cancelled by user gesture or by hide method.",
       "description": "This property is useful to ensure that the alert dialog will not be ignored\nby the user when the application is paused/suspended.\n",
       "type": [
@@ -408,7 +540,11 @@
     },
     {
       "name": "placeholder",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Placeholder of the text field inside the dialog.",
       "description": "Note that this property is only available if dialog `style` property is defined as\n[Titanium.UI.iOS.AlertDialogStyle.PLAIN_TEXT_INPUT](api:Titanium.UI.iOS.AlertDialogStyle#PLAIN_TEXT_INPUT) or\n[Titanium.UI.iOS.AlertDialogStyle.SECURE_TEXT_INPUT](api:Titanium.UI.iOS.AlertDialogStyle#SECURE_TEXT_INPUT).\n",
       "type": [
@@ -425,7 +561,11 @@
     },
     {
       "name": "preferred",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Index to define the preferred button.",
       "description": "When you specify a preferred action, the alert dialog highlights the text of that\naction to give it emphasis. (If the alert also contains a cancel button, the preferred\naction receives the highlighting instead of the cancel button.) If the iOS device is\nconnected to a physical keyboard, pressing the Return key triggers the preferred action.\n\nNote that this property is only available on iOS 9 or above.\n",
       "type": [
@@ -439,7 +579,11 @@
     },
     {
       "name": "returnKeyType",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies the text to display on the keyboard `Return` key when this field is focused.",
       "description": "Note that this property is only available if dialog `style` property is defined as\n[Titanium.UI.iOS.AlertDialogStyle.PLAIN_TEXT_INPUT](api:Titanium.UI.iOS.AlertDialogStyle#PLAIN_TEXT_INPUT) or\n[Titanium.UI.iOS.AlertDialogStyle.SECURE_TEXT_INPUT](api:Titanium.UI.iOS.AlertDialogStyle#SECURE_TEXT_INPUT).\n",
       "type": [
@@ -450,11 +594,17 @@
       ],
       "since": "5.1.0",
       "default": "<Titanium.UI.RETURNKEY_DEFAULT>",
-      "constants": ["Titanium.UI.RETURNKEY_*"]
+      "constants": [
+        "Titanium.UI.RETURNKEY_*"
+      ]
     },
     {
       "name": "severity",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Indicates the severity of the alert in apps built with Mac Catalyst.",
       "description": "This property defines the severity options used by the severity property\nof UIAlertController. In apps built with Mac Catalyst, the severity\ndetermines the style of the presented alert. A [Titanium.UI.iOS.ALERT_SEVERITY_CRITICAL](api:Titanium.UI.iOS#ALERT_SEVERITY_CRITICAL)\nalert appears with a caution icon, and an alert with a [Titanium.UI.iOS.ALERT_SEVERITY_DEFAULT](api:Titanium.UI.iOS#ALERT_SEVERITY_DEFAULT)\nseverity doesn’t. UIKit ignores the alert severity on iOS.\n\nYou should only use the [Titanium.UI.iOS.ALERT_SEVERITY_CRITICAL](api:Titanium.UI.iOS#ALERT_SEVERITY_CRITICAL) severity if an alert truly requires\nspecial attention from the user.\n\nFor more information, see the [Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines/macos/windows-and-views/alerts/) on alerts.\n",
       "type": [
@@ -470,11 +620,17 @@
           "min": "16.0"
         }
       },
-      "constants": ["Titanium.UI.iOS.ALERT_SEVERITY_*"]
+      "constants": [
+        "Titanium.UI.iOS.ALERT_SEVERITY_*"
+      ]
     },
     {
       "name": "style",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The style for the alert dialog.",
       "description": "Style of the alert dialog, specified using one of the constants from\n[Titanium.UI.iOS.AlertDialogStyle](api:Titanium.UI.iOS.AlertDialogStyle). Using styles other than default one can break\nyour dialog layout if more than two buttons used. All styles can handle up to two\nbuttons comfortably, except for default style can handle up to six buttons when `title`\nand `message` is empty or not given. Note that this property is only available on\niOS SDK 5 or above.\n",
       "type": [
@@ -488,7 +644,11 @@
     },
     {
       "name": "tintColor",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The tint-color of the dialog.",
       "description": "This property is a direct correspondent of the `tintColor` property of\nUIView on iOS. For a dialog, it will tint the color of it's buttons.\nFor information about color values, see the \"Colors\" section of [Titanium.UI](api:Titanium.UI).\n",
       "type": [
@@ -505,7 +665,12 @@
     },
     {
       "name": "title",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Title of the dialog.",
       "description": "If not set, a dialog with no title bar will be created.",
       "type": [
@@ -517,7 +682,12 @@
     },
     {
       "name": "titleid",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Key identifying a string in the locale file to use for the title text.",
       "type": [
         {
@@ -528,7 +698,11 @@
     },
     {
       "name": "value",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Value of the text field inside the dialog.",
       "description": "Note that this property is only available if dialog `style` property is defined as\n[Titanium.UI.iOS.AlertDialogStyle.PLAIN_TEXT_INPUT](api:Titanium.UI.iOS.AlertDialogStyle#PLAIN_TEXT_INPUT) or\n[Titanium.UI.iOS.AlertDialogStyle.SECURE_TEXT_INPUT](api:Titanium.UI.iOS.AlertDialogStyle#SECURE_TEXT_INPUT).\n",
       "type": [
@@ -543,19 +717,34 @@
   "methods": [
     {
       "name": "hide",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Hides this dialog."
     },
     {
       "name": "show",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Shows this dialog."
     }
   ],
   "events": [
     {
       "name": "click",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when a button in the dialog is clicked.",
       "properties": [
         {
@@ -620,176 +809,288 @@
       {
         "name": "accessibilityDisableLongPress",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "elevation",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "filterTouchesWhenObscured",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "hiddenBehavior",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "horizontalMotionEffect",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "id",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "keepHardwareMode",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "lifecycleContainer",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "previewContext",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone"]
+        "platforms": [
+          "iphone"
+        ]
       },
       {
         "name": "rotation",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad"
+        ]
       },
       {
         "name": "rotationX",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "rotationY",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "scaleX",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "scaleY",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "tooltip",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "touchFeedback",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "touchFeedbackColor",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "transitionName",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "translationX",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "translationY",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "translationZ",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "verticalMotionEffect",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "clearMotionEffects",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "getViewById",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "insertAt",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "replaceAt",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "stopAnimation",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ],
     "events": [
       {
         "name": "rotate",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ]
   },

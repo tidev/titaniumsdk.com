@@ -3,15 +3,25 @@
   "name": "Titanium.UI.DashboardItem",
   "kind": "proxy",
   "extends": "Titanium.Proxy",
-  "inheritanceChain": ["Titanium.Proxy"],
-  "platforms": ["iphone", "ipad", "macos"],
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": "1.2",
   "summary": "A dashboard item is a view that is displayed as an icon in a [Titanium.UI.DashboardView](api:Titanium.UI.DashboardView).",
   "description": "A DashboardItem is created using the [Titanium.UI.createDashboardItem](api:Titanium.UI#createDashboardItem) method or **`<DashboardItem>`** Alloy element.",
   "properties": [
     {
       "name": "badge",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Integer value displayed in a badge.",
       "description": "Set to `0` to reset and remove the badge.",
       "type": [
@@ -24,7 +34,11 @@
     },
     {
       "name": "canDelete",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Determines whether this item can be deleted when it edit mode.",
       "type": [
         {
@@ -36,7 +50,11 @@
     },
     {
       "name": "image",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Image or path to image to display in the item by default.",
       "type": [
         {
@@ -51,7 +69,11 @@
     },
     {
       "name": "selectedImage",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Image or path to image to display in the item as it is selected.",
       "type": [
         {
@@ -69,7 +91,11 @@
   "events": [
     {
       "name": "click",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when a click is detected against the view.",
       "properties": [
         {
@@ -96,7 +122,11 @@
     },
     {
       "name": "delete",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when an item is deleted during editing mode.",
       "properties": [
         {
@@ -113,7 +143,11 @@
     },
     {
       "name": "move",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when an item is moved during editing mode.",
       "properties": [
         {
@@ -150,34 +184,58 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "events": []

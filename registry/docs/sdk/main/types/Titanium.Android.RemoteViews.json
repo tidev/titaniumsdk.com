@@ -3,8 +3,12 @@
   "name": "Titanium.Android.RemoteViews",
   "kind": "proxy",
   "extends": "Titanium.Proxy",
-  "inheritanceChain": ["Titanium.Proxy"],
-  "platforms": ["android"],
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android"
+  ],
   "since": "1.6",
   "summary": "The Titanium binding of [Android RemoteViews](https://developer.android.com/reference/android/widget/RemoteViews.html). \n",
   "description": "`RemoteViews` is an API for referencing and updating a remote view hierarchy that\nlives in another process, for example, in a [Notification](api:Titanium.Android.Notification).\n\nTo create a remote view hierarchy, you must define an Android XML layout for the views\nyou want to display, and place the XML file in the `platform/android/res/layout` inside your\nproject folder. See the examples for a sample XML layout and sample code for creating a\nremote view.\n\nTo use a remote view hierarchy in a notification, see\n[Notification.contentView](api:Titanium.Android.Notification#contentView).\n\nBecause the remote view hierarchy belongs to another process, you cannot call methods on it\ndirectly, but you can call methods on the `RemoteViews` object to update views in the\nhierarchy by ID. To reference a view inside the layout, use the\n[Titanium.App.Android.R](api:Titanium.App.Android#R) object to reference the view's ID. For example, if you have a \nview with the ID `notify_imageview`, you can refer to it using:\n    \n``` js\nTi.App.Android.R.id.notify_imageview\n```\n\nSee also: \n\n*   [RemoteViews](https://developer.android.com/reference/android/widget/RemoteViews.html)\n    in the Android Developer Reference.\n\n*   [XML Layouts](https://developer.android.com/guide/topics/ui/declaring-layout.html)\n    in the Android Developer Guide.\n",
@@ -17,7 +21,9 @@
   "properties": [
     {
       "name": "layoutId",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Android layout resource ID for the view to display. Required.",
       "description": "To define a custom layout resource in your application, the XML layout file \nshould be placed in `platform/android/res/layout` folder inside your project folder.\n\nUse [Titanium.App.Android.R](api:Titanium.App.Android#R) to reference the ID of the layout.\n",
       "type": [
@@ -30,7 +36,9 @@
     },
     {
       "name": "packageName",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Package name that the resource ID lives in. Optional.",
       "type": [
         {
@@ -44,7 +52,9 @@
   "methods": [
     {
       "name": "setBoolean",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Calls a method taking a single `boolean` argument on a view in the remote view\nhierarchy.  See Android's documentation for\n[setBoolean](https://developer.android.com/reference/android/widget/RemoteViews.html#setBoolean(int, java.lang.String, boolean)).\n",
       "parameters": [
         {
@@ -81,7 +91,9 @@
     },
     {
       "name": "setChronometer",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Sets the base time, format string, and started flag for a chronometer\nin the remote view hierarchy.\n",
       "description": "See Android's documentation for \n[setChronometer](https://developer.android.com/reference/android/widget/RemoteViews.html#setChronometer(int, long, java.lang.String, boolean)).\n",
       "parameters": [
@@ -129,7 +141,9 @@
     },
     {
       "name": "setDouble",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Calls a method taking a single `double` argument on a view in the remote view\nhierarchy.\n",
       "description": "See Android's documentation for \n[setDouble](https://developer.android.com/reference/android/widget/RemoteViews.html#setDouble(int, java.lang.String, double)).\n",
       "parameters": [
@@ -167,7 +181,9 @@
     },
     {
       "name": "setImageViewResource",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Sets the image for an image view in the remote view hierarchy using an Android drawable resource.",
       "description": "See Android's documentation for \n[setImageViewResource](https://developer.android.com/reference/android/widget/RemoteViews.html#setImageViewResource(int, int)).\n",
       "parameters": [
@@ -195,7 +211,9 @@
     },
     {
       "name": "setImageViewUri",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Sets the image for an image view in the remote view hierarchy using a URI.\n",
       "description": "This method supports supports both Android and Titanium URLs. \n\nSee Android's documentation for\n[setImageViewUri](https://developer.android.com/reference/android/widget/RemoteViews.html#setImageViewUri(int, android.net.Uri)).\n",
       "parameters": [
@@ -223,7 +241,9 @@
     },
     {
       "name": "setInt",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Calls a method taking a single `int` argument on a view in the remote view hierarchy.\n",
       "description": "See Android's documentation for [setInt](https://developer.android.com/reference/android/widget/RemoteViews.html#setInt(int, java.lang.String, int))\n",
       "parameters": [
@@ -261,7 +281,9 @@
     },
     {
       "name": "setOnClickPendingIntent",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Launches a [Titanium.Android.PendingIntent](api:Titanium.Android.PendingIntent) when the specified view is clicked.",
       "description": "See Android's documentation for\n[setOnClickPendingIntent](https://developer.android.com/reference/android/widget/RemoteViews.html#setOnClickPendingIntent(int, android.app.PendingIntent)).\n",
       "parameters": [
@@ -289,7 +311,9 @@
     },
     {
       "name": "setProgressBar",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Sets the progress, max value, and indeterminate flag of a progress bar in the\nremote view hierarchy.\n",
       "description": "See Android's documentation for\n[setProgressBar](https://developer.android.com/reference/android/widget/RemoteViews.html#setProgressBar(int, int, int, boolean)).\n",
       "parameters": [
@@ -337,7 +361,9 @@
     },
     {
       "name": "setString",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Calls a method taking a single String argument on a view in the remote view\nhierarchy.\n",
       "description": "See Android's documentation for\n[setString](https://developer.android.com/reference/android/widget/RemoteViews.html#setString(int, java.lang.String, java.lang.String)).\n",
       "parameters": [
@@ -375,7 +401,9 @@
     },
     {
       "name": "setTextColor",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Sets the text color of a view in the remote view hierarchy.",
       "description": "See Android's documentation for\n[setTextColor](https://developer.android.com/reference/android/widget/RemoteViews.html#setTextColor(int, int)).\n",
       "parameters": [
@@ -403,7 +431,9 @@
     },
     {
       "name": "setTextViewText",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Sets the text of a text view in the remote view hierarchy.",
       "description": "See Android's documentation for\n[setTextViewText](https://developer.android.com/reference/android/widget/RemoteViews.html#setTextViewText(int, java.lang.CharSequence)).\n",
       "parameters": [
@@ -431,7 +461,9 @@
     },
     {
       "name": "setUri",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Calls a method taking one URI on a view in the remote view hierarchy.",
       "description": "See Android's documentation for\n[setUri](https://developer.android.com/reference/android/widget/RemoteViews.html#setUri(int, java.lang.String, android.net.Uri)).\n",
       "parameters": [
@@ -469,7 +501,9 @@
     },
     {
       "name": "setViewVisibility",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Sets the visibility of a view in the remote view hierarchy.",
       "description": "See Android's documentation for [setViewVisibility](https://developer.android.com/reference/android/widget/RemoteViews.html#setViewVisibility(int, int))\n",
       "parameters": [
@@ -502,39 +536,53 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "lifecycleContainer",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ],
     "events": []

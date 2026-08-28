@@ -3,14 +3,26 @@
   "name": "Titanium.Database.DB",
   "kind": "proxy",
   "extends": "Titanium.Proxy",
-  "inheritanceChain": ["Titanium.Proxy"],
-  "platforms": ["android", "iphone", "ipad", "macos"],
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": "0.1",
   "summary": "The `Database` instance returned by [Titanium.Database.open](api:Titanium.Database#open) or [Titanium.Database.install](api:Titanium.Database#install).",
   "properties": [
     {
       "name": "file",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "A `File` object representing the file where this database is stored. Must only be used for\nsetting file properties.\n",
       "type": [
         {
@@ -27,7 +39,12 @@
     },
     {
       "name": "lastInsertRowId",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The identifier of the last populated row.",
       "type": [
         {
@@ -39,7 +56,12 @@
     },
     {
       "name": "name",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The name of the database.",
       "type": [
         {
@@ -51,7 +73,12 @@
     },
     {
       "name": "rowsAffected",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The number of rows affected by the last query.",
       "type": [
         {
@@ -65,12 +92,22 @@
   "methods": [
     {
       "name": "close",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Closes the database and releases resources from memory. Once closed, this instance is no\nlonger valid and should not be used. On iOS, also closes all [Titanium.Database.ResultSet](api:Titanium.Database.ResultSet)\ninstances that exist.\n"
     },
     {
       "name": "execute",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Executes an SQL statement against the database and returns a `ResultSet`.\n",
       "examples": [
         {
@@ -139,7 +176,12 @@
     },
     {
       "name": "executeAll",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Synchronously executes an array of SQL statements against the database and returns an array of `ResultSet`.\nOn failure, this will throw an [Error](api:BatchQueryError) that reports the failed index and partial results\n",
       "since": {
         "android": "8.1.0",
@@ -183,7 +225,12 @@
     },
     {
       "name": "executeAllAsync",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Asynchronously executes an array of SQL statements against the database and fires a callback with a possible Error, and an array of `ResultSet`.\nOn failure, this will call the callback with an [Error](api:PossibleBatchQueryError) that reports the failed `index`, and a second argument with the partial `results`.\n",
       "since": {
         "android": "8.1.0",
@@ -239,7 +286,12 @@
             "properties": [
               {
                 "name": "index",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Index of the failed query",
                 "type": [
                   {
@@ -283,7 +335,12 @@
     },
     {
       "name": "executeAsync",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Asynchronously executes an SQL statement against the database and fires a callback with a possible `Error` argument, and a second argument holding a possible `ResultSet`.\n",
       "since": {
         "android": "8.1.0",
@@ -378,7 +435,12 @@
     },
     {
       "name": "remove",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Removes the database files for this instance from disk. WARNING: this is a destructive\noperation and cannot be reversed. All data in the database will be lost; use with caution.\n"
     }
   ],
@@ -388,39 +450,71 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "lifecycleContainer",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "events": []

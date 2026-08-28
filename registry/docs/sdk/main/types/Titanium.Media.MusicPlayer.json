@@ -3,15 +3,25 @@
   "name": "Titanium.Media.MusicPlayer",
   "kind": "proxy",
   "extends": "Titanium.Proxy",
-  "inheritanceChain": ["Titanium.Proxy"],
-  "platforms": ["iphone", "ipad", "macos"],
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": "1.4.0",
   "summary": "This object represents a music controller.",
   "description": "A `MusicPlayer` lets you manage and playback a queue of media [Item](api:Titanium.Media.Item) objects.\n\nTo retrieve an instance of a MusicPlayer object, use either the\n[Titanium.Media.appMusicPlayer](api:Titanium.Media#appMusicPlayer) or the [Titanium.Media.systemMusicPlayer](api:Titanium.Media#systemMusicPlayer) property.\n\nUse the [Media](api:Titanium.Media) module's [openMusicLibrary](api:Titanium.Media#openMusicLibrary) and\n[queryMusicLibrary](api:Titanium.Media#queryMusicLibrary) methods to access the media items in the\ndevice's media library.\n",
   "properties": [
     {
       "name": "currentPlaybackTime",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Current point in song playback, in seconds.",
       "description": "This property is read/write, so you can update the music player's current position\nby setting this property.\n",
       "type": [
@@ -23,7 +33,11 @@
     },
     {
       "name": "nowPlaying",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "An `Item` object representing the currently playing media item.",
       "type": [
         {
@@ -35,7 +49,11 @@
     },
     {
       "name": "playbackState",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Playback state.\n",
       "type": [
         {
@@ -44,11 +62,17 @@
         }
       ],
       "permission": "read-only",
-      "constants": ["Titanium.Media.MUSIC_PLAYER_STATE_*"]
+      "constants": [
+        "Titanium.Media.MUSIC_PLAYER_STATE_*"
+      ]
     },
     {
       "name": "repeatMode",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Repeat setting.\n",
       "type": [
         {
@@ -56,11 +80,17 @@
           "name": "Number"
         }
       ],
-      "constants": ["Titanium.Media.MUSIC_PLAYER_REPEAT_*"]
+      "constants": [
+        "Titanium.Media.MUSIC_PLAYER_REPEAT_*"
+      ]
     },
     {
       "name": "shuffleMode",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Shuffle setting.\n",
       "type": [
         {
@@ -68,35 +98,57 @@
           "name": "Number"
         }
       ],
-      "constants": ["Titanium.Media.MUSIC_PLAYER_SHUFFLE_*"]
+      "constants": [
+        "Titanium.Media.MUSIC_PLAYER_SHUFFLE_*"
+      ]
     }
   ],
   "methods": [
     {
       "name": "pause",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Pauses playback of the current media item."
     },
     {
       "name": "play",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Begins playback of the current media item."
     },
     {
       "name": "seekBackward",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Begins seeking backward in the currently playing media.",
       "description": "Seeking speed increases as seeking continues.\n\nCall [stopSeeking](api:Titanium.Media.MusicPlayer#stopSeeking) to\nreturn to normal play.\n"
     },
     {
       "name": "seekForward",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Begins seeking forward in the currently playing media item.",
       "description": "While seeking forward audio plays faster than usual. The speed increases as\nseeking continues.\n\nCall [stopSeeking](api:Titanium.Media.MusicPlayer#stopSeeking) to\nreturn to normal play.\n"
     },
     {
       "name": "setQueue",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Sets the media queue.",
       "description": "Sets the media queue to a single media item or a list of items. \n\nStarting in Titanium 6.1.0 you can also pass a String that identifies \nthe Media item. This string has to be the [Titanium.Media.Item.persistentID](api:Titanium.Media.Item#persistentID) \nproperty that identifies a media item uniquely.\n",
       "parameters": [
@@ -128,43 +180,71 @@
     },
     {
       "name": "skipToBeginning",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Skips to the beginning of the currently playing media item."
     },
     {
       "name": "skipToNext",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Skips to the next media item in the queue.",
       "description": "If there are no more media items in the queue, ends playback.\n"
     },
     {
       "name": "skipToPrevious",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Skips to the previous media item in the queue.",
       "description": "If there are no previous media items in the queue, ends playback.\n"
     },
     {
       "name": "stop",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Stops playback of the current media queue."
     },
     {
       "name": "stopSeeking",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Ends a seek operation and returns to the previous playback state.\n\nSee also: [seekForward](api:Titanium.Media.MusicPlayer#seekForward) and\n[seekBackward](api:Titanium.Media.MusicPlayer#seekBackward).\n"
     }
   ],
   "events": [
     {
       "name": "playingchange",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when the currently playing media item changes.",
       "description": "See [nowPlaying](api:Titanium.Media.MusicPlayer#nowPlaying) to identify the current\nmedia item.\n",
       "since": "3.0.0"
     },
     {
       "name": "statechange",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when the music player's playback state changes.",
       "description": "See [playbackState](api:Titanium.Media.MusicPlayer#playbackState) to identify the current\nplayback state.\n",
       "since": "3.0.0"
@@ -175,38 +255,66 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "events": []
   },
-  "references": ["Titanium.Media", "Titanium.Media.Item", "Titanium.Proxy"],
+  "references": [
+    "Titanium.Media",
+    "Titanium.Media.Item",
+    "Titanium.Proxy"
+  ],
   "source": "Titanium/Media/MusicPlayer.yml"
 }

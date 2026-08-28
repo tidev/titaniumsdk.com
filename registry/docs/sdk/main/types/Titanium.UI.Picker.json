@@ -3,8 +3,16 @@
   "name": "Titanium.UI.Picker",
   "kind": "view",
   "extends": "Titanium.UI.View",
-  "inheritanceChain": ["Titanium.UI.View", "Titanium.Proxy"],
-  "platforms": ["android", "iphone", "ipad", "macos"],
+  "inheritanceChain": [
+    "Titanium.UI.View",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": "0.8",
   "summary": "A control used to select one or more fixed values.\n",
   "description": "| Android | iOS |\n| ------- | --- |\n| ![Android](./picker_android.png) | ![iOS](./picker_ios.png) |\n\nUse the [Titanium.UI.createPicker](api:Titanium.UI#createPicker) method or Alloy **`<Picker>`** element to create a picker control.\n\nOn Android, the `useSpinner` property must be enabled to support multiple columns.\nBy default, the spinner is automatically sized to fit its content and can overflow\nto additional spinner rows. The size of the picker can be adjusted with the `width`\nand `height` properties, but may omit picker columns or cut off picker rows\nif the size is set too small. This property is deprecated. Please use the default\nAndroid native \"dropdown\" style by not setting `useSpinner` to `true`.\n\nOn iOS, the `height` property is only available in iOS 9 and later.\nBy default, the size of the picker, including its background, is fixed at the\nsame height as the iPhone keyboard to respect the\n[iOS Human Interface Guidelines](https://developer.apple.com/ios/human-interface-guidelines/overview/themes/#//apple_ref/doc/uid/TP40006556-CH15-SW3).\nThe default `width` on iOS is 320px and the `height` is 228px.\nThe contents of the picker are sized to fit the picker, which may cut off text\nin the picker rows. Adding views to picker rows is also supported on iOS.\n\nOn iPad, Apple recommends using a picker only in a popover.  Since the size of the picker\ncannot be adjusted, it is not suitable for the main screen.\n\n**Note:** you can only set the [columns](api:Titanium.UI.Picker#columns) property for the plain picker.\nIf you set the [type](api:Titanium.UI.Picker#type) property to anything else except\n`Titanium.UI.PICKER_TYPE_PLAIN`, you cannot modify the picker's columns.\n",
@@ -37,7 +45,12 @@
   "properties": [
     {
       "name": "backgroundColor",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Background color of the picker, as a color name or hex triplet.",
       "description": "For information about color values, see the \"Colors\" section of [Titanium.UI](api:Titanium.UI).\n\nAndroid: If you want to change the backgroundColor you have to set the `borderStyle` to\n`Ti.UI.INPUT_BORDERSTYLE_ROUNDED` or `Ti.UI.INPUT_BORDERSTYLE_NONE`\n",
       "type": [
@@ -59,7 +72,9 @@
     },
     {
       "name": "borderStyle",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Border style to use when picker is shown as a text field or drop-down field.",
       "description": "This is an Android only property which only applies to pickers of type:\n\n* [PICKER_TYPE_DATE](api:Titanium.UI#PICKER_TYPE_DATE) or [PICKER_TYPE_TIME](api:Titanium.UI#PICKER_TYPE_TIME)\nthat also have [datePickerStyle](api:Titanium.UI.Picker#datePickerStyle) set to\n[DATE_PICKER_STYLE_COMPACT](api:Titanium.UI#DATE_PICKER_STYLE_COMPACT).\n\n* [PICKER_TYPE_PLAIN](api:Titanium.UI#PICKER_TYPE_PLAIN) that also have property\n[useSpinner](api:Titanium.UI.Picker#useSpinner) set `false` to show a drop-down picker.\n",
       "type": [
@@ -71,11 +86,15 @@
       "since": "10.0.1",
       "availability": "creation",
       "default": "<Titanium.UI.INPUT_BORDERSTYLE_FILLED>",
-      "constants": ["Titanium.UI.INPUT_BORDERSTYLE_*"]
+      "constants": [
+        "Titanium.UI.INPUT_BORDERSTYLE_*"
+      ]
     },
     {
       "name": "calendarViewShown",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Determines whether the calenderView is visible.\n",
       "description": "If 'calendarViewShown' is 'true', the calenderView is visible\n",
       "type": [
@@ -88,7 +107,9 @@
     },
     {
       "name": "color",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Text color of the Picker",
       "type": [
         {
@@ -107,7 +128,12 @@
     },
     {
       "name": "columns",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Columns used for this picker, as an array of [Titanium.UI.PickerColumn](api:Titanium.UI.PickerColumn) objects.",
       "description": "You can only set columns for the plain picker.  If you set the type to anything\nelse except `Titanium.UI.PICKER_TYPE_PLAIN`, you cannot modify the columns.\n\nIn an Alloy application you can specify this property with a `<PickerColumn>` (or `<Column>`)\nelement that contains one or more `<PickerRow>` (or `<Row>`) elements, as shown below:\n\n``` xml\n<Alloy>\n    <Window>\n        <Picker useSpinner=\"true\">\n            <PickerColumn id=\"column1\">\n                <PickerRow title=\"Bananas\"/>\n                <PickerRow title=\"Strawberries\"/>\n                <PickerRow title=\"Mangos\"/>\n            </PickerColumn>\n            <!-- Picker shorthand notation -->\n            <Column id=\"column2\">\n                <Row title=\"red\"/>\n                <Row title=\"green\"/>\n                <Row title=\"blue\"/>\n            </Column>\n        </Picker>\n    </Window>\n</Alloy>\n```\n",
       "type": [
@@ -125,7 +151,11 @@
     },
     {
       "name": "countDownDuration",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Duration in milliseconds used for a Countdown Timer picker.",
       "description": "Applicable to [Titanium.UI.PICKER_TYPE_COUNT_DOWN_TIMER](api:Titanium.UI#PICKER_TYPE_COUNT_DOWN_TIMER) picker types.\n",
       "type": [
@@ -137,7 +167,12 @@
     },
     {
       "name": "datePickerStyle",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Determines how a date or time picker should appear.",
       "description": "Used to display the picker has calendar/clock view, as wheel spinners, or\nas a field which displays selection dialog when tapped on.\n\nThis property is ignored if the [type](api:Titanium.UI.Picker#type) property is set to\n[Titanium.UI.PICKER_TYPE_PLAIN](api:Titanium.UI#PICKER_TYPE_PLAIN).\n",
       "type": [
@@ -159,11 +194,16 @@
           "min": "13.4"
         }
       },
-      "constants": ["Titanium.UI.DATE_PICKER_STYLE_*"]
+      "constants": [
+        "Titanium.UI.DATE_PICKER_STYLE_*"
+      ]
     },
     {
       "name": "dateTimeColor",
-      "platforms": ["iphone", "ipad"],
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
       "summary": "Sets the text color of date- and time-pickers.",
       "description": "Applicable to [Titanium.UI.PICKER_TYPE_TIME](api:Titanium.UI#PICKER_TYPE_TIME) and [Titanium.UI.PICKER_TYPE_DATE_AND_TIME](api:Titanium.UI#PICKER_TYPE_DATE_AND_TIME) picker types.\nThe picker type [Titanium.UI.PICKER_TYPE_DATE](api:Titanium.UI#PICKER_TYPE_DATE) does not support text customizing as stated in the\n[UIKit User Interface Catalog](https://developer.apple.com/documentation/uikit/uidatepicker).\n\nImportant: On iOS 14+, you also have to set the [Titanium.UI.Picker.datePickerStyle](api:Titanium.UI.Picker#datePickerStyle) to\n[Titanium.UI.DATE_PICKER_STYLE_WHEELS](api:Titanium.UI#DATE_PICKER_STYLE_WHEELS) in order to use this property.\n",
       "type": [
@@ -181,7 +221,9 @@
     },
     {
       "name": "font",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Font to use for text.",
       "description": "Only applicable to [Titanium.UI.PICKER_TYPE_DATE](api:Titanium.UI#PICKER_TYPE_DATE) and [Titanium.UI.PICKER_TYPE_TIME](api:Titanium.UI#PICKER_TYPE_TIME)\npicker types for android. For [Titanium.UI.PICKER_TYPE_PLAIN](api:Titanium.UI#PICKER_TYPE_PLAIN), refer to [Titanium.UI.PickerColumn](api:Titanium.UI.PickerColumn)\nfor android, and [Titanium.UI.PickerRow](api:Titanium.UI.PickerRow) for iphone / ipad.\n",
       "type": [
@@ -193,7 +235,9 @@
     },
     {
       "name": "format24",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Determines whether the Time pickers display in 24-hour or 12-hour clock format.\n",
       "description": "Only applicable to pickers of type [Titanium.UI.PICKER_TYPE_TIME](api:Titanium.UI#PICKER_TYPE_TIME).\n\nWhen this property is set `true`, a time picker is displayed with hours 0 through 23.\nWhen set `false`, hours will be 1 through 12 with am/pm controls.\n",
       "type": [
@@ -206,7 +250,9 @@
     },
     {
       "name": "hintText",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Text to be shown above date/time when picker is shown as a text field or drop-down field.",
       "description": "This is an Android only property which only applies to pickers of type:\n\n* [PICKER_TYPE_DATE](api:Titanium.UI#PICKER_TYPE_DATE) or [PICKER_TYPE_TIME](api:Titanium.UI#PICKER_TYPE_TIME)\nthat also have [datePickerStyle](api:Titanium.UI.Picker#datePickerStyle) set to\n[DATE_PICKER_STYLE_COMPACT](api:Titanium.UI#DATE_PICKER_STYLE_COMPACT).\n\n* [PICKER_TYPE_PLAIN](api:Titanium.UI#PICKER_TYPE_PLAIN) that also have property\n[useSpinner](api:Titanium.UI.Picker#useSpinner) set `false` to show a drop-down picker.\n",
       "type": [
@@ -220,7 +266,9 @@
     },
     {
       "name": "locale",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Locale used when displaying Date and Time picker values.",
       "description": "Applicable to [Titanium.UI.PICKER_TYPE_DATE](api:Titanium.UI#PICKER_TYPE_DATE), [Titanium.UI.PICKER_TYPE_TIME](api:Titanium.UI#PICKER_TYPE_TIME) and\n[Titanium.UI.PICKER_TYPE_DATE_AND_TIME](api:Titanium.UI#PICKER_TYPE_DATE_AND_TIME) picker types.\n\nLocale must be represented as a combination of ISO 2-letter language and country codes.\nFor example, `en-US` or `en-GB`. See the\n[ISO 639-1](http://en.wikipedia.org/wiki/ISO_639-1) and\n[ISO 3166-1 alpha-2](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements)\nsections of wikipedia for reference.\n\nOn iOS, the system locale is always used.\n",
       "type": [
@@ -233,7 +281,12 @@
     },
     {
       "name": "maxDate",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Maximum date displayed when a Date picker is in use.",
       "description": "Applicable to [Titanium.UI.PICKER_TYPE_DATE](api:Titanium.UI#PICKER_TYPE_DATE) and [Titanium.UI.PICKER_TYPE_DATE_AND_TIME](api:Titanium.UI#PICKER_TYPE_DATE_AND_TIME)\npicker types.\n\nFor JavaScript files, use a JavaScript Date object.\n\nFor Alloy XML and TSS files, use a date string that can be parsed by the\n[moment.js constructor](http://momentjs.com/docs/#/parsing/string/),\nwhich includes ISO-8601 and RFC2822 dates.\n\nThis property is ignored when `maxDate` is less than `minDate`.\n",
       "type": [
@@ -245,7 +298,12 @@
     },
     {
       "name": "minDate",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Minimum date displayed when a Date picker is in use.",
       "description": "Applicable to [Titanium.UI.PICKER_TYPE_DATE](api:Titanium.UI#PICKER_TYPE_DATE) and [Titanium.UI.PICKER_TYPE_DATE_AND_TIME](api:Titanium.UI#PICKER_TYPE_DATE_AND_TIME)\npicker types.\n\nFor JavaScript files, use a JavaScript Date object.\n\nFor Alloy XML and TSS files, use a date string that can be parsed by the\n[moment.js constructor](http://momentjs.com/docs/#/parsing/string/),\nwhich includes ISO-8601 and RFC2822 dates.\n\nThis property is ignored when `maxDate` is less than `minDate`.\n",
       "type": [
@@ -257,7 +315,11 @@
     },
     {
       "name": "minuteInterval",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Interval in minutes displayed when one of the Time types of pickers is in use.\n",
       "description": "Applicable to [Titanium.UI.PICKER_TYPE_TIME](api:Titanium.UI#PICKER_TYPE_TIME) and [Titanium.UI.PICKER_TYPE_DATE_AND_TIME](api:Titanium.UI#PICKER_TYPE_DATE_AND_TIME)\npicker types.\n\nThe minimum permitted value is 1 and maximum is 30. If the value cannot be evenly divided\ninto 60, the default value is used.\n",
       "type": [
@@ -270,7 +332,9 @@
     },
     {
       "name": "nativeSpinner",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Determines if a multi-column spinner or single column drop-down picker should be used.",
       "description": "This property is intended to be used by time picker types.\n\nIf `true`, Android will show hour, minute, and am/pm spinners like iOS.\n\nIf `false`, Android will display a clock view.\n\nIf `undefined` with Titanium 10.0.1 or higher, the\n[datePickerStyle](api:Titanium.UI.Picker#datePickerStyle) property is used.\n\nAs of Titanium 10.0.1, this property has the same effect as the\n[useSpinner](api:Titanium.UI.Picker#useSpinner) property which also shows a native spinner.\n\n``` js\nconst picker = Ti.UI.createPicker({\n    type: Ti.UI.PICKER_TYPE_TIME,\n    nativeSpinner: true,\n    format24: false,\n    minuteInterval: 4,\n    minDate: new Date(2018, 5, 24),\n    maxDate: new Date(2020, 5, 24),\n    value: new Date(2019, 5, 24)\n});\n```\n",
       "type": [
@@ -285,7 +349,12 @@
     },
     {
       "name": "overrideUserInterfaceStyle",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Forces the picker to used assigned theme instead of the system theme.",
       "description": "When set to [USER_INTERFACE_STYLE_DARK](api:Titanium.UI#USER_INTERFACE_STYLE_DARK) or\n[USER_INTERFACE_STYLE_LIGHT](api:Titanium.UI#USER_INTERFACE_STYLE_LIGHT), the picker will ignore\nthe system's current theme and use the theme assigned to this property instead.\n\nWhen set to [USER_INTERFACE_STYLE_UNSPECIFIED](api:Titanium.UI#USER_INTERFACE_STYLE_UNSPECIFIED),\nthe picker will use the system's current theme.\n",
       "type": [
@@ -301,11 +370,15 @@
           "min": "13.0"
         }
       },
-      "constants": ["Titanium.UI.USER_INTERFACE_STYLE_*"]
+      "constants": [
+        "Titanium.UI.USER_INTERFACE_STYLE_*"
+      ]
     },
     {
       "name": "selectionIndicator",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Determines whether the visual selection indicator is shown.\n",
       "description": "As of Titanium 10.0.1, this property will be ignored and Android will always show an indicator.\n",
       "type": [
@@ -322,7 +395,9 @@
     },
     {
       "name": "selectionOpens",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Determines whether calling the method `setSelectedRow` opens when called\n",
       "description": "If `true`, selection will open when `setSelectedRow` is called.\n\nIf `false`, selection will not open when `setSelectedRow` is called.\n",
       "type": [
@@ -336,7 +411,9 @@
     },
     {
       "name": "textAlign",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Horizontal text alignment of the date picker when using [Titanium.UI.PICKER_TYPE_DATE](api:Titanium.UI#PICKER_TYPE_DATE).\n",
       "type": [
         {
@@ -350,11 +427,18 @@
       ],
       "since": "12.4.0",
       "default": "<Titanium.UI.TEXT_ALIGNMENT_LEFT>,",
-      "constants": ["Titanium.UI.TEXT_ALIGNMENT_*"]
+      "constants": [
+        "Titanium.UI.TEXT_ALIGNMENT_*"
+      ]
     },
     {
       "name": "type",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Determines the type of picker displayed",
       "description": "You can only set columns for the plain picker.  If you set the type to anything\nelse except `Titanium.UI.PICKER_TYPE_PLAIN`, you cannot modify the columns.\n\n`PICKER_TYPE_DATE_AND_TIME` is only available for iOS.\n`PICKER_TYPE_COUNT_DOWN_TIMER` is only available for iOS.\n",
       "type": [
@@ -364,11 +448,15 @@
         }
       ],
       "default": "<Titanium.UI.PICKER_TYPE_PLAIN>",
-      "constants": ["Titanium.UI.PICKER_TYPE_*"]
+      "constants": [
+        "Titanium.UI.PICKER_TYPE_*"
+      ]
     },
     {
       "name": "useSpinner",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Determines if a multi-column spinner or single column drop-down picker should be used.",
       "description": "This property is intended to be used by plain picker types. When set on date/time pickers,\nthis property will override the [datePickerStyle](api:Titanium.UI.Picker#datePickerStyle) property.\n\nIf `true`, Android will show spinners for each column like iOS.\n\nIf `false`, Android will display the 1st column as a drop-down list picker and all other\ncolumns will be ignored.\n\nAs of Titanium 10.0.1, this property shows a native Android spinner widget like how the\n[nativeSpinner](api:Titanium.UI.Picker#nativeSpinner) property worked in older versions.\nOn older Titanium versions, this property shows a non-native custom spinner view.\n",
       "type": [
@@ -382,7 +470,12 @@
     },
     {
       "name": "value",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Date and time value for Date and Time pickers.",
       "description": "Applicable to [Titanium.UI.PICKER_TYPE_DATE](api:Titanium.UI#PICKER_TYPE_DATE), [Titanium.UI.PICKER_TYPE_TIME](api:Titanium.UI#PICKER_TYPE_TIME) and [Titanium.UI.PICKER_TYPE_DATE_AND_TIME](api:Titanium.UI#PICKER_TYPE_DATE_AND_TIME)\npicker types.\n\nFor JavaScript files, use a JavaScript Date object.\n\nFor Alloy XML and TSS files, use a date string that can be parsed by the\n[moment.js constructor](http://momentjs.com/docs/#/parsing/string/),\nwhich includes ISO-8601 and RFC2822 dates.\n",
       "type": [
@@ -394,7 +487,9 @@
     },
     {
       "name": "visibleItems",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Number of visible rows to display. This is only applicable to a plain picker and when the\n`useSpinner` is `true`.\n",
       "description": "The spinner-style Android picker shows 5 rows by default; one selected in the middle and 2\nabove and below. Set to an odd number to ensure the selected row is in the middle.\n",
       "type": [
@@ -413,7 +508,12 @@
   "methods": [
     {
       "name": "add",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Adds rows or columns to the picker.",
       "description": "Once you use this method to add rows and columns to a picker, you cannot remove or\nmanipulate them.\n",
       "parameters": [
@@ -455,7 +555,12 @@
     },
     {
       "name": "getSelectedRow",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Gets the selected row for a column, or `null` if none exists.",
       "parameters": [
         {
@@ -482,7 +587,11 @@
     },
     {
       "name": "reloadColumn",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Repopulates values for a column.",
       "parameters": [
         {
@@ -499,7 +608,12 @@
     },
     {
       "name": "setSelectedRow",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Selects a column's row.",
       "description": "On iOS, this method must be called after the picker is rendered.\nOn Android, the picker has a default value of 0 for both column and row index.\n",
       "parameters": [
@@ -539,7 +653,11 @@
     },
     {
       "name": "setValue",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Sets the date and time value property for Date pickers.",
       "description": "Applicable to the [Titanium.UI.PICKER_TYPE_DATE](api:Titanium.UI#PICKER_TYPE_DATE) and [Titanium.UI.PICKER_TYPE_DATE_AND_TIME](api:Titanium.UI#PICKER_TYPE_DATE_AND_TIME)\npicker types.\n",
       "deprecated": {
@@ -572,7 +690,9 @@
     },
     {
       "name": "showDatePickerDialog",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Shows Date picker as a modal dialog.",
       "description": "Applicable to the [Titanium.UI.PICKER_TYPE_DATE](api:Titanium.UI#PICKER_TYPE_DATE) picker type.\n\nSee \"Date Picker using showDatePickerDialog()\" for an example.\n",
       "parameters": [
@@ -590,7 +710,9 @@
     },
     {
       "name": "showTimePickerDialog",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Shows Time picker as a modal dialog.",
       "description": "Applicable to the [Titanium.UI.PICKER_TYPE_TIME](api:Titanium.UI#PICKER_TYPE_TIME) picker type.\n\nSee \"Date Picker using showDatePickerDialog()\" for a similar example.\n",
       "parameters": [
@@ -610,7 +732,12 @@
   "events": [
     {
       "name": "change",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when the value of any column's row is changed.",
       "properties": [
         {
@@ -693,7 +820,9 @@
     },
     {
       "name": "click",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Fired when the device detects a click against the view.",
       "description": "This event is only available for non-spinner plain pickers.\n",
       "since": "3.0.0",
@@ -726,421 +855,755 @@
       {
         "name": "accessibilityDisableLongPress",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "accessibilityHidden",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "accessibilityHint",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "accessibilityLabel",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "accessibilityValue",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "animatedCenter",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "borderColor",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "borderRadius",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "borderWidth",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "bottom",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "clipMode",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "elevation",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "filterTouchesWhenObscured",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "focusable",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "height",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "hiddenBehavior",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "horizontalMotionEffect",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "horizontalWrap",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "id",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "keepHardwareMode",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "keepScreenOn",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "left",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "lifecycleContainer",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "opacity",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "overrideCurrentAnimation",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "previewContext",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone"]
+        "platforms": [
+          "iphone"
+        ]
       },
       {
         "name": "pullBackgroundColor",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "rect",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "right",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "rotation",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad"
+        ]
       },
       {
         "name": "rotationX",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "rotationY",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "scaleX",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "scaleY",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "size",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "softKeyboardOnFocus",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "tooltip",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "top",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "touchEnabled",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "touchFeedback",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "touchFeedbackColor",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "transform",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "transitionName",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "translationX",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "translationY",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "translationZ",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "verticalMotionEffect",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "viewShadowColor",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "viewShadowOffset",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "viewShadowRadius",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "visible",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "width",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "animate",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "clearMotionEffects",
         "from": "Titanium.UI.View",
-        "platforms": ["iphone", "ipad", "macos"]
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "convertPointToView",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "getViewById",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "hide",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "insertAt",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "show",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "stopAnimation",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "toImage",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "events": [
       {
         "name": "dblclick",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "doubletap",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "focus",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "keypressed",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "longclick",
         "from": "Titanium.UI.View",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "longpress",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "pinch",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "postlayout",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "rotate",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "singletap",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "swipe",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "touchcancel",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "touchend",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "touchmove",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "touchstart",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "twofingertap",
         "from": "Titanium.UI.View",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ]
   },

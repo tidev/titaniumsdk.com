@@ -3,8 +3,15 @@
   "name": "Titanium.UI.ListItem",
   "kind": "proxy",
   "extends": "Titanium.Proxy",
-  "inheritanceChain": ["Titanium.Proxy"],
-  "platforms": ["android", "iphone", "ipad", "macos"],
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": "3.1.0",
   "summary": "A list item is an individual item in a list section.",
   "description": "A list item is a combination of a [ListDataItem](api:ListDataItem) and [ItemTemplate](api:ItemTemplate).  The list data item\nrepresents the actual data, while the item template represents the style elements of the item.\n\nYou should not create `ListItem` objects with a JavaScript factory method, as you do other Titanium proxies.\nInstead, you should pass a [ListDataItem](api:ListDataItem) array to the `setItems` method of a `ListSection`. The list data items\ncontain the data you want to display in the list.\n\nAlloy applications can use **`<ListItem>`** elements to create `ListItem` objects. `<ListItem>` elements\nmust be nested inside a **`<ListSection>`** element, which itself is nested in a `<ListView>` element,\nas shown below:\n\n``` xml\n<Alloy>\n    <ListView id=\"list\">\n        <ListSection id=\"accounts\">\n            <ListItem image=\"images/checking_account.png\" title=\"Checking\"/>\n            <ListItem image=\"images/saving_account.png\" title=\"Savings\"/>\n        </ListSection>\n    </ListView>\n</Alloy>\n```\n\nBy default, only the `title`, `image` and `accessoryType` keys of the list data item's\n`properties` dictionary are displayed if an item template is not defined.  See \"Default List Items\"\nunder \"Examples\" section for an example of using the default template.\n\n\n#### Item Templates\n\nTo customize the style of a list item, use an item template to create your view structure.\n\nAdd key-value pairs of view properties and their values to the `properties` dictionary of the\nitem template to set view properties of the list item.\n\n**Note:** If possible, do not use `Ti.UI.SIZE` or non-static dimensions to set the\ndimensions of view elements in list items.  Instead, try to use static dimensions. Scrolling in\nthe list view may be jerky if you use non-static dimensions.\n\nAdd key-value pairs of event names and their callback functions (or array of callback functions\nfor multiple callback bindings) to the `events` dictionary of the  item template to bind callbacks\nto events, which are bubbled from the subcomponents of the item.\n\nAdd additional views, such as labels or image views, to the `childTemplates` array of the item\ntemplate. The child templates are item templates with two extra properties:\n\n- Set the `type` property to a Titanium view class, such as `Ti.UI.Label` or `Ti.UI.ImageView`,\n  to use that view in your template.\n- Set the `bindId` to bind the template to a custom property in the list data item. The custom\n  properties in the list data item contain key-value pairs of view properties and their values.\n\nA list template supports the following view classes:\n\n  * [Titanium.UI.ActivityIndicator](api:Titanium.UI.ActivityIndicator)\n  * [Titanium.UI.Button](api:Titanium.UI.Button)\n  * [Titanium.UI.ButtonBar](api:Titanium.UI.ButtonBar)\n  * [Titanium.UI.ImageView](api:Titanium.UI.ImageView)\n  * [Titanium.UI.Label](api:Titanium.UI.Label)\n  * [Titanium.UI.MaskedImage](api:Titanium.UI.MaskedImage)\n  * [Titanium.UI.ProgressBar](api:Titanium.UI.ProgressBar)\n  * [Titanium.UI.Picker](api:Titanium.UI.Picker)\n  * [Titanium.UI.ScrollableView](api:Titanium.UI.ScrollableView)\n  * [Titanium.UI.Slider](api:Titanium.UI.Slider)\n  * [Titanium.UI.Switch](api:Titanium.UI.Switch)\n  * [Titanium.UI.TextArea](api:Titanium.UI.TextArea)\n  * [Titanium.UI.TextField](api:Titanium.UI.TextField)\n  * [Titanium.UI.iOS.BlurView](api:Titanium.UI.iOS.BlurView)\n  * [Titanium.UI.iOS.LivePhotoView](api:Titanium.UI.iOS.LivePhotoView)\n  * [Titanium.UI.iOS.Stepper](api:Titanium.UI.iOS.Stepper)\n  * [Titanium.UI.iOS.TabbedBar](api:Titanium.UI.iOS.TabbedBar)\n\nFor example, suppose you have a list data item defined as `{foo:{text: 'foobar'}}` and an item\ntemplate defined as `{childTemplates: [{type: 'Ti.UI.Label', bindId: 'foo'}]}`.  The `foo`\nproperty in the list data item binds to the label in the template, which sets the `text`\nproperty of the label in the template to the `text` property in the list data item.\n\nTo bind the list data item to an item template, use the [Titanium.UI.ListView.templates](api:Titanium.UI.ListView#templates)\nproperty to map the template to a style name, then use the style name to either set the\n[Titanium.UI.ListView.defaultItemTemplate](api:Titanium.UI.ListView#defaultItemTemplate) property to globally set the style for all items or set the\n`template` property of the list data item to override or individually set the style.\n\nOn iOS, you can specify one of the template constants for the [ListDataItem.template](api:ListDataItem#template) property\nor [Titanium.UI.ListView.defaultItemTemplate](api:Titanium.UI.ListView#defaultItemTemplate) property: [Titanium.UI.LIST_ITEM_TEMPLATE_CONTACTS](api:Titanium.UI#LIST_ITEM_TEMPLATE_CONTACTS),\n[Titanium.UI.LIST_ITEM_TEMPLATE_SETTINGS](api:Titanium.UI#LIST_ITEM_TEMPLATE_SETTINGS) or [Titanium.UI.LIST_ITEM_TEMPLATE_SUBTITLE](api:Titanium.UI#LIST_ITEM_TEMPLATE_SUBTITLE).\n\n#### Eventing\n\nUnlike other views, you cannot use the `addEventListener` method to bind callbacks to events for a\nListItem.\n\nUse list view's [itemclick](api:Titanium.UI.ListView#itemclick) event to monitor click events on\nitems in the list view. Do not rely on the `source` property to determine which item fired the\nevent.  Either use the `sectionIndex` and `itemIndex`, or the `itemId` to determine the list item\nthat generated the event and use the `bindId` to check which child control fired the event.\nSee \"Default List Item\" under \"Examples\" section for an example of using the `itemclick` event.\n\nTo monitor events that bubble to the `ListItem` or to monitor events of the view subcomponents,\nbind them to the item by using the `events` dictionary of the item template or the child view\ntemplates respectively. Add the bindings as key-value pairs, where the key is the event name\nand the value is the callback (or array of callbacks for multiple bindings). See \"List Items\nwith an Item Template\" under \"Examples\" section for an example of binding a `click` event to an\nitem using an item template.\n",
@@ -25,7 +32,12 @@
   "properties": [
     {
       "name": "accessoryType",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Sets an accessory on the right side of an item.",
       "type": [
         {
@@ -34,11 +46,18 @@
         }
       ],
       "default": "Titanium.UI.LIST_ACCESSORY_TYPE_NONE",
-      "constants": ["Titanium.UI.LIST_ACCESSORY_TYPE_*"]
+      "constants": [
+        "Titanium.UI.LIST_ACCESSORY_TYPE_*"
+      ]
     },
     {
       "name": "backgroundColor",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Background color of the view, as a color name or hex triplet.",
       "description": "For information about color values, see the \"Colors\" section of [Titanium.UI](api:Titanium.UI).\n",
       "type": [
@@ -55,7 +74,12 @@
     },
     {
       "name": "backgroundGradient",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Background gradient to render when the item is not selected.",
       "type": [
         {
@@ -67,7 +91,12 @@
     },
     {
       "name": "backgroundImage",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Background image to render when the item is not selected.",
       "description": "Must be a local resource.\n",
       "type": [
@@ -80,7 +109,12 @@
     },
     {
       "name": "backgroundSelectedColor",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Background color of the view, as a color name or hex triplet when item is selected.",
       "description": "On Android, clicking on ListItem's sub-views will not trigger this unless these views have 'touchEnabled' set to false.\nFor information about color values, see the \"Colors\" section of [Titanium.UI](api:Titanium.UI).\n",
       "type": [
@@ -98,7 +132,11 @@
     },
     {
       "name": "backgroundSelectedGradient",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Background gradient to render when the item is selected.",
       "type": [
         {
@@ -110,7 +148,12 @@
     },
     {
       "name": "backgroundSelectedImage",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Background image to render when the item is selected.",
       "description": "Must be a local resource.\nOn Android, clicking on ListItem's sub-views will not trigger this unless these views have 'touchEnabled' set to false.\n",
       "type": [
@@ -123,7 +166,12 @@
     },
     {
       "name": "canEdit",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies if the item can be deleted by a user initiated action.",
       "description": "For more information see the \"Editing Support\" section of [Titanium.UI.ListView](api:Titanium.UI.ListView).\n",
       "type": [
@@ -142,7 +190,11 @@
     },
     {
       "name": "canInsert",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies if the item can be inserted by a user initiated action.",
       "description": "For more information see the \"Editing Support\" section of [Titanium.UI.ListView](api:Titanium.UI.ListView).\n",
       "type": [
@@ -156,7 +208,12 @@
     },
     {
       "name": "canMove",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies if the item can be reordered within the list view by a user initiated action.",
       "description": "For more information see the \"Editing Support\" section of [Titanium.UI.ListView](api:Titanium.UI.ListView).\n",
       "type": [
@@ -175,7 +232,12 @@
     },
     {
       "name": "color",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Default text color of the item when not selected, as a color name or hex triplet.",
       "description": "For information about color values, see the \"Colors\" section of [Titanium.UI](api:Titanium.UI).\n\nOn Android, `selectedColor` is not supported, so the text is always displayed in this color.\n\nOnly applies to the built-in templates.\n",
       "type": [
@@ -191,7 +253,11 @@
     },
     {
       "name": "editActions",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies custom action items to be shown when when a list item is edited.",
       "description": "For more information see the \"Editing Support\" section of [Titanium.UI.ListView](api:Titanium.UI.ListView).\n",
       "type": [
@@ -210,7 +276,12 @@
     },
     {
       "name": "font",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Font to use for the item title.",
       "description": "Only applies to the built-in templates.\n",
       "type": [
@@ -223,7 +294,12 @@
     },
     {
       "name": "height",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Row height in platform-specific units.",
       "description": "On Android, the value can be either a float value or a dimension string, for example, '40dp'.\nBy default, the minimum height is 30 dp on the Android platform.\n\nOn iOS, the value can only be an absolute value.\n",
       "type": [
@@ -239,7 +315,12 @@
     },
     {
       "name": "image",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Image to render in the image area of the item, specified as a local path or URL.",
       "description": "On iOS, the image is on the left, and on Android, the image is on the right.\n\nOn Android, this image only appears on the default template.\n\nOn iOS, only local images are supported.\n\nOn iOS, this image only appears if the ListDataItem `template` property or ListView\n`defaultItemTemplate` property is either: [Titanium.UI.LIST_ITEM_TEMPLATE_DEFAULT](api:Titanium.UI#LIST_ITEM_TEMPLATE_DEFAULT),\n[Titanium.UI.LIST_ITEM_TEMPLATE_SETTINGS](api:Titanium.UI#LIST_ITEM_TEMPLATE_SETTINGS) or [Titanium.UI.LIST_ITEM_TEMPLATE_SUBTITLE](api:Titanium.UI#LIST_ITEM_TEMPLATE_SUBTITLE).\n",
       "type": [
@@ -251,7 +332,12 @@
     },
     {
       "name": "itemId",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "A user defined string that gets passed to events.",
       "type": [
         {
@@ -262,7 +348,12 @@
     },
     {
       "name": "searchableText",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "The text to match against when the [ListView](api:Titanium.UI.ListView) is performing a search.",
       "description": "Used in conjunction with [searchView](api:Titanium.UI.ListView#searchView), [searchText](api:Titanium.UI.ListView#searchText) and [caseInsensitiveSearch](api:Titanium.UI.ListView#caseInsensitiveSearch) properties of ListView.\n",
       "type": [
@@ -275,7 +366,12 @@
     },
     {
       "name": "selectedBackgroundColor",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Background color of the view, as a color name or hex triplet when item is selected.",
       "description": "On Android, clicking on ListItem's sub-views will not trigger this unless these views have 'touchEnabled' set to false.\nFor information about color values, see the \"Colors\" section of [Titanium.UI](api:Titanium.UI).\n",
       "type": [
@@ -297,7 +393,11 @@
     },
     {
       "name": "selectedBackgroundGradient",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Background gradient to render when the item is selected.",
       "type": [
         {
@@ -313,7 +413,12 @@
     },
     {
       "name": "selectedBackgroundImage",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Background image to render when the item is selected.",
       "description": "Must be a local resource.\nOn Android, clicking on ListItem's sub-views will not trigger this unless these views have 'touchEnabled' set to false.\n",
       "type": [
@@ -330,7 +435,11 @@
     },
     {
       "name": "selectedColor",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Color to use for the item title when the item is selected, as a color name or hex triplet.",
       "description": "This property is only used on iOS.\n\nFor information about color values, see the \"Colors\" section of [Titanium.UI](api:Titanium.UI).\n",
       "type": [
@@ -347,7 +456,11 @@
     },
     {
       "name": "selectedSubtitleColor",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Color to use for the item subtitle when the item is selected, as a color name or hex triplet.",
       "description": "This property is only used on iOS and if the ListDataItem `template` property or ListView\n`defaultItemTemplate` property is either: [Titanium.UI.LIST_ITEM_TEMPLATE_SUBTITLE](api:Titanium.UI#LIST_ITEM_TEMPLATE_SUBTITLE),\n[Titanium.UI.LIST_ITEM_TEMPLATE_CONTACTS](api:Titanium.UI#LIST_ITEM_TEMPLATE_CONTACTS) or [Titanium.UI.LIST_ITEM_TEMPLATE_SETTINGS](api:Titanium.UI#LIST_ITEM_TEMPLATE_SETTINGS).\n\nFor information about color values, see the \"Colors\" section of [Titanium.UI](api:Titanium.UI).\n",
       "type": [
@@ -364,7 +477,12 @@
     },
     {
       "name": "selectionStyle",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Selection style constant to control the selection color.",
       "description": "Specify one of the constants from <Titanium.UI.SELECTION_STYLE_*>.\n",
       "type": [
@@ -379,11 +497,17 @@
         "ipad": "5.4.0",
         "macos": "9.2.0"
       },
-      "constants": ["Titanium.UI.SELECTION_STYLE_*"]
+      "constants": [
+        "Titanium.UI.SELECTION_STYLE_*"
+      ]
     },
     {
       "name": "subtitle",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Subtitle to set in the text area of the item.",
       "description": "This subtitle only appears if the ListDataItem `template` property or ListView\n`defaultItemTemplate` property is set to either: [Titanium.UI.LIST_ITEM_TEMPLATE_CONTACTS](api:Titanium.UI#LIST_ITEM_TEMPLATE_CONTACTS),\n[Titanium.UI.LIST_ITEM_TEMPLATE_SETTINGS](api:Titanium.UI#LIST_ITEM_TEMPLATE_SETTINGS) or [Titanium.UI.LIST_ITEM_TEMPLATE_SUBTITLE](api:Titanium.UI#LIST_ITEM_TEMPLATE_SUBTITLE).\n",
       "type": [
@@ -395,7 +519,11 @@
     },
     {
       "name": "subtitleColor",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Default text color of the subtitle, as a color name or hex triplet.",
       "description": "This property is only used on iOS and if the ListDataItem `template` property or ListView\n`defaultItemTemplate` property is either: [Titanium.UI.LIST_ITEM_TEMPLATE_SUBTITLE](api:Titanium.UI#LIST_ITEM_TEMPLATE_SUBTITLE),\n[Titanium.UI.LIST_ITEM_TEMPLATE_CONTACTS](api:Titanium.UI#LIST_ITEM_TEMPLATE_CONTACTS) or [Titanium.UI.LIST_ITEM_TEMPLATE_SETTINGS](api:Titanium.UI#LIST_ITEM_TEMPLATE_SETTINGS).\n",
       "type": [
@@ -412,7 +540,12 @@
     },
     {
       "name": "title",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Title to set in the text area of the item.",
       "description": "This title only appears for the built-in templates.\n",
       "type": [
@@ -430,12 +563,19 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "lifecycleContainer",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ],
     "methods": [],

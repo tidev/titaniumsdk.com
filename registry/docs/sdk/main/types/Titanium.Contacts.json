@@ -3,8 +3,16 @@
   "name": "Titanium.Contacts",
   "kind": "module",
   "extends": "Titanium.Module",
-  "inheritanceChain": ["Titanium.Module", "Titanium.Proxy"],
-  "platforms": ["android", "iphone", "ipad", "macos"],
+  "inheritanceChain": [
+    "Titanium.Module",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
   "since": {
     "iphone": "0.8",
     "ipad": "0.8",
@@ -34,7 +42,12 @@
   "properties": [
     {
       "name": "AUTHORIZATION_AUTHORIZED",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "A [contactsAuthorization](api:Titanium.Contacts#contactsAuthorization) value\nindicating that the application is authorized to use the address book.\n",
       "description": "This value is always returned on Android devices, as well as on iOS versions earlier than 6.0.\n",
       "type": [
@@ -53,7 +66,12 @@
     },
     {
       "name": "AUTHORIZATION_DENIED",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "A [contactsAuthorization](api:Titanium.Contacts#contactsAuthorization) value\nindicating that the application is not authorized to use the address book.\n",
       "type": [
         {
@@ -71,7 +89,12 @@
     },
     {
       "name": "AUTHORIZATION_UNKNOWN",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "A [contactsAuthorization](api:Titanium.Contacts#contactsAuthorization) value\nindicating that the authorization state is unknown.\n",
       "type": [
         {
@@ -89,7 +112,12 @@
     },
     {
       "name": "CONTACTS_KIND_ORGANIZATION",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies that a contact is an organization.",
       "description": "Used with the [Titanium.Contacts.Person.kind](api:Titanium.Contacts.Person#kind) property.\n\nOne of the group of contact \"kind\" constants\n[CONTACTS_KIND_ORGANIZATION](api:Titanium.Contacts#CONTACTS_KIND_ORGANIZATION),\nand [CONTACTS_KIND_PERSON](api:Titanium.Contacts#CONTACTS_KIND_PERSON).\n",
       "type": [
@@ -102,7 +130,12 @@
     },
     {
       "name": "CONTACTS_KIND_PERSON",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies that a contact is a person.",
       "description": "Used with the [Titanium.Contacts.Person.kind](api:Titanium.Contacts.Person#kind) property.\nOne of the group of contact \"kind\" constants [CONTACTS_KIND_ORGANIZATION](api:Titanium.Contacts#CONTACTS_KIND_ORGANIZATION), and [CONTACTS_KIND_PERSON](api:Titanium.Contacts#CONTACTS_KIND_PERSON).",
       "type": [
@@ -115,7 +148,12 @@
     },
     {
       "name": "CONTACTS_SORT_FIRST_NAME",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies that group members will be sorted by first name.",
       "description": "Used with the [Titanium.Contacts.Group.sortedMembers](api:Titanium.Contacts.Group#sortedMembers) method.\nOne of the group of contact group \"sort\" constants [CONTACTS_SORT_FIRST_NAME](api:Titanium.Contacts#CONTACTS_SORT_FIRST_NAME), and [CONTACTS_SORT_LAST_NAME](api:Titanium.Contacts#CONTACTS_SORT_LAST_NAME).",
       "type": [
@@ -128,7 +166,12 @@
     },
     {
       "name": "CONTACTS_SORT_LAST_NAME",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Specifies that group members will be sorted by last name.",
       "description": "Used with the [Titanium.Contacts.Group.sortedMembers](api:Titanium.Contacts.Group#sortedMembers) method.\nOne of the group of contact group \"sort\" constants [CONTACTS_SORT_FIRST_NAME](api:Titanium.Contacts#CONTACTS_SORT_FIRST_NAME), and [CONTACTS_SORT_LAST_NAME](api:Titanium.Contacts#CONTACTS_SORT_LAST_NAME).",
       "type": [
@@ -141,7 +184,12 @@
     },
     {
       "name": "contactsAuthorization",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Returns an authorization constant indicating if the application has access to the address book.",
       "description": "Always returns `AUTHORIZATION_AUTHORIZED` on iOS pre-6.0 and Android devices.\n\nIf `contactsAuthorization` is `AUTHORIZATION_RESTRICTED`, you should not\nattempt to re-authorize: this will lead to issues.\n",
       "type": [
@@ -157,11 +205,17 @@
         "macos": "9.2.0"
       },
       "permission": "read-only",
-      "constants": ["Titanium.Contacts.AUTHORIZATION_*"]
+      "constants": [
+        "Titanium.Contacts.AUTHORIZATION_*"
+      ]
     },
     {
       "name": "includeNote",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "A boolean value that indicates whether to fetch the notes stored in contacts or not.",
       "description": "This  property need to be set before calling contacts APIs.\nFrom iOS 13 or later if your app fetch note field from contact, the app must have to set key 'com.apple.developer.contacts.notes' to 'true' in entitlements section of tiapp.xml.\n\n``` xml\n<key>com.apple.developer.contacts.notes</key>\n<true/>\n```\n\nSee more details at https://developer.apple.com/documentation/bundleresources/entitlements/com_apple_developer_contacts_notes and https://developer.apple.com/contact/request/contact-note-field.\n",
       "type": [
@@ -181,7 +235,11 @@
   "methods": [
     {
       "name": "createGroup",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.Contacts.Group](api:Titanium.Contacts.Group).",
       "description": "This method must be followed by [Titanium.Contacts.save](api:Titanium.Contacts#save) to commit its changes.\n",
       "since": {
@@ -219,7 +277,12 @@
     },
     {
       "name": "createPerson",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Creates and returns an instance of [Titanium.Contacts.Person](api:Titanium.Contacts.Person), and commits all pending\nchanges to the underlying contacts database.\n",
       "since": {
         "android": "2.1.0"
@@ -256,7 +319,11 @@
     },
     {
       "name": "getAllGroups",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Gets all groups.",
       "returns": [
         {
@@ -277,7 +344,12 @@
     },
     {
       "name": "getAllPeople",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Gets all people, unless a limit is specified.",
       "parameters": [
         {
@@ -310,7 +382,11 @@
     },
     {
       "name": "getGroupByIdentifier",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Gets the group with the specified identifier.",
       "since": {
         "iphone": "5.0.0",
@@ -342,7 +418,12 @@
     },
     {
       "name": "getPeopleWithName",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Gets people with a `firstName`, `middleName` or `lastName` field, or a combination\nof these fields, that match the specified name.\n",
       "parameters": [
         {
@@ -375,7 +456,12 @@
     },
     {
       "name": "getPersonByIdentifier",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Gets the person with the specified identifier.",
       "since": "5.0.0",
       "parameters": [
@@ -403,7 +489,12 @@
     },
     {
       "name": "hasContactsPermissions",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Returns `true` if the app has contacts access.",
       "since": {
         "android": "5.1.0",
@@ -424,7 +515,11 @@
     },
     {
       "name": "removeGroup",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Removes a group from the address book.",
       "description": "This method must be followed by [Titanium.Contacts.save](api:Titanium.Contacts#save) to commit its changes.\n",
       "parameters": [
@@ -442,7 +537,12 @@
     },
     {
       "name": "removePerson",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Removes a contact from the address book.",
       "description": "On iOS:\n\nThis method must be followed by a save action to commit the data to the underlying database,\nwhich can be done explicitly using [Titanium.Contacts.save](api:Titanium.Contacts#save) or implicitly using\n[Titanium.Contacts.createPerson](api:Titanium.Contacts#createPerson). Although the [Titanium.Contacts.Person](api:Titanium.Contacts.Person) object will still\nexist once committed, it will no longer be valid. Continuing to use it will result in\nunpredictable behavior, including crashes.\n\nOn Android:\n\nThis method will remove the person from the Contacts book automatically.\n",
       "since": {
@@ -463,7 +563,12 @@
     },
     {
       "name": "requestContactsPermissions",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Requests for contacts access.",
       "description": "On Android, the request view will show if the permission is not accepted by the user, and the user did\nnot check the box \"Never ask again\" when denying the request. If the user checks the box \"Never ask again,\"\nthe user has to manually enable the permission in device settings.\n\nThis method requests `Manifest.permission.READ_CONTACTS` and `Manifest.permission.WRITE_CONTACTS` on Android.\nIf you require other permissions, you can also use [Titanium.Android.requestPermissions](api:Titanium.Android#requestPermissions).\n\nIn iOS 6, Apple introduced the Info.plist key `NSContactsUsageDescription` that is used to display an\nown description while authorizing contacts permissions. In iOS 10, this key is mandatory and the application\nwill crash if your app does not include the key. Check the [Apple docs](https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html) for more information.\n",
       "since": {
@@ -511,7 +616,12 @@
     },
     {
       "name": "save",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Commits all pending changes to the underlying contacts database.",
       "description": "On Android:\n\nTakes an array of [Titanium.Contacts.Person](api:Titanium.Contacts.Person) objects and saves changes for\nthe specified contacts only.\n",
       "since": {
@@ -538,7 +648,12 @@
     },
     {
       "name": "showContacts",
-      "platforms": ["android", "iphone", "ipad", "macos"],
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Displays a picker that allows a person to be selected.",
       "parameters": [
         {
@@ -556,7 +671,12 @@
             "properties": [
               {
                 "name": "animated",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Determines whether to animate the show/hide of the contacts picker (iPhone, iPad only.)",
                 "type": [
                   {
@@ -569,7 +689,12 @@
               },
               {
                 "name": "cancel",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Function to call when selection is canceled.",
                 "type": [
                   {
@@ -587,7 +712,12 @@
               },
               {
                 "name": "fields",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Field names to show when selecting properties. By default, shows all available.",
                 "type": [
                   {
@@ -604,7 +734,12 @@
               },
               {
                 "name": "selectedPerson",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Function to call when a person is selected. Must not be used with `selectedProperty` property.\n",
                 "type": [
                   {
@@ -622,7 +757,11 @@
               },
               {
                 "name": "selectedProperty",
-                "platforms": ["iphone", "ipad", "macos"],
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Function to call when a property is selected. Must not be used with `selectedPerson`\nproperty.\nNote: If ringtone or texttone is selected, null values are returned, since these are unsupported\nby Apple.\nSince iOS 9.0, there is a native apple issue whereby it may return null if the birthday property\nis selected on certain device models.\nThe callback contains the selected property and a 'person' object of type [Titanium.Contacts.Person](api:Titanium.Contacts.Person).\nSince iOS 9.0, apple only returns the person object with partial information. Currently it is known to\nat least contain the selected property and fullName.\n",
                 "type": [
                   {
@@ -647,7 +786,11 @@
   "events": [
     {
       "name": "reload",
-      "platforms": ["iphone", "ipad", "macos"],
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
       "summary": "Fired when the database backing the contacts module is modified externally.",
       "description": "If you have an existing reference to a `Person` or `Group` object, you should obtain\na new reference from the `Contacts` module. Using the existing object may result\nin unpredictable behavior, such as updating the wrong contact.\n",
       "since": {
@@ -662,39 +805,71 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "lifecycleContainer",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android", "iphone", "ipad", "macos"]
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
       }
     ],
     "events": []

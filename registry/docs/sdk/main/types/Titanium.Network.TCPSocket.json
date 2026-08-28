@@ -3,8 +3,13 @@
   "name": "Titanium.Network.TCPSocket",
   "kind": "proxy",
   "extends": "Titanium.Proxy",
-  "inheritanceChain": ["Titanium.Proxy"],
-  "platforms": ["iphone", "ipad"],
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "iphone",
+    "ipad"
+  ],
   "since": "1.2.0",
   "deprecated": {
     "since": "1.7.0",
@@ -16,7 +21,10 @@
   "properties": [
     {
       "name": "hostName",
-      "platforms": ["iphone", "ipad"],
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
       "summary": "the host name to connect to.  Must be <Titanium.Network.INADDR_ANY> or an identifier for the local device in order to listen",
       "type": [
         {
@@ -27,7 +35,10 @@
     },
     {
       "name": "isValid",
-      "platforms": ["iphone", "ipad"],
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
       "summary": "whether or not the socket is valid",
       "type": [
         {
@@ -38,7 +49,10 @@
     },
     {
       "name": "mode",
-      "platforms": ["iphone", "ipad"],
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
       "summary": "the socket's mode",
       "type": [
         {
@@ -49,7 +63,10 @@
     },
     {
       "name": "port",
-      "platforms": ["iphone", "ipad"],
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
       "summary": "the port to connect/listen on",
       "type": [
         {
@@ -60,7 +77,10 @@
     },
     {
       "name": "stripTerminator",
-      "platforms": ["iphone", "ipad"],
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
       "summary": "strip terminating null character when sending string data; default is false",
       "type": [
         {
@@ -73,22 +93,34 @@
   "methods": [
     {
       "name": "close",
-      "platforms": ["iphone", "ipad"],
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
       "summary": "close the socket"
     },
     {
       "name": "connect",
-      "platforms": ["iphone", "ipad"],
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
       "summary": "connect the socket to a TCP server"
     },
     {
       "name": "listen",
-      "platforms": ["iphone", "ipad"],
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
       "summary": "set up the socket to receive connections"
     },
     {
       "name": "write",
-      "platforms": ["iphone", "ipad"],
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
       "summary": "write data to the socket, if the mode is WRITE_MODE or READ_WRITE_MODE",
       "parameters": [
         {
@@ -121,7 +153,10 @@
   "events": [
     {
       "name": "read",
-      "platforms": ["iphone", "ipad"],
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
       "summary": "new data was read off the socket",
       "properties": [
         {
@@ -148,7 +183,10 @@
     },
     {
       "name": "readError",
-      "platforms": ["iphone", "ipad"],
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
       "summary": "an error occurred when reading",
       "properties": [
         {
@@ -185,7 +223,10 @@
     },
     {
       "name": "writeError",
-      "platforms": ["iphone", "ipad"],
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
       "summary": "an error occurred when writing",
       "properties": [
         {
@@ -226,38 +267,60 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad"]
+        "platforms": [
+          "iphone",
+          "ipad"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad"]
+        "platforms": [
+          "iphone",
+          "ipad"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad"]
+        "platforms": [
+          "iphone",
+          "ipad"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad"]
+        "platforms": [
+          "iphone",
+          "ipad"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad"]
+        "platforms": [
+          "iphone",
+          "ipad"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["iphone", "ipad"]
+        "platforms": [
+          "iphone",
+          "ipad"
+        ]
       }
     ],
     "events": []
   },
-  "references": ["Titanium.Blob", "Titanium.Network", "Titanium.Proxy"],
+  "references": [
+    "Titanium.Blob",
+    "Titanium.Network",
+    "Titanium.Proxy"
+  ],
   "source": "Titanium/Network/TCPSocket.yml"
 }

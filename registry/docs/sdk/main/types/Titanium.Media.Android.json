@@ -3,15 +3,22 @@
   "name": "Titanium.Media.Android",
   "kind": "module",
   "extends": "Titanium.Module",
-  "inheritanceChain": ["Titanium.Module", "Titanium.Proxy"],
-  "platforms": ["android"],
+  "inheritanceChain": [
+    "Titanium.Module",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android"
+  ],
   "since": "1.7.0",
   "summary": "Android-specific media-related functionality.",
   "properties": [],
   "methods": [
     {
       "name": "scanMediaFiles",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Scans newly created or downloaded media files to make them available to other\nAndroid media providers, such as the Gallery.\n",
       "description": "Android scans media files for inclusion in the Gallery and other media providers.\nUse this method to force an immediate scan of particular files, such as\nnewly-created or downloaded resources.\n    \nSee [MediaScannerConnection in the Android API Reference](https://developer.android.com/reference/android/media/MediaScannerConnection.html).\n",
       "parameters": [
@@ -69,7 +76,12 @@
             "properties": [
               {
                 "name": "path",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "Path to the media file that was scanned.",
                 "type": [
                   {
@@ -80,7 +92,12 @@
               },
               {
                 "name": "uri",
-                "platforms": ["android", "iphone", "ipad", "macos"],
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
                 "summary": "URI to the file if it was scanned and added to the media library, or `null`\nif the file was not added.\n",
                 "type": [
                   {
@@ -96,7 +113,9 @@
     },
     {
       "name": "setSystemWallpaper",
-      "platforms": ["android"],
+      "platforms": [
+        "android"
+      ],
       "summary": "Set the system homescreen wallpaper.",
       "description": "The image to use as the wallpaper must be passed as a [Titanium.Blob](api:Titanium.Blob). You can\ncreate a `Blob` from an image file by calling [File.read](api:Titanium.Filesystem.File#read). \nYou can also use the [Titanium.Media.openPhotoGallery](api:Titanium.Media#openPhotoGallery) \nor [Titanium.Media.showCamera](api:Titanium.Media#showCamera) methods to allow users to select an existing photo\nor take a new one.\n",
       "parameters": [
@@ -129,39 +148,53 @@
       {
         "name": "apiName",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "bubbleParent",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "lifecycleContainer",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ],
     "methods": [
       {
         "name": "addEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "applyProperties",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "fireEvent",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       },
       {
         "name": "removeEventListener",
         "from": "Titanium.Proxy",
-        "platforms": ["android"]
+        "platforms": [
+          "android"
+        ]
       }
     ],
     "events": []
