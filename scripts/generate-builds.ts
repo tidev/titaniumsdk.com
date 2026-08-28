@@ -192,6 +192,12 @@ async function getBranchBuilds(
   const knownBuild = new Map(existingBuilds.map((b) => [b.url, b]));
   const knownPruned = new Set(existingPruned.map((p) => p.id));
 
+  // GitHub paginates /actions/runs over a live list. A build finishing midway
+  // through shifts every later entry down a slot, so a run already returned on
+  // an earlier page comes back on the next one — which lands the same build in
+  // the output twice.
+  const seen = new Set<number>();
+
   for await (const page of paginate<GhRun>(`/repos/${OWNER}/${REPO}/actions/runs`, {
     branch,
     status: 'success',
@@ -200,6 +206,8 @@ async function getBranchBuilds(
       if (run.name !== 'Build' || run.status !== 'completed' || run.conclusion !== 'success') {
         continue;
       }
+      if (seen.has(run.id)) continue;
+      seen.add(run.id);
 
       // Already have it, or already know its artifacts are gone. Either way,
       // skip the artifact lookup — that is the expensive call.

@@ -17,6 +17,30 @@ function token(): string {
   return t;
 }
 
+/**
+ * Pulls the page of results out of a response body.
+ *
+ * Most list endpoints return a bare array, but some wrap it in an envelope
+ * beside `total_count` — `/actions/runs` yields `{ total_count, workflow_runs }`
+ * and `/actions/artifacts` yields `{ total_count, artifacts }`. Unwrapping the
+ * single array property here means no call site has to know which style its
+ * endpoint uses, and adding one cannot reintroduce the mistake.
+ */
+function pageItems<T>(body: unknown, url: string): T[] {
+  if (Array.isArray(body)) return body as T[];
+
+  if (body && typeof body === 'object') {
+    const arrays = Object.entries(body).filter(([, v]) => Array.isArray(v));
+    if (arrays.length === 1) return arrays[0][1] as T[];
+    if (arrays.length > 1) {
+      const keys = arrays.map(([k]) => k).join(', ');
+      throw new Error(`GET ${url} -> ambiguous envelope, several arrays: ${keys}`);
+    }
+  }
+
+  throw new Error(`GET ${url} -> expected a list, got ${typeof body}`);
+}
+
 /** Follows the `rel="next"` Link header until exhausted. */
 export async function* paginate<T>(
   path: string,
@@ -40,7 +64,7 @@ export async function* paginate<T>(
     if (!res.ok) {
       throw new Error(`GET ${next} -> ${res.status} ${res.statusText}`);
     }
-    yield (await res.json()) as T[];
+    yield pageItems<T>(await res.json(), next);
 
     // e.g. <https://api.github.com/...&page=2>; rel="next", <...>; rel="last"
     const link = res.headers.get('link');
