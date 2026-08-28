@@ -50,6 +50,7 @@ function typeDocument(t: ResolvedType) {
     properties: t.properties,
     methods: t.methods,
     events: t.events,
+    inherited: t.inherited,
     references: t.references.length ? t.references : undefined,
     externalReferences: t.externalReferences,
     source: t.source,
@@ -149,10 +150,11 @@ export function emit(
           since: t.since,
           deprecated: !!t.deprecated,
           extends: t.extends,
+          // What a reader sees on the page: declared plus inherited.
           counts: {
-            properties: t.properties.length,
-            methods: t.methods.length,
-            events: t.events.length,
+            properties: t.properties.length + t.inherited.properties.length,
+            methods: t.methods.length + t.inherited.methods.length,
+            events: t.events.length + t.inherited.events.length,
           },
         })
       )

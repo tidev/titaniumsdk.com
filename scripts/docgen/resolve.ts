@@ -57,8 +57,6 @@ export type Member = {
   returns?: { type?: TypeRef[]; summary?: string }[];
   /** Event payload fields. */
   properties?: Param[];
-  /** Null when declared on this type, otherwise the ancestor it came from. */
-  inheritedFrom?: string;
   /** Set on a synthesized `createXxx` factory: the type it returns. */
   factoryFor?: string;
   /** Set when this member's type is a pseudo-type used nowhere else. */
@@ -70,6 +68,22 @@ export type InlinedType = {
   summary?: string;
   description?: string;
   properties: Member[];
+};
+
+/**
+ * An inherited member, recorded by reference rather than copied.
+ *
+ * `platforms` is carried because narrowing is per inheriting type: Titanium.UI.View
+ * offers `backgroundColor` on all four platforms, but Titanium.UI.iOS.BlurView
+ * inherits it as iOS-only. Everything else — prose, type, examples — is read from
+ * the declaring type's file, which is what keeps a base-class edit from rewriting
+ * every descendant.
+ */
+export type InheritedRef = {
+  name: string;
+  /** The type that declares it. Always present in `inheritanceChain`. */
+  from: string;
+  platforms: Platform[];
 };
 
 export type ResolvedType = {
@@ -85,9 +99,16 @@ export type ResolvedType = {
   summary?: string;
   description?: string;
   examples?: Example[];
+  /** Declared on this type. Overrides of an inherited member count as own. */
   properties: Member[];
   methods: Member[];
   events: Member[];
+  /**
+   * Resolved inherited members, by reference. The list is already correct —
+   * excludes applied down the chain, unreachable platforms dropped — so a
+   * consumer never reimplements those rules, it only reads the bodies.
+   */
+  inherited: Record<'properties' | 'methods' | 'events', InheritedRef[]>;
   /** Types this one links to in prose or member types. */
   references: string[];
   /** Refs into namespaces compiled from other repos, e.g. Modules.*. */
@@ -502,24 +523,29 @@ export function resolveAll(types: Map<string, RawType>): ResolveResult {
     const chain = chains.get(t.name)!;
     const groups = { properties: [], methods: [], events: [] } as Record<Group, Member[]>;
 
+    const inherited = { properties: [], methods: [], events: [] } as Record<Group, InheritedRef[]>;
+
     for (const g of MEMBER_GROUPS) {
       for (const { name, raw, from } of effectiveOf(t.name)[g]) {
-        const member = shaped.get(memberKey(from, g, name));
-        if (!member) continue;
         // Narrowed against this type, not against whichever ancestor declared
         // it: a property View offers on Android only is unreachable on an
         // iOS-only view that inherits it.
         const reach = reachable(raw, t.name);
         if (!reach.length) continue;
-        groups[g].push(
-          from === t.name
-            ? { ...member, platforms: reach }
-            : { ...member, platforms: reach, inheritedFrom: from }
-        );
+
+        if (from === t.name) {
+          const member = shaped.get(memberKey(from, g, name));
+          if (member) groups[g].push({ ...member, platforms: reach });
+        } else {
+          inherited[g].push({ name, from, platforms: reach });
+        }
       }
     }
 
-    for (const g of MEMBER_GROUPS) groups[g].sort((a, b) => a.name.localeCompare(b.name));
+    for (const g of MEMBER_GROUPS) {
+      groups[g].sort((a, b) => a.name.localeCompare(b.name));
+      inherited[g].sort((a, b) => a.name.localeCompare(b.name));
+    }
 
     const out: ResolvedType = {
       name: t.name,
@@ -530,6 +556,7 @@ export function resolveAll(types: Map<string, RawType>): ResolveResult {
       properties: groups.properties,
       methods: groups.methods,
       events: groups.events,
+      inherited,
       references: [],
       source: t.source,
     };

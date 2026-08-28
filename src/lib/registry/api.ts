@@ -103,8 +103,6 @@ export const MemberSchema = z.strictObject({
     .optional(),
   /** Event payload fields. */
   properties: z.array(ParameterSchema).optional(),
-  /** Absent when declared on this type, otherwise the ancestor it came from. */
-  inheritedFrom: z.string().optional(),
   /** Set on a synthesized `createXxx` factory: the type it returns. */
   factoryFor: z.string().optional(),
   get inlined() {
@@ -130,6 +128,21 @@ export const InlinedTypeSchema = z.strictObject({
  */
 export const KindSchema = z.enum(['view', 'module', 'proxy', 'pseudo']);
 
+/**
+ * An inherited member, recorded by reference rather than copied into every
+ * descendant. Read the body from `from`'s file.
+ *
+ * `platforms` is carried because narrowing is per inheriting type:
+ * `Titanium.UI.View` offers `backgroundColor` on all four platforms, but
+ * `Titanium.UI.iOS.BlurView` inherits it as iOS-only. Use this value, not the
+ * one on the declaring type's copy.
+ */
+export const InheritedRefSchema = z.strictObject({
+  name: z.string().min(1),
+  from: z.string().min(1),
+  platforms: z.array(ApiPlatformSchema),
+});
+
 export const ApiTypeSchema = z.strictObject({
   schemaVersion: z.literal(API_SCHEMA_VERSION),
   name: z.string().min(1),
@@ -143,9 +156,20 @@ export const ApiTypeSchema = z.strictObject({
   summary: z.string().optional(),
   description: z.string().optional(),
   examples: z.array(ExampleSchema).optional(),
+  /** Declared on this type. An override of an inherited member counts as own. */
   properties: z.array(MemberSchema),
   methods: z.array(MemberSchema),
   events: z.array(MemberSchema),
+  /**
+   * Inherited members by reference. Already resolved — excludes applied down
+   * the chain, unreachable platforms dropped — so a consumer never reimplements
+   * those rules, it only looks up the bodies on the declaring types.
+   */
+  inherited: z.strictObject({
+    properties: z.array(InheritedRefSchema),
+    methods: z.array(InheritedRefSchema),
+    events: z.array(InheritedRefSchema),
+  }),
   /** Types this one links to, in prose or in member types. */
   references: z.array(z.string()).optional(),
   /** Refs into namespaces compiled from other repos, e.g. `Modules.*`. */
@@ -188,4 +212,5 @@ export type ApiType = z.infer<typeof ApiTypeSchema>;
 export type Member = z.infer<typeof MemberSchema>;
 export type Parameter = z.infer<typeof ParameterSchema>;
 export type InlinedType = z.infer<typeof InlinedTypeSchema>;
+export type InheritedRef = z.infer<typeof InheritedRefSchema>;
 export type ApiIndex = z.infer<typeof ApiIndexSchema>;
