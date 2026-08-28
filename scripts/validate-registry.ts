@@ -38,13 +38,20 @@ function schemaFor(rel: string): ZodType | null {
     return BuildListSchema;
   }
   if (parts[0] === 'sdk' && parts.length === 2) {
-    // sdk/{ga,rc,beta}.json are release lists; sdk/<version>/ holds docs
+    // sdk/{ga,rc,beta}.json are release lists
     return BuildListSchema;
+  }
+  // docs/sdk/<version>/ holds the compiled API reference.
+  if (parts[0] === 'docs') {
+    if (parts.includes('types')) return ApiTypeSchema;
+    if (file === 'index.json') return ApiIndexSchema;
+    // docgen rebuilds from scratch when it cannot read its own manifest, so a
+    // corrupt one costs time rather than correctness. Nothing to enforce here.
+    if (file === 'docgen-manifest.json') return null;
   }
   if (parts.includes('types')) return ApiTypeSchema;
   if (file === 'index.json') {
     if (parts[0] === 'modules') return ModuleIndexSchema;
-    if (parts[0] === 'sdk') return ApiIndexSchema;
   }
   if (file === 'metadata.json') {
     if (parts[0] === 'modules') return ModuleVersionSchema;

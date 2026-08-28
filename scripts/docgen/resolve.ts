@@ -41,7 +41,8 @@ export type Member = {
   summary?: string;
   description?: string;
   type?: TypeRef[];
-  platforms?: Platform[];
+  /** Resolved: the owning type's platforms narrowed by this member's own. */
+  platforms: Platform[];
   since?: Since;
   deprecated?: Deprecated;
   permission?: string;
@@ -77,7 +78,8 @@ export type ResolvedType = {
   extends?: string;
   /** Ancestors nearest-first. Empty for pseudo-types. */
   inheritanceChain: string[];
-  platforms?: Platform[];
+  /** Resolved against all four platforms; never empty in practice. */
+  platforms: Platform[];
   since?: Since;
   deprecated?: Deprecated;
   summary?: string;
@@ -138,12 +140,35 @@ function classify(name: string, chain: string[]): Kind {
 
 const str = (v: unknown): string | undefined => (typeof v === 'string' && v ? v : undefined);
 
-function platforms(v: unknown): Platform[] | undefined {
-  if (!Array.isArray(v)) return undefined;
-  const out = v.filter(
-    (p): p is Platform => p === 'android' || p === 'iphone' || p === 'ipad' || p === 'macos'
-  );
-  return out.length ? out : undefined;
+/** Every platform an API can target, in display order. */
+const DEFAULT_PLATFORMS: Platform[] = ['android', 'iphone', 'ipad', 'macos'];
+
+const isPlatform = (p: unknown): p is Platform =>
+  p === 'android' || p === 'iphone' || p === 'ipad' || p === 'macos';
+
+/**
+ * Narrows a platform set by what a declaration says about itself.
+ *
+ * `platforms` intersects, `exclude-platforms` subtracts, and saying nothing
+ * inherits the base unchanged. Applied to a type against all four platforms,
+ * then to each member against its owning type — so an Android-only property
+ * inherited by an iOS-only view resolves to nothing and is dropped rather than
+ * being advertised as available there.
+ */
+function narrowPlatforms(doc: Record<string, unknown>, base: readonly Platform[]): Platform[] {
+  const declared = doc.platforms;
+  if (Array.isArray(declared)) {
+    const keep = new Set(declared.filter(isPlatform));
+    return base.filter((p) => keep.has(p));
+  }
+
+  const excluded = doc['exclude-platforms'];
+  if (Array.isArray(excluded)) {
+    const drop = new Set(excluded.filter(isPlatform));
+    return base.filter((p) => !drop.has(p));
+  }
+
+  return [...base];
 }
 
 /** `since` is a bare version on 1,419 members and a per-platform map on 441. Both survive. */
@@ -252,45 +277,99 @@ export function resolveAll(types: Map<string, RawType>): ResolveResult {
   // Factory methods have to exist before the member table is built, or every
   // <Titanium.UI.createAlertDialog> reference resolves to nothing.
   const synthetic = synthesizeFactories(types, kinds);
-  const methodsOf = (t: RawType): Record<string, unknown>[] => [
-    ...((t.doc.methods as unknown[]) ?? []).filter(
-      (m): m is Record<string, unknown> => !!m && typeof m === 'object'
-    ),
-    ...(synthetic.get(t.name) ?? []),
-  ];
 
-  // Effective member names, resolved through inheritance and excludes before any
-  // prose is rewritten. <Titanium.UI.Button.backgroundColor> names a member
-  // Button inherits rather than declares, so an own-members-only table would
-  // fail to anchor it — and a loose "parent exists, assume the member does too"
-  // fallback would happily mint an anchor for <Ti.Color>, which is a typo.
-  const ownNames = new Map<string, Set<string>>();
+  const typePlatforms = new Map<string, Platform[]>();
+  for (const t of types.values()) {
+    typePlatforms.set(t.name, narrowPlatforms(t.doc, DEFAULT_PLATFORMS));
+  }
+
+  const rawMembers = new Map<string, Record<Group, Record<string, unknown>[]>>();
+  for (const t of types.values()) {
+    const groups = { properties: [], methods: [], events: [] } as Record<
+      Group,
+      Record<string, unknown>[]
+    >;
+    for (const g of MEMBER_GROUPS) {
+      groups[g] = ((t.doc[g] as unknown[]) ?? []).filter(
+        (m): m is Record<string, unknown> => !!m && typeof m === 'object'
+      );
+    }
+    groups.methods = [...groups.methods, ...(synthetic.get(t.name) ?? [])];
+    rawMembers.set(t.name, groups);
+  }
+
+  /** A member is reachable on `owner` only if their platform sets overlap. */
+  const reachable = (raw: Record<string, unknown>, owner: string): Platform[] =>
+    narrowPlatforms(raw, typePlatforms.get(owner) ?? DEFAULT_PLATFORMS);
+
+  /**
+   * A type's members after inheritance and excludes, resolved parent-first.
+   *
+   * Excludes compose down the chain rather than applying only at the leaf:
+   * `Titanium.UI.Window` excludes `removeAllChildren`, so
+   * `Titanium.UI.iOS.SplitWindow` must not inherit it. Walking the whole
+   * ancestry and applying just the leaf's excludes resurrects it from
+   * `Titanium.UI.View`, where it is declared.
+   *
+   * Works on the raw documents so it can run before any prose is rewritten —
+   * the cross-reference resolver needs these names to anchor
+   * `<Titanium.UI.Button.backgroundColor>` to the type that inherits it.
+   */
+  type Owned = { name: string; raw: Record<string, unknown>; from: string };
+  const effective = new Map<string, Record<Group, Owned[]>>();
+  const inProgress = new Set<string>();
+
+  function effectiveOf(name: string): Record<Group, Owned[]> {
+    const cached = effective.get(name);
+    if (cached) return cached;
+
+    const empty = { properties: [], methods: [], events: [] } as Record<Group, Owned[]>;
+    const t = types.get(name);
+    // Guards a cycle in `extends`, which would otherwise recurse forever.
+    if (!t || inProgress.has(name)) return empty;
+    inProgress.add(name);
+
+    const parent = t.extends ? effectiveOf(t.extends) : empty;
+    const excludes = t.doc.excludes as Record<string, unknown> | undefined;
+    const groups = { properties: [], methods: [], events: [] } as Record<Group, Owned[]>;
+
+    for (const g of MEMBER_GROUPS) {
+      const seen = new Set<string>();
+      // Own declarations claim their names first, so an override wins over the
+      // inherited member of the same name.
+      for (const raw of rawMembers.get(name)![g]) {
+        if (typeof raw.name !== 'string' || seen.has(raw.name)) continue;
+        seen.add(raw.name);
+        groups[g].push({ name: raw.name, raw, from: name });
+      }
+      for (const owned of parent[g]) {
+        if (seen.has(owned.name)) continue;
+        seen.add(owned.name);
+        groups[g].push(owned);
+      }
+
+      const list = excludes?.[g];
+      if (Array.isArray(list)) {
+        const drop = new Set(list.filter((x) => typeof x === 'string'));
+        groups[g] = groups[g].filter((o) => !drop.has(o.name));
+      }
+    }
+
+    inProgress.delete(name);
+    effective.set(name, groups);
+    return groups;
+  }
+
+  // Names a cross-reference can anchor to. <Titanium.UI.Button.backgroundColor>
+  // names a member Button inherits rather than declares, so an own-members-only
+  // table would fail to resolve it — while a loose "parent exists, assume the
+  // member does too" fallback happily mints an anchor for <Ti.Color>, a typo.
+  const members = new Map<string, Set<string>>();
   for (const t of types.values()) {
     const set = new Set<string>();
     for (const g of MEMBER_GROUPS) {
-      const list = g === 'methods' ? methodsOf(t) : ((t.doc[g] as unknown[]) ?? []);
-      for (const m of list) {
-        const n = (m as Record<string, unknown>)?.name;
-        if (typeof n === 'string') set.add(n);
-      }
-    }
-    ownNames.set(t.name, set);
-  }
-
-  const members = new Map<string, Set<string>>();
-  for (const t of types.values()) {
-    const set = new Set(ownNames.get(t.name));
-    for (const ancestor of chains.get(t.name)!) {
-      for (const n of ownNames.get(ancestor) ?? []) set.add(n);
-    }
-    const ex = t.doc.excludes as Record<string, unknown> | undefined;
-    if (ex && typeof ex === 'object') {
-      for (const g of MEMBER_GROUPS) {
-        if (!Array.isArray(ex[g])) continue;
-        for (const n of ex[g] as unknown[]) {
-          // An excluded name that the type also declares itself stays reachable.
-          if (typeof n === 'string' && !ownNames.get(t.name)?.has(n)) set.delete(n);
-        }
+      for (const o of effectiveOf(t.name)[g]) {
+        if (reachable(o.raw, t.name).length) set.add(o.name);
       }
     }
     members.set(t.name, set);
@@ -342,15 +421,14 @@ export function resolveAll(types: Map<string, RawType>): ResolveResult {
   }
 
   function toMember(owner: string, raw: Record<string, unknown>): Member {
-    const out: Member = { name: str(raw.name) ?? '' };
+    // `platforms` is filled in by pass 2, which knows the inheriting type.
+    const out: Member = { name: str(raw.name) ?? '', platforms: [] };
     if (str(raw.summary)) out.summary = prose(owner, raw.summary);
     if (str(raw.description)) out.description = prose(owner, raw.description);
 
     const t = parseTypeField(raw.type, known);
     if (t.length) out.type = t;
 
-    const p = platforms(raw.platforms);
-    if (p) out.platforms = p;
     const s = since(raw.since);
     if (s) out.since = s;
     const d = deprecated(raw.deprecated);
@@ -400,52 +478,44 @@ export function resolveAll(types: Map<string, RawType>): ResolveResult {
     return out;
   }
 
-  // Pass 1: shape every type's own members.
-  const own = new Map<string, Record<Group, Member[]>>();
+  // Pass 1: shape every member once, on the type that declares it.
+  //
+  // Keyed by declaring type so pass 2 can pair each inherited member back to
+  // its shaped form. A member is shaped once no matter how many types inherit
+  // it; only its platforms are re-resolved per inheriting type.
+  const shaped = new Map<string, Member>();
+  const memberKey = (type: string, group: Group, name: string) =>
+    `${type}\u0000${group}\u0000${name}`;
+
   for (const t of types.values()) {
-    const groups = { properties: [], methods: [], events: [] } as Record<Group, Member[]>;
     for (const g of MEMBER_GROUPS) {
-      const list = g === 'methods' ? methodsOf(t) : t.doc[g];
-      if (!Array.isArray(list)) continue;
-      // Events carry a `properties` array of payload fields, not member types.
-      for (const raw of list) {
-        if (!raw || typeof raw !== 'object') continue;
-        const m = toMember(t.name, raw as Record<string, unknown>);
-        if (m.name) groups[g].push(m);
+      for (const raw of rawMembers.get(t.name)![g]) {
+        const member = toMember(t.name, raw);
+        if (member.name) shaped.set(memberKey(t.name, g, member.name), member);
       }
     }
-    own.set(t.name, groups);
   }
 
-  // Pass 2: merge inherited members, then apply excludes.
+  // Pass 2: assemble each type from its resolved member set.
   const resolved = new Map<string, ResolvedType>();
   for (const t of types.values()) {
     const chain = chains.get(t.name)!;
     const groups = { properties: [], methods: [], events: [] } as Record<Group, Member[]>;
 
     for (const g of MEMBER_GROUPS) {
-      const seen = new Set<string>();
-      for (const m of own.get(t.name)![g]) {
-        seen.add(m.name);
-        groups[g].push(m);
-      }
-      // Nearest ancestor wins; an override on the subtype already claimed the name.
-      for (const ancestor of chain) {
-        for (const m of own.get(ancestor)?.[g] ?? []) {
-          if (seen.has(m.name)) continue;
-          seen.add(m.name);
-          groups[g].push({ ...m, inheritedFrom: ancestor });
-        }
-      }
-    }
-
-    const excludes = t.doc.excludes as Record<string, unknown> | undefined;
-    if (excludes && typeof excludes === 'object') {
-      for (const g of MEMBER_GROUPS) {
-        const list = excludes[g];
-        if (!Array.isArray(list)) continue;
-        const drop = new Set(list.filter((x) => typeof x === 'string'));
-        groups[g] = groups[g].filter((m) => !drop.has(m.name));
+      for (const { name, raw, from } of effectiveOf(t.name)[g]) {
+        const member = shaped.get(memberKey(from, g, name));
+        if (!member) continue;
+        // Narrowed against this type, not against whichever ancestor declared
+        // it: a property View offers on Android only is unreachable on an
+        // iOS-only view that inherits it.
+        const reach = reachable(raw, t.name);
+        if (!reach.length) continue;
+        groups[g].push(
+          from === t.name
+            ? { ...member, platforms: reach }
+            : { ...member, platforms: reach, inheritedFrom: from }
+        );
       }
     }
 
@@ -456,6 +526,7 @@ export function resolveAll(types: Map<string, RawType>): ResolveResult {
       kind: kinds.get(t.name)!,
       extends: t.extends,
       inheritanceChain: chain,
+      platforms: typePlatforms.get(t.name)!,
       properties: groups.properties,
       methods: groups.methods,
       events: groups.events,
@@ -463,8 +534,6 @@ export function resolveAll(types: Map<string, RawType>): ResolveResult {
       source: t.source,
     };
 
-    const p = platforms(t.doc.platforms);
-    if (p) out.platforms = p;
     const s = since(t.doc.since);
     if (s) out.since = s;
     const d = deprecated(t.doc.deprecated);
