@@ -1,0 +1,308 @@
+{
+  "schemaVersion": 1,
+  "counts": {
+    "types": 13,
+    "inlined": 8,
+    "members": 228
+  },
+  "types": [
+    {
+      "name": "MapPointType",
+      "kind": "pseudo",
+      "summary": "An object representing a point on the map.",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "deprecated": false,
+      "counts": {
+        "properties": 2,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "MapRegionTypev2",
+      "kind": "pseudo",
+      "summary": "Simple object representing a map location and zoom level.",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "deprecated": false,
+      "counts": {
+        "properties": 8,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "Modules.Map",
+      "kind": "module",
+      "summary": "Add-on Map module",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "since": {
+        "android": "3.1.0",
+        "iphone": "3.2.0",
+        "ipad": "3.2.0",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Module",
+      "counts": {
+        "properties": 49,
+        "methods": 15,
+        "events": 0
+      }
+    },
+    {
+      "name": "Modules.Map.Annotation",
+      "kind": "proxy",
+      "summary": "Represents a labeled point of interest on the map that the user can click on.",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "since": {
+        "android": "3.0.2",
+        "iphone": "3.2.0",
+        "ipad": "3.2.0",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 31,
+        "methods": 2,
+        "events": 0
+      }
+    },
+    {
+      "name": "Modules.Map.Camera",
+      "kind": "proxy",
+      "summary": "A camera object defines a point above the map's surface from which to view the map. Available in iOS 7.0 and later.",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "since": {
+        "android": "9.1.0",
+        "iphone": "3.2.0",
+        "ipad": "3.2.0",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 5,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "Modules.Map.Circle",
+      "kind": "proxy",
+      "summary": "Represents a bounded area on the map.",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "since": {
+        "android": "4.1.0",
+        "iphone": "4.1.0",
+        "ipad": "4.1.0",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 9,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "Modules.Map.ImageOverlay",
+      "kind": "proxy",
+      "summary": "Represents a bounded area on the map that has an image overlay.",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "since": {
+        "iphone": "7.2.0",
+        "ipad": "7.2.0",
+        "android": "7.4.0",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 2,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "Modules.Map.Polygon",
+      "kind": "proxy",
+      "summary": "Represents a bounded area on the map.",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "since": {
+        "android": "4.1.0",
+        "iphone": "4.1.0",
+        "ipad": "4.1.0",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 8,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "Modules.Map.Polyline",
+      "kind": "proxy",
+      "summary": "Represents a bounded area on the map.",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "since": {
+        "android": "4.1.0",
+        "iphone": "4.1.0",
+        "ipad": "4.1.0",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 7,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "Modules.Map.Route",
+      "kind": "proxy",
+      "summary": "Represents a path between two or more points of interest.",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "since": {
+        "android": "3.1.0",
+        "iphone": "3.2.0",
+        "ipad": "3.2.0",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 4,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "Modules.Map.Snapshotter",
+      "kind": "proxy",
+      "summary": "Snapshotter is used to allow screen shots to be taken of a specified region or a mapview.",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "since": {
+        "iphone": "6.0.0",
+        "ipad": "6.0.0",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 5,
+        "methods": 1,
+        "events": 0
+      }
+    },
+    {
+      "name": "Modules.Map.StreetViewPanorama",
+      "kind": "view",
+      "summary": "Provides panoramic 360-degree views from designated roads throughout its coverage area.",
+      "platforms": [
+        "android"
+      ],
+      "since": "5.2.0",
+      "deprecated": false,
+      "extends": "Titanium.UI.View",
+      "counts": {
+        "properties": 5,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "Modules.Map.View",
+      "kind": "view",
+      "summary": "Map view is used for embedding native mapping capabilities as a view in your application.",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "since": {
+        "android": "3.1.0",
+        "iphone": "3.2.0",
+        "ipad": "3.2.0",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.UI.View",
+      "counts": {
+        "properties": 29,
+        "methods": 34,
+        "events": 12
+      }
+    }
+  ],
+  "inlined": [
+    "CameraAnimationParams",
+    "ClusterAnnotationParams",
+    "MapBoundsCoordinateType",
+    "MapLocationTypeV2",
+    "MapViewPadding",
+    "SearchCompletionOptions",
+    "SnapshotSize",
+    "StreetViewPosition"
+  ]
+}
