@@ -1,0 +1,309 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.UI.iOS.DynamicItemBehavior",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": ["Titanium.Proxy"],
+  "platforms": ["iphone", "ipad", "macos"],
+  "since": {
+    "iphone": "3.2.0",
+    "ipad": "3.2.0",
+    "macos": "9.2.0"
+  },
+  "summary": "Base dynamic configuration for an item.",
+  "description": "A dynamic item behavior configures the physics attributes for one or more items. These\nattributes, such as density and resistance, affects the behavior of the object when other behaviors,\nsuch as push forces or collisions, are applied to it.  To define a dynamic behavior for an item:\n\n  1. Use the [Titanium.UI.iOS.createDynamicItemBehavior](api:Titanium.UI.iOS#createDynamicItemBehavior) method to create and define the behavior.\n  2. Use the [addItem](api:Titanium.UI.iOS.DynamicItemBehavior#addItem) method to add items to the behavior.\n  3. Add the behavior to an [Animator object](api:Titanium.UI.iOS.Animator).\n",
+  "examples": [
+    {
+      "title": "Simple Example",
+      "code": "The following example create two blocks, which are pushed towards each other.  Because the\nred block is more dense and has higher resistance than the blue block, the red block moves\nsteadily to the left, while the blue block spins around unpredictably.\n\n<img src=\"./dynamicitem.gif\" height=\"455\" style=\"border:1px solid black\"/>\n\n``` js\nvar win = Ti.UI.createWindow({backgroundColor: 'white', fullscreen: true});\n\n// Create an Animator object using the window as the coordinate system\nvar animator = Ti.UI.iOS.createAnimator({referenceView: win});\n\n// Create a red block\nvar redBlock = Ti.UI.createView({\n    backgroundColor: 'red',\n    width: 25,\n    height: 25,\n    top: 25,\n    left: 25\n});\n\n// Change the physics attributes of the red block\nvar redDynamic = Ti.UI.iOS.createDynamicItemBehavior({\n    density: 20.0,\n    angularResistance: 1.0,\n    friction: 1.0,\n    resistance: 1.0,\n    allowsRotation: false\n});\nredDynamic.addItem(redBlock);\n\n// Apply a left push to the red block\nvar redPush = Ti.UI.iOS.createPushBehavior({\n    pushDirection: {x: 2.0, y: 0.0}\n});\nredPush.addItem(redBlock);\n\n// Create a blue block\nvar blueBlock = Ti.UI.createView({\n    backgroundColor: 'blue',\n    width: 50,\n    height: 50,\n    top: 25,\n    right: 25\n});\n\n// Change the physics attributes of the blue block\nvar blueDynamic = Ti.UI.iOS.createDynamicItemBehavior({\n    elasticity: 1.0,\n});\nblueDynamic.addItem(blueBlock);\n\n// Apply a right push to the blue block\nvar bluePush = Ti.UI.iOS.createPushBehavior({\n    pushDirection: {x: -2.0, y: 0.0}\n});\nbluePush.addItem(blueBlock);\n\n// Create the collision behavior so the items can collide\nvar collision = Ti.UI.iOS.createCollisionBehavior();\ncollision.addItem(redBlock);\ncollision.addItem(blueBlock);\n\nanimator.addBehavior(redDynamic);\nanimator.addBehavior(redPush);\nanimator.addBehavior(blueDynamic);\nanimator.addBehavior(bluePush);\nanimator.addBehavior(collision);\n\n// Start the animation when the window opens\nwin.addEventListener('open', function(e){\n    animator.startAnimator();\n});\n\nwin.add(redBlock);\nwin.add(blueBlock);\nwin.open();\n```\n"
+    }
+  ],
+  "properties": [
+    {
+      "name": "allowsRotation",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Specifies if this item can rotate.",
+      "description": "Set to `true` to enable this behavior or `false` to disable.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "default": "true"
+    },
+    {
+      "name": "angularResistance",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Specifies the angular resistance of this item.",
+      "description": "The greater the value, the greater the angular damping and rotation slows to a stop faster.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "default": "0"
+    },
+    {
+      "name": "density",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Specifies the relative mass density of this item.",
+      "description": "An item's density along with its size determines its effective mass and affects its dynamic\nbehavior.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "default": "1"
+    },
+    {
+      "name": "elasticity",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Specifies the elasticity applied to collisions for this item.",
+      "description": "A value of 0.0 indicates no bounce upon collision, while 1.0 indicates a completely elastic\ncollision.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "default": "0"
+    },
+    {
+      "name": "friction",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Specifies the linear resistance of the item when it slides against another item.",
+      "description": "A value of 0.0 indicates no friction, while 1.0 indicates strong friction. Use higher\nnumbers to apply even higher friction.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "default": "0"
+    },
+    {
+      "name": "items",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Items added to this behavior.",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Array",
+          "args": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.View"
+            }
+          ]
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "resistance",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Specifies the linear resistance of this item which reduces linear velocity over time.",
+      "description": "A value of 0.0 indicates no velocity damping.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "default": "0"
+    }
+  ],
+  "methods": [
+    {
+      "name": "addAngularVelocityForItem",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Adds a specified angular velocity for the item.",
+      "parameters": [
+        {
+          "name": "item",
+          "summary": "Item to add the velocity for.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.View"
+            }
+          ]
+        },
+        {
+          "name": "velocity",
+          "summary": "Velocity to add or subtract in radians per second. If the current velocity is positive,\nthe item spins clockwise.  A negative value means the item spins counter-clockwise.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "addItem",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Adds an item to this behavior.",
+      "parameters": [
+        {
+          "name": "item",
+          "summary": "View object to add to the behavior.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.View"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "addLinearVelocityForItem",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Adds a specified linear velocity for the item.",
+      "parameters": [
+        {
+          "name": "item",
+          "summary": "Item to add the velocity for.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.View"
+            }
+          ]
+        },
+        {
+          "name": "velocity",
+          "summary": "Velocity to add or substract in points per second in the x and y directions.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Point"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "angularVelocityForItem",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Returns the angular velocity of the item.",
+      "parameters": [
+        {
+          "name": "item",
+          "summary": "Item to retrieve the velocity of.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.View"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "linearVelocityForItem",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Returns the linear velocity of the item.",
+      "parameters": [
+        {
+          "name": "item",
+          "summary": "Item to retrieve the velocity of.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.View"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Point"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "removeItem",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Removes the specified item from this behavior.",
+      "parameters": [
+        {
+          "name": "item",
+          "summary": "Item to remove.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.View"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone", "ipad", "macos"]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone", "ipad", "macos"]
+      }
+    ],
+    "events": []
+  },
+  "references": [
+    "Point",
+    "Titanium.Proxy",
+    "Titanium.UI.View",
+    "Titanium.UI.iOS",
+    "Titanium.UI.iOS.Animator"
+  ],
+  "source": "Titanium/UI/iOS/DynamicItemBehavior.yml"
+}

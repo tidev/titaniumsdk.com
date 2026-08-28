@@ -1,0 +1,994 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.UI.NavigationWindow",
+  "kind": "view",
+  "extends": "Titanium.UI.Window",
+  "inheritanceChain": ["Titanium.UI.Window", "Titanium.UI.View", "Titanium.Proxy"],
+  "platforms": ["android", "iphone", "ipad", "macos"],
+  "since": "8.0.0",
+  "summary": "A `NavigationWindow` implements a specialized view that manages the navigation of hierarchical\ncontent.\n",
+  "description": "You create a `NavigationWindow` with the [Titanium.UI.createNavigationWindow](api:Titanium.UI#createNavigationWindow) factory method or\na `<NavigationWindow>` Alloy element.\n\nAll `NavigationWindow` objects must have at least one root window that cannot be removed. When\ncreating a `NavigationWindow` with the factory method, you must set its `window` property to the\nroot level window. Equivalently, in an Alloy application, insert a `<Window>` element as a child of the\n`<NavigationWindow>` element. See examples below.\n\nThis object is not meant to be added to other windows. However, it can be used within a [Titanium.UI.iOS.SplitWindow](api:Titanium.UI.iOS.SplitWindow).\n",
+  "examples": [
+    {
+      "title": "Simple Navigation Window",
+      "code": "Creates a navigation window with the first window colored red.\nPress the button to open the blue window.\nUse the back button to return to the red root window.\n\n``` js\nvar win2 = Titanium.UI.createWindow({\n    backgroundColor: 'red',\n    title: 'Red Window'\n});\n\nvar win1 = Titanium.UI.createNavigationWindow({\n    window: win2\n});\n\nvar win3 = Titanium.UI.createWindow({\n    backgroundColor: 'blue',\n    title: 'Blue Window'\n});\n\nvar button = Titanium.UI.createButton({\n    title: 'Open Blue Window'\n});\nbutton.addEventListener('click', function(){\n    win1.openWindow(win3, {animated:true});\n});\n\nwin2.add(button);\nvar button2 = Titanium.UI.createButton({\n    title: 'Close Blue Window'\n});\nbutton2.addEventListener('click', function(){\n    win1.closeWindow(win3, {animated:false}); //win3.close() will also work!!\n});\n\nwin3.add(button2);\nwin1.open();\n```\n"
+    },
+    {
+      "title": "Alloy XML Markup",
+      "code": "Previous example as two Alloy view-controllers.  Requires Alloy 1.2.2 and later.\n\napp/views/index.xml:\n``` xml\n<Alloy>\n    <NavigationWindow id=\"win1\">\n        <Window id=\"win2\" title=\"Red Window\" backgroundColor=\"red\">\n            <Button id=\"button\" onClick=\"openBlueWindow\">Open Blue Window</Button>\n        </Window>\n    </NavigationWindow>\n</Alloy>\n```\n\napp/controllers/index.js:\n``` js\nfunction openBlueWindow(e) {\n    var win3 = Alloy.createController('bluewin').getView();\n    $.win1.openWindow(win3);\n}\n\n$.win1.open();\n```\n\napp/views/bluewin.xml:\n``` xml\n<Alloy>\n    <Window id=\"win3\" title=\"Blue Window\" backgroundColor=\"blue\">\n        <Button onClick=\"closeWindow\">Close Window</Button>\n    </Window>\n</Alloy>\n```\n\napp/controllers/bluewin.js:\n``` js\nfunction closeWindow(){\n    $.win3.close();\n}\n```\n"
+    }
+  ],
+  "properties": [
+    {
+      "name": "interactiveDismissModeEnabled",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "A boolean indicating whether or not child windows of this navigation window\nshould have the ability to be swipe-to-closed over the full width of it's window or not.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "12.5.0",
+      "deprecated": {
+        "since": "13.0.0",
+        "removed": "13.0.0",
+        "notes": "This is handled by the operation system in newer versions of iOS."
+      },
+      "availability": "creation",
+      "default": "false"
+    },
+    {
+      "name": "window",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Window to add to this navigation window.",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.UI.Window"
+        }
+      ],
+      "availability": "creation"
+    }
+  ],
+  "methods": [
+    {
+      "name": "closeWindow",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Closes a window and removes it from the navigation window.",
+      "parameters": [
+        {
+          "name": "window",
+          "summary": "Window to close.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.Window"
+            }
+          ]
+        },
+        {
+          "name": "options",
+          "summary": "Options supporting a single `animated` boolean property to determine whether the window\nwill be animated (default) while being closed (default: true).\n",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Dictionary"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "openWindow",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Opens a window within the navigation window.",
+      "parameters": [
+        {
+          "name": "window",
+          "summary": "Window to open.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.Window"
+            }
+          ]
+        },
+        {
+          "name": "options",
+          "summary": "Options supporting a single `animated` boolean property to determine whether the window\nwill be animated (default) while being opened (default: true).\n",
+          "type": [
+            {
+              "kind": "type",
+              "name": "AnimatedOptions"
+            }
+          ],
+          "optional": true,
+          "default": "{ animated: true }"
+        }
+      ]
+    },
+    {
+      "name": "popToRootWindow",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Closes all windows that are currently opened inside the navigation window.",
+      "description": "Note that only the `close` event of the most recently opened window is fired.",
+      "parameters": [
+        {
+          "name": "options",
+          "summary": "Options supporting a single `animated` boolean property to determine whether the windows\nwill be animated while being closed (default: false).\n",
+          "type": [
+            {
+              "kind": "type",
+              "name": "AnimatedOptions"
+            }
+          ],
+          "optional": true,
+          "default": "{ animated: false }"
+        }
+      ]
+    }
+  ],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "accessibilityDisableLongPress",
+        "from": "Titanium.UI.View",
+        "platforms": ["android"]
+      },
+      {
+        "name": "accessibilityHidden",
+        "from": "Titanium.UI.View",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "accessibilityHint",
+        "from": "Titanium.UI.View",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "accessibilityLabel",
+        "from": "Titanium.UI.View",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "accessibilityValue",
+        "from": "Titanium.UI.View",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "activity",
+        "from": "Titanium.UI.Window",
+        "platforms": ["android"]
+      },
+      {
+        "name": "activityEnterTransition",
+        "from": "Titanium.UI.Window",
+        "platforms": ["android"]
+      },
+      {
+        "name": "activityExitTransition",
+        "from": "Titanium.UI.Window",
+        "platforms": ["android"]
+      },
+      {
+        "name": "activityReenterTransition",
+        "from": "Titanium.UI.Window",
+        "platforms": ["android"]
+      },
+      {
+        "name": "activityReturnTransition",
+        "from": "Titanium.UI.Window",
+        "platforms": ["android"]
+      },
+      {
+        "name": "activitySharedElementEnterTransition",
+        "from": "Titanium.UI.Window",
+        "platforms": ["android"]
+      },
+      {
+        "name": "activitySharedElementExitTransition",
+        "from": "Titanium.UI.Window",
+        "platforms": ["android"]
+      },
+      {
+        "name": "activitySharedElementReenterTransition",
+        "from": "Titanium.UI.Window",
+        "platforms": ["android"]
+      },
+      {
+        "name": "activitySharedElementReturnTransition",
+        "from": "Titanium.UI.Window",
+        "platforms": ["android"]
+      },
+      {
+        "name": "anchorPoint",
+        "from": "Titanium.UI.View",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "animatedCenter",
+        "from": "Titanium.UI.View",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "autoAdjustScrollViewInsets",
+        "from": "Titanium.UI.Window",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "backgroundColor",
+        "from": "Titanium.UI.Window",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "backgroundDisabledColor",
+        "from": "Titanium.UI.View",
+        "platforms": ["android"]
+      },
+      {
+        "name": "backgroundDisabledImage",
+        "from": "Titanium.UI.View",
+        "platforms": ["android"]
+      },
+      {
+        "name": "backgroundFocusedColor",
+        "from": "Titanium.UI.View",
+        "platforms": ["android"]
+      },
+      {
+        "name": "backgroundFocusedImage",
+        "from": "Titanium.UI.View",
+        "platforms": ["android"]
+      },
+      {
+        "name": "backgroundGradient",
+        "from": "Titanium.UI.View",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "backgroundImage",
+        "from": "Titanium.UI.View",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "backgroundLeftCap",
+        "from": "Titanium.UI.View",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "backgroundRepeat",
+        "from": "Titanium.UI.View",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "backgroundSelectedColor",
+        "from": "Titanium.UI.View",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "backgroundSelectedImage",
+        "from": "Titanium.UI.View",
+        "platforms": ["android"]
+      },
+      {
+        "name": "backgroundTopCap",
+        "from": "Titanium.UI.View",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "borderColor",
+        "from": "Titanium.UI.View",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "borderRadius",
+        "from": "Titanium.UI.View",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "borderWidth",
+        "from": "Titanium.UI.View",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "bottom",
+        "from": "Titanium.UI.Window",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "center",
+        "from": "Titanium.UI.View",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "children",
+        "from": "Titanium.UI.View",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "clipMode",
+        "from": "Titanium.UI.View",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "closed",
+        "from": "Titanium.UI.Window",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "elevation",
+        "from": "Titanium.UI.View",
+        "platforms": ["android"]
+      },
+      {
+        "name": "exitOnClose",
+        "from": "Titanium.UI.Window",
+        "platforms": ["android"]
+      },
+      {
+        "name": "extendEdges",
+        "from": "Titanium.UI.Window",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "extendSafeArea",
+        "from": "Titanium.UI.Window",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "filterTouchesWhenObscured",
+        "from": "Titanium.UI.View",
+        "platforms": ["android"]
+      },
+      {
+        "name": "flagSecure",
+        "from": "Titanium.UI.Window",
+        "platforms": ["android"]
+      },
+      {
+        "name": "focusable",
+        "from": "Titanium.UI.View",
+        "platforms": ["android"]
+      },
+      {
+        "name": "focused",
+        "from": "Titanium.UI.Window",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "fullscreen",
+        "from": "Titanium.UI.Window",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "height",
+        "from": "Titanium.UI.View",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "hiddenBehavior",
+        "from": "Titanium.UI.View",
+        "platforms": ["android"]
+      },
+      {
+        "name": "hidesBackButton",
+        "from": "Titanium.UI.Window",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "hidesBarsOnSwipe",
+        "from": "Titanium.UI.Window",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "hidesBarsOnTap",
+        "from": "Titanium.UI.Window",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "hidesBarsWhenKeyboardAppears",
+        "from": "Titanium.UI.Window",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "hidesSearchBarWhenScrolling",
+        "from": "Titanium.UI.Window",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "homeIndicatorAutoHidden",
+        "from": "Titanium.UI.Window",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "horizontalMotionEffect",
+        "from": "Titanium.UI.View",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "horizontalWrap",
+        "from": "Titanium.UI.View",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "id",
+        "from": "Titanium.UI.View",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "includeOpaqueBars",
+        "from": "Titanium.UI.Window",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "keepHardwareMode",
+        "from": "Titanium.UI.View",
+        "platforms": ["android"]
+      },
+      {
+        "name": "keepScreenOn",
+        "from": "Titanium.UI.View",
+        "platforms": ["android"]
+      },
+      {
+        "name": "largeTitleDisplayMode",
+        "from": "Titanium.UI.Window",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "largeTitleEnabled",
+        "from": "Titanium.UI.Window",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "layout",
+        "from": "Titanium.UI.View",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "left",
+        "from": "Titanium.UI.Window",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "leftNavButtons",
+        "from": "Titanium.UI.Window",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "lifecycleContainer",
+        "from": "Titanium.Proxy",
+        "platforms": ["android"]
+      },
+      {
+        "name": "modal",
+        "from": "Titanium.UI.Window",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "navBarColor",
+        "from": "Titanium.UI.Window",
+        "platforms": ["android"]
+      },
+      {
+        "name": "navigationWindow",
+        "from": "Titanium.UI.Window",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "onBack",
+        "from": "Titanium.UI.Window",
+        "platforms": ["android"]
+      },
+      {
+        "name": "opacity",
+        "from": "Titanium.UI.Window",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "orientation",
+        "from": "Titanium.UI.Window",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "orientationModes",
+        "from": "Titanium.UI.Window",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "overrideCurrentAnimation",
+        "from": "Titanium.UI.View",
+        "platforms": ["android"]
+      },
+      {
+        "name": "previewContext",
+        "from": "Titanium.UI.View",
+        "platforms": ["iphone"]
+      },
+      {
+        "name": "pullBackgroundColor",
+        "from": "Titanium.UI.View",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "rect",
+        "from": "Titanium.UI.View",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "right",
+        "from": "Titanium.UI.Window",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "rightNavButtons",
+        "from": "Titanium.UI.Window",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "rotation",
+        "from": "Titanium.UI.View",
+        "platforms": ["android", "iphone", "ipad"]
+      },
+      {
+        "name": "rotationX",
+        "from": "Titanium.UI.View",
+        "platforms": ["android"]
+      },
+      {
+        "name": "rotationY",
+        "from": "Titanium.UI.View",
+        "platforms": ["android"]
+      },
+      {
+        "name": "safeAreaPadding",
+        "from": "Titanium.UI.Window",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "scaleX",
+        "from": "Titanium.UI.View",
+        "platforms": ["android"]
+      },
+      {
+        "name": "scaleY",
+        "from": "Titanium.UI.View",
+        "platforms": ["android"]
+      },
+      {
+        "name": "size",
+        "from": "Titanium.UI.View",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "softKeyboardOnFocus",
+        "from": "Titanium.UI.View",
+        "platforms": ["android"]
+      },
+      {
+        "name": "splitActionBar",
+        "from": "Titanium.UI.Window",
+        "platforms": ["android"]
+      },
+      {
+        "name": "statusBarColor",
+        "from": "Titanium.UI.Window",
+        "platforms": ["android"]
+      },
+      {
+        "name": "statusBarStyle",
+        "from": "Titanium.UI.Window",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "sustainedPerformanceMode",
+        "from": "Titanium.UI.Window",
+        "platforms": ["android"]
+      },
+      {
+        "name": "theme",
+        "from": "Titanium.UI.Window",
+        "platforms": ["android"]
+      },
+      {
+        "name": "tintColor",
+        "from": "Titanium.UI.View",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "titleAttributes",
+        "from": "Titanium.UI.Window",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "tooltip",
+        "from": "Titanium.UI.View",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "top",
+        "from": "Titanium.UI.Window",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "touchEnabled",
+        "from": "Titanium.UI.View",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "touchFeedback",
+        "from": "Titanium.UI.View",
+        "platforms": ["android"]
+      },
+      {
+        "name": "touchFeedbackColor",
+        "from": "Titanium.UI.View",
+        "platforms": ["android"]
+      },
+      {
+        "name": "transform",
+        "from": "Titanium.UI.View",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "transitionName",
+        "from": "Titanium.UI.View",
+        "platforms": ["android"]
+      },
+      {
+        "name": "translationX",
+        "from": "Titanium.UI.View",
+        "platforms": ["android"]
+      },
+      {
+        "name": "translationY",
+        "from": "Titanium.UI.View",
+        "platforms": ["android"]
+      },
+      {
+        "name": "translationZ",
+        "from": "Titanium.UI.View",
+        "platforms": ["android"]
+      },
+      {
+        "name": "uiFlags",
+        "from": "Titanium.UI.Window",
+        "platforms": ["android"]
+      },
+      {
+        "name": "verticalMotionEffect",
+        "from": "Titanium.UI.View",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "viewShadowColor",
+        "from": "Titanium.UI.View",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "viewShadowOffset",
+        "from": "Titanium.UI.View",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "viewShadowRadius",
+        "from": "Titanium.UI.View",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "visible",
+        "from": "Titanium.UI.View",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "width",
+        "from": "Titanium.UI.View",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "windowFlags",
+        "from": "Titanium.UI.Window",
+        "platforms": ["android"]
+      },
+      {
+        "name": "windowPixelFormat",
+        "from": "Titanium.UI.Window",
+        "platforms": ["android"]
+      },
+      {
+        "name": "windowSoftInputMode",
+        "from": "Titanium.UI.Window",
+        "platforms": ["android"]
+      },
+      {
+        "name": "zIndex",
+        "from": "Titanium.UI.View",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      }
+    ],
+    "methods": [
+      {
+        "name": "add",
+        "from": "Titanium.UI.View",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "addSharedElement",
+        "from": "Titanium.UI.Window",
+        "platforms": ["android"]
+      },
+      {
+        "name": "animate",
+        "from": "Titanium.UI.View",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "clearMotionEffects",
+        "from": "Titanium.UI.View",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "close",
+        "from": "Titanium.UI.Window",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "convertPointToView",
+        "from": "Titanium.UI.View",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "getViewById",
+        "from": "Titanium.UI.View",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "hide",
+        "from": "Titanium.UI.View",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "hideNavBar",
+        "from": "Titanium.UI.Window",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "hideTabBar",
+        "from": "Titanium.UI.Window",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "hideToolbar",
+        "from": "Titanium.UI.Window",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "insertAt",
+        "from": "Titanium.UI.View",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "open",
+        "from": "Titanium.UI.Window",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "remove",
+        "from": "Titanium.UI.View",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "removeAllSharedElements",
+        "from": "Titanium.UI.Window",
+        "platforms": ["android"]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "replaceAt",
+        "from": "Titanium.UI.View",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "show",
+        "from": "Titanium.UI.View",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "showNavBar",
+        "from": "Titanium.UI.Window",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "showTabBar",
+        "from": "Titanium.UI.Window",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "showToolbar",
+        "from": "Titanium.UI.Window",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "stopAnimation",
+        "from": "Titanium.UI.View",
+        "platforms": ["android"]
+      },
+      {
+        "name": "toImage",
+        "from": "Titanium.UI.View",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      }
+    ],
+    "events": [
+      {
+        "name": "androidback",
+        "from": "Titanium.UI.Window",
+        "platforms": ["android"]
+      },
+      {
+        "name": "androidcamera",
+        "from": "Titanium.UI.Window",
+        "platforms": ["android"]
+      },
+      {
+        "name": "androidfocus",
+        "from": "Titanium.UI.Window",
+        "platforms": ["android"]
+      },
+      {
+        "name": "androidsearch",
+        "from": "Titanium.UI.Window",
+        "platforms": ["android"]
+      },
+      {
+        "name": "androidvoldown",
+        "from": "Titanium.UI.Window",
+        "platforms": ["android"]
+      },
+      {
+        "name": "androidvolup",
+        "from": "Titanium.UI.Window",
+        "platforms": ["android"]
+      },
+      {
+        "name": "blur",
+        "from": "Titanium.UI.Window",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "click",
+        "from": "Titanium.UI.View",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "close",
+        "from": "Titanium.UI.Window",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "dblclick",
+        "from": "Titanium.UI.View",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "doubletap",
+        "from": "Titanium.UI.View",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "focus",
+        "from": "Titanium.UI.Window",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "keypressed",
+        "from": "Titanium.UI.View",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "longclick",
+        "from": "Titanium.UI.View",
+        "platforms": ["android"]
+      },
+      {
+        "name": "longpress",
+        "from": "Titanium.UI.View",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "open",
+        "from": "Titanium.UI.Window",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "pinch",
+        "from": "Titanium.UI.View",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "postlayout",
+        "from": "Titanium.UI.View",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "rotate",
+        "from": "Titanium.UI.View",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "singletap",
+        "from": "Titanium.UI.View",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "swipe",
+        "from": "Titanium.UI.View",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "touchcancel",
+        "from": "Titanium.UI.View",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "touchend",
+        "from": "Titanium.UI.View",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "touchmove",
+        "from": "Titanium.UI.View",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "touchstart",
+        "from": "Titanium.UI.View",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "twofingertap",
+        "from": "Titanium.UI.View",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      }
+    ]
+  },
+  "references": [
+    "AnimatedOptions",
+    "Dictionary",
+    "Titanium.UI",
+    "Titanium.UI.Window",
+    "Titanium.UI.iOS.SplitWindow"
+  ],
+  "source": "Titanium/UI/NavigationWindow.yml"
+}

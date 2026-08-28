@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.App.iOS.ActivityAttributes",
+  "kind": "pseudo",
+  "platforms": ["iphone", "ipad"],
+  "since": "12.0.0",
+  "summary": "Use this module to communicate with the native iOS 16+ Dynamic Island APIs.\n",
+  "description": "To properly use these APIs, you need to have your Widget Extension ready.\nYou can follow this [sample repository](https://github.com/hansemannn/titanium-widget-kit-sample-app) for an extended example.\n",
+  "examples": [
+    {
+      "title": "Start a new activity",
+      "code": "``` js\nconst attributes = Ti.App.iOS.createActivityAttributes();\nattributes.startActivity({\n  param1: \"Hello\",\n  param2: \"World\",\n  data: JSON.stringify({ intKey: 1, boolKey: true })\n});\n```\n"
+    }
+  ],
+  "properties": [],
+  "methods": [
+    {
+      "name": "startActivity",
+      "platforms": ["iphone", "ipad"],
+      "summary": "Starts a new activity (aka the Dynamic Island) with the provided parameters",
+      "parameters": [
+        {
+          "name": "value",
+          "summary": "The values to pass to your extension. For maximum flexibility, this parameter should be passed\nas a String-based Object, e.g.\n```\n{\n  \"param1\": \"Hello\",\n  \"param2\": \"World\"\n}\nIf you need to pass other types, please serialize them to a valid JSON object and pass it's\nstringified representation to this method.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Object"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "events": [],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "source": "Titanium/App/iOS/ActivityAttributes.yml"
+}

@@ -1,0 +1,203 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.UI.iOS.MenuPopup",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": ["Titanium.Proxy"],
+  "platforms": ["iphone", "ipad", "macos"],
+  "since": {
+    "iphone": "5.2.0",
+    "ipad": "5.2.0",
+    "macos": "9.2.0"
+  },
+  "summary": "A menu popup provides the ability to create custom tooltip options using the `items` property\ncovering the native `UIMenuController` class.\n\nSee also:\n\n* [iOS Developer Library: UIMenuController](https://developer.apple.com/documentation/uikit/uimenucontroller)\n",
+  "examples": [
+    {
+      "title": "Example using multiple `items` and a `click` event.",
+      "code": "The example below creates a new menu popup and shows it when the user clicks on the button.\n\n``` js\nvar win = Ti.UI.createWindow({\n    backgroundColor: \"#fff\",\n});\n\nvar button = Ti.UI.createButton({\n    title: \"Show options\"\n});\n\nwin.add(button);\n\nvar menu = Ti.UI.iOS.createMenuPopup({\n    items: [\"Option 1\", \"Option 2\"]\n});\n\nmenu.addEventListener(\"click\", function(e) {\n    alert(e);\n});\n\nbutton.addEventListener(\"click\", function() {\n    menu.show({\n      view: button\n    });\n});\n\nwin.open();\n```\n"
+    }
+  ],
+  "properties": [
+    {
+      "name": "items",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "The items of the menu popup.",
+      "description": "The items will be shown as soon in the menu popup when the `show` method is called.\nTo hide them again, use the `hide` method in conjunction.\n",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Array",
+          "args": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "hide",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Hides the menu popup.",
+      "parameters": [
+        {
+          "name": "options",
+          "summary": "Includes options how the menu popup should be hidden. Introduced in SDK 5.2.0.\n\nNote that the default here is equivalent to passing in `{ animated: true }` (while typically the default for [AnimatedOptions](api:AnimatedOptions) is false)\n",
+          "type": [
+            {
+              "kind": "type",
+              "name": "AnimatedOptions"
+            }
+          ],
+          "optional": true,
+          "default": "{ animated: true }"
+        }
+      ]
+    },
+    {
+      "name": "isVisible",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Indicates whether the menu popup is currently visible."
+    },
+    {
+      "name": "show",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Shows the menu popup.",
+      "parameters": [
+        {
+          "name": "options",
+          "summary": "Includes options how the menu popup should be shown. Note that the default is to be animated.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "MenuPopupShowParams"
+            }
+          ],
+          "inlined": {
+            "name": "MenuPopupShowParams",
+            "summary": "Dictionary of options for showing a menu popup with [Titanium.UI.iOS.MenuPopup.show](api:Titanium.UI.iOS.MenuPopup#show).",
+            "description": "The parameters used when showing a menu popup. Must include the `view` property to tell the menu popup\nat which view it should be shown. Also set the `animated` property to `false` if you want to show the\nmenu popup without an animation.\n",
+            "properties": [
+              {
+                "name": "animated",
+                "platforms": ["iphone", "ipad", "macos"],
+                "summary": "Determines whether the menu popup should be opened or closed animated.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Boolean"
+                  }
+                ],
+                "default": "true",
+                "optional": true
+              },
+              {
+                "name": "arrowDirection",
+                "platforms": ["iphone", "ipad", "macos"],
+                "summary": "Indicates the arrow direction of the menu popup.",
+                "description": "Use this property to indicate the menu popups arrow to use.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ],
+                "default": "Titanium.UI.iOS.MENU_POPUP_ARROW_DIRECTION_DEFAULT",
+                "constants": [
+                  "Titanium.UI.iOS.MENU_POPUP_ARROW_DIRECTION_UP",
+                  "Titanium.UI.iOS.MENU_POPUP_ARROW_DIRECTION_DOWN",
+                  "Titanium.UI.iOS.MENU_POPUP_ARROW_DIRECTION_LEFT",
+                  "Titanium.UI.iOS.MENU_POPUP_ARROW_DIRECTION_RIGHT",
+                  "Titanium.UI.iOS.MENU_POPUP_ARROW_DIRECTION_DEFAULT"
+                ]
+              },
+              {
+                "name": "view",
+                "platforms": ["iphone", "ipad", "macos"],
+                "summary": "The view where the menu pop is shown at.",
+                "type": [
+                  {
+                    "kind": "type",
+                    "name": "Titanium.UI.View"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "click",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Fired when the user clicks at one of the menu popup items.",
+      "description": "This event provides the properties `title` and `index` which relate to the name and position\nof the clicked item inside the `items` property.\n",
+      "properties": [
+        {
+          "name": "index",
+          "summary": "The index of the clicked item.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "title",
+          "summary": "The title of the clicked item.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone", "ipad", "macos"]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone", "ipad", "macos"]
+      }
+    ],
+    "events": []
+  },
+  "references": ["AnimatedOptions", "MenuPopupShowParams", "Titanium.Proxy"],
+  "source": "Titanium/UI/iOS/MenuPopup.yml"
+}

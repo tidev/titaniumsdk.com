@@ -1,0 +1,330 @@
+{
+  "schemaVersion": 1,
+  "name": "fs.Stats",
+  "kind": "pseudo",
+  "platforms": ["android", "iphone", "ipad", "macos"],
+  "since": "8.3.0",
+  "summary": "A `fs.Stats` object provides information about a file.",
+  "properties": [
+    {
+      "name": "atime",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "The timestamp indicating the last time this file was accessed.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Date"
+        }
+      ]
+    },
+    {
+      "name": "atimeMs",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "The timestamp indicating the last time this file was accessed expressed in milliseconds since the POSIX Epoch.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ]
+    },
+    {
+      "name": "birthtime",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "The timestamp indicating the creation time of this file.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Date"
+        }
+      ]
+    },
+    {
+      "name": "birthtimeMs",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "The timestamp indicating the creation time of this file expressed in milliseconds since the POSIX Epoch.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ]
+    },
+    {
+      "name": "blksize",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "The file system block size for i/o operations.\n\nHard-coded to `4096` on Titanium right now.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "value": 4096
+    },
+    {
+      "name": "blocks",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "The number of blocks allocated for this file.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ]
+    },
+    {
+      "name": "ctime",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "The timestamp indicating the last time the file status was changed.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Date"
+        }
+      ]
+    },
+    {
+      "name": "ctimeMs",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "The timestamp indicating the last time the file status was changed expressed in milliseconds since the POSIX Epoch.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ]
+    },
+    {
+      "name": "dev",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "The numeric identifier of the device containing the file.\n\nAlways returns `0` on Titanium.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "value": 0
+    },
+    {
+      "name": "gid",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "The numeric group identifier of the group that owns the file (POSIX).\n\nAlways returns `0` on Titanium.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "value": 0
+    },
+    {
+      "name": "ino",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "The file system specific \"Inode\" number for the file.\n\nAlways returns `0` on Titanium.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "value": 0
+    },
+    {
+      "name": "mode",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "A bit-field describing the file type and mode.\n\nAlways returns `0` on Titanium.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "value": 0
+    },
+    {
+      "name": "mtime",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "The timestamp indicating the last time this file was modified.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Date"
+        }
+      ]
+    },
+    {
+      "name": "mtimeMs",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "The timestamp indicating the last time this file was modified expressed in milliseconds since the POSIX Epoch.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ]
+    },
+    {
+      "name": "nlink",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "The number of hard-links that exist for the file.\n\nAlways returns `0` on Titanium.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "value": 0
+    },
+    {
+      "name": "rdev",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "A numeric device identifier if the file represents a device.\n\nAlways returns `0` on Titanium.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "value": 0
+    },
+    {
+      "name": "size",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "The size of the file in bytes.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ]
+    },
+    {
+      "name": "uid",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "The numeric user identifier of the user that owns the file (POSIX).\n\nAlways returns `0` on Titanium.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "value": 0
+    }
+  ],
+  "methods": [
+    {
+      "name": "isBlockDevice",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Returns `true` if the `fs.Stats` object describes a block device.",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "isCharacterDevice",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Returns `true` if the `fs.Stats` object describes a character device.",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "isDirectory",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Returns `true` if the `fs.Stats` object describes a file system directory.\n\nIf the `fs.Stats` object was obtained from `fs.lstat()`, this method will always return `false`.\nThis is because `fs.lstat()` returns information about a symbolic link itself and not the path it resolves to.\n",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "isFIFO",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Returns `true` if the `fs.Stats` object describes a first-in-first-out (FIFO) pipe.",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "isFile",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Returns `true` if the `fs.Stats` object describes a regular file.",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "isSocket",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Returns `true` if the `fs.Stats` object describes a socket.",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "isSymbolicLink",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Returns `true` if the `fs.Stats` object describes a symbolic link.\n\nThis method is only valid when using `fs.lstat()`.\n",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "events": [],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "source": "NodeJS/fs.yml"
+}

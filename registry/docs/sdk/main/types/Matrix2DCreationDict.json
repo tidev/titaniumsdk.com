@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "name": "Matrix2DCreationDict",
+  "kind": "pseudo",
+  "platforms": ["android", "iphone", "ipad", "macos"],
+  "summary": "Simple object passed to [Titanium.UI.createMatrix2D](api:Titanium.UI#createMatrix2D) to initialize a matrix.",
+  "description": "The matrix is initialized with the specified transforms.\n\nOn iOS, rotation is always performed first, regardless of the order the\nproperties are specified in.\n\nOn Android, specifying both `scale` and `rotate` the same dictionary results\nin an incorrect transformation.\n",
+  "properties": [
+    {
+      "name": "anchorPoint",
+      "platforms": ["android"],
+      "summary": "Point to rotate around, specified as a dictionary object with `x` and `y`\nproperties, where { x: 0.5, y: 0.5 } represents the center of whatever is being\nrotated.\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Point"
+        }
+      ],
+      "default": "(0.5, 0.5)",
+      "optional": true
+    },
+    {
+      "name": "rotate",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Rotation angle, in degrees. See the [rotate](api:Titanium.UI.Matrix2D#rotate) method\nfor a discussion of rotation.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "default": "No rotation.",
+      "optional": true
+    },
+    {
+      "name": "scale",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Scale the matrix by the specified scaling factor. The same scaling factor is used\nfor both horizontal and vertical scaling.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "default": "1",
+      "optional": true
+    }
+  ],
+  "methods": [],
+  "events": [],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "references": ["Point", "Titanium.UI", "Titanium.UI.Matrix2D"],
+  "source": "Titanium/UI/Matrix2D.yml"
+}

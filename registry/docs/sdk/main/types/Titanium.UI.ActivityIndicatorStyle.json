@@ -1,0 +1,114 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.UI.ActivityIndicatorStyle",
+  "kind": "module",
+  "extends": "Titanium.Module",
+  "inheritanceChain": ["Titanium.Module", "Titanium.Proxy"],
+  "platforms": ["android", "iphone", "ipad", "macos"],
+  "since": {
+    "iphone": "5.1.0",
+    "ipad": "5.1.0",
+    "android": "3.0.0"
+  },
+  "summary": "A set of constants for the styles available for [Titanium.UI.ActivityIndicator](api:Titanium.UI.ActivityIndicator) objects.",
+  "properties": [
+    {
+      "name": "BIG",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Large white spinning indicator.",
+      "description": "Used with the [Titanium.UI.ActivityIndicator.style](api:Titanium.UI.ActivityIndicator#style) property.\n\nOne of the group of activity indicator style constants\n[DARK](api:Titanium.UI.ActivityIndicatorStyle#DARK),\n[BIG](api:Titanium.UI.ActivityIndicatorStyle#BIG),\n[BIG_DARK](api:Titanium.UI.ActivityIndicatorStyle#BIG_DARK),\nand [PLAIN](api:Titanium.UI.ActivityIndicatorStyle#PLAIN).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "BIG_DARK",
+      "platforms": ["android"],
+      "summary": "Large gray spinning indicator.",
+      "description": "Used with the [Titanium.UI.ActivityIndicator.style](api:Titanium.UI.ActivityIndicator#style) property.\n\nNote: Although this constant is not available on iOS, you accomplish\nthis behavior by setting the style to `Ti.UI.ActivityIndicatorStyle.BIG`\nand use the [Titanium.UI.ActivityIndicator.indicatorColor](api:Titanium.UI.ActivityIndicator#indicatorColor) property to\ntint the indicator.\n\nOne of the group of activity indicator style constants\n[DARK](api:Titanium.UI.ActivityIndicatorStyle#DARK),\n[BIG](api:Titanium.UI.ActivityIndicatorStyle#BIG),\n[BIG_DARK](api:Titanium.UI.ActivityIndicatorStyle#BIG_DARK),\nand [PLAIN](api:Titanium.UI.ActivityIndicatorStyle#PLAIN).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "DARK",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Small gray spinning indicator.",
+      "description": "Used with the [Titanium.UI.ActivityIndicator.style](api:Titanium.UI.ActivityIndicator#style) property.\n\nOne of the group of activity indicator style constants\n[DARK](api:Titanium.UI.ActivityIndicatorStyle#DARK),\n[BIG](api:Titanium.UI.ActivityIndicatorStyle#BIG),\n[BIG_DARK](api:Titanium.UI.ActivityIndicatorStyle#BIG_DARK),\nand [PLAIN](api:Titanium.UI.ActivityIndicatorStyle#PLAIN).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "PLAIN",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Small white spinning indicator (default).",
+      "description": "Used with the [Titanium.UI.ActivityIndicator.style](api:Titanium.UI.ActivityIndicator#style) property.\n\nOne of the group of activity indicator style constants\n[DARK](api:Titanium.UI.ActivityIndicatorStyle#DARK),\n[BIG](api:Titanium.UI.ActivityIndicatorStyle#BIG),\n[BIG_DARK](api:Titanium.UI.ActivityIndicatorStyle#BIG_DARK),\nand [PLAIN](api:Titanium.UI.ActivityIndicatorStyle#PLAIN).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    }
+  ],
+  "methods": [],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "lifecycleContainer",
+        "from": "Titanium.Proxy",
+        "platforms": ["android"]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      }
+    ],
+    "events": []
+  },
+  "references": ["Titanium.Module", "Titanium.UI.ActivityIndicator"],
+  "source": "Titanium/UI/ActivityIndicatorStyle.yml"
+}

@@ -1,0 +1,104 @@
+{
+  "schemaVersion": 1,
+  "name": "ViewTemplate",
+  "kind": "pseudo",
+  "platforms": ["android", "iphone", "ipad", "macos"],
+  "since": "3.1.0",
+  "summary": "Template that represents a view subcomponent of an [ItemTemplate](api:ItemTemplate).",
+  "description": "See [Titanium.UI.ListItem](api:Titanium.UI.ListItem) for examples of using an item template.",
+  "properties": [
+    {
+      "name": "bindId",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "View's ID (or set of IDs) used for data binding. This value must be unique.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "childTemplates",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Contains an array of subview templates to be added (in order) as children to this view.\n",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Array",
+          "args": [
+            {
+              "kind": "type",
+              "name": "ViewTemplate"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "events",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Contains key-value pairs of view events and their listeners that are applied to this view component.\n",
+      "description": "Array values are considered as multiple event listeners for that event.\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Dictionary"
+        }
+      ]
+    },
+    {
+      "name": "properties",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Contains key-value pairs of view properties and their values that are applied to this view component.\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Dictionary"
+        }
+      ]
+    },
+    {
+      "name": "type",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "View's class name, for example, `Ti.UI.Button`.",
+      "description": "Only the following view classes are supported:\n\n  * [Titanium.UI.ActivityIndicator](api:Titanium.UI.ActivityIndicator)\n  * [Titanium.UI.Button](api:Titanium.UI.Button)\n  * [Titanium.UI.ButtonBar](api:Titanium.UI.ButtonBar)\n  * [Titanium.UI.ImageView](api:Titanium.UI.ImageView)\n  * [Titanium.UI.Label](api:Titanium.UI.Label)\n  * [Titanium.UI.MaskedImage](api:Titanium.UI.MaskedImage)\n  * [Titanium.UI.ProgressBar](api:Titanium.UI.ProgressBar)\n  * [Titanium.UI.Picker](api:Titanium.UI.Picker)\n  * [Titanium.UI.ScrollableView](api:Titanium.UI.ScrollableView)\n  * [Titanium.UI.Slider](api:Titanium.UI.Slider)\n  * [Titanium.UI.Switch](api:Titanium.UI.Switch)\n  * [Titanium.UI.TextArea](api:Titanium.UI.TextArea)\n  * [Titanium.UI.TextField](api:Titanium.UI.TextField)\n  * [Titanium.UI.iOS.BlurView](api:Titanium.UI.iOS.BlurView)\n  * [Titanium.UI.iOS.LivePhotoView](api:Titanium.UI.iOS.LivePhotoView)\n  * [Titanium.UI.iOS.Stepper](api:Titanium.UI.iOS.Stepper)\n  * [Titanium.UI.iOS.TabbedBar](api:Titanium.UI.iOS.TabbedBar)\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    }
+  ],
+  "methods": [],
+  "events": [],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "references": [
+    "Dictionary",
+    "ItemTemplate",
+    "Titanium.UI.ActivityIndicator",
+    "Titanium.UI.Button",
+    "Titanium.UI.ButtonBar",
+    "Titanium.UI.ImageView",
+    "Titanium.UI.Label",
+    "Titanium.UI.ListItem",
+    "Titanium.UI.MaskedImage",
+    "Titanium.UI.Picker",
+    "Titanium.UI.ProgressBar",
+    "Titanium.UI.ScrollableView",
+    "Titanium.UI.Slider",
+    "Titanium.UI.Switch",
+    "Titanium.UI.TextArea",
+    "Titanium.UI.TextField",
+    "Titanium.UI.iOS.BlurView",
+    "Titanium.UI.iOS.LivePhotoView",
+    "Titanium.UI.iOS.Stepper",
+    "Titanium.UI.iOS.TabbedBar"
+  ],
+  "source": "Titanium/UI/ListItem.yml"
+}

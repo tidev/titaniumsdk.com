@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "name": "HeadingData",
+  "kind": "pseudo",
+  "platforms": ["android", "iphone", "ipad", "macos"],
+  "summary": "Simple object holding compass heading data.",
+  "properties": [
+    {
+      "name": "accuracy",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Accuracy of the compass heading, in platform-specific units.",
+      "description": "On iOS, accuracy is returned as a maximum deviation in degrees,\nthe smaller the value, the more accurate the heading is. For example,\na value of 10 means the heading is plus or minus 10 degrees from the\nactual value. A negative value indicates the compass heading is invalid;\nfor example, if there is magnetic interference, or if the compass is not calibrated.\n\nOn Android, the value is set to either 1 (low accuracy), 2 (medium accuracy)\nor 3 (high accuracy). No specific definition of these accuracy values is supplied.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ]
+    },
+    {
+      "name": "magneticHeading",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Declination in degrees from magnetic North.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ]
+    },
+    {
+      "name": "timestamp",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Timestamp for the heading data, in milliseconds.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ]
+    },
+    {
+      "name": "trueHeading",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Declination in degrees from true North.",
+      "description": "Calculating the true heading requires correcting the magnetic declination based on\nthe device's current location. So `trueHeading` can only be calculated if the device\nhas a fairly recent location fix. If you want to obtain the true heading, you\nshould register for location updates as well as compass updates. The location fix\ndoes not need to be very accurate.\n\nOn Android, `trueHeading` is `undefined` if a recent location fix is not available.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ]
+    },
+    {
+      "name": "x",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Raw geomagnetic data for the X axis.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ]
+    },
+    {
+      "name": "y",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Raw geomagnetic data for the Y axis.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ]
+    },
+    {
+      "name": "z",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Raw geomagnetic data for the Z axis.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ]
+    }
+  ],
+  "methods": [],
+  "events": [],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "source": "Titanium/Geolocation/Geolocation.yml"
+}

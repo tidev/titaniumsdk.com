@@ -1,0 +1,375 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.Network.BonjourService",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": ["Titanium.Proxy"],
+  "platforms": ["iphone", "ipad", "macos"],
+  "since": "1.2.0",
+  "summary": "Describes a service on the network which is published by Bonjour.",
+  "description": "You can obtain a `BonjourService` instance by calling [Titanium.Network.createBonjourService](api:Titanium.Network#createBonjourService) \nor from the `service` list from a [BonjourBrowser](api:Titanium.Network.BonjourBrowser)  \n`updatedservices` event.   \n\nYou can only publish Bonjour services attached to a socket which is currently listening; \nyou cannot publish a service for a remotely connected socket.  If you stop the Bonjour \nservice and wish to close the socket it uses, it is strongly recommended that you stop \nthe service first.  When a window which publishes a Bonjour service is closed, you must \nstop the service if the associated socket is also to be closed, or if it is no longer \nnecessary to publish.  Bonjour service resolution and publishing is asynchronous.\n\nIn iOS 14.0+, to publish service add key `NSLocalNetworkUsageDescription` and `NSBonjourServices` in tiapp.xml file.\n\nExample:\n\n``` xml\n<ti:app>\n  <!-- ... -->\n  <ios>\n    <plist>\n      <dict>\n        <!-- Reason to access local network-->\n        <key>NSLocalNetworkUsageDescription</key>\n        [string](api:Global.String)\n            Specify the reason for accessing the local network.\n            This appears in the alert dialog when asking the user \n            for permission to access local network.\n        </string>\n        <!-- List of bonjour service type-->\n        <key>NSBonjourServices</key>\n        <array>\n          [string](api:Global.String)_test._tcp</string>\n        <array/>\n      </dict>\n    </plist>\n  </ios>\n  <!-- ... -->\n</ti:app>\n```\n",
+  "examples": [
+    {
+      "title": "Resolve local HTTP/TCP services",
+      "code": "The following code excerpt looks for http-based TCP zeroconf services on the local network.\nIt then attempts to resolve the service, establishing a socket that can be used for communications.\n\n``` js\n// Create the Bonjour Browser (looking for http)\nvar httpBonjourBrowser = Ti.Network.createBonjourBrowser({\n  serviceType: '_http._tcp',\n  domain: 'local'\n});\n\n// Handle updated services\nhttpBonjourBrowser.addEventListener('updatedservices', function (e) {\n  for (var service of e.services) {\n      // callback style\n      service.resolve(120, (err, success) => {\n          console.log(service.socket);\n          console.log(service.socket.port);\n          console.log(service.socket.host);\n      });\n  }\n});\n\n// Start searching\nhttpBonjourBrowser.search();\n```\n"
+    },
+    {
+      "title": "Create and Publish a local HTTP/TCP service",
+      "code": "The following code excerpt creates a zeroconf bonjour service and publishes it out to the local network.\nA TCP Socket is used to handle listening for clients and communicating.\n\n``` js\n// Create the Bonjour Service\nvar localService = Ti.Network.createBonjourService({\n  name: 'example',\n  type: '_test._tcp',\n  domain: 'local.'\n});\n\n// Create the socket we'll tie to the service\nvar bonjourSocket = Ti.Network.Socket.createTCP({\n  host: '127.0.0.1',\n  port: 40401,\n  accepted: function (e) {\n    // Here you handle clients connecting\n    Ti.API.info(\"Listening socket <\" + e.socket + \"> accepted incoming connection <\" + e.inbound + \">\");\n    e.inbound.write(Ti.createBuffer({\n      value: 'You have been connected to a listening socket.\\r\\n'\n    }));\n    e.inbound.close();\n  },\n  error: function (e) {\n    // handle errors...\n    Ti.API.error(\"Socket <\" + e.socket + \"> encountered error when listening\");\n    Ti.API.error(\" error code <\" + e.errorCode + \">\");\n    Ti.API.error(\" error description <\" + e.error + \">\");\n  }\n});\n\n// Make the socket listen for connections\nbonjourSocket.listen();\n\n// Make the socket accept incoming connections\nbonjourSocket.accept({ timeout: 10000 });\n\n// Publish the service\nlocalService.publish(bonjourSocket, function (err, bool) {\n  // Now you can find the service on your network (including using a Ti.Network.BonjourBrowser)\n});\n```\n"
+    }
+  ],
+  "properties": [
+    {
+      "name": "domain",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "the domain of the service",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "isLocal",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "whether or not the service is local to the device",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "default": "true"
+    },
+    {
+      "name": "name",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "the name of the service",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "socket",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "the TCPSocket object that is used to connect to the service",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.Network.Socket.TCP"
+        }
+      ]
+    },
+    {
+      "name": "type",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "the type of the service",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "publish",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Asynchronously publish a Bonjour service to the network.  Only works if isLocal is TRUE",
+      "parameters": [
+        {
+          "name": "socket",
+          "summary": "a TCPSocket object to associate with the Bonjour service.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Network.Socket.TCP"
+            }
+          ]
+        },
+        {
+          "name": "callback",
+          "summary": "Asynchronous callback function to receive the result of the publish operation",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Callback",
+              "args": [
+                {
+                  "kind": "primitive",
+                  "name": "Error"
+                },
+                {
+                  "kind": "primitive",
+                  "name": "Boolean"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "resolve",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Asynchronously resolve a Bonjour service from the network.  Must be done before attempting to access the service's socket information, if a remote service.  You cannot resolve a locally published service.",
+      "parameters": [
+        {
+          "name": "timeout",
+          "summary": "the timeout for service resolution, in seconds.  Optional, default is 120s.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "optional": true,
+          "default": "120"
+        },
+        {
+          "name": "callback",
+          "summary": "Asynchronous callback function to receive the result of the resolve operation",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Callback",
+              "args": [
+                {
+                  "kind": "primitive",
+                  "name": "Error"
+                },
+                {
+                  "kind": "primitive",
+                  "name": "Boolean"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "stop",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Asynchronously halts a currently running attempt to publish or resolve a service.",
+      "parameters": [
+        {
+          "name": "callback",
+          "summary": "Asynchronous callback function to receive the result of the stop operation",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Callback",
+              "args": [
+                {
+                  "kind": "primitive",
+                  "name": "Error"
+                },
+                {
+                  "kind": "primitive",
+                  "name": "Boolean"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "publish",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Fired when the service has been published (or errored).",
+      "properties": [
+        {
+          "name": "code",
+          "summary": "Error code",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "error",
+          "summary": "Error message",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "success",
+          "summary": "Reports if the publish operation was successful",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "source",
+          "summary": "the service whose publish operation was completed/errored.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Network.BonjourService"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "resolve",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Fired when the service has been resolved (or errored). If successful, the [socket](api:Titanium.Network.BonjourService#socket) property should now be available.",
+      "properties": [
+        {
+          "name": "code",
+          "summary": "Error code",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "error",
+          "summary": "Error message",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "success",
+          "summary": "Reports if the resolve operation was successful",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "source",
+          "summary": "the service whose resolve operation was completed/errored.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Network.BonjourService"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "stop",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Fired when a service's publish or resolution was stopped via [Titanium.Network.BonjourService.stop](api:Titanium.Network.BonjourService#stop)",
+      "properties": [
+        {
+          "name": "code",
+          "summary": "Error code",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "error",
+          "summary": "Error message",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "success",
+          "summary": "Reports if the stop operation was successful",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "source",
+          "summary": "the service whose publish or resolve operation was stopped.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Network.BonjourService"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone", "ipad", "macos"]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone", "ipad", "macos"]
+      }
+    ],
+    "events": []
+  },
+  "references": [
+    "Global.String",
+    "Titanium.Network",
+    "Titanium.Network.BonjourBrowser",
+    "Titanium.Network.Socket.TCP",
+    "Titanium.Proxy"
+  ],
+  "source": "Titanium/Network/BonjourService.yml"
+}

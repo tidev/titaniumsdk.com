@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.XML.ProcessingInstruction",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": ["Titanium.Proxy"],
+  "platforms": ["android", "iphone", "ipad", "macos"],
+  "since": {
+    "android": "0.9",
+    "iphone": "0.9",
+    "ipad": "0.9",
+    "macos": "9.2.0"
+  },
+  "summary": "A way to keep processor-specific information in the text of the document. Implements the [DOM Level 2 API](https://www.w3.org/TR/DOM-Level-2-Core/core.html#ID-1004215813) on Android and iOS.",
+  "properties": [
+    {
+      "name": "data",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Retrieve the content of this processing instruction. This from the first non white space character after the target to the character immediately preceding the ?>. When setting a processing instruction, a DOMException may be thrown on an invalid instruction.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "target",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Retrieve the target of this processing instruction. XML defines this as being the first token following the markup that begins the processing instruction.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "permission": "read-only"
+    }
+  ],
+  "methods": [],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "lifecycleContainer",
+        "from": "Titanium.Proxy",
+        "platforms": ["android"]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      }
+    ],
+    "events": []
+  },
+  "references": ["Titanium.Proxy"],
+  "source": "Titanium/XML/ProcessingInstruction.yml"
+}

@@ -1,0 +1,511 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.Media.Item",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": ["Titanium.Proxy"],
+  "platforms": ["iphone", "ipad", "macos"],
+  "since": "1.4.0",
+  "summary": "A representation of a media item returned by [openMusicLibrary](api:Titanium.Media#openMusicLibrary) or [queryMusicLibrary](api:Titanium.Media#queryMusicLibrary).",
+  "description": "This is a read-only object that describes a single media item, not a playlist. \nTitanium does not support access to playlists.\n\n`Item` objects cannot be created explicitly.  The \n[openMusicLibrary](api:Titanium.Media#openMusicLibrary) returns `Item` objects in its\n`success` callback function, while [queryMusicLibrary](api:Titanium.Media#queryMusicLibrary)\nreturns an array of `Item` objects.\n",
+  "properties": [
+    {
+      "name": "albumArtist",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Artist credited for the album containing this item.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "albumArtistPersistentID",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "The persistent identifier for an album artist.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "albumPersistentID",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "The key for the persistent identifier for an album.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "albumTitle",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Title of the album containing this item.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "albumTrackCount",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Number of tracks for the album containing this item.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "albumTrackNumber",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Track number for this item.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "artist",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Artist credited for this item.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "artwork",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Image for the item's artwork as a `Blob` object,  or `null` if no artwork is\navailable.\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.Blob"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "assetURL",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "A URL pointing to the media item.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "6.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "beatsPerMinute",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "The number of musical beats per minute for the media item.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "bookmarkTime",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "The user's place in the media item the most recent time it was played.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "6.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "comments",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Textual information about the media item.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "6.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "composer",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Composer of this item.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "dateAdded",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Date when the item was added to the music library.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Date"
+        }
+      ],
+      "since": "6.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "discCount",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Total number of discs for the album containing this item.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "discNumber",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Disc number for this item in the album.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "genre",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Genre of this item.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "genrePersistentID",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "The persistent identifier for a genre.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "hasProtectedAsset",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "True if the item represents a protected asset.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "6.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "isCloudItem",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "True if the media item is an iCloud item.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "6.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "isCompilation",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "True if this item is part of a compilation album.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "isExplicit",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "True if this item is marked as \"Explicit\".",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "6.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "lastPlayedDate",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "The most recent calendar date on which the user played the media item.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Date"
+        }
+      ],
+      "since": "6.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "lyrics",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Lyrics for this item.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "mediaType",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "The type of the media. \n",
+      "description": "At least in theory, a single item can have more than one media type, in which case the\nvalue represents a bitwise-OR of all the applicable media types.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only",
+      "constants": ["Titanium.Media.MUSIC_MEDIA_TYPE_*"]
+    },
+    {
+      "name": "persistentID",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "The key for the persistent identifier for the media item.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "6.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "playbackDuration",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Length (in seconds) of this item.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "playbackStoreID",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Used to enqueue store tracks by their ID.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.1.0",
+      "permission": "read-only",
+      "osver": {
+        "ios": {
+          "min": "10.3"
+        }
+      }
+    },
+    {
+      "name": "playCount",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Number of times the item has been played.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "podcastPersistentID",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "The persistent identifier for an audio podcast.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "podcastTitle",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Title of a podcast item.",
+      "description": "Only included if the media type is [Titanium.Media.MUSIC_MEDIA_TYPE_PODCAST](api:Titanium.Media#MUSIC_MEDIA_TYPE_PODCAST).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "rating",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Rating for this item.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "releaseDate",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Date when this this item was released.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Date"
+        }
+      ],
+      "since": "6.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "skipCount",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Number of times this item has been skipped.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "title",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Title of this item.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "userGrouping",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Grouping information for the media item.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "6.1.0",
+      "permission": "read-only"
+    }
+  ],
+  "methods": [],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone", "ipad", "macos"]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone", "ipad", "macos"]
+      }
+    ],
+    "events": []
+  },
+  "references": ["Titanium.Blob", "Titanium.Media", "Titanium.Proxy"],
+  "source": "Titanium/Media/Item.yml"
+}

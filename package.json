@@ -16,7 +16,8 @@
     "registry:builds": "node scripts/generate-builds.ts",
     "registry:prune": "node scripts/prune-builds.ts",
     "start": "next start",
-    "tokens": "node scripts/generate-tokens.ts && oxfmt src/app/globals.css"
+    "tokens": "node scripts/generate-tokens.ts && oxfmt src/app/globals.css",
+    "test": "node --test 'scripts/**/*.test.ts'"
   },
   "dependencies": {
     "dotenv": "^17.4.2",

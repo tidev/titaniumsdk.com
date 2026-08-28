@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "name": "SuccessResponse",
+  "kind": "pseudo",
+  "extends": "ErrorResponse",
+  "inheritanceChain": ["ErrorResponse"],
+  "platforms": ["android", "iphone", "ipad", "macos"],
+  "summary": "Properties used in any event or callback which needs to report a success.",
+  "properties": [
+    {
+      "name": "code",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Error code. Returns 0.",
+      "description": "Error code will be 0.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ]
+    },
+    {
+      "name": "error",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Error message, if any returned.",
+      "description": "Will be undefined.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "success",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Indicates if the operation succeeded. Returns `true`.",
+      "description": "Returns `true`.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ]
+    }
+  ],
+  "methods": [],
+  "events": [],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "references": ["ErrorResponse"],
+  "source": "Titanium/ErrorResponse.yml"
+}

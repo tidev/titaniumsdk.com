@@ -1,0 +1,549 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.Filesystem",
+  "kind": "module",
+  "extends": "Titanium.Module",
+  "inheritanceChain": ["Titanium.Module", "Titanium.Proxy"],
+  "platforms": ["android", "iphone", "ipad", "macos"],
+  "since": "0.1",
+  "summary": "The top level filesystem module, used to access files and directories on the device.",
+  "description": "For examples of using the Filesystem APIs, refer to the\n[Filesystem Access and Storage guide](https://titaniumsdk.com/guide/Titanium_SDK/Titanium_SDK_How-tos/Working_with_Local_Data_Sources/Filesystem_Access_and_Storage.html)\nas well as the other Filesystem submodule API documentation.\n",
+  "examples": [
+    {
+      "title": "Getting a directory for an application group (iOS)",
+      "code": "This example writes a string to a text file in a shared directory\n\n``` js\nvar suiteDir = Ti.Filesystem.directoryForSuite('group.appc.Sharing');\nif (!suiteDir) {\n    logInApp('Suite Directory not found, check Entitlements.');\n    return;\n}\nvar f = Ti.Filesystem.getFile(suiteDir,'emptyfile.txt');\nf.write('The file is no longer empty!');\n```\n"
+    }
+  ],
+  "properties": [
+    {
+      "name": "applicationCacheDirectory",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Path to the application's internal cache directory.",
+      "description": "Files stored in the cache directory remain after the application is closed but at the\ndiscretion of the operating system.\n\nOn the Android platform, the cache is limited to 25 MB and the files remain for the lifetime\nof the application, that is, until the application is uninstalled.\n\nOn the iOS platform, the cache does not have a size limit but the data remains until iOS\ncleans the directory to recover the disk space.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "1.8.3",
+      "permission": "read-only"
+    },
+    {
+      "name": "applicationDataDirectory",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Path to the application's data directory.",
+      "description": "This is a writable directory that can be used to store applications-specific files.\n\nOn iOS, this directory is specifically designated for user documents, and a\nseparate directory,\n[applicationSupportDirectory](api:Titanium.Filesystem#applicationSupportDirectory) is\nused for other application data.\n\nOn iOS, files in this directory are backed up unless the\n[remoteBackup](api:Titanium.Filesystem.File#remoteBackup) flag is set to false.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "applicationDirectory",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Path to the iOS application directory.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "applicationSupportDirectory",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Path to the application support directory.",
+      "description": "This is a writable directory used on iOS for application files that are *not*\nuser documents--including settings files, caches, and so on.\n\nOn iOS, files in this directory are backed up unless the\n[remoteBackup](api:Titanium.Filesystem.File#remoteBackup) flag is set to false.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "externalCacheDirectory",
+      "platforms": ["android"],
+      "summary": "Path to the app's sandboxed cache folder on removable storage, such as SD card.",
+      "description": "This directory is intended to be used to store large temporary files since external storage\ntypically has a larger capacity than internal storage. This is a good place to store\nvideos and large photos.\n\nThe application should check\n[isExternalStoragePresent](api:Titanium.Filesystem#isExternalStoragePresent) before\naccessing this location. This is because external storage is sometimes removable\non same devices, such as an SD card.\n\nThis directory does not require the `Manifest.permission.READ_EXTERNAL_STORAGE` and\n`Manifest.permission.WRITE_EXTERNAL_STORAGE` permissions.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "9.3.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "externalStorageDirectory",
+      "platforms": ["android"],
+      "summary": "Path to the app's sandboxed folder on removable storage, such as SD card.",
+      "description": "This directory is intended to be used to store large files since external storage\ntypically has a larger capacity than internal storage. This is a good place to store\nvideos and large photos.\n\nThe application should check\n[isExternalStoragePresent](api:Titanium.Filesystem#isExternalStoragePresent) before\naccessing this location. This is because external storage is sometimes removable\non same devices, such as an SD card.\n\nAs of Titanium 9.3.0, this directory does not require the `Manifest.permission.READ_EXTERNAL_STORAGE`\nand `Manifest.permission.WRITE_EXTERNAL_STORAGE` permissions. For older Titanium SDK versions,\nthese permission are required and you must call the\n[requestStoragePermissions()](api:Titanium.Filesystem#requestStoragePermissions) method\nto request the end-user's permission to read/write to external storage.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "IOS_FILE_PROTECTION_COMPLETE",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Constant used to set protection key to NSFileProtectionComplete in file attributes.",
+      "description": "File is stored in an encrypted format on disk. Cannot be read from or written to while\nthe device is locked or booting.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "4.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "IOS_FILE_PROTECTION_COMPLETE_UNLESS_OPEN",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Constant used to set protection key to NSFileProtectionCompleteUnlessOpen in file attributes.",
+      "description": "File is stored in an encrypted format on disk. Can be created while the device is locked,\nbut once closed, cannot be opened again until the device is unlocked. If the file is opened when\nunlocked, you may continue to access the file normally, even if the user locks the device.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "4.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "IOS_FILE_PROTECTION_COMPLETE_UNTIL_FIRST_USER_AUTHENTICATION",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Constant used to set protection key to NSFileProtectionCompleteUntilFirstUserAuthentication in file attributes.",
+      "description": "File is stored in an encrypted format on disk. Cannot be accessed until after the device has booted.\nAfter the user unlocks the device for the first time, your app can access the file and continue to\naccess it even if the user subsequently locks the device.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "4.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "IOS_FILE_PROTECTION_NONE",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Constant used to set protection key to NSFileProtectionNone in file attributes.",
+      "description": "File will have no special protection associated with it. Can be read from or written\nto at any time.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "4.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "lineEnding",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Platform-specific line ending constant.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "MODE_APPEND",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Constant for append mode for file operations.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "MODE_READ",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Constant for read mode for file operations.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "MODE_WRITE",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Constant for write mode for file operations.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "resourcesDirectory",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Path to the application's resource directory.",
+      "description": "This directory is read-only. If you need to modify any files in this directory,\nthey must first be copied to another directory, such as\n[applicationDataDirectory](api:Titanium.Filesystem#applicationDataDirectory) or\n[tempDirectory](api:Titanium.Filesystem#tempDirectory).\n\nOn iOS,\nwritable files can also be placed in the\n[applicationSupportDirectory](api:Titanium.Filesystem#applicationSupportDirectory).\nOn Android, writable files can also be placed in the\n[externalStorageDirectory](api:Titanium.Filesystem#externalStorageDirectory).\n\nNote that when running on the simulator, the resources directory may be writable,\nbut it is not writable on device.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "resRawDirectory",
+      "platforms": ["android"],
+      "summary": "Path to the application's raw resource directory.",
+      "description": "On Android, the raw resources directory can be used for resources that need to be\naccessed as individual files, not included in the Android resources bundle. For\nexample, sound files placed in the raw resources directory can be accessed by\nnotifications, which cannot access sound files from the resource\ndirectory.\n\nTo use raw resources, place files in the `platform/android/res/raw` folder, where\n`platform` is at the top level of the project, not inside the `Resources` folder. You\nwill need to create the `platform` folder and subfolders.\n\nThis directory is read-only. If you need to modify any files in this directory,\nthey must first be copied to another directory, such as\n[applicationDataDirectory](api:Titanium.Filesystem#applicationDataDirectory) or\n[tempDirectory](api:Titanium.Filesystem#tempDirectory).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "3.0.2",
+      "permission": "read-only"
+    },
+    {
+      "name": "separator",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Platform-specific path separator constant.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "tempDirectory",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Path for the application's temporary directory.",
+      "description": "This directory can be used for storing temporary files. Files in this directory\nmay not persist when the application is shut down and restarted.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "permission": "read-only"
+    }
+  ],
+  "methods": [
+    {
+      "name": "createTempDirectory",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Creates a temporary directory and returns a [File](api:Titanium.Filesystem.File) object representing the new directory.",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Filesystem.File"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "createTempFile",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Creates a temporary file and returns a [File](api:Titanium.Filesystem.File) object representing the new file.",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Filesystem.File"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "directoryForSuite",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Returns the path to the container directory associated with the specified security application group ID.",
+      "description": "This is a writable directory used on iOS. Groups of sandboxed apps that need to share files\nand other information can request a container directory as part of their entitlements.\n\nWhen called with a valid group identifier, this method returns the location of that directory as a string.\nReturns null if the group identifier is invalid; check the app's entitlements.\n",
+      "since": "4.0.0",
+      "parameters": [
+        {
+          "name": "suiteName",
+          "summary": "The name of the suite.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "getAsset",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Returns a `Blob` object representing the asset catalog image identified by the path arguments.",
+      "description": "This method is only applicable on images in assets catalogs for apps with app-thinning\nenabled on iOS. Since the bundled image has been reallocated into assets catalog, it is\nno longer accessible via the original file path. To obtain a `Blob` object representing\nthis image, use the original file path as the parameter in this method instead of using it in\n[getFile](api:Titanium.Filesystem#getFile)\n\nSimilar to [getFile](api:Titanium.Filesystem#getFile), this method takes a variable\nnumber of arguments, where each argument is treated as a path component.\nAll of the arguments are joined together using the platform-specific path separator\nto make the final path.\n\nIf a relative path is passed, the full path should be interpreted relative\nto the current file. For example, if the file `Resources/login/login.js`\ncontains the following code:\n\n``` js\nvar icon = Titanium.Filesystem.getAsset('icon.png');\n```\n\nThe path is interpreted as `Resources/login/icon.png`.\n\nOn iOS, all relative paths are currently interpreted as relative to the\n`Resources` directory, **not** to the current context. This is a known issue\nthat will be addressed in a future release.\n",
+      "since": "5.4.0",
+      "parameters": [
+        {
+          "name": "path",
+          "summary": "One or more path components. Path arguments are joined together using the platform specific path separator to form the full path.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ],
+          "repeatable": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Blob"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "getFile",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Returns a `File` object representing the file identified by the path arguments.",
+      "description": "Note that `getFile` does not create a file if one does not exist at the specified\npath. It returns a new `File` object referring to the specified file path. The\napplication can create a file at that path by calling\n[write](api:Titanium.Filesystem.File#write) or create a directory by calling\n[createDirectory](api:Titanium.Filesystem.File#createDirectory) on the `File` object.\n\nThis method takes a variable number of arguments, where each argument is treated\nas a path component. All of the arguments are joined together using the\nplatform-specific path separator to make the final path.\n\nIf a relative path is passed, the full path should be interpreted relative\nto the current file. For example, if the file `Resources/login/login.js`\ncontains the following code:\n\n``` js\nvar icon = Titanium.Filesystem.getFile('icon.png');\n```\n\nThe path is interpreted as `Resources/login/icon.png`.\n\nOn iOS, all relative paths are currently interpreted as relative to the\n`Resources` directory, **not** to the current context. This is a known issue\nthat will be addressed in a future release.\n\nOn iOS 9, if app thinning is enabled, and the file of interest is an image file\nthat was bundled with the app (not downloaded during runtime), this will not return\nthe image file since it is already allocated inside the assets catalog. Please\nuse [getAsset](api:Titanium.Filesystem#getAsset) instead for this case.\n",
+      "parameters": [
+        {
+          "name": "path",
+          "summary": "One or more path components. Path arguments are joined together using the platform specific path separator to form the full path.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            },
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "primitive",
+                  "name": "String"
+                }
+              ]
+            }
+          ],
+          "repeatable": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Filesystem.File"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hasStoragePermissions",
+      "platforms": ["android"],
+      "summary": "Returns `true` if the app has storage permissions.",
+      "since": "5.4.0",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "isExternalStoragePresent",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Returns `true` if the device supports external storage *and* the external storage device is mounted.",
+      "description": "Returns `true` on Android if an external storage device, such as an SD card, is\navailable for reading and writing.\n\nReturns `false` on iOS.\n",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "openStream",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Opens file using the [Titanium.IOStream](api:Titanium.IOStream) interface.",
+      "parameters": [
+        {
+          "name": "mode",
+          "summary": "Access mode.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "path",
+          "summary": "One or more path components. Path arguments are joined together using the\nplatform-specific path separator to form the full path.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Filesystem.FileStream"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "requestStoragePermissions",
+      "platforms": ["android"],
+      "summary": "Requests for storage permissions",
+      "description": "On Android, the dialog will only appear if the permission is not accepted by the user and the user did\nnot check the box \"Never ask again\" when denying the request. If the user checks the box \"Never ask again,\"\nthe user has to manually enable the permission in device settings.\n\nThis method requests `Manifest.permission.READ_EXTERNAL_STORAGE` and `Manifest.permission.WRITE_EXTERNAL_STORAGE`.\nIf you require other permissions, you can also use [Titanium.Android.requestPermissions](api:Titanium.Android#requestPermissions).\n",
+      "since": "5.4.0",
+      "parameters": [
+        {
+          "name": "callback",
+          "summary": "Function to call upon user decision to grant storage access.\nOptional on SDK 10, as this method will return a `Promise`, which may be used to handle the result.\n",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Callback",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "RequestStorageAccessResult"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Promise",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "RequestStorageAccessResult"
+                }
+              ]
+            }
+          ],
+          "summary": "On SDK 10+, this method will return a `Promise` whose resolved value is equivalent to that passed to the optional callback argument."
+        }
+      ]
+    }
+  ],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "lifecycleContainer",
+        "from": "Titanium.Proxy",
+        "platforms": ["android"]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      }
+    ],
+    "events": []
+  },
+  "references": [
+    "RequestStorageAccessResult",
+    "Titanium.Android",
+    "Titanium.Blob",
+    "Titanium.Filesystem.File",
+    "Titanium.Filesystem.FileStream",
+    "Titanium.IOStream",
+    "Titanium.Module"
+  ],
+  "source": "Titanium/Filesystem/Filesystem.yml"
+}

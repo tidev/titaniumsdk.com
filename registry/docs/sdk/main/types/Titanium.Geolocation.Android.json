@@ -1,0 +1,259 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.Geolocation.Android",
+  "kind": "module",
+  "extends": "Titanium.Module",
+  "inheritanceChain": ["Titanium.Module", "Titanium.Proxy"],
+  "platforms": ["android"],
+  "since": "2.0.0",
+  "summary": "Module for Android-specific geolocation functionality.",
+  "description": "This module is used for manually configuring geolocation settings on Android. \n\nManual configuration is recommended for applications that have more demanding \ngeolocation needs (for example, driving directions). However, for basic geolocation\ninformation, *simple mode* geolocation may be sufficient. For information on simple \nmode, see [Titanium.Geolocation](api:Titanium.Geolocation).\n\nManual configuration involves managing *providers* and *rules*:\n\n*   *Location providers*, such as GPS, provide location updates.\n\n*   *Location rules* filter the results returned by location providers. \n\nConfiguring geolocation manually involves three steps:\n\n1.  Enabling manual mode.\n\n2.  Enabling location providers.\n\n3.  Adding location rules (optional).\n\nAs with the other modes, you register for location updates using the main\n[Titanium.Geolocation](api:Titanium.Geolocation) module. Location updates are generated as long as \nan event listener is registered for the `location` event.  When you are not \nusing location updates, you should remove any registered event listeners.\n\nIn manual mode, the application is responsible for dynamically updating the settings\nto achieve its required accuracy while limiting battery usage. For example, an\napplication might do any of the following:\n\n*   If the application isn't getting updates frequently enough, it can adjust its\n    provider settings to provide more updates, or relax its location rules to allow\n    less accurate updates through. \n\n*   If the application isn't receiving accurate enough updates from one provider, it \n    can add another provider to try to improve results.\n\n*   If the application is getting sufficiently accurate results from the network \n    provider, it can disable the GPS provider to save power.\n\n#### Enabling Manual Configuration Mode\n\nTo enable manual configuration mode, set the [manualMode](api:Titanium.Geolocation.Android#manualMode) \nproperty to `true`. In manual configuration mode, the location providers and location\nrules set through this module control the generation of location updates.\n\nWhen `manualMode` is `true`, the following configuration settings in the\n[Titanium.Geolocation](api:Titanium.Geolocation) module are ignored:\n\n*   [Geolocation.accuracy](api:Titanium.Geolocation#accuracy)\n*   [Geolocation.frequency](Titanium.Geolocation.frequency)\n*   [Geolocation.preferredProvider](Titanium.Geolocation.preferredProvider)\n\nWhen `manualMode` is `false`, the `accuracy`, `frequency` and `preferredProvider`\nsettings from [Titanium.Geolocation](api:Titanium.Geolocation) are used to configure location updates.\nAny location providers and location rules set in [Titanium.Geolocation.Android](api:Titanium.Geolocation.Android) \nare retained, but they have no effect.\n\n#### Location Providers\n\nAndroid supports three kinds of location providers: GPS, network, and the \n\"passive\" location provider, which provides only cached information. \n\nEach location provider represents a different tradeoff between accuracy and\nbattery power. For most accurate results, you can use a combination of location\nproviders. Your application can also dynamically change providers to optimize\nbattery life (for example, if the network provider is providing good enough\nlocation updates, you can disable the GPS provider).\n\nLocation providers are represented by the\n[LocationProvider](api:Titanium.Geolocation.Android.LocationProvider) object. \nTo specify a location provider, create a new provider object, then register it\nwith [addLocationProvider](api:Titanium.Geolocation.Android#createLocationProvider):\n\n``` js\nvar gpsProvider = Ti.Geolocation.Android.createLocationProvider({\n    name: Ti.Geolocation.Android.PROVIDER_GPS,\n    minUpdateTime: 60, \n    minUpdateDistance: 100\n});\nTi.Geolocation.Android.addLocationProvider(gpsProvider);\n```\n\nAs shown above, when you create a location provider, you can specify two\nproperties to limit update frequency:\n\n*   `minUpdateTime`. Limits the frequency of location updates to no more \n    than one per `minUpdateTime` seconds.\n\n*   `minUpdateDistance`. Don't send location updates until the location changes\n    at least `minUpdateDistance` meters.\n\nOnly one provider of each type (GPS, network, passive) can be registered at a\ntime. Adding a new location provider with the same `name` value replaces any\nexisting provider with the same `name`.\n\nOnce a location provider is added, changes made to the location provider object itself\n(such as changing its `minUpdateTime` value) change the active configuration of the \nlocation system.\n\n#### Location Rules\n\n*Location Rules* filter the results returned by location providers. You use\nlocation rules to reduce the number of location update events, and ensure that \nthe events you do receive are as accurate and recent as your application requires.\n\nYou are not required to set any location rules. However, by reducing the number of \nlocation events that are passed from the native code\nto the JavaScript layer, location rules can improve both performance and battery\nlife.\n\nLocation rules are represented by the\n[LocationRule](api:Titanium.Geolocation.Android.LocationProvider) object. To\nspecify a location rule, create a new rule object, then register it with \n[addLocationRule](api:Titanium.Geolocation.Android#createLocationProvider):\n\n``` js\nvar gpsRule = Ti.Geolocation.Android.createLocationRule({\n    provider: Ti.Geolocation.PROVIDER_GPS,\n    // Updates should be accurate to 100m\n    accuracy: 100,\n    // Updates should be no older than 5m\n    maxAge: 300000\n    // But  no more frequent than once per 10 seconds\n    minAge: 10000\n});\nTi.Geolocation.Android.addLocationRule(gpsRule);\n```\n\nEach rule can specify any combination of the following criteria:\n\n*   `provider`. If specified, this rule only applies to updates generated\n    by the specified provider. If not specified, this rule applies to all updates.\n\n*   `accuracy`. Minimum accuracy required for a location update. Accuracy is\n    expressed as the maximum allowable error, in meters. Updates with reported\n    accuracy values greater than this are filtered out. \n\n*   `minAge`. Controls the frequency of location updates. Do not forward an update unless\n     at least `minAge` milliseconds have passed since the last good location\n     update.\n\n*   `maxAge`. Controls the freshness of location updates. Do not forward an update\n    unless it is newer than `maxAge` milliseconds.\n\nYou can specify as many location rules as you like. The order in which location rules\nare added is not significant. For a `location` event to be generated, the location\nupdate must pass all of the active rules.\n\nNote that some combinations of rules may make it very difficult to get location\nupdates. In particular, very low values for either `accuracy` or `maxAge` may prevent \nresults from getting through. \n",
+  "properties": [
+    {
+      "name": "manualMode",
+      "platforms": ["android"],
+      "summary": "Set to `true` to enable manual configuration of location updates through this module.",
+      "description": "If `true`, location updates are controlled by the location providers and location rules \nconfigured in this module.\n\nIf `false`, location updates are configured using the  [accuracy](api:Titanium.Geolocation#accuracy),\n[frequency](Titanium.Geolocation.frequency) and [preferredProvider](Titanium.Geolocation.preferredProvider)\nproperties in the [Titanium.Geolocation](api:Titanium.Geolocation) module.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "default": "false"
+    },
+    {
+      "name": "PROVIDER_GPS",
+      "platforms": ["android"],
+      "summary": "Specifies the GPS location provider.\n",
+      "description": "Used with [LocationProvider.name](api:Titanium.Geolocation.Android.LocationProvider),\n[LocationRule.provider](api:Titanium.Geolocation.Android.LocationRule).\n In general, the GPS provider has the highest power consumption and the\nhighest accuracy, but this may vary. In some circumstances, the network\nprovider may be more reliable.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "PROVIDER_NETWORK",
+      "platforms": ["android"],
+      "summary": "Specifies the network location provider.\n",
+      "description": "Used with [LocationProvider.name](api:Titanium.Geolocation.Android.LocationProvider),\n[LocationRule.provider](api:Titanium.Geolocation.Android.LocationRule).\n Generally requires less power than the GPS provider and provides less accurate\nresults, but may produce very accurate results in densely-populated areas\nwith many cell towers and WiFi networks.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "PROVIDER_PASSIVE",
+      "platforms": ["android"],
+      "summary": "Specifies the passive location provider.\n",
+      "description": "Used with [LocationProvider.name](api:Titanium.Geolocation.Android.LocationProvider),\n[LocationRule.provider](api:Titanium.Geolocation.Android.LocationRule).\n This provider only uses cached location information, so it does not use\nany power, but makes no guarantee that the location results are recent.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "permission": "read-only"
+    }
+  ],
+  "methods": [
+    {
+      "name": "addLocationProvider",
+      "platforms": ["android"],
+      "summary": "Adds and enables the specified location provider, possibly replacing an existing one.",
+      "description": "If another location provider with the same `name` value is already active, the \nnew location provider replaces the exiting one.\n",
+      "parameters": [
+        {
+          "name": "provider",
+          "summary": "The location provider to add.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Geolocation.Android.LocationProvider"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "addLocationRule",
+      "platforms": ["android"],
+      "summary": "Adds and enables the specified location rule.",
+      "description": "Only location updates that pass all of the active rules are passed on to the\napplication.\n",
+      "parameters": [
+        {
+          "name": "rule",
+          "summary": "The location rule to add.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Geolocation.Android.LocationRule"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "createLocationProvider",
+      "platforms": ["android"],
+      "summary": "Creates and returns an instance of [Titanium.Geolocation.Android.LocationProvider](api:Titanium.Geolocation.Android.LocationProvider).",
+      "since": "2.0.0",
+      "factoryFor": "Titanium.Geolocation.Android.LocationProvider",
+      "parameters": [
+        {
+          "name": "parameters",
+          "summary": "Properties to set on a new object, including any defined by [Titanium.Geolocation.Android.LocationProvider](api:Titanium.Geolocation.Android.LocationProvider) except those marked not-creation or read-only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Titanium.Geolocation.Android.LocationProvider"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Geolocation.Android.LocationProvider"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "createLocationRule",
+      "platforms": ["android"],
+      "summary": "Creates and returns an instance of [Titanium.Geolocation.Android.LocationRule](api:Titanium.Geolocation.Android.LocationRule).",
+      "since": "2.0.0",
+      "factoryFor": "Titanium.Geolocation.Android.LocationRule",
+      "parameters": [
+        {
+          "name": "parameters",
+          "summary": "Properties to set on a new object, including any defined by [Titanium.Geolocation.Android.LocationRule](api:Titanium.Geolocation.Android.LocationRule) except those marked not-creation or read-only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Titanium.Geolocation.Android.LocationRule"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Geolocation.Android.LocationRule"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "removeLocationProvider",
+      "platforms": ["android"],
+      "summary": "Disables and removes the specified location provider.",
+      "parameters": [
+        {
+          "name": "provider",
+          "summary": "The location provider to remove.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Geolocation.Android.LocationProvider"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "removeLocationRule",
+      "platforms": ["android"],
+      "summary": "Disables and removes the specified location rule.",
+      "parameters": [
+        {
+          "name": "rule",
+          "summary": "The location rule to remove.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Geolocation.Android.LocationRule"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": ["android"]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": ["android"]
+      },
+      {
+        "name": "lifecycleContainer",
+        "from": "Titanium.Proxy",
+        "platforms": ["android"]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["android"]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": ["android"]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": ["android"]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["android"]
+      }
+    ],
+    "events": []
+  },
+  "references": [
+    "Titanium.Geolocation",
+    "Titanium.Geolocation.Android.LocationProvider",
+    "Titanium.Geolocation.Android.LocationRule",
+    "Titanium.Module"
+  ],
+  "source": "Titanium/Geolocation/Android/Android.yml"
+}

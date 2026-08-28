@@ -1,0 +1,498 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.UI.OptionDialog",
+  "kind": "view",
+  "extends": "Titanium.UI.View",
+  "inheritanceChain": ["Titanium.UI.View", "Titanium.Proxy"],
+  "platforms": ["android", "iphone", "ipad", "macos"],
+  "since": "0.8",
+  "summary": "An option dialog is a modal view that includes a message and one or more option items positioned\nin the middle of the display on Android and at the bottom edge on iOS. On Android, buttons may\nbe added below the options.\n",
+  "description": "| Android | iPhone | iPad |\n| ------- | ------ | ---- |\n| ![Android](./optiondialog_android.png) | ![iPhone](./optiondialog_iphone.png) | ![iPad](./optiondialog_ipad.png) |\n\nAn option dialog is created using [Titanium.UI.createOptionDialog](api:Titanium.UI#createOptionDialog) or Alloy `<OptionDialog>`\nelement. See Examples below for usage.\n\nThis dialog is presented differently on each platform, as described below.\n\n#### Android\n\nOn Android, the dialog is shown in the middle of the display (not touching the edges),\nwith the option items represented in a picker. The previously-selected, or default, item can be\nset on creation.\n\nYou can assign a [View](api:Titanium.UI.View) to the [Titanium.UI.OptionDialog.androidView](api:Titanium.UI.OptionDialog#androidView) property\nto define a custom dialog UI and layout, or you can assign a set of options to the\n[Titanium.UI.OptionDialog.options](api:Titanium.UI.OptionDialog#options) property, but not both. If both of these properties are set, the custom view\nwill appear but the options will be hidden.\n\nButtons below the picker may be optionally defined using the `buttonNames` property.\nThe `click` event returns a Boolean value to indicate whether either an option item or a button was clicked.\n\n#### iOS\n\nThe `destructive` property may be set for an item, to give a visual cue that selecting it\nresults in an irreversible action. Option dialogs are automatically cancelled when the application is paused/suspended.\n\n##### iPhone\n\nOn iPhone, this dialog is shown at the bottom edge of the display, with the option items\nrepresented as vertical buttons.\n\n##### iPad\n\nOn iPad, this dialog is shown in the middle of the display, or as a popover-like dialog if\nanother view or control is specified via an argument passed to the `open()` method.\n\nNote that on iPad, the cancel button is not displayed -- users can cancel the dialog\nby clicking outside of the dialog.\n\n#### Caveats\n\nCare should be taken not to define any properties that are not documented, as this may produce\nunexpected results. For example, setting a `message` property will prevent the picker of option\nitems from being displayed on Android.\n",
+  "examples": [
+    {
+      "title": "Dialog with 3 Options",
+      "code": "``` js\nTi.UI.backgroundColor = 'white';\nvar win = Ti.UI.createWindow({\n  title: 'Click window to test',\n  backgroundColor: 'white'\n});\n\nvar opts = {\n  cancel: 2,\n  options: ['Confirm', 'Help', 'Cancel'],\n  selectedIndex: 2,\n  destructive: 0,\n  title: 'Delete File?'\n};\n\nwin.addEventListener('click', function(e){\n  var dialog = Ti.UI.createOptionDialog(opts).show();\n});\nwin.open();\n```\n"
+    },
+    {
+      "title": "Dialog with 2 Options and 1 Button on Android and 3 Options on iOS",
+      "code": "``` js\nvar win = Ti.UI.createWindow({\n  title: 'Click window to test OptionDialog',\n  backgroundColor: 'white'\n});\n\nvar opts = {\n  title: 'Delete File?'\n};\n\nvar isAndroid = Ti.Platform.osname === 'android';\n\nif (isAndroid) {\n  opts.options = ['Confirm', 'Cancel'];\n  opts.buttonNames = ['Help'];\n} else {\n  opts.options = ['Confirm', 'Help', 'Cancel'];\n}\n\nvar dialog;\nwin.addEventListener('click', function() {\n  dialog = Ti.UI.createOptionDialog(opts);\n\n  dialog.addEventListener('click', onSelectDialog);\n  dialog.addEventListener('cancel', function(e) {\n    alert('Dialog canceled! e.cancel = ' + e.cancel + ', e.index = ' + e.index);\n  })\n\n   dialog.show();\n});\n\nfunction onSelectDialog(e) {\n  if (isAndroid) {\n    if (e.button === false && e.index === 0) {\n      alert('Confirm option selected! e.index = ' + e.index);\n    }\n    if (e.button === false && e.index === 1) {\n      alert('Cancel option selected! e.index = ' + e.index);\n    }\n    if (e.button === true && e.index === 0) {\n      alert('Help Button clicked! e.index = ' + e.index);\n    }\n  }\n}\n\nwin.open();\n```\n"
+    },
+    {
+      "title": "Alloy XML Markup",
+      "code": "Previous example as an Alloy view. You can set [cancel](Titanium.UI.OptionDialog.cancel)\nand [destructive](Titanium.UI.OptionDialog.destructive) on a `<Option/>` tag.\n\noptiondialog.xml:\n``` xml\n<Alloy>\n    <Window id=\"win\" onClick=\"showOptions\" title=\"Click window to test\"\n        fullscreen=\"false\" onExit=\"true\" backgroundColor=\"white\">\n\n        <!--\n            The OptionDialog tag declares an option dialog,\n            which will need to be opened by the controller.\n        -->\n        <OptionDialog id=\"dialog\" title=\"Delete File?\">\n\n            <!-- The Options tag sets the options property. -->\n            <Options>\n                <Option destructive=\"true\">Confirm</Option>\n                <Option platform=\"ios\">Help</Option>\n                <Option cancel=\"true\">Cancel</Option>\n            </Options>\n\n            <!-- The ButtonNames tag sets the Android-only buttonNames property. -->\n            <ButtonNames>\n                <ButtonName>Help</ButtonName>\n            </ButtonNames>\n\n            <!-- Add a View for the androidView property here. -->\n\n        </OptionDialog>\n\n        <!-- Add views here -->\n\n    </Window>\n</Alloy>\n```\n\noptiondialog.js:\n``` js\nfunction showOptions(){\n    $.dialog.show();\n}\n```\n"
+    }
+  ],
+  "properties": [
+    {
+      "name": "androidView",
+      "platforms": ["android"],
+      "summary": "View to load inside the message area, to create a custom layout.",
+      "description": "On Android you can either define a custom view with this property, or you can assign a set of options to the\n[Titanium.UI.OptionDialog.options](api:Titanium.UI.OptionDialog#options) property, but not both. If you do, the custom view will appear\nbut not the options you defined.\n\nIn an Alloy application you can specify this property with either an `<AndroidView/>` or\n`<View/>` element inside the `<OptionDialog/>` element, for example:\n\n``` xml\n<Alloy>\n    <OptionDialog id=\"dialog\" title=\"Delete File?\" onClick=\"clickCB\">\n\n        <!-- Add View or AndroidView for the androidView property -->\n        <AndroidView platform=\"android\" layout=\"vertical\">\n            <Label color=\"red\" text=\"Warning!  This change is permanent and you cannot undo it!\" />\n        </AndroidView>\n\n        <ButtonNames>\n            <ButtonName>Confirm</ButtonName>\n            <ButtonName>Cancel</ButtonName>\n        </ButtonNames>\n    </OptionDialog>\n</Alloy>\n```\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.UI.View"
+        }
+      ]
+    },
+    {
+      "name": "buttonNames",
+      "platforms": ["android"],
+      "summary": "List of button names.",
+      "description": "This property creates buttons underneath the picker options.\nThe dialog only supports up to three buttons.\n",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Array",
+          "args": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ],
+      "availability": "creation"
+    },
+    {
+      "name": "cancel",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Index to define the cancel option.",
+      "description": "On iOS, set to `-1` to disable the cancel option.\n\nOn iPad, the `cancel` option must be set to either `-1` or the index of the last\noption. For example, if there are 3 options and one of them is a cancel button,\nthe cancel button must be the last option (index 2).  If `cancel` is set to a\ndifferent value, _the last entry in the [options](api:Titanium.UI.OptionDialog#options)\narray **is not displayed**._\n\nNote that the cancel button is never shown on iPad, since the user can cancel the\ndialog by clicking outside of the dialog.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "default": "undefined (Android), -1 (iOS)"
+    },
+    {
+      "name": "destructive",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Index to define the destructive option, indicated by a visual cue when rendered.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "availability": "creation",
+      "default": "-1"
+    },
+    {
+      "name": "opaquebackground",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Boolean value indicating if the option dialog should have an opaque background.",
+      "description": "This property is useful to ensure that the option dialog will display contents properly\non the iPad idiom without ghosting when scrolling. This property is only respected on the\niPad idiom on iOS 7 and above.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "3.2.0",
+      "default": "false"
+    },
+    {
+      "name": "options",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "List of option names to display in the dialog.",
+      "description": "On Android you can assign a set of options to the `OptionDialog` with this property, or\nassign a custom view to the  [Titanium.UI.OptionDialog.androidView](api:Titanium.UI.OptionDialog#androidView) property, but not both.\nIf you do, the custom view will appear but not the options you defined.\n",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Array",
+          "args": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ],
+      "availability": "creation"
+    },
+    {
+      "name": "persistent",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Boolean value indicating if the option dialog should only be cancelled by user gesture or by hide method.",
+      "description": "This property is useful to ensure that the option dialog will not be ignored\nby the user when the application is paused/suspended.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "3.0.0",
+      "default": "true"
+    },
+    {
+      "name": "selectedIndex",
+      "platforms": ["android"],
+      "summary": "Defines the default selected option. Since `8.1.0`, if not defined or -1 it will show a normal list instead of radio buttons.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "availability": "creation"
+    },
+    {
+      "name": "title",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Title of the dialog.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "titleid",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Key identifying a string in the locale file to use for the title text.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "hide",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Hides this dialog.",
+      "description": "This triggers a `click` event as if cancel was invoked.",
+      "parameters": [
+        {
+          "name": "params",
+          "summary": "Argument containing parameters for this method. Only used on iOS.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "hideParams"
+            }
+          ],
+          "optional": true,
+          "inlined": {
+            "name": "hideParams",
+            "summary": "Dictionary of options for the [Titanium.UI.OptionDialog.hide](api:Titanium.UI.OptionDialog#hide) method.",
+            "properties": [
+              {
+                "name": "animated",
+                "platforms": ["ipad", "macos"],
+                "summary": "Determines whether to animate the dialog as it is dismissed.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Boolean"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "show",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Shows this dialog.",
+      "description": "On iPad, this dialog is shown in the middle of the display or, when specified via the\n`params` argument, as a popover-like dialog attached to another view or control.\n",
+      "parameters": [
+        {
+          "name": "params",
+          "summary": "Argument containing parameters for this method. Only used on iPad.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "OptionDialogShowParams"
+            }
+          ],
+          "optional": true,
+          "inlined": {
+            "name": "OptionDialogShowParams",
+            "summary": "Dictionary of options for the [Titanium.UI.OptionDialog.show](api:Titanium.UI.OptionDialog#show) method.",
+            "properties": [
+              {
+                "name": "animated",
+                "platforms": ["ipad", "macos"],
+                "summary": "Determines whether to animate the dialog as it is shown.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Boolean"
+                  }
+                ],
+                "optional": true
+              },
+              {
+                "name": "rect",
+                "platforms": ["ipad", "macos"],
+                "summary": "Positions the arrow of the option dialog relative to the attached view's dimensions.",
+                "description": "Setting the x, y coordinates to (0, 0) places the dialog in the top-left corner of the\nview object.  Set both the `width` and `height` properties to 1.\n",
+                "type": [
+                  {
+                    "kind": "type",
+                    "name": "Dimension"
+                  }
+                ],
+                "optional": true
+              },
+              {
+                "name": "view",
+                "platforms": ["ipad", "macos"],
+                "summary": "View to which to attach the dialog.",
+                "type": [
+                  {
+                    "kind": "type",
+                    "name": "Titanium.UI.View"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "click",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Fired when an option of this dialog is clicked or, under certain circumstances, when this\ndialog is dismissed.\n",
+      "description": "On iOS as of Release 2.0, when the dialog is dismissed without using an option, for example, using\nthe [hide](api:Titanium.UI.OptionDialog#hide) method (iPhone, iPad) or a tap outside of the\ndialog (iPad), this event is fired as though the cancel option was selected. In these\ncircumstances, the `index` property will be the cancel option index if defined or `-1`\notherwise.\n",
+      "properties": [
+        {
+          "name": "index",
+          "summary": "Index of the option that was pressed. See description for result of the dialog being\ndismissed in some other way.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "button",
+          "summary": "Indicates whether the index returned by the `index` property relates to a button rather\nthan an option item.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "cancel",
+          "summary": "Boolean type on Android; Number on iOS.\n\nOn Android, indicates whether the cancel button was clicked, in which\ncase returns `true`.\n\nOn iOS, the value of the [cancel](api:Titanium.UI.OptionDialog#cancel)\nproperty is returned, if defined, or `-1` otherwise.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            },
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "destructive",
+          "summary": "Index of the destructive option if defined or `-1` otherwise.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "inherited": {
+    "properties": [
+      {
+        "name": "accessibilityDisableLongPress",
+        "from": "Titanium.UI.View",
+        "platforms": ["android"]
+      },
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "elevation",
+        "from": "Titanium.UI.View",
+        "platforms": ["android"]
+      },
+      {
+        "name": "filterTouchesWhenObscured",
+        "from": "Titanium.UI.View",
+        "platforms": ["android"]
+      },
+      {
+        "name": "hiddenBehavior",
+        "from": "Titanium.UI.View",
+        "platforms": ["android"]
+      },
+      {
+        "name": "horizontalMotionEffect",
+        "from": "Titanium.UI.View",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "id",
+        "from": "Titanium.UI.View",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "keepHardwareMode",
+        "from": "Titanium.UI.View",
+        "platforms": ["android"]
+      },
+      {
+        "name": "lifecycleContainer",
+        "from": "Titanium.Proxy",
+        "platforms": ["android"]
+      },
+      {
+        "name": "previewContext",
+        "from": "Titanium.UI.View",
+        "platforms": ["iphone"]
+      },
+      {
+        "name": "rotation",
+        "from": "Titanium.UI.View",
+        "platforms": ["android", "iphone", "ipad"]
+      },
+      {
+        "name": "rotationX",
+        "from": "Titanium.UI.View",
+        "platforms": ["android"]
+      },
+      {
+        "name": "rotationY",
+        "from": "Titanium.UI.View",
+        "platforms": ["android"]
+      },
+      {
+        "name": "scaleX",
+        "from": "Titanium.UI.View",
+        "platforms": ["android"]
+      },
+      {
+        "name": "scaleY",
+        "from": "Titanium.UI.View",
+        "platforms": ["android"]
+      },
+      {
+        "name": "tintColor",
+        "from": "Titanium.UI.View",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "tooltip",
+        "from": "Titanium.UI.View",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "touchFeedback",
+        "from": "Titanium.UI.View",
+        "platforms": ["android"]
+      },
+      {
+        "name": "touchFeedbackColor",
+        "from": "Titanium.UI.View",
+        "platforms": ["android"]
+      },
+      {
+        "name": "transitionName",
+        "from": "Titanium.UI.View",
+        "platforms": ["android"]
+      },
+      {
+        "name": "translationX",
+        "from": "Titanium.UI.View",
+        "platforms": ["android"]
+      },
+      {
+        "name": "translationY",
+        "from": "Titanium.UI.View",
+        "platforms": ["android"]
+      },
+      {
+        "name": "translationZ",
+        "from": "Titanium.UI.View",
+        "platforms": ["android"]
+      },
+      {
+        "name": "verticalMotionEffect",
+        "from": "Titanium.UI.View",
+        "platforms": ["iphone", "ipad", "macos"]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "clearMotionEffects",
+        "from": "Titanium.UI.View",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "getViewById",
+        "from": "Titanium.UI.View",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "insertAt",
+        "from": "Titanium.UI.View",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "stopAnimation",
+        "from": "Titanium.UI.View",
+        "platforms": ["android"]
+      }
+    ],
+    "events": [
+      {
+        "name": "rotate",
+        "from": "Titanium.UI.View",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      }
+    ]
+  },
+  "references": ["OptionDialogShowParams", "Titanium.UI", "Titanium.UI.View", "hideParams"],
+  "source": "Titanium/UI/OptionDialog.yml"
+}

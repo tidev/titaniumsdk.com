@@ -1,0 +1,103 @@
+name: 'Regen API Docs'
+
+# Replaces titanium-docs/.github/workflows/regen.yml, which checked out all 17
+# source repos at fetch-depth: 0 on every dispatch regardless of what changed.
+# This fetches only the repo named in the payload, shallow, apidoc/ only.
+on:
+  repository_dispatch:
+    types: [regen-api-docs]
+  workflow_dispatch:
+    inputs:
+      repo:
+        description: 'Source repo, e.g. tidev/ti.map'
+        required: true
+        default: tidev/titanium-sdk
+      ref:
+        description: 'Branch or tag to compile'
+        required: false
+        default: ''
+      version:
+        description: 'Registry version to write. `main` is the only mutable one.'
+        required: false
+        default: main
+
+# One regen at a time per source. Two dispatches for the same repo would race on
+# the same output paths and on the commit; different repos write to different
+# paths and can safely overlap.
+concurrency:
+  group: regen-api-docs-${{ github.event.client_payload.repo || inputs.repo }}
+  cancel-in-progress: true
+
+jobs:
+  regen:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    env:
+      SOURCE_REPO: ${{ github.event.client_payload.repo || inputs.repo }}
+      SOURCE_REF: ${{ github.event.client_payload.ref || inputs.ref }}
+      TARGET_VERSION: ${{ github.event.client_payload.version || inputs.version || 'main' }}
+
+    steps:
+      - name: Checkout this repo
+        uses: actions/checkout@v6
+
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      # Before any clone. The dispatch payload comes from outside, so an
+      # unlisted repo has to be refused rather than fetched.
+      - name: Check the source is on the allowlist
+        run: node scripts/docgen/check-source.ts "$SOURCE_REPO"
+
+      - name: Checkout the source repo
+        uses: actions/checkout@v6
+        with:
+          repository: ${{ env.SOURCE_REPO }}
+          ref: ${{ env.SOURCE_REF }}
+          path: source
+          # Only what the compile reads, and only the tip. The old workflow took
+          # full history of every repo; apidoc/ plus the manifests is all this
+          # needs, and the manifests are how a module's id is resolved.
+          sparse-checkout: |
+            apidoc
+            android/manifest
+            ios/manifest
+            iphone/manifest
+            manifest
+          sparse-checkout-cone-mode: false
+          fetch-depth: 1
+
+      - name: Compile
+        id: regen
+        run: |
+          node scripts/docgen/regen.ts \
+            --repo "$SOURCE_REPO" \
+            --checkout source \
+            --version "$TARGET_VERSION"
+
+      - name: Validate against the schemas
+        run: node scripts/validate-registry.ts
+
+      - name: Summary
+        run: echo "${{ steps.regen.outputs.summary }}" >> "$GITHUB_STEP_SUMMARY"
+
+      # Only when the compile actually changed bytes. docgen holds generatedAt
+      # steady on an unchanged run, so there is no timestamp-only diff to commit.
+      - name: Commit
+        id: commit
+        if: steps.regen.outputs.changed == 'true'
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'Regen API docs for ${{ env.SOURCE_REPO }}@${{ env.TARGET_VERSION }}'
+          file_pattern: ${{ steps.regen.outputs.path }}
+
+      - name: Report no-op
+        if: steps.regen.outputs.changed != 'true'
+        run: echo "No content change — nothing committed." >> "$GITHUB_STEP_SUMMARY"

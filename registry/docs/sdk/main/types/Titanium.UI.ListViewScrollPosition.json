@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.UI.ListViewScrollPosition",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": ["Titanium.Proxy"],
+  "platforms": ["android", "iphone", "ipad", "macos"],
+  "since": "11.1.0",
+  "summary": "A set of constants for the position value that can be used for the `position` property of\n[ListViewAnimationProperties](api:ListViewAnimationProperties) when invoking the ListView's `scrollToItem`, `appendSection`,\n`deleteSectionAt`, `insertSectionAt` and `replaceSectionAt` methods.\n",
+  "properties": [
+    {
+      "name": "BOTTOM",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "The list view scrolls the row of interest to the bottom of the visible list view.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "MIDDLE",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "The list view scrolls the row of interest to the middle of the list table view.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "NONE",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "The table view scrolls the row of interest to be fully visible with a minimal movement.\nIf the row is already fully visible, no scrolling occurs. For example, if the row is above the\nvisible area, the behavior is identical to that specified by `TOP`. This is the default.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "TOP",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "The list view scrolls the row of interest to the top of the visible list view.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    }
+  ],
+  "methods": [],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "lifecycleContainer",
+        "from": "Titanium.Proxy",
+        "platforms": ["android"]
+      }
+    ],
+    "methods": [],
+    "events": []
+  },
+  "references": ["ListViewAnimationProperties", "Titanium.Proxy"],
+  "source": "Titanium/UI/ListViewScrollPosition.yml"
+}

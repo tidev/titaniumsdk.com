@@ -1,0 +1,4423 @@
+{
+  "schemaVersion": 1,
+  "counts": {
+    "types": 283,
+    "inlined": 136,
+    "members": 4954
+  },
+  "types": [
+    {
+      "name": "AnimatedOptions",
+      "kind": "pseudo",
+      "summary": "A JavaScript object holding an `animated` property. Used for many UI methods as a means of specifying some transition should be animated.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "deprecated": false,
+      "counts": {
+        "properties": 1,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "AnimatedWithDurationOptions",
+      "kind": "pseudo",
+      "summary": "A JavaScript object holding `animated` and `duration` properties. Used on iOS For [TableView](api:Titanium.UI.TableView) and [ListView](api:Titanium.UI.ListView) content offset transitions.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "deprecated": false,
+      "extends": "AnimatedOptions",
+      "counts": {
+        "properties": 2,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "APSConnectionDelegate",
+      "kind": "pseudo",
+      "summary": "An extension of the [NSURLConnectionDelegate](https://developer.apple.com/library/mac/documentation/Foundation/Reference/NSURLConnectionDelegate_Protocol/Reference/Reference.html#//apple_ref/occ/intf/NSURLConnectionDelegate) protocol to allow users to participate in authentication and resource management for this HTTPClient.",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": "3.3.0",
+      "deprecated": false,
+      "counts": {
+        "properties": 0,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "assert",
+      "kind": "pseudo",
+      "summary": "A Node.js-compatible implementation of the core `assert` module",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "8.1.0",
+      "deprecated": false,
+      "counts": {
+        "properties": 2,
+        "methods": 15,
+        "events": 0
+      }
+    },
+    {
+      "name": "assert.AssertionError",
+      "kind": "pseudo",
+      "summary": "Indicates the failure of an assertion. All errors thrown by the [assert](api:assert) module will be instances of the `AssertionError` class.\n",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "deprecated": false,
+      "extends": "Error",
+      "counts": {
+        "properties": 5,
+        "methods": 1,
+        "events": 0
+      }
+    },
+    {
+      "name": "assert.strict",
+      "kind": "pseudo",
+      "summary": "An extension of [assert](api:assert) which overrides some of the methods to use their strict counterparts.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "deprecated": false,
+      "extends": "assert",
+      "counts": {
+        "properties": 2,
+        "methods": 15,
+        "events": 0
+      }
+    },
+    {
+      "name": "Attribute",
+      "kind": "pseudo",
+      "summary": "An abstract datatype for specifying an attributed string attribute.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "3.6.0",
+      "deprecated": false,
+      "counts": {
+        "properties": 3,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "BarItemType",
+      "kind": "pseudo",
+      "summary": "Object describing a button bar or tabbed bar item.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "deprecated": false,
+      "counts": {
+        "properties": 5,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "buffer",
+      "kind": "pseudo",
+      "summary": "A Node.js-compatible implementation of the core `buffer` module",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "8.2.0",
+      "deprecated": false,
+      "counts": {
+        "properties": 3,
+        "methods": 9,
+        "events": 0
+      }
+    },
+    {
+      "name": "buffer.Buffer",
+      "kind": "pseudo",
+      "summary": "The `Buffer` class is a global type for dealing with binary data directly. It can be constructed in a variety of ways.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "8.2.0",
+      "deprecated": false,
+      "counts": {
+        "properties": 3,
+        "methods": 54,
+        "events": 0
+      }
+    },
+    {
+      "name": "CameraMediaItemType",
+      "kind": "pseudo",
+      "summary": "A media object from the camera or photo gallery.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "deprecated": false,
+      "extends": "SuccessResponse",
+      "counts": {
+        "properties": 9,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "ContactsAuthorizationResponse",
+      "kind": "pseudo",
+      "summary": "Argument passed to the callback when a request finishes successfully or erroneously.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "deprecated": false,
+      "extends": "ErrorResponse",
+      "counts": {
+        "properties": 3,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "Dictionary",
+      "kind": "pseudo",
+      "summary": "Plain JavaScript object.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "deprecated": false,
+      "counts": {
+        "properties": 0,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "Dimension",
+      "kind": "pseudo",
+      "summary": "A simple object consisting of the position and size measurements. Effectively combines [Size](api:Size) and [Point](api:Point) but ensures numeric x/y values.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "2.0.0",
+      "deprecated": false,
+      "extends": "Size",
+      "counts": {
+        "properties": 4,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "ErrorCallbackArgs",
+      "kind": "pseudo",
+      "summary": "Object passed to the error callback when the socket enters the [ERROR](api:Titanium.Network.Socket#ERROR) state.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "1.7",
+      "deprecated": false,
+      "extends": "FailureResponse",
+      "counts": {
+        "properties": 4,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "ErrorResponse",
+      "kind": "pseudo",
+      "summary": "Properties used in any event or callback which needs to report a success or failure.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "deprecated": false,
+      "counts": {
+        "properties": 3,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "EventEmitter",
+      "kind": "pseudo",
+      "summary": "The EventEmitter class is defined and exposed by the events module:\n``` javascript\nconst EventEmitter = require('events');\n```\nAll EventEmitters emit the event 'newListener' when new listeners are added and 'removeListener' when existing listeners are removed.\n",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "8.1.0",
+      "deprecated": false,
+      "counts": {
+        "properties": 0,
+        "methods": 15,
+        "events": 2
+      }
+    },
+    {
+      "name": "events",
+      "kind": "pseudo",
+      "summary": "A Node.js-compatible implementation of the core `events` module",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "8.1.0",
+      "deprecated": false,
+      "counts": {
+        "properties": 2,
+        "methods": 1,
+        "events": 0
+      }
+    },
+    {
+      "name": "FailureResponse",
+      "kind": "pseudo",
+      "summary": "Properties used in any event or callback which needs to report a failure.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "deprecated": false,
+      "extends": "ErrorResponse",
+      "counts": {
+        "properties": 3,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "Font",
+      "kind": "pseudo",
+      "summary": "An abstract datatype for specifying a text font.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "deprecated": false,
+      "counts": {
+        "properties": 5,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "fs",
+      "kind": "pseudo",
+      "summary": "A Node.js-compatible implementation of the core `fs` module",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "8.3.0",
+      "deprecated": false,
+      "counts": {
+        "properties": 4,
+        "methods": 61,
+        "events": 0
+      }
+    },
+    {
+      "name": "fs.Dirent",
+      "kind": "pseudo",
+      "summary": "A representation of a directory entry, which can be a file or a subdirectory within the directory, as returned by reading from an <fs.Dir>.\nThe directory entry is a combination of the file name and file type pairs.\n\n**NOTE:** Titanium does not currently implement this type.\n",
+      "platforms": [],
+      "deprecated": false,
+      "counts": {
+        "properties": 0,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "fs.ReadStream",
+      "kind": "pseudo",
+      "summary": "Instances of `fs.ReadStream` are created and returned using the `fs.createReadStream()` function.\n\n**NOTE:** Titanium defines an empty class for this type. No methods/properties are implemented!\n",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "8.3.0",
+      "deprecated": false,
+      "counts": {
+        "properties": 0,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "fs.Stats",
+      "kind": "pseudo",
+      "summary": "A `fs.Stats` object provides information about a file.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "8.3.0",
+      "deprecated": false,
+      "counts": {
+        "properties": 18,
+        "methods": 7,
+        "events": 0
+      }
+    },
+    {
+      "name": "fs.WriteStream",
+      "kind": "pseudo",
+      "summary": "Instances of `fs.WriteStream` are created and returned using the `fs.createWriteStream()` function.\n\n**NOTE:** Titanium defines an empty class for this type. No methods/properties are implemented!\n",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "8.3.0",
+      "deprecated": false,
+      "counts": {
+        "properties": 0,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "Global",
+      "kind": "module",
+      "summary": "The APIs that reside in the global scope, which may be called without a namespace prefix.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "deprecated": false,
+      "counts": {
+        "properties": 16,
+        "methods": 9,
+        "events": 0
+      }
+    },
+    {
+      "name": "Global.Console",
+      "kind": "module",
+      "summary": "Console logging facilities.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "2.1.0",
+      "deprecated": false,
+      "counts": {
+        "properties": 0,
+        "methods": 15,
+        "events": 0
+      }
+    },
+    {
+      "name": "Global.Intl",
+      "kind": "module",
+      "summary": "Namespace providing JavaScript's standard internationalization APIs.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": {
+        "iphone": "6.0.0",
+        "ipad": "6.0.0",
+        "android": "9.1.0",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "counts": {
+        "properties": 0,
+        "methods": 1,
+        "events": 0
+      }
+    },
+    {
+      "name": "Global.Intl.Collator",
+      "kind": "module",
+      "summary": "Immutable object used to perform language sensitive string comparisons.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": {
+        "iphone": "6.0.0",
+        "ipad": "6.0.0",
+        "android": "9.1.0",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "counts": {
+        "properties": 1,
+        "methods": 3,
+        "events": 0
+      }
+    },
+    {
+      "name": "Global.Intl.DateTimeFormat",
+      "kind": "module",
+      "summary": "Immutable object used to generate localized date and time formatted strings.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": {
+        "iphone": "6.0.0",
+        "ipad": "6.0.0",
+        "android": "9.1.0",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "counts": {
+        "properties": 1,
+        "methods": 4,
+        "events": 0
+      }
+    },
+    {
+      "name": "Global.Intl.NumberFormat",
+      "kind": "module",
+      "summary": "Immutable object used to convert numbers to localized numeric strings.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": {
+        "iphone": "6.0.0",
+        "ipad": "6.0.0",
+        "android": "9.1.0",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "counts": {
+        "properties": 1,
+        "methods": 4,
+        "events": 0
+      }
+    },
+    {
+      "name": "Global.String",
+      "kind": "module",
+      "summary": "The JavaScript built-in String type.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "deprecated": false,
+      "counts": {
+        "properties": 0,
+        "methods": 5,
+        "events": 0
+      }
+    },
+    {
+      "name": "Gradient",
+      "kind": "pseudo",
+      "summary": "A simple object defining a color gradient.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "1.8.0",
+      "deprecated": false,
+      "counts": {
+        "properties": 8,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "HeadingData",
+      "kind": "pseudo",
+      "summary": "Simple object holding compass heading data.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "deprecated": false,
+      "counts": {
+        "properties": 7,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "HorizontalInsets",
+      "kind": "pseudo",
+      "summary": "Dictionary object of parameters for horizontal-only insets applied to [Table](api:Titanium.UI.TableView) and [List](api:Titanium.UI.ListView) views. Only `left` and `right` properties are used (see [Padding](api:Padding)).",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "deprecated": false,
+      "counts": {
+        "properties": 2,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "ItemTemplate",
+      "kind": "pseudo",
+      "summary": "Template that represents the basic appearance of a list item.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "3.1.0",
+      "deprecated": false,
+      "counts": {
+        "properties": 3,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "ListDataItem",
+      "kind": "pseudo",
+      "summary": "Represents displayed item data.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "3.1.0",
+      "deprecated": false,
+      "counts": {
+        "properties": 2,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "ListViewAnimationProperties",
+      "kind": "pseudo",
+      "summary": "A simple object for specifying the animation properties to use when inserting or deleting\nsections or cells, or scrolling the list.\n",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": {
+        "android": "10.1.0",
+        "iphone": "3.1.0",
+        "ipad": "3.1.0",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "counts": {
+        "properties": 3,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "LocationAuthorizationResponse",
+      "kind": "pseudo",
+      "summary": "Argument passed to the callback when a request finishes successfully or erroneously.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "deprecated": false,
+      "extends": "ErrorResponse",
+      "counts": {
+        "properties": 3,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "LocationCoordinates",
+      "kind": "pseudo",
+      "summary": "Simple object holding the data for a location update.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "deprecated": false,
+      "counts": {
+        "properties": 9,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "LocationProviderDict",
+      "kind": "pseudo",
+      "summary": "Simple object describing a location provider.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "deprecated": false,
+      "counts": {
+        "properties": 3,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "Matrix2DCreationDict",
+      "kind": "pseudo",
+      "summary": "Simple object passed to [Titanium.UI.createMatrix2D](api:Titanium.UI#createMatrix2D) to initialize a matrix.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "deprecated": false,
+      "counts": {
+        "properties": 3,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "MediaAuthorizationResponse",
+      "kind": "pseudo",
+      "summary": "Argument passed to the callback when a request finishes successfully or erroneously.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "deprecated": false,
+      "extends": "ErrorResponse",
+      "counts": {
+        "properties": 3,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "MediaQueryType",
+      "kind": "pseudo",
+      "summary": "A specifier for a media library query. By default, filters perform an exact match.",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": "1.8",
+      "deprecated": false,
+      "counts": {
+        "properties": 19,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "Modules",
+      "kind": "pseudo",
+      "summary": "Optional Titanium modules.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "deprecated": false,
+      "counts": {
+        "properties": 0,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "openWindowParams",
+      "kind": "pseudo",
+      "summary": "Dictionary of options for the [Titanium.UI.Window.open](api:Titanium.UI.Window#open) method.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": {
+        "android": "2.0.0",
+        "iphone": "2.0.0",
+        "ipad": "2.0.0",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "counts": {
+        "properties": 16,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "os",
+      "kind": "pseudo",
+      "summary": "A Node.js-compatible implementation of the core `os` module",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "8.1.0",
+      "deprecated": false,
+      "counts": {
+        "properties": 2,
+        "methods": 17,
+        "events": 0
+      }
+    },
+    {
+      "name": "Padding",
+      "kind": "pseudo",
+      "summary": "Dictionary object of parameters for the padding/insets applied to all kinds of views.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "deprecated": false,
+      "extends": "HorizontalInsets",
+      "counts": {
+        "properties": 4,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "ParagraphAttribute",
+      "kind": "pseudo",
+      "summary": "An abstract datatype for specifying an Paragraph style attribute.",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": "7.5.0",
+      "deprecated": false,
+      "counts": {
+        "properties": 13,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "path",
+      "kind": "pseudo",
+      "summary": "A Node.js-compatible implementation of the core `path` module",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "8.1.0",
+      "deprecated": false,
+      "counts": {
+        "properties": 4,
+        "methods": 11,
+        "events": 0
+      }
+    },
+    {
+      "name": "Point",
+      "kind": "pseudo",
+      "summary": "A pair of coordinates used to describe the location of a [Titanium.UI.View](api:Titanium.UI.View).",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "1.8.0",
+      "deprecated": false,
+      "counts": {
+        "properties": 2,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "PreviewImageOptions",
+      "kind": "pseudo",
+      "summary": "Options passed to [Titanium.Media.previewImage](api:Titanium.Media#previewImage).",
+      "platforms": ["android"],
+      "deprecated": false,
+      "counts": {
+        "properties": 3,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "process",
+      "kind": "pseudo",
+      "summary": "A Node.js-compatible implementation of the core `process` module",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "8.1.0",
+      "deprecated": false,
+      "extends": "EventEmitter",
+      "counts": {
+        "properties": 22,
+        "methods": 26,
+        "events": 4
+      }
+    },
+    {
+      "name": "ReadCallbackArgs",
+      "kind": "pseudo",
+      "summary": "Argument passed to the read callback when an asynchronous [read](api:Titanium.Stream#read) operation\nfinishes.\n",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "1.7",
+      "deprecated": false,
+      "extends": "ErrorResponse",
+      "counts": {
+        "properties": 5,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "RequestCameraAccessResult",
+      "kind": "pseudo",
+      "summary": "Argument passed to the callback when a request finishes successfully or erroneously.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "deprecated": false,
+      "extends": "ErrorResponse",
+      "counts": {
+        "properties": 3,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "RequestMusicLibraryAccessResult",
+      "kind": "pseudo",
+      "summary": "Argument passed to the callback when a request finishes successfully or erroneously.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "deprecated": false,
+      "extends": "ErrorResponse",
+      "counts": {
+        "properties": 3,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "RequestPermissionAccessResult",
+      "kind": "pseudo",
+      "summary": "Argument passed to the callback when a request finishes successfully or erroneously.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "deprecated": false,
+      "extends": "ErrorResponse",
+      "counts": {
+        "properties": 3,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "RequestPhotoGalleryAccessResult",
+      "kind": "pseudo",
+      "summary": "Argument passed to the callback when a request finishes successfully or erroneously.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "deprecated": false,
+      "extends": "ErrorResponse",
+      "counts": {
+        "properties": 3,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "RequestStorageAccessResult",
+      "kind": "pseudo",
+      "summary": "Argument passed to the callback when a request finishes successfully or erroneously.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "deprecated": false,
+      "extends": "ErrorResponse",
+      "counts": {
+        "properties": 3,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "RowActionType",
+      "kind": "pseudo",
+      "summary": "Represents the custom edit action for a ListItem or TableViewRow.",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": "4.1.0",
+      "deprecated": false,
+      "counts": {
+        "properties": 6,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "SecurityManagerProtocol",
+      "kind": "pseudo",
+      "summary": "The protocol that the [Titanium.Network.HTTPClient.securityManager](api:Titanium.Network.HTTPClient#securityManager) must implement.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "3.3.0",
+      "deprecated": false,
+      "counts": {
+        "properties": 0,
+        "methods": 4,
+        "events": 0
+      }
+    },
+    {
+      "name": "shadowDict",
+      "kind": "pseudo",
+      "summary": "Dictionary describing the shadow effect for text.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "deprecated": false,
+      "counts": {
+        "properties": 3,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "Size",
+      "kind": "pseudo",
+      "summary": "A simple object consisting of size measurements.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "2.0.0",
+      "deprecated": false,
+      "counts": {
+        "properties": 2,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "StringDecoder",
+      "kind": "pseudo",
+      "summary": "The primary class exported by the [string_decoder](api:string_decoder) core module.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "8.3.0",
+      "deprecated": false,
+      "counts": {
+        "properties": 0,
+        "methods": 3,
+        "events": 0
+      }
+    },
+    {
+      "name": "SuccessResponse",
+      "kind": "pseudo",
+      "summary": "Properties used in any event or callback which needs to report a success.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "deprecated": false,
+      "extends": "ErrorResponse",
+      "counts": {
+        "properties": 3,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium",
+      "kind": "module",
+      "summary": "The top-level Titanium module.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "0.1",
+      "deprecated": false,
+      "extends": "Titanium.Module",
+      "counts": {
+        "properties": 7,
+        "methods": 5,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.Accelerometer",
+      "kind": "module",
+      "summary": "The top-level Accelerometer module, used to determine the device's physical position.\n",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "0.1",
+      "deprecated": false,
+      "extends": "Titanium.Module",
+      "counts": {
+        "properties": 3,
+        "methods": 4,
+        "events": 1
+      }
+    },
+    {
+      "name": "Titanium.Android",
+      "kind": "module",
+      "summary": "The top-level Android module.",
+      "platforms": ["android"],
+      "since": "1.5",
+      "deprecated": false,
+      "extends": "Titanium.Module",
+      "counts": {
+        "properties": 240,
+        "methods": 24,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.Android.ActionBar",
+      "kind": "proxy",
+      "summary": "An action bar is a window feature that identifies the application and user location,\nand provides user actions and navigation modes.\n",
+      "platforms": ["android"],
+      "since": "3.0",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 15,
+        "methods": 8,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.Android.Activity",
+      "kind": "proxy",
+      "summary": "The Titanium binding of an Android Activity.",
+      "platforms": ["android"],
+      "since": "1.5",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 16,
+        "methods": 15,
+        "events": 4
+      }
+    },
+    {
+      "name": "Titanium.Android.BigPictureStyle",
+      "kind": "proxy",
+      "summary": "Helper object for generating large-format notifications that include a large image attachment.",
+      "platforms": ["android"],
+      "since": "5.4.0",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 8,
+        "methods": 4,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.Android.BigTextStyle",
+      "kind": "proxy",
+      "summary": "Helper object for generating large-format notifications that include a lot of text.",
+      "platforms": ["android"],
+      "since": "5.4.0",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 6,
+        "methods": 4,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.Android.BroadcastReceiver",
+      "kind": "proxy",
+      "summary": "Monitor and handle Android system broadcasts.",
+      "platforms": ["android"],
+      "since": "3.1.0",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 5,
+        "methods": 4,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.Android.Intent",
+      "kind": "proxy",
+      "summary": "Message objects passed between Android application components.",
+      "platforms": ["android"],
+      "since": "1.5",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 10,
+        "methods": 16,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.Android.Menu",
+      "kind": "proxy",
+      "summary": "The Titanium binding of an Android Options Menu.",
+      "platforms": ["android"],
+      "since": "1.5",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 4,
+        "methods": 15,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.Android.MenuItem",
+      "kind": "proxy",
+      "summary": "The Titanium binding of an Android menu item.",
+      "platforms": ["android"],
+      "since": "1.5",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 19,
+        "methods": 15,
+        "events": 3
+      }
+    },
+    {
+      "name": "Titanium.Android.Notification",
+      "kind": "proxy",
+      "summary": "UI notifications that can be sent while the application is in the background.",
+      "platforms": ["android"],
+      "since": "1.5",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 29,
+        "methods": 7,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.Android.NotificationChannel",
+      "kind": "proxy",
+      "summary": "Module for notification channels.",
+      "platforms": ["android"],
+      "since": "7.0.0",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 16,
+        "methods": 4,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.Android.NotificationManager",
+      "kind": "module",
+      "summary": "Module for managing notifications.",
+      "platforms": ["android"],
+      "since": "1.5",
+      "deprecated": false,
+      "extends": "Titanium.Module",
+      "counts": {
+        "properties": 15,
+        "methods": 10,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.Android.PendingIntent",
+      "kind": "proxy",
+      "summary": "The Titanium binding of an Android `PendingIntent`.",
+      "platforms": ["android"],
+      "since": "1.5",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 6,
+        "methods": 4,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.Android.QuickSettingsService",
+      "kind": "proxy",
+      "summary": "Android service for creating custom quick settings tiles and handling user's interaction with them.",
+      "platforms": ["android"],
+      "since": "7.0",
+      "deprecated": false,
+      "extends": "Titanium.Android.Service",
+      "counts": {
+        "properties": 8,
+        "methods": 20,
+        "events": 14
+      }
+    },
+    {
+      "name": "Titanium.Android.R",
+      "kind": "proxy",
+      "summary": "The Titanium binding of the native Android `R` class, giving access to\nAndroid system-wide resources or application resources.\n",
+      "platforms": ["android"],
+      "since": "1.5",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 25,
+        "methods": 4,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.Android.RemoteViews",
+      "kind": "proxy",
+      "summary": "The Titanium binding of [Android RemoteViews](https://developer.android.com/reference/android/widget/RemoteViews.html). \n",
+      "platforms": ["android"],
+      "since": "1.6",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 5,
+        "methods": 17,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.Android.Service",
+      "kind": "proxy",
+      "summary": "Android application component that executes in the background.",
+      "platforms": ["android"],
+      "since": "1.5",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 5,
+        "methods": 8,
+        "events": 5
+      }
+    },
+    {
+      "name": "Titanium.API",
+      "kind": "module",
+      "summary": "The top-level API module, containing methods to output messages to the system log.\n",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "0.1",
+      "deprecated": false,
+      "extends": "Titanium.Module",
+      "counts": {
+        "properties": 3,
+        "methods": 11,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.App",
+      "kind": "module",
+      "summary": "The top-level App module is mainly used for accessing information about the\napplication at runtime, and for sending or listening for system events.\n",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "0.1",
+      "deprecated": false,
+      "extends": "Titanium.Module",
+      "counts": {
+        "properties": 26,
+        "methods": 6,
+        "events": 15
+      }
+    },
+    {
+      "name": "Titanium.App.Android",
+      "kind": "module",
+      "summary": "A module used to access Android application resources.",
+      "platforms": ["android"],
+      "since": "1.5",
+      "deprecated": false,
+      "extends": "Titanium.Module",
+      "counts": {
+        "properties": 7,
+        "methods": 5,
+        "events": 1
+      }
+    },
+    {
+      "name": "Titanium.App.iOS",
+      "kind": "module",
+      "summary": "The top-level App iOS module, available only to iOS devices, that includes the facilities to\ncreate and manage local notifications and background services.\n",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": {
+        "iphone": "1.5.0",
+        "ipad": "1.5.0",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Module",
+      "counts": {
+        "properties": 72,
+        "methods": 20,
+        "events": 18
+      }
+    },
+    {
+      "name": "Titanium.App.iOS.ActivityAttributes",
+      "kind": "pseudo",
+      "summary": "Use this module to communicate with the native iOS 16+ Dynamic Island APIs.\n",
+      "platforms": ["iphone", "ipad"],
+      "since": "12.0.0",
+      "deprecated": false,
+      "counts": {
+        "properties": 0,
+        "methods": 1,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.App.iOS.BackgroundService",
+      "kind": "proxy",
+      "summary": "A service that runs when the application is placed in the background.",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": {
+        "iphone": "1.5.0",
+        "ipad": "1.5.0",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 3,
+        "methods": 6,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.App.iOS.LocalNotification",
+      "kind": "proxy",
+      "summary": "A local notification to alert the user of new or pending application information.",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": "1.5",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 2,
+        "methods": 5,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.App.iOS.SearchableIndex",
+      "kind": "proxy",
+      "summary": "The SearchableIndex module is used to add or remove Ti.App.iOS.SearchableItem objects from the device search index.",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": "5.0.0",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 2,
+        "methods": 9,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.App.iOS.SearchableItem",
+      "kind": "proxy",
+      "summary": "Used to create a unique object containing all of the search information that will appear in the device search index.",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": "5.0.0",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 6,
+        "methods": 4,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.App.iOS.SearchableItemAttributeSet",
+      "kind": "proxy",
+      "summary": "The SearchableItemAttributeSet module defines metadata properties for SearchItem and UserActivity objects.",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": "5.0.0",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 96,
+        "methods": 4,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.App.iOS.SearchQuery",
+      "kind": "proxy",
+      "summary": "A search query object manages the criteria to apply when searching app content that you have previously \nindexed by using the Core Spotlight APIs.\n",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": "5.5.0",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 4,
+        "methods": 7,
+        "events": 2
+      }
+    },
+    {
+      "name": "Titanium.App.iOS.UserActivity",
+      "kind": "proxy",
+      "summary": "The UserActivity module is used to enable device Handoff and to create User Activities.",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": "5.0.0",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 16,
+        "methods": 11,
+        "events": 3
+      }
+    },
+    {
+      "name": "Titanium.App.iOS.UserDefaults",
+      "kind": "module",
+      "summary": "The UserDefaults module is used for storing application-related data in property/value pairs \nthat persist beyond application sessions and device power cycles. UserDefaults allows the suiteName\nof the UserDefaults to be specified at creation time.\n\n**Important**: Using this API requires the `NSPrivacyAccessedAPICategoryUserDefaults` property set in the\nprivacy manifest that was introduced in iOS 17. You can learn more about it [here](https://developer.apple.com/documentation/bundleresources/privacy_manifest_files/describing_use_of_required_reason_api).\n",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": "4.0.0",
+      "deprecated": false,
+      "extends": "Titanium.App.Properties",
+      "counts": {
+        "properties": 3,
+        "methods": 20,
+        "events": 1
+      }
+    },
+    {
+      "name": "Titanium.App.iOS.UserNotificationAction",
+      "kind": "proxy",
+      "summary": "An action the user selects in response to an interactive notification.",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": "3.4.0",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 7,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.App.iOS.UserNotificationCategory",
+      "kind": "proxy",
+      "summary": "A set of notification actions to associate with a notification.",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": "3.4.0",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 8,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.App.iOS.UserNotificationCenter",
+      "kind": "module",
+      "summary": "The top-level App iOS Notification Center module. It is used to control scheduled notifications\nand receive details about the system-wide notification settings.\n",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": "7.3.0",
+      "deprecated": false,
+      "extends": "Titanium.Module",
+      "counts": {
+        "properties": 1,
+        "methods": 5,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.App.Properties",
+      "kind": "module",
+      "summary": "The App Properties module is used for storing application-related data in property/value pairs \nthat persist beyond application sessions and device power cycles.\n",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "0.5",
+      "deprecated": false,
+      "extends": "Titanium.Module",
+      "counts": {
+        "properties": 3,
+        "methods": 20,
+        "events": 1
+      }
+    },
+    {
+      "name": "Titanium.Blob",
+      "kind": "proxy",
+      "summary": "A container for binary data.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": {
+        "iphone": "0.9",
+        "ipad": "0.9",
+        "android": "0.9",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 14,
+        "methods": 15,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.BlobStream",
+      "kind": "proxy",
+      "summary": "Wrapper around [Titanium.Blob](api:Titanium.Blob) that implements the [Titanium.IOStream](api:Titanium.IOStream) interface.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": {
+        "android": "1.7",
+        "iphone": "1.7",
+        "ipad": "1.7",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.IOStream",
+      "counts": {
+        "properties": 3,
+        "methods": 9,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.Buffer",
+      "kind": "proxy",
+      "summary": "Buffer is a mutable, resizable container for raw data.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": {
+        "android": "1.7",
+        "iphone": "1.7",
+        "ipad": "1.7",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 7,
+        "methods": 13,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.BufferStream",
+      "kind": "proxy",
+      "summary": "Wrapper around [Titanium.Buffer](api:Titanium.Buffer) that implements the [Titanium.IOStream](api:Titanium.IOStream) interface.\n",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": {
+        "android": "1.7",
+        "iphone": "1.7",
+        "ipad": "1.7",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.IOStream",
+      "counts": {
+        "properties": 3,
+        "methods": 9,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.Calendar",
+      "kind": "module",
+      "summary": "The Calendar module provides an API for accessing the native calendar functionality.\n",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": {
+        "android": "3.2.0",
+        "iphone": "3.1.0",
+        "ipad": "3.1.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Module",
+      "counts": {
+        "properties": 72,
+        "methods": 7,
+        "events": 1
+      }
+    },
+    {
+      "name": "Titanium.Calendar.Alert",
+      "kind": "proxy",
+      "summary": "An object that represents a single alert for an event in an calendar.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": {
+        "android": "3.2.0",
+        "iphone": "3.1.0",
+        "ipad": "3.1.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 12,
+        "methods": 4,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.Calendar.Attendee",
+      "kind": "proxy",
+      "summary": "An object that represents a single attendee of an event.",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": "6.0.0",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 8,
+        "methods": 4,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.Calendar.Calendar",
+      "kind": "proxy",
+      "summary": "An object that represents a single calendar.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": {
+        "android": "3.2.0",
+        "iphone": "3.1.0",
+        "ipad": "3.1.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 10,
+        "methods": 13,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.Calendar.Event",
+      "kind": "proxy",
+      "summary": "An object that represents a single event in a calendar.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": {
+        "android": "3.2.0",
+        "iphone": "3.1.0",
+        "ipad": "3.1.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 21,
+        "methods": 14,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.Calendar.RecurrenceRule",
+      "kind": "proxy",
+      "summary": "An object that is used to describe the recurrence pattern for a recurring event.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": {
+        "android": "7.1.0",
+        "iphone": "3.1.0",
+        "ipad": "3.1.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 13,
+        "methods": 4,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.Calendar.Reminder",
+      "kind": "proxy",
+      "summary": "An object that represents a single reminder for an event in a calendar.",
+      "platforms": ["android"],
+      "since": "3.2.0",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 6,
+        "methods": 4,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.Codec",
+      "kind": "module",
+      "summary": "A module for translating between primitive types and raw byte streams.\n",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "1.7",
+      "deprecated": false,
+      "extends": "Titanium.Module",
+      "counts": {
+        "properties": 17,
+        "methods": 9,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.Contacts",
+      "kind": "module",
+      "summary": "The top-level Contacts module, used for accessing and modifying the system contacts address book.\n",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": {
+        "iphone": "0.8",
+        "ipad": "0.8",
+        "android": "0.8",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Module",
+      "counts": {
+        "properties": 12,
+        "methods": 17,
+        "events": 1
+      }
+    },
+    {
+      "name": "Titanium.Contacts.Group",
+      "kind": "proxy",
+      "summary": "An object which represents a group in the system contacts address book.",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": {
+        "iphone": "1.4.0",
+        "ipad": "1.4.0",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 4,
+        "methods": 8,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.Contacts.Person",
+      "kind": "proxy",
+      "summary": "An object that represents a contact record for a person or organization in the system contacts \naddress book.\n",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": {
+        "iphone": "0.8",
+        "ipad": "0.8",
+        "android": "0.8",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 32,
+        "methods": 4,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.Database",
+      "kind": "module",
+      "summary": "The top-level `Database` module, used for creating and accessing the\nin-application SQLite database.\n",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "0.1",
+      "deprecated": false,
+      "extends": "Titanium.Module",
+      "counts": {
+        "properties": 7,
+        "methods": 6,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.Database.DB",
+      "kind": "proxy",
+      "summary": "The `Database` instance returned by [Titanium.Database.open](api:Titanium.Database#open) or [Titanium.Database.install](api:Titanium.Database#install).",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "0.1",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 7,
+        "methods": 10,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.Database.ResultSet",
+      "kind": "proxy",
+      "summary": "The ResultSet instance returned by [Titanium.Database.DB.execute](api:Titanium.Database.DB#execute).",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "0.1",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 6,
+        "methods": 11,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.Filesystem",
+      "kind": "module",
+      "summary": "The top level filesystem module, used to access files and directories on the device.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "0.1",
+      "deprecated": false,
+      "extends": "Titanium.Module",
+      "counts": {
+        "properties": 21,
+        "methods": 13,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.Filesystem.File",
+      "kind": "proxy",
+      "summary": "Object representing a path to a file or directory in the device's persistent storage.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "0.1",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 13,
+        "methods": 29,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.Filesystem.FileStream",
+      "kind": "proxy",
+      "summary": "Wrapper around `Titanium.Filesystem.File` that implements the `Titanium.IOStream` interface",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "1.7",
+      "deprecated": false,
+      "extends": "Titanium.IOStream",
+      "counts": {
+        "properties": 3,
+        "methods": 9,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.Geolocation",
+      "kind": "module",
+      "summary": "The top level Geolocation module. The Geolocation module is used for accessing device location based information.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "0.1",
+      "deprecated": false,
+      "extends": "Titanium.Module",
+      "counts": {
+        "properties": 46,
+        "methods": 11,
+        "events": 6
+      }
+    },
+    {
+      "name": "Titanium.Geolocation.Android",
+      "kind": "module",
+      "summary": "Module for Android-specific geolocation functionality.",
+      "platforms": ["android"],
+      "since": "2.0.0",
+      "deprecated": false,
+      "extends": "Titanium.Module",
+      "counts": {
+        "properties": 7,
+        "methods": 10,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.Geolocation.Android.LocationProvider",
+      "kind": "proxy",
+      "summary": "Represents a source of location information, such as GPS.",
+      "platforms": ["android"],
+      "since": "2.0.0",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 6,
+        "methods": 4,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.Geolocation.Android.LocationRule",
+      "kind": "proxy",
+      "summary": "A location rule to filter the results returned by location providers.",
+      "platforms": ["android"],
+      "since": "2.0.0",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 7,
+        "methods": 4,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.Gesture",
+      "kind": "module",
+      "summary": "The Gesture module is responsible for high-level device gestures such as orientation changes\nand shake gestures.\n",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "0.8",
+      "deprecated": false,
+      "extends": "Titanium.Module",
+      "counts": {
+        "properties": 6,
+        "methods": 5,
+        "events": 2
+      }
+    },
+    {
+      "name": "Titanium.IOStream",
+      "kind": "proxy",
+      "summary": "IOStream is the interface that all stream types implement.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": {
+        "android": "1.7",
+        "iphone": "1.7",
+        "ipad": "1.7",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 3,
+        "methods": 9,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.Locale",
+      "kind": "module",
+      "summary": "The top level Locale module.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "1.5",
+      "deprecated": false,
+      "extends": "Titanium.Module",
+      "counts": {
+        "properties": 6,
+        "methods": 11,
+        "events": 1
+      }
+    },
+    {
+      "name": "Titanium.Media",
+      "kind": "module",
+      "summary": "The top-level Media module.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "0.1",
+      "deprecated": false,
+      "extends": "Titanium.Module",
+      "counts": {
+        "properties": 178,
+        "methods": 39,
+        "events": 3
+      }
+    },
+    {
+      "name": "Titanium.Media.Android",
+      "kind": "module",
+      "summary": "Android-specific media-related functionality.",
+      "platforms": ["android"],
+      "since": "1.7.0",
+      "deprecated": false,
+      "extends": "Titanium.Module",
+      "counts": {
+        "properties": 3,
+        "methods": 6,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.Media.AudioPlayer",
+      "kind": "proxy",
+      "summary": "An audio player object used for streaming audio to the device, and low-level control of the audio playback.\n",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "0.9",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 38,
+        "methods": 18,
+        "events": 6
+      }
+    },
+    {
+      "name": "Titanium.Media.AudioRecorder",
+      "kind": "proxy",
+      "summary": "An audio recorder object used for recording audio from the device microphone.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": {
+        "iphone": "0.9",
+        "ipad": "0.9",
+        "android": "6.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 8,
+        "methods": 8,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.Media.Item",
+      "kind": "proxy",
+      "summary": "A representation of a media item returned by [openMusicLibrary](api:Titanium.Media#openMusicLibrary) or [queryMusicLibrary](api:Titanium.Media#queryMusicLibrary).",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": "1.4.0",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 38,
+        "methods": 4,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.Media.MusicPlayer",
+      "kind": "proxy",
+      "summary": "This object represents a music controller.",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": "1.4.0",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 7,
+        "methods": 14,
+        "events": 2
+      }
+    },
+    {
+      "name": "Titanium.Media.Sound",
+      "kind": "proxy",
+      "summary": "An object for playing basic audio resources.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "0.8",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 27,
+        "methods": 14,
+        "events": 5
+      }
+    },
+    {
+      "name": "Titanium.Media.SystemAlert",
+      "kind": "proxy",
+      "summary": "An object for playing system sounds.",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": "6.1.0",
+      "deprecated": true,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 3,
+        "methods": 5,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.Media.VideoPlayer",
+      "kind": "view",
+      "summary": "A native control for playing videos.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "0.9",
+      "deprecated": false,
+      "extends": "Titanium.UI.View",
+      "counts": {
+        "properties": 99,
+        "methods": 23,
+        "events": 23
+      }
+    },
+    {
+      "name": "Titanium.Module",
+      "kind": "module",
+      "summary": "Base type for all Titanium modules.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 3,
+        "methods": 4,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.Network",
+      "kind": "module",
+      "summary": "The top level network module.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "0.1",
+      "deprecated": false,
+      "extends": "Titanium.Module",
+      "counts": {
+        "properties": 24,
+        "methods": 23,
+        "events": 1
+      }
+    },
+    {
+      "name": "Titanium.Network.BonjourBrowser",
+      "kind": "proxy",
+      "summary": "A browser for the discovery and retrieval of Bonjour services available on the network.",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": "1.2.0",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 5,
+        "methods": 6,
+        "events": 1
+      }
+    },
+    {
+      "name": "Titanium.Network.BonjourService",
+      "kind": "proxy",
+      "summary": "Describes a service on the network which is published by Bonjour.",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": "1.2.0",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 7,
+        "methods": 7,
+        "events": 3
+      }
+    },
+    {
+      "name": "Titanium.Network.Cookie",
+      "kind": "proxy",
+      "summary": "Cookie object used to manage the system cookie store and HTTP client cookie store.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": {
+        "android": "3.2.0",
+        "iphone": "3.3.0",
+        "ipad": "3.3.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 14,
+        "methods": 5,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.Network.HTTPClient",
+      "kind": "proxy",
+      "summary": "HTTP client object that (mostly) implements the XMLHttpRequest specification.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "0.1",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 39,
+        "methods": 12,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.Network.Socket",
+      "kind": "module",
+      "summary": "Socket module, used for creating sockets.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "1.7",
+      "deprecated": false,
+      "extends": "Titanium.Module",
+      "counts": {
+        "properties": 8,
+        "methods": 5,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.Network.Socket.TCP",
+      "kind": "proxy",
+      "summary": "TCP socket that implements the `Titanium.IOStream` interface.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "1.7",
+      "deprecated": false,
+      "extends": "Titanium.IOStream",
+      "counts": {
+        "properties": 12,
+        "methods": 12,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.Network.TCPSocket",
+      "kind": "proxy",
+      "summary": "The TCPSocket instance returned from [Titanium.Network.createTCPSocket](api:Titanium.Network#createTCPSocket).  This object\nrepresents a socket which either listens locally on the device for connections,\nor connects to a remote machine.\n",
+      "platforms": ["iphone", "ipad"],
+      "since": "1.2.0",
+      "deprecated": true,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 7,
+        "methods": 8,
+        "events": 3
+      }
+    },
+    {
+      "name": "Titanium.Platform",
+      "kind": "module",
+      "summary": "The top-level Platform module.  The Platform module is used to access the device's platform-related\nfunctionality.\n",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "0.1",
+      "deprecated": false,
+      "extends": "Titanium.Module",
+      "counts": {
+        "properties": 36,
+        "methods": 9,
+        "events": 1
+      }
+    },
+    {
+      "name": "Titanium.Platform.Android",
+      "kind": "module",
+      "summary": "The Android-specific Platform module, used to access the device's platform-related functionality.\n",
+      "platforms": ["android"],
+      "since": "1.8.2",
+      "deprecated": false,
+      "extends": "Titanium.Module",
+      "counts": {
+        "properties": 10,
+        "methods": 4,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.Platform.DisplayCaps",
+      "kind": "proxy",
+      "summary": "The Display Caps object returned by the [Titanium.Platform.displayCaps](api:Titanium.Platform.DisplayCaps) property.\n",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "0.8",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 10,
+        "methods": 4,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.Proxy",
+      "kind": "proxy",
+      "summary": "The base for all Titanium objects.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "0.1",
+      "deprecated": false,
+      "counts": {
+        "properties": 3,
+        "methods": 4,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.Stream",
+      "kind": "module",
+      "summary": "Stream module containing stream utility methods.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "1.7",
+      "deprecated": false,
+      "extends": "Titanium.Module",
+      "counts": {
+        "properties": 6,
+        "methods": 10,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.UI",
+      "kind": "module",
+      "summary": "The main [Titanium.UI](api:Titanium.UI) module.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "0.4",
+      "deprecated": false,
+      "extends": "Titanium.Module",
+      "counts": {
+        "properties": 285,
+        "methods": 51,
+        "events": 1
+      }
+    },
+    {
+      "name": "Titanium.UI.ActivityIndicator",
+      "kind": "view",
+      "summary": "An activity indicator that lets the user know an action is taking place.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "0.8",
+      "deprecated": false,
+      "extends": "Titanium.UI.View",
+      "counts": {
+        "properties": 36,
+        "methods": 10,
+        "events": 1
+      }
+    },
+    {
+      "name": "Titanium.UI.ActivityIndicatorStyle",
+      "kind": "module",
+      "summary": "A set of constants for the styles available for [Titanium.UI.ActivityIndicator](api:Titanium.UI.ActivityIndicator) objects.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": {
+        "iphone": "5.1.0",
+        "ipad": "5.1.0",
+        "android": "3.0.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Module",
+      "counts": {
+        "properties": 7,
+        "methods": 4,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.UI.AlertDialog",
+      "kind": "view",
+      "summary": "An alert dialog is a modal view that includes an optional title, a message and buttons,\npositioned in the middle of the display.\n",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "0.8",
+      "deprecated": false,
+      "extends": "Titanium.UI.View",
+      "counts": {
+        "properties": 60,
+        "methods": 11,
+        "events": 2
+      }
+    },
+    {
+      "name": "Titanium.UI.Android",
+      "kind": "module",
+      "summary": "The Android-specific UI capabilities. All properties, methods and events in this namespace will\nonly work on Android systems.\n\n#### Drawer Layout\n\nThe drawer-layout components acts as a top-level container for window content that allows\nfor interactive \"drawer\" views to be pulled out from one or both vertical edges of the window.\nIt is represented by a `centerView` and optional `leftView` and `rightView` components that\ncan be swiped in and out with additional configuration and transitions. Learn more about\ndrawer-layouts in it's dedicated [Titanium.UI.Android.DrawerLayout](api:Titanium.UI.Android.DrawerLayout) docs.\n",
+      "platforms": ["android"],
+      "since": "1.0",
+      "deprecated": false,
+      "extends": "Titanium.Module",
+      "counts": {
+        "properties": 104,
+        "methods": 16,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.UI.Android.CardView",
+      "kind": "view",
+      "summary": "CardView provides a layout container with rounded corners and a shadow indicating the view is elevated.",
+      "platforms": ["android"],
+      "since": "5.1.0",
+      "deprecated": false,
+      "extends": "Titanium.UI.View",
+      "counts": {
+        "properties": 65,
+        "methods": 16,
+        "events": 17
+      }
+    },
+    {
+      "name": "Titanium.UI.Android.CollapseToolbar",
+      "kind": "view",
+      "summary": "A collapsing toolbar layout.",
+      "platforms": ["android"],
+      "since": "12.1.0",
+      "deprecated": false,
+      "extends": "Titanium.UI.View",
+      "counts": {
+        "properties": 18,
+        "methods": 4,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.UI.Android.DrawerLayout",
+      "kind": "view",
+      "summary": "A panel that displays the app's main navigation options on the left edge of the screen.",
+      "platforms": ["android"],
+      "since": "6.2.0",
+      "deprecated": false,
+      "extends": "Titanium.UI.View",
+      "counts": {
+        "properties": 80,
+        "methods": 23,
+        "events": 21
+      }
+    },
+    {
+      "name": "Titanium.UI.Android.FloatingActionButton",
+      "kind": "view",
+      "summary": "A floating action button (FAB) is a circular button that triggers the primary action in your app's UI.",
+      "platforms": ["android"],
+      "since": "12.0.0",
+      "deprecated": false,
+      "extends": "Titanium.UI.View",
+      "counts": {
+        "properties": 30,
+        "methods": 10,
+        "events": 2
+      }
+    },
+    {
+      "name": "Titanium.UI.Android.ProgressIndicator",
+      "kind": "view",
+      "summary": "A progress dialog or a horizontal progress bar in the title of the window.",
+      "platforms": ["android"],
+      "since": "3.0.0",
+      "deprecated": false,
+      "extends": "Titanium.UI.View",
+      "counts": {
+        "properties": 29,
+        "methods": 10,
+        "events": 2
+      }
+    },
+    {
+      "name": "Titanium.UI.Android.SearchView",
+      "kind": "view",
+      "summary": "A specialized text field for entering search text.",
+      "platforms": ["android"],
+      "since": "3.0.2",
+      "deprecated": false,
+      "extends": "Titanium.UI.View",
+      "counts": {
+        "properties": 68,
+        "methods": 17,
+        "events": 21
+      }
+    },
+    {
+      "name": "Titanium.UI.Android.Snackbar",
+      "kind": "view",
+      "summary": "Snackbars provide brief messages about app processes at the bottom of the screen.",
+      "platforms": ["android"],
+      "since": "11.1.0",
+      "deprecated": false,
+      "extends": "Titanium.UI.View",
+      "counts": {
+        "properties": 27,
+        "methods": 10,
+        "events": 2
+      }
+    },
+    {
+      "name": "Titanium.UI.Animation",
+      "kind": "proxy",
+      "summary": "The `Animation` object defines an animation that can be applied to a view.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "0.9",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 31,
+        "methods": 4,
+        "events": 3
+      }
+    },
+    {
+      "name": "Titanium.UI.AttributedString",
+      "kind": "proxy",
+      "summary": "An attributed string proxy manages character strings and associated sets of attributes (for example,\nfont and foregroundcolor) that apply to individual characters or ranges of characters in the string.\n",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "3.6.0",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 5,
+        "methods": 5,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.UI.Button",
+      "kind": "view",
+      "summary": "A button widget that has four states: normal, disabled, focused and selected.\n",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "0.8",
+      "deprecated": false,
+      "extends": "Titanium.UI.View",
+      "counts": {
+        "properties": 89,
+        "methods": 13,
+        "events": 18
+      }
+    },
+    {
+      "name": "Titanium.UI.ButtonBar",
+      "kind": "view",
+      "summary": "An iOS button bar component.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": {
+        "android": "10.0.0",
+        "iphone": "0.8",
+        "ipad": "0.8",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.UI.View",
+      "counts": {
+        "properties": 76,
+        "methods": 13,
+        "events": 7
+      }
+    },
+    {
+      "name": "Titanium.UI.Clipboard",
+      "kind": "module",
+      "summary": "A module used for accessing clipboard data.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": {
+        "android": "1.8.0",
+        "iphone": "1.5.0",
+        "ipad": "1.5.0",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Module",
+      "counts": {
+        "properties": 6,
+        "methods": 18,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.UI.Color",
+      "kind": "proxy",
+      "summary": "Represents a color used for UI components.\n",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "9.1.0",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 3,
+        "methods": 5,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.UI.DashboardItem",
+      "kind": "proxy",
+      "summary": "A dashboard item is a view that is displayed as an icon in a [Titanium.UI.DashboardView](api:Titanium.UI.DashboardView).",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": "1.2",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 6,
+        "methods": 4,
+        "events": 3
+      }
+    },
+    {
+      "name": "Titanium.UI.DashboardView",
+      "kind": "view",
+      "summary": "A dashboard view is an iOS Springboard-like view of [Titanium.UI.DashboardItem](api:Titanium.UI.DashboardItem) items that may \nbe deleted and reordered by the user using its built-in edit mode.\n",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": "1.2",
+      "deprecated": false,
+      "extends": "Titanium.UI.View",
+      "counts": {
+        "properties": 51,
+        "methods": 14,
+        "events": 18
+      }
+    },
+    {
+      "name": "Titanium.UI.EmailDialog",
+      "kind": "view",
+      "summary": "An email dialog is a modal window that allows users to compose and send an email.\n",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "0.8",
+      "deprecated": false,
+      "extends": "Titanium.UI.View",
+      "counts": {
+        "properties": 35,
+        "methods": 14,
+        "events": 2
+      }
+    },
+    {
+      "name": "Titanium.UI.ImageView",
+      "kind": "view",
+      "summary": "A view to display a single image or series of animated images.\n",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "0.9",
+      "deprecated": false,
+      "extends": "Titanium.UI.View",
+      "counts": {
+        "properties": 87,
+        "methods": 19,
+        "events": 23
+      }
+    },
+    {
+      "name": "Titanium.UI.iOS",
+      "kind": "module",
+      "summary": "Apple iOS specific UI capabilities.  All properties, methods and events in this namespace will\nonly work on Apple iOS devices.\n",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": {
+        "iphone": "1.4.0",
+        "ipad": "1.4.0",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Module",
+      "counts": {
+        "properties": 141,
+        "methods": 35,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.UI.iOS.AlertDialogStyle",
+      "kind": "proxy",
+      "summary": "A set of constants for the style that can be used for the `style` property of \n[Titanium.UI.AlertDialog](api:Titanium.UI.AlertDialog).\n",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": {
+        "iphone": "5.4.0",
+        "ipad": "5.4.0",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 6,
+        "methods": 4,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.UI.iOS.AnchorAttachmentBehavior",
+      "kind": "proxy",
+      "summary": "Dynamic behavior to support connections between an anchor point and an item.",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": {
+        "iphone": "3.2.0",
+        "ipad": "3.2.0",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 8,
+        "methods": 4,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.UI.iOS.AnimationStyle",
+      "kind": "proxy",
+      "summary": "A set of constants for the animation styles used for view transitions.\n\nOne of the group of animation style constants \n  * [CURL_DOWN](api:Titanium.UI.iOS.AnimationStyle#CURL_DOWN)\n  * [CURL_UP](api:Titanium.UI.iOS.AnimationStyle#CURL_UP)\n  * [FLIP_FROM_LEFT](api:Titanium.UI.iOS.AnimationStyle#FLIP_FROM_LEFT)\n  * [FLIP_FROM_RIGHT](api:Titanium.UI.iOS.AnimationStyle#FLIP_FROM_RIGHT)\n  * [FLIP_FROM_TOP](api:Titanium.UI.iOS.AnimationStyle#FLIP_FROM_TOP)\n  * [FLIP_FROM_BOTTOM](api:Titanium.UI.iOS.AnimationStyle#FLIP_FROM_BOTTOM)\n  * [CROSS_DISSOLVE](api:Titanium.UI.iOS.AnimationStyle#CROSS_DISSOLVE)\n  * [NONE](api:Titanium.UI.iOS.AnimationStyle#NONE)\n",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": {
+        "iphone": "5.4.0",
+        "ipad": "5.4.0",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 10,
+        "methods": 4,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.UI.iOS.Animator",
+      "kind": "proxy",
+      "summary": "Provides support for the built-in iOS dynamic animations",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": {
+        "iphone": "3.2.0",
+        "ipad": "3.2.0",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 5,
+        "methods": 10,
+        "events": 2
+      }
+    },
+    {
+      "name": "Titanium.UI.iOS.ApplicationShortcuts",
+      "kind": "proxy",
+      "summary": "The Home screen quick actions API is for adding shortcuts to your app icon that anticipate and accelerate a \nuser's interaction with your app.\n",
+      "platforms": ["iphone"],
+      "since": "5.1.0",
+      "deprecated": true,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 2,
+        "methods": 11,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.UI.iOS.BlurView",
+      "kind": "view",
+      "summary": "A [Titanium.UI.iOS.BlurView](api:Titanium.UI.iOS.BlurView) object gives you an easy way implement some complex visual effects. \nThe blur effect is applied to every view the blur view is added to by default. You can also place the \nblur view above other views and all visible views layered under the blur view are blurred as well.\n\nFor more information on BlurView, please refer to the official [Apple documentation](https://developer.apple.com/documentation/uikit/uivisualeffectview).\n\nNote: In iOS 26, Apple introduced the `UIGlassEffectView`, an alternative to classic blur views. See the [Titanium.UI.iOS.BlurView.glassEffect](api:Titanium.UI.iOS.BlurView#glassEffect) property for more details.\n",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": {
+        "iphone": "5.4.0",
+        "ipad": "5.4.0",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.UI.View",
+      "counts": {
+        "properties": 49,
+        "methods": 16,
+        "events": 15
+      }
+    },
+    {
+      "name": "Titanium.UI.iOS.ButtonConfiguration",
+      "kind": "proxy",
+      "summary": "A configuration object for customizing the appearance and behavior of a button.\n",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": {
+        "iphone": "13.0.0",
+        "ipad": "13.0.0",
+        "macos": "13.0.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 17,
+        "methods": 4,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.UI.iOS.CollisionBehavior",
+      "kind": "proxy",
+      "summary": "Dynamic behavior to support collisions between items and boundaries.",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": {
+        "iphone": "3.2.0",
+        "ipad": "3.2.0",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 7,
+        "methods": 9,
+        "events": 2
+      }
+    },
+    {
+      "name": "Titanium.UI.iOS.CoverFlowView",
+      "kind": "view",
+      "summary": "The cover flow view is a container showing animated three-dimensional images in a style \nconsistent with the former cover flow presentation style used for iPod, iTunes, and Finder.\n",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": {
+        "iphone": "0.8",
+        "ipad": "0.8",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.UI.View",
+      "counts": {
+        "properties": 48,
+        "methods": 13,
+        "events": 5
+      }
+    },
+    {
+      "name": "Titanium.UI.iOS.DocumentViewer",
+      "kind": "proxy",
+      "summary": "A DocumentViewer provides in-app support for managing user interactions with files on the\nlocal system.\n",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": {
+        "iphone": "2.1.1",
+        "ipad": "2.1.1",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 6,
+        "methods": 6,
+        "events": 3
+      }
+    },
+    {
+      "name": "Titanium.UI.iOS.DynamicItemBehavior",
+      "kind": "proxy",
+      "summary": "Base dynamic configuration for an item.",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": {
+        "iphone": "3.2.0",
+        "ipad": "3.2.0",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 9,
+        "methods": 10,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.UI.iOS.FeedbackGenerator",
+      "kind": "proxy",
+      "summary": "The feedback generator API is introduced in iOS 10 to handle the haptic feedback when using an iPhone 7 or \nlater devices.\n",
+      "platforms": ["iphone"],
+      "since": "6.0.0",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 4,
+        "methods": 8,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.UI.iOS.GravityBehavior",
+      "kind": "proxy",
+      "summary": "Gravitational force to apply to an item.",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": {
+        "iphone": "3.2.0",
+        "ipad": "3.2.0",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 6,
+        "methods": 6,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.UI.iOS.ListViewCellSelectionStyle",
+      "kind": "proxy",
+      "summary": "A set of constants for the style that can be used for the `selectionStyle` property of a\nListItem, which is set in the `properties` dictionary of either the [ListDataItem](api:ListDataItem) or\n[ItemTemplate](api:ItemTemplate).\n",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": {
+        "iphone": "5.4.0",
+        "ipad": "5.4.0",
+        "macos": "9.2.0"
+      },
+      "deprecated": true,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 4,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.UI.iOS.ListViewScrollPosition",
+      "kind": "proxy",
+      "summary": "A set of constants for the position value that can be used for the `position` property of\n[ListViewAnimationProperties](api:ListViewAnimationProperties) when invoking the ListView's `scrollToItem`, `appendSection`,\n`deleteSectionAt`, `insertSectionAt` and `replaceSectionAt` methods.\n",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": {
+        "iphone": "5.4.0",
+        "ipad": "5.4.0",
+        "macos": "9.2.0"
+      },
+      "deprecated": true,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 5,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.UI.iOS.ListViewStyle",
+      "kind": "proxy",
+      "summary": "A set of constants for the style that can be used for the `style` property of \n[Titanium.UI.ListView](api:Titanium.UI.ListView).\n",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": {
+        "iphone": "3.1.0",
+        "ipad": "3.1.0",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 4,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.UI.iOS.LivePhoto",
+      "kind": "proxy",
+      "summary": "Abstract object representing a live photo used in [Titanium.UI.iOS.LivePhotoView](api:Titanium.UI.iOS.LivePhotoView).",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "5.2.0",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 3,
+        "methods": 4,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.UI.iOS.LivePhotoView",
+      "kind": "view",
+      "summary": "A view to display a [Titanium.UI.iOS.LivePhoto](api:Titanium.UI.iOS.LivePhoto) object introduced in iOS 9.1.\n",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": {
+        "iphone": "5.2.0",
+        "ipad": "5.2.0",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.UI.View",
+      "counts": {
+        "properties": 49,
+        "methods": 18,
+        "events": 4
+      }
+    },
+    {
+      "name": "Titanium.UI.iOS.MenuPopup",
+      "kind": "proxy",
+      "summary": "A menu popup provides the ability to create custom tooltip options using the `items` property\ncovering the native `UIMenuController` class.\n\nSee also:\n\n* [iOS Developer Library: UIMenuController](https://developer.apple.com/documentation/uikit/uimenucontroller)\n",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": {
+        "iphone": "5.2.0",
+        "ipad": "5.2.0",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 3,
+        "methods": 7,
+        "events": 1
+      }
+    },
+    {
+      "name": "Titanium.UI.iOS.NavigationWindow",
+      "kind": "view",
+      "summary": "A `NavigationWindow` implements a specialized view that manages the navigation of hierarchical\ncontent.\n",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": {
+        "iphone": "3.1.3",
+        "ipad": "3.1.3",
+        "macos": "9.2.0"
+      },
+      "deprecated": true,
+      "extends": "Titanium.UI.Window",
+      "counts": {
+        "properties": 72,
+        "methods": 26,
+        "events": 19
+      }
+    },
+    {
+      "name": "Titanium.UI.iOS.PreviewAction",
+      "kind": "proxy",
+      "summary": "A PreviewAction provides options to configure actions used by the iOS 9 3D-Touch \"Peek and Pop\"\nfeature.\n",
+      "platforms": ["iphone"],
+      "since": "5.1.0",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 4,
+        "methods": 4,
+        "events": 1
+      }
+    },
+    {
+      "name": "Titanium.UI.iOS.PreviewActionGroup",
+      "kind": "proxy",
+      "summary": "A PreviewActionGroup provides options to configure a group of actions used by the iOS 9 3D-Touch\nfeature \"Peek and Pop\".\n",
+      "platforms": ["iphone"],
+      "since": "5.1.0",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 5,
+        "methods": 4,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.UI.iOS.PreviewContext",
+      "kind": "proxy",
+      "summary": "A PreviewContext provides options to configure the iOS 9 3D-Touch \"Peek and Pop\" feature.\n",
+      "platforms": ["iphone"],
+      "since": "5.1.0",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 5,
+        "methods": 4,
+        "events": 2
+      }
+    },
+    {
+      "name": "Titanium.UI.iOS.ProgressBarStyle",
+      "kind": "proxy",
+      "summary": "A set of constants for the bar styles used on the `style` property of [Titanium.UI.ProgressBar](api:Titanium.UI.ProgressBar).\n",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": {
+        "iphone": "0.8",
+        "ipad": "0.8",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 5,
+        "methods": 4,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.UI.iOS.PushBehavior",
+      "kind": "proxy",
+      "summary": "Continuous or instantaneous force to apply to an item.",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": {
+        "iphone": "3.2.0",
+        "ipad": "3.2.0",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 8,
+        "methods": 6,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.UI.iOS.RowAnimationStyle",
+      "kind": "proxy",
+      "summary": "A set of constants for the Animation Styles used for transition on table view rows.",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": {
+        "iphone": "0.9",
+        "ipad": "0.9",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 8,
+        "methods": 4,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.UI.iOS.ScrollIndicatorStyle",
+      "kind": "proxy",
+      "summary": "A set of constants for the styles available for scrollbars used with [Titanium.UI.ScrollView.scrollIndicatorStyle](api:Titanium.UI.ScrollView#scrollIndicatorStyle) and [Titanium.UI.TableView.scrollIndicatorStyle](api:Titanium.UI.TableView#scrollIndicatorStyle) properties.",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": {
+        "iphone": "5.4.0",
+        "ipad": "5.4.0",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 5,
+        "methods": 4,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.UI.iOS.SnapBehavior",
+      "kind": "proxy",
+      "summary": "Dynamic behavior defining an item's movement to a specific point.",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": {
+        "iphone": "3.2.0",
+        "ipad": "3.2.0",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 5,
+        "methods": 4,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.UI.iOS.SplitWindow",
+      "kind": "view",
+      "summary": "A SplitWindow is a window that manages the presentation of two side-by-side view\ncontrollers.\n",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": {
+        "iphone": "3.6.0",
+        "ipad": "3.6.0",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.UI.Window",
+      "counts": {
+        "properties": 97,
+        "methods": 25,
+        "events": 19
+      }
+    },
+    {
+      "name": "Titanium.UI.iOS.StatusBar",
+      "kind": "proxy",
+      "summary": "A set of constants for the status bar style.",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": {
+        "iphone": "5.4.0",
+        "ipad": "5.4.0",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 10,
+        "methods": 4,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.UI.iOS.Stepper",
+      "kind": "view",
+      "summary": "A widget used to increment and decrement a value.\n",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": {
+        "iphone": "5.4.0",
+        "ipad": "5.4.0",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.UI.View",
+      "counts": {
+        "properties": 58,
+        "methods": 12,
+        "events": 8
+      }
+    },
+    {
+      "name": "Titanium.UI.iOS.SystemButton",
+      "kind": "proxy",
+      "summary": "A set of constants for creating standard iOS system buttons.",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": {
+        "iphone": "5.4.0",
+        "ipad": "5.4.0",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 28,
+        "methods": 4,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.UI.iOS.SystemIcon",
+      "kind": "proxy",
+      "summary": "A set of constants for the system icon styles that can be used on a tab group tab.",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": {
+        "iphone": "5.4.0",
+        "ipad": "5.4.0",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 14,
+        "methods": 4,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.UI.iOS.TabbedBar",
+      "kind": "view",
+      "summary": "A button bar that maintains a selected state.",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": {
+        "iphone": "0.8",
+        "ipad": "0.8",
+        "macos": "9.2.0"
+      },
+      "deprecated": true,
+      "extends": "Titanium.UI.View",
+      "counts": {
+        "properties": 49,
+        "methods": 12,
+        "events": 6
+      }
+    },
+    {
+      "name": "Titanium.UI.iOS.TableViewCellSelectionStyle",
+      "kind": "proxy",
+      "summary": "A set of constants for the style that can be used for the `selectionStyle` property of \n[Titanium.UI.TableViewRow](api:Titanium.UI.TableViewRow).\n",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": {
+        "iphone": "5.4.0",
+        "ipad": "5.4.0",
+        "macos": "9.2.0"
+      },
+      "deprecated": true,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 5,
+        "methods": 4,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.UI.iOS.TableViewScrollPosition",
+      "kind": "proxy",
+      "summary": "A set of constants for the position value that can be used for the `position` property of\n[Titanium.UI.TableView](api:Titanium.UI.TableView) when invoking `scrollToIndex`.\n",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": {
+        "iphone": "5.4.0",
+        "ipad": "5.4.0",
+        "macos": "9.2.0"
+      },
+      "deprecated": true,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 6,
+        "methods": 4,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.UI.iOS.TableViewStyle",
+      "kind": "proxy",
+      "summary": "A set of constants for the style that can be used for the `style` property of \n[Titanium.UI.TableView](api:Titanium.UI.TableView) and [Titanium.UI.ListView](api:Titanium.UI.ListView).\n",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": {
+        "iphone": "0.9",
+        "ipad": "0.9",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 5,
+        "methods": 4,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.UI.iOS.Toolbar",
+      "kind": "view",
+      "summary": "An iOS toolbar, which can contain buttons and certain other controls.",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": {
+        "iphone": "0.8",
+        "ipad": "0.8",
+        "macos": "9.2.0"
+      },
+      "deprecated": true,
+      "extends": "Titanium.UI.View",
+      "counts": {
+        "properties": 44,
+        "methods": 12,
+        "events": 14
+      }
+    },
+    {
+      "name": "Titanium.UI.iOS.TransitionAnimation",
+      "kind": "proxy",
+      "summary": "A transition animation when opening or closing windows in a\n[Titanium.UI.NavigationWindow](api:Titanium.UI.NavigationWindow) or [Titanium.UI.Tab](api:Titanium.UI.Tab).\n\nUse this proxy with the Window's\n[transitionAnimation](api:Titanium.UI.Window#transitionAnimation) property.\n",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": {
+        "iphone": "3.2.0",
+        "ipad": "3.2.0",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 5,
+        "methods": 4,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.UI.iOS.ViewAttachmentBehavior",
+      "kind": "proxy",
+      "summary": "Dynamic behavior to support connections between two items.",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": {
+        "iphone": "3.2.0",
+        "ipad": "3.2.0",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 9,
+        "methods": 4,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.UI.iOS.WebViewConfiguration",
+      "kind": "proxy",
+      "summary": "A collection of properties used to initialize a web view.",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": {
+        "iphone": "8.0.0",
+        "ipad": "8.0.0",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 10,
+        "methods": 4,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.UI.iOS.WebViewDecisionHandler",
+      "kind": "proxy",
+      "summary": "It represents the decision handler to tell to webview, whether allow or cancel the navigation.\n",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": {
+        "iphone": "8.0.0",
+        "ipad": "8.0.0",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 2,
+        "methods": 5,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.UI.iOS.WebViewProcessPool",
+      "kind": "proxy",
+      "summary": "It represents a pool of Web Content processes.",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": {
+        "iphone": "8.0.0",
+        "ipad": "8.0.0",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 2,
+        "methods": 4,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.UI.iPad",
+      "kind": "module",
+      "summary": "iPad specific UI capabilities.",
+      "platforms": ["ipad", "macos"],
+      "since": {
+        "ipad": "1.2.0",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Module",
+      "counts": {
+        "properties": 8,
+        "methods": 5,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.UI.iPad.Popover",
+      "kind": "view",
+      "summary": "A Popover is used to manage the presentation of content in a popover.",
+      "platforms": ["ipad", "macos"],
+      "since": {
+        "ipad": "1.2.0",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.UI.View",
+      "counts": {
+        "properties": 13,
+        "methods": 9,
+        "events": 2
+      }
+    },
+    {
+      "name": "Titanium.UI.Label",
+      "kind": "view",
+      "summary": "A text label, with an optional background image.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "0.8",
+      "deprecated": false,
+      "extends": "Titanium.UI.View",
+      "counts": {
+        "properties": 102,
+        "methods": 13,
+        "events": 18
+      }
+    },
+    {
+      "name": "Titanium.UI.ListItem",
+      "kind": "proxy",
+      "summary": "A list item is an individual item in a list section.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "3.1.0",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 28,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.UI.ListSection",
+      "kind": "proxy",
+      "summary": "A list section is a container within a list view used to organize list items.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "3.1.0",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 9,
+        "methods": 8,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.UI.ListView",
+      "kind": "view",
+      "summary": "A list view is used to present information, organized in to sections and items,\nin a vertically-scrolling view.\n",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "3.1.0",
+      "deprecated": false,
+      "extends": "Titanium.UI.View",
+      "counts": {
+        "properties": 123,
+        "methods": 24,
+        "events": 21
+      }
+    },
+    {
+      "name": "Titanium.UI.ListViewScrollPosition",
+      "kind": "proxy",
+      "summary": "A set of constants for the position value that can be used for the `position` property of\n[ListViewAnimationProperties](api:ListViewAnimationProperties) when invoking the ListView's `scrollToItem`, `appendSection`,\n`deleteSectionAt`, `insertSectionAt` and `replaceSectionAt` methods.\n",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "11.1.0",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 6,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.UI.MaskedImage",
+      "kind": "view",
+      "summary": "A control that displays an image composited with a background image or color.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": {
+        "android": "7.3.0",
+        "iphone": "0.8",
+        "ipad": "0.8"
+      },
+      "deprecated": false,
+      "extends": "Titanium.UI.View",
+      "counts": {
+        "properties": 75,
+        "methods": 13,
+        "events": 17
+      }
+    },
+    {
+      "name": "Titanium.UI.Matrix2D",
+      "kind": "proxy",
+      "summary": "The 2D Matrix is an object for holding values for an affine transformation matrix.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "8.0.0",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 9,
+        "methods": 9,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.UI.Matrix3D",
+      "kind": "proxy",
+      "summary": "The 3D Matrix is an object for holding values for a 3D affine transform.",
+      "platforms": ["iphone", "ipad", "macos"],
+      "since": "8.0.0",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 18,
+        "methods": 9,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.UI.NavigationWindow",
+      "kind": "view",
+      "summary": "A `NavigationWindow` implements a specialized view that manages the navigation of hierarchical\ncontent.\n",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "8.0.0",
+      "deprecated": false,
+      "extends": "Titanium.UI.Window",
+      "counts": {
+        "properties": 119,
+        "methods": 29,
+        "events": 26
+      }
+    },
+    {
+      "name": "Titanium.UI.Notification",
+      "kind": "proxy",
+      "summary": "A toast notification.",
+      "platforms": ["android"],
+      "since": "0.8",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 10,
+        "methods": 5,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.UI.OptionBar",
+      "kind": "view",
+      "summary": "A bar of selectable buttons where only 1 can be selected at a time.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "10.0.0",
+      "deprecated": false,
+      "extends": "Titanium.UI.View",
+      "counts": {
+        "properties": 77,
+        "methods": 13,
+        "events": 7
+      }
+    },
+    {
+      "name": "Titanium.UI.OptionDialog",
+      "kind": "view",
+      "summary": "An option dialog is a modal view that includes a message and one or more option items positioned\nin the middle of the display on Android and at the bottom edge on iOS. On Android, buttons may\nbe added below the options.\n",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "0.8",
+      "deprecated": false,
+      "extends": "Titanium.UI.View",
+      "counts": {
+        "properties": 35,
+        "methods": 10,
+        "events": 2
+      }
+    },
+    {
+      "name": "Titanium.UI.Picker",
+      "kind": "view",
+      "summary": "A control used to select one or more fixed values.\n",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "0.8",
+      "deprecated": false,
+      "extends": "Titanium.UI.View",
+      "counts": {
+        "properties": 78,
+        "methods": 20,
+        "events": 18
+      }
+    },
+    {
+      "name": "Titanium.UI.PickerColumn",
+      "kind": "view",
+      "summary": "A picker column, representing a selectable group of items in a [Titanium.UI.Picker](api:Titanium.UI.Picker).",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "0.9",
+      "deprecated": false,
+      "extends": "Titanium.UI.View",
+      "counts": {
+        "properties": 11,
+        "methods": 7,
+        "events": 4
+      }
+    },
+    {
+      "name": "Titanium.UI.PickerRow",
+      "kind": "view",
+      "summary": "A picker row, representing a selectable item in a [Titanium.UI.Picker](api:Titanium.UI.Picker).\n",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "0.9",
+      "deprecated": false,
+      "extends": "Titanium.UI.View",
+      "counts": {
+        "properties": 75,
+        "methods": 17,
+        "events": 17
+      }
+    },
+    {
+      "name": "Titanium.UI.ProgressBar",
+      "kind": "view",
+      "summary": "A progress bar.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "0.8",
+      "deprecated": false,
+      "extends": "Titanium.UI.View",
+      "counts": {
+        "properties": 80,
+        "methods": 13,
+        "events": 17
+      }
+    },
+    {
+      "name": "Titanium.UI.RefreshControl",
+      "kind": "proxy",
+      "summary": "The RefreshControl is a representation of the native iOS\n[UIRefreshControl](https://developer.apple.com/documentation/uikit/uirefreshcontrol)\nand Android [SwipeRefreshLayout](https://developer.android.com/reference/android/support/v4/widget/SwipeRefreshLayout.html).\n",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": {
+        "android": "6.2.0",
+        "iphone": "3.2.0",
+        "ipad": "3.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 7,
+        "methods": 6,
+        "events": 2
+      }
+    },
+    {
+      "name": "Titanium.UI.ScrollableView",
+      "kind": "view",
+      "summary": "A view that encapsulates a horizontally-scrolling set of child views, known as pages, navigable\nusing its built-in horizontal swipe gestures.\n",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "0.8",
+      "deprecated": false,
+      "extends": "Titanium.UI.View",
+      "counts": {
+        "properties": 91,
+        "methods": 20,
+        "events": 14
+      }
+    },
+    {
+      "name": "Titanium.UI.ScrollView",
+      "kind": "view",
+      "summary": "A view that contains a horizontally and/or vertically-scrollable region of content.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "0.9",
+      "deprecated": false,
+      "extends": "Titanium.UI.View",
+      "counts": {
+        "properties": 93,
+        "methods": 22,
+        "events": 23
+      }
+    },
+    {
+      "name": "Titanium.UI.SearchBar",
+      "kind": "view",
+      "summary": "A specialized text field for entering search text.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "0.8",
+      "deprecated": false,
+      "extends": "Titanium.UI.View",
+      "counts": {
+        "properties": 95,
+        "methods": 18,
+        "events": 22
+      }
+    },
+    {
+      "name": "Titanium.UI.Shortcut",
+      "kind": "proxy",
+      "summary": "Manage application shortcuts.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": {
+        "android": "9.1.0",
+        "iphone": "9.1.0",
+        "ipad": "9.1.0",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 5,
+        "methods": 8,
+        "events": 1
+      }
+    },
+    {
+      "name": "Titanium.UI.ShortcutItem",
+      "kind": "proxy",
+      "summary": "An application shortcut item.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": {
+        "android": "7.5.0",
+        "iphone": "9.1.0",
+        "ipad": "9.1.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 9,
+        "methods": 7,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.UI.Slider",
+      "kind": "view",
+      "summary": "A slider component with a draggable thumb.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "0.8",
+      "deprecated": false,
+      "extends": "Titanium.UI.View",
+      "counts": {
+        "properties": 94,
+        "methods": 14,
+        "events": 19
+      }
+    },
+    {
+      "name": "Titanium.UI.Switch",
+      "kind": "view",
+      "summary": "An on/off switch control.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "0.8",
+      "deprecated": false,
+      "extends": "Titanium.UI.View",
+      "counts": {
+        "properties": 86,
+        "methods": 13,
+        "events": 18
+      }
+    },
+    {
+      "name": "Titanium.UI.Tab",
+      "kind": "view",
+      "summary": "A tab instance for a [TabGroup](api:Titanium.UI.TabGroup).",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "0.8",
+      "deprecated": false,
+      "extends": "Titanium.UI.View",
+      "counts": {
+        "properties": 57,
+        "methods": 14,
+        "events": 15
+      }
+    },
+    {
+      "name": "Titanium.UI.TabbedBar",
+      "kind": "view",
+      "summary": "A button bar that maintains a selected state.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": {
+        "iphone": "0.8",
+        "ipad": "0.8",
+        "android": "8.0.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.UI.View",
+      "counts": {
+        "properties": 78,
+        "methods": 13,
+        "events": 7
+      }
+    },
+    {
+      "name": "Titanium.UI.TabGroup",
+      "kind": "view",
+      "summary": "A tabbed group of windows.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "0.9",
+      "deprecated": false,
+      "extends": "Titanium.UI.Window",
+      "counts": {
+        "properties": 137,
+        "methods": 29,
+        "events": 11
+      }
+    },
+    {
+      "name": "Titanium.UI.TableView",
+      "kind": "view",
+      "summary": "A table view is used to present information, organized in sections and rows, in a\nvertically-scrolling view.\n",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "0.8",
+      "deprecated": false,
+      "extends": "Titanium.UI.View",
+      "counts": {
+        "properties": 123,
+        "methods": 31,
+        "events": 25
+      }
+    },
+    {
+      "name": "Titanium.UI.TableViewRow",
+      "kind": "view",
+      "summary": "A table view row is an individual item in a table, organized into table view sections.\n",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "0.9",
+      "deprecated": false,
+      "extends": "Titanium.UI.View",
+      "counts": {
+        "properties": 95,
+        "methods": 16,
+        "events": 9
+      }
+    },
+    {
+      "name": "Titanium.UI.TableViewScrollPosition",
+      "kind": "proxy",
+      "summary": "A set of constants for the position value that can be used for the `position` property of\n[Titanium.UI.TableView](api:Titanium.UI.TableView) when invoking `scrollToIndex`.\n",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "11.1.0",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 7,
+        "methods": 4,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.UI.TableViewSection",
+      "kind": "proxy",
+      "summary": "A table view section is a container within a table used to organize table view rows.\n",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "0.9",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 9,
+        "methods": 7,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.UI.TextArea",
+      "kind": "view",
+      "summary": "A multiline text field that supports editing and scrolling.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "0.8",
+      "deprecated": false,
+      "extends": "Titanium.UI.View",
+      "counts": {
+        "properties": 111,
+        "methods": 17,
+        "events": 22
+      }
+    },
+    {
+      "name": "Titanium.UI.TextField",
+      "kind": "view",
+      "summary": "A single line text field.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "0.8",
+      "deprecated": false,
+      "extends": "Titanium.UI.View",
+      "counts": {
+        "properties": 116,
+        "methods": 17,
+        "events": 21
+      }
+    },
+    {
+      "name": "Titanium.UI.Toolbar",
+      "kind": "view",
+      "summary": "A Toolbar can contain buttons, as well as certain other widgets, including text fields and labels.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "6.2.0",
+      "deprecated": false,
+      "extends": "Titanium.UI.View",
+      "counts": {
+        "properties": 74,
+        "methods": 29,
+        "events": 15
+      }
+    },
+    {
+      "name": "Titanium.UI.View",
+      "kind": "view",
+      "summary": "An empty drawing surface or container",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "0.9",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 72,
+        "methods": 17,
+        "events": 17
+      }
+    },
+    {
+      "name": "Titanium.UI.WebView",
+      "kind": "view",
+      "summary": "The web view allows you to open an HTML5 based view which can load either local or remote content.\n",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "0.8",
+      "deprecated": false,
+      "extends": "Titanium.UI.View",
+      "counts": {
+        "properties": 123,
+        "methods": 37,
+        "events": 28
+      }
+    },
+    {
+      "name": "Titanium.UI.Window",
+      "kind": "view",
+      "summary": "The Window is an empty drawing surface or container.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "0.9",
+      "deprecated": false,
+      "extends": "Titanium.UI.View",
+      "counts": {
+        "properties": 138,
+        "methods": 27,
+        "events": 26
+      }
+    },
+    {
+      "name": "Titanium.Utils",
+      "kind": "module",
+      "summary": "The top-level Utils module, containing a set of JavaScript methods that are often useful when\nbuilding applications.\n",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": {
+        "android": "0.9",
+        "iphone": "0.9",
+        "ipad": "0.9",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Module",
+      "counts": {
+        "properties": 3,
+        "methods": 9,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.WatchSession",
+      "kind": "module",
+      "summary": "Used to enable data and file transfers between a watchOS and iOS application.",
+      "platforms": ["iphone"],
+      "since": "5.0.0",
+      "deprecated": false,
+      "extends": "Titanium.Module",
+      "counts": {
+        "properties": 15,
+        "methods": 13,
+        "events": 11
+      }
+    },
+    {
+      "name": "Titanium.XML",
+      "kind": "module",
+      "summary": "The top level XML module.  The XML module is used for parsing and processing XML-based content.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": {
+        "android": "0.9",
+        "iphone": "0.9",
+        "ipad": "0.9",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Module",
+      "counts": {
+        "properties": 3,
+        "methods": 6,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.XML.Attr",
+      "kind": "proxy",
+      "summary": "Represents an attribute of an [Element](api:Titanium.XML.Element).",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": {
+        "android": "0.9",
+        "iphone": "0.9",
+        "ipad": "0.9",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.XML.Node",
+      "counts": {
+        "properties": 35,
+        "methods": 13,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.XML.CDATASection",
+      "kind": "proxy",
+      "summary": "Used to include blocks of literal text containing characters that would otherwise need\nto be escaped.\n",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": {
+        "android": "0.9",
+        "iphone": "0.9",
+        "ipad": "0.9",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.XML.Text",
+      "counts": {
+        "properties": 33,
+        "methods": 19,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.XML.CharacterData",
+      "kind": "proxy",
+      "summary": "An interface extending [Titanium.XML.Node](api:Titanium.XML.Node) with a set of attributes and methods for accessing character data in the DOM.\nImplements the [DOM Level 2 API](https://www.w3.org/TR/DOM-Level-2-Core/core.html#ID-FF21A306) on Android and iOS. For reasons of compatibility with the JavaScript engine, text is represented by UTF-8 instead of UTF-16 on Android and iOS.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": {
+        "android": "0.9",
+        "iphone": "0.9",
+        "ipad": "0.9",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.XML.Node",
+      "counts": {
+        "properties": 33,
+        "methods": 18,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.XML.Comment",
+      "kind": "proxy",
+      "summary": "Represents the contents of an XML comment.\n",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": {
+        "android": "0.9",
+        "iphone": "0.9",
+        "ipad": "0.9",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.XML.CharacterData",
+      "counts": {
+        "properties": 33,
+        "methods": 18,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.XML.Document",
+      "kind": "proxy",
+      "summary": "The DOM Document returned from [Titanium.XML.parseString](api:Titanium.XML#parseString).",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": {
+        "android": "0.9",
+        "iphone": "0.9",
+        "ipad": "0.9",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.XML.Node",
+      "counts": {
+        "properties": 34,
+        "methods": 27,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.XML.DocumentFragment",
+      "kind": "proxy",
+      "summary": "A lightweight document object used as a container for a group of nodes.\n",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": {
+        "android": "0.9",
+        "iphone": "0.9",
+        "ipad": "0.9",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.XML.Node",
+      "counts": {
+        "properties": 31,
+        "methods": 13,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.XML.DocumentType",
+      "kind": "proxy",
+      "summary": "Each [Titanium.XML.Document](api:Titanium.XML.Document) has a `doctype` attribute whose value is either 'null' or a [Titanium.XML.DocumentType](api:Titanium.XML.DocumentType) object.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": {
+        "android": "0.9",
+        "iphone": "0.9",
+        "ipad": "0.9",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.XML.Node",
+      "counts": {
+        "properties": 37,
+        "methods": 13,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.XML.DOMImplementation",
+      "kind": "proxy",
+      "summary": "The [Titanium.XML.DOMImplementation](api:Titanium.XML.DOMImplementation) interface provides a number of methods for performing operations that are independent of any particular instance of the document object model.Implements the [DOM Level 2 API](https://www.w3.org/TR/DOM-Level-2-Core/core.html#ID-102161490) on Android and iOS.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": {
+        "android": "1.8.0",
+        "iphone": "1.8.0",
+        "ipad": "1.8.0",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 3,
+        "methods": 7,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.XML.Element",
+      "kind": "proxy",
+      "summary": "Represents an element in a DOM document, a [Titanium.XML.Node](api:Titanium.XML.Node) defined by a start-tag and end-tag (or an empty tag). Elements may have [attributes](api:Titanium.XML.Attr) associated with them.\nImplements the [DOM Level 2 API](https://www.w3.org/TR/DOM-Level-2-Core/core.html#ID-745549614) on Android and iOS with some non-standard extensions.\n",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": {
+        "android": "0.9",
+        "iphone": "0.9",
+        "ipad": "0.9",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.XML.Node",
+      "counts": {
+        "properties": 32,
+        "methods": 28,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.XML.Entity",
+      "kind": "proxy",
+      "summary": "This interface represents an entity, either parsed or unparsed, in an XML document. Note that this models the entity itself not the entity declaration. The nodeName attribute that is inherited from Node contains the name of the entity. An Entity node does not have any parent.\nImplements the [DOM Level 2 API](https://www.w3.org/TR/DOM-Level-2-Core/core.html#ID-527DCFF2) on Android and iOS.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": {
+        "android": "0.9",
+        "iphone": "0.9",
+        "ipad": "0.9",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.XML.Node",
+      "counts": {
+        "properties": 34,
+        "methods": 13,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.XML.EntityReference",
+      "kind": "proxy",
+      "summary": "Represents an XML entity reference.\n",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": {
+        "android": "0.9",
+        "iphone": "0.9",
+        "ipad": "0.9",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.XML.Node",
+      "counts": {
+        "properties": 31,
+        "methods": 13,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.XML.NamedNodeMap",
+      "kind": "proxy",
+      "summary": "A key-value paired map that maps String objects to [Titanium.XML.Node](api:Titanium.XML.Node) objects.\nImplements the [DOM Level 2 API](https://www.w3.org/TR/DOM-Level-2-Core/core.html#ID-1780488922) on Android and iOS.\n",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": {
+        "android": "0.9",
+        "iphone": "0.9",
+        "ipad": "0.9",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 4,
+        "methods": 11,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.XML.Node",
+      "kind": "proxy",
+      "summary": "A single node in the [Document](api:Titanium.XML.Document) tree.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": {
+        "android": "0.9",
+        "iphone": "0.9",
+        "ipad": "0.9",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 31,
+        "methods": 13,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.XML.NodeList",
+      "kind": "proxy",
+      "summary": "A list of [Titanium.XML.Node](api:Titanium.XML.Node) objects. Implements the [DOM Level 2 API](https://www.w3.org/TR/DOM-Level-2-Core/core.html#ID-536297177) on Android and iOS.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": {
+        "android": "0.9",
+        "iphone": "0.9",
+        "ipad": "0.9",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 4,
+        "methods": 5,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.XML.Notation",
+      "kind": "proxy",
+      "summary": "Represents a notation declared in the DTD.  Implements the [DOM Level 2 API](https://www.w3.org/TR/DOM-Level-2-Core/core.html#ID-5431D1B9) on Android and iOS.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": {
+        "android": "0.9",
+        "iphone": "0.9",
+        "ipad": "0.9",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 5,
+        "methods": 4,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.XML.ProcessingInstruction",
+      "kind": "proxy",
+      "summary": "A way to keep processor-specific information in the text of the document. Implements the [DOM Level 2 API](https://www.w3.org/TR/DOM-Level-2-Core/core.html#ID-1004215813) on Android and iOS.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": {
+        "android": "0.9",
+        "iphone": "0.9",
+        "ipad": "0.9",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 5,
+        "methods": 4,
+        "events": 0
+      }
+    },
+    {
+      "name": "Titanium.XML.Text",
+      "kind": "proxy",
+      "summary": "Represents the textual content of an [Titanium.XML.Element](api:Titanium.XML.Element) or [Titanium.XML.Attr](api:Titanium.XML.Attr) Implements the [DOM Level 2 API](https://www.w3.org/TR/DOM-Level-2-Core/core.html#ID-1312295772) on Android and iOS.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": {
+        "android": "0.9",
+        "iphone": "0.9",
+        "ipad": "0.9",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.XML.CharacterData",
+      "counts": {
+        "properties": 33,
+        "methods": 19,
+        "events": 0
+      }
+    },
+    {
+      "name": "titleAttributesParams",
+      "kind": "pseudo",
+      "summary": "Dictionary of options for the [Titanium.UI.Window.titleAttributes](api:Titanium.UI.Window#titleAttributes) property.",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": {
+        "android": "12.3.0",
+        "iphone": "3.2.0",
+        "ipad": "3.2.0",
+        "macos": "9.2.0"
+      },
+      "deprecated": false,
+      "counts": {
+        "properties": 3,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "UserNotificationDictionary",
+      "kind": "pseudo",
+      "summary": "Dictionary of notification data used in the array of `notifications`\nwhen receiving pending or local notifications in\n[Titanium.App.iOS.UserNotificationCenter.getPendingNotifications](api:Titanium.App.iOS.UserNotificationCenter#getPendingNotifications) and\n[Titanium.App.iOS.UserNotificationCenter.getDeliveredNotifications](api:Titanium.App.iOS.UserNotificationCenter#getDeliveredNotifications).\n",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "7.3.0",
+      "deprecated": false,
+      "counts": {
+        "properties": 13,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "util",
+      "kind": "pseudo",
+      "summary": "A Node.js-compatible implementation of the core `util` module",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "8.1.0",
+      "deprecated": false,
+      "counts": {
+        "properties": 1,
+        "methods": 25,
+        "events": 0
+      }
+    },
+    {
+      "name": "util.types",
+      "kind": "pseudo",
+      "summary": "`util.types` provides type checks for different kinds of built-in objects. Unlike `instanceof` or `Object.prototype.toString.call(value)`, these checks do not inspect properties of the object that are accessible from JavaScript (like their prototype), and usually have the overhead of calling into C++.\n\nThe result generally does not make any guarantees about what kinds of properties or behavior a value exposes in JavaScript. They are primarily useful for addon developers who prefer to do type checking in JavaScript.\n",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "8.1.0",
+      "deprecated": false,
+      "counts": {
+        "properties": 0,
+        "methods": 36,
+        "events": 0
+      }
+    },
+    {
+      "name": "ViewTemplate",
+      "kind": "pseudo",
+      "summary": "Template that represents a view subcomponent of an [ItemTemplate](api:ItemTemplate).",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "3.1.0",
+      "deprecated": false,
+      "counts": {
+        "properties": 5,
+        "methods": 0,
+        "events": 0
+      }
+    },
+    {
+      "name": "WriteCallbackArgs",
+      "kind": "pseudo",
+      "summary": "Argument passed to the write callback when an asynchronous\n[write](api:Titanium.Stream#write) operation\nfinishes.\n",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "since": "1.7",
+      "deprecated": false,
+      "extends": "ErrorResponse",
+      "counts": {
+        "properties": 5,
+        "methods": 0,
+        "events": 0
+      }
+    }
+  ],
+  "inlined": [
+    "AcceptDict",
+    "AcceptedCallbackArgs",
+    "ActivityLifecycleCallbackObject",
+    "ActivityResult",
+    "BackForwardList",
+    "BackForwardListItem",
+    "BatchQueryError",
+    "BoundaryIdentifier",
+    "CPU",
+    "CPUInfo",
+    "CPUInfoTimes",
+    "CPUTimes",
+    "CameraMediaMultipleItemsType",
+    "CameraOpen",
+    "CameraOptionsType",
+    "CameraRecordingCallback",
+    "ClipboardItemsType",
+    "CollatorOptions",
+    "ConnectedCallbackArgs",
+    "CoverFlowImageType",
+    "CreateBufferArgs",
+    "CreateStreamArgs",
+    "CutoutSize",
+    "DataCreationResult",
+    "DataCreationResultAndroid",
+    "DateTimeFormatOptions",
+    "DateTimeFormattedPart",
+    "DecodeNumberDict",
+    "DecodeStringDict",
+    "DimensionWithAbsolutes",
+    "DocumentViewerOptions",
+    "EmitWarningOptions",
+    "EncodeNumberDict",
+    "EncodeStringDict",
+    "EncodingOptions",
+    "EventsAuthorizationResponse",
+    "FairPlayConfiguration",
+    "ForwardGeocodeResponse",
+    "GeocodedAddress",
+    "GetUserNotificationSettings",
+    "GlassEffectConfiguration",
+    "GradientColorRef",
+    "HeadingResponse",
+    "LabelLineSpacing",
+    "LaunchOptionsType",
+    "ListItemEventType",
+    "ListViewIndexEntry",
+    "ListViewMarkerProps",
+    "LocationAccuracyAuthorizationResponse",
+    "LocationCoordinatesFloor",
+    "LocationResults",
+    "Matrix3DCreationDict",
+    "MediaQueryInfoType",
+    "MediaScannerResponse",
+    "MenuPopupShowParams",
+    "MessageReply",
+    "MinMaxOptions",
+    "MovieSize",
+    "MusicLibraryOptionsType",
+    "MusicLibraryResponseType",
+    "NotificationChannels",
+    "NotificationParams",
+    "NumberFormatOptions",
+    "NumberFormattedPart",
+    "OSUserInfo",
+    "OnLinkURLResponse",
+    "OpenURLOptions",
+    "OptionDialogShowParams",
+    "OptionsMenuCallbackObject",
+    "PathObject",
+    "PhotoGalleryOptionsType",
+    "PossibleBatchQueryError",
+    "PreviewImageError",
+    "PumpCallbackArgs",
+    "PushNotificationConfig",
+    "PushNotificationData",
+    "PushNotificationErrorArg",
+    "PushNotificationSuccessArg",
+    "QuickSettingsServiceShowParams",
+    "ReadyStatePayload",
+    "RefreshControlOffset",
+    "ReverseGeocodeResponse",
+    "RouteDescription",
+    "ScreenshotResult",
+    "SearchBarToken",
+    "SearchResult",
+    "SelectedItem",
+    "SelectedRowObject",
+    "ServiceIntentOptions",
+    "ShortcutParams",
+    "ShowPopoverParams",
+    "SnapshotResult",
+    "StringSearchOptions",
+    "SystemImageParameters",
+    "TabIconInsets",
+    "TableViewAnimationProperties",
+    "TableViewIndexEntry",
+    "TextFieldPadding",
+    "ThumbnailResponse",
+    "TiMetadataItemType",
+    "Titanium.Event",
+    "UserInfoDictionary",
+    "UserNotificationAttachment",
+    "UserNotificationCallbackResponse",
+    "UserNotificationSettings",
+    "UserScriptParams",
+    "UtilInspectOptions",
+    "ViewPositionOptions",
+    "WebViewPreferencesObject",
+    "WriteStreamCallbackArgs",
+    "assert.AssertionError.options",
+    "closeWindowParams",
+    "daysOfTheWeekDictionary",
+    "disableTabOptions",
+    "fs.appendFile.options",
+    "fs.constants",
+    "fs.mkdir.options",
+    "fs.mkdtemp.options",
+    "fs.readFile.options",
+    "fs.readdir.options",
+    "fs.rm.options",
+    "fs.rmDir.options",
+    "fs.stat.options",
+    "fs.writeFile.options",
+    "hideParams",
+    "launchOptions",
+    "os.constants",
+    "os.constants.priority",
+    "recurrenceEndDictionary",
+    "setHtmlOptions",
+    "showContactsParams",
+    "string_decoder",
+    "textAreaSelectedParams",
+    "textFieldSelectedParams",
+    "wakeLockOptions",
+    "windowToolbarParam"
+  ]
+}

@@ -1,0 +1,791 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.Filesystem.File",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": ["Titanium.Proxy"],
+  "platforms": ["android", "iphone", "ipad", "macos"],
+  "since": "0.1",
+  "summary": "Object representing a path to a file or directory in the device's persistent storage.",
+  "description": "Use the [Titanium.Filesystem.getFile](api:Titanium.Filesystem#getFile) method to get a handle to a `File` object,\nwhich represents a given path.  There does not need to be an existing file or directory\ndoes not need to exist before `getFile` is called. If the file doesn't exist, and\nthe file path identifies a file in a writable directory, writing to the file\ncreates the file implicitly.\n\nSee [Titanium.Filesystem](api:Titanium.Filesystem) for constants identifying commonly-used device directories.\n\nUse the [exists](api:Titanium.Filesystem.File#exists) method to test whether the file exists.\n\nA file object can point to an ordinary file, a directory or a symbolic link.\nUse [createDirectory](api:Titanium.Filesystem.File#createDirectory) to create a directory.\nUse the [getDirectoryListing](api:Titanium.Filesystem.File#getDirectoryListing) method to\nretrieve a list of the directory's contents.\n\nThe `File` object doesn't provide methods for random access into the file.\nThe `read` method reads the file's entire contents into a `Blob` object.\nThe `write` method can either overwrite the entire file or append to an\nexisting file.\n\nFor random access to a file, such as accessing a small portion of a larger file,\nyou can open a file as a [FileStream](api:Titanium.Filesystem.FileStream) object. Use the\n[open](api:Titanium.Filesystem.File#open) method to get a `FileStream` for an\nexisting `File` object, or use the [Titanium.Filesystem.openStream](api:Titanium.Filesystem#openStream) method\nto get a `FileStream` directly without calling `getFile` first.\n\nThe [Titanium.Filesystem](api:Titanium.Filesystem) module defines a number of properties and methods related to\nfilesystem access, including properties that specify paths for application-specific\ndirectories, and methods for creating temporary files and directories.\n\nOn Android, files may be stored on external storage (that is, removable media such as\nSD Cards).\n\nNote that once created with `getFile`, the path associated with a file object is\nimmutable. If you move the underlying file using [move](api:Titanium.Filesystem.File#move)\nor [rename](api:Titanium.Filesystem.File#rename), you can no longer access it with the\noriginal `File` object. You must use `getFile` to get a handle to the new path.\n\n#### Resource Files\n\nThe `Resources` directory and all the files in it are read-only. On Android, resource\nfiles are stored in the resource bundle and do not have all of the properties of\nnormal files. In particular, they do not have creation or modification timestamps.\n",
+  "examples": [
+    {
+      "title": "Reading a File",
+      "code": "Data files shipped with the application are stored in the resources directory.\n\nThis example reads string data from a text file.\n\n``` js\n// resourcesDirectory is actually the default location, so the first\n// argument could be omitted here.\nfile = Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, \"textfile.txt\");\nvar blob = file.read();\nvar readText = blob.text;\n// dispose of file handle & blob.\nfile = null;\nblob = null;\n```\n"
+    },
+    {
+      "title": "Creating a Subdirectory",
+      "code": "Files that the application writes to need to be stored outside of the\nresources directory, since that directory is read-only.\n\nThis example creates a subdirectory to store downloaded images.\nThe example assumes that two variables are defined elsewhere in the code:\nmyImageID, a string containing some kind of ID for the downloaded image,\nand myImageData, a `Blob` containing JPEG image data.\n\n``` js\nvar imageDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory,\n    'downloaded_images');\nif (! imageDir.exists()) {\n    imageDir.createDirectory();\n}\n\n// .resolve() provides the resolved native path for the directory.\nvar imageFile  = Ti.Filesystem.getFile(imageDir.resolve(), myImageID + '.jpg');\nTi.API.info(\"ImageFile path is: \" + imageFile.resolve());\nif (imageFile.write(myImageData)===false) {\n    // handle write error\n}\n// dispose of file handles\nimageFile = null;\nimageDir = null;\n```\n"
+    }
+  ],
+  "properties": [
+    {
+      "name": "executable",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "`true` if the file is executable.\n",
+      "description": "On iOS, this property exists but is always `false`.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "hidden",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Set to `true` if the file is hidden.",
+      "description": "On iOS, this property exists but is always `false`.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ]
+    },
+    {
+      "name": "name",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Name of the file.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "nativePath",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Native path associated with this file object, as a file URL.",
+      "description": "On iOS, use the [resolve](api:Titanium.Filesystem.File#resolve)\nmethod to obtain a plain file path for use with native modules.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "parent",
+      "platforms": ["android"],
+      "summary": "A `File` object representing the parent directory of the file identified by this object.",
+      "description": "iOS platform-note: Prior to Titanium SDK 7.0.0, this method returned the\npath of the parent directory as a String. Since Titanium SDK 7.0.0 it\nreturns a [Titanium.Filesystem.File](api:Titanium.Filesystem.File) reference for parity wih Android and Windows.\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.Filesystem.File"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "readonly",
+      "platforms": ["android"],
+      "summary": "`true` if the file identified by this object is read-only.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "remoteBackup",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Value indicating whether or not to back up to a cloud service.",
+      "description": "Some apps may be rejected by Apple for backing up specific files; if this\nis the case, ensure that this value is set to `false` for them. This\nvalue should only need to be set once by your app, but setting it\nmultiple times will not cause problems. For files distributed with your\napp, this will need to be set on boot. This flag will only affect iOS\nversions 5.0.1 and later, but is safe to set on earlier versions.\n\nNote that setting this property to `false` will also prevent the\nfile identified by this object from being backed up to iCloud.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "1.8.0",
+      "default": "true"
+    },
+    {
+      "name": "size",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Size, in bytes, of the file identified by this object.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "symbolicLink",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "`true` if the file identified by this object is a symbolic link.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "writable",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "`true` if the file identified by this object is writable.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "permission": "read-only"
+    }
+  ],
+  "methods": [
+    {
+      "name": "append",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Appends data to the file identified by this file object.",
+      "description": "Data to append can be specified as a String, `Blob`, or `File`.\n\nIf the `data` argument is a `File` object, the file's contents\nare appended to this file.\n\nReturns `true` if the operation succeeds.\n",
+      "since": {
+        "iphone": "0.9.0",
+        "ipad": "0.9.0",
+        "android": "7.3.0"
+      },
+      "parameters": [
+        {
+          "name": "data",
+          "summary": "Data to append.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            },
+            {
+              "kind": "type",
+              "name": "Titanium.Blob"
+            },
+            {
+              "kind": "type",
+              "name": "Titanium.Filesystem.File"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "copy",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Copies the file identified by this file object to a new path.",
+      "description": "Returns `true` if the copy succeeds.",
+      "since": {
+        "iphone": "7.3.0",
+        "ipad": "7.3.0",
+        "android": "0.9.0"
+      },
+      "parameters": [
+        {
+          "name": "destinationPath",
+          "summary": "Destination path to copy to.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "createdAt",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Returns the creation Date for the file identified by this file object.",
+      "description": "On Android, returns a Date whose `getTime()` value is 0 for resource files.\n\n**Important**: When developing for the Apple ecosystem, using this API requires the `NSPrivacyAccessedAPICategoryFileTimestamp`\nproperty set in the privacy manifest that was introduced in iOS 17. You can learn more about it [here](https://developer.apple.com/documentation/bundleresources/privacy_manifest_files/describing_use_of_required_reason_api).\n",
+      "since": {
+        "iphone": "7.3.0",
+        "ipad": "7.3.0",
+        "android": "7.3.0"
+      },
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Date"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "createDirectory",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Creates a directory at the path identified by this file object.",
+      "description": "Returns `true` if the directory was created successfully.\n",
+      "parameters": [
+        {
+          "name": "recursive",
+          "summary": "Toggles whether to recursively create the directory structure (like mkdir -p).\nPass `false` to avoid recursively creating the directory.\nDefaults to true on SDK 7.3.0+, defaults to false on older SDK versions.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ],
+          "optional": true,
+          "default": "true"
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "createFile",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Creates a file at the path identified by this file object.",
+      "description": "Note that if you write to a file that doesn't exist, the file is created automatically,\nso it is not necessary to call this method unless you want to explicitly create the file\n(for example, to create an empty file).\n\nReturns `true` if the file was created successfully. Returns `false` if the\nfile already exists, or if the file couldn't be created for some other reason.\n",
+      "since": {
+        "iphone": "0.9.0",
+        "ipad": "0.9.0",
+        "android": "6.1.0"
+      },
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "createTimestamp",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Returns the creation timestamp for the file identified by this file object.",
+      "description": "On Android, returns 0 for resource files.\n",
+      "deprecated": {
+        "since": "7.3.0",
+        "notes": "Use [createdAt](Titanium.Filesystem.File.createdAt) instead."
+      },
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "deleteDirectory",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Deletes the directory identified by this file object.",
+      "description": "Returns `true` if the operation was successful. Does nothing if the file\nobject does not identify a directory.\n",
+      "parameters": [
+        {
+          "name": "recursive",
+          "summary": "Pass `true` to recursively delete any directory contents.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ],
+          "optional": true,
+          "default": "false"
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "deleteFile",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Deletes the file identified by this file object.",
+      "description": "Returns `true` if the operation was successful.\n",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "exists",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Returns `true` if the file or directory identified by this file object exists on the device.",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "extension",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Returns the extension for the file identified by this file object.",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "getDirectoryListing",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Returns a listing of the directory identified by this file object, or `null`\nif this object doesn't identify a directory.\n",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "primitive",
+                  "name": "String"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "getParent",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Returns the path of the parent directory holding the file identified by this\nfile object, as a String (deprecated) **or** as a `File` object.\n",
+      "description": "Prior to Titanium SDK 7.0.0, on iOS this method returned the path of the parent\ndirectory as a String. Since Titanium SDK 7.0.0, this method has been deprecated\nin favor of the [parent](api:Titanium.Filesystem.File#parent) property and will return\na [File](api:Titanium.Filesystem.File) reference in the future as well.\n",
+      "deprecated": {
+        "since": "7.0.0",
+        "notes": "Use the [Titanium.Filesystem.File.parent](Titanium.Filesystem.File.parent) property to receive a `File`\nreference instead. If you wish to receive the path, use the `nativePath`\nproperty of that reference instead.\n"
+      },
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            },
+            {
+              "kind": "type",
+              "name": "Titanium.Filesystem.File"
+            }
+          ],
+          "summary": "Returns a String on iOS, a `Titanium.Filesystem.File` on Android"
+        }
+      ]
+    },
+    {
+      "name": "getProtectionKey",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Returns the protection key value of this file object.\nReturns `null` if there's an error.\n",
+      "since": "4.1.0",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "isDirectory",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Returns `true` if this file object represents a directory.",
+      "since": {
+        "iphone": "3.1.0",
+        "ipad": "3.1.0"
+      },
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "isFile",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Returns `true` if this file object represents an ordinary file.",
+      "since": {
+        "iphone": "3.1.0",
+        "ipad": "3.1.0"
+      },
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "modificationTimestamp",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Returns the last modification time for this file.",
+      "description": "On Android, returns 0 for resource files.\n",
+      "deprecated": {
+        "since": "7.3.0",
+        "notes": "Use [Titanium.Filesystem.File.modifiedAt](Titanium.Filesystem.File.modifiedAt) instead."
+      },
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "modifiedAt",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Returns the last modification Date for the file identified by this file object.",
+      "description": "On Android, returns a Date whose `getTime()` value is 0 for resource files.\n\n**Important**: When developing for the Apple ecosystem, using this API requires the `NSPrivacyAccessedAPICategoryFileTimestamp`\nproperty set in the privacy manifest that was introduced in iOS 17. You can learn more about it [here](https://developer.apple.com/documentation/bundleresources/privacy_manifest_files/describing_use_of_required_reason_api).\n",
+      "since": {
+        "iphone": "7.3.0",
+        "ipad": "7.3.0",
+        "android": "7.3.0"
+      },
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Date"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "move",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Moves the file identified by this file object to another path.",
+      "description": "Note that this method moves the stored file, but doesn't update this\nfile object to point to the new path. To access the file after moving it,\nyou must call [getFile](api:Titanium.Filesystem#getFile) using the destination\npath to obtain a new file handle.\n",
+      "parameters": [
+        {
+          "name": "newpath",
+          "summary": "New location for the file.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "open",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Opens the file identified by this file object for random access.",
+      "description": "You can open the file for reading, writing, or appending by specifying one of the\n`MODE` constants from [Titanium.Filesystem](api:Titanium.Filesystem):\n[MODE_READ](api:Titanium.Filesystem#MODE_READ), [MODE_WRITE](api:Titanium.Filesystem#MODE_WRITE),\nor [MODE_APPEND](api:Titanium.Filesystem#MODE_APPEND).\n\nThe `FileStream` object returned by this call can be used to read from, write to, or\nappend to the file, depending on what mode the file is opened in.\n",
+      "parameters": [
+        {
+          "name": "mode",
+          "summary": "Mode to open the file in: `MODE_READ`, `MODE_WRITE`, or `MODE_APPEND`.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Filesystem.FileStream"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "read",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Returns the contents of the file identified by this file object as a `Blob`.",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Blob"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rename",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Renames the file identified by this file object.",
+      "description": "Returns `true` if the file was successfully renamed.\n\nFails if the destination is in a different directory than the current file.\nUse [move](api:Titanium.Filesystem.File#move) to move a file to a different directory.\n\nNote that this method renames the stored file, but doesn't update this\nfile object to point to the new path. To access the file after renaming it,\nyou must call [getFile](api:Titanium.Filesystem#getFile) using the destination\npath to obtain a new file handle.\n",
+      "parameters": [
+        {
+          "name": "newname",
+          "summary": "New name for the file.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "resolve",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Returns the fully-resolved native path associated with this file object.",
+      "description": "On iOS, the path returned by this method is a plain file path, not a URL. It is suitable\nfor use in native modules that need to access the file using native APIs.\n\nOn Android, the return value of `resolve` is a `file://` URL, identical to the\n[nativePath](api:Titanium.Filesystem.File#nativePath) property.\n",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "setProtectionKey",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Sets the protection key as an attribute to the file identified by this file object.",
+      "description": "Returns `true` if successfully set. Returns `false` if failed.\n",
+      "since": "4.1.0",
+      "parameters": [
+        {
+          "name": "fileProtectionType",
+          "summary": "File protection type.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "spaceAvailable",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Returns the amount of free space available on the device where the file identified by this file object is stored.",
+      "description": "Free space is returned in bytes.\n\n**Important**: When developing for the Apple ecosystem, using this API requires the `NSPrivacyAccessedAPICategoryDiskSpace`\nproperty set in the privacy manifest that was introduced in iOS 17. You can learn more about it [here](https://developer.apple.com/documentation/bundleresources/privacy_manifest_files/describing_use_of_required_reason_api).\n",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "write",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Writes the specified data to the file identified by this file object.",
+      "description": "If the `append` parameter is `false` or not specified, any existing data in\nthe file is overwritten.\n\nIf `append` is `true`, the specified data is appended to the end of the file.\n",
+      "parameters": [
+        {
+          "name": "data",
+          "summary": "Data to write, as a String, `Blob` or `File` object.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            },
+            {
+              "kind": "type",
+              "name": "Titanium.Filesystem.File"
+            },
+            {
+              "kind": "type",
+              "name": "Titanium.Blob"
+            }
+          ]
+        },
+        {
+          "name": "append",
+          "summary": "If `true`, append the data to the end of the file.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ],
+          "optional": true,
+          "default": "false"
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "lifecycleContainer",
+        "from": "Titanium.Proxy",
+        "platforms": ["android"]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      }
+    ],
+    "events": []
+  },
+  "references": [
+    "Titanium.Blob",
+    "Titanium.Filesystem",
+    "Titanium.Filesystem.FileStream",
+    "Titanium.Proxy"
+  ],
+  "source": "Titanium/Filesystem/File.yml"
+}

@@ -1,0 +1,437 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.Database.DB",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": ["Titanium.Proxy"],
+  "platforms": ["android", "iphone", "ipad", "macos"],
+  "since": "0.1",
+  "summary": "The `Database` instance returned by [Titanium.Database.open](api:Titanium.Database#open) or [Titanium.Database.install](api:Titanium.Database#install).",
+  "properties": [
+    {
+      "name": "file",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "A `File` object representing the file where this database is stored. Must only be used for\nsetting file properties.\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.Filesystem.File"
+        }
+      ],
+      "since": {
+        "android": "5.4.0",
+        "iphone": "2.0.0",
+        "ipad": "2.0.0"
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "lastInsertRowId",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "The identifier of the last populated row.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "name",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "The name of the database.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "rowsAffected",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "The number of rows affected by the last query.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    }
+  ],
+  "methods": [
+    {
+      "name": "close",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Closes the database and releases resources from memory. Once closed, this instance is no\nlonger valid and should not be used. On iOS, also closes all [Titanium.Database.ResultSet](api:Titanium.Database.ResultSet)\ninstances that exist.\n"
+    },
+    {
+      "name": "execute",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Executes an SQL statement against the database and returns a `ResultSet`.\n",
+      "examples": [
+        {
+          "title": "Executing a Query",
+          "code": "The following code will install a database using\n[Titanium.Database.install](Titanium.Database.install) and execute SQL statements that will\ncreate a table, insert data and query the table.\n\n``` js\nvar db = Ti.Database.install('mydb1', 'mydb1Installed');\ndb.execute('DELETE FROM people');\ndb.execute('CREATE TABLE IF NOT EXISTS people (name TEXT, phone_number TEXT, city TEXT)');\n\nvar thisName = 'Arthur';\nvar thisPhoneNo = '1-617-000-0000';\nvar thisCity = 'Mountain View';\ndb.execute('INSERT INTO people (name, phone_number, city) VALUES (?, ?, ?)', thisName, thisPhoneNo, thisCity);\n\nvar personArray = ['Paul','020 7000 0000', 'London'];\ndb.execute('INSERT INTO people (name, phone_number, city) VALUES (?, ?, ?)', personArray);\n\nvar rows = db.execute('SELECT rowid,name,phone_number,city FROM people');\ndb.close();\n\nwhile (rows.isValidRow()) {\n  Ti.API.info('Person ---> ROWID: ' + rows.fieldByName('rowid') + ', name:' + rows.field(1) + ', phone_number: ' + rows.fieldByName('phone_number') + ', city: ' + rows.field(3));\n  rows.next();\n}\nrows.close();\n```\n\nNote that the above `SELECT` query contains the [rowid](http://www.sqlite.org/lang_createtable.html#rowid)\ncolumn, which is a SQLite-specific column that stores the unique identifier for each row.\n"
+        }
+      ],
+      "parameters": [
+        {
+          "name": "sql",
+          "summary": "SQL to execute. May include placeholders for parameter substitution.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "vararg",
+          "summary": "Either a variable ordered list of zero or more values, or an array of values,\nto be substituted with the respective `?` placeholder of the query.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            },
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "primitive",
+                  "name": "String"
+                }
+              ]
+            },
+            {
+              "kind": "primitive",
+              "name": "Object"
+            },
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "primitive",
+                  "name": "Object"
+                }
+              ]
+            }
+          ],
+          "optional": true,
+          "repeatable": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Database.ResultSet"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "executeAll",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Synchronously executes an array of SQL statements against the database and returns an array of `ResultSet`.\nOn failure, this will throw an [Error](api:BatchQueryError) that reports the failed index and partial results\n",
+      "since": {
+        "android": "8.1.0",
+        "iphone": "8.1.0",
+        "ipad": "8.1.0"
+      },
+      "parameters": [
+        {
+          "name": "queries",
+          "summary": "Array of SQL queries to execute.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "primitive",
+                  "name": "String"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Titanium.Database.ResultSet"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "executeAllAsync",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Asynchronously executes an array of SQL statements against the database and fires a callback with a possible Error, and an array of `ResultSet`.\nOn failure, this will call the callback with an [Error](api:PossibleBatchQueryError) that reports the failed `index`, and a second argument with the partial `results`.\n",
+      "since": {
+        "android": "8.1.0",
+        "iphone": "8.1.0",
+        "ipad": "8.1.0"
+      },
+      "parameters": [
+        {
+          "name": "queries",
+          "summary": "Array of SQL queries to execute.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "primitive",
+                  "name": "String"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "callback",
+          "summary": "Callback when query execution has completed.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Callback",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "PossibleBatchQueryError"
+                },
+                {
+                  "kind": "generic",
+                  "name": "Array",
+                  "args": [
+                    {
+                      "kind": "type",
+                      "name": "Titanium.Database.ResultSet"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "optional": true,
+          "inlined": {
+            "name": "PossibleBatchQueryError",
+            "summary": "Simple `Error` argument provided to the callback from the\n[executeAllAsync](api:Titanium.Database.DB#executeAllAsync) method in case of failure\n",
+            "properties": [
+              {
+                "name": "index",
+                "platforms": ["android", "iphone", "ipad", "macos"],
+                "summary": "Index of the failed query",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ],
+                "since": {
+                  "android": "8.1.0",
+                  "iphone": "8.1.0",
+                  "ipad": "8.1.0"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Promise",
+              "args": [
+                {
+                  "kind": "generic",
+                  "name": "Array",
+                  "args": [
+                    {
+                      "kind": "type",
+                      "name": "Titanium.Database.ResultSet"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "summary": "On SDK 10+, this method will return a `Promise` whose resolved value is equivalent to that passed to the optional callback argument.\nIf the `Promise` is rejected, the `Error` will have custom properties indicating the `index` of the failed query, and the partial `results` up to that failure. See [PossibleBatchQueryError](api:PossibleBatchQueryError).\n"
+        }
+      ]
+    },
+    {
+      "name": "executeAsync",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Asynchronously executes an SQL statement against the database and fires a callback with a possible `Error` argument, and a second argument holding a possible `ResultSet`.\n",
+      "since": {
+        "android": "8.1.0",
+        "iphone": "8.1.0",
+        "ipad": "8.1.0"
+      },
+      "parameters": [
+        {
+          "name": "query",
+          "summary": "SQL query to execute. May include placeholders for parameter substitution.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "vararg",
+          "summary": "Either a variable ordered list of zero or more values, or an array of values,\nto be substituted with the respective `?` placeholder of the query.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            },
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "primitive",
+                  "name": "String"
+                }
+              ]
+            },
+            {
+              "kind": "primitive",
+              "name": "Object"
+            },
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "primitive",
+                  "name": "Object"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        },
+        {
+          "name": "callback",
+          "summary": "Callback when query execution has completed.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Callback",
+              "args": [
+                {
+                  "kind": "primitive",
+                  "name": "Object"
+                },
+                {
+                  "kind": "type",
+                  "name": "Titanium.Database.ResultSet"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Promise",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Titanium.Database.ResultSet"
+                }
+              ]
+            }
+          ],
+          "summary": "On SDK 10+, this method will return a `Promise` whose resolved value is equivalent to that passed to the optional callback argument."
+        }
+      ]
+    },
+    {
+      "name": "remove",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Removes the database files for this instance from disk. WARNING: this is a destructive\noperation and cannot be reversed. All data in the database will be lost; use with caution.\n"
+    }
+  ],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "lifecycleContainer",
+        "from": "Titanium.Proxy",
+        "platforms": ["android"]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      }
+    ],
+    "events": []
+  },
+  "references": [
+    "BatchQueryError",
+    "PossibleBatchQueryError",
+    "Titanium.Database",
+    "Titanium.Database.ResultSet",
+    "Titanium.Filesystem.File",
+    "Titanium.Proxy"
+  ],
+  "source": "Titanium/Database/DB.yml"
+}

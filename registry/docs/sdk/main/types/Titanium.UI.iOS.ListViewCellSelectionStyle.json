@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.UI.iOS.ListViewCellSelectionStyle",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": ["Titanium.Proxy"],
+  "platforms": ["iphone", "ipad", "macos"],
+  "since": {
+    "iphone": "5.4.0",
+    "ipad": "5.4.0",
+    "macos": "9.2.0"
+  },
+  "deprecated": {
+    "since": "10.1.0",
+    "notes": "Use <Titanium.UI.SELECTION_STYLE_*> instead."
+  },
+  "summary": "A set of constants for the style that can be used for the `selectionStyle` property of a\nListItem, which is set in the `properties` dictionary of either the [ListDataItem](api:ListDataItem) or\n[ItemTemplate](api:ItemTemplate).\n",
+  "properties": [
+    {
+      "name": "BLUE",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "The cell when selected has a blue background. This is the default value.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "GRAY",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "The cell when selected has a gray background.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "NONE",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "The cell has no distinct style for when it is selected.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    }
+  ],
+  "methods": [],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone", "ipad", "macos"]
+      }
+    ],
+    "methods": [],
+    "events": []
+  },
+  "references": ["ItemTemplate", "ListDataItem", "Titanium.Proxy"],
+  "source": "Titanium/UI/iOS/ListViewCellSelectionStyle.yml"
+}

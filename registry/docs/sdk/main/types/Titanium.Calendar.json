@@ -1,0 +1,1199 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.Calendar",
+  "kind": "module",
+  "extends": "Titanium.Module",
+  "inheritanceChain": ["Titanium.Module", "Titanium.Proxy"],
+  "platforms": ["android", "iphone", "ipad", "macos"],
+  "since": {
+    "android": "3.2.0",
+    "iphone": "3.1.0",
+    "ipad": "3.1.0"
+  },
+  "summary": "The Calendar module provides an API for accessing the native calendar functionality.\n",
+  "description": "This module supports retrieving information about existing events and creating new events.\nModifying or deleting existing events and creating recurring events are only supported on iOS.\n\n#### Android\nOn Android, calendar permissions must be explicitly configured in `tiapp.xml` in order to access the\ncalendar and you have to use [requestCalendarPermissions](api:Titanium.Calendar#requestCalendarPermissions)\nto request runtime permissions.\n\n``` xml\n<uses-permission android:name=\"android.permission.READ_CALENDAR\"/>\n<uses-permission android:name=\"android.permission.WRITE_CALENDAR\"/>\n```\nSee \"Common Requirements\" in\n[tiapp.xml and timodule.xml Reference](https://titaniumsdk.com/guide/Titanium_SDK/Titanium_SDK_Guide/Appendices/tiapp.xml_and_timodule.xml_Reference.html).\n",
+  "examples": [
+    {
+      "title": "All Calendars vs Selectable Calendars",
+      "code": "Print the names of all calendars, and the names of calendars that\nhave been selected in the native Android calendar application.\n\n``` js\nfunction showCalendars(calendars) {\n    for (var i = 0; i < calendars.length; i++) {\n        Ti.API.info(calendars[i].name);\n    }\n}\n// Provide permissions if necessary\nif (!Ti.Calendar.hasCalendarPermissions()) {\n    Ti.Calendar.requestCalendarPermissions(function (e) {\n        if (e.success) {\n            printCalendars();\n        }\n    });\n} else {\n    printCalendars();\n}\n\nfunction printCalendars() {\n    Ti.API.info('ALL CALENDARS:');\n    showCalendars(Ti.Calendar.allCalendars);\n    if (Ti.Platform.osname === 'android') {\n        Ti.API.info('SELECTABLE CALENDARS:');\n        showCalendars(Ti.Calendar.selectableCalendars);\n    }\n}\n```\n"
+    },
+    {
+      "title": "Create an Event and Reminder on Android",
+      "code": "Creates an event and adds an e-mail reminder for 10 minutes before the event.\n\n``` js\nvar CALENDAR_TO_USE = 3;\nvar calendar = Ti.Calendar.getCalendarById(CALENDAR_TO_USE);\n\n// Create the event\nvar eventBegins = new Date(2010, 11, 26, 12, 0, 0);\nvar eventEnds = new Date(2010, 11, 26, 14, 0, 0);\nvar details = {\n    title: 'Do some stuff',\n    description: \"I'm going to do some stuff at this time.\",\n    begin: eventBegins,\n    end: eventEnds\n};\n\nvar event = calendar.createEvent(details);\n\n// Now add a reminder via e-mail for 10 minutes before the event.\nvar reminderDetails = {\n    minutes: 10,\n    method: Ti.Calendar.METHOD_EMAIL\n};\n\nevent.createReminder(reminderDetails);\n```\n"
+    },
+    {
+      "title": "Events in a year",
+      "code": "Create a picker to allow an existing calendar to be selected and, when a button is clicked,\ngenerate details of all events in that calendar for the current year.\n\n``` js\nvar calendars = [];\nvar selectedCalendarName;\nvar selectedid;\nvar pickerData = [];\nvar osname = Ti.Platform.osname;\n\n//**read events from calendar*******\nfunction performCalendarReadFunctions(){\n    var scrollView = Ti.UI.createScrollView({\n      backgroundColor: '#eee',\n      height: 500,\n      top: 20\n    });\n\n    var label = Ti.UI.createLabel({\n      backgroundColor: 'gray',\n      text: 'Click on the button to display the events for the selected calendar',\n      textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,\n      top: 20\n    });\n    scrollView.add(label);\n\n    var selectableCalendars = Ti.Calendar.allCalendars;\n    for (var i = 0, ilen = selectableCalendars.length; i < ilen; i++) {\n      calendars.push({ name: selectableCalendars[i].name, id: selectableCalendars[i].id });\n      pickerData.push( Ti.UI.createPickerRow({ title: calendars[i].name }) );\n      if(i === 0){\n        selectedCalendarName = selectableCalendars[i].name;\n        selectedid = selectableCalendars[i].id;\n      }\n    }\n\n    if(!calendars.length){\n      label.text = 'No calendars available. Select at least one in the native calendar before using this app';\n    } else {\n      label.text = 'Click button to view calendar events';\n\n      var picker = Ti.UI.createPicker({\n        top:20\n      });\n\n      picker.add(pickerData);\n      win.add(picker);\n\n      picker.addEventListener('change', function(e){\n        for (var i = 0, ilen = calendars.length; i < ilen; i++) {\n          if(calendars[i].name === e.row.title){\n            selectedCalendarName = calendars[i].name;\n            selectedid = calendars[i].id;\n            Ti.API.info('Selected calendar that we are going to fetch is :: '+ selectedid + ' name:' + selectedCalendarName);\n          }\n        }\n      });\n\n      var button = Ti.UI.createButton({\n        title: 'View events',\n        top: 20\n      });\n      win.add(button);\n\n      button.addEventListener('click', function(e){\n        label.text = 'Generating...';\n\n        var currentYear = new Date().getFullYear();\n\n        var consoleString = '';\n\n        function print(s) {\n          if (consoleString.length) {\n            consoleString = consoleString + '\\n';\n          }\n          consoleString = consoleString + s;\n        }\n\n        var calendar = Ti.Calendar.getCalendarById(selectedid);\n        Ti.API.info('Calendar was of type' + calendar);\n        Ti.API.info('calendar that we are going to fetch is :: '+ calendar.id + ' name:' + calendar.name);\n\n        function printReminder(r) {\n            if (osname === 'android') {\n                var typetext = '[method unknown]';\n                if (r.method == Ti.Calendar.METHOD_EMAIL) {\n                    typetext = 'Email';\n                } else if (r.method == Ti.Calendar.METHOD_SMS) {\n                    typetext = 'SMS';\n                } else if (r.method == Ti.Calendar.METHOD_ALERT) {\n                    typetext = 'Alert';\n                } else if (r.method == Ti.Calendar.METHOD_DEFAULT) {\n                    typetext = '[default reminder method]';\n                }\n                print(typetext + ' reminder to be sent ' + r.minutes + ' minutes before the event');\n            }\n        }\n\n        function printAlert(a) {\n            if (osname === 'android') {\n                  print('Alert id ' + a.id + ' begin ' + a.begin + '; end ' + a.end + '; alarmTime ' + a.alarmTime + '; minutes ' + a.minutes);\n            } else if (osname === 'iphone' || osname === 'ipad') {\n                print('Alert absoluteDate ' + a.absoluteDate + ' relativeOffset ' + a.relativeOffset);\n            }\n        }\n\n        function printEvent(event) {\n          if (event.allDay) {\n            print('Event: ' + event.title + '; ' + event.begin + ' (all day)');\n          } else {\n            print('Event: ' + event.title + '; ' + event.begin + ' ' + event.begin+ '-' + event.end);\n          }\n\n          var reminders = event.reminders;\n          if (reminders && reminders.length) {\n              print('There is/are ' + reminders.length + ' reminder(s)');\n              for (var i = 0; i < reminders.length; i++) {\n                  printReminder(reminders[i]);\n              }\n          }\n          print('hasAlarm? ' + event.hasAlarm);\n          var alerts = event.alerts;\n          if (alerts && alerts.length) {\n            for (var i = 0; i < alerts.length; i++) {\n              printAlert(alerts[i]);\n            }\n          }\n\n          var status = event.status;\n          if (status == Ti.Calendar.STATUS_TENTATIVE) {\n            print('This event is tentative');\n          }\n          if (status == Ti.Calendar.STATUS_CONFIRMED) {\n            print('This event is confirmed');\n          }\n          if (status == Ti.Calendar.STATUS_CANCELED) {\n            print('This event was canceled');\n          }\n        }\n\n        var events = calendar.getEventsInYear(currentYear);\n        if (events && events.length) {\n          print(events.length + ' event(s) in ' + currentYear);\n          print('');\n          for (var i = 0; i < events.length; i++) {\n            printEvent(events[i]);\n            print('');\n          }\n        } else {\n          print('No events');\n        }\n\n        label.text = consoleString;\n      });\n    }\n\n    win.add(scrollView);\n}\n\n\nvar win = Ti.UI.createWindow({\n  backgroundColor: 'gray',\n  exitOnClose: true,\n  fullscreen: false,\n  layout: 'vertical',\n  title: 'Calendar Demo'\n});\n\nif (Ti.Calendar.hasCalendarPermissions()) {\n    performCalendarReadFunctions();\n} else {\n    Ti.Calendar.requestCalendarPermissions(function(e) {\n        if (e.success) {\n            performCalendarReadFunctions();\n        } else {\n            Ti.API.error(e.error);\n            alert('Access to calendar is not allowed');\n        }\n    });\n}\n\nwin.open();\n```\n"
+    },
+    {
+      "title": "Create a Recurring Event with Alerts on iOS (add the code to the sample above)",
+      "code": "Create a recurring event with alerts.\n\n``` js\nfunction printEventDetails(eventID) {\n    Ti.API.info('eventID:' + eventID);\n    var defCalendar = Ti.Calendar.getCalendarById(selectedid);\n    var eventFromCalendar = defCalendar.getEventById(eventID);\n    if (eventFromCalendar) {\n        Ti.API.info('Printing event values ::');\n        Ti.API.info('title: '+ eventFromCalendar.title);\n        Ti.API.info('notes: ' + eventFromCalendar.notes);\n        Ti.API.info('location: ' + eventFromCalendar.location);\n        Ti.API.info('allDay?:' + eventFromCalendar.allDay);\n        Ti.API.info('status: '+ eventFromCalendar.status);\n        Ti.API.info('availability: '+ eventFromCalendar.availability);\n        Ti.API.info('hasAlarm?: '+ eventFromCalendar.hasAlarm);\n        Ti.API.info('id: '+ eventFromCalendar.id);\n        Ti.API.info('isDetached?: '+ eventFromCalendar.isDetached);\n        Ti.API.info('begin: '+ eventFromCalendar.begin);\n        Ti.API.info('end: '+ eventFromCalendar.end);\n        var eventRule = eventFromCalendar.recurrenceRules;\n        Ti.API.info('recurrenceRules : ' + eventRule);\n        for (var i = 0; i < eventRule.length; i++) {\n            Ti.API.info('Rule # ' + i);\n            Ti.API.info('frequency: ' + eventRule[i].frequency);\n            Ti.API.info('interval: ' + eventRule[i].interval);\n            Ti.API.info('daysofTheWeek: ' );\n            var daysofTheWeek = eventRule[i].daysOfTheWeek;\n            for (var j = 0; j < daysofTheWeek.length; j++) {\n                Ti.API.info('{ dayOfWeek: ' + daysofTheWeek[j].dayOfWeek + ', weekNumber: ' + daysofTheWeek[j].week + ' }, ');\n            }\n            Ti.API.info('firstDayOfTheWeek: ' + eventRule[i].firstDayOfTheWeek);\n            Ti.API.info('daysOfTheMonth: ');\n            var daysOfTheMonth = eventRule[i].daysOfTheMonth;\n            for(var j = 0; j < daysOfTheMonth.length; j++) {\n                Ti.API.info(' ' + daysOfTheMonth[j]);\n            }\n            Ti.API.info('daysOfTheYear: ');\n            var daysOfTheYear = eventRule[i].daysOfTheYear;\n            for(var j = 0; j < daysOfTheYear.length; j++) {\n                Ti.API.info(' ' + daysOfTheYear[j]);\n            }\n            Ti.API.info('weeksOfTheYear: ');\n            var weeksOfTheYear = eventRule[i].weeksOfTheYear;\n            for(var j = 0; j < weeksOfTheYear.length; j++) {\n                Ti.API.info(' ' + weeksOfTheYear[j]);\n            }\n            Ti.API.info('monthsOfTheYear: ');\n            var monthsOfTheYear = eventRule[i].monthsOfTheYear;\n            for(var j = 0; j < monthsOfTheYear.length; j++) {\n                Ti.API.info(' ' + monthsOfTheYear[j]);\n            }\n            Ti.API.info('daysOfTheYear: ');\n            if (osname !== 'android') {\n                var setPositions = eventRule[i].setPositions;\n                for(var j = 0; j < setPositions.length; j++) {\n                    Ti.API.info(' ' + setPositions[j]);\n                }\n            }\n        };\n        Ti.API.info('alerts: ' + eventFromCalendar.alerts);\n        var newAlerts = eventFromCalendar.alerts;\n\n        for(var i = 0 ; i < newAlerts.length ; i++) {\n            Ti.API.info('*****Alert ' + i);\n            Ti.API.info('absoluteDate: ' + newAlerts[i].absoluteDate);\n            Ti.API.info('relativeOffset: ' + newAlerts[i].relativeOffset);\n        }\n    }\n}\nfunction performCalendarWriteFunctions(){\n    var defCalendar = Ti.Calendar.getCalendarById(selectedid);\n    var date1 = new Date(new Date().getTime() + 3000),\n        date2 = new Date(new Date().getTime() + 900000);\n    Ti.API.info('Date1: ' + date1 + ', Date2: ' + date2);\n    var event1 = defCalendar.createEvent({\n                        title: 'Sample Event',\n                        notes: 'This is a test event which has some values assigned to it.',\n                        location: 'Appcelerator Inc',\n                        begin: date1,\n                        end: date2,\n                        availability: Ti.Calendar.AVAILABILITY_FREE,\n                        allDay: false,\n                });\n    var alert1;\n    var alert2;\n    if (osname === 'android') {\n        alert1 = event1.createAlert({\n            minutes: 60\n        })\n    } else {\n        alert1 = event1.createAlert({\n            absoluteDate: new Date(new Date().getTime() - (1000*60*20))\n        });\n        alert2 = event1.createAlert({\n            relativeOffset:-(60*15)\n        })\n    }\n\n    var allAlerts = new Array(alert1,alert2);\n    event1.alerts = allAlerts;\n    var newRule = event1.createRecurrenceRule({\n        frequency: Ti.Calendar.RECURRENCEFREQUENCY_MONTHLY,\n        interval: 1,\n        daysOfTheWeek: [ { dayOfWeek: 1, week: 2 }, { dayOfWeek: 2 } ],\n        end: { occurrenceCount: 10 }\n    });\n    Ti.API.info('newRule: '+ newRule);\n    event1.recurrenceRules = [newRule];\n    Ti.API.info('Going to save event now');\n    event1.save(Ti.Calendar.SPAN_THISEVENT);\n    Ti.API.info('Done with saving event,\\n Now trying to retrieve it.');\n    printEventDetails(event1.id);\n}\n\nvar button2 = Ti.UI.createButton({\n    title: 'Create a recurring event',\n    top: 20\n});\nwin.add(button2);\nbutton2.addEventListener('click', function () {\n    performCalendarWriteFunctions();\n});\n```\n"
+    }
+  ],
+  "properties": [
+    {
+      "name": "allAlerts",
+      "platforms": ["android"],
+      "summary": "All alerts in selected calendars.",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Array",
+          "args": [
+            {
+              "kind": "type",
+              "name": "Titanium.Calendar.Alert"
+            }
+          ]
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "allCalendars",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "All calendars known to the native calendar app.",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Array",
+          "args": [
+            {
+              "kind": "type",
+              "name": "Titanium.Calendar.Calendar"
+            }
+          ]
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "allEditableCalendars",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "All calendars known to the native calendar app that can add, edit, and\ndelete items in the calendar.\n",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Array",
+          "args": [
+            {
+              "kind": "type",
+              "name": "Titanium.Calendar.Calendar"
+            }
+          ]
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "ATTENDEE_ROLE_CHAIR",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Attendee role is chair.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "ATTENDEE_ROLE_NON_PARTICIPANT",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Attendee is not a participant.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "ATTENDEE_ROLE_OPTIONAL",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Attendee role is optional.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "ATTENDEE_ROLE_REQUIRED",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Attendee role is required.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "ATTENDEE_ROLE_UNKNOWN",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Attendee role is unknown.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "ATTENDEE_STATUS_ACCEPTED",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Attendee status is accepted.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": {
+        "android": "6.2.0",
+        "iphone": "6.0.0",
+        "ipad": "6.0.0"
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "ATTENDEE_STATUS_DECLINED",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Attendee status is declined.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": {
+        "android": "6.2.0",
+        "iphone": "6.0.0",
+        "ipad": "6.0.0"
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "ATTENDEE_STATUS_DELEGATED",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Attendee status is delegated.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "ATTENDEE_STATUS_IN_PROCESS",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Attendee status is in process.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "ATTENDEE_STATUS_INVITED",
+      "platforms": ["android"],
+      "summary": "Attendee status is invited.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": {
+        "android": "6.2.0"
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "ATTENDEE_STATUS_NONE",
+      "platforms": ["android"],
+      "summary": "There is no Attendee status.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": {
+        "android": "6.2.0"
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "ATTENDEE_STATUS_PENDING",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Attendee status is pending.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "ATTENDEE_STATUS_TENTATIVE",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Attendee status is tentative.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": {
+        "android": "6.2.0",
+        "iphone": "6.0.0",
+        "ipad": "6.0.0"
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "ATTENDEE_STATUS_UNKNOWN",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Attendee status is unknown.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": {
+        "android": "6.2.0",
+        "iphone": "6.0.0",
+        "ipad": "6.0.0"
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "ATTENDEE_TYPE_GROUP",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Attendee type is group.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "ATTENDEE_TYPE_NONE",
+      "platforms": ["android"],
+      "summary": "There is not attendee type.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": {
+        "android": "6.2.0"
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "ATTENDEE_TYPE_PERSON",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Attendee type is person.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "ATTENDEE_TYPE_REQUIRED",
+      "platforms": ["android"],
+      "summary": "Attendee type is required.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": {
+        "android": "6.2.0"
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "ATTENDEE_TYPE_RESOURCE",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Attendee type is resource.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": {
+        "android": "6.2.0",
+        "iphone": "6.0.0",
+        "ipad": "6.0.0"
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "ATTENDEE_TYPE_ROOM",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Attendee type is room.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "ATTENDEE_TYPE_UNKNOWN",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Attendee type is unknown.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": {
+        "android": "6.2.0",
+        "iphone": "6.0.0",
+        "ipad": "6.0.0"
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "AUTHORIZATION_AUTHORIZED",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "An [calendarAuthorization](api:Titanium.Calendar#calendarAuthorization) value\nindicating that the application is authorized to use events in the Calendar.\n",
+      "description": "This value is always returned if the device is running an iOS release prior to 6.0.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "AUTHORIZATION_DENIED",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "An [calendarAuthorization](api:Titanium.Calendar#calendarAuthorization) value\nindicating that the application is not authorized to use events in the Calendar.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "AUTHORIZATION_RESTRICTED",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "An [calendarAuthorization](api:Titanium.Calendar#calendarAuthorization) value\nindicating that the application is not authorized to use events in the Calendar.\nthe user cannot change this application's status.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "AUTHORIZATION_UNKNOWN",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "An [calendarAuthorization](api:Titanium.Calendar#calendarAuthorization) value\nindicating that the authorization state is unknown.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "AVAILABILITY_BUSY",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Event has a busy availability setting.",
+      "description": "An [event's availability](api:Titanium.Calendar.Event#availability) value.\n\nOne of the group of event method constants,\n[AVAILABILITY_NOTSUPPORTED](api:Titanium.Calendar#AVAILABILITY_NOTSUPPORTED),\n[AVAILABILITY_BUSY](api:Titanium.Calendar#AVAILABILITY_BUSY),\n[AVAILABILITY_FREE](api:Titanium.Calendar#AVAILABILITY_FREE),\n[AVAILABILITY_TENTATIVE](api:Titanium.Calendar#AVAILABILITY_TENTATIVE),\nand [AVAILABILITY_UNAVAILABLE](api:Titanium.Calendar#AVAILABILITY_UNAVAILABLE).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "AVAILABILITY_FREE",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Event has a free availability setting.",
+      "description": "An [event's availability](api:Titanium.Calendar.Event#availability) value.\n\nOne of the group of event method constants,\n[AVAILABILITY_NOTSUPPORTED](api:Titanium.Calendar#AVAILABILITY_NOTSUPPORTED),\n[AVAILABILITY_BUSY](api:Titanium.Calendar#AVAILABILITY_BUSY),\n[AVAILABILITY_FREE](api:Titanium.Calendar#AVAILABILITY_FREE),\n[AVAILABILITY_TENTATIVE](api:Titanium.Calendar#AVAILABILITY_TENTATIVE),\nand [AVAILABILITY_UNAVAILABLE](api:Titanium.Calendar#AVAILABILITY_UNAVAILABLE).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "AVAILABILITY_NOTSUPPORTED",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Availability settings are not supported by the event's calendar.",
+      "description": "An [event's availability](api:Titanium.Calendar.Event#availability) value.\n\nOne of the group of event method constants,\n[AVAILABILITY_NOTSUPPORTED](api:Titanium.Calendar#AVAILABILITY_NOTSUPPORTED),\n[AVAILABILITY_BUSY](api:Titanium.Calendar#AVAILABILITY_BUSY),\n[AVAILABILITY_FREE](api:Titanium.Calendar#AVAILABILITY_FREE),\n[AVAILABILITY_TENTATIVE](api:Titanium.Calendar#AVAILABILITY_TENTATIVE),\nand [AVAILABILITY_UNAVAILABLE](api:Titanium.Calendar#AVAILABILITY_UNAVAILABLE).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "AVAILABILITY_TENTATIVE",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Event has a tentative availability setting.",
+      "description": "An [event's availability](api:Titanium.Calendar.Event#availability) value.\n\nOne of the group of event method constants,\n[AVAILABILITY_NOTSUPPORTED](api:Titanium.Calendar#AVAILABILITY_NOTSUPPORTED),\n[AVAILABILITY_BUSY](api:Titanium.Calendar#AVAILABILITY_BUSY),\n[AVAILABILITY_FREE](api:Titanium.Calendar#AVAILABILITY_FREE),\n[AVAILABILITY_TENTATIVE](api:Titanium.Calendar#AVAILABILITY_TENTATIVE),\nand [AVAILABILITY_UNAVAILABLE](api:Titanium.Calendar#AVAILABILITY_UNAVAILABLE).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "AVAILABILITY_UNAVAILABLE",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Event has a tentative availability setting.",
+      "description": "An [event's availability](api:Titanium.Calendar.Event#availability) value.\n\nOne of the group of event method constants,\n[AVAILABILITY_NOTSUPPORTED](api:Titanium.Calendar#AVAILABILITY_NOTSUPPORTED),\n[AVAILABILITY_BUSY](api:Titanium.Calendar#AVAILABILITY_BUSY),\n[AVAILABILITY_FREE](api:Titanium.Calendar#AVAILABILITY_FREE),\n[AVAILABILITY_TENTATIVE](api:Titanium.Calendar#AVAILABILITY_TENTATIVE),\nand [AVAILABILITY_UNAVAILABLE](api:Titanium.Calendar#AVAILABILITY_UNAVAILABLE).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "calendarAuthorization",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Returns an authorization constant indicating if the application has access to the events in the EventKit.",
+      "description": "Always returns `AUTHORIZATION_AUTHORIZED` on iOS pre-6.0.\ntype: Number\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.2.0",
+      "permission": "read-only",
+      "constants": ["Titanium.Calendar.AUTHORIZATION_*"]
+    },
+    {
+      "name": "defaultCalendar",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Calendar that events are added to by default, as specified by user settings.\n",
+      "description": "Will return the default calendar of your phone. On Android it will return the first primary\ncalendar in case you have multiple accounts on your phone.\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.Calendar.Calendar"
+        }
+      ],
+      "since": {
+        "android": "11.0.0",
+        "iphone": "3.1.0",
+        "ipad": "3.1.0"
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "METHOD_ALERT",
+      "platforms": ["android"],
+      "summary": "Reminder alert delivery method.",
+      "description": "Used with [Titanium.Calendar.Reminder](api:Titanium.Calendar.Reminder).\n\nOne of the group of reminder method constants,\n[METHOD_ALERT](api:Titanium.Calendar#METHOD_ALERT),\n[METHOD_DEFAULT](api:Titanium.Calendar#METHOD_DEFAULT),\n[METHOD_EMAIL](api:Titanium.Calendar#METHOD_EMAIL),\nand [METHOD_SMS](api:Titanium.Calendar#METHOD_SMS).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "METHOD_DEFAULT",
+      "platforms": ["android"],
+      "summary": "Reminder default delivery method.",
+      "description": "Used with [Titanium.Calendar.Reminder](api:Titanium.Calendar.Reminder).\n\nOne of the group of reminder method constants,\n[METHOD_ALERT](api:Titanium.Calendar#METHOD_ALERT),\n[METHOD_DEFAULT](api:Titanium.Calendar#METHOD_DEFAULT),\n[METHOD_EMAIL](api:Titanium.Calendar#METHOD_EMAIL),\nand [METHOD_SMS](api:Titanium.Calendar#METHOD_SMS).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "METHOD_EMAIL",
+      "platforms": ["android"],
+      "summary": "Reminder email delivery method.",
+      "description": "Used with [Titanium.Calendar.Reminder](api:Titanium.Calendar.Reminder).\n\nOne of the group of reminder method constants,\n[METHOD_ALERT](api:Titanium.Calendar#METHOD_ALERT),\n[METHOD_DEFAULT](api:Titanium.Calendar#METHOD_DEFAULT),\n[METHOD_EMAIL](api:Titanium.Calendar#METHOD_EMAIL),\nand [METHOD_SMS](api:Titanium.Calendar#METHOD_SMS).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "METHOD_SMS",
+      "platforms": ["android"],
+      "summary": "Reminder SMS delivery method.",
+      "description": "Used with [Titanium.Calendar.Reminder](api:Titanium.Calendar.Reminder).\n\nOne of the group of reminder method constants,\n[METHOD_ALERT](api:Titanium.Calendar#METHOD_ALERT),\n[METHOD_DEFAULT](api:Titanium.Calendar#METHOD_DEFAULT),\n[METHOD_EMAIL](api:Titanium.Calendar#METHOD_EMAIL),\nand [METHOD_SMS](api:Titanium.Calendar#METHOD_SMS).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "RECURRENCEFREQUENCY_DAILY",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Indicates a daily recurrence rule for a events recurrence frequency.",
+      "description": "Used with the [Titanium.Calendar.RecurrenceRule.frequency](api:Titanium.Calendar.RecurrenceRule#frequency) property.\n\nOne of the group of event \"frequency\" constants\n[RECURRENCEFREQUENCY_DAILY](api:Titanium.Calendar#RECURRENCEFREQUENCY_DAILY),\n[RECURRENCEFREQUENCY_WEEKLY](api:Titanium.Calendar#RECURRENCEFREQUENCY_WEEKLY),\n[RECURRENCEFREQUENCY_MONTHLY](api:Titanium.Calendar#RECURRENCEFREQUENCY_MONTHLY),\nand [RECURRENCEFREQUENCY_YEARLY](api:Titanium.Calendar#RECURRENCEFREQUENCY_YEARLY).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": {
+        "iphone": "3.1.0",
+        "ipad": "3.1.0",
+        "android": "7.1.0"
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "RECURRENCEFREQUENCY_MONTHLY",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Indicates a monthly recurrence rule for a events recurrence frequency.",
+      "description": "Used with the [Titanium.Calendar.RecurrenceRule.frequency](api:Titanium.Calendar.RecurrenceRule#frequency) property.\n\nOne of the group of event \"frequency\" constants\n[RECURRENCEFREQUENCY_DAILY](api:Titanium.Calendar#RECURRENCEFREQUENCY_DAILY),\n[RECURRENCEFREQUENCY_WEEKLY](api:Titanium.Calendar#RECURRENCEFREQUENCY_WEEKLY),\n[RECURRENCEFREQUENCY_MONTHLY](api:Titanium.Calendar#RECURRENCEFREQUENCY_MONTHLY),\nand [RECURRENCEFREQUENCY_YEARLY](api:Titanium.Calendar#RECURRENCEFREQUENCY_YEARLY).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": {
+        "iphone": "3.1.0",
+        "ipad": "3.1.0",
+        "android": "7.1.0"
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "RECURRENCEFREQUENCY_WEEKLY",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Indicates a weekly recurrence rule for a events recurrence frequency.",
+      "description": "Used with the [Titanium.Calendar.RecurrenceRule.frequency](api:Titanium.Calendar.RecurrenceRule#frequency) property.\n\nOne of the group of event \"frequency\" constants\n[RECURRENCEFREQUENCY_DAILY](api:Titanium.Calendar#RECURRENCEFREQUENCY_DAILY),\n[RECURRENCEFREQUENCY_WEEKLY](api:Titanium.Calendar#RECURRENCEFREQUENCY_WEEKLY),\n[RECURRENCEFREQUENCY_MONTHLY](api:Titanium.Calendar#RECURRENCEFREQUENCY_MONTHLY),\nand [RECURRENCEFREQUENCY_YEARLY](api:Titanium.Calendar#RECURRENCEFREQUENCY_YEARLY).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": {
+        "iphone": "3.1.0",
+        "ipad": "3.1.0",
+        "android": "7.1.0"
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "RECURRENCEFREQUENCY_YEARLY",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Indicates a yearly recurrence rule for a events recurrence frequency.",
+      "description": "Used with the [Titanium.Calendar.RecurrenceRule.frequency](api:Titanium.Calendar.RecurrenceRule#frequency) property.\n\nOne of the group of event \"frequency\" constants\n[RECURRENCEFREQUENCY_DAILY](api:Titanium.Calendar#RECURRENCEFREQUENCY_DAILY),\n[RECURRENCEFREQUENCY_WEEKLY](api:Titanium.Calendar#RECURRENCEFREQUENCY_WEEKLY),\n[RECURRENCEFREQUENCY_MONTHLY](api:Titanium.Calendar#RECURRENCEFREQUENCY_MONTHLY),\nand [RECURRENCEFREQUENCY_YEARLY](api:Titanium.Calendar#RECURRENCEFREQUENCY_YEARLY).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": {
+        "iphone": "3.1.0",
+        "ipad": "3.1.0",
+        "android": "7.1.0"
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "RELATIONSHIP_ATTENDEE",
+      "platforms": ["android"],
+      "summary": "Relationship is attendee.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.2.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "RELATIONSHIP_NONE",
+      "platforms": ["android"],
+      "summary": "There is no relationship.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.2.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "RELATIONSHIP_ORGANIZER",
+      "platforms": ["android"],
+      "summary": "Attendee is organizer.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.2.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "RELATIONSHIP_PERFORMER",
+      "platforms": ["android"],
+      "summary": "Attendee is performer.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.2.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "RELATIONSHIP_SPEAKER",
+      "platforms": ["android"],
+      "summary": "Attendee is speaker.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.2.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "RELATIONSHIP_UNKNOWN",
+      "platforms": ["android"],
+      "summary": "Relationship is unknown.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.2.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "selectableCalendars",
+      "platforms": ["android"],
+      "summary": "All calendars selected within the native calendar app, which may be a subset of `allCalendars`.\n",
+      "description": "The native calendar application may know via the registered web services, such as Google or\nFacebook accounts about calendars that it has access to but have not been selected to be\ndisplayed in the native calendar app.\n",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Array",
+          "args": [
+            {
+              "kind": "type",
+              "name": "Titanium.Calendar.Calendar"
+            }
+          ]
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "SOURCE_TYPE_BIRTHDAYS",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "A birthday calendar source.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "SOURCE_TYPE_CALDAV",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "A calDev calendar source.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "SOURCE_TYPE_EXCHANGE",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "A microsoft exchange calendar source.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "SOURCE_TYPE_LOCAL",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "A local calendar source.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "SOURCE_TYPE_MOBILEME",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "A mobileMe calendar source.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "SOURCE_TYPE_SUBSCRIBED",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "A subscribed calendar source.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "SPAN_FUTUREEVENTS",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "A [save](api:Titanium.Calendar.Event#save)/[remove](api:Titanium.Calendar.Event#remove) event value,\nindicating modifications to this event instance should also affect future instances of this event.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "SPAN_THISEVENT",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "A [save](api:Titanium.Calendar.Event#save)/[remove](api:Titanium.Calendar.Event#remove) event value,\nindicating modifications to this event instance should affect only this instance.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "STATE_DISMISSED",
+      "platforms": ["android"],
+      "summary": "Alert dismissed state.",
+      "description": "Used with [Titanium.Calendar.Alert](api:Titanium.Calendar.Alert).\n\nOne of the group of reminder method constants,\n[STATE_DISMISSED](api:Titanium.Calendar#STATE_DISMISSED),\n[STATE_FIRED](api:Titanium.Calendar#STATE_FIRED),\nand [STATE_SCHEDULED](api:Titanium.Calendar#STATE_SCHEDULED).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "STATE_FIRED",
+      "platforms": ["android"],
+      "summary": "Alert fired state.",
+      "description": "Used with [Titanium.Calendar.Alert](api:Titanium.Calendar.Alert).\n\nOne of the group of reminder method constants,\n[STATE_DISMISSED](api:Titanium.Calendar#STATE_DISMISSED),\n[STATE_FIRED](api:Titanium.Calendar#STATE_FIRED),\nand [STATE_SCHEDULED](api:Titanium.Calendar#STATE_SCHEDULED).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "STATE_SCHEDULED",
+      "platforms": ["android"],
+      "summary": "Alert scheduled status.",
+      "description": "Used with [Titanium.Calendar.Alert](api:Titanium.Calendar.Alert).\n\nOne of the group of reminder method constants,\n[STATE_DISMISSED](api:Titanium.Calendar#STATE_DISMISSED),\n[STATE_FIRED](api:Titanium.Calendar#STATE_FIRED),\nand [STATE_SCHEDULED](api:Titanium.Calendar#STATE_SCHEDULED).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "STATUS_CANCELED",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Event canceled status.",
+      "description": "An [event's status](api:Titanium.Calendar.Event#status) value.\n\nOne of the group of event \"status\" constants,\n[STATUS_NONE](api:Titanium.Calendar#STATUS_NONE),\n[STATUS_CANCELED](api:Titanium.Calendar#STATUS_CANCELED),\n[STATUS_CONFIRMED](api:Titanium.Calendar#STATUS_CONFIRMED),\nand [STATUS_TENTATIVE](api:Titanium.Calendar#STATUS_TENTATIVE).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "STATUS_CONFIRMED",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Event confirmed status.",
+      "description": "An [event's status](api:Titanium.Calendar.Event#status) value.\n\nOne of the group of event \"status\" constants,\n[STATUS_NONE](api:Titanium.Calendar#STATUS_NONE),\n[STATUS_CANCELED](api:Titanium.Calendar#STATUS_CANCELED),\n[STATUS_CONFIRMED](api:Titanium.Calendar#STATUS_CONFIRMED),\nand [STATUS_TENTATIVE](api:Titanium.Calendar#STATUS_TENTATIVE).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "STATUS_NONE",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Event has no status.",
+      "description": "An [event's status](api:Titanium.Calendar.Event#status) value.\n\nOne of the group of event \"status\" constants,\n[STATUS_CANCELED](api:Titanium.Calendar#STATUS_CANCELED),\n[STATUS_CONFIRMED](api:Titanium.Calendar#STATUS_CONFIRMED),\nand [STATUS_TENTATIVE](api:Titanium.Calendar#STATUS_TENTATIVE).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "STATUS_TENTATIVE",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Event tentative status.",
+      "description": "An [event's status](api:Titanium.Calendar.Event#status) value.\n\nOne of the group of event \"status\" constants,\n[STATUS_NONE](api:Titanium.Calendar#STATUS_NONE),\n[STATUS_CANCELED](api:Titanium.Calendar#STATUS_CANCELED),\n[STATUS_CONFIRMED](api:Titanium.Calendar#STATUS_CONFIRMED),\nand [STATUS_TENTATIVE](api:Titanium.Calendar#STATUS_TENTATIVE).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "VISIBILITY_CONFIDENTIAL",
+      "platforms": ["android"],
+      "summary": "Event confidential visibility.",
+      "description": "Used with [Titanium.Calendar.Event](api:Titanium.Calendar.Event).\n\nOne of the group of reminder method constants,\n[VISIBILITY_CONFIDENTIAL](api:Titanium.Calendar#VISIBILITY_CONFIDENTIAL),\n[VISIBILITY_DEFAULT](api:Titanium.Calendar#VISIBILITY_DEFAULT),\n[VISIBILITY_PRIVATE](api:Titanium.Calendar#VISIBILITY_PRIVATE),\nand [VISIBILITY_PUBLIC](api:Titanium.Calendar#VISIBILITY_PUBLIC).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "VISIBILITY_DEFAULT",
+      "platforms": ["android"],
+      "summary": "Event default visibility.",
+      "description": "Used with [Titanium.Calendar.Event](api:Titanium.Calendar.Event).\n\nOne of the group of reminder method constants,\n[VISIBILITY_CONFIDENTIAL](api:Titanium.Calendar#VISIBILITY_CONFIDENTIAL),\n[VISIBILITY_DEFAULT](api:Titanium.Calendar#VISIBILITY_DEFAULT),\n[VISIBILITY_PRIVATE](api:Titanium.Calendar#VISIBILITY_PRIVATE),\nand [VISIBILITY_PUBLIC](api:Titanium.Calendar#VISIBILITY_PUBLIC).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "VISIBILITY_PRIVATE",
+      "platforms": ["android"],
+      "summary": "Event private visibility.",
+      "description": "Used with [Titanium.Calendar.Event](api:Titanium.Calendar.Event).\n\nOne of the group of reminder method constants,\n[VISIBILITY_CONFIDENTIAL](api:Titanium.Calendar#VISIBILITY_CONFIDENTIAL),\n[VISIBILITY_DEFAULT](api:Titanium.Calendar#VISIBILITY_DEFAULT),\n[VISIBILITY_PRIVATE](api:Titanium.Calendar#VISIBILITY_PRIVATE),\nand [VISIBILITY_PUBLIC](api:Titanium.Calendar#VISIBILITY_PUBLIC).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "VISIBILITY_PUBLIC",
+      "platforms": ["android"],
+      "summary": "Event public visibility.",
+      "description": "Used with [Titanium.Calendar.Event](api:Titanium.Calendar.Event).\n\nOne of the group of reminder method constants,\n[VISIBILITY_CONFIDENTIAL](api:Titanium.Calendar#VISIBILITY_CONFIDENTIAL),\n[VISIBILITY_DEFAULT](api:Titanium.Calendar#VISIBILITY_DEFAULT),\n[VISIBILITY_PRIVATE](api:Titanium.Calendar#VISIBILITY_PRIVATE),\nand [VISIBILITY_PUBLIC](api:Titanium.Calendar#VISIBILITY_PUBLIC).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    }
+  ],
+  "methods": [
+    {
+      "name": "getCalendarById",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Gets the calendar with the specified identifier.",
+      "parameters": [
+        {
+          "name": "id",
+          "summary": "Identifier of the calendar.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Calendar.Calendar"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hasCalendarPermissions",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Returns `true` if the app has calendar access.",
+      "since": "5.1.0",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "requestCalendarPermissions",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Requests for calendar access.",
+      "description": "On Android, the request view will show if the permission is not accepted by the user, and the user did\nnot check the box \"Never ask again\" when denying the request. If the user checks the box \"Never ask again,\"\nthe user has to manually enable the permission in device settings. This method requests `Manifest.permission.READ_CALENDAR`\nand `Manifest.permission.WRITE_CALENDAR` on Android. If you require other permissions, you can also use\n[Titanium.Android.requestPermissions](api:Titanium.Android#requestPermissions).\n\nIn iOS 6, Apple introduced the Info.plist key `NSCalendarsUsageDescription` that is used to display an\nown description while authorizing calendar permissions. In iOS 10, this key is mandatory and the application\nwill crash if your app does not include the key. Check the [Apple docs](https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html) for more information.\n",
+      "since": "5.1.0",
+      "parameters": [
+        {
+          "name": "callback",
+          "summary": "Function to call upon user decision to grant calendar access.\nOptional on SDK 10, as this method will return a `Promise`, which may be used to handle the result.\n",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Callback",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "EventsAuthorizationResponse"
+                }
+              ]
+            }
+          ],
+          "optional": true,
+          "inlined": {
+            "name": "EventsAuthorizationResponse",
+            "summary": "Argument passed to the callback when a request finishes successfully or erroneously.",
+            "properties": [
+              {
+                "name": "code",
+                "platforms": ["iphone", "ipad", "macos"],
+                "summary": "Error code, if any returned.",
+                "description": "May be undefined if `success` is `true`.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ]
+              },
+              {
+                "name": "error",
+                "platforms": ["iphone", "ipad", "macos"],
+                "summary": "Error message, if any returned.",
+                "description": "May be undefined if `success` is `true`.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  }
+                ]
+              },
+              {
+                "name": "success",
+                "platforms": ["iphone", "ipad", "macos"],
+                "summary": "Indicates whether the request succeeded.",
+                "description": "Returns `true` if request succeeded.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Boolean"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Promise",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "EventsAuthorizationResponse"
+                }
+              ]
+            }
+          ],
+          "summary": "On SDK 10+, this method will return a `Promise` whose resolved value is equivalent to that passed to the optional callback argument."
+        }
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "change",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Fired when the database backing the EventKit module is modified.",
+      "description": "This event is fired when changes are made to the Calendar database, including adding,\nremoving, and changing events or reminders. Individual changes are not described.\nWhen you receive this notification, you should refetch all Event objects you have\naccessed, as they are considered stale. If you are actively editing an event and\ndo not wish to refetch it unless it is absolutely necessary to do so, you can call\nthe [refresh](api:Titanium.Calendar.Event#refresh) method on it. If the method returns\nYES, you do not need to refetch the event.\n",
+      "since": "3.1.0"
+    }
+  ],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "lifecycleContainer",
+        "from": "Titanium.Proxy",
+        "platforms": ["android"]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      }
+    ],
+    "events": []
+  },
+  "references": [
+    "EventsAuthorizationResponse",
+    "Titanium.Android",
+    "Titanium.Calendar.Alert",
+    "Titanium.Calendar.Calendar",
+    "Titanium.Calendar.Event",
+    "Titanium.Calendar.RecurrenceRule",
+    "Titanium.Calendar.Reminder",
+    "Titanium.Module"
+  ],
+  "source": "Titanium/Calendar/Calendar.yml"
+}

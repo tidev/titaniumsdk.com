@@ -1,0 +1,426 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.Contacts.Person",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": ["Titanium.Proxy"],
+  "platforms": ["android", "iphone", "ipad", "macos"],
+  "since": {
+    "iphone": "0.8",
+    "ipad": "0.8",
+    "android": "0.8",
+    "macos": "9.2.0"
+  },
+  "summary": "An object that represents a contact record for a person or organization in the system contacts \naddress book.\n",
+  "description": "A person object is created using [Titanium.Contacts.createPerson](api:Titanium.Contacts#createPerson).\n\nThe following two kinds of properties exist for this object:\n\n* single value - contains either a `string` or `number` type value, an array of `string` type \nvalues, or `null` if unset.\n* multi-value - contains a dictionary with typical keys of `home`, `work` and/or `other`. Each \nkey contains either a `string` type value, an array of `string` type values, or a dictionary \ncontaining key/value pairs with `string` type values.\n\n#### Adding and Modifying Properties\n\nSupport for adding and modifying properties is currently supported on iOS and Android.\n\n#### Keys as Address Book UI Labels\n\nKeys act as labels in the address book user interface.\n\nAlthough there is limited support for custom, arbitrarily-named, keys when used with multi-value \nproperties, there is no support them with single value properties.\n\nOn iOS, creating custom keys is not recommended, and will lead to undefined results.\n\nIf a label has been created by the user of the device and used with a multi-value property, it \nwill exist as a key with the same name.\n\nSee examples in [Titanium.Contacts](api:Titanium.Contacts) for more information.\n\nThese APIs are unavailable on macOS if the app is built on a version of Xcode < 12.\n",
+  "properties": [
+    {
+      "name": "address",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Addresses for the person. Multi-value. Read-only on Android.",
+      "description": "The format of the dictionary accepted by this property is as follows:\n\n* Keys: any of `home`, `work`, and/or `other`.\n* Values: arrays of dictionary types with seven keys, `CountryCode`, `Street`, `City`, \n, `State`, `Country` and `PostalCode`, each with a `string` type value.\n\nOn Android:\n\n'CountryCode' and 'County' are currently not supported.\n\nOn iOS:\n\nThe `CountryCode` key value may be one of the recognized two-character ISO 3166-1 country \ncodes, and determines the format in which the contact is presented by the address book \nuser interface. See the wikipedia section \n[ISO 3166-1 alpha-2](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements) \nfor a comprehensive list of codes.\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Dictionary"
+        }
+      ]
+    },
+    {
+      "name": "alternateBirthday",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Alternate birthday of the person. Single Dictionary.\n",
+      "description": "The format of the dictionary accepted by this property is as follows:\n\n* Keys: `calendarIdentifier`, `era`, `year`, `month`, `day` and `isLeapMonth`.\n* Values: Use `chinese`, `hebrew` and `islamic-civil` for `calendarIdentifier`.\nUse `number` type for `era`, `year`, `month` and `day`. These must be consistent with\ncorresponding `calendarIdentifier`.\nUse `boolean` type for `isLeapMonth`.\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Dictionary"
+        }
+      ],
+      "since": {
+        "iphone": "3.6.0",
+        "ipad": "3.6.0",
+        "macos": "9.2.0"
+      }
+    },
+    {
+      "name": "birthday",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Date of birth of the person. Single value.",
+      "description": "Date format is \"_yyyy_-_MM_-_dd_**T**_HH_**:**_mm_**:**_ss_**.**_SSS_**+0000**\"\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "date",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Dates associated with the person. Multi-value.",
+      "description": "Adding or modifying this property is not currently supported.\n\nThe format of the dictionary accepted by this property is as follows:\n\n* Keys: any of `anniversary` and/or `other`.\n* Values: array of `string` type.\n\nDate format is \"_yyyy_-_MM_-_dd_**T**_HH_**:**_mm_**:**_ss_**.**_SSS_**+0000**\"\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Dictionary"
+        }
+      ]
+    },
+    {
+      "name": "department",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Department of the person. Single value.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "email",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Email addresses for the person. Multi-value. Read-only on Android.",
+      "description": "The format of the dictionary accepted by this property is as follows:\n\n* Keys: any of `home`, `work`, and/or `other`.\n* Values: array of `string` type.\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Dictionary"
+        }
+      ]
+    },
+    {
+      "name": "firstName",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "First name of the person. Single value.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "firstPhonetic",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Phonetic first name of the person.  Single value.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "fullName",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Localized full name of the person. Single value. Read-only on Android.",
+      "description": "The full name will be printed in the order of.\nPrefix,first name, middle name, family name, suffix.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "id",
+      "platforms": ["android"],
+      "summary": "Record identifier of the person. Single value.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "identifier",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Identifier of the person.",
+      "description": "Prior to iOS 9, use the [recordId](api:Titanium.Contacts.Person#recordId) property.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": {
+        "iphone": "5.0.0",
+        "ipad": "5.0.0",
+        "macos": "9.2.0"
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "image",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Image for the person. Single value. Read-only for >= iOS 9",
+      "description": "Set to `null` to remove the image.",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.Blob"
+        }
+      ]
+    },
+    {
+      "name": "instantMessage",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Instant messenger information of the person. Multi-value.\n",
+      "description": "The format of the dictionary accepted by this property is as follows:\n\n* Keys: any of `home`, `work` and/or `other`.\n* Values: arrays of dictionary types with two keys, `service` and `username`, each with a \n`string` type value.\n\nThe `service` key value may be one of `AIM`, `Facebook`, `GaduGadu`, `GoogleTalk`, `ICQ`, \n`Jabber`, `MSN`, `QQ`, `Skype`, or `Yahoo`. These values are key sensitive.\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Dictionary"
+        }
+      ]
+    },
+    {
+      "name": "jobTitle",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Job title of the person. Single value.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "kind",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Determines the type of information the person record contains; either person or organization. \nRead-only on Android.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "constants": ["Titanium.Contacts.CONTACTS_KIND_*"]
+    },
+    {
+      "name": "lastName",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Last name of the person. Single value.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "lastPhonetic",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Phonetic last name of the person. Single value.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "middleName",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Middle name of the person. Single value.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "middlePhonetic",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Phonetic middle name of the person. Single value.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "nickname",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Nickname of the person. Single value.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "note",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Notes for the person. Single value.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "organization",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Organization to which the person belongs. Single value.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "phone",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Phone numbers for the person. Multi-value. Read-only on Android.",
+      "description": "The format of the dictionary accepted by this property is as follows:\n\n* Keys: any of `home`, `work`, `other`, `mobile`, `pager`, `workFax`, `homeFax`, `main`, \nand/or `iPhone`.\n* Values: array of `string` type.\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Dictionary"
+        }
+      ]
+    },
+    {
+      "name": "prefix",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Prefix for the person. Single value.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "recordId",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Record identifier of the person. Single value. Deprecated since iOS 9.",
+      "description": "For iOS 9 and later, use the [Titanium.Contacts.Person.identifier](api:Titanium.Contacts.Person#identifier) property. \nPreviously, a contact can be selected without requiring User permission. In such case this \nproperty returns -1. \n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": {
+        "macos": "9.2.0"
+      },
+      "osver": {
+        "ios": {
+          "max": "8.4"
+        }
+      }
+    },
+    {
+      "name": "relatedNames",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Names of people to which the person is related. Multi-value.",
+      "description": "The format of the dictionary accepted by this property is as follows:\n\n* Keys: any of `mother`, `father`, `parent`, `brother`, `sister`, `child`, `friend`, `spouse`, \n`partner`, `assistant`, `manager`, and/or `other`.\n* Values: array of `string` type.\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Dictionary"
+        }
+      ]
+    },
+    {
+      "name": "socialProfile",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Social profile information of the person. Multi-value.\n",
+      "description": "The format of the dictionary accepted by this property is as follows:\n\n* Keys: any of `home`, `work` and/or `other`.\n* Values: arrays of dictionary types with two keys, `service` and `username` each with a \n`string` type value.\n\nThe `service` key value may be one of `twitter`, `sinaweibo`, `gamecenter`, `facebook`, \n`myspace`, `linkedin`, or `flickr`. These values are key sensitive.\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Dictionary"
+        }
+      ],
+      "since": {
+        "iphone": "3.6.0",
+        "ipad": "3.6.0",
+        "macos": "9.2.0"
+      }
+    },
+    {
+      "name": "suffix",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Suffix for the person. Single value.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "url",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "URLs of webpages associated with the person. Multi-value.",
+      "description": "The format of the dictionary accepted by this property is as follows:\n\n* Keys: any of `homepage`, `home`, `work`, and/or `other`.\n* Values: array of `string` type.\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Dictionary"
+        }
+      ]
+    }
+  ],
+  "methods": [],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "lifecycleContainer",
+        "from": "Titanium.Proxy",
+        "platforms": ["android"]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      }
+    ],
+    "events": []
+  },
+  "references": ["Dictionary", "Titanium.Blob", "Titanium.Contacts", "Titanium.Proxy"],
+  "source": "Titanium/Contacts/Person.yml"
+}

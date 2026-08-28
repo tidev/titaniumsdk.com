@@ -1,0 +1,257 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.API",
+  "kind": "module",
+  "extends": "Titanium.Module",
+  "inheritanceChain": ["Titanium.Module", "Titanium.Proxy"],
+  "platforms": ["android", "iphone", "ipad", "macos"],
+  "since": "0.1",
+  "summary": "The top-level API module, containing methods to output messages to the system log.\n",
+  "properties": [],
+  "methods": [
+    {
+      "name": "debug",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Logs messages with a `debug` severity-level.",
+      "parameters": [
+        {
+          "name": "message",
+          "summary": "Message to log. Accepts an array on iOS only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "primitive",
+                  "name": "String"
+                }
+              ]
+            },
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "error",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Logs messages with an `error` severity-level.",
+      "parameters": [
+        {
+          "name": "message",
+          "summary": "Message to log. Accepts an array on iOS only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "primitive",
+                  "name": "String"
+                }
+              ]
+            },
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "info",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Logs messages with an `info` severity-level.",
+      "parameters": [
+        {
+          "name": "message",
+          "summary": "Message to log. Accepts an array on iOS only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "primitive",
+                  "name": "String"
+                }
+              ]
+            },
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "log",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Logs messages with the specified severity-level.",
+      "parameters": [
+        {
+          "name": "level",
+          "summary": "Log level. One of `info`, `warn`, `error`, `debug` and `trace`. If the value is not \nrecognized, an info-level message prefixed with the value is logged.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "message",
+          "summary": "Message to log. Accepts an array on iOS only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "primitive",
+                  "name": "String"
+                }
+              ]
+            },
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "timestamp",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Logs messages with a `timestamp` severity-level, prefixed with a timestamp float number \nrepresenting the number of seconds since January 1st, 2001.\n",
+      "parameters": [
+        {
+          "name": "message",
+          "summary": "Message to log. Accepts an array on iOS only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "primitive",
+                  "name": "String"
+                }
+              ]
+            },
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "trace",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Logs messages with a `trace` severity-level.",
+      "parameters": [
+        {
+          "name": "message",
+          "summary": "Message to log. Accepts an array on iOS only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "primitive",
+                  "name": "String"
+                }
+              ]
+            },
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "warn",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Logs messages with a `warn` severity-level.",
+      "parameters": [
+        {
+          "name": "message",
+          "summary": "Message to log. Accepts an array on iOS only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "primitive",
+                  "name": "String"
+                }
+              ]
+            },
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "lifecycleContainer",
+        "from": "Titanium.Proxy",
+        "platforms": ["android"]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      }
+    ],
+    "events": []
+  },
+  "references": ["Titanium.Module"],
+  "source": "Titanium/API/API.yml"
+}

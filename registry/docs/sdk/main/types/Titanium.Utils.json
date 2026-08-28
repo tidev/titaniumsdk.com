@@ -1,0 +1,230 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.Utils",
+  "kind": "module",
+  "extends": "Titanium.Module",
+  "inheritanceChain": ["Titanium.Module", "Titanium.Proxy"],
+  "platforms": ["android", "iphone", "ipad", "macos"],
+  "since": {
+    "android": "0.9",
+    "iphone": "0.9",
+    "ipad": "0.9",
+    "macos": "9.2.0"
+  },
+  "summary": "The top-level Utils module, containing a set of JavaScript methods that are often useful when\nbuilding applications.\n",
+  "properties": [],
+  "methods": [
+    {
+      "name": "base64decode",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Returns the specified data decoded from Base64.",
+      "description": "The parameter can be a String, Ti.Blob or Ti.File (iOS since 7.0.2 and Android since 3.3.0).\n",
+      "parameters": [
+        {
+          "name": "obj",
+          "summary": "Data to decode.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            },
+            {
+              "kind": "type",
+              "name": "Titanium.Blob"
+            },
+            {
+              "kind": "type",
+              "name": "Titanium.Filesystem.File"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Blob"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "base64encode",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Returns the specified data encoded to Base64.",
+      "description": "The parameter can be a String, Ti.Blob or Ti.File (iOS since 7.0.2 and Android since 3.3.0).\n",
+      "parameters": [
+        {
+          "name": "obj",
+          "summary": "Data to encode.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            },
+            {
+              "kind": "type",
+              "name": "Titanium.Blob"
+            },
+            {
+              "kind": "type",
+              "name": "Titanium.Filesystem.File"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Blob"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "md5HexDigest",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Returns a MD5 digest of the specified data as a hex-based String.",
+      "parameters": [
+        {
+          "name": "obj",
+          "summary": "Data to calculate.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            },
+            {
+              "kind": "type",
+              "name": "Titanium.Blob"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "sha1",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Returns a SHA-1 hash of the specified data as a hex-based String.",
+      "since": "1.3.2",
+      "parameters": [
+        {
+          "name": "obj",
+          "summary": "Data to calculate.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            },
+            {
+              "kind": "type",
+              "name": "Titanium.Blob"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "sha256",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Returns a SHA-256 hash of the specified data as a hex-based String.",
+      "since": "1.8.0",
+      "parameters": [
+        {
+          "name": "obj",
+          "summary": "Data to calculate.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            },
+            {
+              "kind": "type",
+              "name": "Titanium.Blob"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "lifecycleContainer",
+        "from": "Titanium.Proxy",
+        "platforms": ["android"]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      }
+    ],
+    "events": []
+  },
+  "references": ["Titanium.Blob", "Titanium.Filesystem.File", "Titanium.Module"],
+  "source": "Titanium/Utils/Utils.yml"
+}

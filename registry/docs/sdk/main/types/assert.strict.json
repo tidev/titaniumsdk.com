@@ -1,0 +1,107 @@
+{
+  "schemaVersion": 1,
+  "name": "assert.strict",
+  "kind": "pseudo",
+  "extends": "assert",
+  "inheritanceChain": ["assert"],
+  "platforms": ["android", "iphone", "ipad", "macos"],
+  "summary": "An extension of [assert](api:assert) which overrides some of the methods to use their strict counterparts.",
+  "properties": [],
+  "methods": [
+    {
+      "name": "deepEqual",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "equivalent to [assert.deepStrictEqual](api:assert#deepStrictEqual)"
+    },
+    {
+      "name": "equal",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "equivalent to [assert.strictEqual](api:assert#strictEqual)"
+    },
+    {
+      "name": "notDeepEqual",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "equivalent to [assert.notDeepStrictEqual](api:assert#notDeepStrictEqual)"
+    },
+    {
+      "name": "notEqual",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "equivalent to [assert.notStrictEqual](api:assert#notStrictEqual)"
+    }
+  ],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "AssertionError",
+        "from": "assert",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "strict",
+        "from": "assert",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      }
+    ],
+    "methods": [
+      {
+        "name": "deepStrictEqual",
+        "from": "assert",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "doesNotReject",
+        "from": "assert",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "doesNotThrow",
+        "from": "assert",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "fail",
+        "from": "assert",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "ifError",
+        "from": "assert",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "notDeepStrictEqual",
+        "from": "assert",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "notStrictEqual",
+        "from": "assert",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "ok",
+        "from": "assert",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "rejects",
+        "from": "assert",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "strictEqual",
+        "from": "assert",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "throws",
+        "from": "assert",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      }
+    ],
+    "events": []
+  },
+  "references": ["assert"],
+  "source": "NodeJS/assert.yml"
+}

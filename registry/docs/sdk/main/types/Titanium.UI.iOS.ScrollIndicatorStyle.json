@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.UI.iOS.ScrollIndicatorStyle",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": ["Titanium.Proxy"],
+  "platforms": ["iphone", "ipad", "macos"],
+  "since": {
+    "iphone": "5.4.0",
+    "ipad": "5.4.0",
+    "macos": "9.2.0"
+  },
+  "summary": "A set of constants for the styles available for scrollbars used with [Titanium.UI.ScrollView.scrollIndicatorStyle](api:Titanium.UI.ScrollView#scrollIndicatorStyle) and [Titanium.UI.TableView.scrollIndicatorStyle](api:Titanium.UI.TableView#scrollIndicatorStyle) properties.",
+  "properties": [
+    {
+      "name": "BLACK",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "A style of indicator which is black smaller than the default style. This style is good \nagainst a white content background.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "DEFAULT",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "The default style of scroll indicator, which is black with a white border. This style is \ngood against any content background.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "WHITE",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "A style of indicator is white and smaller than the default style. This style is good against \na black content background.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    }
+  ],
+  "methods": [],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone", "ipad", "macos"]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone", "ipad", "macos"]
+      }
+    ],
+    "events": []
+  },
+  "references": ["Titanium.Proxy", "Titanium.UI.ScrollView", "Titanium.UI.TableView"],
+  "source": "Titanium/UI/iOS/ScrollIndicatorStyle.yml"
+}

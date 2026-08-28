@@ -1,0 +1,210 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium",
+  "kind": "module",
+  "extends": "Titanium.Module",
+  "inheritanceChain": ["Titanium.Module", "Titanium.Proxy"],
+  "platforms": ["android", "iphone", "ipad", "macos"],
+  "since": "0.1",
+  "summary": "The top-level Titanium module.",
+  "description": "The Titanium module provides the Titanium Mobile API, allowing developers to access native\nfeatures of each target environment. Currently, the Android and iOSenvironments are supported.\n\n#### Titanium Namespace\n\nThe complete Titanium API is accessible from the `Titanium` namespace but, for convenience and\nbrevity, the alias `Ti` is also provided. As the `Titanium` namespace is functionally-identical\nto its `Ti` alias, it is always recommended to use `Ti` in your code.\n\nFor example, the following pairs of Titanium calls behave exactly the same.\n\n``` js\nTitanium.API.info('Hello Titanium!');\nTi.API.info('Hello Titanium!');\n\nTitanium.Utils.sha256('Hello Titanium!');\nTi.Utils.sha256('Hello Titanium!');\n\nTitanium.App.Properties.setString('hello_msg','Hello Titanium!');\nTi.App.Properties.setString('hello_msg','Hello Titanium!');\n\nTitanium.Database.open('mydb');\nTi.Database.open('mydb');\n```\n\n#### Global APIs\n\nTitanium includes a number of built-in JavaScript objects that are not part of the Titanium\nnamespace, including String formatting, timers, and the CommonJS `require` function.\nSee [Global APIs](api:Global) for details.\n",
+  "properties": [
+    {
+      "name": "buildDate",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Date of the Titanium build.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "buildHash",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Git hash of the Titanium build.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "userAgent",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "User-agent string used by Titanium.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "version",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Version of Titanium that is executing.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "permission": "read-only"
+    }
+  ],
+  "methods": [
+    {
+      "name": "createBuffer",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Creates a new buffer based on the params.",
+      "examples": [
+        {
+          "title": "Create a buffer with 1K bytes",
+          "code": "``` js\nvar buffer = Ti.createBuffer({ length: 1024 });\n```\n"
+        },
+        {
+          "title": "Create a buffer with string",
+          "code": "Create a buffer with the string \"hello world\" encoded in UTF-8\n``` js\nvar buffer = Ti.createBuffer({ value: \"hello world\" });\n```\n"
+        },
+        {
+          "title": "Create a buffer with encoded float",
+          "code": "Create a buffer with the encoded value of the double-precision floating point\nnumber 1.234567 in Big Endian (network) byte order\n``` js\nvar buffer = Ti.createBuffer({ value: 1.234567, type: Ti.Codec.TYPE_DOUBLE, byteOrder: Ti.Codec.BIG_ENDIAN });\n```\n"
+        }
+      ],
+      "parameters": [
+        {
+          "name": "params",
+          "summary": "creation arguments",
+          "type": [
+            {
+              "kind": "type",
+              "name": "CreateBufferArgs"
+            }
+          ],
+          "inlined": {
+            "name": "CreateBufferArgs",
+            "summary": "Arguments to be passed to createBuffer",
+            "properties": [
+              {
+                "name": "byteOrder",
+                "platforms": ["android", "iphone", "ipad", "macos"],
+                "summary": "The byte order of this buffer.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ],
+                "default": "The OS native byte order is used by default. See <Titanium.Codec.getNativeByteOrder>",
+                "optional": true
+              },
+              {
+                "name": "length",
+                "platforms": ["android", "iphone", "ipad", "macos"],
+                "summary": "The length of the buffer.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ],
+                "default": "0, unless `value` is specified, in which case the length of the encoded data is used.",
+                "optional": true
+              },
+              {
+                "name": "type",
+                "platforms": ["android", "iphone", "ipad", "macos"],
+                "summary": "The type of data encoding to use with `value`.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  }
+                ],
+                "default": "<Titanium.Codec.CHARSET_UTF8> if `value` is a String, If `value` is a Number, this argument is required",
+                "optional": true
+              },
+              {
+                "name": "value",
+                "platforms": ["android", "iphone", "ipad", "macos"],
+                "summary": "An initial value which will be encoded and placed in the buffer. If value is a Number, type must also be set. (this is simply a convenient way of calling [Titanium.Codec.encodeString](api:Titanium.Codec#encodeString) or [Titanium.Codec.encodeNumber](api:Titanium.Codec#encodeNumber) and placing the encoded value in the returned buffer.)",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  },
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ],
+                "optional": true
+              }
+            ]
+          }
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Buffer"
+            }
+          ],
+          "summary": "The new buffer."
+        }
+      ]
+    }
+  ],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "lifecycleContainer",
+        "from": "Titanium.Proxy",
+        "platforms": ["android"]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      }
+    ],
+    "events": []
+  },
+  "references": ["CreateBufferArgs", "Global", "Titanium.Buffer", "Titanium.Module"],
+  "source": "Titanium/Titanium.yml"
+}

@@ -1,0 +1,978 @@
+{
+  "schemaVersion": 1,
+  "name": "MediaQueryType",
+  "kind": "pseudo",
+  "platforms": ["iphone", "ipad", "macos"],
+  "since": "1.8",
+  "summary": "A specifier for a media library query. By default, filters perform an exact match.",
+  "properties": [
+    {
+      "name": "albumArtist",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "The album artist to filter on. Value should be a String.",
+      "type": [
+        {
+          "kind": "type",
+          "name": "MediaQueryInfoType"
+        },
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "inlined": {
+        "name": "MediaQueryInfoType",
+        "summary": "A full query descriptor for a filtering predicate.",
+        "properties": [
+          {
+            "name": "exact",
+            "platforms": ["iphone", "ipad", "macos"],
+            "summary": "Whether or not the predicate is for an exact match.  The default is `true`.",
+            "type": [
+              {
+                "kind": "primitive",
+                "name": "Boolean"
+              }
+            ],
+            "default": "true"
+          },
+          {
+            "name": "value",
+            "platforms": ["iphone", "ipad", "macos"],
+            "summary": "The value for the given predicate. See the descriptions in [MediaQueryType](api:MediaQueryType) for information about which properties require which values.",
+            "type": [
+              {
+                "kind": "primitive",
+                "name": "Number"
+              },
+              {
+                "kind": "primitive",
+                "name": "String"
+              },
+              {
+                "kind": "primitive",
+                "name": "Boolean"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "albumArtistPersistentID",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "The album artist persistent ID to filter on. Value should be a Number.",
+      "description": "Available in Titanium SDK 6.1.0 and later.",
+      "type": [
+        {
+          "kind": "type",
+          "name": "MediaQueryInfoType"
+        },
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "inlined": {
+        "name": "MediaQueryInfoType",
+        "summary": "A full query descriptor for a filtering predicate.",
+        "properties": [
+          {
+            "name": "exact",
+            "platforms": ["iphone", "ipad", "macos"],
+            "summary": "Whether or not the predicate is for an exact match.  The default is `true`.",
+            "type": [
+              {
+                "kind": "primitive",
+                "name": "Boolean"
+              }
+            ],
+            "default": "true"
+          },
+          {
+            "name": "value",
+            "platforms": ["iphone", "ipad", "macos"],
+            "summary": "The value for the given predicate. See the descriptions in [MediaQueryType](api:MediaQueryType) for information about which properties require which values.",
+            "type": [
+              {
+                "kind": "primitive",
+                "name": "Number"
+              },
+              {
+                "kind": "primitive",
+                "name": "String"
+              },
+              {
+                "kind": "primitive",
+                "name": "Boolean"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "albumPersistentID",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "The album persistent ID to filter on. Value should be a Number.",
+      "description": "Available in Titanium SDK 6.1.0 and later.",
+      "type": [
+        {
+          "kind": "type",
+          "name": "MediaQueryInfoType"
+        },
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "inlined": {
+        "name": "MediaQueryInfoType",
+        "summary": "A full query descriptor for a filtering predicate.",
+        "properties": [
+          {
+            "name": "exact",
+            "platforms": ["iphone", "ipad", "macos"],
+            "summary": "Whether or not the predicate is for an exact match.  The default is `true`.",
+            "type": [
+              {
+                "kind": "primitive",
+                "name": "Boolean"
+              }
+            ],
+            "default": "true"
+          },
+          {
+            "name": "value",
+            "platforms": ["iphone", "ipad", "macos"],
+            "summary": "The value for the given predicate. See the descriptions in [MediaQueryType](api:MediaQueryType) for information about which properties require which values.",
+            "type": [
+              {
+                "kind": "primitive",
+                "name": "Number"
+              },
+              {
+                "kind": "primitive",
+                "name": "String"
+              },
+              {
+                "kind": "primitive",
+                "name": "Boolean"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "albumTitle",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "The album title to filter on. Value should be a String.",
+      "type": [
+        {
+          "kind": "type",
+          "name": "MediaQueryInfoType"
+        },
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "inlined": {
+        "name": "MediaQueryInfoType",
+        "summary": "A full query descriptor for a filtering predicate.",
+        "properties": [
+          {
+            "name": "exact",
+            "platforms": ["iphone", "ipad", "macos"],
+            "summary": "Whether or not the predicate is for an exact match.  The default is `true`.",
+            "type": [
+              {
+                "kind": "primitive",
+                "name": "Boolean"
+              }
+            ],
+            "default": "true"
+          },
+          {
+            "name": "value",
+            "platforms": ["iphone", "ipad", "macos"],
+            "summary": "The value for the given predicate. See the descriptions in [MediaQueryType](api:MediaQueryType) for information about which properties require which values.",
+            "type": [
+              {
+                "kind": "primitive",
+                "name": "Number"
+              },
+              {
+                "kind": "primitive",
+                "name": "String"
+              },
+              {
+                "kind": "primitive",
+                "name": "Boolean"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "artist",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "The artist to filter on. Value should be a String.",
+      "type": [
+        {
+          "kind": "type",
+          "name": "MediaQueryInfoType"
+        },
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "inlined": {
+        "name": "MediaQueryInfoType",
+        "summary": "A full query descriptor for a filtering predicate.",
+        "properties": [
+          {
+            "name": "exact",
+            "platforms": ["iphone", "ipad", "macos"],
+            "summary": "Whether or not the predicate is for an exact match.  The default is `true`.",
+            "type": [
+              {
+                "kind": "primitive",
+                "name": "Boolean"
+              }
+            ],
+            "default": "true"
+          },
+          {
+            "name": "value",
+            "platforms": ["iphone", "ipad", "macos"],
+            "summary": "The value for the given predicate. See the descriptions in [MediaQueryType](api:MediaQueryType) for information about which properties require which values.",
+            "type": [
+              {
+                "kind": "primitive",
+                "name": "Number"
+              },
+              {
+                "kind": "primitive",
+                "name": "String"
+              },
+              {
+                "kind": "primitive",
+                "name": "Boolean"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "composer",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "The composer to filter on. Value should be a String.",
+      "type": [
+        {
+          "kind": "type",
+          "name": "MediaQueryInfoType"
+        },
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "inlined": {
+        "name": "MediaQueryInfoType",
+        "summary": "A full query descriptor for a filtering predicate.",
+        "properties": [
+          {
+            "name": "exact",
+            "platforms": ["iphone", "ipad", "macos"],
+            "summary": "Whether or not the predicate is for an exact match.  The default is `true`.",
+            "type": [
+              {
+                "kind": "primitive",
+                "name": "Boolean"
+              }
+            ],
+            "default": "true"
+          },
+          {
+            "name": "value",
+            "platforms": ["iphone", "ipad", "macos"],
+            "summary": "The value for the given predicate. See the descriptions in [MediaQueryType](api:MediaQueryType) for information about which properties require which values.",
+            "type": [
+              {
+                "kind": "primitive",
+                "name": "Number"
+              },
+              {
+                "kind": "primitive",
+                "name": "String"
+              },
+              {
+                "kind": "primitive",
+                "name": "Boolean"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "composerPersistentID",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "The composer persistent ID to filter on. Value should be a Number.",
+      "description": "Available in Titanium SDK 6.1.0 and later.",
+      "type": [
+        {
+          "kind": "type",
+          "name": "MediaQueryInfoType"
+        },
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "inlined": {
+        "name": "MediaQueryInfoType",
+        "summary": "A full query descriptor for a filtering predicate.",
+        "properties": [
+          {
+            "name": "exact",
+            "platforms": ["iphone", "ipad", "macos"],
+            "summary": "Whether or not the predicate is for an exact match.  The default is `true`.",
+            "type": [
+              {
+                "kind": "primitive",
+                "name": "Boolean"
+              }
+            ],
+            "default": "true"
+          },
+          {
+            "name": "value",
+            "platforms": ["iphone", "ipad", "macos"],
+            "summary": "The value for the given predicate. See the descriptions in [MediaQueryType](api:MediaQueryType) for information about which properties require which values.",
+            "type": [
+              {
+                "kind": "primitive",
+                "name": "Number"
+              },
+              {
+                "kind": "primitive",
+                "name": "String"
+              },
+              {
+                "kind": "primitive",
+                "name": "Boolean"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "genre",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "The genre to filter on. Value should be a String.",
+      "type": [
+        {
+          "kind": "type",
+          "name": "MediaQueryInfoType"
+        },
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "inlined": {
+        "name": "MediaQueryInfoType",
+        "summary": "A full query descriptor for a filtering predicate.",
+        "properties": [
+          {
+            "name": "exact",
+            "platforms": ["iphone", "ipad", "macos"],
+            "summary": "Whether or not the predicate is for an exact match.  The default is `true`.",
+            "type": [
+              {
+                "kind": "primitive",
+                "name": "Boolean"
+              }
+            ],
+            "default": "true"
+          },
+          {
+            "name": "value",
+            "platforms": ["iphone", "ipad", "macos"],
+            "summary": "The value for the given predicate. See the descriptions in [MediaQueryType](api:MediaQueryType) for information about which properties require which values.",
+            "type": [
+              {
+                "kind": "primitive",
+                "name": "Number"
+              },
+              {
+                "kind": "primitive",
+                "name": "String"
+              },
+              {
+                "kind": "primitive",
+                "name": "Boolean"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "genrePersistentID",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "The genre persistent ID to filter on. Value should be a Number.",
+      "description": "Available in Titanium SDK 6.1.0 and later.",
+      "type": [
+        {
+          "kind": "type",
+          "name": "MediaQueryInfoType"
+        },
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "inlined": {
+        "name": "MediaQueryInfoType",
+        "summary": "A full query descriptor for a filtering predicate.",
+        "properties": [
+          {
+            "name": "exact",
+            "platforms": ["iphone", "ipad", "macos"],
+            "summary": "Whether or not the predicate is for an exact match.  The default is `true`.",
+            "type": [
+              {
+                "kind": "primitive",
+                "name": "Boolean"
+              }
+            ],
+            "default": "true"
+          },
+          {
+            "name": "value",
+            "platforms": ["iphone", "ipad", "macos"],
+            "summary": "The value for the given predicate. See the descriptions in [MediaQueryType](api:MediaQueryType) for information about which properties require which values.",
+            "type": [
+              {
+                "kind": "primitive",
+                "name": "Number"
+              },
+              {
+                "kind": "primitive",
+                "name": "String"
+              },
+              {
+                "kind": "primitive",
+                "name": "Boolean"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "grouping",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "A constant that specifies the ordering of the result array.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "constants": ["Titanium.Media.MUSIC_MEDIA_GROUP_*"]
+    },
+    {
+      "name": "hasProtectedAsset",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Filter by whether or not the item is a protected asset.\nValue should be a Boolean.\n",
+      "description": "Available in Titanium SDK 6.1.0 and later.",
+      "type": [
+        {
+          "kind": "type",
+          "name": "MediaQueryInfoType"
+        },
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "inlined": {
+        "name": "MediaQueryInfoType",
+        "summary": "A full query descriptor for a filtering predicate.",
+        "properties": [
+          {
+            "name": "exact",
+            "platforms": ["iphone", "ipad", "macos"],
+            "summary": "Whether or not the predicate is for an exact match.  The default is `true`.",
+            "type": [
+              {
+                "kind": "primitive",
+                "name": "Boolean"
+              }
+            ],
+            "default": "true"
+          },
+          {
+            "name": "value",
+            "platforms": ["iphone", "ipad", "macos"],
+            "summary": "The value for the given predicate. See the descriptions in [MediaQueryType](api:MediaQueryType) for information about which properties require which values.",
+            "type": [
+              {
+                "kind": "primitive",
+                "name": "Number"
+              },
+              {
+                "kind": "primitive",
+                "name": "String"
+              },
+              {
+                "kind": "primitive",
+                "name": "Boolean"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "isCloudItem",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Filter by whether or not the item is a cloud item.\nValue should be a Boolean.\n",
+      "description": "Available in Titanium SDK 6.1.0 and later.",
+      "type": [
+        {
+          "kind": "type",
+          "name": "MediaQueryInfoType"
+        },
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "inlined": {
+        "name": "MediaQueryInfoType",
+        "summary": "A full query descriptor for a filtering predicate.",
+        "properties": [
+          {
+            "name": "exact",
+            "platforms": ["iphone", "ipad", "macos"],
+            "summary": "Whether or not the predicate is for an exact match.  The default is `true`.",
+            "type": [
+              {
+                "kind": "primitive",
+                "name": "Boolean"
+              }
+            ],
+            "default": "true"
+          },
+          {
+            "name": "value",
+            "platforms": ["iphone", "ipad", "macos"],
+            "summary": "The value for the given predicate. See the descriptions in [MediaQueryType](api:MediaQueryType) for information about which properties require which values.",
+            "type": [
+              {
+                "kind": "primitive",
+                "name": "Number"
+              },
+              {
+                "kind": "primitive",
+                "name": "String"
+              },
+              {
+                "kind": "primitive",
+                "name": "Boolean"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "isCompilation",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Filter by whether or not the item is a compilation.\nThe value should be a Boolean.\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "MediaQueryInfoType"
+        },
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "inlined": {
+        "name": "MediaQueryInfoType",
+        "summary": "A full query descriptor for a filtering predicate.",
+        "properties": [
+          {
+            "name": "exact",
+            "platforms": ["iphone", "ipad", "macos"],
+            "summary": "Whether or not the predicate is for an exact match.  The default is `true`.",
+            "type": [
+              {
+                "kind": "primitive",
+                "name": "Boolean"
+              }
+            ],
+            "default": "true"
+          },
+          {
+            "name": "value",
+            "platforms": ["iphone", "ipad", "macos"],
+            "summary": "The value for the given predicate. See the descriptions in [MediaQueryType](api:MediaQueryType) for information about which properties require which values.",
+            "type": [
+              {
+                "kind": "primitive",
+                "name": "Number"
+              },
+              {
+                "kind": "primitive",
+                "name": "String"
+              },
+              {
+                "kind": "primitive",
+                "name": "Boolean"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "mediaType",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "The media type to filter on.",
+      "type": [
+        {
+          "kind": "type",
+          "name": "MediaQueryInfoType"
+        },
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "constants": ["Titanium.Media.MUSIC_MEDIA_TYPE_*"],
+      "inlined": {
+        "name": "MediaQueryInfoType",
+        "summary": "A full query descriptor for a filtering predicate.",
+        "properties": [
+          {
+            "name": "exact",
+            "platforms": ["iphone", "ipad", "macos"],
+            "summary": "Whether or not the predicate is for an exact match.  The default is `true`.",
+            "type": [
+              {
+                "kind": "primitive",
+                "name": "Boolean"
+              }
+            ],
+            "default": "true"
+          },
+          {
+            "name": "value",
+            "platforms": ["iphone", "ipad", "macos"],
+            "summary": "The value for the given predicate. See the descriptions in [MediaQueryType](api:MediaQueryType) for information about which properties require which values.",
+            "type": [
+              {
+                "kind": "primitive",
+                "name": "Number"
+              },
+              {
+                "kind": "primitive",
+                "name": "String"
+              },
+              {
+                "kind": "primitive",
+                "name": "Boolean"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "persistentID",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "The persistent ID to filter on. Value should be a Number.",
+      "description": "Available in Titanium SDK 6.1.0 and later.",
+      "type": [
+        {
+          "kind": "type",
+          "name": "MediaQueryInfoType"
+        },
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "inlined": {
+        "name": "MediaQueryInfoType",
+        "summary": "A full query descriptor for a filtering predicate.",
+        "properties": [
+          {
+            "name": "exact",
+            "platforms": ["iphone", "ipad", "macos"],
+            "summary": "Whether or not the predicate is for an exact match.  The default is `true`.",
+            "type": [
+              {
+                "kind": "primitive",
+                "name": "Boolean"
+              }
+            ],
+            "default": "true"
+          },
+          {
+            "name": "value",
+            "platforms": ["iphone", "ipad", "macos"],
+            "summary": "The value for the given predicate. See the descriptions in [MediaQueryType](api:MediaQueryType) for information about which properties require which values.",
+            "type": [
+              {
+                "kind": "primitive",
+                "name": "Number"
+              },
+              {
+                "kind": "primitive",
+                "name": "String"
+              },
+              {
+                "kind": "primitive",
+                "name": "Boolean"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "playCount",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "The play count to filter on. Value should be a Number.",
+      "description": "Available in Titanium SDK 6.1.0 and later.",
+      "type": [
+        {
+          "kind": "type",
+          "name": "MediaQueryInfoType"
+        },
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "inlined": {
+        "name": "MediaQueryInfoType",
+        "summary": "A full query descriptor for a filtering predicate.",
+        "properties": [
+          {
+            "name": "exact",
+            "platforms": ["iphone", "ipad", "macos"],
+            "summary": "Whether or not the predicate is for an exact match.  The default is `true`.",
+            "type": [
+              {
+                "kind": "primitive",
+                "name": "Boolean"
+              }
+            ],
+            "default": "true"
+          },
+          {
+            "name": "value",
+            "platforms": ["iphone", "ipad", "macos"],
+            "summary": "The value for the given predicate. See the descriptions in [MediaQueryType](api:MediaQueryType) for information about which properties require which values.",
+            "type": [
+              {
+                "kind": "primitive",
+                "name": "Number"
+              },
+              {
+                "kind": "primitive",
+                "name": "String"
+              },
+              {
+                "kind": "primitive",
+                "name": "Boolean"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "podcastPersistentID",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "The podcast persistent ID to filter on. Value should be a Number.",
+      "description": "Available in Titanium SDK 6.1.0 and later.",
+      "type": [
+        {
+          "kind": "type",
+          "name": "MediaQueryInfoType"
+        },
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "inlined": {
+        "name": "MediaQueryInfoType",
+        "summary": "A full query descriptor for a filtering predicate.",
+        "properties": [
+          {
+            "name": "exact",
+            "platforms": ["iphone", "ipad", "macos"],
+            "summary": "Whether or not the predicate is for an exact match.  The default is `true`.",
+            "type": [
+              {
+                "kind": "primitive",
+                "name": "Boolean"
+              }
+            ],
+            "default": "true"
+          },
+          {
+            "name": "value",
+            "platforms": ["iphone", "ipad", "macos"],
+            "summary": "The value for the given predicate. See the descriptions in [MediaQueryType](api:MediaQueryType) for information about which properties require which values.",
+            "type": [
+              {
+                "kind": "primitive",
+                "name": "Number"
+              },
+              {
+                "kind": "primitive",
+                "name": "String"
+              },
+              {
+                "kind": "primitive",
+                "name": "Boolean"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "podcastTitle",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "The podcast title to filter on. Value should be a String.",
+      "description": "Available in Titanium SDK 6.1.0 and later.",
+      "type": [
+        {
+          "kind": "type",
+          "name": "MediaQueryInfoType"
+        },
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "inlined": {
+        "name": "MediaQueryInfoType",
+        "summary": "A full query descriptor for a filtering predicate.",
+        "properties": [
+          {
+            "name": "exact",
+            "platforms": ["iphone", "ipad", "macos"],
+            "summary": "Whether or not the predicate is for an exact match.  The default is `true`.",
+            "type": [
+              {
+                "kind": "primitive",
+                "name": "Boolean"
+              }
+            ],
+            "default": "true"
+          },
+          {
+            "name": "value",
+            "platforms": ["iphone", "ipad", "macos"],
+            "summary": "The value for the given predicate. See the descriptions in [MediaQueryType](api:MediaQueryType) for information about which properties require which values.",
+            "type": [
+              {
+                "kind": "primitive",
+                "name": "Number"
+              },
+              {
+                "kind": "primitive",
+                "name": "String"
+              },
+              {
+                "kind": "primitive",
+                "name": "Boolean"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "title",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "The title to filter on. Value should be a String.",
+      "type": [
+        {
+          "kind": "type",
+          "name": "MediaQueryInfoType"
+        },
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "inlined": {
+        "name": "MediaQueryInfoType",
+        "summary": "A full query descriptor for a filtering predicate.",
+        "properties": [
+          {
+            "name": "exact",
+            "platforms": ["iphone", "ipad", "macos"],
+            "summary": "Whether or not the predicate is for an exact match.  The default is `true`.",
+            "type": [
+              {
+                "kind": "primitive",
+                "name": "Boolean"
+              }
+            ],
+            "default": "true"
+          },
+          {
+            "name": "value",
+            "platforms": ["iphone", "ipad", "macos"],
+            "summary": "The value for the given predicate. See the descriptions in [MediaQueryType](api:MediaQueryType) for information about which properties require which values.",
+            "type": [
+              {
+                "kind": "primitive",
+                "name": "Number"
+              },
+              {
+                "kind": "primitive",
+                "name": "String"
+              },
+              {
+                "kind": "primitive",
+                "name": "Boolean"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "methods": [],
+  "events": [],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "references": ["MediaQueryInfoType"],
+  "source": "Titanium/Media/Media.yml"
+}

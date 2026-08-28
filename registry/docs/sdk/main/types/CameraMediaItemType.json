@@ -1,0 +1,140 @@
+{
+  "schemaVersion": 1,
+  "name": "CameraMediaItemType",
+  "kind": "pseudo",
+  "extends": "SuccessResponse",
+  "inheritanceChain": ["SuccessResponse", "ErrorResponse"],
+  "platforms": ["android", "iphone", "ipad", "macos"],
+  "summary": "A media object from the camera or photo gallery.",
+  "properties": [
+    {
+      "name": "code",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Error code. Returns 0.",
+      "description": "Error code will be 0.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "3.1.0"
+    },
+    {
+      "name": "cropRect",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Simple object defining the user's selected crop rectangle, or `null` if the user has not edited the photo. `width`/`height` values are assumed to be in pixels.",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Dimension"
+        }
+      ],
+      "optional": true
+    },
+    {
+      "name": "error",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Error message, if any returned.",
+      "description": "Will be undefined.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "3.1.0"
+    },
+    {
+      "name": "livePhoto",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "The live photo object, as a [Titanium.UI.iOS.LivePhoto](api:Titanium.UI.iOS.LivePhoto) and\n`undefined` if no live photo is selected.\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.UI.iOS.LivePhoto"
+        }
+      ],
+      "since": "5.2.0",
+      "osver": {
+        "ios": {
+          "min": "9.1"
+        }
+      }
+    },
+    {
+      "name": "media",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "The media object, as a [Blob](api:Titanium.Blob).",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.Blob"
+        }
+      ]
+    },
+    {
+      "name": "mediaType",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "The type of media, either `MEDIA_TYPE_PHOTO`, `MEDIA_TYPE_LIVEPHOTO` or `MEDIA_TYPE_VIDEO` defined in [Titanium.Media](api:Titanium.Media).",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "path",
+      "platforms": ["android"],
+      "summary": "The path of the image when returning data from the gallery.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "12.5.0"
+    },
+    {
+      "name": "previewRect",
+      "platforms": ["android"],
+      "summary": "Simple object defining the preview image size. This will be undefined when custom camera overlay is not used. Values are assumed to be in pixels.",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Size"
+        }
+      ]
+    },
+    {
+      "name": "success",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Indicates if the operation succeeded. Returns `true`.",
+      "description": "Returns `true`.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "3.1.0"
+    }
+  ],
+  "methods": [],
+  "events": [],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "references": [
+    "Dimension",
+    "Size",
+    "SuccessResponse",
+    "Titanium.Blob",
+    "Titanium.Media",
+    "Titanium.UI.iOS.LivePhoto"
+  ],
+  "source": "Titanium/Media/Media.yml"
+}

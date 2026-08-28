@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "name": "Dimension",
+  "kind": "pseudo",
+  "extends": "Size",
+  "inheritanceChain": ["Size"],
+  "platforms": ["android", "iphone", "ipad", "macos"],
+  "since": "2.0.0",
+  "summary": "A simple object consisting of the position and size measurements. Effectively combines [Size](api:Size) and [Point](api:Point) but ensures numeric x/y values.",
+  "description": "When a dimension is returned by the [rect](api:Titanium.UI.View#rect) property, `x` represents the\nview's left position, and `y` represents the view's top position.\n\nThe [size](api:Titanium.UI.View#size) property returns a dimension object with `x` and `y` both set\nto 0.\n",
+  "properties": [
+    {
+      "name": "x",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "The x-axis coordinate of the position. When returned by [Titanium.UI.View.rect](api:Titanium.UI.View#rect) the position is relative to it's parent.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ]
+    },
+    {
+      "name": "y",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "The y-axis coordinate of the position. When returned by [Titanium.UI.View.rect](api:Titanium.UI.View#rect) the position is relative to it's parent.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ]
+    }
+  ],
+  "methods": [],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "height",
+        "from": "Size",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "width",
+        "from": "Size",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      }
+    ],
+    "methods": [],
+    "events": []
+  },
+  "references": ["Point", "Size", "Titanium.UI.View"],
+  "source": "Titanium/UI/Dimension.yml"
+}

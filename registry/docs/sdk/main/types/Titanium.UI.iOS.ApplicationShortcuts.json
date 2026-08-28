@@ -1,0 +1,287 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.UI.iOS.ApplicationShortcuts",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": ["Titanium.Proxy"],
+  "platforms": ["iphone"],
+  "since": "5.1.0",
+  "deprecated": {
+    "since": "9.1.0",
+    "notes": "Use [Titanium.UI.Shortcut](Titanium.UI.Shortcut) instead."
+  },
+  "summary": "The Home screen quick actions API is for adding shortcuts to your app icon that anticipate and accelerate a \nuser's interaction with your app.\n",
+  "description": "3D Touch gives iOS 9 users an additional interaction dimension. On supported devices, people can quickly choose \napp-specific actions from the Home screen by pressing on the app icon. The pressing of an application shortcut\nwill then fire the `shortcutitemclick` [Titanium.App.iOS](api:Titanium.App.iOS) event.\n\nThere are static and dynamic shortcuts to differentiate:\n  * Static: Can be set in the `<ios>` section of the `tiapp.xml` before launching the app.\n  * Dynamic: Can be set in the app to offer a dynamic behavior at runtime.\n\nHere is an example how to create static application shortcuts in the `tiapp.xml`:\n``` xml\n<ti:app>\n    <!-- ... -->\n    <ios>\n        <plist>  \n            <dict>\n            <key>UIApplicationShortcutItems</key>\n            <array>\n                <dict>\n                    <key>UIApplicationShortcutItemIconType</key>\n                    [string](api:Global.String)UIApplicationShortcutIconTypeSearch</string>\n                    <key>UIApplicationShortcutItemTitle</key>\n                    [string](api:Global.String)My title</string>\n                    <key>UIApplicationShortcutItemSubtitle</key>\n                    [string](api:Global.String)My subtitle</string>\n                    <key>UIApplicationShortcutItemType</key>\n                    [string](api:Global.String)my_identifier</string>\n                    <key>UIApplicationShortcutItemUserInfo</key>\n                    <dict/>\n                </dict>\n            </array>\n            </dict> \n        </plist> \n    </ios>\n    <!-- ... -->\n</ti:app>\n```\n\nStatic shortcuts can be translated in the `i18n/<language>/app.xml` file. Dynamic shortcuts can be translated by using the\nmethods described in the Wiki.\n\nTo use this feature make sure you have a 3D Touch compatible device running iOS 9 or later. To\ncheck for the feature, use the [Titanium.UI.iOS.forceTouchSupported](api:Titanium.UI.iOS#forceTouchSupported) property.\nYou cannot test 3D touch on the iOS simulator.\n",
+  "examples": [
+    {
+      "title": "Full example (get shortcuts, add shortcuts, remove shortcuts, check shortcuts).",
+      "code": "``` js\nTi.App.iOS.addEventListener(\"shortcutitemclick\", function (e) {\n    Ti.API.info(\"shortcutitemclick Event Fired\");\n    Ti.API.info(\"event payload:\" + JSON.stringify(e));\n});\n\nvar win = Titanium.UI.createWindow({\n    title: 'Test', backgroundColor: '#fff', layout: \"vertical\"\n});\n\nvar btn1 = Ti.UI.createButton({\n    top: 50, height: 45, title: \"Add Contact Us Application Shortcut\"\n});\nwin.add(btn1);\n\nbtn1.addEventListener(\"click\", function () {\n    var appShortcuts = Ti.UI.iOS.createApplicationShortcuts();\n    appShortcuts.addDynamicShortcut({\n        identifier: \"contact_us\",\n        title: \"Contact Us\",\n        subtitle: \"Tap to reach us\",\n        icon: Ti.UI.iOS.SHORTCUT_ICON_TYPE_ADD,\n        userInfo: {\n            infoKey: \"contact_us\"\n        }\n    });\n});\n\nvar btn2 = Ti.UI.createButton({\n    top: 10, height: 45, title: \"Remove Contact Us Application Shortcut\"\n});\nwin.add(btn2);\n\nbtn2.addEventListener(\"click\", function () {\n    var appShortcuts = Ti.UI.iOS.createApplicationShortcuts();\n    appShortcuts.removeDynamicShortcut(\"contact_us\");\n});\n\nvar btn3 = Ti.UI.createButton({\n    top: 10, height: 45, title: \"Count Dynamic App Shortcuts\"\n});\nwin.add(btn3);\n\nbtn3.addEventListener(\"click\", function () {\n    var appShortcuts = Ti.UI.iOS.createApplicationShortcuts();\n    var shortcuts = appShortcuts.listDynamicShortcuts();\n    Ti.API.info(\"Dynamic App Shortcut count:\" + shortcuts.length);\n    Ti.API.info(\"Dynamic App Shortcut as JSON:\" + JSON.stringify(shortcuts));\n});\n\nvar btn4 = Ti.UI.createButton({\n    top: 10, height: 45, title: \"Count Static App Shortcuts\"\n});\nwin.add(btn4);\n\nbtn4.addEventListener(\"click\", function () {\n    var appShortcuts = Ti.UI.iOS.createApplicationShortcuts();\n    var shortcuts = appShortcuts.listStaticShortcuts();\n    Ti.API.info(\"Static App Shortcut count:\" + shortcuts.length);\n    Ti.API.info(\"Static App Shortcut as JSON:\" + JSON.stringify(shortcuts));\n});\n\nvar btn5 = Ti.UI.createButton({\n    top: 10, height: 45, title: \"Dynamic Shortcut Exists?\"\n});\nwin.add(btn5);\n\nbtn5.addEventListener(\"click\", function () {\n    var appShortcuts = Ti.UI.iOS.createApplicationShortcuts();\n    var exists = appShortcuts.dynamicShortcutExists(\"contact_us\");\n    var msg = (exists) ? \"Icon exists\" : \"Sorry isn't there\";\n    alert(msg);\n});\n\nvar btn6 = Ti.UI.createButton({\n    top: 10, height:45, title:\"Remove All Dynamic Shortcuts\"\n});\nwin.add(btn6);\n\nbtn6.addEventListener(\"click\", function () {\n    var appShortcuts = Ti.UI.iOS.createApplicationShortcuts();\n    appShortcuts.removeAllDynamicShortcuts();\n});\n\nvar btn7 = Ti.UI.createButton({\n    top: 10, height: 45, title: \"Get shortcut by identifier \\\"contact_us\\\"\"\n});\nwin.add(btn7);\n\nbtn7.addEventListener(\"click\", function () {\n    var appShortcuts = Ti.UI.iOS.createApplicationShortcuts();\n    var shortcut = appShortcuts.getDynamicShortcut(\"contact_us\");\n    alert(shortcut);\n});\n\nwin.open();\n```\n"
+    },
+    {
+      "title": "Add a Titanium.Contact.Person as icon.",
+      "code": "``` js\nTi.App.iOS.addEventListener(\"shortcutitemclick\", function (e) {\n    Ti.API.info(\"shortcutitemclick Event Fired\");\n    Ti.API.info(\"person:\" + JSON.stringify(e.userInfo.person));\n});\n\nvar win = Titanium.UI.createWindow({\n    title: 'Test', backgroundColor: '#fff', layout: \"vertical\"\n});\n\nvar btn1 = Ti.UI.createButton({\n    top: 50, height: 45, title: \"Add Ti.Contacts Application Shortcut\"\n});\nwin.add(btn1);\n\nbtn1.addEventListener(\"click\", function () {\n    if (!Ti.Contacts.hasContactsPermissions()) {\n        Ti.Contacts.requestContactsPermissions(function (e) {\n            if (e.success) {\n                createShortcut();\n            }\n        })\n    } else {\n        createShortcut();\n    }\n});\n\nvar btn2 = Ti.UI.createButton({\n    top: 10, height: 45, title: \"Remove Ti.Contacts Application Shortcut\"\n});\nwin.add(btn2);\n\nbtn2.addEventListener(\"click\", function () {\n    var appShortcuts = Ti.UI.iOS.createApplicationShortcuts();\n    appShortcuts.removeDynamicShortcut(\"contact_us\");\n});\n\nfunction createShortcut() {\n    Ti.Contacts.showContacts({\n        selectedPerson: function(e) {\n            var person = e.person;\n\n            var appShortcuts = Ti.UI.iOS.createApplicationShortcuts();\n            appShortcuts.addDynamicShortcut({\n                identifier: \"contact_us\",\n                title: person.fullName,\n                subtitle: \"Tap to call\",\n                icon: person,\n                userInfo: {\n                    person: {\n                        firstName: person.firstName,\n                        lastName: person.lastName\n                    }\n                }\n            });\n        }\n    });\n}\n\nwin.open();\n```\n"
+    }
+  ],
+  "properties": [],
+  "methods": [
+    {
+      "name": "addDynamicShortcut",
+      "platforms": ["iphone"],
+      "summary": "Creates a new dynamic application shortcut item.",
+      "parameters": [
+        {
+          "name": "params",
+          "summary": "The parameters used when creating a dynamic shortcut.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "ShortcutParams"
+            }
+          ],
+          "inlined": {
+            "name": "ShortcutParams",
+            "summary": "Object of options for [Titanium.UI.iOS.ApplicationShortcuts.addDynamicShortcut](api:Titanium.UI.iOS.ApplicationShortcuts#addDynamicShortcut).",
+            "description": "The parameters used when creating and receiving a shortcut. When used for creation, it must include \nat least the `identifier` and `title` properties.\n",
+            "properties": [
+              {
+                "name": "icon",
+                "platforms": ["iphone"],
+                "summary": "The icon to be displayed on the application shortcut. You can either use one of the constants like\n[Titanium.UI.iOS.SHORTCUT_ICON_TYPE_COMPOSE](api:Titanium.UI.iOS#SHORTCUT_ICON_TYPE_COMPOSE), a local image specified by the image path or a reference to a\n[Titanium.Contacts.Person](api:Titanium.Contacts.Person).\n",
+                "description": "If you are using one of the pre-defined constants, you can reference to the list of icons from Apple [here](https://developer.apple.com/documentation/uikit/uiapplicationshortcuticon).\n\nIf you are using an image file, enable slicing (adding the image to an asset catalog) for\nthe project. To enable slicing, add the `use-app-thinning` element to the `ios` element in the\n`tiapp.xml` file and set the value to `true`. If you do not enable slicing, the image will\nnot be displayed.\n\n``` xml\n<ti:app>\n    <ios>\n    <use-app-thinning>true</use-app-thinning>\n    </ios>\n</ti:app>\n```\n\nThe recommended size for image files is 35dp (@2px: 70dp, @3x: 105dp). Also check the [Apple documentation](https://developer.apple.com/documentation/uikit/uiapplicationshortcuticon)  \nfor more information on shortcut icons.\n\nOn iOS 13 and higher, with SDK 8.2.1 or higher, you can pass in the Ti.Blob instance returned from [Ti.UI.iOS.systemImage](api:Titanium.UI.iOS#systemImage).\n",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  },
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  },
+                  {
+                    "kind": "type",
+                    "name": "Titanium.Contacts.Person"
+                  }
+                ],
+                "optional": true,
+                "constants": ["Titanium.UI.iOS.SHORTCUT_ICON_TYPE_*"]
+              },
+              {
+                "name": "identifier",
+                "platforms": ["iphone"],
+                "summary": "The unique key for the application shortcut. Equates to the underlying `UIApplicationShortcutItemIconType` key",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  }
+                ]
+              },
+              {
+                "name": "subtitle",
+                "platforms": ["iphone"],
+                "summary": "The subtitle displayed on the application shortcut.",
+                "description": "The subtitle can be localized, see here\nfor more infos. \n",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  }
+                ],
+                "optional": true
+              },
+              {
+                "name": "title",
+                "platforms": ["iphone"],
+                "summary": "The title of the application shortcut.",
+                "description": "The title can be localized, see here\nfor more infos. \n",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  }
+                ]
+              },
+              {
+                "name": "userInfo",
+                "platforms": ["iphone"],
+                "summary": "The userInfo of the application shortcut.",
+                "description": "The userInfo is an object containing information about the shortcut like an ID or details about it.\n",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Object"
+                  }
+                ],
+                "optional": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "dynamicShortcutExists",
+      "platforms": ["iphone"],
+      "summary": "Returns true or false depending if the provided shortcut object already exists.",
+      "parameters": [
+        {
+          "name": "identifier",
+          "summary": "Checks if the dynamic application shortcut item identified by the `identifier` exists.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "getDynamicShortcut",
+      "platforms": ["iphone"],
+      "summary": "Gets the dynamic application shortcut item identified by the `identifier`.",
+      "parameters": [
+        {
+          "name": "identifier",
+          "summary": "Use the `identifier` argument to determine which shortcut should be returned.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "ShortcutParams"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "listDynamicShortcuts",
+      "platforms": ["iphone"],
+      "summary": "Returns an array of the application shortcuts created dynamically.",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "ShortcutParams"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "listStaticShortcuts",
+      "platforms": ["iphone"],
+      "summary": "Returns an array of the application shortcuts listed in your tiapp.xml file.",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "ShortcutParams"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "removeAllDynamicShortcuts",
+      "platforms": ["iphone"],
+      "summary": "Removes all dynamically created application shortcuts."
+    },
+    {
+      "name": "removeDynamicShortcut",
+      "platforms": ["iphone"],
+      "summary": "Removes the dynamic application shortcut item identified by the `identifier`.",
+      "parameters": [
+        {
+          "name": "identifier",
+          "summary": "Use the `identifier` argument to determine which shortcut should be removed.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone"]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone"]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone"]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone"]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone"]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone"]
+      }
+    ],
+    "events": []
+  },
+  "references": [
+    "Global.String",
+    "ShortcutParams",
+    "Titanium.App.iOS",
+    "Titanium.Proxy",
+    "Titanium.UI.iOS"
+  ],
+  "source": "Titanium/UI/iOS/ApplicationShortcuts.yml"
+}

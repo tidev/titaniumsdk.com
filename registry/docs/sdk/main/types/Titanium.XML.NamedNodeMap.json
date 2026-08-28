@@ -1,0 +1,292 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.XML.NamedNodeMap",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": ["Titanium.Proxy"],
+  "platforms": ["android", "iphone", "ipad", "macos"],
+  "since": {
+    "android": "0.9",
+    "iphone": "0.9",
+    "ipad": "0.9",
+    "macos": "9.2.0"
+  },
+  "summary": "A key-value paired map that maps String objects to [Titanium.XML.Node](api:Titanium.XML.Node) objects.\nImplements the [DOM Level 2 API](https://www.w3.org/TR/DOM-Level-2-Core/core.html#ID-1780488922) on Android and iOS.\n",
+  "properties": [
+    {
+      "name": "length",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "The number of nodes in the map. The valid range of child node indices is 0-`length`-1, inclusive.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    }
+  ],
+  "methods": [
+    {
+      "name": "getNamedItem",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Retrieves a node specified by name.",
+      "parameters": [
+        {
+          "name": "name",
+          "summary": "The name of the node to retrieve.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.XML.Node"
+            }
+          ],
+          "summary": "The specified node, or `null` if no node with the name is in the map"
+        }
+      ]
+    },
+    {
+      "name": "getNamedItemNS",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Retrieves a node specified by name and namespace. Returns `null` if no matching node is in the map.\n",
+      "parameters": [
+        {
+          "name": "namespaceURI",
+          "summary": "The namespace URI of the node to retrieve.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "localName",
+          "summary": "The local name of the node within the namespace to retrieve.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.XML.Node"
+            }
+          ],
+          "summary": "The specified node, or `null` if there is no matching node."
+        }
+      ]
+    },
+    {
+      "name": "item",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Retrieves the node at the specified index of the map. Note that NamedNodeMaps are not ordered.\n",
+      "parameters": [
+        {
+          "name": "index",
+          "summary": "The index of the node to retrieve.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.XML.Node"
+            }
+          ],
+          "summary": "The node at the specified index, or `null` if the index is invalid"
+        }
+      ]
+    },
+    {
+      "name": "removeNamedItem",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Removes a node from the map specified by name. When this map contains attributes attached to an element, if the removed attribute is known to have a default, it is replaced with that value.\n",
+      "parameters": [
+        {
+          "name": "name",
+          "summary": "The name of the node to remove.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.XML.Node"
+            }
+          ],
+          "summary": "The node removed from the map, or `null` if nothing removed."
+        }
+      ]
+    },
+    {
+      "name": "removeNamedItemNS",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Removes a node from the map specified by local name and namespace URI. When this map contains attributes attached to an element, if the removed attribute is known to have a default, it is replaced with that value. Returns the node removed from the map, or `null` if there is no corresponding node.\n",
+      "parameters": [
+        {
+          "name": "namespaceURI",
+          "summary": "The namespace URI of the node to remove.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "localName",
+          "summary": "The local name of the node within the namespace to remove.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.XML.Node"
+            }
+          ],
+          "summary": "The node removed from the map, or `null` if nothing removed."
+        }
+      ]
+    },
+    {
+      "name": "setNamedItem",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Adds a node using its `nodeName` attribute. If a node with that name is already present, it is replaced. Throws an exception if the argument is from a different document, the map is read-only, or the argument is an attribute of another element.\n",
+      "parameters": [
+        {
+          "name": "node",
+          "summary": "The node to insert into the map.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.XML.Node"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.XML.Node"
+            }
+          ],
+          "summary": "The node replaced, or `null` if no node was replaced."
+        }
+      ]
+    },
+    {
+      "name": "setNamedItemNS",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Adds a node using its `namespaceURI` and `localName` attributes. If a node with that name is already present, it is replaced. Throws an exception if the argument is from a different document, the map is read-only, or the argument is an attribute of another element.\n",
+      "parameters": [
+        {
+          "name": "node",
+          "summary": "The node to insert into the map.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.XML.Node"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.XML.Node"
+            }
+          ],
+          "summary": "Returns the node replaced, or `null`."
+        }
+      ]
+    }
+  ],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "lifecycleContainer",
+        "from": "Titanium.Proxy",
+        "platforms": ["android"]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      }
+    ],
+    "events": []
+  },
+  "references": ["Titanium.Proxy", "Titanium.XML.Node"],
+  "source": "Titanium/XML/NamedNodeMap.yml"
+}

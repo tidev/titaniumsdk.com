@@ -1,0 +1,171 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.Calendar.Alert",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": ["Titanium.Proxy"],
+  "platforms": ["android", "iphone", "ipad", "macos"],
+  "since": {
+    "android": "3.2.0",
+    "iphone": "3.1.0",
+    "ipad": "3.1.0"
+  },
+  "summary": "An object that represents a single alert for an event in an calendar.",
+  "properties": [
+    {
+      "name": "absoluteDate",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "The absolute date for the alarm.",
+      "description": "If you set this property for a relative offset alarm, it loses \nthe relative offset and becomes an absolute alarm.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Date"
+        }
+      ]
+    },
+    {
+      "name": "alarmTime",
+      "platforms": ["android"],
+      "summary": "Date/time at which this alert alarm is set to trigger.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Date"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "begin",
+      "platforms": ["android"],
+      "summary": "Start date/time for the corresponding event.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Date"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "end",
+      "platforms": ["android"],
+      "summary": "End date/time for the corresponding event.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Date"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "eventId",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Identifier of the event for which this alert is set.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "id",
+      "platforms": ["android"],
+      "summary": "Identifier of this alert.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "minutes",
+      "platforms": ["android"],
+      "summary": "Reminder notice period in minutes, that determines how long prior to the event this alert \nshould trigger.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "relativeOffset",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "The offset from the start of an event, at which the alarm fires.",
+      "description": "If you set this value for an absolute alarm, it loses its absolute date and \nbecomes a relative offset alarm.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ]
+    },
+    {
+      "name": "state",
+      "platforms": ["android"],
+      "summary": "The current state of the alert.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only",
+      "constants": ["Titanium.Calendar.STATE_*"]
+    }
+  ],
+  "methods": [],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "lifecycleContainer",
+        "from": "Titanium.Proxy",
+        "platforms": ["android"]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      }
+    ],
+    "events": []
+  },
+  "references": ["Titanium.Proxy"],
+  "source": "Titanium/Calendar/Alert.yml"
+}

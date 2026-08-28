@@ -1,0 +1,162 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.Media.AudioRecorder",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": ["Titanium.Proxy"],
+  "platforms": ["android", "iphone", "ipad", "macos"],
+  "since": {
+    "iphone": "0.9",
+    "ipad": "0.9",
+    "android": "6.2.0"
+  },
+  "summary": "An audio recorder object used for recording audio from the device microphone.",
+  "description": "Use the [Titanium.Media.createAudioRecorder](api:Titanium.Media#createAudioRecorder) method to create an audio recorder.\n\nEnsure to request the permissions for audio-recording before starting a new record-session.\nThis can be done by using [Titanium.Media.hasAudioRecorderPermissions](api:Titanium.Media#hasAudioRecorderPermissions) to check whether\naudio-permissions are granted and [Titanium.Media.requestAudioRecorderPermissions](api:Titanium.Media#requestAudioRecorderPermissions) to \nrequest audio-permissions. \n\n**Android Platform Note**: On Android, you also need to include the following permission\ninto the `<android>` section of the tiapp.xml:\n\n``` xml\n<android xmlns:android=\"http://schemas.android.com/apk/res/android\">\n    <manifest>\n        <uses-permission android:name=\"android.permission.RECORD_AUDIO\" />\n    </manifest>\n</android>\n```\n",
+  "examples": [
+    {
+      "title": "Audio Recorder Example",
+      "code": "The following code-example creates a window that controls the audio-recorder flow.\n\n``` js\nvar window = Ti.UI.createWindow({\n  backgroundColor: '#fff'\n});\n\nvar recordStart = Ti.UI.createButton({\n  title: 'Start',\n  top: 10\n});\n\nvar recordPause = Ti.UI.createButton({\n  title: 'Pause',\n  top: 60\n});\n\nvar recordStop = Ti.UI.createButton({\n  title: 'Stop',\n  top: 110\n});\n\nvar recordPlay = Ti.UI.createButton({\n  title: 'Play',\n  top: 160\n});\n\nvar audioRecorder = Ti.Media.createAudioRecorder();\nvar record;\nvar audioPlayer;\n\nwindow.addEventListener('open', function(e) {\n  if (!Ti.Media.hasAudioRecorderPermissions()) {\n    Ti.Media.requestAudioRecorderPermissions(function(e) {\n      if (e.success) {\n        window.add(recordStart);\n      }\n    });\n  } else {\n    window.add(recordStart);\n  }\n});\n\nrecordStart.addEventListener('click', function(e) {\n  audioRecorder.start();\n});\n\nrecordPause.addEventListener('click', function(e) {\n  if (audioRecorder.getPaused()) {\n    recordPause.title = 'Pause';\n    audioRecorder.resume()\n  } else {\n    recordPause.title = 'Resume';\n    audioRecorder.pause();\n  }\n});\n\nrecordStop.addEventListener('click', function(e) {\n  record = audioRecorder.stop();\n  Ti.API.info(record.nativePath);\n});\n\nrecordPlay.addEventListener('click', function(e) {\n  audioPlayer = Ti.Media.createAudioPlayer({\n    url: record.nativePath\n  });\n  audioPlayer.start();\n});\n\nwindow.add(recordPause);\nwindow.add(recordStop);\nwindow.add(recordPlay);\n\nwindow.open();\n```\n"
+    }
+  ],
+  "properties": [
+    {
+      "name": "compression",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Audio compression to be used for the recording.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "default": "<Titanium.Media.AUDIO_FORMAT_LINEAR_PCM>",
+      "constants": ["Titanium.Media.AUDIO_FORMAT_*"]
+    },
+    {
+      "name": "format",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Audio format to be used for the recording.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "default": "<Titanium.Media.AUDIO_FILEFORMAT_CAF>",
+      "constants": ["Titanium.Media.AUDIO_FILEFORMAT_*"]
+    },
+    {
+      "name": "paused",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Indicates if the audio recorder is paused.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "recording",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Indicates if the audio recorder is recording.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "stopped",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Indicates if the audio recorder is stopped.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "permission": "read-only"
+    }
+  ],
+  "methods": [
+    {
+      "name": "pause",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Pauses the current audio recording."
+    },
+    {
+      "name": "resume",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Resumes a paused recording."
+    },
+    {
+      "name": "start",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Starts an audio recording."
+    },
+    {
+      "name": "stop",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Stops the current audio recording and returns the recorded audio file.",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Filesystem.File"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "lifecycleContainer",
+        "from": "Titanium.Proxy",
+        "platforms": ["android"]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      }
+    ],
+    "events": []
+  },
+  "references": ["Titanium.Filesystem.File", "Titanium.Media", "Titanium.Proxy"],
+  "source": "Titanium/Media/AudioRecorder.yml"
+}

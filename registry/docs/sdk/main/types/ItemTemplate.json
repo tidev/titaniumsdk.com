@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "name": "ItemTemplate",
+  "kind": "pseudo",
+  "platforms": ["android", "iphone", "ipad", "macos"],
+  "since": "3.1.0",
+  "summary": "Template that represents the basic appearance of a list item.",
+  "description": "See [Titanium.UI.ListItem](api:Titanium.UI.ListItem) for examples of using an item template.",
+  "properties": [
+    {
+      "name": "childTemplates",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Contains an array of subview templates to be added (in order) as children to this view.\n",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Array",
+          "args": [
+            {
+              "kind": "type",
+              "name": "ViewTemplate"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "events",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Contains key-value pairs of view events and their listeners that are applied to the ListItem.",
+      "description": "Array values are considered as multiple event listeners for that event.\n\nEvent listeners added here respond to bubbled events fired from the view subcomponents.\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Dictionary"
+        }
+      ]
+    },
+    {
+      "name": "properties",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Contains key-value pairs of view properties and their values that are applied to the ListItem.",
+      "description": "If there are properties set in the [ListDataItem](api:ListDataItem), the properties set in the template are\noverridden by the ones set in the list data item.\n",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Dictionary",
+          "args": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.ListItem"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "methods": [],
+  "events": [],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "references": ["Dictionary", "ListDataItem", "Titanium.UI.ListItem", "ViewTemplate"],
+  "source": "Titanium/UI/ListItem.yml"
+}

@@ -1,0 +1,29 @@
+{
+  "$comment": [
+    "Repositories the API-docs regen will fetch, and nothing else.",
+    "The regen is reachable by repository_dispatch, so an unlisted repo must be",
+    "refused rather than cloned — otherwise the endpoint fetches and executes",
+    "against whatever a caller names.",
+    "Replaces the 17 hardcoded checkout steps in titanium-docs regen.yml, which",
+    "cloned every one of these at full history on every dispatch."
+  ],
+  "sources": {
+    "tidev/titanium-sdk": { "kind": "sdk", "apidoc": "apidoc" },
+    "tidev/ti.map": { "kind": "module", "apidoc": "apidoc" },
+    "tidev/ti.facebook": { "kind": "module", "apidoc": "apidoc" },
+    "tidev/ti.coremotion": { "kind": "module", "apidoc": "apidoc" },
+    "tidev/ti.crypto": { "kind": "module", "apidoc": "apidoc" },
+    "tidev/ti.urlsession": { "kind": "module", "apidoc": "apidoc" },
+    "tidev/titanium-identity": { "kind": "module", "apidoc": "apidoc" },
+    "tidev/ti.playservices": { "kind": "module", "apidoc": "apidoc" },
+    "tidev/ti.geofence": { "kind": "module", "apidoc": "apidoc" },
+    "tidev/appcelerator.ble": { "kind": "module", "apidoc": "apidoc" },
+    "tidev/appcelerator.bluetooth": { "kind": "module", "apidoc": "apidoc" },
+    "tidev/appcelerator.https": { "kind": "module", "apidoc": "apidoc" },
+    "tidev/appcelerator.encrypteddatabase": { "kind": "module", "apidoc": "apidoc" },
+    "tidev/titanium-web-dialog": { "kind": "module", "apidoc": "apidoc" },
+    "tidev/ti.barcode": { "kind": "module", "apidoc": "apidoc" },
+    "tidev/titanium-apple-sign-in": { "kind": "module", "apidoc": "apidoc" },
+    "tidev/ti.nfc": { "kind": "module", "apidoc": "apidoc" }
+  }
+}

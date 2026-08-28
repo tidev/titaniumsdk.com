@@ -1,0 +1,149 @@
+{
+  "schemaVersion": 1,
+  "name": "Global.Intl.Collator",
+  "kind": "module",
+  "platforms": ["android", "iphone", "ipad", "macos"],
+  "since": {
+    "iphone": "6.0.0",
+    "ipad": "6.0.0",
+    "android": "9.1.0",
+    "macos": "9.2.0"
+  },
+  "summary": "Immutable object used to perform language sensitive string comparisons.",
+  "description": "A collator is used to perform a localized string compare or sort using a given language locale.\n\nFor more detail, see the MDN website about\n[Intl.Collator](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Intl/Collator).\n",
+  "examples": [
+    {
+      "title": "Array Sorting",
+      "code": "``` js\n// Sort using collator. Array becomes: [ 'a', 'b', 'c' ]\nconst elements = [ 'c', 'b', 'a' ];\nelements.sort(new Intl.Collator().compare);\nconsole.log(`Sorted Elements: ${elements}`);\n```\n"
+    },
+    {
+      "title": "String Compare Sensitivity",
+      "code": "``` js\n// Case sensitive and accent sensitive string matching.\n// This is the default collator sensitivity.\nconsole.log('Variant Sensitivity:');\nlet collator = new Intl.Collator(Ti.Locale.currentLocale, { sensitivity: 'variant' });\nconsole.log(collator.compare('a', 'a') === 0);  // Equal\nconsole.log(collator.compare('a', 'á') === 0);  // Not Equal\nconsole.log(collator.compare('a', 'A') === 0);  // Not Equal\nconsole.log(collator.compare('a', 'b') === 0);  // Not Equal\n\n// Case sensitive matching, ignoring accents marks.\nconsole.log('Case Sensitivity:');\ncollator = new Intl.Collator(Ti.Locale.currentLocale, { sensitivity: 'case' });\nconsole.log(collator.compare('a', 'a') === 0);  // Equal\nconsole.log(collator.compare('a', 'á') === 0);  // Equal\nconsole.log(collator.compare('a', 'A') === 0);  // Not Equal\nconsole.log(collator.compare('a', 'b') === 0);  // Not Equal\n\n// Do an accent sensitive match, ignoring case.\nconsole.log('Accent Sensitivity:');\ncollator = new Intl.Collator(Ti.Locale.currentLocale, { sensitivity: 'accent' });\nconsole.log(collator.compare('a', 'a') === 0);  // Equal\nconsole.log(collator.compare('a', 'á') === 0);  // Not Equal\nconsole.log(collator.compare('a', 'A') === 0);  // Equal\nconsole.log(collator.compare('a', 'b') === 0);  // Not Equal\n\n// Match strings having same base letters, ignoring case and accents.\nconsole.log('Base Sensitivity:');\ncollator = new Intl.Collator(Ti.Locale.currentLocale, { sensitivity: 'base' });\nconsole.log(collator.compare('a', 'a') === 0);  // Equal\nconsole.log(collator.compare('a', 'á') === 0);  // Equal\nconsole.log(collator.compare('a', 'A') === 0);  // Equal\nconsole.log(collator.compare('a', 'b') === 0);  // Not Equal\n```\n"
+    }
+  ],
+  "properties": [
+    {
+      "name": "constructor",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Creates a new `Intl.Collator` object with the given locale and comparison options.",
+      "description": "#### Syntax\n\n``` js\nnew Intl.Collator([locales[, options]])\n```\n\n#### Parameters\n\n*    `locales`: [String](api:Global.String)/[String](api:Global.String)`[]` (optional)\n\n     The [BCP 47](https://www.unicode.org/reports/tr35/tr35.html#BCP_47_Conformance) language and country\n     code(s) to use for localized string comparisons. Can provide multiple locales where the best-supported\n     locale will be favored in the order provided by the array. If parameter is not assigned, then\n     the system may use the `'en-US'` locale by default instead of the system's current locale.\n     It's recommended to set this parameter using [Titanium.Locale.currentLocale](api:Titanium.Locale#currentLocale).\n\n*    `options`: [CollatorOptions](api:CollatorOptions) (optional)\n\n     Provides settings indicating how strings should be compared.\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Global.Intl.Collator"
+        }
+      ],
+      "permission": "read-only"
+    }
+  ],
+  "methods": [
+    {
+      "name": "compare",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Determines the sort order of the given strings or if they match.",
+      "parameters": [
+        {
+          "name": "string1",
+          "summary": "The string to be compared with argument `string2`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "string2",
+          "summary": "The string to be compared with argument `string1`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "summary": "Returns zero if strings are equal.\nReturns a negative value if `string1` sorts before `string2`.\nReturns a positive value if `string1` sorts after `string2`.\n"
+        }
+      ]
+    },
+    {
+      "name": "resolvedOptions",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Gets the object's collation options.",
+      "description": "Returns the collation options the collator object uses.\n\nFor more detail, see the MDN website about\n[resolvedOptions](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Intl/Collator/resolvedOptions).\n",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "CollatorOptions"
+            }
+          ],
+          "summary": "Returns the collation options used."
+        }
+      ]
+    },
+    {
+      "name": "supportedLocalesOf",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Static method indicating what locales are supported by collators from the given locale(s).",
+      "description": "For more detail, see the MDN website about\n[supportedLocalesOf](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Intl/Collator/supportedLocalesOf).\n",
+      "parameters": [
+        {
+          "name": "locales",
+          "summary": "A string or array of strings providing BCP 47 locale identifiers to query.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            },
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "primitive",
+                  "name": "String"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "primitive",
+                  "name": "String"
+                }
+              ]
+            }
+          ],
+          "summary": "Array containing a subset of the given locale strings supported by collators."
+        }
+      ]
+    }
+  ],
+  "events": [],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "references": ["CollatorOptions", "Global.String", "Titanium.Locale"],
+  "source": "Global/Intl/Collator.yml"
+}

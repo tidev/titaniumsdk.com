@@ -1,0 +1,176 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.UI.iOS.StatusBar",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": ["Titanium.Proxy"],
+  "platforms": ["iphone", "ipad", "macos"],
+  "since": {
+    "iphone": "5.4.0",
+    "ipad": "5.4.0",
+    "macos": "9.2.0"
+  },
+  "summary": "A set of constants for the status bar style.",
+  "properties": [
+    {
+      "name": "ANIMATION_STYLE_FADE",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Fade animation style, when the status bar is hidden or shown.",
+      "description": "One of the group of status bar animation style constants\n[ANIMATION_STYLE_NONE](api:Titanium.UI.iOS.StatusBar#ANIMATION_STYLE_NONE), \n[ANIMATION_STYLE_SLIDE](api:Titanium.UI.iOS.StatusBar#ANIMATION_STYLE_SLIDE), \nand [ANIMATION_STYLE_FADE](api:Titanium.UI.iOS.StatusBar#ANIMATION_STYLE_FADE).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "ANIMATION_STYLE_NONE",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "No animation style, when the status bar is hidden or shown.",
+      "description": "One of the group of status bar animation style constants \n[ANIMATION_STYLE_NONE](api:Titanium.UI.iOS.StatusBar#ANIMATION_STYLE_NONE), \n[ANIMATION_STYLE_SLIDE](api:Titanium.UI.iOS.StatusBar#ANIMATION_STYLE_SLIDE), \nand [ANIMATION_STYLE_FADE](api:Titanium.UI.iOS.StatusBar#ANIMATION_STYLE_FADE).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "ANIMATION_STYLE_SLIDE",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Slide animation style, when the status bar is hidden or shown.",
+      "description": "One of the group of status bar animation style constants \n[ANIMATION_STYLE_NONE](api:Titanium.UI.iOS.StatusBar#ANIMATION_STYLE_NONE), \n[ANIMATION_STYLE_SLIDE](api:Titanium.UI.iOS.StatusBar#ANIMATION_STYLE_SLIDE), \nand [ANIMATION_STYLE_FADE](api:Titanium.UI.iOS.StatusBar#ANIMATION_STYLE_FADE).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "DARK_CONTENT",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Status bar style to use with light backgrounds.",
+      "description": "Use with the [Titanium.UI.Window.statusBarStyle](api:Titanium.UI.Window#statusBarStyle) property.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "8.2.0",
+      "permission": "read-only",
+      "osver": {
+        "ios": {
+          "min": "13.0"
+        }
+      }
+    },
+    {
+      "name": "DEFAULT",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Default status bar style.",
+      "description": "Use with the [Titanium.UI.Window.statusBarStyle](api:Titanium.UI.Window#statusBarStyle) property.\n\nOne of the group of status bar style constants \n[DEFAULT](api:Titanium.UI.iOS.StatusBar#DEFAULT), \n[GRAY](api:Titanium.UI.iOS.StatusBar#GRAY), \n[GREY](api:Titanium.UI.iOS.StatusBar#GREY),\n[LIGHT_CONTENT](api:Titanium.UI.iOS.StatusBar#LIGHT_CONTENT),\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "GRAY",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Gray-colored status bar style.",
+      "description": "Use with the [Titanium.UI.Window.statusBarStyle](api:Titanium.UI.Window#statusBarStyle) property.\n\nOne of the group of status bar style constants \n[DEFAULT](api:Titanium.UI.iOS.StatusBar#DEFAULT), \n[GRAY](api:Titanium.UI.iOS.StatusBar#GRAY), \n[GREY](api:Titanium.UI.iOS.StatusBar#GREY),\n[LIGHT_CONTENT](api:Titanium.UI.iOS.StatusBar#LIGHT_CONTENT),\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "deprecated": {
+        "since": "9.1.0",
+        "notes": "Use [Titanium.UI.iOS.StatusBar.DEFAULT](Titanium.UI.iOS.StatusBar.DEFAULT) instead."
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "GREY",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Gray-colored status bar style.",
+      "description": "Alias for [GRAY](api:Titanium.UI.iOS.StatusBar#GRAY).\n\nUse with the [Titanium.UI.Window.statusBarStyle](api:Titanium.UI.Window#statusBarStyle) property.\n\nOne of the group of status bar style constants \n[DEFAULT](api:Titanium.UI.iOS.StatusBar#DEFAULT), \n[GRAY](api:Titanium.UI.iOS.StatusBar#GRAY), \n[GREY](api:Titanium.UI.iOS.StatusBar#GREY),\n[LIGHT_CONTENT](api:Titanium.UI.iOS.StatusBar#LIGHT_CONTENT),\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "deprecated": {
+        "since": "9.1.0",
+        "notes": "Use [Titanium.UI.iOS.StatusBar.DEFAULT](Titanium.UI.iOS.StatusBar.DEFAULT) instead."
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "LIGHT_CONTENT",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Status bar style to use with dark backgrounds.",
+      "description": "Use with the [Titanium.UI.Window.statusBarStyle](api:Titanium.UI.Window#statusBarStyle) property.\n\nOne of the group of status bar style constants \n[DEFAULT](api:Titanium.UI.iOS.StatusBar#DEFAULT), \n[GRAY](api:Titanium.UI.iOS.StatusBar#GRAY), \n[GREY](api:Titanium.UI.iOS.StatusBar#GREY),\n[LIGHT_CONTENT](api:Titanium.UI.iOS.StatusBar#LIGHT_CONTENT),\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.4.0",
+      "permission": "read-only"
+    }
+  ],
+  "methods": [],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone", "ipad", "macos"]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone", "ipad", "macos"]
+      }
+    ],
+    "events": []
+  },
+  "references": ["Titanium.Proxy", "Titanium.UI.Window"],
+  "source": "Titanium/UI/iOS/StatusBar.yml"
+}

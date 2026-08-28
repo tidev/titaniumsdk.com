@@ -1,0 +1,148 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.Android.BigPictureStyle",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": ["Titanium.Proxy"],
+  "platforms": ["android"],
+  "since": "5.4.0",
+  "summary": "Helper object for generating large-format notifications that include a large image attachment.",
+  "description": "If the platform does not provide large-format notifications, this style helper has no effect.\nThe user will always see the normal notification view.\n\nThis style object attaches to a [Titanium.UI.Notification](api:Titanium.UI.Notification) object and modifies its behavior.\n",
+  "examples": [
+    {
+      "title": "Big picture style Example",
+      "code": "This example will be use image that placed in one of the density-specific folder\nunder `Resources/android/images`\n\n``` js\nvar bigPictureStyle = Titanium.Android.createBigPictureStyle({\n    bigPicture: \"/images/bigPicture.png\",\n    bigContentTitle: \"Title for big picture\",\n    summaryText: \"Summary for big picture\"\n});\n```\n\nCreate big image style notification\n\n``` js\nvar notification = Titanium.Android.createNotification({\n    contentTitle: 'Something Happened',\n    contentText : 'Click to return to the application.',\n    style: bigPictureStyle,\n    time: Date.now()\n});\n```\n\nSend the notification.\n\n``` js\nTitanium.Android.NotificationManager.notify(1, notification);\n```\n"
+    }
+  ],
+  "properties": [
+    {
+      "name": "bigContentTitle",
+      "platforms": ["android"],
+      "summary": "Overrides [Titanium.Android.Notification.contentTitle](api:Titanium.Android.Notification#contentTitle) in the big form of the notification. This defaults to the value passed to [Titanium.Android.Notification.contentTitle](api:Titanium.Android.Notification#contentTitle).",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "default": "<Titanium.Android.Notification.contentTitle>"
+    },
+    {
+      "name": "bigLargeIcon",
+      "platforms": ["android"],
+      "summary": "Override the [Titanium.Android.Notification.largeIcon](api:Titanium.Android.Notification#largeIcon) when the big notification is shown.",
+      "description": "If specified as a URL, the icon must be placed in one of the density-specific\nfolders under `Resources/android/images`. For example, if your icon is called\n`my_big_large_icon.png`, you would create high- and medium-density versions of the icons\nwith the following paths:\n\n```\nResources/android/images/res-hdpi/my_big_large_icon.png\nResources/android/images/res-mdpi/my_big_large_icon.png\n```\n\nTo access this icon, you'd use the URL '/images/my_big_large_icon.png'.\n\nTo access the same icon using an Android resource ID, place the icon in:\n\n```\nplatform/android/res/drawable/my_big_large_icon.png\n```\n\nThis icon's resource ID can be referenced through the [Titanium.App.Android.R](api:Titanium.App.Android#R)\nobject:\n\n``` js\nicon: Ti.App.Android.R.drawable.my_big_large_icon,\n```\n\nSee [Titanium.App.Android.R](api:Titanium.App.Android#R) for more information on accessing\nAndroid resources by ID.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        },
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "bigPicture",
+      "platforms": ["android"],
+      "summary": "Provide the bitmap to be used as the payload for the BigPicture notification.",
+      "description": "Image to display, defined using a local filesystem path, a `File` object, a remote URL,\nor a `Blob` object containing image data.\n\nIf there is a redirect and change in protocol, it will not follow. For example,\nfrom http to https and vice versa. See [Java Bug Database](https://bugs.java.com/bugdatabase/view_bug.do?bug_id=4620571)\nfor more information.\n\nIf specified as a local URL, the bigPicture must be placed in one of the density-specific\nfolders under `Resources/android/images`. For example, if your bigPicture is called\n`my_big_picture.png`, you would create high- and medium-density versions of the bigPicture\nwith the following paths:\n\n```\nResources/android/images/res-hdpi/my_big_picture.png\nResources/android/images/res-mdpi/my_big_picture.png\n```\n\nTo access this bigPicture, you'd use the URL '/images/my_big_picture.png'.\n\nTo access the same bigPicture using an Android resource ID, place the bigPicture in:\n\n```\nplatform/android/res/drawable/my_big_picture.png\n```\n\nThis bigPicture's resource ID can be referenced through the [Titanium.App.Android.R](api:Titanium.App.Android#R)\nobject:\n\n``` js\nbigPicture: Ti.App.Android.R.drawable.my_big_picture,\n```\n\nSee [Titanium.App.Android.R](api:Titanium.App.Android#R) for more information on accessing\nAndroid resources by ID.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        },
+        {
+          "kind": "primitive",
+          "name": "String"
+        },
+        {
+          "kind": "type",
+          "name": "Titanium.Blob"
+        },
+        {
+          "kind": "type",
+          "name": "Titanium.Filesystem.File"
+        }
+      ]
+    },
+    {
+      "name": "decodeRetries",
+      "platforms": ["android"],
+      "summary": "Number of times to retry decoding the bitmap at bigPicture URL.",
+      "description": "Defaults to 2 on Titanium 10.1.0 and higher. Defaults to 5 on older SDK versions.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "default": "2"
+    },
+    {
+      "name": "summaryText",
+      "platforms": ["android"],
+      "summary": "Set the first line of text after the detail section in the big form of the notification.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    }
+  ],
+  "methods": [],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": ["android"]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": ["android"]
+      },
+      {
+        "name": "lifecycleContainer",
+        "from": "Titanium.Proxy",
+        "platforms": ["android"]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["android"]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": ["android"]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": ["android"]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["android"]
+      }
+    ],
+    "events": []
+  },
+  "references": [
+    "Titanium.Android.Notification",
+    "Titanium.App.Android",
+    "Titanium.Blob",
+    "Titanium.Filesystem.File",
+    "Titanium.Proxy",
+    "Titanium.UI.Notification"
+  ],
+  "source": "Titanium/Android/BigPictureStyle.yml"
+}

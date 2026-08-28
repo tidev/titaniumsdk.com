@@ -1,0 +1,168 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.App.iOS.UserNotificationCategory",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": ["Titanium.Proxy"],
+  "platforms": ["iphone", "ipad", "macos"],
+  "since": "3.4.0",
+  "summary": "A set of notification actions to associate with a notification.",
+  "description": "To create a notification category, use the [Titanium.App.iOS.createUserNotificationCategory](api:Titanium.App.iOS#createUserNotificationCategory) method.\n\nA notification category represents a collection of [Titanium.App.iOS.UserNotificationAction](api:Titanium.App.iOS.UserNotificationAction)\nto associate with a specific notification.  The notification category allows the application to\ncustomize the notification options based on which notification style is used.  For alert dialogs,\nonly four notification actions can be displayed, while all other notifications can only display two\nactions.\n\nTo use a local interactive notification, you need to register the notification category using\nthe [Titanium.App.iOS.registerUserNotificationSettings](api:Titanium.App.iOS#registerUserNotificationSettings) method and send a notification using the\n[Titanium.App.iOS.scheduleLocalNotification](api:Titanium.App.iOS#scheduleLocalNotification) and pass the category identifier to the `category`\nproperty.\n",
+  "properties": [
+    {
+      "name": "actionsForDefaultContext",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Array of notification actions to associate with the group.",
+      "description": "Note that only the first four actions can be displayed for an alert dialog and on the Apple Watch.\nThe first two actions can be displayed for all other notifications.\n",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Array",
+          "args": [
+            {
+              "kind": "type",
+              "name": "Titanium.App.iOS.UserNotificationAction"
+            }
+          ]
+        }
+      ],
+      "availability": "creation"
+    },
+    {
+      "name": "actionsForMinimalContext",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Array of notification actions to display for non-dialog-style notification.",
+      "description": "If not specified, the first two actions from `actionsForDefaultContent` are displayed.\nNote: This property has been removed in iOS 10. iOS 10+ will handle the actions internally.\n",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Array",
+          "args": [
+            {
+              "kind": "type",
+              "name": "Titanium.App.iOS.UserNotificationAction"
+            }
+          ]
+        }
+      ],
+      "availability": "creation",
+      "osver": {
+        "ios": {
+          "max": 9.3
+        }
+      }
+    },
+    {
+      "name": "categorySummaryFormat",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "A format string for the summary description used when the system groups the category's notifications.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "7.4.0",
+      "availability": "creation",
+      "osver": {
+        "ios": {
+          "min": 12
+        }
+      }
+    },
+    {
+      "name": "hiddenPreviewsBodyPlaceholder",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "The placeholder text to display when notification previews are disabled for the app.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "availability": "creation",
+      "osver": {
+        "ios": {
+          "min": 11
+        }
+      }
+    },
+    {
+      "name": "identifier",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Identifier for this category.",
+      "description": "When scheduling a notification, pass this value to the `category` property.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "availability": "creation"
+    },
+    {
+      "name": "intentIdentifiers",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "The intents related to notifications of this category.",
+      "description": "When a notification is delivered, the presence of an intent identifier\nlets the system know that the notification is potentially related to the\nhandling of a request made through Siri.\n",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Array",
+          "args": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ],
+      "availability": "creation",
+      "osver": {
+        "ios": {
+          "min": 10
+        }
+      }
+    },
+    {
+      "name": "options",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Options for how to handle notifications of this type.",
+      "description": "If not specified, defaults to [Titanium.App.iOS.USER_NOTIFICATION_CATEGORY_OPTION_NONE](api:Titanium.App.iOS#USER_NOTIFICATION_CATEGORY_OPTION_NONE).",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Array",
+          "args": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ],
+      "availability": "creation",
+      "osver": {
+        "ios": {
+          "min": 10
+        }
+      },
+      "constants": ["Titanium.App.iOS.USER_NOTIFICATION_CATEGORY_OPTION_*"]
+    }
+  ],
+  "methods": [],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone", "ipad", "macos"]
+      }
+    ],
+    "methods": [],
+    "events": []
+  },
+  "references": ["Titanium.App.iOS", "Titanium.App.iOS.UserNotificationAction", "Titanium.Proxy"],
+  "source": "Titanium/App/iOS/UserNotificationCategory.yml"
+}

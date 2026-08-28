@@ -1,0 +1,142 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.UI.iOS.AnchorAttachmentBehavior",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": ["Titanium.Proxy"],
+  "platforms": ["iphone", "ipad", "macos"],
+  "since": {
+    "iphone": "3.2.0",
+    "ipad": "3.2.0",
+    "macos": "9.2.0"
+  },
+  "summary": "Dynamic behavior to support connections between an anchor point and an item.",
+  "description": "An anchor attachment behavior creates a dynamic connection between an anchor point and an item.\nTo define an anchor attachment behavior:\n\n  1. Use the [Titanium.UI.iOS.createAnchorAttachmentBehavior](api:Titanium.UI.iOS#createAnchorAttachmentBehavior) method to create a behavior.\n  2. Set the [anchor](api:Titanium.UI.iOS.AnchorAttachmentBehavior#anchor) and\n     [item](api:Titanium.UI.iOS.AnchorAttachmentBehavior#item) properties.\n  3. Add the behavior to the [Animator object](api:Titanium.UI.iOS.Animator).\n\nTo create a dynamic connection between two items, use [Titanium.UI.iOS.ViewAttachmentBehavior](api:Titanium.UI.iOS.ViewAttachmentBehavior).\n",
+  "examples": [
+    {
+      "title": "Simple Example",
+      "code": "The following example creates a red block and anchors it to a point near the top-center of\nthe window.  Using a gravitational force, the red block swings like a pendulum.\n\n<img src=\"./anchorattachment.gif\" height=\"200\" style=\"border:1px solid black\"/>\n\n``` js\nvar win = Ti.UI.createWindow({backgroundColor: 'white', fullscreen: true});\n\n// Create an Animator object using the window as the coordinate system\nvar animator = Ti.UI.iOS.createAnimator({referenceView: win});\n\n// Create a red block to animate\nvar redBlock = Ti.UI.createView({\n    backgroundColor: 'red',\n    width: 25,\n    height: 25,\n    top: 10,\n    left: 25\n});\n\nvar WIDTH = Ti.Platform.displayCaps.platformWidth;\n\n// Anchor the red block to a point near the top-center\nvar anchor = Ti.UI.iOS.createAnchorAttachmentBehavior({\n    anchor: {x: WIDTH/2, y: 10},\n    item: redBlock\n});\nanimator.addBehavior(anchor);\n\n// Simulate Earth's gravity to allow the pendulum to swing\nvar gravity = Ti.UI.iOS.createGravityBehavior({\n    gravityDirection: {x: 0.0, y: 1.0}\n});\ngravity.addItem(redBlock);\nanimator.addBehavior(gravity);\n\n// Start the animation when the window opens\nwin.addEventListener('open', function(e){\n    animator.startAnimator();\n});\n\nwin.add(redBlock);\nwin.open();\n```\n"
+    }
+  ],
+  "properties": [
+    {
+      "name": "anchor",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Anchor point for the attachment behavior relative to the animator's coordinate system.",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Point"
+        }
+      ],
+      "default": "(0,0)"
+    },
+    {
+      "name": "damping",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Amount of damping to apply to the attachment behavior.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "default": "0"
+    },
+    {
+      "name": "distance",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Distance, in points, between the two attachment points.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "default": "0"
+    },
+    {
+      "name": "frequency",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Frequency of oscillation for the behavior.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "default": "0"
+    },
+    {
+      "name": "item",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Item to connect to use the attachment behavior.",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.UI.View"
+        }
+      ]
+    },
+    {
+      "name": "offset",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Offset from the center point of the item for the attachment.",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Point"
+        }
+      ],
+      "default": "(0,0)"
+    }
+  ],
+  "methods": [],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone", "ipad", "macos"]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone", "ipad", "macos"]
+      }
+    ],
+    "events": []
+  },
+  "references": [
+    "Point",
+    "Titanium.Proxy",
+    "Titanium.UI.View",
+    "Titanium.UI.iOS",
+    "Titanium.UI.iOS.Animator",
+    "Titanium.UI.iOS.ViewAttachmentBehavior"
+  ],
+  "source": "Titanium/UI/iOS/AnchorAttachmentBehavior.yml"
+}

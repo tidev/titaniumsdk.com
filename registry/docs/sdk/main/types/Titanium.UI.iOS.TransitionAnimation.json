@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.UI.iOS.TransitionAnimation",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": ["Titanium.Proxy"],
+  "platforms": ["iphone", "ipad", "macos"],
+  "since": {
+    "iphone": "3.2.0",
+    "ipad": "3.2.0",
+    "macos": "9.2.0"
+  },
+  "summary": "A transition animation when opening or closing windows in a\n[Titanium.UI.NavigationWindow](api:Titanium.UI.NavigationWindow) or [Titanium.UI.Tab](api:Titanium.UI.Tab).\n\nUse this proxy with the Window's\n[transitionAnimation](api:Titanium.UI.Window#transitionAnimation) property.\n",
+  "examples": [
+    {
+      "title": "Simple Example",
+      "code": "In this example, the red window opens with a transition animation, while closing it uses the\ndefault behavior where it slides off screen.  To add a transition animation when the red\nwindow closes, define a transition animation for the blue window.\n\n``` js\nvar transition = Ti.UI.iOS.createTransitionAnimation({\n    duration: 300,\n    // The show transition makes the window opaque and rotates it correctly\n    transitionTo: {\n        opacity: 1,\n        duration: 300,\n        transform: Ti.UI.createMatrix2D()\n    },\n    // The hide transition makes the window transparent and rotates it upside down\n    transitionFrom: {\n        opacity: 0,\n        duration: 300 / 2,\n        transform: Ti.UI.createMatrix2D().rotate(180),\n    }\n});\n\nvar win2 = Ti.UI.createWindow({\n    backgroundColor: 'red',\n    title: 'Red Window',\n    transitionAnimation: transition,\n    opacity: 0,\n    transform: Ti.UI.createMatrix2D().rotate(180)\n});\nvar button2 = Ti.UI.createButton({\n    title: 'Close Red Window'\n});\nbutton2.addEventListener('click', function(){\n    nav.closeWindow(win2);\n    // In order to see the blue window again,\n    // need to reverse the transition animation\n    win1.opacity = 1;\n    win1.transform = Ti.UI.createMatrix2D().rotate(0);\n});\nwin2.add(button2);\n\nvar win1 = Ti.UI.createWindow({\n    backgroundColor: 'blue',\n    title: 'Blue Window',\n    // Uncomment to use a transition animation when the blue window is closed\n    // transitionAnimation: transition\n});\nvar button1 = Ti.UI.createButton({title: 'Open Red Window'});\nbutton1.addEventListener('click', function(){\n    nav.openWindow(win2);\n});\nwin1.add(button1);\n\nvar nav = Ti.UI.createNavigationWindow({\n    window: win1\n});\nnav.open();\n```\n"
+    }
+  ],
+  "properties": [
+    {
+      "name": "duration",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Length of the transition in milliseconds.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ]
+    },
+    {
+      "name": "transitionFrom",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Animation to hide the current window.",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.UI.Animation"
+        }
+      ]
+    },
+    {
+      "name": "transitionTo",
+      "platforms": ["iphone", "ipad", "macos"],
+      "summary": "Animation to show the new window.",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.UI.Animation"
+        }
+      ]
+    }
+  ],
+  "methods": [],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone", "ipad", "macos"]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone", "ipad", "macos"]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone", "ipad", "macos"]
+      }
+    ],
+    "events": []
+  },
+  "references": [
+    "Titanium.Proxy",
+    "Titanium.UI.Animation",
+    "Titanium.UI.NavigationWindow",
+    "Titanium.UI.Tab",
+    "Titanium.UI.Window"
+  ],
+  "source": "Titanium/UI/iOS/TransitionAnimation.yml"
+}

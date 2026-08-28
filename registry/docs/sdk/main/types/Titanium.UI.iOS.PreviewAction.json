@@ -1,0 +1,138 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.UI.iOS.PreviewAction",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": ["Titanium.Proxy"],
+  "platforms": ["iphone"],
+  "since": "5.1.0",
+  "summary": "A PreviewAction provides options to configure actions used by the iOS 9 3D-Touch \"Peek and Pop\"\nfeature.\n",
+  "description": "The PreviewAction is created by the [Titanium.UI.iOS.createPreviewAction](api:Titanium.UI.iOS#createPreviewAction) method. Set the\n`title` property when creating a PreviewAction object.\n\nUse this class to configure preview actions used in the [Titanium.UI.iOS.PreviewContext](api:Titanium.UI.iOS.PreviewContext). The actions\ncan also be part of the [Titanium.UI.iOS.PreviewActionGroup.actions](api:Titanium.UI.iOS.PreviewActionGroup#actions) property.\n\nFor an example, see [Titanium.UI.iOS.PreviewContext](api:Titanium.UI.iOS.PreviewContext).\n\nSee also:\n\n* [iOS Developer Library: Adopting 3D Touch on iPhone](https://developer.apple.com/library/content/documentation/UserExperience/Conceptual/Adopting3DTouchOniPhone/3DTouchAPIs.html)\n",
+  "properties": [
+    {
+      "name": "style",
+      "platforms": ["iphone"],
+      "summary": "The style of the action.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "default": "Titanium.UI.iOS.PREVIEW_ACTION_STYLE_DEFAULT",
+      "constants": [
+        "Titanium.UI.iOS.PREVIEW_ACTION_STYLE_DEFAULT",
+        "Titanium.UI.iOS.PREVIEW_ACTION_STYLE_SELECTED",
+        "Titanium.UI.iOS.PREVIEW_ACTION_STYLE_DESTRUCTIVE"
+      ]
+    },
+    {
+      "name": "title",
+      "platforms": ["iphone"],
+      "summary": "The title of the action.",
+      "description": "Provides a title to be shown when \"peeking\" a view referenced in the [Titanium.UI.iOS.PreviewContext](api:Titanium.UI.iOS.PreviewContext).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    }
+  ],
+  "methods": [],
+  "events": [
+    {
+      "name": "click",
+      "platforms": ["iphone"],
+      "summary": "Fired when the device detects a click against a preview action.",
+      "description": "This event provides different properties depending on the view the [Titanium.UI.iOS.PreviewContext](api:Titanium.UI.iOS.PreviewContext)\nis assigned to. Every event has the `index` property to identify the clicked action. If the [Titanium.UI.iOS.PreviewContext](api:Titanium.UI.iOS.PreviewContext)\nis assigned to a [Titanium.UI.ListView](api:Titanium.UI.ListView), the event provides the additional properties `itemIndex`, `sectionIndex` \nand `itemId` to identify the previewed row and section, respectively.\n",
+      "properties": [
+        {
+          "name": "index",
+          "summary": "The index of the clicked action.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "itemIndex",
+          "summary": "The index of the clicked row, if the `previewContext` property of the [Titanium.UI.iOS.PreviewContext](api:Titanium.UI.iOS.PreviewContext)\nis a [Titanium.UI.ListView](api:Titanium.UI.ListView).\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "sectionIndex",
+          "summary": "The index of the clicked section, if the `previewContext` property of the [Titanium.UI.iOS.PreviewContext](api:Titanium.UI.iOS.PreviewContext)\nis a [Titanium.UI.ListView](api:Titanium.UI.ListView).\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "itemId",
+          "summary": "The item ID of cell, if the `previewContext` property of the [Titanium.UI.iOS.PreviewContext](api:Titanium.UI.iOS.PreviewContext)\nis a [Titanium.UI.ListView](api:Titanium.UI.ListView).\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone"]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone"]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone"]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone"]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone"]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone"]
+      }
+    ],
+    "events": []
+  },
+  "references": [
+    "Titanium.Proxy",
+    "Titanium.UI.ListView",
+    "Titanium.UI.iOS",
+    "Titanium.UI.iOS.PreviewActionGroup",
+    "Titanium.UI.iOS.PreviewContext"
+  ],
+  "source": "Titanium/UI/iOS/PreviewAction.yml"
+}

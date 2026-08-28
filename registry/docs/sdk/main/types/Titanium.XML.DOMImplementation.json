@@ -1,0 +1,197 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.XML.DOMImplementation",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": ["Titanium.Proxy"],
+  "platforms": ["android", "iphone", "ipad", "macos"],
+  "since": {
+    "android": "1.8.0",
+    "iphone": "1.8.0",
+    "ipad": "1.8.0",
+    "macos": "9.2.0"
+  },
+  "summary": "The [Titanium.XML.DOMImplementation](api:Titanium.XML.DOMImplementation) interface provides a number of methods for performing operations that are independent of any particular instance of the document object model.Implements the [DOM Level 2 API](https://www.w3.org/TR/DOM-Level-2-Core/core.html#ID-102161490) on Android and iOS.",
+  "properties": [],
+  "methods": [
+    {
+      "name": "createDocument",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Creates an [Titanium.XML.Document](api:Titanium.XML.Document) object of the specified type with its document element. Raises an exception if qualifiedName is malformed, contains an illegal character, or is inconsistent with namespaceURI. Also raises an exception if doctype has already been used with a different document.",
+      "parameters": [
+        {
+          "name": "namespaceURI",
+          "summary": "The namespace URI of the document element to create.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "qualifiedName",
+          "summary": "The qualified name of the document element to be created.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "doctype",
+          "summary": "The type of document to be created or null. When doctype is not null, its Node.ownerDocument attribute is set to the document being created.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.XML.DocumentType"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.XML.Document"
+            }
+          ],
+          "summary": "A new [Titanium.XML.Document](api:Titanium.XML.Document) object"
+        }
+      ]
+    },
+    {
+      "name": "createDocumentType",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Creates an empty [Titanium.XML.DocumentType](api:Titanium.XML.DocumentType) node. Entity declarations and notations are not made available. Entity reference expansions and default attribute additions do not occur. Raises an exception if qualifiedName is malformed or contains an illegal character.",
+      "parameters": [
+        {
+          "name": "qualifiedName",
+          "summary": "The qualified name of the document type to be created.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "publicId",
+          "summary": "The external subset public identifier.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "systemId",
+          "summary": "The external subset system identifier.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.XML.DocumentType"
+            }
+          ],
+          "summary": "A new [Titanium.XML.DocumentType](api:Titanium.XML.DocumentType) node with Node.ownerDocument set to null."
+        }
+      ]
+    },
+    {
+      "name": "hasFeature",
+      "platforms": ["android", "iphone", "ipad", "macos"],
+      "summary": "Test if the [Titanium.XML.DOMImplementation](api:Titanium.XML.DOMImplementation) implements a specific feature.",
+      "parameters": [
+        {
+          "name": "feature",
+          "summary": "The name of the feature to test (case-insensitive). The values used by DOM features are defined throughout the DOM Level 2 specifications and listed in the Conformance section. The name must be an XML name. To avoid possible conflicts, as a convention, names referring to features defined outside the DOM specification should be made unique by reversing the name of the Internet domain name of the person (or the organization that the person belongs to) who defines the feature, component by component, and using this as a prefix. For instance, the W3C SVG Working Group defines the feature \"org.w3c.dom.svg\".",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "version",
+          "summary": "This is the version number of the feature to test. In Level 2, the string can be either \"2.0\" or \"1.0\". If the version is not specified, supporting any version of the feature causes the method to return true.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ],
+          "summary": "true if the feature is implemented in the specified version, false otherwise."
+        }
+      ]
+    }
+  ],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "lifecycleContainer",
+        "from": "Titanium.Proxy",
+        "platforms": ["android"]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["android", "iphone", "ipad", "macos"]
+      }
+    ],
+    "events": []
+  },
+  "references": ["Titanium.Proxy", "Titanium.XML.Document", "Titanium.XML.DocumentType"],
+  "source": "Titanium/XML/DOMImplementation.yml"
+}

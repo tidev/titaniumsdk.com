@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.UI.iOS.FeedbackGenerator",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": ["Titanium.Proxy"],
+  "platforms": ["iphone"],
+  "since": "6.0.0",
+  "summary": "The feedback generator API is introduced in iOS 10 to handle the haptic feedback when using an iPhone 7 or \nlater devices.\n",
+  "description": "On supported devices, haptics provide a way to physically engage users with tactile feedback that gets attention and\nreinforces actions. Some system-provided interface elements, such as pickers, switches, and sliders, automatically provide\nhaptic feedback as users interact with them. Your app can also ask the system to generate different types of haptic feedback.\niOS manages the strength and behavior of this feedback.\n\nThere are three different kind of feedback generators that can be used for different interaction scenarios:\n \n  1. **Selection Feedback**: Indicates that a task or action, such as depositing a check or unlocking a vehicle, has completed,\n     failed, or produced a warning of some kind. This feedback type can be used when specifying the\n     [Titanium.UI.iOS.FEEDBACK_GENERATOR_TYPE_SELECTION](api:Titanium.UI.iOS#FEEDBACK_GENERATOR_TYPE_SELECTION) constant in the `type` property of the feedback generator.\n\n  2. **Impact Feedback**: Provides a physical metaphor that complements the visual experience. For example, the user might feel\n     a thud when a view slides into place or two objects collide. This feedback type can be used when specifying the\n     [Titanium.UI.iOS.FEEDBACK_GENERATOR_TYPE_IMPACT](api:Titanium.UI.iOS#FEEDBACK_GENERATOR_TYPE_IMPACT) constant in the `type` property of the feedback generator. Note that if you use\n     this generator type, you also have to specify the `style` property that can be one of the\n     [Titanium.UI.iOS.FEEDBACK_GENERATOR_IMPACT_STYLE_LIGHT](api:Titanium.UI.iOS#FEEDBACK_GENERATOR_IMPACT_STYLE_LIGHT), [Titanium.UI.iOS.FEEDBACK_GENERATOR_IMPACT_STYLE_MEDIUM](api:Titanium.UI.iOS#FEEDBACK_GENERATOR_IMPACT_STYLE_MEDIUM) or\n     [Titanium.UI.iOS.FEEDBACK_GENERATOR_IMPACT_STYLE_HEAVY](api:Titanium.UI.iOS#FEEDBACK_GENERATOR_IMPACT_STYLE_HEAVY) constants.\n\n  3. **Notification Feedback**: Indicates that the selection is actively changing. For example, the user feels light taps while\n     scrolling a picker wheel. This feedback is intended for communicating movement through a series of discrete values, not\n     making or confirming a selection. This feedback type can be used when using the [Titanium.UI.iOS.FEEDBACK_GENERATOR_TYPE_NOTIFICATION](api:Titanium.UI.iOS#FEEDBACK_GENERATOR_TYPE_NOTIFICATION)\n     constant in the `type` property of the feedback generator.\n     \n**Example**\nWhen clicking a button you should trigger an impact feedback as displayed below.\n\n``` js\nvar generator = Ti.UI.iOS.createFeedbackGenerator({\n  type: Ti.UI.iOS.FEEDBACK_GENERATOR_TYPE_IMPACT,\n  style: Ti.UI.iOS.FEEDBACK_GENERATOR_IMPACT_STYLE_LIGHT\n});\ngenerator.impactOccurred();     \n```\n  \nWe're not using `generator.prepare()` here because we're triggering the feedback immediately. When you know a feedback generator is triggered within a couple seconds you should use `prepare()` to know for sure the timing is correct.\n\nSee also:\n\n  * [iOS Developer Library: Haptic Feedback](https://developer.apple.com/ios/human-interface-guidelines/interaction/feedback/)\n",
+  "properties": [
+    {
+      "name": "style",
+      "platforms": ["iphone"],
+      "summary": "The style of the feedback generator you want to create. This property is only required when using [Titanium.UI.iOS.FEEDBACK_GENERATOR_TYPE_IMPACT](api:Titanium.UI.iOS#FEEDBACK_GENERATOR_TYPE_IMPACT).",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "availability": "creation",
+      "default": "<Titanium.UI.iOS.FEEDBACK_GENERATOR_IMPACT_STYLE_MEDIUM>",
+      "optional": true,
+      "constants": ["Titanium.UI.iOS.FEEDBACK_GENERATOR_IMPACT_STYLE_*"]
+    },
+    {
+      "name": "type",
+      "platforms": ["iphone"],
+      "summary": "The type of feedback generator you want to create.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "availability": "creation",
+      "constants": ["Titanium.UI.iOS.FEEDBACK_GENERATOR_TYPE_*"]
+    }
+  ],
+  "methods": [
+    {
+      "name": "impactOccurred",
+      "platforms": ["iphone"],
+      "summary": "Used to trigger a haptic feedback after an impact occurred.",
+      "description": "Note that this method can only be used if the feeback generator type is set to\n[Titanium.UI.iOS.FEEDBACK_GENERATOR_TYPE_IMPACT](api:Titanium.UI.iOS#FEEDBACK_GENERATOR_TYPE_IMPACT).\n"
+    },
+    {
+      "name": "notificationOccurred",
+      "platforms": ["iphone"],
+      "summary": "Used to trigger a haptic feedback after a notification has been received.",
+      "description": "Note that this method can only be used if the feeback generator type is set to\n[Titanium.UI.iOS.FEEDBACK_GENERATOR_TYPE_NOTIFICATION](api:Titanium.UI.iOS#FEEDBACK_GENERATOR_TYPE_NOTIFICATION). The single argument provided is one of the\n",
+      "parameters": [
+        {
+          "name": "notificationType",
+          "summary": "The type of the notification to manage the peculiarity of the haptic feedback. If this\nparameter is not specified, an error will be thrown.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "prepare",
+      "platforms": ["iphone"],
+      "summary": "Used to prepare the haptic sensor for the upcoming interaction with it.",
+      "description": "Apple recommends to use this method before calling one of the `selectionChanged`,\n`impactOccurred` or `notificationOccurred` methods to reduce a possible latency.      \n"
+    },
+    {
+      "name": "selectionChanged",
+      "platforms": ["iphone"],
+      "summary": "Used to trigger a haptic feedback after a selection has been made.",
+      "description": "Note that this method can only be used if the feeback generator type is set to\n[Titanium.UI.iOS.FEEDBACK_GENERATOR_TYPE_SELECTION](api:Titanium.UI.iOS#FEEDBACK_GENERATOR_TYPE_SELECTION).\n"
+    }
+  ],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone"]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone"]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone"]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone"]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone"]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["iphone"]
+      }
+    ],
+    "events": []
+  },
+  "references": ["Titanium.Proxy", "Titanium.UI.iOS"],
+  "source": "Titanium/UI/iOS/FeedbackGenerator.yml"
+}

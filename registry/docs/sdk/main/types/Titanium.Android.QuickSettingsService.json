@@ -1,0 +1,530 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.Android.QuickSettingsService",
+  "kind": "proxy",
+  "extends": "Titanium.Android.Service",
+  "inheritanceChain": ["Titanium.Android.Service", "Titanium.Proxy"],
+  "platforms": ["android"],
+  "since": "7.0",
+  "summary": "Android service for creating custom quick settings tiles and handling user's interaction with them.",
+  "description": "A special kind of service providing access to a tile in the quick settings menu. Used for customization\nand event handling of the tile. Usage is similar to default [Titanium.Android.Service](api:Titanium.Android.Service) but with the\naddition of some specific attributes and methods. This service is not started from within the application \nwith the help of an Intent, but instead whenever the custom tile is added in the quick settings menu by the\nuser. Applications can have multiple tiles in the quick settings menu, but a [Titanium.Android.QuickSettingsService](api:Titanium.Android.QuickSettingsService)\ncorresponds to a single one - you need separate service file for every tile.\n\nTo create a service file:\n\n  1. Write the JavaScript code you want the service to execute in a separate file.\n     The service can execute any Titanium APIs but you should only use non-UI APIs.\n  2. Register the service in your `tiapp.xml` file. Refer to the example below.\n\n  Icons used for the 'icon' attribute in the service declaration in tiapp.xml must\n  be in the Android drawables folder, so they you should be put under\n  `platform/android/res/drawable`\n  Icons added with the setIcon method can be outside the directory.\n\nTo get a reference to the `Service` inside the JavaScript service code, use the\n[Titanium.Android.currentService](api:Titanium.Android#currentService) property to retrieve a reference to the service,\n\nFurther Reading:\n\n  * [Android Quick Settings Tile API](https://developer.android.com/about/versions/nougat/android-7.0.html#tile_api)\n",
+  "examples": [
+    {
+      "title": "Update Tile Example",
+      "code": "This example shows how to create a service in JavaScript.\nIt will update the Tile in quick settings according to the\nuser's interaction.\n\nFile: updatequicksettings.js:\n``` js\nvar service = Ti.Android.currentService;\nservice.addEventListener('click', function () {\n\n  if (service.getState() == Ti.Android.TILE_STATE_ACTIVE) {\n    service.setState(Ti.Android.TILE_STATE_INACTIVE);\n    service.setLabel('Inactive');\n    service.setIcon('inactive.png');\n  } else {\n    service.setState(Ti.Android.TILE_STATE_ACTIVE);\n    service.setLabel('Active');\n    service.setIcon('active.png');\n  }\n  service.updateTile();\n}\n```\n\nRegister the service in tiapp.xml:\n``` xml\n<ti:app>\n    <android xmlns:android=\"http://schemas.android.com/apk/res/android\">\n        <services>\n            <service url=\"updatequicksettings.js\" type=\"quicksettings\" label=\"Active\" icon=\"active.png\"/>\n        </services>\n    </android>\n</ti:app>\n```\n"
+    }
+  ],
+  "properties": [
+    {
+      "name": "icon",
+      "platforms": ["android"],
+      "summary": "Changes the Tile's icon.",
+      "description": "If no image is passed as Tile icon it will use the Application's one.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        },
+        {
+          "kind": "type",
+          "name": "Titanium.Blob"
+        },
+        {
+          "kind": "type",
+          "name": "Titanium.Filesystem.File"
+        }
+      ],
+      "since": "10.0.0"
+    },
+    {
+      "name": "label",
+      "platforms": ["android"],
+      "summary": "The Tile's label.",
+      "description": "If no label is set the Tile uses the Application name.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "10.0.0"
+    },
+    {
+      "name": "state",
+      "platforms": ["android"],
+      "summary": "Sets the state of the Tile.",
+      "description": "State can be one of the following: [TILE_STATE_UNAVAILABLE](api:Titanium.Android#TILE_STATE_UNAVAILABLE),\n[TILE_STATE_INACTIVE](api:Titanium.Android#TILE_STATE_INACTIVE),\n[TILE_STATE_ACTIVE](api:Titanium.Android#TILE_STATE_ACTIVE)\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "10.0.0",
+      "constants": ["Titanium.Android.TILE_STATE_*"]
+    }
+  ],
+  "methods": [
+    {
+      "name": "getIcon",
+      "platforms": ["android"],
+      "summary": "Returns the Tile's current icon.",
+      "deprecated": {
+        "since": "10.0.0",
+        "notes": "Please use the [icon](Titanium.Android.QuickSettingsService.icon) property to get/set the value."
+      },
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            },
+            {
+              "kind": "type",
+              "name": "Titanium.Blob"
+            },
+            {
+              "kind": "type",
+              "name": "Titanium.Filesystem.File"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "getLabel",
+      "platforms": ["android"],
+      "summary": "Returns the Tile's current label.",
+      "deprecated": {
+        "since": "10.0.0",
+        "notes": "Please use the [label](Titanium.Android.QuickSettingsService.label) property to get/set the value."
+      },
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "getState",
+      "platforms": ["android"],
+      "summary": "Returns the Tile's current state.",
+      "deprecated": {
+        "since": "10.0.0",
+        "notes": "Please use the [state](Titanium.Android.QuickSettingsService.state) property to get/set the value."
+      },
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "isLocked",
+      "platforms": ["android"],
+      "summary": "Returns 'true' if the device is currently locked, 'false' otherwise.",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "isSecure",
+      "platforms": ["android"],
+      "summary": "Returns 'true' if the device is in secure state, 'false' otherwise.",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "setIcon",
+      "platforms": ["android"],
+      "summary": "Changes the Tile's icon.",
+      "description": "If no image is passed as Tile icon it will use the Application's one.\n",
+      "deprecated": {
+        "since": "10.0.0",
+        "notes": "Please use the [icon](Titanium.Android.QuickSettingsService.icon) property to get/set the value."
+      },
+      "parameters": [
+        {
+          "name": "icon",
+          "summary": "Source of the icon image",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            },
+            {
+              "kind": "type",
+              "name": "Titanium.Blob"
+            },
+            {
+              "kind": "type",
+              "name": "Titanium.Filesystem.File"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "setLabel",
+      "platforms": ["android"],
+      "summary": "Changes the Tile's label.",
+      "description": "If no label is set the Tile uses the Application name.\n",
+      "deprecated": {
+        "since": "10.0.0",
+        "notes": "Please use the [label](Titanium.Android.QuickSettingsService.label) property to get/set the value."
+      },
+      "parameters": [
+        {
+          "name": "label",
+          "summary": "String to be used.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "setState",
+      "platforms": ["android"],
+      "summary": "Sets the state of the Tile.",
+      "description": "State can be one of the following: [TILE_STATE_UNAVAILABLE](api:Titanium.Android#TILE_STATE_UNAVAILABLE),\n[TILE_STATE_INACTIVE](api:Titanium.Android#TILE_STATE_INACTIVE),\n[TILE_STATE_ACTIVE](api:Titanium.Android#TILE_STATE_ACTIVE)\n",
+      "deprecated": {
+        "since": "10.0.0",
+        "notes": "Please use the [state](Titanium.Android.QuickSettingsService.state) property to get/set the value."
+      },
+      "parameters": [
+        {
+          "name": "state",
+          "summary": "State to be set.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "showDialog",
+      "platforms": ["android"],
+      "summary": "Opens an Alert dialog.",
+      "description": "Creates and shows a default Alert dialog with the provided options dictionary.\n\nNote: Alert dialog only supports one of the following: message/options.\nIf you pass both - only `message` will be shown.\n",
+      "parameters": [
+        {
+          "name": "options",
+          "summary": "Dictionary containing the options for the dialog.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "QuickSettingsServiceShowParams"
+            }
+          ],
+          "inlined": {
+            "name": "QuickSettingsServiceShowParams",
+            "summary": "Dictionary of options for the [Titanium.Android.QuickSettingsService.showDialog](api:Titanium.Android.QuickSettingsService#showDialog) method.",
+            "properties": [
+              {
+                "name": "buttonNames",
+                "platforms": ["android", "iphone", "ipad", "macos"],
+                "summary": "Array of String instances.",
+                "description": "They will be shown as buttons' titles. They are limited up\nto three buttons and with a predefined order - positive, neutral, negative. See events.\n",
+                "type": [
+                  {
+                    "kind": "generic",
+                    "name": "Array",
+                    "args": [
+                      {
+                        "kind": "primitive",
+                        "name": "String"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "message",
+                "platforms": ["android", "iphone", "ipad", "macos"],
+                "summary": "String to be used as a message for the dialog.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  }
+                ]
+              },
+              {
+                "name": "options",
+                "platforms": ["android", "iphone", "ipad", "macos"],
+                "summary": "Array of String instances.",
+                "description": "They will be shown as a single choice list.\n",
+                "type": [
+                  {
+                    "kind": "generic",
+                    "name": "Array",
+                    "args": [
+                      {
+                        "kind": "primitive",
+                        "name": "String"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "title",
+                "platforms": ["android", "iphone", "ipad", "macos"],
+                "summary": "String to be used as title for the dialog.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "startActivityAndCollapse",
+      "platforms": ["android"],
+      "summary": "Collapses the quick settings menu and starts an activity for the passed Intent.",
+      "parameters": [
+        {
+          "name": "intent",
+          "summary": "Intent to be fired.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Android.Intent"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "unlockAndRun",
+      "platforms": ["android"],
+      "summary": "Prompts the user to unlock the device and runs the JS code.",
+      "parameters": [
+        {
+          "name": "jsCode",
+          "summary": "JavaScript code to be evaluated.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "updateTile",
+      "platforms": ["android"],
+      "summary": "Applies current tile's properties.",
+      "description": "Updates the Tile's with it's current label, icon and state.\n"
+    }
+  ],
+  "events": [
+    {
+      "name": "startlistening",
+      "platforms": ["android"],
+      "summary": "Tile is listening for events.",
+      "description": "Dispatched whenever the user has opened the quick setting menu and the Tile is added in there.\n"
+    },
+    {
+      "name": "stoplistening",
+      "platforms": ["android"],
+      "summary": "Tile has stopped listening for events.",
+      "description": "Dispatched whenever the user has collapsed the quick setting menu and the Tile is not visible.\n"
+    },
+    {
+      "name": "tileadded",
+      "platforms": ["android"],
+      "summary": "The Tile has been added in the quick menu.",
+      "description": "Dispatched whenever the user has moved the Tile for this service in the quick settings menu.\n"
+    },
+    {
+      "name": "tiledialogcancelled",
+      "platforms": ["android"],
+      "summary": "Dispatched when the alert dialog has been cancelled."
+    },
+    {
+      "name": "tiledialognegative",
+      "platforms": ["android"],
+      "summary": "Dispatched when the negative (index 2) button has been clicked."
+    },
+    {
+      "name": "tiledialogneutral",
+      "platforms": ["android"],
+      "summary": "Dispatched when the neutral (index 1) button has been clicked."
+    },
+    {
+      "name": "tiledialogoptionselected",
+      "platforms": ["android"],
+      "summary": "An item from the single choice menu has been selected.",
+      "properties": [
+        {
+          "name": "itemIndex",
+          "summary": "Index of the selected item from the single choice menu in the dialog.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "tiledialogpositive",
+      "platforms": ["android"],
+      "summary": "Dispatched when the positive (index 0) button has been clicked."
+    },
+    {
+      "name": "tileremoved",
+      "platforms": ["android"],
+      "summary": "The Tile has been removed from the quick menu.",
+      "description": "Dispatched whenever the user has removed the Tile for this service from the quick settings menu.\n"
+    }
+  ],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": ["android"]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": ["android"]
+      },
+      {
+        "name": "intent",
+        "from": "Titanium.Android.Service",
+        "platforms": ["android"]
+      },
+      {
+        "name": "lifecycleContainer",
+        "from": "Titanium.Proxy",
+        "platforms": ["android"]
+      },
+      {
+        "name": "serviceInstanceId",
+        "from": "Titanium.Android.Service",
+        "platforms": ["android"]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["android"]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": ["android"]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": ["android"]
+      },
+      {
+        "name": "foregroundCancel",
+        "from": "Titanium.Android.Service",
+        "platforms": ["android"]
+      },
+      {
+        "name": "foregroundNotify",
+        "from": "Titanium.Android.Service",
+        "platforms": ["android"]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": ["android"]
+      },
+      {
+        "name": "start",
+        "from": "Titanium.Android.Service",
+        "platforms": ["android"]
+      },
+      {
+        "name": "stop",
+        "from": "Titanium.Android.Service",
+        "platforms": ["android"]
+      }
+    ],
+    "events": [
+      {
+        "name": "pause",
+        "from": "Titanium.Android.Service",
+        "platforms": ["android"]
+      },
+      {
+        "name": "resume",
+        "from": "Titanium.Android.Service",
+        "platforms": ["android"]
+      },
+      {
+        "name": "start",
+        "from": "Titanium.Android.Service",
+        "platforms": ["android"]
+      },
+      {
+        "name": "stop",
+        "from": "Titanium.Android.Service",
+        "platforms": ["android"]
+      },
+      {
+        "name": "taskremoved",
+        "from": "Titanium.Android.Service",
+        "platforms": ["android"]
+      }
+    ]
+  },
+  "references": [
+    "QuickSettingsServiceShowParams",
+    "Titanium.Android",
+    "Titanium.Android.Intent",
+    "Titanium.Android.Service",
+    "Titanium.Blob",
+    "Titanium.Filesystem.File"
+  ],
+  "source": "Titanium/Android/QuickSettingsService.yml"
+}
