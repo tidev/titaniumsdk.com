@@ -4,7 +4,7 @@ import {
   prunedFile,
   type Build,
   type PrunedRun,
-} from './lib/registry-paths.mts';
+} from './lib/registry-paths.ts';
 /**
  * Moves CI builds whose artifacts have expired out of the live lists.
  *
@@ -15,7 +15,7 @@ import {
  *
  * Safe to run repeatedly — it is a no-op when nothing has expired.
  *
- *   node scripts/prune-builds.mts [--check]
+ *   node scripts/prune-builds.ts [--check]
  */
 import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
@@ -27,7 +27,7 @@ const root = fileURLToPath(new URL('..', import.meta.url));
 const buildsDir = join(root, BUILDS_DIR);
 const now = Date.now();
 
-const readJson = <T,>(p: string, fallback: T): T =>
+const readJson = <T>(p: string, fallback: T): T =>
   existsSync(p) ? (JSON.parse(readFileSync(p, 'utf8')) as T) : fallback;
 
 function writeJson(p: string, data: unknown) {

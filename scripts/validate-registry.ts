@@ -15,7 +15,7 @@ import {
  * The schemas are a public contract — the Titanium CLI reads them through the
  * registry API — so a malformed entry has to fail CI rather than ship.
  *
- *   node scripts/validate-registry.mts [dir]
+ *   node scripts/validate-registry.ts [dir]
  */
 import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';

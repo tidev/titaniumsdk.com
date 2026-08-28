@@ -1,4 +1,4 @@
-import { get, paginate, rcompare } from './lib/github.mts';
+import { get, paginate, rcompare } from './lib/github.ts';
 import {
   BUILDS_DIR,
   PRUNED_DIR,
@@ -7,7 +7,7 @@ import {
   prunedFile,
   type Build,
   type PrunedRun,
-} from './lib/registry-paths.mts';
+} from './lib/registry-paths.ts';
 /**
  * Regenerates the SDK release and CI build registry.
  *
@@ -24,7 +24,7 @@ import {
  *   registry/builds/<branch>.json           CI builds
  *   registry/builds/pruned/<branch>.pruned.json
  *
- *   GITHUB_TOKEN=... node scripts/generate-builds.mts
+ *   GITHUB_TOKEN=... node scripts/generate-builds.ts
  */
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
@@ -93,7 +93,7 @@ const RELEASE_ASSET = /^mobilesdk-((\d+\.\d+\.\d+)\.(GA|RC|Beta)\d*)-(\w+)\.zip$
 const BUILD_ARTIFACT = /^mobilesdk-((\d+\.\d+\.\d+)\.(v\d+))-(\w+)$/;
 const BRANCH_NAME = /^(main|master|\d+_\d+_(\d+|[Xx]))$/;
 
-const readJson = <T,>(p: string, fallback: T): T =>
+const readJson = <T>(p: string, fallback: T): T =>
   existsSync(p) ? (JSON.parse(readFileSync(p, 'utf8')) as T) : fallback;
 
 function writeJson(p: string, data: unknown) {

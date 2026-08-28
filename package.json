@@ -2,20 +2,21 @@
   "name": "titaniumsdk.com",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "build": "node scripts/prune-builds.mts && next build",
+    "build": "node scripts/prune-builds.ts && next build",
     "check": "next typegen && tsc --noEmit",
-    "check:contrast": "node scripts/check-contrast.mts",
-    "check:registry": "node scripts/validate-registry.mts",
+    "check:contrast": "node scripts/check-contrast.ts",
+    "check:registry": "node scripts/validate-registry.ts",
     "dev": "next dev",
-    "docgen": "node scripts/docgen/index.mts",
+    "docgen": "node scripts/docgen/index.ts",
     "fmt": "oxfmt",
     "fmt:check": "oxfmt --check",
     "lint": "oxlint",
-    "registry:builds": "node scripts/generate-builds.mts",
-    "registry:prune": "node scripts/prune-builds.mts",
+    "registry:builds": "node scripts/generate-builds.ts",
+    "registry:prune": "node scripts/prune-builds.ts",
     "start": "next start",
-    "tokens": "node scripts/generate-tokens.mts && oxfmt src/app/globals.css"
+    "tokens": "node scripts/generate-tokens.ts && oxfmt src/app/globals.css"
   },
   "dependencies": {
     "next": "16.3.2",

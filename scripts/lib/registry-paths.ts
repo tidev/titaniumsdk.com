@@ -36,3 +36,13 @@ export type Build = {
 
 /** A tombstone: enough to recognise the run again, nothing more. */
 export type PrunedRun = { id: number; html_url: string };
+
+/**
+ * Compiled API reference, one directory per SDK version.
+ *
+ * Kept out of `registry/sdk`, which holds release metadata — a few hundred KB
+ * of JSON describing downloads. This is the reference itself, and it is two
+ * orders of magnitude larger.
+ */
+export const API_DOCS_DIR = 'registry/docs/sdk';
+export const apiDocsDir = (version: string) => `${API_DOCS_DIR}/${version}`;

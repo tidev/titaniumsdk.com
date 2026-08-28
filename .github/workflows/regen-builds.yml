@@ -30,13 +30,13 @@ jobs:
       - run: pnpm install --frozen-lockfile
 
       - name: Regenerate releases and builds
-        run: node scripts/generate-builds.mts
+        run: node scripts/generate-builds.ts
         env:
           # Reads public releases and workflow runs from tidev/titanium-sdk.
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Validate against the schemas
-        run: node scripts/validate-registry.mts
+        run: node scripts/validate-registry.ts
 
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v4

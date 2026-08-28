@@ -6,8 +6,8 @@ import { parseAllDocuments } from 'yaml';
 /**
  * Reads an apidoc/ tree into raw type documents, hashing every source file.
  *
- * The hashes drive incremental regeneration — see manifest.mts. Nothing here
- * interprets the content; that is resolve.mts.
+ * The hashes drive incremental regeneration — see manifest.ts. Nothing here
+ * interprets the content; that is resolve.ts.
  */
 
 export type RawType = {

@@ -1,4 +1,4 @@
-import type { RawType, SourceFile } from './load.mts';
+import type { RawType, SourceFile } from './load.ts';
 import { createHash } from 'node:crypto';
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
@@ -49,7 +49,7 @@ export const sha256 = (s: string) => `sha256:${createHash('sha256').update(s).di
 export function generatorHash(): string {
   const dir = fileURLToPath(new URL('.', import.meta.url));
   const parts = readdirSync(dir)
-    .filter((f) => f.endsWith('.mts'))
+    .filter((f) => f.endsWith('.ts'))
     .sort()
     .map((f) => `${f}:${sha256(readFileSync(join(dir, f), 'utf8'))}`);
   return sha256(parts.join('\n'));
