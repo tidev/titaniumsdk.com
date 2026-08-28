@@ -1,0 +1,50 @@
+name: Notify API Docs
+
+# Called by each source repo when its apidoc/ changes or it publishes a release.
+#
+# The payload contract lives here rather than in 17 copies, so changing it is one
+# edit instead of seventeen PRs. The old pipeline had no payload at all, which is
+# why the regen had to check out every source repo to find out what changed.
+on:
+  workflow_call:
+    secrets:
+      dispatch-token:
+        description: 'Token with write access to tidev/titanium-www'
+        required: true
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+
+    steps:
+      # The `github` context in a reusable workflow refers to the caller, so
+      # this reads the source repo and ref without the caller passing them.
+      - name: Work out which registry version this is for
+        id: target
+        run: |
+          if [ "${{ github.event_name }}" = 'release' ]; then
+            # Module release tags look like v7.3.1-ios; the registry wants 7.3.1.
+            # A fuller mapping belongs with the release asset parser (TI-15).
+            version="${{ github.event.release.tag_name }}"
+            version="${version#v}"
+            version="${version%-ios}"
+            version="${version%-android}"
+            version="${version%.GA}"
+          else
+            # `main` is the one mutable tree; released versions are written once.
+            version=main
+          fi
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "Dispatching ${{ github.repository }} @ $version" >> "$GITHUB_STEP_SUMMARY"
+
+      - uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.dispatch-token }}
+          repository: tidev/titanium-www
+          event-type: regen-api-docs
+          client-payload: |
+            {
+              "repo": "${{ github.repository }}",
+              "ref": "${{ github.ref_name }}",
+              "version": "${{ steps.target.outputs.version }}"
+            }
