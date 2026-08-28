@@ -24,7 +24,9 @@ import {
  *   registry/builds/<branch>.json           CI builds
  *   registry/builds/pruned/<branch>.pruned.json
  *
- *   GITHUB_TOKEN=... node scripts/generate-builds.ts
+ * Reads GITHUB_TOKEN from the environment or from `.env` at the repo root.
+ *
+ *   node scripts/generate-builds.ts
  */
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';

@@ -1,3 +1,5 @@
+import './env.ts';
+
 /**
  * Minimal GitHub REST helper.
  *
