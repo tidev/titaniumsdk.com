@@ -9,6 +9,7 @@ jobs:
     name: Verify contributor
 
     steps:
-      - uses: tidev/tidev-cla-action@v2
+      - name: Check CLA
+        uses: tidev/tidev-cla-action@v2
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
