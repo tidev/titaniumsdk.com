@@ -283,3 +283,128 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ------------------------------------------------------------ doc prose
+
+   Styles for the markdown the registry stores in prose fields. Scoped to a
+   class rather than applied globally: this HTML is generated from 15 years of
+   hand-written source, including tables authored as raw HTML, so it needs
+   defensive rules the rest of the site does not.
+*/
+@layer components {
+  .prose-docs > :first-child {
+    margin-top: 0;
+  }
+  .prose-docs > :last-child {
+    margin-bottom: 0;
+  }
+
+  .prose-docs p,
+  .prose-docs ul,
+  .prose-docs ol,
+  .prose-docs blockquote {
+    margin-block: 0.75em;
+  }
+
+  .prose-docs h1,
+  .prose-docs h2,
+  .prose-docs h3,
+  .prose-docs h4 {
+    margin-block: 1.5em 0.5em;
+    font-weight: 600;
+    letter-spacing: var(--tracking-tight);
+    color: var(--color-text);
+  }
+  /* The source starts its headings at h4 inside descriptions, so these are
+     sized relative to the surrounding text rather than as page headings. */
+  .prose-docs h1,
+  .prose-docs h2 {
+    font-size: 1.125em;
+  }
+  .prose-docs h3,
+  .prose-docs h4 {
+    font-size: 1em;
+  }
+
+  .prose-docs ul,
+  .prose-docs ol {
+    padding-left: 1.25em;
+  }
+  .prose-docs ul {
+    list-style: disc;
+  }
+  .prose-docs ol {
+    list-style: decimal;
+  }
+  .prose-docs li {
+    margin-block: 0.25em;
+  }
+
+  .prose-docs a {
+    color: var(--color-link);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .prose-docs a:hover {
+    color: var(--color-link-hover);
+  }
+
+  .prose-docs code {
+    border-radius: 0.25rem;
+    background-color: var(--color-surface);
+    padding: 0.125em 0.3em;
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+  }
+
+  /* Code blocks and tables scroll inside themselves. The source contains wide
+     hand-written tables, and one of them must not make the page scroll
+     sideways on a phone. */
+  .prose-docs pre {
+    margin-block: 0.75em;
+    overflow-x: auto;
+    border: 1px solid var(--color-border);
+    border-radius: 0.5rem;
+    background-color: var(--color-surface);
+    padding: 0.75rem 1rem;
+    font-size: 0.875em;
+    line-height: 1.6;
+  }
+  .prose-docs pre code {
+    background: none;
+    padding: 0;
+    font-size: inherit;
+  }
+
+  .prose-docs table {
+    display: block;
+    overflow-x: auto;
+    width: max-content;
+    max-width: 100%;
+    margin-block: 0.75em;
+    border-collapse: collapse;
+    font-size: 0.9em;
+  }
+  .prose-docs th,
+  .prose-docs td {
+    border: 1px solid var(--color-border);
+    padding: 0.375rem 0.625rem;
+    text-align: left;
+    vertical-align: top;
+  }
+  .prose-docs th {
+    background-color: var(--color-surface);
+    font-weight: 600;
+  }
+
+  .prose-docs blockquote {
+    border-left: 2px solid var(--color-border-strong);
+    padding-left: 0.875rem;
+    color: var(--color-text-subtle);
+  }
+
+  .prose-docs img {
+    max-width: 100%;
+    height: auto;
+  }
+}
