@@ -1,5 +1,6 @@
 import { PlatformBadges, DeprecatedBadge, SinceBadge } from '@/components/docs/badges';
 import { Breadcrumbs } from '@/components/docs/breadcrumbs';
+import { LegacyAnchor } from '@/components/docs/legacy-anchor';
 import { MemberSection } from '@/components/docs/member-section';
 import { Prose } from '@/components/docs/prose';
 import { OnThisPage, SectionJump, type TocGroup } from '@/components/docs/toc';
@@ -77,6 +78,8 @@ export default async function TypePage({ params }: PageProps<'/docs/sdk/[version
     // on screen and first in the DOM would put it above the title on a phone.
     <div className="xl:grid xl:grid-cols-[minmax(0,1fr)_13rem] xl:gap-8">
       <article className="min-w-0 max-w-4xl py-10 xl:col-start-1 xl:row-start-1">
+        {/* Legacy /api deep links slugged anchors to lowercase; see the component. */}
+        <LegacyAnchor />
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
           <Breadcrumbs crumbs={crumbsFor(types, api.name)} base={base} />
           {resolved === MAIN && (
