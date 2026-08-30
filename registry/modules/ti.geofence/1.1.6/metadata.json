@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "ti.geofence",
+  "version": "1.1.6",
+  "mutable": false,
+  "platforms": [
+    "android"
+  ],
+  "publishedAt": "2016-11-22T20:52:46Z",
+  "tag": "android-1.1.6",
+  "manifests": [
+    {
+      "platform": "android",
+      "version": "2.0.1",
+      "name": "geofence",
+      "minsdk": "6.0.0",
+      "apiversion": 3,
+      "architectures": [
+        "armeabi-v7a",
+        "x86"
+      ],
+      "guid": "a2ed656c-026c-461e-bc0d-95e745ab10ae",
+      "author": "Jon Alter",
+      "license": "Appcelerator Commercial License",
+      "copyright": "Copyright (c) 2013-2016 by Appcelerator, Inc.",
+      "description": "Monitoring geo regions"
+    }
+  ],
+  "assets": [
+    {
+      "platform": "android",
+      "filename": "ti.geofence-android-1.1.6.zip",
+      "url": "https://github.com/tidev/ti.geofence/releases/download/android-1.1.6/ti.geofence-android-1.1.6.zip",
+      "size": 864997,
+      "tag": "android-1.1.6"
+    }
+  ],
+  "hasApiDocs": false
+}

@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "com.appcelerator.urlSession",
+  "description": "Use the NSURLSession API to download and upload files in Titanium.",
+  "repo": "https://github.com/tidev/ti.urlsession",
+  "aliases": [
+    "ti.urlsession"
+  ],
+  "curation": "tidev",
+  "latest": {
+    "ios": "4.0.0"
+  },
+  "versions": [
+    {
+      "version": "4.0.1",
+      "platforms": [
+        "ios"
+      ],
+      "publishedAt": "2021-07-23T00:17:06Z",
+      "prerelease": true
+    },
+    {
+      "version": "4.0.0",
+      "platforms": [
+        "ios"
+      ],
+      "publishedAt": "2021-02-18T14:14:43Z"
+    },
+    {
+      "version": "3.0.0",
+      "platforms": [
+        "ios"
+      ],
+      "publishedAt": "2020-09-15T09:19:15Z"
+    },
+    {
+      "version": "2.2.0",
+      "platforms": [
+        "ios"
+      ],
+      "publishedAt": "2018-02-01T20:13:48Z"
+    },
+    {
+      "version": "2.1.0",
+      "platforms": [
+        "ios"
+      ],
+      "publishedAt": "2017-11-23T23:31:30Z"
+    },
+    {
+      "version": "2.0.0",
+      "platforms": [
+        "ios"
+      ],
+      "publishedAt": "2015-10-26T21:06:43Z"
+    },
+    {
+      "version": "1.1.1",
+      "platforms": [
+        "ios"
+      ],
+      "publishedAt": "2015-03-10T03:38:47Z"
+    },
+    {
+      "version": "1.0.1",
+      "platforms": [
+        "ios"
+      ],
+      "publishedAt": "2014-12-12T19:11:41Z"
+    },
+    {
+      "version": "1.1.0",
+      "platforms": [
+        "ios"
+      ],
+      "publishedAt": "2014-12-05T19:21:31Z"
+    }
+  ],
+  "readme": "# Ti.URLSession Module\n\n## Description\n\nCreates a lightweight wrapper around `NSURLSession` for working with the Backgrounding Features.\n\n## Accessing the urlSession Module\n\nTo access this module from JavaScript, you would do the following:\n\n```js\nvar URLSession = require('com.appcelerator.urlSession');\n```\n\nThe `URLSession` variable is a reference to the Module object.\n\n## Module\n\n### Methods\n\n#### createSessionConfiguration(arguments)\n\nCreates a preconfigured session configuration object that can be used to create a URLSession for\nperforming a background the download task.\n\n* Takes one argument, a string: An object with the `identifier` of the new session configuration\nthat is unique for your app. Your app can retrieve the download or the upload response later by creating a\nnew background session with the same identifier. Also, you can set the `HTTPHeaderFields` property to\nspecify additional HTTP header-fields.\n\nReturns a preconfigured session configuration object. This variable needs to be passed into the `createURLSession()`\nfunction to create a session for background download.\n\n#### createURLSession(sessionConfig)\n\nCreates a session with the specified session configuration. If the session configuration was created \nwith the identifier of a existing session, then this function would return the pre-existing session.\n\n* Takes one argument, a session configuration object: Created using `createSessionConfiguration()`.\n\nReturns a session object.\n\n<strong>Important</strong>The session object keeps a strong reference until your app explicitly \ninvalidates the session. If you do not invalidate the session by calling the invalidateAndCancel() \nor finishTasksAndInvalidate() method, your app leaks memory.\n\n## SessionConfiguration\n\n### Properties\n\n- `identifier` (String, creation-only)\n- `HTTPHeaderFields` (Array<String: String>)\n\n## Session\n\n### Methods\n\n#### downloadTask(arguments)\n\nCreates a download task for the specified URL, within the provided session object and saves the results to a file.\nOnce this function is called, the download starts automatically. The progress of the download can be monitored by listening \nto `downloadprogress` , `downloadcompleted`, `sessioneventscompleted` and `sessioncompleted` events explained below.\n\n* Takes an object of one argument:\n  * url (String): The remote url used for this data task.\n\n#### uploadTask(arguments)\n\nCreates an upload task for the specified URL, within the provided session object and the file-blob to upload.\nOnce this function is called, the upload starts automatically. The progress of the upload can be monitored by listening \nto `uploadprogress` and `sessioncompleted` events explained below.\n\n* Takes an object of arguments:\n  * url (String): The remote url used for this upload task.\n  * data (TiBlob): The data blob used for this upload task.\n  * method (String): The request method (e.g. POST or PUT). Default: POST.\n  * requestHeaders (Array<String: String>): Additional request headers to pass to the request.\n\nReturns the new created task's identifier number.\n\n#### dataTask(arguments)\n\nCreates a data task for the specified URL, within the provided session object and local data.\nAn data task does not provide any additional functionality over a usual session task and its \npresence is merely to provide lexical differentiation from download and upload tasks.\n        \nOnce this function is called, the task starts automatically. Once finished, the data task will call \nthe `sessioncompleted` event containing infos about the response.\n\n* Takes an object of arguments:\n  * url (String): The remote url used for this data task.\n  * data (TiBlob): The data blob used for this data task.\n  * method (String): The request method (e.g. POST or PUT). Default: POST.\n  * requestHeaders (Array<String: String>): Additional request headers to pass to the request.\n\nReturns the new created task's identifier number.\n\n#### finishTasksAndInvalidate()\n\nInvalidates the given session object, allowing any outstanding tasks to finish.\n\nThis method returns immediately without waiting for tasks to finish. Once a session is\ninvalidated, new tasks cannot be created in the session, but existing tasks continue until completion.\nOnce invalidated, references to the events and callback objects are broken. Session objects cannot be reused.\nTo cancel all outstanding tasks, call invalidateAndCancel() instead.\n\n* Takes one argument, a session object : the session which the user wants to invalidate.\n\n### invalidateAndCancel()\n\nCancels all outstanding tasks and then invalidates the session object.\n\nOnce invalidated, references to the events and callback objects are broken. Session objects cannot be reused.\nTo allow outstanding tasks to run until completion, call finishTasksAndInvalidate() instead.\n\n### reset(callback)\n\nEmpties all cookies, cache and credential stores, removes disk files and calls flush() internally.\nCalls the `callback` when the reset is finished.\n\n### flush(callback)\n\nFlushes storage to disk and clear transient network caches.\nCalls the `callback` when the flush is finished.\n\n## Events\n\n### downloadprogress\n\nPeriodically informs the user about the download's progress.\n\n<strong>Important</strong>This event is exposed inside Ti.App.iOS Proxy.\nusage :\n```js\nTi.App.iOS.addEventListener('downloadprogress', function(e) {\n  // Handle the download progress\n});\n```\n\nThe following event information will be provided:\n\n* taskIdentifier (Number) : The task identifier number for the download task that finished.\n* bytesWritten (Number) : The number of bytes transferred since the last time this delegate method was called.\n* totalBytesWritten (Number) : The total number of bytes transferred so far.\n* totalBytesExpectedToWrite (Number) :  The expected length of the file, as provided by the Content-Length header. If this header was not provided, the value is zero.\n\n### downloadcompleted\n\nInforms the app that a download task has finished downloading.\n\n<strong>Important</strong>This event is exposed inside Ti.App.iOS Proxy.\nusage :\n```js\nTi.App.iOS.addEventListener('downloadcompleted', function(e) {\n  // Handle the completed download\n});\n```\n\nThe following event information will be provided:\n\ntaskIdentifier[int]: The task identifier number for the download task that finished.\ndata[TiBlob](http://docs.appcelerator.com/platform/latest/#!/api/Titanium.Blob) : The downloaded content as [blob](http://docs.appcelerator.com/platform/latest/#!/api/Titanium.Blob) object\n\n### sessioneventscompleted\n\nIf an application has received an `backgroundtransfer` event, this session event will be fired to indicate \nthat all messages previously enqueued for this session have been delivered.  At this time it is safe to \ninvoke the previously stored completion handler\n\n<strong>Important</strong>This event is exposed inside Ti.App.iOS Proxy.\nusage :\n```js\nTi.App.iOS.addEventListener('sessioneventscompleted', function(e) {\n  // Handle completed session events\n});\n```\n\n### sessioncompleted\n\nInforms the app that the task finished transfering data.\n\n<strong>Important</strong>This event is exposed inside Ti.App.iOS Proxy.\nusage : \n```js\nTi.App.iOS.addEventListener('sessioncompleted', function(e) {\n  // Handle a finished transfer\n});\n```\n\nThe following event information will be provided:\t\n\n* taskIdentifier (Number) : The task identifier number for the download or upload task that finished.\n* success (Boolean) : Indicates if the operation succeeded. Returns true if download or upload succeeded, false otherwise.\n* errorCode (Number) : The error code of the error, if any (potentially system-dependent).\n* message (String) : A string containing the localized description of the error.\n\n## Usage\n\nSee the full features [example](https://github.com/appcelerator-modules/ti.urlsession/blob/master/ios/example/app.js).\n\n## Author\n\nHans Knoechel / Sabil Rahim\n\n## Feedback and Support\n\nPlease direct all questions, feedback, and concerns to [info@appcelerator.com](mailto:info@appcelerator.com?subject=iOS%20urlSesson%20Module) or ask the community on [TiSlack](http://tislack.org). \n\n## License\nCopyright (c) 2010-Present by Axway Appcelerator. All Rights Reserved. Please see the LICENSE\nfile included in the distribution for further details.\n"
+}

@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "ti.map",
+  "version": "3.4.0",
+  "mutable": false,
+  "platforms": [
+    "ios"
+  ],
+  "publishedAt": "2020-09-04T11:31:27Z",
+  "tag": "v3.4.0-iphone",
+  "manifests": [
+    {
+      "platform": "ios",
+      "version": "3.4.0",
+      "name": "map",
+      "minsdk": "6.2.2.GA",
+      "apiversion": 2,
+      "architectures": [
+        "armv7",
+        "arm64",
+        "i386",
+        "x86_64"
+      ],
+      "guid": "f0d8fd44-86d2-4730-b67d-bd454577aeee",
+      "author": "Jeff Haynie, Jon Alter, Pedro Enrique, Hans Knöchel, Vijay Singh",
+      "license": "Apache Public License v2",
+      "copyright": "Copyright (c) 2013-present by Axway Appcelerator",
+      "description": "External version of Map module"
+    }
+  ],
+  "assets": [
+    {
+      "platform": "ios",
+      "filename": "ti.map-iphone-3.4.0.zip",
+      "url": "https://github.com/tidev/ti.map/releases/download/v3.4.0-iphone/ti.map-iphone-3.4.0.zip",
+      "size": 2024681,
+      "tag": "v3.4.0-iphone"
+    }
+  ],
+  "hasApiDocs": false
+}

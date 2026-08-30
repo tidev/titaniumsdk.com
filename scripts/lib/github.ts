@@ -17,6 +17,13 @@ function token(): string {
   return t;
 }
 
+/** `accept` is the only thing that varies, and only for the raw-content endpoint. */
+const headers = (accept = 'application/vnd.github+json') => ({
+  accept,
+  authorization: `Bearer ${token()}`,
+  'x-github-api-version': '2022-11-28',
+});
+
 /**
  * Pulls the page of results out of a response body.
  *
@@ -54,13 +61,7 @@ export async function* paginate<T>(
 
   let next: string | null = url.toString();
   while (next) {
-    const res: Response = await fetch(next, {
-      headers: {
-        accept: 'application/vnd.github+json',
-        authorization: `Bearer ${token()}`,
-        'x-github-api-version': '2022-11-28',
-      },
-    });
+    const res: Response = await fetch(next, { headers: headers() });
     if (!res.ok) {
       throw new Error(`GET ${next} -> ${res.status} ${res.statusText}`);
     }
@@ -74,17 +75,29 @@ export async function* paginate<T>(
 }
 
 export async function get<T>(path: string): Promise<T> {
-  const res = await fetch(`${API}${path}`, {
-    headers: {
-      accept: 'application/vnd.github+json',
-      authorization: `Bearer ${token()}`,
-      'x-github-api-version': '2022-11-28',
-    },
-  });
+  const res = await fetch(`${API}${path}`, { headers: headers() });
   if (!res.ok) {
     throw new Error(`GET ${path} -> ${res.status} ${res.statusText}`);
   }
   return (await res.json()) as T;
+}
+
+/**
+ * One file's contents at a ref, or null if it is not there.
+ *
+ * Absence is an answer here rather than a failure, which is why this does not
+ * go through `get`. A module's iOS manifest sits at `ios/manifest` in one era
+ * and `iphone/manifest` in another, and asking is the only way to find out
+ * which era a given tag belongs to.
+ */
+export async function file(repo: string, path: string, ref: string): Promise<string | null> {
+  const url = `${API}/repos/${repo}/contents/${path}?ref=${encodeURIComponent(ref)}`;
+  const res = await fetch(url, { headers: headers('application/vnd.github.raw') });
+  if (res.status === 404) return null;
+  if (!res.ok) {
+    throw new Error(`GET ${url} -> ${res.status} ${res.statusText}`);
+  }
+  return await res.text();
 }
 
 /**

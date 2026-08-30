@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "ti.map",
+  "version": "4.3.0",
+  "mutable": false,
+  "platforms": [
+    "android"
+  ],
+  "publishedAt": "2018-05-29T17:37:46Z",
+  "tag": "android-4.3.0",
+  "manifests": [
+    {
+      "platform": "android",
+      "version": "4.3.0",
+      "name": "map",
+      "minsdk": "7.0.0",
+      "apiversion": 4,
+      "architectures": [
+        "arm64-v8a",
+        "armeabi-v7a",
+        "x86"
+      ],
+      "guid": "f0d8fd44-86d2-4730-b67d-bd454577aeee",
+      "author": "Appcelerator",
+      "license": "Apache Public License v2",
+      "copyright": "Copyright (c) 2013-present by Axway, Inc.",
+      "description": "External version of Map module to support new Google Map v2 sdk",
+      "respackage": "com.google.android.gms"
+    }
+  ],
+  "assets": [
+    {
+      "platform": "android",
+      "filename": "ti.map-android-4.3.0.zip",
+      "url": "https://github.com/tidev/ti.map/releases/download/android-4.3.0/ti.map-android-4.3.0.zip",
+      "size": 431918,
+      "tag": "android-4.3.0"
+    }
+  ],
+  "hasApiDocs": false
+}

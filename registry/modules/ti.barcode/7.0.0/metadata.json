@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "ti.barcode",
+  "version": "7.0.0",
+  "mutable": false,
+  "platforms": [
+    "android"
+  ],
+  "publishedAt": "2025-10-25T11:25:08Z",
+  "tag": "v7.0.0-android",
+  "manifests": [
+    {
+      "platform": "android",
+      "version": "7.0.0",
+      "name": "barcode",
+      "minsdk": "13.0.0",
+      "apiversion": 4,
+      "architectures": [
+        "arm64-v8a",
+        "armeabi-v7a",
+        "x86",
+        "x86_64"
+      ],
+      "guid": "fe2e658e-0eaf-44a6-b6d1-c074d6b986a3",
+      "author": "Stephen Tramer & Jeff English",
+      "license": "Apache License, Version 2.0",
+      "copyright": "Copyright (c) 2010-2020 by Axway, Inc.",
+      "description": "Lets you process 1D/2D barcodes."
+    }
+  ],
+  "assets": [
+    {
+      "platform": "android",
+      "filename": "ti.barcode-android-7.0.0.zip",
+      "url": "https://github.com/tidev/ti.barcode/releases/download/v7.0.0-android/ti.barcode-android-7.0.0.zip",
+      "size": 843923,
+      "tag": "v7.0.0-android"
+    }
+  ],
+  "hasApiDocs": false
+}

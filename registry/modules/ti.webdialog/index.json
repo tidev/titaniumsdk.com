@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "ti.webdialog",
+  "description": "Use the SFSafariViewController (iOS) and Chrome Pages (Android) in Titanium.",
+  "repo": "https://github.com/tidev/titanium-web-dialog",
+  "aliases": [
+    "titanium-web-dialog"
+  ],
+  "curation": "tidev",
+  "latest": {
+    "android": "2.5.0",
+    "ios": "4.0.0"
+  },
+  "versions": [
+    {
+      "version": "4.0.0",
+      "platforms": [
+        "ios"
+      ],
+      "publishedAt": "2025-11-06T08:45:14Z"
+    },
+    {
+      "version": "2.5.0",
+      "platforms": [
+        "android"
+      ],
+      "publishedAt": "2025-09-10T14:08:55Z"
+    },
+    {
+      "version": "2.3.0",
+      "platforms": [
+        "android"
+      ],
+      "publishedAt": "2023-05-13T19:18:57Z"
+    },
+    {
+      "version": "3.0.2",
+      "platforms": [
+        "ios"
+      ],
+      "publishedAt": "2022-04-17T16:41:48Z"
+    },
+    {
+      "version": "2.2.0",
+      "platforms": [
+        "android"
+      ],
+      "publishedAt": "2022-03-27T21:23:57Z"
+    },
+    {
+      "version": "2.1.0",
+      "platforms": [
+        "android"
+      ],
+      "publishedAt": "2022-03-27T13:34:12Z"
+    },
+    {
+      "version": "3.0.1",
+      "platforms": [
+        "ios"
+      ],
+      "publishedAt": "2021-07-22T23:46:30Z",
+      "prerelease": true
+    },
+    {
+      "version": "3.0.0",
+      "platforms": [
+        "ios"
+      ],
+      "publishedAt": "2021-02-18T15:02:28Z"
+    },
+    {
+      "version": "1.2.0",
+      "platforms": [
+        "ios"
+      ],
+      "publishedAt": "2020-05-20T14:49:58Z"
+    },
+    {
+      "version": "2.0.0",
+      "platforms": [
+        "android",
+        "ios"
+      ],
+      "publishedAt": "2020-01-28T00:44:12Z"
+    },
+    {
+      "version": "1.1.0",
+      "platforms": [
+        "android",
+        "ios"
+      ],
+      "publishedAt": "2018-05-28T07:58:42Z"
+    },
+    {
+      "version": "1.0.1",
+      "platforms": [
+        "android"
+      ],
+      "publishedAt": "2018-05-28T04:32:06Z"
+    },
+    {
+      "version": "1.0.0",
+      "platforms": [
+        "android",
+        "ios"
+      ],
+      "publishedAt": "2017-12-04T11:17:18Z"
+    }
+  ],
+  "readme": "# Titanium Web Dialog\n\nUse the native `SFSafariViewController` (iOS) and `Chrome Pages` (Android) within Appcelerator Titanium.\n\n<img src=\"./fixtures/example-screens.jpg\" width=\"890\" alt=\"Titanium Web Dialog\" />\n\n## Requirements\n\n- Titanium SDK 9.0.0 or later\n- iOS 9+ and Android 4.1+\n\n## iOS Note\n\nThe iOS part of this module is based on Ti.SafariDialog, which has been deprecated for a cross-platform solution. All API's of Ti.SafariDialog\nstill work here and have been extended by more features over time.\n\n## Android Note\nIn order to use the `close` event on Android it is recommended to have a short delay between `var WebDialog = require('ti.webdialog');` and `WebDialog.open({})`. Otherwise it might not fire the `close` event.\n\n## API's\n\n### Top-Level\n\n#### Methods\n\n* `open(arguments)`\n    * `url` (String)\n    * `barColor` (String)\n    * `animated` (Boolean, iOS only)\n    * `entersReaderIfAvailable` (Boolean, iOS only)\n    * `barCollapsingEnabled` (Boolean)\n    * `tintColor` (String, iOS only)\n    * `dismissButtonStyle` (`DISMISS_BUTTON_STYLE_*`, iOS only)\n    * `showTitle` (Boolean, Android only)\n    * `fadeTransition` (Boolean, Android only)\n    * `enableSharing` (Boolean, Android only) - Enable Share... menu item to share link\n    * `closeIcon` (String, Android only) - image path to show as close-button icon\n\n* `isSupported()` -> Boolean\n* `isOpen()` (iOS only) -> Boolean\n* `close()` (iOS only)\n\n#### Properties\n\n* `DISMISS_BUTTON_STYLE_DONE` (iOS only)\n* `DISMISS_BUTTON_STYLE_CLOSE` (iOS only)\n* `DISMISS_BUTTON_STYLE_CANCEL` (iOS only)\n\n#### Events\n\n* `open` -> `success` (Boolean), `url` (String)\n* `close` -> `success` (Boolean), `url` (String)\n* `load` -> `success` (Boolean), `url` (String) - iOS only\n* `redirect` -> `url` (String) - iOS only\n* `error` -> `message` (String) - Android only\n\n### `AuthenticationSession` (iOS only)\n\n#### Methods\n\n* `createAuthenticationSession(arguments)`\n    * `url` (String)\n    * `scheme` (String)\n\n#### Events\n\n* `callback` -> `success` (Boolean), `callbackURL` (String)\n\n## License\n\nApache 2.0\n\n## Author\n- [Hans Knöchel](https://github.com/hansemannn)\n- [Prashant Saini](https://github.com/prashantsaini1)\n"
+}

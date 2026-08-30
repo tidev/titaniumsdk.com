@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "facebook",
+  "version": "5.3.1",
+  "mutable": false,
+  "platforms": [
+    "ios"
+  ],
+  "publishedAt": "2016-11-18T18:16:30Z",
+  "tag": "ios-5.3.1",
+  "manifests": [
+    {
+      "platform": "ios",
+      "version": "5.3.1",
+      "name": "Facebook",
+      "minsdk": "5.0.0",
+      "apiversion": 2,
+      "architectures": [
+        "armv7",
+        "arm64",
+        "i386",
+        "x86_64"
+      ],
+      "guid": "da8acc57-8673-4692-9282-e3c1a21f5d83",
+      "author": "Mark Mokryn, Ng Chee Kiat and Hans Knoechel",
+      "license": "Apache License Version 2.0",
+      "copyright": "Copyright (c) 2009-2016 by Appcelerator, Inc.",
+      "description": "Allows Facebook integration for Titanium apps"
+    }
+  ],
+  "assets": [
+    {
+      "platform": "ios",
+      "filename": "facebook-iphone-5.3.1.zip",
+      "url": "https://github.com/tidev/ti.facebook/releases/download/ios-5.3.1/facebook-iphone-5.3.1.zip",
+      "size": 23621326,
+      "tag": "ios-5.3.1"
+    }
+  ],
+  "hasApiDocs": false
+}

@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "appcelerator.https",
+  "version": "2.2.0",
+  "mutable": false,
+  "platforms": [
+    "android",
+    "ios"
+  ],
+  "publishedAt": "2017-10-24T17:43:13Z",
+  "manifests": [
+    {
+      "platform": "android",
+      "version": "2.1.0",
+      "name": "https",
+      "minsdk": "6.0.0",
+      "apiversion": 3,
+      "architectures": [
+        "armeabi-v7a",
+        "x86"
+      ],
+      "guid": "2163621d-1a78-4215-8244-bda08724ffed",
+      "author": "Matt Langston",
+      "license": "Appcelerator Commercial License",
+      "copyright": "Copyright (c) 2014-2017 by Appcelerator, Inc. All Rights Reserved.",
+      "description": "Authenticate server in HTTPS connections made by TiHTTPClient"
+    },
+    {
+      "platform": "ios",
+      "version": "2.1.0",
+      "name": "https",
+      "minsdk": "5.0.0.GA",
+      "apiversion": 2,
+      "architectures": [
+        "armv7",
+        "i386",
+        "x86_64",
+        "arm64"
+      ],
+      "guid": "2163621d-1a78-4215-8244-bda08724ffed",
+      "author": "Matt Langston",
+      "license": "Appcelerator Commercial License",
+      "copyright": "Copyright (c) 2014-2017 by Appcelerator, Inc. All Rights Reserved.",
+      "description": "Authenticate server in HTTPS connections made by TiHTTPClient"
+    }
+  ],
+  "assets": [
+    {
+      "platform": "android",
+      "filename": "appcelerator.https-android-2.2.0.zip",
+      "url": "https://github.com/tidev/appcelerator.https/releases/download/android-2.2.0/appcelerator.https-android-2.2.0.zip",
+      "size": 2503987,
+      "tag": "android-2.2.0"
+    },
+    {
+      "platform": "ios",
+      "filename": "appcelerator.https-iphone-2.2.0.zip",
+      "url": "https://github.com/tidev/appcelerator.https/releases/download/ios-2.2.0/appcelerator.https-iphone-2.2.0.zip",
+      "size": 2942448,
+      "tag": "ios-2.2.0"
+    }
+  ],
+  "hasApiDocs": false
+}

@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "appcelerator.encrypteddatabase",
+  "version": "2.0.3",
+  "mutable": false,
+  "platforms": [
+    "android",
+    "ios"
+  ],
+  "publishedAt": "2017-10-05T22:01:00Z",
+  "tag": "2.0.3",
+  "manifests": [
+    {
+      "platform": "android",
+      "version": "2.0.3",
+      "name": "encrypteddatabase",
+      "minsdk": "6.0.0",
+      "apiversion": 3,
+      "architectures": [
+        "armeabi-v7a",
+        "x86"
+      ],
+      "guid": "d1b3740c-ec53-45c6-8454-8748f91da6ad",
+      "author": "Dawson Toth",
+      "license": "Appcelerator Commercial License",
+      "copyright": "Copyright (c) 2013-2017 by Appcelerator, Inc.",
+      "description": "Provides transparent, secure 256-bit AES encryption of SQLite database files."
+    },
+    {
+      "platform": "ios",
+      "version": "2.0.2",
+      "name": "encrypteddatabase",
+      "minsdk": "3.3.0",
+      "apiversion": 2,
+      "architectures": [
+        "armv7",
+        "arm64",
+        "i386",
+        "x86_64"
+      ],
+      "guid": "d1b3740c-ec53-45c6-8454-8748f91da6ad",
+      "author": "Dawson Toth",
+      "license": "Appcelerator Commercial License",
+      "copyright": "Copyright (c) 2013-2016 by Appcelerator, Inc.",
+      "description": "Provides transparent, secure 256-bit AES encryption of SQLite database files."
+    }
+  ],
+  "assets": [
+    {
+      "platform": "android",
+      "filename": "appcelerator.encrypteddatabase-titanium-2.0.3.zip",
+      "url": "https://github.com/tidev/appcelerator.encrypteddatabase/releases/download/2.0.3/appcelerator.encrypteddatabase-titanium-2.0.3.zip",
+      "size": 9637605,
+      "tag": "2.0.3",
+      "universal": true
+    },
+    {
+      "platform": "ios",
+      "filename": "appcelerator.encrypteddatabase-titanium-2.0.3.zip",
+      "url": "https://github.com/tidev/appcelerator.encrypteddatabase/releases/download/2.0.3/appcelerator.encrypteddatabase-titanium-2.0.3.zip",
+      "size": 9637605,
+      "tag": "2.0.3",
+      "universal": true
+    }
+  ],
+  "hasApiDocs": false
+}

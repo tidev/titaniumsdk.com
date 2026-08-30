@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "appcelerator.https",
+  "version": "3.0.1",
+  "mutable": false,
+  "platforms": [
+    "android",
+    "ios"
+  ],
+  "publishedAt": "2018-07-14T11:19:22Z",
+  "manifests": [
+    {
+      "platform": "android",
+      "version": "3.0.1",
+      "name": "https",
+      "minsdk": "7.0.0",
+      "apiversion": 4,
+      "architectures": [
+        "arm64-v8a",
+        "armeabi-v7a",
+        "x86"
+      ],
+      "guid": "2163621d-1a78-4215-8244-bda08724ffed",
+      "author": "Matt Langston",
+      "license": "Appcelerator Commercial License",
+      "copyright": "Copyright (c) 2014-2017 by Axway, Inc. All Rights Reserved.",
+      "description": "Authenticate server in HTTPS connections made by TiHTTPClient"
+    },
+    {
+      "platform": "ios",
+      "version": "3.0.1",
+      "name": "https",
+      "minsdk": "9.2.0",
+      "apiversion": 2,
+      "architectures": [
+        "armv7",
+        "i386",
+        "x86_64",
+        "arm64"
+      ],
+      "guid": "2163621d-1a78-4215-8244-bda08724ffed",
+      "author": "Matt Langston",
+      "license": "Appcelerator Commercial License",
+      "copyright": "Copyright (c) 2014-present by Axway Appcelerator. All Rights Reserved.",
+      "description": "Authenticate server in HTTPS connections made by TiHTTPClient"
+    }
+  ],
+  "assets": [
+    {
+      "platform": "android",
+      "filename": "appcelerator.https-android-3.0.1.zip",
+      "url": "https://github.com/tidev/appcelerator.https/releases/download/android-3.0.1/appcelerator.https-android-3.0.1.zip",
+      "size": 160001,
+      "tag": "android-3.0.1"
+    },
+    {
+      "platform": "ios",
+      "filename": "appcelerator.https-iphone-3.0.1.zip",
+      "url": "https://github.com/tidev/appcelerator.https/releases/download/v3.0.1-iphone/appcelerator.https-iphone-3.0.1.zip",
+      "size": 807511,
+      "tag": "v3.0.1-iphone"
+    }
+  ],
+  "hasApiDocs": false
+}

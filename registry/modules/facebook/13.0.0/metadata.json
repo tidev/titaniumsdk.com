@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "facebook",
+  "version": "13.0.0",
+  "mutable": false,
+  "platforms": [
+    "android",
+    "ios"
+  ],
+  "publishedAt": "2022-12-07T14:39:24Z",
+  "manifests": [
+    {
+      "platform": "android",
+      "version": "12.1.0",
+      "name": "Facebook",
+      "minsdk": "9.0.0",
+      "apiversion": 4,
+      "architectures": [
+        "arm64-v8a",
+        "armeabi-v7a",
+        "x86",
+        "x86_64"
+      ],
+      "guid": "e4f7ac61-1ee7-44c5-bc27-fa6876e2dce9",
+      "author": "Mark Mokryn and Ashraf A. S. (Appcelerator)",
+      "license": "Apache License Version 2.0",
+      "copyright": "Copyright (c) 2014 by Mark Mokryn, Copyright (c) 2009-present by Axway Inc.",
+      "description": "facebook"
+    },
+    {
+      "platform": "ios",
+      "version": "13.0.0",
+      "name": "titanium-facebook",
+      "minsdk": "9.2.0",
+      "apiversion": 2,
+      "architectures": [
+        "arm64",
+        "x86_64"
+      ],
+      "guid": "e4f7ac61-1ee7-44c5-bc27-fa6876e2dce9",
+      "author": "Mark Mokryn, Ng Chee Kiat and Hans Knoechel",
+      "license": "Apache License Version 2.0",
+      "copyright": "Copyright (c) 2009-present by Axway Appcelerator",
+      "description": "Use the native Facebook iOS SDK in Axway Titanium.",
+      "mac": true
+    }
+  ],
+  "assets": [
+    {
+      "platform": "android",
+      "filename": "facebook-android-13.0.0.zip",
+      "url": "https://github.com/tidev/ti.facebook/releases/download/android-13.0.0/facebook-android-13.0.0.zip",
+      "size": 194930,
+      "tag": "android-13.0.0"
+    },
+    {
+      "platform": "ios",
+      "filename": "facebook-iphone-13.0.0.zip",
+      "url": "https://github.com/tidev/ti.facebook/releases/download/ios-13.0.0/facebook-iphone-13.0.0.zip",
+      "size": 42801311,
+      "tag": "ios-13.0.0"
+    }
+  ],
+  "hasApiDocs": false
+}

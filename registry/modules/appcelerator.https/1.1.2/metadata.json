@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "appcelerator.https",
+  "version": "1.1.2",
+  "mutable": false,
+  "platforms": [
+    "android",
+    "ios"
+  ],
+  "publishedAt": "2015-02-06T17:17:03Z",
+  "tag": "1.1.2",
+  "manifests": [
+    {
+      "platform": "android",
+      "version": "1.1.2",
+      "name": "https",
+      "minsdk": "3.3.0",
+      "apiversion": 2,
+      "architectures": [
+        "armeabi",
+        "armeabi-v7a",
+        "x86"
+      ],
+      "guid": "2163621d-1a78-4215-8244-bda08724ffed",
+      "author": "Matt Langston",
+      "license": "Appcelerator Commercial License",
+      "copyright": "Copyright (c) 2014 by Appcelerator, Inc. All Rights Reserved.",
+      "description": "Authenticate server in HTTPS connections made by TiHTTPClient"
+    },
+    {
+      "platform": "ios",
+      "version": "1.1.2",
+      "name": "https",
+      "minsdk": "3.4.1.GA",
+      "apiversion": 2,
+      "architectures": [
+        "armv7",
+        "i386",
+        "x86_64",
+        "arm64"
+      ],
+      "guid": "2163621d-1a78-4215-8244-bda08724ffed",
+      "author": "Matt Langston",
+      "license": "Appcelerator Commercial License",
+      "copyright": "Copyright (c) 2014 by Appcelerator, Inc. All Rights Reserved.",
+      "description": "Authenticate server in HTTPS connections made by TiHTTPClient"
+    }
+  ],
+  "assets": [
+    {
+      "platform": "android",
+      "filename": "appcelerator.https-titanium-1.1.2.zip",
+      "url": "https://github.com/tidev/appcelerator.https/releases/download/1.1.2/appcelerator.https-titanium-1.1.2.zip",
+      "size": 5176748,
+      "tag": "1.1.2",
+      "universal": true
+    },
+    {
+      "platform": "ios",
+      "filename": "appcelerator.https-titanium-1.1.2.zip",
+      "url": "https://github.com/tidev/appcelerator.https/releases/download/1.1.2/appcelerator.https-titanium-1.1.2.zip",
+      "size": 5176748,
+      "tag": "1.1.2",
+      "universal": true
+    }
+  ],
+  "hasApiDocs": false
+}

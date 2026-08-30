@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "facebook",
+  "version": "5.8.0",
+  "mutable": false,
+  "platforms": [
+    "ios"
+  ],
+  "publishedAt": "2018-03-14T10:35:04Z",
+  "tag": "ios-5.8.0",
+  "manifests": [
+    {
+      "platform": "ios",
+      "version": "5.8.0",
+      "name": "titanium-facebook",
+      "minsdk": "5.5.0",
+      "apiversion": 2,
+      "architectures": [
+        "armv7",
+        "arm64",
+        "i386",
+        "x86_64"
+      ],
+      "guid": "da8acc57-8673-4692-9282-e3c1a21f5d83",
+      "author": "Mark Mokryn, Ng Chee Kiat and Hans Knoechel",
+      "license": "Apache License Version 2.0",
+      "copyright": "Copyright (c) 2009-present by Axway Appcelerator",
+      "description": "Use the native Facebook iOS SDK in Axway Titanium."
+    }
+  ],
+  "assets": [
+    {
+      "platform": "ios",
+      "filename": "facebook-iphone-5.8.0.zip",
+      "url": "https://github.com/tidev/ti.facebook/releases/download/ios-5.8.0/facebook-iphone-5.8.0.zip",
+      "size": 28882461,
+      "tag": "ios-5.8.0"
+    }
+  ],
+  "hasApiDocs": false
+}

@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "ti.geofence",
+  "version": "1.1.1",
+  "mutable": false,
+  "platforms": [
+    "android",
+    "ios"
+  ],
+  "publishedAt": "2014-11-12T22:10:31Z",
+  "tag": "v1.1.1",
+  "manifests": [
+    {
+      "platform": "android",
+      "version": "1.1.1",
+      "name": "geofence",
+      "minsdk": "3.2.1.GA",
+      "apiversion": 2,
+      "guid": "ea61d3a7-754a-4fb0-9ed0-e96e59a0e76e",
+      "author": "Jon Alter",
+      "license": "Appcelerator Commercial License",
+      "copyright": "Copyright (c) 2013-2014 by Appcelerator, Inc.",
+      "description": "Monitoring geo regions"
+    },
+    {
+      "platform": "ios",
+      "version": "1.1.1",
+      "name": "geofence",
+      "minsdk": "3.2.2.GA",
+      "apiversion": 2,
+      "guid": "ea61d3a7-754a-4fb0-9ed0-e96e59a0e76e",
+      "author": "Jon Alter",
+      "license": "Appcelerator Commercial License",
+      "copyright": "Copyright (c) 2013-2014 by Appcelerator, Inc.",
+      "description": "Monitoring geo regions"
+    }
+  ],
+  "assets": [
+    {
+      "platform": "android",
+      "filename": "ti.geofence-titanium-1.1.1.zip",
+      "url": "https://github.com/tidev/ti.geofence/releases/download/v1.1.1/ti.geofence-titanium-1.1.1.zip",
+      "size": 3131127,
+      "tag": "v1.1.1",
+      "universal": true
+    },
+    {
+      "platform": "ios",
+      "filename": "ti.geofence-titanium-1.1.1.zip",
+      "url": "https://github.com/tidev/ti.geofence/releases/download/v1.1.1/ti.geofence-titanium-1.1.1.zip",
+      "size": 3131127,
+      "tag": "v1.1.1",
+      "universal": true
+    }
+  ],
+  "hasApiDocs": false
+}

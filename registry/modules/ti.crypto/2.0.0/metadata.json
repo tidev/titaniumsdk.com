@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "ti.crypto",
+  "version": "2.0.0",
+  "mutable": false,
+  "platforms": [
+    "ios"
+  ],
+  "publishedAt": "2020-09-16T19:07:31Z",
+  "tag": "v2.0.0-iphone",
+  "manifests": [
+    {
+      "platform": "ios",
+      "version": "2.0.0",
+      "name": "crypto",
+      "minsdk": "9.2.0",
+      "architectures": [
+        "armv7",
+        "i386",
+        "x86_64",
+        "arm64"
+      ],
+      "guid": "5041eaca-a895-4229-a44b-de2f582c9133",
+      "author": "Jeff English",
+      "license": "Appcelerator Commercial License",
+      "copyright": "Copyright (c) 2010-2019 by Appcelerator, Inc.",
+      "description": "This module provides access to various encryption and decryption algorithms, and string encodings."
+    }
+  ],
+  "assets": [
+    {
+      "platform": "ios",
+      "filename": "ti.crypto-iphone-2.0.0.zip",
+      "url": "https://github.com/tidev/ti.crypto/releases/download/v2.0.0-iphone/ti.crypto-iphone-2.0.0.zip",
+      "size": 348758,
+      "tag": "v2.0.0-iphone"
+    }
+  ],
+  "hasApiDocs": false
+}

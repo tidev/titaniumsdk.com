@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "ti.nfc",
+  "version": "2.1.0",
+  "mutable": false,
+  "platforms": [
+    "ios"
+  ],
+  "publishedAt": "2018-03-28T08:15:33Z",
+  "tag": "ios-2.1.0",
+  "manifests": [
+    {
+      "platform": "ios",
+      "version": "2.1.0",
+      "name": "ti.nfc",
+      "minsdk": "6.3.0",
+      "apiversion": 2,
+      "architectures": [
+        "armv7",
+        "arm64",
+        "i386",
+        "x86_64"
+      ],
+      "guid": "e6caa17f-c084-402c-be84-8df242d94eba",
+      "author": "Hans Knoechel",
+      "license": "Apache 2",
+      "copyright": "Copyright (c) 2017-present by Appcelerator",
+      "description": "ti.nfc"
+    }
+  ],
+  "assets": [
+    {
+      "platform": "ios",
+      "filename": "ti.nfc-iphone-2.1.0.zip",
+      "url": "https://github.com/tidev/ti.nfc/releases/download/ios-2.1.0/ti.nfc-iphone-2.1.0.zip",
+      "size": 173731,
+      "tag": "ios-2.1.0"
+    }
+  ],
+  "hasApiDocs": false
+}

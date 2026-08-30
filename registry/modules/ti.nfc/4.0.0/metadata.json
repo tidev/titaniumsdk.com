@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "ti.nfc",
+  "version": "4.0.0",
+  "mutable": false,
+  "platforms": [
+    "android",
+    "ios"
+  ],
+  "publishedAt": "2020-10-14T10:11:29Z",
+  "manifests": [
+    {
+      "platform": "android",
+      "version": "4.0.0",
+      "name": "nfc",
+      "minsdk": "9.0.0",
+      "apiversion": 4,
+      "architectures": [
+        "arm64-v8a",
+        "armeabi-v7a",
+        "x86",
+        "x86_64"
+      ],
+      "guid": "50513178-f1da-40e1-8031-75c08db86d6f",
+      "author": "Jeff English",
+      "license": "Apache Public License v2",
+      "copyright": "Copyright (c) 2013 by Appcelerator, Inc.",
+      "description": "Near Field Communication (NFC)"
+    },
+    {
+      "platform": "ios",
+      "version": "4.0.0",
+      "name": "ti.nfc",
+      "minsdk": "9.2.0",
+      "apiversion": 2,
+      "architectures": [
+        "armv7",
+        "arm64",
+        "i386",
+        "x86_64"
+      ],
+      "guid": "50513178-f1da-40e1-8031-75c08db86d6f",
+      "author": "Hans Knoechel",
+      "license": "Apache 2",
+      "copyright": "Copyright (c) 2017-present by Appcelerator",
+      "description": "ti.nfc"
+    }
+  ],
+  "assets": [
+    {
+      "platform": "android",
+      "filename": "ti.nfc-android-4.0.0.zip",
+      "url": "https://github.com/tidev/ti.nfc/releases/download/v4.0.0-android/ti.nfc-android-4.0.0.zip",
+      "size": 7808850,
+      "tag": "v4.0.0-android"
+    },
+    {
+      "platform": "ios",
+      "filename": "ti.nfc-iphone-4.0.0.zip",
+      "url": "https://github.com/tidev/ti.nfc/releases/download/v4.0.0-iphone/ti.nfc-iphone-4.0.0.zip",
+      "size": 335830,
+      "tag": "v4.0.0-iphone"
+    }
+  ],
+  "hasApiDocs": false
+}

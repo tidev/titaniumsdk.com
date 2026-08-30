@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "appcelerator.bluetooth",
+  "description": "A collection of API's to connect and communicate with device via Bluetooth",
+  "repo": "https://github.com/tidev/appcelerator.bluetooth",
+  "aliases": [
+    "appcelerator.bluetooth"
+  ],
+  "curation": "tidev",
+  "latest": {
+    "android": "3.0.0"
+  },
+  "versions": [
+    {
+      "version": "3.0.0",
+      "platforms": [
+        "android"
+      ],
+      "publishedAt": "2025-10-25T11:59:41Z"
+    },
+    {
+      "version": "2.0.0",
+      "platforms": [
+        "android"
+      ],
+      "publishedAt": "2021-10-06T21:02:59Z"
+    },
+    {
+      "version": "1.0.1",
+      "platforms": [
+        "android"
+      ],
+      "publishedAt": "2021-04-05T18:18:33Z"
+    },
+    {
+      "version": "1.0.0",
+      "platforms": [
+        "android"
+      ],
+      "publishedAt": "2021-01-12T09:35:44Z"
+    }
+  ],
+  "readme": "# Appcelerator Bluetooth Module\n\nThe Bluetooth module allows you to access the Bluetooth service on Android devices and makes it possible\nto communicate using Bluetooth. It can be used to find the devices that are either paired or available in the local area, connecting devices, and transferring data between them.\n\n## Accessing the Bluetooth Module\n\nTo access this module from JavaScript, you would do the following:\n    \n``` js\nvar bluetooth = require(\"appcelerator.bluetooth\");\n```\n\nThe bluetooth variable is a reference to the Module object.\n\n## Getting Started\n\n- Set the ``` <module> ``` element in tiapp.xml, such as this: \n  ``` xml\n  <modules>\n      <module platform=\"android\">appcelerator.bluetooth</module>\n  </modules>\n  ```\n\n## Methods\n\n- ### isSupported\n  Checks that the Bluetooth is supported to the local Bluetooth device.\n\n  #### Return value\n  True if supported and false if not.\n\n  #### Example\n\n  ``` js\n  if (bluetooth.isSupported()) {\n      Ti.API.info('Bluetooth is supported');\n  } else {\n      Ti.API.info('Bluetooth is not supported in this device');\n  }\n  ```\n\n- ### getPairedDevices\n  This is a method used to get the paired devices with the local adapter.\n\n  #### Return Value\n  It returns a dictionary with keys:\n  - message[String]: Description of the reason for not getting pairedDevices.\n  - pairedDevices[Object]: Set of the devices which are paired to the local adapter.\n  - success[Boolean]: Determines whether the paired devices are successfully fetched or not.\n\n  #### Example\n\n  ``` js\n  var dict = bluetooth.getPairedDevices();\n  var device = []; // array for paired devices.\n  if (dict.success) {\n      var pdevices = dict.pairedDevices;\n\t  for (var index = 0; index < pdevices.length; index++){\n          device[index] = pdevices[index];\n      }\n  } else {\n      //Failed to get paired devices.\n      Ti.API.info(dict.message);\n  }\n  ```\n\n- ### createSocket\n  It creates a RFCOMM Bluetooth Socket.\n\n  #### Arguments\n  - UUID[String]: UUID of the service this socket will connect to.\n  - secure[Boolean]: It specifies whether the connection is secure or insecure\n\n  #### Return value\n  Returns the created socket for the device. \n\n  #### Example\n\n  ``` js\n  // device can be obtained by either getRemoteDevice method, getPairedDevice method or via deviceFound event.\n  var socket = device.createSocket('8ce255c0-200a-11e0-ac64-0800200c9a66', false);\n  // To connect the socket\n  socket.connect();\n  ```\n\n- ### createServerSocket\n  It creates an object of the BluetoothServerSocketProxy class, which can be used for listening the \n  incoming connections.\n\n  #### Arguments\n  - name[String]: Name of the service for SDP record.\n  - uuid[String]: UUID of the service for SDP record.\n  - secure[Boolean]: It specifies whether the connection is secure or insecure\n\n  #### Return Value\n  Returns the object of the BluetoothServerSocketProxy class\n\n  #### Example\n\n  ``` js\n  var serverSocket = bluetooth.createServerSocket({\n\t\t\tname: 'Test_Server_Socket',\n\t\t\tuuid: '8ce255c0-200a-11e0-ac64-0800200c9a66',\n\t\t\tsecure: true\n\t});\n  // To accept the incoming connections.\n  serverSocket.startAccept(false); \n  ```\n\n## Properties\n\n- ### name\n  Name of the local Bluetooth device. \n\n  #### Arguments\n  - name[String]: Name for the local Bluetooth Adapter.\n\n  #### Return Value\n  Returns the name of the local Bluetooth Adapter.\n\n  #### Example\n\n  ``` js\n  // To get the name\n  var btName = bluetooth.name;\n\n  // To set the name\n  var btName = 'XYZ';\n  bluetooth.name = btName;\n  ```\n\n- ### state\n  State of the local Bluetooth Adapter.\n\n  #### Return value\n  Returns the current state of the local Bluetooth Adapter.\n\n  #### Example\n\n  ``` js\n  var state = bluetooth.state;\n  if(state === bluetooth.STATE_ON)\n  {\n      Ti.API.info('Bluetooth is on');\n  }\n  ```\n\n## Constants\n\n- ### Bluetooth Scan Modes\n  #### bluetooth.SCAN_MODE_CONNECTABLE\n  #### bluetooth.SCAN_MODE_CONNECTABLE_DISCOVERABLE\n  #### bluetooth.SCAN_MODE_NONE\n\n- ### Bluetooth Adapter States\n  #### bluetooth.STATE_OFF\n  #### bluetooth.STATE_ON\n  #### bluetooth.STATE_TURNING_OFF\n  #### bluetooth.STATE_TURNING_ON\n\n- ### Bluetooth Device Types\n  #### bluetooth.DEVICE_TYPE_CLASSIC\n  #### bluetooth.DEVICE_TYPE_DUAL\n  #### bluetooth.DEVICE_TYPE_LE\n  #### bluetooth.DEVICE_TYPE_UNKNOWN\n\n## Example\n\nPlease see the `example/` folder. By default, the example would work on exchanging of the chat data. If you would like to exchange the image,\nsimply update the file serversocket.js(line#115) and client_socket.js(line#151) to include the image_sender.js and image_receiver.js file there.\n\n## Observations\n\n- This is the android native behaviour as observed. On a bluetooth socket object with a given uuid,\n  if device A connects to device B (via BluetoothSocket connect() method), and then device A creates another\n  socket object with the same uuid and attempts to connect with the same device B, then it won’t be successful\n  to connect as a connected socket connection already exists. Moreover, while attempting for connection,\n  the already connected socket would get disconnected.\n  Recommendation: It would always be recommended to close the socket properly before trying to connect using\n  the newly created socket object on the same device and same uuid.\n\n- This is the android native behaviour as observed. While device scanning/discovery process, the same device can be found multiple times from the deviceFound event in span of 12 seconds.\n  This scenario should be handled by the application. More information for same is available in the apidoc of bluetooth module class in section deviceFound event and startDiscovery method.\n\n## Building\n\nSimply run `appc run -p android --build-only` which will compile and package your module. \n\nCopy the module zip file into the root folder of your Titanium application or in the Titanium system folder (e.g. `/Library/Application Support/Titanium`).\n\n## Author\n\nAxway\n\n## License\n\nCopyright (c) 2020 by Axway, Inc. Please see the LICENSE file for further details.\n"
+}

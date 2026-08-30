@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "ti.crypto",
+  "version": "4.0.0",
+  "mutable": false,
+  "platforms": [
+    "android"
+  ],
+  "publishedAt": "2017-11-16T22:11:14Z",
+  "tag": "android-4.0.0",
+  "manifests": [
+    {
+      "platform": "android",
+      "version": "3.0.0",
+      "name": "crypto",
+      "minsdk": "6.0.0",
+      "apiversion": 3,
+      "architectures": [
+        "armeabi-v7a",
+        "x86"
+      ],
+      "guid": "5041eaca-a895-4229-a44b-de2f582c9133",
+      "author": "Dawson Toth",
+      "license": "Appcelerator Commercial License",
+      "copyright": "Copyright (c) 2010-2016 by Appcelerator, Inc.",
+      "description": "This module provides access to various encryption and decryption algorithms, and string encodings."
+    }
+  ],
+  "assets": [
+    {
+      "platform": "android",
+      "filename": "ti.crypto-android-4.0.0.zip",
+      "url": "https://github.com/tidev/ti.crypto/releases/download/android-4.0.0/ti.crypto-android-4.0.0.zip",
+      "size": 3741740,
+      "tag": "android-4.0.0"
+    }
+  ],
+  "hasApiDocs": false
+}

@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "ti.nfc",
+  "version": "6.0.0",
+  "mutable": false,
+  "platforms": [
+    "android"
+  ],
+  "publishedAt": "2025-10-25T11:30:14Z",
+  "tag": "v6.0.0-android",
+  "manifests": [
+    {
+      "platform": "android",
+      "version": "6.0.0",
+      "name": "nfc",
+      "minsdk": "12.7.0",
+      "apiversion": 4,
+      "architectures": [
+        "arm64-v8a",
+        "armeabi-v7a",
+        "x86",
+        "x86_64"
+      ],
+      "guid": "50513178-f1da-40e1-8031-75c08db86d6f",
+      "author": "Jeff English",
+      "license": "Apache Public License v2",
+      "copyright": "Copyright (c) 2013 by Appcelerator, Inc.",
+      "description": "Near Field Communication (NFC)"
+    }
+  ],
+  "assets": [
+    {
+      "platform": "android",
+      "filename": "ti.nfc-android-6.0.0.zip",
+      "url": "https://github.com/tidev/ti.nfc/releases/download/v6.0.0-android/ti.nfc-android-6.0.0.zip",
+      "size": 339081,
+      "tag": "v6.0.0-android"
+    }
+  ],
+  "hasApiDocs": false
+}

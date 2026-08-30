@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "appcelerator.https",
+  "version": "1.2.0",
+  "mutable": false,
+  "platforms": [
+    "android"
+  ],
+  "publishedAt": "2017-10-11T21:13:06Z",
+  "tag": "android-1.2.0",
+  "prerelease": true,
+  "manifests": [
+    {
+      "platform": "android",
+      "version": "2.1.0",
+      "name": "https",
+      "minsdk": "6.0.0",
+      "apiversion": 3,
+      "architectures": [
+        "armeabi-v7a",
+        "x86"
+      ],
+      "guid": "2163621d-1a78-4215-8244-bda08724ffed",
+      "author": "Matt Langston",
+      "license": "Appcelerator Commercial License",
+      "copyright": "Copyright (c) 2014-2017 by Appcelerator, Inc. All Rights Reserved.",
+      "description": "Authenticate server in HTTPS connections made by TiHTTPClient"
+    }
+  ],
+  "assets": [
+    {
+      "platform": "android",
+      "filename": "appcelerator.https-android-1.2.0.zip",
+      "url": "https://github.com/tidev/appcelerator.https/releases/download/android-1.2.0/appcelerator.https-android-1.2.0.zip",
+      "size": 2490622,
+      "tag": "android-1.2.0"
+    }
+  ],
+  "hasApiDocs": false
+}

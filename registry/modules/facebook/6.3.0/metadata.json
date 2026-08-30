@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "facebook",
+  "version": "6.3.0",
+  "mutable": false,
+  "platforms": [
+    "android"
+  ],
+  "publishedAt": "2017-09-07T14:06:40Z",
+  "tag": "android-6.3.0",
+  "manifests": [
+    {
+      "platform": "android",
+      "version": "6.3.0",
+      "name": "Facebook",
+      "minsdk": "6.1.1",
+      "apiversion": 3,
+      "architectures": [
+        "armeabi-v7a",
+        "x86"
+      ],
+      "guid": "e4f7ac61-1ee7-44c5-bc27-fa6876e2dce9",
+      "author": "Mark Mokryn and Ashraf A. S. (Appcelerator)",
+      "license": "Apache License Version 2.0",
+      "copyright": "Copyright (c) 2014 by Mark Mokryn, Copyright (c) 2009-2017 by Appcelerator",
+      "description": "facebook"
+    }
+  ],
+  "assets": [
+    {
+      "platform": "android",
+      "filename": "facebook-android-6.3.0.zip",
+      "url": "https://github.com/tidev/ti.facebook/releases/download/android-6.3.0/facebook-android-6.3.0.zip",
+      "size": 1608477,
+      "tag": "android-6.3.0"
+    }
+  ],
+  "hasApiDocs": false
+}

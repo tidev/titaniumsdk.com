@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "appcelerator.encrypteddatabase",
+  "version": "2.0.0",
+  "mutable": false,
+  "platforms": [
+    "android",
+    "ios"
+  ],
+  "publishedAt": "2016-07-13T06:35:45Z",
+  "tag": "2.0.0",
+  "manifests": [
+    {
+      "platform": "android",
+      "version": "1.3.1",
+      "name": "encrypteddatabase",
+      "minsdk": "4.0.0.GA",
+      "apiversion": 2,
+      "architectures": [
+        "armeabi",
+        "armeabi-v7a",
+        "x86"
+      ],
+      "guid": "d1b3740c-ec53-45c6-8454-8748f91da6ad",
+      "author": "Dawson Toth",
+      "license": "Appcelerator Commercial License",
+      "copyright": "Copyright (c) 2013 by Appcelerator, Inc.",
+      "description": "Provides transparent, secure 256-bit AES encryption of SQLite database files."
+    },
+    {
+      "platform": "ios",
+      "version": "1.3.1",
+      "name": "encrypteddatabase",
+      "minsdk": "3.3.0",
+      "apiversion": 2,
+      "architectures": [
+        "armv7",
+        "arm64",
+        "i386",
+        "x86_64"
+      ],
+      "guid": "d1b3740c-ec53-45c6-8454-8748f91da6ad",
+      "author": "Dawson Toth",
+      "license": "Appcelerator Commercial License",
+      "copyright": "Copyright (c) 2013-2015 by Appcelerator, Inc.",
+      "description": "Provides transparent, secure 256-bit AES encryption of SQLite database files."
+    }
+  ],
+  "assets": [
+    {
+      "platform": "android",
+      "filename": "appcelerator.encrypteddatabase-titanium-2.0.0.zip",
+      "url": "https://github.com/tidev/appcelerator.encrypteddatabase/releases/download/2.0.0/appcelerator.encrypteddatabase-titanium-2.0.0.zip",
+      "size": 12539407,
+      "tag": "2.0.0",
+      "universal": true
+    },
+    {
+      "platform": "ios",
+      "filename": "appcelerator.encrypteddatabase-titanium-2.0.0.zip",
+      "url": "https://github.com/tidev/appcelerator.encrypteddatabase/releases/download/2.0.0/appcelerator.encrypteddatabase-titanium-2.0.0.zip",
+      "size": 12539407,
+      "tag": "2.0.0",
+      "universal": true
+    }
+  ],
+  "hasApiDocs": false
+}

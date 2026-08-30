@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "ti.coremotion",
+  "version": "1.1.0",
+  "mutable": false,
+  "platforms": [
+    "ios"
+  ],
+  "publishedAt": "2014-12-01T23:00:33Z",
+  "tag": "v1.1.0",
+  "manifests": [
+    {
+      "platform": "ios",
+      "version": "1.1.0",
+      "name": "CoreMotion",
+      "minsdk": "3.2.0.GA",
+      "apiversion": 2,
+      "architectures": [
+        "i386",
+        "x86_64",
+        "armv7",
+        "arm64"
+      ],
+      "guid": "cbf3cdea-b7e8-4375-bdfb-70fb98675309",
+      "author": "Jon Alter",
+      "license": "Apache Public License v2",
+      "copyright": "Copyright (c) 2014 by Appcelerator, Inc.",
+      "description": "Allows access to CoreMotion."
+    }
+  ],
+  "assets": [
+    {
+      "platform": "ios",
+      "filename": "ti.coremotion-iphone-1.1.0.zip",
+      "url": "https://github.com/tidev/ti.coremotion/releases/download/v1.1.0/ti.coremotion-iphone-1.1.0.zip",
+      "size": 29385518,
+      "tag": "v1.1.0"
+    }
+  ],
+  "hasApiDocs": false
+}

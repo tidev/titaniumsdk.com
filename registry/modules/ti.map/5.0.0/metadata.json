@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "ti.map",
+  "version": "5.0.0",
+  "mutable": false,
+  "platforms": [
+    "android",
+    "ios"
+  ],
+  "publishedAt": "2020-01-27T23:30:39Z",
+  "manifests": [
+    {
+      "platform": "android",
+      "version": "4.5.1",
+      "name": "map",
+      "minsdk": "7.0.0",
+      "apiversion": 4,
+      "architectures": [
+        "arm64-v8a",
+        "armeabi-v7a",
+        "x86"
+      ],
+      "guid": "f0d8fd44-86d2-4730-b67d-bd454577aeee",
+      "author": "Appcelerator",
+      "license": "Apache Public License v2",
+      "copyright": "Copyright (c) 2013-present by Axway, Inc.",
+      "description": "External version of Map module to support new Google Map v2 sdk",
+      "respackage": "com.google.android.gms"
+    },
+    {
+      "platform": "ios",
+      "version": "5.0.0",
+      "name": "map",
+      "minsdk": "9.2.0.GA",
+      "apiversion": 2,
+      "architectures": [
+        "arm64",
+        "x86_64"
+      ],
+      "guid": "f0d8fd44-86d2-4730-b67d-bd454577aeee",
+      "author": "Jeff Haynie, Jon Alter, Pedro Enrique, Hans Knöchel, Vijay Singh",
+      "license": "Apache Public License v2",
+      "copyright": "Copyright (c) 2013-present by Axway Appcelerator",
+      "description": "External version of Map module"
+    }
+  ],
+  "assets": [
+    {
+      "platform": "android",
+      "filename": "ti.map-android-5.0.0.zip",
+      "url": "https://github.com/tidev/ti.map/releases/download/v5.0.0-android/ti.map-android-5.0.0.zip",
+      "size": 284301,
+      "tag": "v5.0.0-android"
+    },
+    {
+      "platform": "ios",
+      "filename": "ti.map-iphone-5.0.0.zip",
+      "url": "https://github.com/tidev/ti.map/releases/download/v5.0.0-iphone/ti.map-iphone-5.0.0.zip",
+      "size": 777665,
+      "tag": "v5.0.0-iphone"
+    }
+  ],
+  "hasApiDocs": false
+}

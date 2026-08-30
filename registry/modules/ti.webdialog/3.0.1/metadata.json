@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "ti.webdialog",
+  "version": "3.0.1",
+  "mutable": false,
+  "platforms": [
+    "ios"
+  ],
+  "publishedAt": "2021-07-22T23:46:30Z",
+  "tag": "v3.0.1-iphone",
+  "prerelease": true,
+  "manifests": [
+    {
+      "platform": "ios",
+      "version": "3.0.1",
+      "name": "titanium-web-dialog",
+      "minsdk": "9.2.0",
+      "apiversion": 2,
+      "architectures": [
+        "armv7",
+        "arm64",
+        "i386",
+        "x86_64"
+      ],
+      "guid": "1f19cce1-0ad7-4e25-ab3b-0666f54a0a49",
+      "author": "Hans Knoechel",
+      "license": "Apache 2.0",
+      "copyright": "Copyright (c) 2017-present by Axway Appcelerator",
+      "description": "titanium-web-dialog"
+    }
+  ],
+  "assets": [
+    {
+      "platform": "ios",
+      "filename": "ti.webdialog-iphone-3.0.1.zip",
+      "url": "https://github.com/tidev/titanium-web-dialog/releases/download/v3.0.1-iphone/ti.webdialog-iphone-3.0.1.zip",
+      "size": 279368,
+      "tag": "v3.0.1-iphone"
+    }
+  ],
+  "hasApiDocs": false
+}

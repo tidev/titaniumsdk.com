@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "appcelerator.ble",
+  "version": "1.1.0",
+  "mutable": false,
+  "platforms": [
+    "android",
+    "ios"
+  ],
+  "publishedAt": "2021-03-23T12:18:50Z",
+  "manifests": [
+    {
+      "platform": "android",
+      "version": "1.1.0",
+      "name": "BluetoothLowEnergy",
+      "minsdk": "9.0.0",
+      "apiversion": 4,
+      "architectures": [
+        "arm64-v8a",
+        "armeabi-v7a",
+        "x86",
+        "x86_64"
+      ],
+      "guid": "8d0b486f-27ff-4029-a989-56e4a6755e6f",
+      "author": "Axway",
+      "license": "Proprietary",
+      "copyright": "Copyright (c) 2020 by Axway Appcelerator",
+      "description": "Provides BluetoothLowEnergy module for Titanium applications."
+    },
+    {
+      "platform": "ios",
+      "version": "1.1.0",
+      "name": "BluetoothLowEnergy",
+      "minsdk": "9.2.1.GA",
+      "apiversion": 2,
+      "architectures": [
+        "armv7",
+        "arm64",
+        "i386",
+        "x86_64"
+      ],
+      "guid": "8d0b486f-27ff-4029-a989-56e4a6755e6f",
+      "author": "Axway",
+      "license": "Proprietary",
+      "copyright": "Copyright (c) 2020 by Axway Appcelerator",
+      "description": "Provides BluetoothLowEnergy module for Titanium applications.",
+      "mac": false
+    }
+  ],
+  "assets": [
+    {
+      "platform": "android",
+      "filename": "appcelerator.ble-android-1.1.0.zip",
+      "url": "https://github.com/tidev/appcelerator.ble/releases/download/v1.1.0-android/appcelerator.ble-android-1.1.0.zip",
+      "size": 327414,
+      "tag": "v1.1.0-android"
+    },
+    {
+      "platform": "ios",
+      "filename": "appcelerator.ble-iphone-1.1.0.zip",
+      "url": "https://github.com/tidev/appcelerator.ble/releases/download/v1.1.0-iphone/appcelerator.ble-iphone-1.1.0.zip",
+      "size": 656183,
+      "tag": "v1.1.0-iphone"
+    }
+  ],
+  "hasApiDocs": false
+}

@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "ti.barcode",
+  "version": "2.3.4",
+  "mutable": false,
+  "platforms": [
+    "android"
+  ],
+  "publishedAt": "2014-08-07T20:44:23Z",
+  "tag": "android-2.3.4",
+  "manifests": [
+    {
+      "platform": "android",
+      "version": "2.3.4",
+      "name": "barcode",
+      "minsdk": "2.1.3.GA",
+      "apiversion": 2,
+      "guid": "fe2e658e-0eaf-44a6-b6d1-c074d6b986a3",
+      "author": "Stephen Tramer & Jeff English",
+      "license": "Apache License, Version 2.0",
+      "copyright": "Copyright (c) 2010-2013 by Appcelerator, Inc.",
+      "description": "Lets you process 1D/2D barcodes."
+    }
+  ],
+  "assets": [
+    {
+      "platform": "android",
+      "filename": "ti.barcode-android-2.3.4.zip",
+      "url": "https://github.com/tidev/ti.barcode/releases/download/android-2.3.4/ti.barcode-android-2.3.4.zip",
+      "size": 831394,
+      "tag": "android-2.3.4"
+    }
+  ],
+  "hasApiDocs": false
+}

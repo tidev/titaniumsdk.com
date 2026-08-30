@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "ti.identity",
+  "version": "2.2.0",
+  "mutable": false,
+  "platforms": [
+    "android"
+  ],
+  "publishedAt": "2019-12-19T23:23:43Z",
+  "tag": "v2.2.0-android",
+  "prerelease": true,
+  "manifests": [
+    {
+      "platform": "android",
+      "version": "2.1.1",
+      "name": "titanium-identity",
+      "minsdk": "7.0.0",
+      "apiversion": 4,
+      "architectures": [
+        "arm64-v8a",
+        "armeabi-v7a",
+        "x86"
+      ],
+      "guid": "c3d987a8-8bd4-42cd-a3e4-2a75952d1ea0",
+      "author": "Hans Knoechel",
+      "license": "Specify your license",
+      "copyright": "Copyright (c) 2017 by Your Company",
+      "description": "titanium-identity"
+    }
+  ],
+  "assets": [
+    {
+      "platform": "android",
+      "filename": "ti.identity-android-2.2.0.zip",
+      "url": "https://github.com/tidev/titanium-identity/releases/download/v2.2.0-android/ti.identity-android-2.2.0.zip",
+      "size": 152077,
+      "tag": "v2.2.0-android"
+    }
+  ],
+  "hasApiDocs": false
+}

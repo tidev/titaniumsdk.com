@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "appcelerator.bluetooth",
+  "version": "2.0.0",
+  "mutable": false,
+  "platforms": [
+    "android"
+  ],
+  "publishedAt": "2021-10-06T21:02:59Z",
+  "tag": "v2.0.0-android",
+  "manifests": [
+    {
+      "platform": "android",
+      "version": "2.0.0",
+      "name": "Bluetooth",
+      "minsdk": "10.0.0.GA",
+      "apiversion": 4,
+      "architectures": [
+        "arm64-v8a",
+        "armeabi-v7a",
+        "x86",
+        "x86_64"
+      ],
+      "guid": "d4c8bc3c-dce5-48b4-9c7e-5ccb5102f205",
+      "author": "Axway",
+      "license": "Proprietary",
+      "copyright": "Copyright (c) 2020 by Axway, Inc.",
+      "description": "Titanium Bluetooth module for Android"
+    }
+  ],
+  "assets": [
+    {
+      "platform": "android",
+      "filename": "appcelerator.bluetooth-android-2.0.0.zip",
+      "url": "https://github.com/tidev/appcelerator.bluetooth/releases/download/v2.0.0-android/appcelerator.bluetooth-android-2.0.0.zip",
+      "size": 202151,
+      "tag": "v2.0.0-android"
+    }
+  ],
+  "hasApiDocs": false
+}

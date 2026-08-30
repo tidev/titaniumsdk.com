@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "facebook",
+  "version": "4.0.0",
+  "mutable": false,
+  "platforms": [
+    "android",
+    "ios"
+  ],
+  "publishedAt": "2015-03-06T03:37:37Z",
+  "manifests": [
+    {
+      "platform": "android",
+      "version": "4.0.0",
+      "name": "Facebook",
+      "minsdk": "3.5.1.RC",
+      "apiversion": 2,
+      "architectures": [
+        "armeabi",
+        "armeabi-v7a",
+        "x86"
+      ],
+      "guid": "e4f7ac61-1ee7-44c5-bc27-fa6876e2dce9",
+      "author": "Mark Mokryn and Ashraf A. S. (Appcelerator)",
+      "license": "Apache License Version 2.0",
+      "copyright": "Copyright (c) 2014 by Mark Mokryn, Copyright (c) 2009-2015 by Appcelerator",
+      "description": "facebook",
+      "respackage": "com.facebook.android"
+    },
+    {
+      "platform": "ios",
+      "version": "4.0.0",
+      "name": "Facebook",
+      "minsdk": "3.5.1.RC",
+      "apiversion": 2,
+      "architectures": [
+        "armv7",
+        "arm64",
+        "i386",
+        "x86_64"
+      ],
+      "guid": "da8acc57-8673-4692-9282-e3c1a21f5d83",
+      "author": "Mark Mokryn and Ng Chee Kiat",
+      "license": "Apache License Version 2.0",
+      "copyright": "Copyright (c) 2009-2015 by Appcelerator, Inc.",
+      "description": "Allows facebook integration for Titanium apps"
+    }
+  ],
+  "assets": [
+    {
+      "platform": "android",
+      "filename": "facebook-android-4.0.0.zip",
+      "url": "https://github.com/tidev/ti.facebook/releases/download/android-4.0.0/facebook-android-4.0.0.zip",
+      "size": 898884,
+      "tag": "android-4.0.0"
+    },
+    {
+      "platform": "ios",
+      "filename": "facebook-iphone-4.0.0.zip",
+      "url": "https://github.com/tidev/ti.facebook/releases/download/ios-4.0.0/facebook-iphone-4.0.0.zip",
+      "size": 25382070,
+      "tag": "ios-4.0.0"
+    }
+  ],
+  "hasApiDocs": false
+}
