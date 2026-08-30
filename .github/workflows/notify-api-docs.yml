@@ -9,7 +9,7 @@ on:
   workflow_call:
     secrets:
       dispatch-token:
-        description: 'Token with write access to tidev/titanium-www'
+        description: 'Token with write access to tidev/titaniumsdk.com'
         required: true
 
 jobs:
@@ -41,7 +41,7 @@ jobs:
         uses: peter-evans/repository-dispatch@v4
         with:
           token: ${{ secrets.dispatch-token }}
-          repository: tidev/titanium-www
+          repository: tidev/titaniumsdk.com
           event-type: regen-api-docs
           client-payload: |
             {

@@ -17,7 +17,7 @@ pnpm dev
 ## Contributions
 
 Open source contributions are greatly appreciated! If you have a bugfix, improvement or new feature, first make sure you have signed the [TiDev CLA](https://github.com/tidev/organization-docs/blob/main/AUTHORIZED_CONTRIBUTORS.md), then create
-[an issue](https://github.com/tidev/titanium-www/issues/new) first and submit a [pull request](https://github.com/tidev/titanium-www/pulls/new) against `main`.
+[an issue](https://github.com/tidev/titaniumsdk.com/issues/new) first and submit a [pull request](https://github.com/tidev/titaniumsdk.com/pulls/new) against `main`.
 
 ## Legal
 
