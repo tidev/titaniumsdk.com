@@ -2,7 +2,7 @@ import { PlatformBadges, DeprecatedBadge, SinceBadge } from '@/components/docs/b
 import { MemberSection } from '@/components/docs/member-section';
 import { Prose } from '@/components/docs/prose';
 import { formatSince } from '@/lib/docs/format';
-import { sdkIndex, sdkVersions, resolveVersion, MAIN } from '@/lib/docs/registry';
+import { sdkIndex, sdkVersions, resolveVersion, sourceUrl, MAIN } from '@/lib/docs/registry';
 import { buildTypeView } from '@/lib/docs/type-view';
 import { SITE_URL } from '@/lib/site';
 import type { Metadata } from 'next';
@@ -51,6 +51,12 @@ export default async function TypePage({ params }: PageProps<'/docs/sdk/[version
   const base = `/docs/sdk/${resolved}`;
   const { type: api } = view;
   const since = formatSince(api.since);
+
+  // apidoc images sit beside the YAML, so relative references resolve against
+  // the source file's own directory.
+  const sourceDir = api.source.split('/').slice(0, -1).join('/');
+  const imageBase = `${base}/images${sourceDir ? `/${sourceDir}` : ''}`;
+  const editUrl = sourceUrl(resolved, api.source);
 
   return (
     <article className="mx-auto max-w-4xl px-4 py-10 sm:px-6">
@@ -102,8 +108,8 @@ export default async function TypePage({ params }: PageProps<'/docs/sdk/[version
           </div>
         )}
 
-        <Prose markdown={api.summary} base={base} className="mt-4 text-lg" />
-        <Prose markdown={api.description} base={base} className="mt-4" />
+        <Prose markdown={api.summary} base={base} imageBase={imageBase} className="mt-4 text-lg" />
+        <Prose markdown={api.description} base={base} imageBase={imageBase} className="mt-4" />
       </header>
 
       {!!api.examples?.length && (
@@ -142,8 +148,22 @@ export default async function TypePage({ params }: PageProps<'/docs/sdk/[version
         typePlatforms={api.platforms}
       />
 
-      <footer className="mt-16 border-t border-border pt-4 text-xs text-text-subtle">
-        Compiled from <code className="font-mono">{api.source}</code>
+      <footer className="mt-16 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-border pt-4 text-xs text-text-subtle">
+        <span>
+          Compiled from <code className="font-mono">{api.source}</code>
+        </span>
+        {editUrl && (
+          <a
+            href={editUrl}
+            className="inline-flex items-center gap-1.5 rounded-md border border-border px-2 py-1 text-text-muted transition-colors hover:border-border-strong hover:text-text"
+            rel="noopener noreferrer"
+          >
+            <svg viewBox="0 0 16 16" aria-hidden className="size-3.5 fill-current">
+              <path d="M8 0a8 8 0 0 0-2.53 15.59c.4.07.55-.17.55-.38l-.01-1.49c-2.01.37-2.53-.5-2.7-.96-.09-.24-.48-.96-.82-1.16-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.4 7.4 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48l-.01 2.19c0 .21.15.46.55.38A8 8 0 0 0 8 0Z" />
+            </svg>
+            Edit on GitHub
+          </a>
+        )}
       </footer>
     </article>
   );

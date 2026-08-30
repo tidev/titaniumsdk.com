@@ -11,10 +11,12 @@ import { renderMarkdown } from '@/lib/docs/markdown';
 export function Prose({
   markdown,
   base,
+  imageBase,
   className = '',
 }: {
   markdown: string | undefined;
   base: string;
+  imageBase?: string;
   className?: string;
 }) {
   if (!markdown) return null;
@@ -22,7 +24,7 @@ export function Prose({
     <div
       className={`prose-docs text-text-muted ${className}`}
       // Sanitized in renderMarkdown; see the allowlist there.
-      dangerouslySetInnerHTML={{ __html: renderMarkdown(markdown, { base }) }}
+      dangerouslySetInnerHTML={{ __html: renderMarkdown(markdown, { base, imageBase }) }}
     />
   );
 }

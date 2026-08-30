@@ -1,4 +1,5 @@
 import { API_DOCS_DIR } from '../lib/registry-paths.ts';
+import { copyImages } from './assets.ts';
 import { compile, CompileError } from './compile.ts';
 import { moduleIdFrom, resolveSource, type Source } from './sources.ts';
 /**
@@ -69,8 +70,8 @@ if (source.kind === 'sdk') {
     console.error(`\n${(err as Error).message}`);
     process.exit(1);
   }
-  // Alongside the version's metadata.json, which is where consumers already look.
-  outRel = join('registry/modules', moduleId, 'v', version);
+  // Same shape as an SDK version directory: metadata.json, index.json, types/.
+  outRel = join('registry/modules', moduleId, version);
 }
 const outDir = join(root, outRel);
 
@@ -178,10 +179,24 @@ function writeMetadata(dir: string, commit: string | undefined) {
 try {
   const result = compile({ apidoc, outDir, sourceRepo: repo, log: (m) => console.log(m) });
 
+  // apidoc prose references images sitting beside the YAML, so they travel with
+  // the compiled types rather than being resolved against the source repo.
+  const assets = copyImages(apidoc, outDir);
+  if (assets.copied || assets.removed) {
+    console.log(
+      `${assets.copied} image(s) copied, ${assets.removed} removed, ${assets.unchanged} unchanged`
+    );
+  }
+
   const metadataChanged = writeMetadata(outDir, sourceCommit(checkout));
 
   // The workflow reads these to decide whether to commit and what to say.
-  const changed = result.written.length + result.removed.length + (metadataChanged ? 1 : 0);
+  const changed =
+    result.written.length +
+    result.removed.length +
+    assets.copied +
+    assets.removed +
+    (metadataChanged ? 1 : 0);
   console.log(`\n::notice::${repo}@${version}: ${changed} file(s) changed`);
   if (process.env.GITHUB_OUTPUT) {
     const { appendFileSync } = await import('node:fs');

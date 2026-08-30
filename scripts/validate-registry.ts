@@ -53,7 +53,7 @@ function schemaFor(rel: string): ZodType | null {
 
   if (parts[0] === 'modules') {
     // modules/<id>/index.json describes the package: versions, platforms, repo.
-    // modules/<id>/v/<version>/index.json is the compiled API reference for one
+    // modules/<id>/<version>/index.json is the compiled API reference for one
     // version. Same filename, different schema — distinguished by depth, since
     // routing them together is exactly the mistake that shipped a module's API
     // index into the package-index schema.

@@ -60,9 +60,21 @@ const SANITIZE: sanitizeHtml.IOptions = {
 export type RenderOptions = {
   /** Path prefix that `api:` references resolve against, e.g. `/docs/sdk/main`. */
   base: string;
+  /**
+   * Path that relative image references resolve against.
+   *
+   * apidoc images sit beside the YAML, so `Titanium/UI/Button.yml` writes
+   * `./button_android.png` meaning `Titanium/UI/button_android.png`. Only
+   * type-level descriptions carry them -- 29 types, and no member prose -- so
+   * one base per page is enough.
+   */
+  imageBase?: string;
 };
 
-export function renderMarkdown(source: string | undefined, { base }: RenderOptions): string {
+export function renderMarkdown(
+  source: string | undefined,
+  { base, imageBase }: RenderOptions
+): string {
   if (!source) return '';
 
   const html = md.render(source);
@@ -70,6 +82,18 @@ export function renderMarkdown(source: string | undefined, { base }: RenderOptio
   return sanitizeHtml(html, {
     ...SANITIZE,
     transformTags: {
+      img: (tagName, attribs) => {
+        const src = attribs.src ?? '';
+        // Absolute and remote sources are left exactly as they are.
+        if (!imageBase || /^(?:[a-z]+:)?\/\//i.test(src) || src.startsWith('/')) {
+          return { tagName, attribs };
+        }
+        const clean = src.replace(/^\.\//, '');
+        return {
+          tagName,
+          attribs: { ...attribs, src: `${imageBase}/${clean}`, loading: 'lazy' },
+        };
+      },
       a: (tagName, attribs) => {
         const href = attribs.href ?? '';
         // A single leftover anchor from the ExtJS-era docs, pointing at a

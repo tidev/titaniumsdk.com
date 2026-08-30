@@ -1,4 +1,11 @@
-import { ApiIndexSchema, ApiTypeSchema, type ApiIndex, type ApiType } from '../registry/index.ts';
+import {
+  ApiIndexSchema,
+  ApiTypeSchema,
+  SdkVersionSchema,
+  type ApiIndex,
+  type ApiType,
+  type SdkVersion,
+} from '../registry/index.ts';
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
@@ -65,6 +72,28 @@ function readJson<T>(path: string, parse: (v: unknown) => T): T | null {
 
 export function sdkIndex(version: string): ApiIndex | null {
   return readJson(join(SDK_DIR, version, 'index.json'), (v) => ApiIndexSchema.parse(v));
+}
+
+/** What this version was compiled from: repo, ref, and commit. */
+export function sdkMetadata(version: string): SdkVersion | null {
+  return readJson(join(SDK_DIR, version, 'metadata.json'), (v) => SdkVersionSchema.parse(v));
+}
+
+/**
+ * A link to the source YAML on GitHub.
+ *
+ * Pinned to the commit when one was recorded, so it points at the file as it was
+ * compiled rather than at whatever the branch holds now. Falls back to the ref,
+ * and returns null when neither is known.
+ */
+export function sourceUrl(version: string, sourcePath: string): string | null {
+  const meta = sdkMetadata(version)?.source as
+    | { repo?: string; ref?: string; commit?: string }
+    | undefined;
+  if (!meta?.repo) return null;
+  const at = meta.commit ?? meta.ref;
+  if (!at) return null;
+  return `https://github.com/${meta.repo}/blob/${at}/apidoc/${sourcePath}`;
 }
 
 export function sdkType(version: string, name: string): ApiType | null {

@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "node scripts/prune-builds.ts && next build",
+    "build": "node scripts/prune-builds.ts && node scripts/sync-doc-assets.ts && next build",
     "check": "next typegen && tsc --noEmit",
     "check:contrast": "node scripts/check-contrast.ts",
     "check:registry": "node scripts/validate-registry.ts",
@@ -17,7 +17,8 @@
     "registry:prune": "node scripts/prune-builds.ts",
     "start": "next start",
     "tokens": "node scripts/generate-tokens.ts && oxfmt src/app/globals.css",
-    "test": "node --test 'scripts/**/*.test.ts'"
+    "test": "node --test 'scripts/**/*.test.ts'",
+    "assets": "node scripts/sync-doc-assets.ts"
   },
   "dependencies": {
     "dotenv": "^17.4.2",
