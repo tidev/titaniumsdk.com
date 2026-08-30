@@ -48,14 +48,6 @@ export const ModuleManifestSchema = z
   .object({
     platform: PlatformSchema,
     version: VersionString,
-    /**
-     * The module's declared name, used as its display name.
-     *
-     * Present on every module on both platforms. They agree everywhere except
-     * `facebook`, which says "Facebook" on Android and "titanium-facebook" on
-     * iOS across 15 releases — Android is preferred when they differ.
-     */
-    name: z.string().optional(),
     minsdk: z.string().optional(),
     apiversion: z.union([z.string(), z.number()]).optional(),
     architectures: z.array(z.string()).optional(),
@@ -110,9 +102,16 @@ export const CurationSchema = z.enum(['tidev', 'community', 'unverified']);
 export const ModuleIndexSchema = z
   .object({
     schemaVersion: SchemaVersion,
-    /** Canonical key: the manifest moduleid, which differs from the repo name for 5 of 16. */
+    /**
+     * Canonical key, and the module's only identity.
+     *
+     * Differs from the repo name for 5 of 16. There is deliberately no separate
+     * display name: a module's manifest `name` is a build label nothing reads —
+     * the install directory is the moduleid (`modules/android/ti.map/5.7.0`),
+     * node-appc keys every lookup on it, and `tiapp.xml` references it. A second
+     * identifier could only drift from the one developers actually type.
+     */
     moduleId: z.string().min(1),
-    name: z.string().optional(),
     description: z.string().optional(),
     repo: z.url().optional(),
     /** Repo name and other spellings that should redirect here. */

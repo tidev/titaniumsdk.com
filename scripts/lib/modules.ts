@@ -125,7 +125,10 @@ export function toModuleManifest(
     // without one being bumped into them. The version on the asset is what
     // actually shipped, so it stands in.
     version: value(fields, 'version') ?? fallbackVersion,
-    ...(value(fields, 'name') ? { name: fields.name } : {}),
+    // `name` is deliberately not captured. It is a build label nothing reads --
+    // the install directory is the moduleid, node-appc keys every lookup on the
+    // id, and carrying a second identifier only invites it to drift from the one
+    // developers write in tiapp.xml.
     ...(value(fields, 'minsdk') ? { minsdk: fields.minsdk } : {}),
     // Numeric everywhere it appears, but kept as text if it ever is not, since
     // the schema accepts both and losing the original would be worse.

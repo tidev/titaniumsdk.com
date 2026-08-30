@@ -142,7 +142,6 @@ describe('toModuleManifest', () => {
     assert.deepEqual(toModuleManifest(parseManifest(MANIFEST), 'ios', '7.3.1'), {
       platform: 'ios',
       version: '7.3.1',
-      name: 'map',
       minsdk: '10.0.0.GA',
       apiversion: 2,
       architectures: ['arm64', 'x86_64'],
@@ -153,6 +152,16 @@ describe('toModuleManifest', () => {
       description: 'External version of Map module',
       mac: true,
     });
+  });
+
+  test('drops the manifest name', () => {
+    // A build label nothing reads: the install directory is the moduleid,
+    // node-appc keys every lookup on the id, and `ti module` lists by id
+    // despite naming its loop variable `name`. A second identifier could only
+    // drift from the one tiapp.xml references.
+    const manifest = parseManifest(MANIFEST);
+    assert.equal(manifest.name, 'map', 'the source really does declare one');
+    assert.ok(!('name' in toModuleManifest(manifest, 'ios', '7.3.1')));
   });
 
   test('takes the platform from the caller, not the manifest', () => {
