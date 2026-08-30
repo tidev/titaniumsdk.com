@@ -1,0 +1,180 @@
+{
+  "schemaVersion": 1,
+  "generator": "sha256:ac231061067ed51d0966e3953108bbd9c19cae952495be231d05241eb191edf3",
+  "external": {
+    "repo": "tidev/titanium-sdk",
+    "version": "main",
+    "hash": "sha256:0c8e94bd4e64c06147ad9ff63806ba4cc4617e8aca5fa7095f28472598bbf5a4"
+  },
+  "generatedAt": "2026-08-30T20:27:27.721Z",
+  "sources": {
+    "Accelerometer.yml": {
+      "hash": "sha256:18c89804cf2bbdd0b0889c48b6f8e84f617b88c0280ba4448917227c32e8ecf6",
+      "types": [
+        "Modules.CoreMotion.Accelerometer"
+      ]
+    },
+    "Altimeter.yml": {
+      "hash": "sha256:2cbb7b2ff8cd5f04b268adfd1c288b53dc1f6a537bca5846d7ef9f9a7f783d5e",
+      "types": [
+        "Modules.CoreMotion.Altimeter"
+      ]
+    },
+    "CoreMotion.yml": {
+      "hash": "sha256:57a7a96fbaa8bb8b426e04ba455355a5634c0f2ebd8f1e520071d228a5e1dbb0",
+      "types": [
+        "Modules.CoreMotion",
+        "CoreMotionReferenceFrameArgs",
+        "CoreMotionQueryActivityArgs",
+        "CoreMotionStartStepCountingArgs",
+        "CoreMotionStartPedometerArgs",
+        "CoreMotionQueryStepCountArgs",
+        "CoreMotionAccelerometerDataWithSuccess",
+        "CoreMotionGyroDataWithSuccess",
+        "CoreMotionMagnetometerDataWithSuccess",
+        "CoreMotionDeviceMotionDataWithSuccess",
+        "CoreMotionPedometerDataWithSuccess",
+        "CoreMotionAccelerometerData",
+        "CoreMotionGyroData",
+        "CoreMotionMagnetometerData",
+        "CoreMotionDeviceMotionData",
+        "CoreMotionActivityData",
+        "CoreMotionActivityQueryDataWithSuccess",
+        "CoreMotionActivityQueryData",
+        "CoreMotionStepCountingDataWithSuccess",
+        "CoreMotionStepCountingData",
+        "CoreMotionStepCountingQueryDataWithSuccess",
+        "CoreMotionStepCountingQueryData",
+        "CoreMotionActivity",
+        "CoreMotionAcceleration",
+        "CoreMotionRotationRate",
+        "CoreMotionAttitude",
+        "CoreMotionRotationMatrix",
+        "CoreMotionQuaternion",
+        "CoreMotionMagneticField",
+        "CoreMotionCalibratedMagneticField",
+        "CoreMotionLogItem",
+        "CoreMotionAltimeterData"
+      ]
+    },
+    "DeviceMotion.yml": {
+      "hash": "sha256:dfdcf782eb11c5970c24ca23ec909c548b5007feb18ab3d4c24bacab96887cf4",
+      "types": [
+        "Modules.CoreMotion.DeviceMotion"
+      ]
+    },
+    "Gyroscope.yml": {
+      "hash": "sha256:a8576b0039bc90a8b9e01b086570f283b3c60f2123d3747c6cd319752d667aa7",
+      "types": [
+        "Modules.CoreMotion.Gyroscope"
+      ]
+    },
+    "Magnetometer.yml": {
+      "hash": "sha256:0057d0132d80e7a8119a68419d4aaee535fecb6752bed106bbf86699a9779f4d",
+      "types": [
+        "Modules.CoreMotion.Magnetometer"
+      ]
+    },
+    "MotionActivity.yml": {
+      "hash": "sha256:65a1a3c95297713a4ddf6210dbabc25fa8d45c190003e1b20b3859fe395d8da4",
+      "types": [
+        "Modules.CoreMotion.MotionActivity"
+      ]
+    },
+    "Pedometer.yml": {
+      "hash": "sha256:3ae58dd9eb18ca883264d2f6e23506300711f1b0aa3b7fe10e4eb5e8ffe9f469",
+      "types": [
+        "Modules.CoreMotion.Pedometer"
+      ]
+    },
+    "StepCounter.yml": {
+      "hash": "sha256:5966d81b28a26ae3974cf0e6998224baf89fd7439742ec86251960206dffc1bb",
+      "types": [
+        "Modules.CoreMotion.StepCounter"
+      ]
+    }
+  },
+  "types": {
+    "Modules.CoreMotion.Accelerometer": {
+      "source": "Accelerometer.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:ed42c2c926446e6b05797c92ffc5e7de3b0aae9f6805d26d738ea0c0249cf183"
+    },
+    "Modules.CoreMotion.Altimeter": {
+      "source": "Altimeter.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:5202a4d8f07d558198942c43bc54a4b0ee92c9782635044620b38d72987f85fc"
+    },
+    "Modules.CoreMotion": {
+      "source": "CoreMotion.yml",
+      "extends": "Titanium.Module",
+      "outputHash": "sha256:f2c5b5dfaecbb68efbb5e7abbbc0ead3807e79b3488bd1a5c169c36701d526fa"
+    },
+    "CoreMotionActivityQueryData": {
+      "source": "CoreMotion.yml",
+      "outputHash": "sha256:20cbe12370edda8b342e36180e3078df13f5bcf19be6bae2c55e355b26321930"
+    },
+    "CoreMotionStepCountingData": {
+      "source": "CoreMotion.yml",
+      "outputHash": "sha256:6c294def06732cc1b91996c915c9a8d096b1bbf199030c98a8e8bb51789e37f5"
+    },
+    "CoreMotionStepCountingQueryData": {
+      "source": "CoreMotion.yml",
+      "outputHash": "sha256:daf858fdeb196292930363d306a1b94e66b5d45521105ddbe28c35a2716b16d6"
+    },
+    "CoreMotionActivity": {
+      "source": "CoreMotion.yml",
+      "outputHash": "sha256:d3e64806791d1328403c44b8d2752a9d65330b7b2a55b230dc1f997cb2ebd1a6"
+    },
+    "CoreMotionAcceleration": {
+      "source": "CoreMotion.yml",
+      "outputHash": "sha256:2afe8477ef2ce694e3fc62d8659add742c59ba96c5fec65105f29db7ca9c5589"
+    },
+    "CoreMotionRotationRate": {
+      "source": "CoreMotion.yml",
+      "outputHash": "sha256:2b0db5905fe632dc1ca48967351830404890674dba0ea288dc1fc85b62e88d8f"
+    },
+    "CoreMotionAttitude": {
+      "source": "CoreMotion.yml",
+      "outputHash": "sha256:b21cd08c202f20a2058400efd454ca0641c9f83c7d42cf37842c72ffc8e12639"
+    },
+    "CoreMotionMagneticField": {
+      "source": "CoreMotion.yml",
+      "outputHash": "sha256:64733317893503efdd76437f54f1f139cfbd2f09d81135801ef1e8a2cd5e5345"
+    },
+    "CoreMotionLogItem": {
+      "source": "CoreMotion.yml",
+      "outputHash": "sha256:320dd3e484401ae2c2e8e8921bf94ed37629bc1b352d4fd86806fae02359a128"
+    },
+    "Modules.CoreMotion.DeviceMotion": {
+      "source": "DeviceMotion.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:8f0d0ca01233fc846a77085c309bdadf3446b4869c099644beb40d1a6809aa81"
+    },
+    "Modules.CoreMotion.Gyroscope": {
+      "source": "Gyroscope.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:679f6e55c639609449cb9eb992de5fbed662e9558b12bf6f826eb895d7d44fd0"
+    },
+    "Modules.CoreMotion.Magnetometer": {
+      "source": "Magnetometer.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:78c4d2a47c249acd85a3cf67ca440312e695d034de2d32b8e3c227f422f4ae9d"
+    },
+    "Modules.CoreMotion.MotionActivity": {
+      "source": "MotionActivity.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:e8137c840647e42698a16e2dd2b9099b5e4353d2c1b96843d8acf823d43f1683"
+    },
+    "Modules.CoreMotion.Pedometer": {
+      "source": "Pedometer.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:936b33da5e9fe30413e0f12cecead18a6c2c80bb6e9eaed3d0fccf3d746df376"
+    },
+    "Modules.CoreMotion.StepCounter": {
+      "source": "StepCounter.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:ac45058c2acec3897668aa5d7080f64ce608279ccb1f3904c65b51f4ae4c4412"
+    }
+  }
+}

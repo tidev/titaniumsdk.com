@@ -1,0 +1,1154 @@
+{
+  "schemaVersion": 1,
+  "name": "Modules.BLE.PeripheralManager",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad"
+  ],
+  "since": "1.0.0",
+  "summary": "An object that manages and advertises peripheral services exposed by this app.",
+  "description": "Core Bluetooth uses PeripheralManager objects to manage published services within the local\nperipheral’s Generic Attribute Profile (GATT) database and to advertise these services to\ncentral devices (represented by Central objects). While a service is in the database, any\nconnected central can see and connect to it.\nThat said, if your app hasn’t specified the bluetooth-peripheral background mode, the contents\nof its services become disabled when it’s in the background or in a suspended state. In this\nscenario, any remote central trying to access the service’s characteristic value or characteristic\ndescriptors receives an error.\n",
+  "properties": [
+    {
+      "name": "isAdvertising",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Whether or not the the module's internal peripheral manager is currently advertising data.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": {
+        "android": "1.1.0",
+        "iphone": "1.0.0",
+        "ipad": "1.0.0"
+      }
+    },
+    {
+      "name": "peripheralManagerState",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "State of the module's internal peripheral manager. Its value is one of the MANAGER_STATE_* constants.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": {
+        "android": "1.1.0",
+        "iphone": "1.0.0",
+        "ipad": "1.0.0"
+      }
+    },
+    {
+      "name": "restoredPeripheralManagerIdentifier",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "string the restoration identifier for a peripheral manager object. this is the same string you assigned to the restoreIdentifier parameter of the initPeripheralManager function.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "1.0.0"
+    }
+  ],
+  "methods": [
+    {
+      "name": "addService",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Publishes a service and any of its associated characteristics and characteristic descriptors to the local GATT database.",
+      "since": {
+        "android": "1.1.0",
+        "iphone": "1.0.0",
+        "ipad": "1.0.0"
+      },
+      "parameters": [
+        {
+          "name": "characteristics",
+          "summary": "A list of characteristics of a service.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.BLE.Characteristic"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "uuid",
+          "summary": "The Bluetooth-specific UUID of the attribute.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "primary",
+          "summary": "The type of the service (primary or secondary).",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.Service"
+            }
+          ],
+          "summary": "Object of service which is added."
+        }
+      ]
+    },
+    {
+      "name": "closePeripheral",
+      "platforms": [
+        "android"
+      ],
+      "summary": "This method closes the peripheral.",
+      "description": "This method, when called terminate the ongoing advertisement process if any and closes the \nperipheral. Application should call this method, soon after it is done with the peripheral\noperations.\n",
+      "since": "1.1.0",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "void"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "publishL2CAPChannel",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Attempts to open an L2CAP channel to the peripheral using the supplied Protocol/Service Multiplexer (PSM).",
+      "since": {
+        "android": "1.1.0",
+        "iphone": "1.0.0",
+        "ipad": "1.0.0"
+      },
+      "osver": {
+        "ios": {
+          "min": "11.0"
+        },
+        "android": {
+          "min": "10"
+        }
+      },
+      "parameters": [
+        {
+          "name": "encryptionRequired",
+          "summary": "The bool can be true if the service requires the link to be encrypted before a stream can be established. false if the service can be used over an unsecured link.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "void"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "removeAllServices",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Removes all published services from the local GATT database.",
+      "since": {
+        "android": "1.1.0",
+        "iphone": "1.0.0",
+        "ipad": "1.0.0"
+      },
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "void"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "removeService",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Removes a specified published service from the local GATT database.",
+      "since": {
+        "android": "1.1.0",
+        "iphone": "1.0.0",
+        "ipad": "1.0.0"
+      },
+      "parameters": [
+        {
+          "name": "service",
+          "summary": "Object of service you want to remove.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.Service"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "void"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "respondToDescriptorRequest",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Used to respond to request(s) received via the didReceiveDescriptorReadRequest or didReceiveDescriptorWriteRequest event.",
+      "since": "1.1.0",
+      "parameters": [
+        {
+          "name": "descriptorRequest",
+          "summary": "The request to which the peripheral is responding.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.DescriptorRequest"
+            }
+          ]
+        },
+        {
+          "name": "result",
+          "summary": "The result code; see the ATT_ERROR* constants.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "void"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "respondToRequest",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Used to respond to request(s) received via the didReceiveReadRequest or didReceiveWriteRequests event.",
+      "since": {
+        "android": "1.1.0",
+        "iphone": "1.0.0",
+        "ipad": "1.0.0"
+      },
+      "parameters": [
+        {
+          "name": "request",
+          "summary": "The request to which the peripheral is responding.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.Request"
+            }
+          ]
+        },
+        {
+          "name": "result",
+          "summary": "The result code; see the ATT_ERROR* constants.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "void"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "setDesiredConnectionLatency",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Sets the desired connection latency for an existing connection on the module's internal peripheral manager.",
+      "description": "Connection latency changes are not guaranteed, so the resultant latency may vary. If a desired latency is not set, the latency chosen by the central at the time of connection establishment will be used. Typically, it is not necessary to change the latency.\n",
+      "since": "1.0.0",
+      "parameters": [
+        {
+          "name": "latency",
+          "summary": "The desired connection latency. see BLE.PERIPHERAL_MANAGER_CONNECTION_LATENCY_*",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "central",
+          "summary": "A connected central",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.Central"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "void"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "startAdvertising",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Instructs the module's internal peripheral manager to start advertising.",
+      "description": "Important: You must call the initPeripheralManager function first!\nSupported advertising data types are localName and serviceUUIDs. When in the foreground, an\napplication can utilize up to 28 bytes of space in the initial advertisement data for any combination\nof the supported advertising data types. If this space is used up, there are an additional 10 bytes\nof space in the scan response that can be used only for the local name.\nNote that these sizes do not include the 2 bytes of header information that are required for each\nnew data type. Any service UUIDs that do not fit in the allotted space will be added to a special\n\" overflow\" area, and can only be discovered by an iOS device that is explicitly scanning for them.\nWhile an application is in the background, the local name will not be used and all service UUIDs\nwill be placed in the \"overflow\" area. In Android, Before starting the advertisement, user must \nadd the service first. If this is not the case, then this method will not work as expected.\n",
+      "since": {
+        "android": "1.1.0",
+        "iphone": "1.0.0",
+        "ipad": "1.0.0"
+      },
+      "parameters": [
+        {
+          "name": "localName",
+          "summary": "The local name of a peripheral. This parameter is of type boolean in android",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            },
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "serviceUUIDs",
+          "summary": "An array of service UUIDs.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "primitive",
+                  "name": "String"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "void"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "startAdvertisingBeaconRegion",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Instructs the module's internal peripheral manager to start advertising for beacon region.",
+      "description": "Important: You must call the initPeripheralManager function first!\n",
+      "since": "1.1.0",
+      "parameters": [
+        {
+          "name": "measurePower",
+          "summary": "This is the RSSI of the device observed from one meter in its intended environment.This value is optional, but should be specified to achieve the best ranging performance. If not specified, it will default to a pre-determined value for the device.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "optional": true
+        },
+        {
+          "name": "beaconRegion",
+          "summary": "Object of Beacon Region.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.BeaconRegion"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "void"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "stopAdvertising",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Instructs the module's internal peripheral manager to stop advertising.",
+      "since": "1.0.0",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "void"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "unpublishL2CAPChannel",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "The service PSM to be removed from the system.",
+      "since": {
+        "android": "1.1.0",
+        "iphone": "1.0.0",
+        "ipad": "1.0.0"
+      },
+      "osver": {
+        "ios": {
+          "min": "11.0"
+        },
+        "android": {
+          "min": "10"
+        }
+      },
+      "parameters": [
+        {
+          "name": "PSM",
+          "summary": "The PSM of the channel along with we can close the particular channel.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "void"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "updateValue",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Instructs the module's internal peripheral manager to send an updated characteristic value to one or more centrals, via a notification or indication.",
+      "since": {
+        "android": "1.1.0",
+        "iphone": "1.0.0",
+        "ipad": "1.0.0"
+      },
+      "parameters": [
+        {
+          "name": "characteristic",
+          "summary": "The value of the characteristic.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.MutableCharacteristic"
+            }
+          ]
+        },
+        {
+          "name": "data",
+          "summary": "updated characteristic value.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Buffer"
+            }
+          ]
+        },
+        {
+          "name": "centrals",
+          "summary": "The list of centrals that need to be updated. If not specified, all subscribed centrals will be updated.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.BLE.Central"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ],
+          "summary": "True if the update could be sent, otherwise false. In iOS, if false was returned, the readyToUpdateSubscribers event will be fired once space has become available, and the update should be re-sent if so desired. In Android, if there are multiple centrals need to be updated, then for any of the central, if the update could not be sent, it returns false."
+        }
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "didAddService",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "This event returns the result of a addService call. If service could not be added, the cause will be detailed in the errorCode, errorDomain, and errorDescription properties.",
+      "since": {
+        "android": "1.1.0",
+        "iphone": "1.0.0",
+        "ipad": "1.0.0"
+      },
+      "properties": [
+        {
+          "name": "service",
+          "summary": "An object representing the service that was added.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.Service"
+            }
+          ]
+        },
+        {
+          "name": "errorCode",
+          "summary": "The error code; only present if an error occurred.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "errorDomain",
+          "summary": "The error domain; only present if an error occurred..",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "errorDescription",
+          "summary": "The error description; only peresent if an",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "didOpenL2CAPChannel",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Tells the delegate that the peripheral manager opened an L2CAP channel.",
+      "since": {
+        "android": "1.1.0",
+        "iphone": "1.0.0",
+        "ipad": "1.0.0"
+      },
+      "properties": [
+        {
+          "name": "channel",
+          "summary": "The channel opened by the manager.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.L2CAPChannel"
+            }
+          ]
+        },
+        {
+          "name": "errorCode",
+          "summary": "The error code; only present if an error occurred.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "errorDomain",
+          "summary": "The error domain; only present if an error occurred..",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "errorDescription",
+          "summary": "The error description; only peresent if an",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "didPublishL2CAPChannel",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Tells the delegate that the peripheral manager created a listener for incoming L2CAP channel connections.",
+      "since": {
+        "android": "1.1.0",
+        "iphone": "1.0.0",
+        "ipad": "1.0.0"
+      },
+      "properties": [
+        {
+          "name": "psm",
+          "summary": "The Protocol/Service Multiplexer (PSM) of the published channel.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "errorCode",
+          "summary": "The error code; only present if an error occurred.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "errorDomain",
+          "summary": "The error domain; only present if an error occurred..",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "errorDescription",
+          "summary": "The error description; only peresent if an",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "didReceiveDescriptorReadRequest",
+      "platforms": [
+        "android"
+      ],
+      "summary": "This event is fired when the module's internal peripheral manager receives a read request on descriptor.",
+      "since": "1.1.0",
+      "properties": [
+        {
+          "name": "descriptorRequest",
+          "summary": "An object representing the descriptor request.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.DescriptorRequest"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "didReceiveDescriptorWriteRequests",
+      "platforms": [
+        "android"
+      ],
+      "summary": "This event is fired when the module's internal peripheral manager receives a write request on descriptor.",
+      "since": "1.1.0",
+      "properties": [
+        {
+          "name": "descriptorRequests",
+          "summary": "An object representing the descriptor request.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.DescriptorRequest"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "didReceiveReadRequest",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "This event is fired when the module's internal peripheral manager receives a read request.",
+      "since": {
+        "android": "1.1.0",
+        "iphone": "1.0.0",
+        "ipad": "1.0.0"
+      },
+      "properties": [
+        {
+          "name": "request",
+          "summary": "An object representing the request.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.Request"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "didReceiveWriteRequests",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "This event is fired when the module's internal peripheral manager receives a write request for one or more characteristics.",
+      "description": "For every invocation of this method, respondToRequest should be called exactly once. If the requests parameter contains multiple requests, they must be treated as an atomic unit. If the execution of one of the requests would cause a failure, the request and error reason should be provided and none of the requests should be executed.\n",
+      "since": {
+        "android": "1.1.0",
+        "iphone": "1.0.0",
+        "ipad": "1.0.0"
+      },
+      "properties": [
+        {
+          "name": "request",
+          "summary": "request objects describing the incoming write request",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.BLE.Request"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "didStartAdvertising",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "This event returns the result of a startAdvertising call. If advertisement could not be started, the cause will be detailed in the errorCode, errorDomain, and errorDescription properties.",
+      "since": {
+        "android": "1.1.0",
+        "iphone": "1.0.0",
+        "ipad": "1.0.0"
+      },
+      "properties": [
+        {
+          "name": "errorCode",
+          "summary": "The error code; only present if an error occurred.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "errorDomain",
+          "summary": "The error domain; only present if an error occurred..",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "errorDescription",
+          "summary": "The error description; only peresent if an",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "didSubscribeToCharacteristic",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "This event is fired when a central configures a characteristic to notify or indicate. It should be used as a cue to start sending updates as the characteristic value changes.",
+      "description": "In Android, this event is fired by writing on the Client Configuration UUID (00002902-0000-1000-8000-00805f9b34fb)\ndescriptor for given characteristic by central with descriptor values,BLE.ENABLE_NOTIFICATION_VALUE\nor BLE.ENABLE_INDICATION_VALUE.\n",
+      "since": {
+        "android": "1.1.0",
+        "iphone": "1.0.0",
+        "ipad": "1.0.0"
+      },
+      "properties": [
+        {
+          "name": "central",
+          "summary": "An object representing the central that subscribed.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.Central"
+            }
+          ]
+        },
+        {
+          "name": "characteristic",
+          "summary": "An object representintg the characteristic to which the central subscribed.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.Characteristic"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "didUnpublishL2CAPChannel",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Tells the delegate that the peripheral manager removed a published service from the local system.",
+      "since": {
+        "android": "1.1.0",
+        "iphone": "1.0.0",
+        "ipad": "1.0.0"
+      },
+      "properties": [
+        {
+          "name": "psm",
+          "summary": "The Protocol/Service Multiplexer (PSM) of the published channel.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "errorCode",
+          "summary": "The error code; only present if an error occurred.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "errorDomain",
+          "summary": "The error domain; only present if an error occurred..",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "errorDescription",
+          "summary": "The error description; only peresent if an",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "didUnsubscribeFromCharacteristic",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "This event is fired when a central removes notifications/indications from a characteristic.",
+      "description": "In Android, this event is fired by writing on the Client Configuration UUID (00002902-0000-1000-8000-00805f9b34fb)\ndescriptor for given characteristic by central with value BLE.DISABLE_NOTIFICATION_VALUE\n",
+      "since": {
+        "android": "1.1.0",
+        "iphone": "1.0.0",
+        "ipad": "1.0.0"
+      },
+      "properties": [
+        {
+          "name": "central",
+          "summary": "An object representing the central that unsubscribed.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.Central"
+            }
+          ]
+        },
+        {
+          "name": "characteristic",
+          "summary": "An object representintg the characteristic from which the central unsubscribed.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.Characteristic"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "didUpdateState",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Fired whenever the state of the module's internal peripheral manager changes.",
+      "since": {
+        "android": "1.1.0",
+        "iphone": "1.0.0",
+        "ipad": "1.0.0"
+      },
+      "properties": [
+        {
+          "name": "state",
+          "summary": "An integer describing the state of the module's internal peripheral manager. See the MANAGER_STATE_* constants.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "readyToUpdateSubscribers",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "This event is fired when the module's internal peripheral manager receives a write request for one or more characteristics.This event is fired after a failed call to updateValue, when the module's internal peripheral manager is again ready to send characteristic value updates.",
+      "since": "1.0.0"
+    },
+    {
+      "name": "willRestoreState",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Tells the delegate that the peripheral manager opened an L2CAP channel.",
+      "since": "1.0.0",
+      "properties": [
+        {
+          "name": "advertisementData",
+          "summary": "An object (dictionary) containing the data being advertised at the time the application was terminated by the system. See the startAdvertising method for more detail.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Object"
+            }
+          ]
+        },
+        {
+          "name": "services",
+          "summary": "Array of uuids of Services",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "primitive",
+                  "name": "String"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "references": [
+    "Modules.BLE.BeaconRegion",
+    "Modules.BLE.Central",
+    "Modules.BLE.Characteristic",
+    "Modules.BLE.DescriptorRequest",
+    "Modules.BLE.L2CAPChannel",
+    "Modules.BLE.MutableCharacteristic",
+    "Modules.BLE.Request",
+    "Modules.BLE.Service"
+  ],
+  "externalReferences": [
+    "Titanium.Buffer",
+    "Titanium.Proxy"
+  ],
+  "source": "PeripheralManager.yml"
+}

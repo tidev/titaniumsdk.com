@@ -1,0 +1,645 @@
+{
+  "schemaVersion": 1,
+  "counts": {
+    "types": 17,
+    "inlined": 1,
+    "members": 284
+  },
+  "types": [
+    {
+      "name": "Modules.BLE",
+      "kind": "module",
+      "summary": "Add-on Bluetooth Low Energy module",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "since": "1.0.0",
+      "deprecated": false,
+      "extends": "Titanium.Module",
+      "counts": {
+        "properties": 99,
+        "methods": 14,
+        "events": 0
+      },
+      "members": [
+        "ADVERT_DATA_KEY_IS_CONNECTABLE",
+        "ADVERT_DATA_KEY_LOCAL_NAME",
+        "ADVERT_DATA_KEY_MANUFACTURER_DATA",
+        "ADVERT_DATA_KEY_OVERFLOW_SERVICE_UUIDS",
+        "ADVERT_DATA_KEY_SERVICE_DATA",
+        "ADVERT_DATA_KEY_SERVICE_UUIDS",
+        "ADVERT_DATA_KEY_SOLICITED_SERVICE_UUIDS",
+        "ADVERT_DATA_KEY_TX_POWER_LEVEL",
+        "ATT_ATTRIBUTE_NOT_FOUND_ERROR",
+        "ATT_ATTRIBUTE_NOT_LONG_ERROR",
+        "ATT_FAILURE",
+        "ATT_INSUFFICIENT_AUTHENTICATION_ERROR",
+        "ATT_INSUFFICIENT_AUTHORIZATION_ERROR",
+        "ATT_INSUFFICIENT_ENCRYPTION_ERROR",
+        "ATT_INSUFFICIENT_ENCRYPTION_KEY_SIZE_ERROR",
+        "ATT_INSUFFICIENT_RESOURCES_ERROR",
+        "ATT_INVALID_ATTRIBUTE_VALUE_LENGTH_ERROR",
+        "ATT_INVALID_HANDLE_ERROR",
+        "ATT_INVALID_OFFSET_ERROR",
+        "ATT_INVALID_PDU_ERROR",
+        "ATT_PREPARE_QUEUE_FULL_ERROR",
+        "ATT_READ_NOT_PERMITTED_ERROR",
+        "ATT_REQUEST_NOT_SUPPORTED_ERROR",
+        "ATT_SUCCESS",
+        "ATT_UNLIKELY_ERROR",
+        "ATT_UNSUPPORTED_GROUP_TYPE_ERROR",
+        "ATT_WRITE_NOT_PERMITTED_ERROR",
+        "AUTHORISATION_STATUS_ALLOWED_ALWAYS",
+        "AUTHORISATION_STATUS_DENIED",
+        "AUTHORISATION_STATUS_NOT_DETERMINED",
+        "AUTHORISATION_STATUS_RESTRICTED",
+        "BEACON_PROXIMITY_FAR",
+        "BEACON_PROXIMITY_IMMEDIATE",
+        "BEACON_PROXIMITY_NEAR",
+        "BEACON_PROXIMITY_UNKNOWN",
+        "CBUUID_CHARACTERISTIC_AGGREGATE_FORMAT_STRING",
+        "CBUUID_CHARACTERISTIC_EXTENDED_PROPERTIES_STRING",
+        "CBUUID_CHARACTERISTIC_FORMAT_STRING",
+        "CBUUID_CHARACTERISTIC_USER_DESCRIPTION_STRING",
+        "CBUUID_CLIENT_CHARACTERISTIC_CONFIGURATION_STRING",
+        "CBUUID_L2CAPPSM_CHARACTERISTIC_STRING",
+        "CBUUID_SERVER_CHARACTERISTIC_CONFIGURATION_STRING",
+        "CHARACTERISTIC_PERMISSION_READABLE",
+        "CHARACTERISTIC_PERMISSION_READ_ENCRYPTED",
+        "CHARACTERISTIC_PERMISSION_WRITEABLE",
+        "CHARACTERISTIC_PERMISSION_WRITE_ENCRYPTED",
+        "CHARACTERISTIC_PROPERTIES_AUTHENTICATED_SIGNED_WRITES",
+        "CHARACTERISTIC_PROPERTIES_BROADCAST",
+        "CHARACTERISTIC_PROPERTIES_EXTENDED_PROPERTIES",
+        "CHARACTERISTIC_PROPERTIES_INDICATE",
+        "CHARACTERISTIC_PROPERTIES_INDICATE_ENCRYPTION_REQUIRED",
+        "CHARACTERISTIC_PROPERTIES_NOTIFY",
+        "CHARACTERISTIC_PROPERTIES_NOTIFY_ENCRYPTION_REQUIRED",
+        "CHARACTERISTIC_PROPERTIES_READ",
+        "CHARACTERISTIC_PROPERTIES_WRITE",
+        "CHARACTERISTIC_PROPERTIES_WRITE_WITHOUT_RESPONSE",
+        "CHARACTERISTIC_TYPE_WRITE_WITHOUT_RESPONSE",
+        "CHARACTERISTIC_TYPE_WRITE_WITH_RESPONSE",
+        "CONNECTION_EVENT_TYPE_PEER_CONNECTED",
+        "CONNECTION_EVENT_TYPE_PEER_DISCONNECTED",
+        "CONNECTION_PRIORITY_BALANCED",
+        "CONNECTION_PRIORITY_HIGH",
+        "CONNECTION_PRIORITY_LOW_POWER",
+        "CONNECT_PERIPHERAL_OPTIONS_KEY_ENABLE_TRANSPORT_BRIDGING",
+        "CONNECT_PERIPHERAL_OPTIONS_KEY_NOTIFY_ON_CONNECTION",
+        "CONNECT_PERIPHERAL_OPTIONS_KEY_NOTIFY_ON_DISCONNECTION",
+        "CONNECT_PERIPHERAL_OPTIONS_KEY_NOTIFY_ON_NOTIFICATION",
+        "CONNECT_PERIPHERAL_OPTIONS_KEY_REQUIRES_ANCS",
+        "CONNECT_PERIPHERAL_OPTIONS_KEY_START_DELAY",
+        "DESCRIPTOR_PERMISSION_READ",
+        "DESCRIPTOR_PERMISSION_READ_ENCRYPTED",
+        "DESCRIPTOR_PERMISSION_WRITE",
+        "DESCRIPTOR_PERMISSION_WRITE_ENCRYPTED",
+        "DISABLE_NOTIFICATION_VALUE",
+        "ENABLE_INDICATION_VALUE",
+        "ENABLE_NOTIFICATION_VALUE",
+        "LOCATION_MANAGER_AUTHORIZATION_STATUS_AUTHORIZED_ALWAYS",
+        "LOCATION_MANAGER_AUTHORIZATION_STATUS_AUTHORIZED_WHEN_IN_USE",
+        "LOCATION_MANAGER_AUTHORIZATION_STATUS_DENIED",
+        "LOCATION_MANAGER_AUTHORIZATION_STATUS_NOT_DETERMINED",
+        "LOCATION_MANAGER_AUTHORIZATION_STATUS_RESTRICTED",
+        "MANAGER_STATE_POWERED_OFF",
+        "MANAGER_STATE_POWERED_ON",
+        "MANAGER_STATE_RESETTING",
+        "MANAGER_STATE_TURNING_OFF",
+        "MANAGER_STATE_TURNING_ON",
+        "MANAGER_STATE_UNAUTHORIZED",
+        "MANAGER_STATE_UNKNOWN",
+        "MANAGER_STATE_UNSUPPORTED",
+        "PERIPHERAL_MANAGER_CONNECTION_LATENCY_HIGH",
+        "PERIPHERAL_MANAGER_CONNECTION_LATENCY_LOW",
+        "PERIPHERAL_MANAGER_CONNECTION_LATENCY_MEDIUM",
+        "PERIPHERAL_STATE_CONNECTED",
+        "PERIPHERAL_STATE_CONNECTING",
+        "PERIPHERAL_STATE_DISCONNECTED",
+        "PERIPHERAL_STATE_DISCONNECTING",
+        "REGION_STATE_INSIDE",
+        "REGION_STATE_OUTSIDE",
+        "REGION_STATE_UNKNOWN",
+        "createBeaconIdentityConstraint",
+        "createBeaconRegion",
+        "createDescriptor",
+        "createMutableCharacteristic",
+        "createRegionManager",
+        "disable",
+        "enable",
+        "initCentralManager",
+        "initPeripheralManager",
+        "isAdvertisingSupported",
+        "isBluetoothAndBluetoothAdminPermissionsGranted",
+        "isEnabled",
+        "isSupported",
+        "requestPermissions"
+      ]
+    },
+    {
+      "name": "Modules.BLE.Beacon",
+      "kind": "proxy",
+      "summary": "Represents a beacon that was encountered during region monitoring. You do not create instances of this class directly. They will be delivered via the rangedBeacons event.",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "since": "1.1.0",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 7,
+        "methods": 0,
+        "events": 0
+      },
+      "members": [
+        "accuracy",
+        "major",
+        "minor",
+        "proximity",
+        "rssi",
+        "timestamp",
+        "uuid"
+      ]
+    },
+    {
+      "name": "Modules.BLE.BeaconIdentityConstraint",
+      "kind": "proxy",
+      "summary": "Represents a beacon that was encountered during region monitoring. You do not create instances of this class directly. They will be delivered via the rangedBeacons event.",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "since": "1.1.0",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 3,
+        "methods": 0,
+        "events": 0
+      },
+      "members": [
+        "major",
+        "minor",
+        "uuid"
+      ]
+    },
+    {
+      "name": "Modules.BLE.BeaconRegion",
+      "kind": "proxy",
+      "summary": "A region used to detect the presence of iBeacon devices.",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "since": "1.1.0",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 5,
+        "methods": 0,
+        "events": 0
+      },
+      "members": [
+        "identifier",
+        "major",
+        "minor",
+        "notifyEntryStateOnDisplay",
+        "uuid"
+      ]
+    },
+    {
+      "name": "Modules.BLE.Central",
+      "kind": "proxy",
+      "summary": "represent a remote device acting as central, connected to a local app, which is acting as a peripheral.",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "since": {
+        "android": "1.1.0",
+        "iphone": "1.0.0",
+        "ipad": "1.0.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 2,
+        "methods": 0,
+        "events": 0
+      },
+      "members": [
+        "address",
+        "maximumUpdateValueLength"
+      ]
+    },
+    {
+      "name": "Modules.BLE.CentralManager",
+      "kind": "proxy",
+      "summary": "An object that scans for, discovers, connects to, and manages peripherals.",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "since": "1.0.0",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 3,
+        "methods": 10,
+        "events": 8
+      },
+      "members": [
+        "cancelPeripheralConnection",
+        "connectPeripheral",
+        "connectionEventDidOccur",
+        "createPeripheral",
+        "didConnectPeripheral",
+        "didDisconnectPeripheral",
+        "didDiscoverPeripheral",
+        "didFailToConnectPeripheral",
+        "didUpdateANCSAuthorization",
+        "didUpdateState",
+        "isAccessFineLocationPermissionGranted",
+        "isScanning",
+        "peripherals",
+        "registerForConnectionEvents",
+        "requestAccessFineLocationPermission",
+        "retrieveConnectedPeripheralsWithServices",
+        "retrievePeripheralsWithIdentifiers",
+        "startScan",
+        "state",
+        "stopScan",
+        "willRestoreState"
+      ]
+    },
+    {
+      "name": "Modules.BLE.Characteristic",
+      "kind": "proxy",
+      "summary": "A characteristic of a remote peripheral’s service.",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "since": "1.0.0",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 7,
+        "methods": 1,
+        "events": 0
+      },
+      "members": [
+        "descriptors",
+        "equal",
+        "isMutable",
+        "isNotifying",
+        "properties",
+        "service",
+        "uuid",
+        "value"
+      ]
+    },
+    {
+      "name": "Modules.BLE.Descriptor",
+      "kind": "pseudo",
+      "summary": "An object that provides further information about a remote peripheral’s characteristic.",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "since": "1.0.0",
+      "deprecated": false,
+      "counts": {
+        "properties": 3,
+        "methods": 0,
+        "events": 0
+      },
+      "members": [
+        "characteristic",
+        "uuid",
+        "value"
+      ]
+    },
+    {
+      "name": "Modules.BLE.DescriptorRequest",
+      "kind": "proxy",
+      "summary": "A request that uses the Attribute Protocol (ATT).",
+      "platforms": [
+        "android"
+      ],
+      "since": "1.1.0",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 5,
+        "methods": 1,
+        "events": 0
+      },
+      "members": [
+        "central",
+        "descriptor",
+        "offset",
+        "responseNeeded",
+        "updateValue",
+        "value"
+      ]
+    },
+    {
+      "name": "Modules.BLE.L2CAPChannel",
+      "kind": "proxy",
+      "summary": "L2Cap allow us to open a side channel, with it we can directly read and write without any framing limitation, packet size limitations. It’s a direct way to talk between our devices and accessories.",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "since": {
+        "android": "1.1.0",
+        "iphone": "1.0.0",
+        "ipad": "1.0.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 2,
+        "methods": 4,
+        "events": 3
+      },
+      "members": [
+        "close",
+        "getReadBufferSize",
+        "onDataReceived",
+        "onStreamEndEncountered",
+        "onStreamError",
+        "peer",
+        "psm",
+        "setReadBufferSize",
+        "write"
+      ]
+    },
+    {
+      "name": "Modules.BLE.MutableCharacteristic",
+      "kind": "proxy",
+      "summary": "A characteristic of a local peripheral’s service.",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "since": {
+        "android": "1.1.0",
+        "iphone": "1.0.0",
+        "ipad": "1.0.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 2,
+        "methods": 0,
+        "events": 0
+      },
+      "members": [
+        "permissions",
+        "subscribedCentrals"
+      ]
+    },
+    {
+      "name": "Modules.BLE.Peer",
+      "kind": "proxy",
+      "summary": "An object that represents a remote device.",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "since": "1.0.0",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 1,
+        "methods": 0,
+        "events": 0
+      },
+      "members": [
+        "identifier"
+      ]
+    },
+    {
+      "name": "Modules.BLE.Peripheral",
+      "kind": "proxy",
+      "summary": "A remote peripheral device.",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "since": "1.0.0",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 7,
+        "methods": 14,
+        "events": 14
+      },
+      "members": [
+        "address",
+        "ancsAuthorized",
+        "canSendWriteWithoutResponse",
+        "didDiscoverCharacteristics",
+        "didDiscoverDescriptorsForCharacteristics",
+        "didDiscoverIncludedServices",
+        "didDiscoverServices",
+        "didModifyServices",
+        "didOpenChannel",
+        "didReadRSSI",
+        "didUpdateName",
+        "didUpdateNotificationStateForCharacteristics",
+        "didUpdateValueForCharacteristic",
+        "didUpdateValueForDescriptor",
+        "didWriteValueForCharacteristic",
+        "didWriteValueForDescriptor",
+        "discoverCharacteristics",
+        "discoverDescriptorsForCharacteristic",
+        "discoverIncludedServices",
+        "discoverServices",
+        "isConnected",
+        "maximumWriteValueLength",
+        "name",
+        "openL2CAPChannel",
+        "peripheralIsReadyToSendWriteWithoutResponse",
+        "readRSSI",
+        "readValueForCharacteristic",
+        "readValueForDescriptor",
+        "requestConnectionPriority",
+        "services",
+        "state",
+        "subscribeToCharacteristic",
+        "unsubscribeFromCharacteristic",
+        "writeValueForCharacteristic",
+        "writeValueForDescriptor"
+      ]
+    },
+    {
+      "name": "Modules.BLE.PeripheralManager",
+      "kind": "proxy",
+      "summary": "An object that manages and advertises peripheral services exposed by this app.",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "since": "1.0.0",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 3,
+        "methods": 13,
+        "events": 14
+      },
+      "members": [
+        "addService",
+        "closePeripheral",
+        "didAddService",
+        "didOpenL2CAPChannel",
+        "didPublishL2CAPChannel",
+        "didReceiveDescriptorReadRequest",
+        "didReceiveDescriptorWriteRequests",
+        "didReceiveReadRequest",
+        "didReceiveWriteRequests",
+        "didStartAdvertising",
+        "didSubscribeToCharacteristic",
+        "didUnpublishL2CAPChannel",
+        "didUnsubscribeFromCharacteristic",
+        "didUpdateState",
+        "isAdvertising",
+        "peripheralManagerState",
+        "publishL2CAPChannel",
+        "readyToUpdateSubscribers",
+        "removeAllServices",
+        "removeService",
+        "respondToDescriptorRequest",
+        "respondToRequest",
+        "restoredPeripheralManagerIdentifier",
+        "setDesiredConnectionLatency",
+        "startAdvertising",
+        "startAdvertisingBeaconRegion",
+        "stopAdvertising",
+        "unpublishL2CAPChannel",
+        "updateValue",
+        "willRestoreState"
+      ]
+    },
+    {
+      "name": "Modules.BLE.RegionManager",
+      "kind": "proxy",
+      "summary": "An object that manages and scan beacons.",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "since": "1.1.0",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 8,
+        "methods": 9,
+        "events": 11
+      },
+      "members": [
+        "didChangeAuthorization",
+        "didDetermineState",
+        "didEnterRegion",
+        "didExitRegion",
+        "didFail",
+        "didFailRanging",
+        "didRange",
+        "didRangeBeacons",
+        "didStartMonitoring",
+        "isMonitoringAvailable",
+        "isRangingAvailable",
+        "locationManagerAuthorizationStatus",
+        "locationServicesEnabled",
+        "maximumRegionMonitoringDistance",
+        "monitoredRegions",
+        "monitoringDidFail",
+        "rangedBeaconConstraints",
+        "rangedRegions",
+        "rangingBeaconsDidFail",
+        "requestAlwaysAuthorization",
+        "requestRegionState",
+        "requestWhenInUseAuthorization",
+        "startRangingBeaconsInRegion",
+        "startRangingBeaconsSatisfyingIdentityConstraint",
+        "startRegionMonitoring",
+        "stopRangingBeaconsInRegion",
+        "stopRangingBeaconsSatisfyingIdentityConstraint",
+        "stopRegionMonitoring"
+      ]
+    },
+    {
+      "name": "Modules.BLE.Request",
+      "kind": "proxy",
+      "summary": "A request that uses the Attribute Protocol (ATT).",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "since": {
+        "android": "1.1.0",
+        "iphone": "1.0.0",
+        "ipad": "1.0.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 5,
+        "methods": 1,
+        "events": 0
+      },
+      "members": [
+        "central",
+        "characteristic",
+        "offset",
+        "responseNeeded",
+        "updateValue",
+        "value"
+      ]
+    },
+    {
+      "name": "Modules.BLE.Service",
+      "kind": "proxy",
+      "summary": "A collection of data and associated behaviors that accomplish a function or feature of a device.",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "since": "1.0.0",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 5,
+        "methods": 0,
+        "events": 0
+      },
+      "members": [
+        "characteristics",
+        "includedServices",
+        "isPrimary",
+        "peripheral",
+        "uuid"
+      ]
+    }
+  ],
+  "inlined": [
+    "Modules.BLE.CentralScanOptions"
+  ]
+}

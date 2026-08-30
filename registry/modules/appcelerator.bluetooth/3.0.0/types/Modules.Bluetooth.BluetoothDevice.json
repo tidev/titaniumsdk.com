@@ -1,0 +1,202 @@
+{
+  "schemaVersion": 1,
+  "name": "Modules.Bluetooth.BluetoothDevice",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android"
+  ],
+  "since": "1.0.0",
+  "summary": "Represents a remote bluetooth device.",
+  "description": "A `BluetoothDevice` object lets you create a connection with the remote device or query information \nabout it, such as the name, address, UUID and type.\n",
+  "properties": [
+    {
+      "name": "address",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Address of the remote Bluetooth device.",
+      "description": "\tThis property returns the Bluetooth hardware address as string. For example, \"00:11:22:AA:BB:CC\".\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "1.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "name",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Name of the remote Bluetooth device.",
+      "description": "This property returns the Bluetooth name or null if there was a problem.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "1.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "type",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Type of the remote Bluetooth device.",
+      "description": "Possible values are DEVICE_TYPE_UNKNOWN, DEVICE_TYPE_CLASSIC, DEVICE_TYPE_DUAL and \nDEVICE_TYPE_LE.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "uUIDs",
+      "platforms": [
+        "android"
+      ],
+      "summary": "The supported UUIDs of the remote device.",
+      "description": "This property does not start a service discovery procedure to retrieve the UUIDs from the \nremote device. Rather, the local cached copy of the service UUIDs are returned. Can be null\non error.\n",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Array",
+          "args": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ],
+      "since": "1.0.0",
+      "permission": "read-only"
+    }
+  ],
+  "methods": [
+    {
+      "name": "createSocket",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Creates an RFCOMM Bluetooth socket.",
+      "description": "This method, when called, creates an RFCOMM Bluetooth socket ready to start an outgoing \nconnection to the remote device using SDP lookup of UUID.\n",
+      "since": "1.0.0",
+      "parameters": [
+        {
+          "name": "uuid",
+          "summary": "UUID of the service this socket will connect to.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "secure",
+          "summary": "Determines whether the connection will be secure or insecure.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Bluetooth.BluetoothSocket"
+            }
+          ],
+          "summary": "created socket for the device"
+        }
+      ]
+    },
+    {
+      "name": "fetchUUIDs",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Perform a service discovery on the remote device to get the UUIDs supported.",
+      "description": "The outcome of the discovery is reported via the [fetchedUUIDs](api:Modules.Bluetooth.BluetoothDevice#fetchedUUIDs) event.\n",
+      "since": "1.0.0",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ],
+          "summary": "Returns true if service discovery started successfully."
+        }
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "fetchedUUIDs",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Fired when the UUIDs of the remote device are received using SDP.",
+      "since": "1.0.0",
+      "properties": [
+        {
+          "name": "device",
+          "summary": "The Bluetooth device in question.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Bluetooth.BluetoothDevice"
+            }
+          ]
+        },
+        {
+          "name": "UUIDs",
+          "summary": "The service UUIDs of the device.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "primitive",
+                  "name": "String"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "references": [
+    "Modules.Bluetooth.BluetoothSocket"
+  ],
+  "externalReferences": [
+    "Titanium.Proxy"
+  ],
+  "source": "BluetoothDevice.yml"
+}

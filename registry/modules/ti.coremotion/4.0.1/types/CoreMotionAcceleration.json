@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "name": "CoreMotionAcceleration",
+  "kind": "pseudo",
+  "platforms": [
+    "iphone",
+    "ipad"
+  ],
+  "since": "3.3.0",
+  "summary": "Representation of an accelerometer event.",
+  "properties": [
+    {
+      "name": "x",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "X-axis acceleration in G's (gravitational force).",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "y",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Y-axis acceleration in G's (gravitational force).",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "z",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Z-axis acceleration in G's (gravitational force).",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    }
+  ],
+  "methods": [],
+  "events": [],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "source": "CoreMotion.yml"
+}

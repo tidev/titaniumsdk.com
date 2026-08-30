@@ -1,0 +1,153 @@
+{
+  "schemaVersion": 1,
+  "name": "Modules.Nfc.TagTechnologyNfcV",
+  "kind": "proxy",
+  "extends": "Modules.Nfc.TagTechnology",
+  "inheritanceChain": [
+    "Modules.Nfc.TagTechnology",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android"
+  ],
+  "since": "1.1.0",
+  "summary": "Provides access to NFC-V (ISO 15693) properties and I/O operations on a [Modules.Nfc.NfcTag](api:Modules.Nfc.NfcTag).",
+  "description": "Use the [Modules.Nfc.createTagTechnologyNfcV](api:Modules.Nfc#createTagTechnologyNfcV) method to create this tag technology.\n\nSee also:\n[NfcV](http://developer.android.com/reference/android/nfc/tech/NfcV.html)\n",
+  "properties": [],
+  "methods": [
+    {
+      "name": "getDsfId",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Return the DSF ID bytes from tag discovery.",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "getMaxTransceiveLength",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Return the maximum number of bytes that can be sent with `transceive`.",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "getResponseFlags",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Return the Response Flag bytes from tag discovery.",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "summary": "Response Flag bytes."
+        }
+      ]
+    },
+    {
+      "name": "transceive",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Send raw NFC-V commands to the tag and receive the response.",
+      "parameters": [
+        {
+          "name": "data",
+          "summary": "Bytes to send.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Buffer"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Buffer"
+            }
+          ],
+          "summary": "Response bytes received."
+        }
+      ]
+    }
+  ],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "tag",
+        "from": "Modules.Nfc.TagTechnology",
+        "platforms": [
+          "android"
+        ]
+      }
+    ],
+    "methods": [
+      {
+        "name": "close",
+        "from": "Modules.Nfc.TagTechnology",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "connect",
+        "from": "Modules.Nfc.TagTechnology",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "isConnected",
+        "from": "Modules.Nfc.TagTechnology",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "isValid",
+        "from": "Modules.Nfc.TagTechnology",
+        "platforms": [
+          "android"
+        ]
+      }
+    ],
+    "events": []
+  },
+  "references": [
+    "Modules.Nfc",
+    "Modules.Nfc.NfcTag",
+    "Modules.Nfc.TagTechnology"
+  ],
+  "externalReferences": [
+    "Titanium.Buffer"
+  ],
+  "source": "TagTechnology.yml"
+}

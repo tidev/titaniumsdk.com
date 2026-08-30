@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "generator": "sha256:ac231061067ed51d0966e3953108bbd9c19cae952495be231d05241eb191edf3",
+  "external": {
+    "repo": "tidev/titanium-sdk",
+    "version": "main",
+    "hash": "sha256:0c8e94bd4e64c06147ad9ff63806ba4cc4617e8aca5fa7095f28472598bbf5a4"
+  },
+  "generatedAt": "2026-08-30T20:27:26.022Z",
+  "sources": {
+    "Applesignin.yml": {
+      "hash": "sha256:74636312b55d1bc545c9c5424e75f99e4f84e2a1c18c030990883e8aaefff247",
+      "types": [
+        "Modules.Applesignin",
+        "ProfileObject",
+        "PersonName",
+        "CredentialStateResponse"
+      ]
+    },
+    "LoginButton.yml": {
+      "hash": "sha256:346045f382457f11315b83d20e0c85de28243b5c86086afe23026b5bc4fb1367",
+      "types": [
+        "Modules.Applesignin.LoginButton"
+      ]
+    }
+  },
+  "types": {
+    "Modules.Applesignin": {
+      "source": "Applesignin.yml",
+      "extends": "Titanium.Module",
+      "outputHash": "sha256:05bff33e401e788f85858df17f02d5d6a0b062412196a2ad06ed601755e63888"
+    },
+    "Modules.Applesignin.LoginButton": {
+      "source": "LoginButton.yml",
+      "extends": "Titanium.UI.View",
+      "outputHash": "sha256:a9f07b313c11ca9a1b943a805a47a1a08642f7bd3abba3a806d430c6528f60fe"
+    }
+  }
+}

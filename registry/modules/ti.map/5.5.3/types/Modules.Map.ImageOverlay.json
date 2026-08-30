@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "name": "Modules.Map.ImageOverlay",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
+  "since": {
+    "iphone": "7.2.0",
+    "ipad": "7.2.0",
+    "android": "7.4.0",
+    "macos": "9.2.0"
+  },
+  "summary": "Represents a bounded area on the map that has an image overlay.",
+  "description": "The `ImageOverlay` object gives you low-level control over image overlays that can be added to a\n[map view](api:Modules.Map.View). An image overlay must have a `boundsCoordinate` property and a `image` \nset to appear on a map.\n\nUse the [Modules.Map.createImageOverlay](api:Modules.Map#createImageOverlay) method to create an image overlay.\n",
+  "properties": [
+    {
+      "name": "boundsCoordinate",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "An object representing diagonal coordinates (`topLeft` and `bottomRight`) on the map.",
+      "type": [
+        {
+          "kind": "type",
+          "name": "MapBoundsCoordinateType"
+        }
+      ],
+      "availability": "creation",
+      "inlined": {
+        "name": "MapBoundsCoordinateType",
+        "summary": "An object representing the bound coordinates on the map.",
+        "properties": [
+          {
+            "name": "bottomRight",
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
+            "summary": "An object with longitude and latitude values.",
+            "type": [
+              {
+                "kind": "type",
+                "name": "MapPointType"
+              }
+            ]
+          },
+          {
+            "name": "topLeft",
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
+            "summary": "An object with longitude and latitude values.",
+            "type": [
+              {
+                "kind": "type",
+                "name": "MapPointType"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "image",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The image that is shown as an overlay on the map.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        },
+        {
+          "kind": "type",
+          "name": "Titanium.Blob"
+        }
+      ],
+      "availability": "creation"
+    }
+  ],
+  "methods": [],
+  "events": [],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "references": [
+    "MapBoundsCoordinateType",
+    "Modules.Map",
+    "Modules.Map.View"
+  ],
+  "externalReferences": [
+    "Titanium.Blob",
+    "Titanium.Proxy"
+  ],
+  "source": "ImageOverlay.yml"
+}

@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "generator": "sha256:ac231061067ed51d0966e3953108bbd9c19cae952495be231d05241eb191edf3",
+  "external": {
+    "repo": "tidev/titanium-sdk",
+    "version": "main",
+    "hash": "sha256:0c8e94bd4e64c06147ad9ff63806ba4cc4617e8aca5fa7095f28472598bbf5a4"
+  },
+  "generatedAt": "2026-08-30T20:27:19.931Z",
+  "sources": {
+    "Session.yml": {
+      "hash": "sha256:4b727dad3288e26591f86d75683e9c0265357c91a6a5c8d054071853d1bed2ed",
+      "types": [
+        "Modules.URLSession.Session",
+        "DownloadTaskType",
+        "UploadDataTaskType",
+        "CompletedCallback"
+      ]
+    },
+    "SessionConfiguration.yml": {
+      "hash": "sha256:836a612a0be30b96f66a8c6ec1637d3642da56b3c0591b8d9256f92ce7bd2242",
+      "types": [
+        "Modules.URLSession.SessionConfiguration"
+      ]
+    },
+    "urlsession.yml": {
+      "hash": "sha256:2e2314e924638c1d701300aa4f9b18e8e98ce5e8a892040ec97b78f42b1ad59e",
+      "types": [
+        "Modules.URLSession"
+      ]
+    }
+  },
+  "types": {
+    "Modules.URLSession.Session": {
+      "source": "Session.yml",
+      "extends": "Titanium.Module",
+      "outputHash": "sha256:9a839422586c17b905122fef98ecc7527ba66081053844171b33cf4baa75201e"
+    },
+    "Modules.URLSession.SessionConfiguration": {
+      "source": "SessionConfiguration.yml",
+      "extends": "Titanium.Module",
+      "outputHash": "sha256:6f342a03f3cbeb5c58a9ce05158678dfea651669f748730092cac75e8401e315"
+    },
+    "Modules.URLSession": {
+      "source": "urlsession.yml",
+      "extends": "Titanium.Module",
+      "outputHash": "sha256:b4ef5d006be48d0a4065f41c90e2c83c9771f8abc84658388b08a411028ab2f6"
+    }
+  }
+}

@@ -1,0 +1,2267 @@
+{
+  "schemaVersion": 1,
+  "name": "Modules.Map.View",
+  "kind": "view",
+  "extends": "Titanium.UI.View",
+  "inheritanceChain": [
+    "Titanium.UI.View"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
+  "since": {
+    "android": "3.1.0",
+    "iphone": "3.2.0",
+    "ipad": "3.2.0",
+    "macos": "9.2.0"
+  },
+  "summary": "Map view is used for embedding native mapping capabilities as a view in your application.",
+  "description": "With native maps, you can control the mapping location, the type of map, the zoom level\nand you can add custom annotations and routes directly to the map. Once the map view is\ndisplayed, the user can pan, zoom and tilt the map using the native control gestures.\n\nUse the [Modules.Map.createView](api:Modules.Map#createView) method to create a map view.\n\nIn Alloy, use the **`<Module>`** element with the `module` attribute set to `ti.map`\nand `method` attribute set to `createView` to create a map view in XML markup:\n\n``` xml\n<Module module=\"ti.map\" method=\"createView\" />\n```\n\nAll latitude and longitude values are specified in decimal degrees. Values in degrees,\nminutes and seconds (DMS) must be converted to decimal degrees before being passed to\nthe map view.\n\nYou can add [Annotation](api:Modules.Map.Annotation) objects to the map to mark points of\ninterest. An annotation has two states: selected and deselected. A deselected annotation\nis marked by a pin image. When selected, the full annotation is displayed, typically\nincluding a title and an optional subtitle.\n\nYou can add [Route](api:Modules.Map.Route) objects to the map to create paths between\ntwo or more points of interest.\n\nTo use the `userLocation` property in iOS 8 and later, add either the\n[`NSLocationWhenInUseUsageDescription`](https://developer.apple.com/library/prerelease/ios/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW26)\nor\n[`NSLocationAlwaysUsageDescription`](https://developer.apple.com/library/prerelease/ios/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW18)\nkey to the iOS plist section of the project's `tiapp.xml` file.\n\n``` xml\n<ti:app>\n    <ios>\n        <plist>\n            <dict>\n                <key>NSLocationAlwaysUsageDescription</key>\n                [string](api:Global.String)\n                    Specify the reason for accessing the user's location information.\n                    This appears in the alert dialog when asking the user for permission to\n                    access their location.\n                </string>\n            </dict>\n        </plist>\n    </ios>\n</ti:app>\n```\n",
+  "properties": [
+    {
+      "name": "animate",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Indicates if changes to the mapping region should be animated.",
+      "description": "Setting this to 'false' will not stop the animation from clicking the My Location button,\nsince that is native Android behavior.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "default": "false"
+    },
+    {
+      "name": "annotations",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "An array of annotations to add to the map.",
+      "description": "There is no guarantee that the order of elements in the `annotations` property will be\nmaintained when creating, adding or deleting annotations from the Ti.Map.View object.\nIf the application depends on the annotations being in a set order, it should keep\nreferences to all of the annotations in a separate array.\n",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Array",
+          "args": [
+            {
+              "kind": "type",
+              "name": "Modules.Map.Annotation"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "camera",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The camera used for determining the appearance of the map.",
+      "description": "A camera object defines a point above the map's surface from which to view the map. Applying a camera to a map has the\neffect of giving the map a 3D-like appearance. You can use a camera to rotate the map so that it is oriented to match\nthe user's heading or to apply a pitch angle to tilt the plane of the map.\n\nAssigning a new camera to this property updates the map immediately and without animating the change. If you want to\nanimate changes in camera position, use the `animateCamera` method instead.\n\nYou must not set this property to null. To restore the map to a flat appearance, apply a camera with a pitch angle of 0,\nwhich yields a camera looking straight down onto the map surface.\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Modules.Map.Camera"
+        }
+      ],
+      "since": {
+        "android": "9.1.0",
+        "iphone": "3.2.0",
+        "ipad": "3.2.0",
+        "macos": "9.2.0"
+      }
+    },
+    {
+      "name": "compassEnabled",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Enable or disables the compass button.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": {
+        "android": "3.2.3",
+        "iphone": "6.1.0",
+        "ipad": "6.1.0",
+        "macos": "9.2.0"
+      },
+      "default": "true",
+      "osver": {
+        "ios": {
+          "min": "9.0"
+        }
+      }
+    },
+    {
+      "name": "enableZoomControls",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Enables or disables the built-in zoom controls.\n",
+      "description": "If enabled, the zoom controls are a pair of buttons (one for zooming in, one for zooming out) that appear on the screen.\nWhen pressed, they cause the camera to zoom in (or out) by one zoom level. If disabled, the zoom controls are not shown.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "default": "true"
+    },
+    {
+      "name": "indoorEnabled",
+      "platforms": [
+        "android"
+      ],
+      "summary": "A Boolean value indicating whether the indoor mapping is enabled.",
+      "description": "This property is used to enabled/disable the indoor mapping feature of Google Maps.\nChanging the value after the MapView is drawn can cause flickering.\nYou can read more at:\n[Google Indoor Maps](https://www.google.com/maps/about/partners/indoormaps/)\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "7.5.0",
+      "default": "true"
+    },
+    {
+      "name": "liteMode",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Create a liteMode map version",
+      "description": "When the `liteMode` is switched on the map will be displayed as a bitmap with limited interaction.\nPlease refer to [Google developers documentation](https://developers.google.com/maps/documentation/android-sdk/lite)\nfor more details.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "5.0.3",
+      "availability": "creation",
+      "default": "false"
+    },
+    {
+      "name": "mapToolbarEnabled",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Enable or disables the map toolbar.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "6.1.0",
+      "default": "true"
+    },
+    {
+      "name": "mapType",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Map type constant, either [Modules.Map.NORMAL_TYPE](api:Modules.Map#NORMAL_TYPE), [Modules.Map.SATELLITE_TYPE](api:Modules.Map#SATELLITE_TYPE),\n[Modules.Map.TERRAIN_TYPE](api:Modules.Map#TERRAIN_TYPE), [Modules.Map.HYBRID_TYPE](api:Modules.Map#HYBRID_TYPE), [Modules.Map.HYBRID_FLYOVER_TYPE](api:Modules.Map#HYBRID_FLYOVER_TYPE) or\n[Modules.Map.SATELLITE_FLYOVER_TYPE](api:Modules.Map#SATELLITE_FLYOVER_TYPE).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "default": "NORMAL_TYPE"
+    },
+    {
+      "name": "maxZoomLevel",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Returns the maximum zoom level available at the current camera position.",
+      "description": "Returns the maximum zoom level for the current camera position.\nThis takes into account what map type is currently being used.\nFor example, satellite or terrain may have a lower max zoom level than the base map tiles.\n\nThis will only give the correct value after the 'complete' event is fired.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "3.2.3",
+      "permission": "read-only"
+    },
+    {
+      "name": "minClusterSize",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Sets the minium size of a cluster.",
+      "description": "The minium cluster size is the smallest number of annotations that are merged together and\n(minClusterSize + 1) is the smallest number that will appear on the cluster.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.2.0",
+      "default": "4"
+    },
+    {
+      "name": "minZoomLevel",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Returns the minimum zoom level available at the current camera position.",
+      "description": "Returns the minimum zoom level. This is the same for every location (unlike the maximum zoom level)\nbut may vary between devices and map sizes.\n\nThis will only give the correct value after the 'complete' event is fired.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "3.2.3",
+      "permission": "read-only"
+    },
+    {
+      "name": "padding",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Sets the distance between each edges of the view to the map controls.",
+      "description": "The map view controls may be obscured by other elements.",
+      "type": [
+        {
+          "kind": "type",
+          "name": "MapViewPadding"
+        }
+      ],
+      "since": "7.4.0",
+      "inlined": {
+        "name": "MapViewPadding",
+        "summary": "The padding applied to the map view using [Modules.Map.View.padding](api:Modules.Map.View#padding).",
+        "properties": [
+          {
+            "name": "bottom",
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
+            "summary": "Bottom padding of the map view.",
+            "type": [
+              {
+                "kind": "primitive",
+                "name": "Number"
+              }
+            ]
+          },
+          {
+            "name": "left",
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
+            "summary": "Left padding of the map view.",
+            "type": [
+              {
+                "kind": "primitive",
+                "name": "Number"
+              }
+            ]
+          },
+          {
+            "name": "right",
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
+            "summary": "Right padding of the map view.",
+            "type": [
+              {
+                "kind": "primitive",
+                "name": "Number"
+              }
+            ]
+          },
+          {
+            "name": "top",
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
+            "summary": "Top padding of the map view.",
+            "type": [
+              {
+                "kind": "primitive",
+                "name": "Number"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "pitchEnabled",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "A Boolean value indicating whether the map camera's pitch information is used.",
+      "description": "When this property is set to `true` and a valid camera is associated with the map,\nthe camera's pitch angle is used to tilt the plane of the map. When this property\nis set to `false`, the camera's pitch angle is ignored and the map is always displayed\nas if the user is looking straight down onto it.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "3.2.0"
+    },
+    {
+      "name": "region",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "A dictionary specifying the location and zoom level of the map.\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "MapRegionTypev2"
+        }
+      ],
+      "default": "latitude 0, longitude 0"
+    },
+    {
+      "name": "rotateEnabled",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "A Boolean value indicating whether the map camera's heading information is used.",
+      "description": "When this property is set to `true` and a valid camera is associated with the map,\nthe camera's heading angle is used to rotate the plane of the map around its center\npoint. When this property is set to `false`, the camera's heading angle is ignored and the\nmap is always oriented so that true north is situated at the top of the map view.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "3.2.0"
+    },
+    {
+      "name": "scrollEnabled",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "A Boolean value indicating whether the map can be scrolled by dragging gesture.",
+      "description": "When this property is set to `true` the a map view can be panned or scrolled by dragging the map view.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": {
+        "android": "8.0.0",
+        "iphone": "7.2.0",
+        "ipad": "7.2.0",
+        "macos": "9.2.0"
+      },
+      "default": "true"
+    },
+    {
+      "name": "showsBuildings",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "A Boolean indicating whether the map displays extruded building information.",
+      "description": "When this property is set to `true` and the camera has a pitch angle greater than zero,\nthe map extrudes buildings so that they extend above the map plane, creating a 3D effect.\nThe `mapType` property must be set to [Modules.Map.NORMAL_TYPE](api:Modules.Map#NORMAL_TYPE) for extruded buildings to be displayed.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "3.2.0",
+      "default": "true"
+    },
+    {
+      "name": "showsCompass",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "A Boolean indicating whether the map displays a compass control.",
+      "description": "When this property is set to `true`, the map displays the control that lets users change the heading\norientation of the map.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "5.2.0",
+      "deprecated": {
+        "since": "6.1.0",
+        "notes": "Please use [Modules.Map.View.compassEnabled](Modules.Map.View.compassEnabled) for parity instead."
+      },
+      "default": "true",
+      "osver": {
+        "ios": {
+          "min": "9.0"
+        }
+      }
+    },
+    {
+      "name": "showsPointsOfInterest",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "A Boolean indicating whether the map displays point-of-interest information.",
+      "description": "When this property is set to `true`, the map displays icons and labels for restaurants,\nschools, and other relevant points of interest.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "3.2.0",
+      "default": "true"
+    },
+    {
+      "name": "showsScale",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "A Boolean indicating whether the map shows scale information.",
+      "description": "When this property is set to `true`, the map displays the scale information.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "5.2.0",
+      "default": "false",
+      "osver": {
+        "ios": {
+          "min": "9.0"
+        }
+      }
+    },
+    {
+      "name": "showsTraffic",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "A Boolean value indicating whether the map displays traffic information.",
+      "description": "The mapType property must be set to [Modules.Map.NORMAL_TYPE](api:Modules.Map#NORMAL_TYPE) or [Modules.Map.HYBRID_TYPE](api:Modules.Map#HYBRID_TYPE) for\ntraffic information to be shown.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "5.2.0",
+      "default": "false",
+      "osver": {
+        "ios": {
+          "min": "9.0"
+        }
+      }
+    },
+    {
+      "name": "style",
+      "platforms": [
+        "android"
+      ],
+      "summary": "JSON String to style the Map.",
+      "description": "This property will change the look (colors, roads, labels) of the map. A valid JSON can be created\nat [Google Maps Styling Wizard](https://mapstyle.withgoogle.com/)\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "6.1.0",
+      "default": "false"
+    },
+    {
+      "name": "traffic",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Toggles the traffic layer on or off.",
+      "description": "Set to `true` to display the traffic layer or `false` to hide it.\nThis is subject to the availability of traffic data.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "default": "false"
+    },
+    {
+      "name": "userLocation",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Boolean indicating if the user's current device location should be shown on the\nmap.\n",
+      "description": "If `true`, the user's location is marked with a pin, and the My Location button will appear in the top\nright corner of the screen. Starting in iOS 8, permissions must be added to tiapp.xml. Details in description.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "default": "false"
+    },
+    {
+      "name": "userLocationButton",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Enable or disables the My Location button. If the button is enabled, it is only shown when `userLocation`\nis enabled.\n",
+      "description": "If `true`, the My Location button is enabled.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "3.1.1",
+      "default": "true"
+    },
+    {
+      "name": "zoom",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Returns the current zoom level from the current camera position.",
+      "description": "Returns the current zoom level from the current camera position.\nNote: This will only return the correct value once the `complete` event is fired.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "7.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "zoomEnabled",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "A Boolean value indicating whether the map can be zoomed by pinching or tapping.",
+      "description": "When this property is set to `true` the a map view can be zoomed by pinching inwards to zoom out\nand reverse to zoom in. Zooming in can also be accoplished by double-tapping the map view. Zooming\nout can also be accomplished by two-finger tapping the map view.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": {
+        "android": "8.0.0",
+        "iphone": "7.2.0",
+        "ipad": "7.2.0",
+        "macos": "9.2.0"
+      },
+      "default": "true"
+    },
+    {
+      "name": "zOrderOnTop",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Controls wether the map view's surface is placed on top of its window.",
+      "description": "Please refer to [zOrderOnTop](https://developers.google.com/maps/documentation/android/reference/com/google/android/gms/maps/GoogleMapOptions#zOrderOnTop(boolean))\nfor more details.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "availability": "creation",
+      "default": "false"
+    }
+  ],
+  "methods": [
+    {
+      "name": "addAnnotation",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Adds a new annotation to the map.",
+      "parameters": [
+        {
+          "name": "annotation",
+          "summary": "a [Modules.Map.Annotation](api:Modules.Map.Annotation) instance.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Map.Annotation"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "addAnnotations",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Adds one or more new annotations to the map.",
+      "parameters": [
+        {
+          "name": "annotations",
+          "summary": "Array of [Annotation](api:Modules.Map.Annotation) objects\n",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.Map.Annotation"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "addCircle",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Adds a new circle to the map.",
+      "parameters": [
+        {
+          "name": "circle",
+          "summary": "a [Modules.Map.Circle](api:Modules.Map.Circle) instance.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Map.Circle"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "addCircles",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Adds one or more new circles to the map.",
+      "parameters": [
+        {
+          "name": "circles",
+          "summary": "Array of [Circle](api:Modules.Map.Circle) objects\n",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.Map.Circle"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "addHeatmap",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Adds a heatmap to the map.",
+      "description": "A heatmap is defined by an array of coordinates.",
+      "since": "10.1.0",
+      "parameters": [
+        {
+          "name": "coordinates",
+          "summary": "An array of coordinates",
+          "type": [
+            {
+              "kind": "type",
+              "name": "MapPointType"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "addImageOverlay",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Adds a new image overlay to the map.",
+      "since": {
+        "android": "7.4.0",
+        "iphone": "7.2.0",
+        "ipad": "7.2.0",
+        "macos": "9.2.0"
+      },
+      "parameters": [
+        {
+          "name": "imageOverlay",
+          "summary": "A [Modules.Map.ImageOverlay](api:Modules.Map.ImageOverlay) instance.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Map.ImageOverlay"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "addImageOverlays",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Adds one or more new image overlays to the map.",
+      "since": {
+        "android": "7.4.0",
+        "iphone": "7.2.0",
+        "ipad": "7.2.0",
+        "macos": "9.2.0"
+      },
+      "parameters": [
+        {
+          "name": "imageOverlays",
+          "summary": "Array of [ImageOverlay](api:Modules.Map.ImageOverlay) objects\n",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.Map.ImageOverlay"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "addPolygon",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Adds a new polygon to the map.",
+      "parameters": [
+        {
+          "name": "polygon",
+          "summary": "a [Modules.Map.Polygon](api:Modules.Map.Polygon) instance.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Map.Polygon"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "addPolygons",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Adds one or more new polygons to the map.",
+      "parameters": [
+        {
+          "name": "polygons",
+          "summary": "Array of [Polygons](api:Modules.Map.Polygon) objects\n",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.Map.Polygon"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "addPolyline",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Adds a new polylines to the map.",
+      "parameters": [
+        {
+          "name": "polygon",
+          "summary": "a [Modules.Map.Polyline](api:Modules.Map.Polyline) instance.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Map.Polyline"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "addPolylines",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Adds one or more new polylines to the map.",
+      "parameters": [
+        {
+          "name": "polylines",
+          "summary": "Array of [Polyline](api:Modules.Map.Polyline) objects\n",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.Map.Polyline"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "addRoute",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Adds a route to the map.",
+      "parameters": [
+        {
+          "name": "route",
+          "summary": "Modules.Map.Route",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Map.Route"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "animateCamera",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Changes the camera used for determining the map's viewing parameters and animates the change.",
+      "since": {
+        "android": "9.1.0",
+        "iphone": "3.2.0",
+        "ipad": "3.2.0",
+        "macos": "9.2.0"
+      },
+      "parameters": [
+        {
+          "name": "animationParams",
+          "summary": "Properties for controlling the camera animation. The property `camera` is required.\n",
+          "type": [
+            {
+              "kind": "type",
+              "name": "CameraAnimationParams"
+            }
+          ],
+          "inlined": {
+            "name": "CameraAnimationParams",
+            "summary": "Simple object used to control camera animations.\n",
+            "properties": [
+              {
+                "name": "camera",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "[Modules.Map.Camera](api:Modules.Map.Camera) to be animated to.",
+                "type": [
+                  {
+                    "kind": "type",
+                    "name": "Modules.Map.Annotation"
+                  }
+                ]
+              },
+              {
+                "name": "curve",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Animation curve or easing function to apply to the animation.",
+                "description": "Specify one of the animation constants,\n[Titanium.UI.ANIMATION_CURVE_EASE_IN](api:Titanium.UI#ANIMATION_CURVE_EASE_IN),\n[Titanium.UI.ANIMATION_CURVE_EASE_IN_OUT](api:Titanium.UI#ANIMATION_CURVE_EASE_IN_OUT),\n[Titanium.UI.ANIMATION_CURVE_EASE_OUT](api:Titanium.UI#ANIMATION_CURVE_EASE_OUT),\nor [Titanium.UI.ANIMATION_CURVE_LINEAR](api:Titanium.UI#ANIMATION_CURVE_LINEAR).\n",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ]
+              },
+              {
+                "name": "duration",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "The amount of time (in milliseconds) that the animation will last.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "callback",
+          "summary": "A method that will be called when the camera animation completes. Optionally, the completion\nof camera animations can be captured by listening for a `regionchanged` event with `animated`\nset to true.\n",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Callback",
+              "args": [
+                {
+                  "kind": "primitive",
+                  "name": "Object"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "containsCoordinate",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Validated whether or not a given coordinate is currently visible\nin the map rect.\n",
+      "since": "10.1.0",
+      "parameters": [
+        {
+          "name": "coordinate",
+          "summary": "The `latitude` and `longitude` pair represented by an Object.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "MapPointType"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ],
+          "summary": "Returns `true` if given coordinate is within the displayed map view."
+        }
+      ]
+    },
+    {
+      "name": "deselectAnnotation",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Deselects the specified annotation, so the main annotation is hidden and only\na pin image is shown.\n",
+      "parameters": [
+        {
+          "name": "annotation",
+          "summary": "Annotation to deselect, identified by an annotation title or a [Modules.Map.Annotation](api:Modules.Map.Annotation) reference.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            },
+            {
+              "kind": "type",
+              "name": "Modules.Map.Annotation"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "removeAllAnnotations",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Removes all annotations from the map."
+    },
+    {
+      "name": "removeAllCircles",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Remove all circles from the map."
+    },
+    {
+      "name": "removeAllImageOverlays",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Remove all image overlays from the map.",
+      "since": {
+        "android": "7.4.0",
+        "iphone": "7.2.0",
+        "ipad": "7.2.0",
+        "macos": "9.2.0"
+      }
+    },
+    {
+      "name": "removeAllPolygons",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Remove all polygons from the map."
+    },
+    {
+      "name": "removeAllPolylines",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Remove all polylines from the map."
+    },
+    {
+      "name": "removeAnnotation",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Removes an existing annotation from the map.",
+      "parameters": [
+        {
+          "name": "annotation",
+          "summary": "Annotation to remove, identified by an annotation title or a [Modules.Map.Annotation](api:Modules.Map.Annotation) reference.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            },
+            {
+              "kind": "type",
+              "name": "Modules.Map.Annotation"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "removeAnnotations",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Removes one or more existing annotations from the map.",
+      "description": "Annotations can be identified by title or by a [Modules.Map.Annotation](api:Modules.Map.Annotation)\nreference.\n",
+      "parameters": [
+        {
+          "name": "annotations",
+          "summary": "Array of annotations to remove.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "primitive",
+                  "name": "String"
+                }
+              ]
+            },
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.Map.Annotation"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "removeCircle",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Remove a circle from the map.",
+      "parameters": [
+        {
+          "name": "circle",
+          "summary": "An [Circle](api:Modules.Map.Circle) object\n",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Map.Circle"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "removeImageOverlay",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Remove an image overlay from the map.",
+      "since": {
+        "android": "7.4.0",
+        "iphone": "7.2.0",
+        "ipad": "7.2.0",
+        "macos": "9.2.0"
+      },
+      "parameters": [
+        {
+          "name": "imageOverlay",
+          "summary": "An [ImageOverlay](api:Modules.Map.ImageOverlay) object\n",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Map.ImageOverlay"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "removePolygon",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Remove a polygon from the map.",
+      "parameters": [
+        {
+          "name": "polygon",
+          "summary": "A [Polygon](api:Modules.Map.Polygon) object\n",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Map.Polygon"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "removePolyline",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Remove a polyline from the map.",
+      "parameters": [
+        {
+          "name": "polyline",
+          "summary": "An [Polyline](api:Modules.Map.Polyline) object\n",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Map.Polyline"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "removeRoute",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Remove a previously added route.",
+      "parameters": [
+        {
+          "name": "route",
+          "summary": "An instance of [Modules.Map.Route](api:Modules.Map.Route)",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Map.Route"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "selectAnnotation",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Selects the annotation, showing the full annotation.",
+      "parameters": [
+        {
+          "name": "annotation",
+          "summary": "Annotation to show, identified by an annotation title or a [Modules.Map.Annotation](api:Modules.Map.Annotation) reference.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            },
+            {
+              "kind": "type",
+              "name": "Modules.Map.Annotation"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "setClusterAnnotation",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Set new cluster annotation for the clustered annotation.",
+      "description": "This method should be called inside the `clusterstart` event.\nSee the example \"Map Example With Marker Annotation and Clustering\".\n",
+      "since": {
+        "android": "7.4.0",
+        "iphone": "6.3.0",
+        "ipad": "6.3.0",
+        "macos": "9.2.0"
+      },
+      "osver": {
+        "ios": {
+          "min": "11.0"
+        }
+      },
+      "parameters": [
+        {
+          "name": "clusterAnnotationParam",
+          "summary": "Properties for creating cluster annotation.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "ClusterAnnotationParams"
+            }
+          ],
+          "inlined": {
+            "name": "ClusterAnnotationParams",
+            "summary": "Simple object used to create cluster annotation view.\n",
+            "properties": [
+              {
+                "name": "annotation",
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "[Modules.Map.Annotation](api:Modules.Map.Annotation) instance, which you want to show as clustered annotation. There is no\nneed to provide latitude and longitude as clustered annotation decides its location itself.\n",
+                "type": [
+                  {
+                    "kind": "type",
+                    "name": "Modules.Map.Annotation"
+                  }
+                ]
+              },
+              {
+                "name": "memberAnnotations",
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Array of Modules.Map.Annotation, which is recieved in event 'clusteringstarted' as\nmemberAnnotations.\n",
+                "type": [
+                  {
+                    "kind": "generic",
+                    "name": "Array",
+                    "args": [
+                      {
+                        "kind": "type",
+                        "name": "Modules.Map.Annotation"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "setLocation",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Sets the map location and zoom level.",
+      "description": "The location is set using a simple dictionary object, described in [MapLocationTypeV2](api:MapLocationTypeV2). If `latitudeDelta`\nand `longitudeDelta` are set, these specified parameters bound the area of interest, which is centered\nand displayed at the greatest possible zoom level. This method can only be called after the map\ncompletes loading. Before that, use [region](api:Modules.Map.View#region) to set the map location.\nFor example:\n\n``` javascript\nmyMapView.setLocation({\n  latitude: 37.337681,\n  longitude: -122.038193,\n  animate: true,\n  latitudeDelta: 0.04,\n  longitudeDelta: 0.04\n});\n```\n",
+      "since": "3.1.0",
+      "parameters": [
+        {
+          "name": "location",
+          "summary": "Dictionary specifying the location and the zoom level for the map.\n",
+          "type": [
+            {
+              "kind": "type",
+              "name": "MapLocationTypeV2"
+            }
+          ],
+          "inlined": {
+            "name": "MapLocationTypeV2",
+            "summary": "Simple object used as an argument to [setLocation](api:Modules.Map.View#setLocation).\n",
+            "properties": [
+              {
+                "name": "animate",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Set to `true` to animate the move to the new location.",
+                "description": "If not set, the value of [animate](api:Modules.Map.View#animate) will be used.\n",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Boolean"
+                  }
+                ]
+              },
+              {
+                "name": "latitude",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Latitude value for the center point of the map, in decimal degrees.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ]
+              },
+              {
+                "name": "latitudeDelta",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "The amount of north-to-south distance displayed on the map, measured in decimal degrees.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ]
+              },
+              {
+                "name": "longitude",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Longitude value for the center point of the map, in decimal degrees.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ]
+              },
+              {
+                "name": "longitudeDelta",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "The amount of east-to-west distance displayed on the map, measured in decimal degrees.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "setMapType",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Sets the type of map (satellite, normal, or terrain).",
+      "parameters": [
+        {
+          "name": "mapType",
+          "summary": "Map type constant, either [Modules.Map.NORMAL_TYPE](api:Modules.Map#NORMAL_TYPE), [Modules.Map.SATELLITE_TYPE](api:Modules.Map#SATELLITE_TYPE),\n[Modules.Map.TERRAIN_TYPE](api:Modules.Map#TERRAIN_TYPE), [Modules.Map.HYBRID_TYPE](api:Modules.Map#HYBRID_TYPE), [Modules.Map.HYBRID_FLYOVER_TYPE](api:Modules.Map#HYBRID_FLYOVER_TYPE) or\n[Modules.Map.SATELLITE_FLYOVER_TYPE](api:Modules.Map#SATELLITE_FLYOVER_TYPE).\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "showAnnotations",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Sets the visible region so that the map displays the specified annotations. If no array is passed\nannotations on the map will be shown. The default padding of 20px is applied and can be changed by\nusing the [Modules.Map.View.padding](api:Modules.Map.View#padding) property.\n",
+      "since": {
+        "android": "8.0.0",
+        "iphone": "3.2.0",
+        "ipad": "3.2.0",
+        "macos": "9.2.0"
+      },
+      "parameters": [
+        {
+          "name": "annotations",
+          "summary": "An array of [Modules.Map.Annotation](api:Modules.Map.Annotation) to display.\n",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.Map.Annotation"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "snapshot",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Takes a snapshot of the map",
+      "description": "Takes a snapshot of the current map and returns the image via [onsnapshotready](api:Modules.Map.View#onsnapshotready) event.\n",
+      "since": "3.2.3"
+    },
+    {
+      "name": "zoom",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Zooms in or out of the map.",
+      "description": "Zooms in or out by specifying a relative zoom level. A positive value increases\nthe current zoom level and a negative value decreases the zoom level.\n\nEach increase in zoom level increases the magnification by a factor of two.\n",
+      "since": "3.1.0",
+      "parameters": [
+        {
+          "name": "level",
+          "summary": "Relative zoom level (positive to zoom in, negative to zoom out).",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "click",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when the user selects or deselects an annotation, a polygon, a polyline or a circle.\n",
+      "description": "Note that the `click` event is not fired every time the user clicks on the map.\nIt is fired in two circumstances:\n\n- The user clicks on the annotation. This will select the annotation.\n- The user deselects an annotation either by clicking on the map or another annotation.\n- The user clicks on a polygon, a polyline or a circle.\n\nNote that only one annotation can be selected at any given time.\n\nThe `click` event includes a value, `clicksource`, which describes the part of the annotation\nthat was clicked. The `clicksource` can be one of `pin`, `infoWindow`, `leftButton` or `rightButton`\non iOS and `pin`, `title`, `subtitle`, `leftPane`, `rightPane`, `infoWindow` or `null` on Android.\nIf the user deselects an annotation by clicking on the pin, `clicksource` is `pin`.\nIf the user deselects the annotation by clicking elsewhere in the map view, `clicksource` is `map`.\n\nFor polygon, polyline or circle, The `click` event includes the following values.\n`clicksource` is a string describing the shape type. `map` is the map view instance.\n`latitude` and `longtitude` is the corresponding coordinates on the map where the user\nclicked in the shape.\n",
+      "properties": [
+        {
+          "name": "title",
+          "summary": "Title of the annotation.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "subtitle",
+          "summary": "Subtitle of the annotation.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "map",
+          "summary": "The map view instance.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Map.View"
+            }
+          ]
+        },
+        {
+          "name": "clicksource",
+          "summary": "Source of the click event. Can be one of `pin`, `leftPane`, `rightPane`, `infoWindow` or `null`.\nIf it's a shape, it can be one of `polygon`, `polyline`, or `circle`. On Android, this also applies\nfor `title` and `subtitle`.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "annotation",
+          "summary": "Annotation source object.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Map.Annotation"
+            }
+          ]
+        },
+        {
+          "name": "latitude",
+          "summary": "Latitude of the clicked annotation or the point clicked in the polygon, polyline and circle.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "longitude",
+          "summary": "Longitude of the clicked annotation or the point clicked in the polygon, polyline and circle.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "deselected",
+          "summary": "Will show if the annotation was selected (false) or deselected (true)\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "clusterstart",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when a collision between annotations occures.",
+      "since": "6.3.0",
+      "properties": [
+        {
+          "name": "memberAnnotations",
+          "summary": "Array of annotations participating in clustering.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.Map.Annotation"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "map",
+          "summary": "This map view.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Map.View"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "complete",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when the map completes loading."
+    },
+    {
+      "name": "longclick",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when the user makes a long-press gesture on the map.\n",
+      "description": "A long press is generated by touching and holding on the touch screen.\n\nThe event occurs before the finger/button is lifted.\n\nThe `longclick` event returns longitude and latitude of the point on the ground that was pressed.\n",
+      "since": "3.2.0",
+      "properties": [
+        {
+          "name": "latitude",
+          "summary": "latitude of the point on the ground that was pressed.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "longitude",
+          "summary": "longitude of the point on the ground that was pressed.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "map",
+          "summary": "The map view instance.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Map.View"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "mapclick",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when the user clicks on the map\n",
+      "description": "The `mapclick` event is fired when the user clicks on the map and returns the longitude/latitude of\nthat position.\n",
+      "since": "6.2.0",
+      "properties": [
+        {
+          "name": "map",
+          "summary": "The map view instance.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Map.View"
+            }
+          ]
+        },
+        {
+          "name": "latitude",
+          "summary": "Latitude of the clicked position.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "longitude",
+          "summary": "Longitude of the clicked position.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "onsnapshotready",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Fired when the snapshot is ready after [snapshot](api:Modules.Map.View#snapshot) is invoked.",
+      "since": "3.2.3",
+      "properties": [
+        {
+          "name": "snapshot",
+          "summary": "snapshot of the current map",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Blob"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "pinchangedragstate",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when the user interacts with a draggable annotation.",
+      "since": "3.1.0",
+      "properties": [
+        {
+          "name": "annotation",
+          "summary": "Annotation being dragged.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Map.Annotation"
+            }
+          ]
+        },
+        {
+          "name": "map",
+          "summary": "This map view.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Map.View"
+            }
+          ]
+        },
+        {
+          "name": "title",
+          "summary": "Annotation title.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "newState",
+          "summary": "New drag state for the annotation, one of\n[ANNOTATION_DRAG_STATE_NONE](Titanium.Map.ANNOTATION_DRAG_STATE_NONE),\n[ANNOTATION_DRAG_STATE_START](Titanium.Map.ANNOTATION_DRAG_STATE_START),\n[ANNOTATION_DRAG_STATE_DRAG](Titanium.Map.ANNOTATION_DRAG_STATE_DRAG),\n[ANNOTATION_DRAG_STATE_CANCEL](Titanium.Map.ANNOTATION_DRAG_STATE_CANCEL) or\n[ANNOTATION_DRAG_STATE_END](Titanium.Map.ANNOTATION_DRAG_STATE_END).\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "oldState",
+          "summary": "Previous drag state for the annotation, one of\n[ANNOTATION_DRAG_STATE_NONE](Titanium.Map.ANNOTATION_DRAG_STATE_NONE),\n[ANNOTATION_DRAG_STATE_START](Titanium.Map.ANNOTATION_DRAG_STATE_START),\n[ANNOTATION_DRAG_STATE_DRAG](Titanium.Map.ANNOTATION_DRAG_STATE_DRAG),\n[ANNOTATION_DRAG_STATE_CANCEL](Titanium.Map.ANNOTATION_DRAG_STATE_CANCEL) or\n[ANNOTATION_DRAG_STATE_END](Titanium.Map.ANNOTATION_DRAG_STATE_END).\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "poiclick",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when the user selects a Point of Interest (e.g. restaurant or hotel).",
+      "description": "Make sure to use the <Modules.Map.View.selectableMapFeatures> property to define\nannotations tha should be selectable. Available in iOS 16+\n",
+      "since": "12.0.0",
+      "properties": [
+        {
+          "name": "name",
+          "summary": "The descriptive name associated with the map item.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "featureType",
+          "summary": "The type of map feature this annotation represents. See the [Apple docs](https://developer.apple.com/documentation/mapkit/mkmapfeaturetype)\nfor all possible enum values.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "pointOfInterestCategory",
+          "summary": "The point-of-interest category for the map item. See the [Apple docs](https://developer.apple.com/documentation/mapkit/mkpointofinterestcategory)\nfor all possible enum values.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "phoneNumber",
+          "summary": "The phone number associated with a business at the specified location.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "url",
+          "summary": "The URL associated with the specified location.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "place",
+          "summary": "The placemark object containing the location information.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Object"
+            }
+          ]
+        },
+        {
+          "name": "latitude",
+          "summary": "Latitude of the annotation that was selected.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "longitude",
+          "summary": "Longitude of the annotation that was selected.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "poideselect",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when the user deselects a Point of Interest (e.g. restaurant or hotel).",
+      "since": "12.2.0"
+    },
+    {
+      "name": "regionchanged",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when the mapping region finished changing.\n",
+      "properties": [
+        {
+          "name": "longitude",
+          "summary": "Longitude value for the center point of the map, in decimal degrees.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "latitude",
+          "summary": "Latitude value for the center point of the map, in decimal degrees.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "longitudeDelta",
+          "summary": "The amount of east-to-west distance displayed on the map, measured in decimal degrees.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "latitudeDelta",
+          "summary": "The amount of north-to-south distance displayed on the map, measured in decimal degrees.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "animated",
+          "summary": "The regionchanged event was caused by an `animation`, such as a animating the camera.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "regionwillchange",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when the mapping region will change.\n",
+      "since": {
+        "android": "6.2.0",
+        "iphone": "6.0.0",
+        "ipad": "6.0.0",
+        "macos": "9.2.0"
+      },
+      "properties": [
+        {
+          "name": "longitude",
+          "summary": "Longitude value for the center point of the map, in decimal degrees.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "latitude",
+          "summary": "Latitude value for the center point of the map, in decimal degrees.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "longitudeDelta",
+          "summary": "The amount of east-to-west distance displayed on the map, measured in decimal degrees.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "latitudeDelta",
+          "summary": "The amount of north-to-south distance displayed on the map, measured in decimal degrees.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "animated",
+          "summary": "The regionwillchange event was caused by an `animation`, such as a animating the camera.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "reason",
+          "summary": "The reason for the camera change, either [Modules.Map.REASON_API_ANIMATION](api:Modules.Map#REASON_API_ANIMATION),\n[Modules.Map.REASON_DEVELOPER_ANIMATION](api:Modules.Map#REASON_DEVELOPER_ANIMATION) or [Modules.Map.REASON_GESTURE](api:Modules.Map#REASON_GESTURE).\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "userLocation",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when the user changes on the map.\n",
+      "description": "When the user location is available or changes at the map it will fire the event.\n",
+      "since": {
+        "android": "7.3.0"
+      },
+      "properties": [
+        {
+          "name": "latitude",
+          "summary": "Latitude of the point on the ground that was pressed.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "longitude",
+          "summary": "Longitude of the point on the ground that was pressed.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "references": [
+    "CameraAnimationParams",
+    "ClusterAnnotationParams",
+    "MapLocationTypeV2",
+    "MapPointType",
+    "MapRegionTypev2",
+    "MapViewPadding",
+    "Modules.Map",
+    "Modules.Map.Annotation",
+    "Modules.Map.Camera",
+    "Modules.Map.Circle",
+    "Modules.Map.ImageOverlay",
+    "Modules.Map.Polygon",
+    "Modules.Map.Polyline",
+    "Modules.Map.Route"
+  ],
+  "externalReferences": [
+    "Global.String",
+    "Modules.Map.View.selectableMapFeatures",
+    "Titanium.Blob",
+    "Titanium.UI.View"
+  ],
+  "source": "View.yml"
+}

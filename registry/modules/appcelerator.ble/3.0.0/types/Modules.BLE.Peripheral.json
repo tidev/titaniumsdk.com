@@ -1,0 +1,1500 @@
+{
+  "schemaVersion": 1,
+  "name": "Modules.BLE.Peripheral",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad"
+  ],
+  "since": "1.0.0",
+  "summary": "A remote peripheral device.",
+  "description": "The CBPeripheral class represents remote peripheral devices that your app discovers with a central manager (an instance of CentralManager).\nIn iOS, Peripherals use universally unique identifiers (UUIDs), to identify themselves. For Android, Peripherals use address to be uniqely identified.\nPeripherals may contain one or more services or provide useful information about their connected signal strength.\n",
+  "properties": [
+    {
+      "name": "address",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Once a peripheral has been connected at least once by the system, it is assigned a address (UUID). This address can be stored and later provided to the retrievePeripherals method.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "1.0.0"
+    },
+    {
+      "name": "ancsAuthorized",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "A Boolean value that indicates if the remote device has authorization to receive data over ANCS protocol.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "1.0.0",
+      "osver": {
+        "ios": {
+          "min": "13.0"
+        }
+      }
+    },
+    {
+      "name": "canSendWriteWithoutResponse",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "A Boolean value that indicates whether the remote device can send a write without a response.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "1.0.0"
+    },
+    {
+      "name": "isConnected",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Whether or not the peripheral is currently connected.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "1.0.0"
+    },
+    {
+      "name": "name",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "The name of the peripheral.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "1.0.0"
+    },
+    {
+      "name": "services",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "A list of a peripheral’s discovered services.",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Array",
+          "args": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.Service"
+            }
+          ]
+        }
+      ],
+      "since": "1.0.0"
+    },
+    {
+      "name": "state",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "The current connection state of the peripheral. Possible values defined by PERIPHERAL_STATE_* constants.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.0.0"
+    }
+  ],
+  "methods": [
+    {
+      "name": "discoverCharacteristics",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Discovers the specified characteristic(s) of a service. The result of this operation is returned via the didDiscoverCharacteristics event. In android, all the characteristics have already been discovered, as part of the discoverServices operation. So, this method is kept in android to keep parity with the iOS platform.",
+      "since": "1.0.0",
+      "parameters": [
+        {
+          "name": "services",
+          "summary": "The service whose characteristics you want to discover.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.Service"
+            }
+          ]
+        },
+        {
+          "name": "characteristicUUIDs",
+          "summary": "An array of UUID objects that you are interested in. Each UUID identifies the characteristic you want to discover.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "primitive",
+                  "name": "String"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "void"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "discoverDescriptorsForCharacteristic",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Discovers the descriptor(s) of a characteristic.The result of this operation is returned via the didDiscoverDescriptorsForCharacteristics event. In android, all the descriptors have already been discovered, as part of the discoverServices operation. So, this method is kept in android to keep parity with the iOS platform.",
+      "since": "1.0.0",
+      "parameters": [
+        {
+          "name": "characteristic",
+          "summary": "The characteristic whose descriptors you want to discover.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.Characteristic"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "void"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "discoverIncludedServices",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Discovers the specified included service(s) of a service.The result of this operation is returned via the didDiscoverIncludedServices event. In android, all the included services have already been discovered, as part of the discoverServices operation. So, this method is kept in android to keep parity with the iOS platform.",
+      "since": "1.0.0",
+      "parameters": [
+        {
+          "name": "services",
+          "summary": "The service whose characteristics you want to discover.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.Service"
+            }
+          ]
+        },
+        {
+          "name": "includedServiceUUIDs",
+          "summary": "An array of UUID objects that you are interested in. Each UUID identifies the included service you want to discover.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "primitive",
+                  "name": "String"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "void"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "discoverServices",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Discovers available service(s) on the peripheral. The result of this operation is returned via the didDiscoverServices event.",
+      "since": "1.0.0",
+      "parameters": [
+        {
+          "name": "serviceUUIDs",
+          "summary": "An array of UUID objects that you are interested in. Each UUID identifies the services you want to discover. In android, the behavior is discoverServices discovers all the available services irrespective of this parameter.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "primitive",
+                  "name": "String"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "void"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "maximumWriteValueLength",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "The maximum amount of data, in bytes, you can send to a characteristic in a single write type.",
+      "since": "1.0.0",
+      "parameters": [
+        {
+          "name": "characteristicWriteType",
+          "summary": "Values representing the possible write types to a characteristic’s value.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "void"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "openL2CAPChannel",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Attempts to open an L2CAP channel to the peripheral using the supplied Protocol/Service Multiplexer (PSM).",
+      "since": {
+        "android": "1.1.0",
+        "iphone": "1.0.0",
+        "ipad": "1.0.0"
+      },
+      "osver": {
+        "ios": {
+          "min": "11.0"
+        },
+        "android": {
+          "min": "10"
+        }
+      },
+      "parameters": [
+        {
+          "name": "psmIdentifier",
+          "summary": "The PSM of the channel to open.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "encryptionRequired",
+          "summary": "The bool can be true if the service requires the link to be encrypted before a stream can be established. false if the service can be used over an unsecured link. This parameter is applicable in android only and the default value is false.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "void"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "readRSSI",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Retrieves the current RSSI value for the peripheral while connected to the central manager.",
+      "since": "1.0.0",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "void"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "readValueForCharacteristic",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Reads the value of a characteristic.The result of this operation is returned via the didUpdateValueForCharacteristic event.",
+      "since": "1.0.0",
+      "parameters": [
+        {
+          "name": "characteristic",
+          "summary": "The characteristic whose value you want to read.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.Characteristic"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "void"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "readValueForDescriptor",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Reads the value of a descriptor. The result of this operation is returned via the didUpdateValueForDescriptor event.",
+      "since": "1.0.0",
+      "parameters": [
+        {
+          "name": "descriptor",
+          "summary": "The characteristic descriptor whose value you want to read.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.Descriptor"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "void"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "requestConnectionPriority",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Request the specific connection priority. This method will send connection parameter update request to the remote device.",
+      "since": "1.0.0",
+      "parameters": [
+        {
+          "name": "connectionPriority",
+          "summary": "Connection priority to set. Must be one of CONNECTION_PRIORITY_HIGH, CONNECTION_PRIORITY_BALANCED and CONNECTION_PRIORITY_LOW_POWER.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "void"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "subscribeToCharacteristic",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Enables notifications/indications for a characteristic. If the characteristic allows both, notifications will be used.",
+      "description": "In Android, subscribing to a characteristic is a two step process in which, first the setCharacteristicNotification() is called which enables the notification locally(on Android device), followed by writing on the descriptor, which is optional.\nIf the second paramater(descriptorUUID) not provided, then writing on the descriptor would not be done. Reference (https://developer.android.com/guide/topics/connectivity/bluetooth-le#notification)\n",
+      "since": "1.0.0",
+      "parameters": [
+        {
+          "name": "characteristic",
+          "summary": "The characteristic whose value you want to read.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.Characteristic"
+            }
+          ]
+        },
+        {
+          "name": "descriptorUUID=\"00002902-0000-1000-8000-00805f9b34fb\"",
+          "summary": "The UUID of the configuration descriptor of the characteristic. The module will attempt to write descriptorValue to this descriptor. If you do not want the module to do this, set this parameter to an empty string. This parameter is only for Android.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ],
+          "optional": true
+        },
+        {
+          "name": "descriptorValue=ENABLE_NOTIFICATION_VALUE",
+          "summary": "The value to be written to the configuration descriptor. This parameter is only for Android.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Buffer"
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "void"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "unsubscribeFromCharacteristic",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Disables notifications/indications for a characteristic.",
+      "since": "1.0.0",
+      "parameters": [
+        {
+          "name": "characteristic",
+          "summary": "The characteristic whose value you want to read.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.Characteristic"
+            }
+          ]
+        },
+        {
+          "name": "descriptorUUID=\"00002902-0000-1000-8000-00805f9b34fb\"",
+          "summary": "The UUID of the configuration descriptor of the characteristic. The module will attempt to write descriptorValue to this descriptor. If you do not want the module to do this, set this parameter to an empty string. This parameter is only for Android.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ],
+          "optional": true
+        },
+        {
+          "name": "descriptorValue=DISABLE_NOTIFICATION_VALUE",
+          "summary": "The value to be written to the configuration descriptor. This parameter is only for Android.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Buffer"
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "void"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "writeValueForCharacteristic",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Writes a value to a characteristic.",
+      "since": "1.0.0",
+      "parameters": [
+        {
+          "name": "characteristic",
+          "summary": "The characteristic whose value you want to write.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.Characteristic"
+            }
+          ]
+        },
+        {
+          "name": "data",
+          "summary": "The new value of the characteristic.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Buffer"
+            }
+          ]
+        },
+        {
+          "name": "characteristicWriteType",
+          "summary": "The type of write to be executed. See CHARACTERISTIC_TYPE_WRITE_WITH_RESPONSE and CHARACTERISTIC_TYPE_WRITE_WITHOUT_RESPONSE.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "void"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "writeValueForDescriptor",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Writes the value of a descriptor. The result of this operation is returned via the didWriteValueForDescriptor event.",
+      "description": "Writes the value of a characteristic descriptor. \nThis method copies the data passed into the data parameter, and you can dispose of it after the method returns.\nNote (iOS): You can’t use this method to write the value of a client configuration descriptor (represented by the BLE.CBUUID_CLIENT_CHARACTERISTIC_CONFIGURATION_STRING constant),\nwhich describes the configuration of notification or indications for a characteristic’s value. \nIf you want to manage notifications or indications for a characteristic’s value, you must use the subscribeToCharacteristic({characteristic:}) and unsubscribeFromCharacteristic({characteristic:}) method instead.\nAnother Note (iOS): Once published, you can’t update the value dynamically. Reference (https://developer.apple.com/documentation/corebluetooth/cbmutabledescriptor/1518999-init)\n",
+      "since": "1.0.0",
+      "parameters": [
+        {
+          "name": "descriptor",
+          "summary": "The descriptor whose value you want to write.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.Descriptor"
+            }
+          ]
+        },
+        {
+          "name": "data",
+          "summary": "The new value of the characteristic.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Buffer"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "void"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "didDiscoverCharacteristics",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "This event returns the result of a call to the discoverCharacteristics method. If the characteristic(s) were read successfully, they can be retrieved via the service property's characteristics property.",
+      "description": "Core Bluetooth invokes this method when your app calls the discoverCharacteristics method. If the peripheral successfully discovers the characteristics of the specified service, you can access them through the service’s characteristics property.\n",
+      "since": "1.0.0",
+      "properties": [
+        {
+          "name": "sourcePeripheral",
+          "summary": "The peripheral providing this information.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.Peripheral"
+            }
+          ]
+        },
+        {
+          "name": "service",
+          "summary": "The service to which the characteristics belong.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.Service"
+            }
+          ]
+        },
+        {
+          "name": "errorCode",
+          "summary": "The error code; only present if an error occurred.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "errorDomain",
+          "summary": "The error domain; only present if an error occurred.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "errorDescription",
+          "summary": "The error description; only peresent if an error occurred.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "didDiscoverDescriptorsForCharacteristics",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "This event returns the result of a call to the discoverDescriptorsForCharacteristic method.",
+      "description": "Core Bluetooth invokes this method when your app calls the discoverDescriptors method. If the peripheral successfully discovers the descriptors of the specified characteristic, you can access them through the characteristic’s descriptors property.\n",
+      "since": "1.0.0",
+      "properties": [
+        {
+          "name": "sourcePeripheral",
+          "summary": "The peripheral providing this information.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.Peripheral"
+            }
+          ]
+        },
+        {
+          "name": "characteristic",
+          "summary": "The service to which the characteristics belong.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.Characteristic"
+            }
+          ]
+        },
+        {
+          "name": "errorCode",
+          "summary": "The error code; only present if an error occurred.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "errorDomain",
+          "summary": "The error domain; only present if an error occurred.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "errorDescription",
+          "summary": "The error description; only peresent if an error occurred.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "didDiscoverIncludedServices",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "This event returns the result of a call to the discoverIncludedServices method.",
+      "description": "Core Bluetooth invokes this method when your app calls the discoverIncludedServices method. If the peripheral successfully discovers services, you can access them through the service’s includedServices property.\n",
+      "since": "1.0.0",
+      "properties": [
+        {
+          "name": "sourcePeripheral",
+          "summary": "The peripheral providing this information.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.Peripheral"
+            }
+          ]
+        },
+        {
+          "name": "errorCode",
+          "summary": "The error code; only present if an error occurred.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "errorDomain",
+          "summary": "The error domain; only present if an error occurred.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "errorDescription",
+          "summary": "The error description; only peresent if an error occurred.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "didDiscoverServices",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Discovers the specified services of the peripheral.",
+      "description": "Core Bluetooth invokes this method when your app calls the discoverServices method. If the peripheral successfully discovers services, you can access them through the peripheral’s services property. \n",
+      "since": "1.0.0",
+      "properties": [
+        {
+          "name": "sourcePeripheral",
+          "summary": "The peripheral providing this information.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.Peripheral"
+            }
+          ]
+        },
+        {
+          "name": "errorCode",
+          "summary": "The error code; only present if an error occurred.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "errorDomain",
+          "summary": "The error domain; only present if an error occurred.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "errorDescription",
+          "summary": "The error description; only peresent if an error occurred.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "didModifyServices",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "This event is fired when the services of the peripheral change.",
+      "description": "Core Bluetooth invokes this method whenever one or more services of a peripheral change. The invalidatedServices parameter includes any changed services that you previously discovered; you can no longer use these services. You can use the discoverServices method to discover any new services that the peripheral added to its database. Use this same method to find out whether any of the invalidated services that you were using (and want to continue using) now have a different location in the peripheral’s database.\n",
+      "since": "1.0.0",
+      "properties": [
+        {
+          "name": "sourcePeripheral",
+          "summary": "The peripheral providing this information.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.Peripheral"
+            }
+          ]
+        },
+        {
+          "name": "services",
+          "summary": "The services that have been invalidated.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.BLE.Service"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "didOpenChannel",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "This method delivers the result of a previous call to openL2CAPChannel.",
+      "description": "Delivers the result of an attempt to open an L2CAP channel.\n",
+      "since": {
+        "android": "1.1.0",
+        "iphone": "1.0.0",
+        "ipad": "1.0.0"
+      },
+      "properties": [
+        {
+          "name": "sourcePeripheral",
+          "summary": "The peripheral sending the event.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.Peripheral"
+            }
+          ]
+        },
+        {
+          "name": "channel",
+          "summary": "A live L2CAP connection to a remote device.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.L2CAPChannel"
+            }
+          ]
+        },
+        {
+          "name": "errorCode",
+          "summary": "The error code; only present if an error occurred.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "errorDomain",
+          "summary": "The error domain; only present if an error occurred.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "errorDescription",
+          "summary": "The error description; only peresent if an error occurred.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "didReadRSSI",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "This event returns the result of a call to the readRSSI method.",
+      "description": "Core Bluetooth invokes this method when your app calls the readRSSI() method, while the peripheral is connected to the central manager. If successful, the error parameter is nil and the parameter RSSI reports the peripheral’s signal strength, in decibels. If unsuccessful, the error parameter returns the cause of the failure.\n",
+      "since": "1.0.0",
+      "properties": [
+        {
+          "name": "sourcePeripheral",
+          "summary": "The peripheral providing this information.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.Peripheral"
+            }
+          ]
+        },
+        {
+          "name": "rssi",
+          "summary": "value last read",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "errorCode",
+          "summary": "The error code; only present if an error occurred.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "errorDomain",
+          "summary": "The error domain; only present if an error occurred.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "errorDescription",
+          "summary": "The error description; only peresent if an error occurred.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "didUpdateName",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "This event is fired when the name of the peripheral changes.",
+      "description": "Core Bluetooth invokes this method whenever the peripheral’s Generic Access Profile (GAP) device name changes. Since a peripheral device can change its GAP device name, you can implement this method if your app needs to display the current name of the peripheral device.\n",
+      "since": "1.0.0",
+      "properties": [
+        {
+          "name": "sourcePeripheral",
+          "summary": "The peripheral providing this information.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.Peripheral"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "didUpdateNotificationStateForCharacteristics",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "This event returns the result of a call to the subscribeToCharacteristic or unsubscribeFromCharacteristic method.",
+      "description": "Core Bluetooth invokes this method when your app calls the subscribeToCharacteristic or unsubscribeFromCharacteristic method.\n",
+      "since": "1.0.0",
+      "properties": [
+        {
+          "name": "sourcePeripheral",
+          "summary": "The peripheral providing this information.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.Peripheral"
+            }
+          ]
+        },
+        {
+          "name": "characteristic",
+          "summary": "The characteristic to subscribe.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.Characteristic"
+            }
+          ]
+        },
+        {
+          "name": "isSubscribed",
+          "summary": "A Boolean value that specifies whether the didUpdateNotificationStateForCharacteristics event is for subscribe or unsubscribe operation. true, if subscribe and false otherwise.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "errorCode",
+          "summary": "The error code; only present if an error occurred.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "errorDomain",
+          "summary": "The error domain; only present if an error occurred.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "errorDescription",
+          "summary": "The error description; only peresent if an error occurred.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "didUpdateValueForCharacteristic",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "This event is fired after a call to the readValueForCharacteristic method, or upon receipt of a notification/indication.",
+      "description": "Core Bluetooth invokes this method when your app calls the readValueForCharacteristic method. A peripheral also invokes this method to notify your app of a change to the value of the characteristic for which the app previously enabled notifications by calling subscribeToCharacteristic or unsubscribeFromCharacteristic method.\n",
+      "since": "1.0.0",
+      "properties": [
+        {
+          "name": "sourcePeripheral",
+          "summary": "The peripheral providing this information.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.Peripheral"
+            }
+          ]
+        },
+        {
+          "name": "characteristic",
+          "summary": "The characteristic containing the value.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.Characteristic"
+            }
+          ]
+        },
+        {
+          "name": "errorCode",
+          "summary": "The error code; only present if an error occurred.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "errorDomain",
+          "summary": "The error domain; only present if an error occurred.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "errorDescription",
+          "summary": "The error description; only peresent if an error occurred.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "didUpdateValueForDescriptor",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "This event returns the result of a call to the readValueForDescriptor method.",
+      "description": "Core Bluetooth invokes this method when your app calls the readValueForDescriptor method.\n",
+      "since": "1.0.0",
+      "properties": [
+        {
+          "name": "sourcePeripheral",
+          "summary": "The peripheral providing this information.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.Peripheral"
+            }
+          ]
+        },
+        {
+          "name": "descriptor",
+          "summary": "The characteristic descriptor containing the value.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.Descriptor"
+            }
+          ]
+        },
+        {
+          "name": "errorCode",
+          "summary": "The error code; only present if an error occurred.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "errorDomain",
+          "summary": "The error domain; only present if an error occurred.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "errorDescription",
+          "summary": "The error description; only peresent if an error occurred.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "didWriteValueForCharacteristic",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "This event returns the result of a call to the writeValueForCharacteristic method.",
+      "description": "Core Bluetooth invokes this method only when your app calls the writeValueForCharacteristic method with the BLE.CHARACTERISTIC_WRYTE_TYPE_WITH_RESPOSNE constant specified as the write type.\n",
+      "since": "1.0.0",
+      "properties": [
+        {
+          "name": "sourcePeripheral",
+          "summary": "The peripheral providing this information.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.Peripheral"
+            }
+          ]
+        },
+        {
+          "name": "characteristic",
+          "summary": "The characteristic containing the value.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.Characteristic"
+            }
+          ]
+        },
+        {
+          "name": "errorCode",
+          "summary": "The error code; only present if an error occurred.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "errorDomain",
+          "summary": "The error domain; only present if an error occurred.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "errorDescription",
+          "summary": "The error description; only peresent if an error occurred.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "didWriteValueForDescriptor",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "This event returns the result of a call to the writeValueForDescriptor method.",
+      "description": "Core Bluetooth invokes this method when your app calls the writeValueForDescriptor method.\n",
+      "since": "1.0.0",
+      "properties": [
+        {
+          "name": "sourcePeripheral",
+          "summary": "The peripheral sending the event.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.Peripheral"
+            }
+          ]
+        },
+        {
+          "name": "descriptor",
+          "summary": "The object representing the descriptor that was changed.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.Descriptor"
+            }
+          ]
+        },
+        {
+          "name": "errorCode",
+          "summary": "The error code; only present if an error occurred.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "errorDomain",
+          "summary": "The error domain; only present if an error occurred.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "errorDescription",
+          "summary": "The error description; only peresent if an error occurred.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "peripheralIsReadyToSendWriteWithoutResponse",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Tells the delegate that a peripheral is again ready to send characteristic updates.",
+      "description": "The peripheral calls this delegate method after a failed call to writeValueForCharacteristic, once peripheral is ready to send characteristic value updates.\n",
+      "since": "1.0.0",
+      "properties": [
+        {
+          "name": "sourcePeripheral",
+          "summary": "The peripheral sending the event.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.Peripheral"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "references": [
+    "Modules.BLE.Characteristic",
+    "Modules.BLE.Descriptor",
+    "Modules.BLE.L2CAPChannel",
+    "Modules.BLE.Service"
+  ],
+  "externalReferences": [
+    "Titanium.Buffer",
+    "Titanium.Proxy"
+  ],
+  "source": "Peripheral.yml"
+}

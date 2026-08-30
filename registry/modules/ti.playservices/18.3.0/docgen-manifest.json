@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "generator": "sha256:ac231061067ed51d0966e3953108bbd9c19cae952495be231d05241eb191edf3",
+  "external": {
+    "repo": "tidev/titanium-sdk",
+    "version": "main",
+    "hash": "sha256:0c8e94bd4e64c06147ad9ff63806ba4cc4617e8aca5fa7095f28472598bbf5a4"
+  },
+  "generatedAt": "2026-08-30T20:27:40.626Z",
+  "sources": {
+    "PlayServices.yml": {
+      "hash": "sha256:b311fe1b3720c5212cde1eeeb1ffce0e0d59313245c1343515153d152a81be14",
+      "types": [
+        "Modules.PlayServices",
+        "Modules.PlayServices.AvailableCallbackObject"
+      ]
+    }
+  },
+  "types": {
+    "Modules.PlayServices": {
+      "source": "PlayServices.yml",
+      "extends": "Titanium.Module",
+      "outputHash": "sha256:7a3e7f0a763e90da3d355c86939b99b14d0c4e9eff141cb9e8ae78e8a92ab52c"
+    }
+  }
+}

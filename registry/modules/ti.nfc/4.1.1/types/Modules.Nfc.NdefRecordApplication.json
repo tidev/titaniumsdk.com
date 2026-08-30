@@ -1,0 +1,121 @@
+{
+  "schemaVersion": 1,
+  "name": "Modules.Nfc.NdefRecordApplication",
+  "kind": "proxy",
+  "extends": "Modules.Nfc.NdefRecord",
+  "inheritanceChain": [
+    "Modules.Nfc.NdefRecord",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android"
+  ],
+  "since": "1.0.0",
+  "summary": "Represents an immutable NDEF record indicating the package that should be used to handle the entire NDEF message.",
+  "description": "This record type was introduced in Android 4.0 (API level 14).\n\nSee also:\n[createApplicationRecord](http://developer.android.com/reference/android/nfc/NdefRecord.html#createApplicationRecord(java.lang.String))\n",
+  "properties": [
+    {
+      "name": "packageName",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Application package name.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    }
+  ],
+  "methods": [],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "hashCode",
+        "from": "Modules.Nfc.NdefRecord",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "id",
+        "from": "Modules.Nfc.NdefRecord",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "payload",
+        "from": "Modules.Nfc.NdefRecord",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "recordType",
+        "from": "Modules.Nfc.NdefRecord",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "tnf",
+        "from": "Modules.Nfc.NdefRecord",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "type",
+        "from": "Modules.Nfc.NdefRecord",
+        "platforms": [
+          "android"
+        ]
+      }
+    ],
+    "methods": [
+      {
+        "name": "getHashCode",
+        "from": "Modules.Nfc.NdefRecord",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "getId",
+        "from": "Modules.Nfc.NdefRecord",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "getRecordType",
+        "from": "Modules.Nfc.NdefRecord",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "getTnf",
+        "from": "Modules.Nfc.NdefRecord",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "getType",
+        "from": "Modules.Nfc.NdefRecord",
+        "platforms": [
+          "android"
+        ]
+      }
+    ],
+    "events": []
+  },
+  "references": [
+    "Modules.Nfc.NdefRecord"
+  ],
+  "source": "NdefRecord.yml"
+}

@@ -1,0 +1,820 @@
+{
+  "schemaVersion": 1,
+  "name": "Modules.Bluetooth",
+  "kind": "module",
+  "extends": "Titanium.Module",
+  "inheritanceChain": [
+    "Titanium.Module"
+  ],
+  "platforms": [
+    "android"
+  ],
+  "since": "1.0.0",
+  "summary": "Allows a Titanium application to use Bluetooth service.",
+  "description": "The module is used for connecting your application via bluetooth.\n\nYou can download the module at [appcelerator.bluetooth](https://github.com/tidev/appcelerator.bluetooth/releases)\n\n### Getting Started\n- Add the module as a dependency to your application by adding a **`<module>`** item to the\n  **`[modules](api:Modules)`** element of your `tiapp.xml` file:\n  ``` xml\n  <ti:app>\n    <!-- ... -->\n    [modules](api:Modules)\n      <module platform=\"android\">appcelerator.bluetooth</module>\n    </modules>\n    <!-- ... -->\n  </ti:app>\n  ```\n- Use `require()` to access the module from JavaScript:\n  ``` javascript\n  var bluetooth = require('appcelerator.bluetooth');\n  ```\n- The `bluetooth` variable is a reference to the module. Make API calls using this reference:\n  ``` javascript\n  bluetooth.isSupported();\n  ```\n\n### Example application\n  Please see the /modules/android/appcelerator.bluetooth/x.y.z (version of module)/example folder.\n\n### Observations\n- On a bluetooth socket object with a given `uuid`, if device A connects to device B and the same device A tries to create another socket object with the same uuid and attempts to connect with the same device B, then it won't be successful to connect because socket connection is already established between them. Moreover, while attempting for the new connect, the existing connection would also get disconnected. \n  `Recommendation:` It would always be recommended to close the socket connection properly before trying to connect using the newly created socket object on the same device and same uuid.\n- When device scanning/discovery is in-progress, the same device can be found multiple times from the deviceFound event in span of 12 seconds. This scenario should be handled by the application. More information refer to deviceFound event and startDiscovery method.\n",
+  "examples": [
+    {
+      "title": "How to Check if Bluetooth is supported on your device.",
+      "code": "``` javascript\n  if(bluetooth.isSupported())\n  {\n    Ti.API.info('Bluetooth is supported');\n  } else \n  {\n    Ti.API.info('Bluetooth is not supported in this device');\n  }\n```\n"
+    },
+    {
+      "title": "How to get paired devices with local adapter.",
+      "code": "``` javascript\n  var dict = bluetooth.getPairedDevices();\n  var device = []; // array for paired devices.\n  if (dict.success) {\n      var pdevices = dict.pairedDevices;\n      for (var index = 0; index < pdevices.length; index++){\n          device[index] = pdevices[index];\n      }\n  } else {\n      //Failed to get paired devices.\n      Ti.API.info(dict.message);\n  }\n```\n"
+    },
+    {
+      "title": "To creates an object of the BluetoothServerSocketProxy class.",
+      "code": "This object can be used to listen the incoming connections.\n\n``` javascript\n  var serverSocket = bluetooth.createServerSocket({\n    name: 'Test_Server_Socket',\n    uuid: '8ce255c0-200a-11e0-ac64-0800200c9a66',\n    secure: true\n  });\n  // To accept the incoming connections.\n  serverSocket.startAccept(false); \n```\n"
+    },
+    {
+      "title": "If you want to get bluetooth device information",
+      "code": "To get the bluetooth device name.\n\n``` javascript\n  var btName = bluetooth.name;\n```\n\nAnd to check the current state\n\n``` javascript\n  var state = bluetooth.state;\n  if(state === bluetooth.STATE_ON)\n  {\n      Ti.API.info('Bluetooth is on');\n  }\n```\n"
+    }
+  ],
+  "properties": [
+    {
+      "name": "address",
+      "platforms": [
+        "android"
+      ],
+      "summary": "The hardware address of the local Bluetooth adapter.",
+      "description": "For example \"00:11:22:AA:BB:CC\". This method will only return valid address if the android API < 23.\nOtherwise, it will return a constant value of `02:00:00:00:00:00`.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "1.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "DEVICE_TYPE_CLASSIC",
+      "platforms": [
+        "android"
+      ],
+      "summary": "One of the possible values returned by the [type](api:Modules.Bluetooth.BluetoothDevice#type) property.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "DEVICE_TYPE_DUAL",
+      "platforms": [
+        "android"
+      ],
+      "summary": "One of the possible values returned by the [type](api:Modules.Bluetooth.BluetoothDevice#type) property.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "DEVICE_TYPE_LE",
+      "platforms": [
+        "android"
+      ],
+      "summary": "One of the possible values returned by the [type](api:Modules.Bluetooth.BluetoothDevice#type) property.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "DEVICE_TYPE_UNKNOWN",
+      "platforms": [
+        "android"
+      ],
+      "summary": "One of the possible values returned by the [type](api:Modules.Bluetooth.BluetoothDevice#type) property.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "name",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Friendly name of the local Bluetooth adapter.",
+      "description": "This name is visible to remote Bluetooth devices. In case of error it can be null.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "1.0.0",
+      "permission": "read-write"
+    },
+    {
+      "name": "SCAN_MODE_CONNECTABLE",
+      "platforms": [
+        "android"
+      ],
+      "summary": "One of the possible values returned by the [scanMode](api:Modules.Bluetooth#scanMode) property.",
+      "description": "This value indicates that inquiry scan is disabled, but page scan is enabled on the local\nBluetooth adapter. Therefore this device is not discoverable from remote Bluetooth devices,\nbut is connectable from remote Bluetooth devices that have previously discovered this devices.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "SCAN_MODE_CONNECTABLE_DISCOVERABLE",
+      "platforms": [
+        "android"
+      ],
+      "summary": "One of the possible values returned by the [scanMode](api:Modules.Bluetooth#scanMode) property.",
+      "description": "This value indicates that both inquiry scan and page scan are enabled on the local Bluetooth\nadapter. Therefore this device is both discoverable and connectable from remote Bluetooth devices.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "SCAN_MODE_NONE",
+      "platforms": [
+        "android"
+      ],
+      "summary": "One of the possible values returned by the [scanMode](api:Modules.Bluetooth#scanMode) property.",
+      "description": "This value indicated that both inquiry and page scan is disabled on the local Bluetooth\nadapter. Therefore this device neither discoverable nor connectable from the remote Bluetooth\ndevices.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "scanMode",
+      "platforms": [
+        "android"
+      ],
+      "summary": "The current Bluetooth scan mode of the local Bluetooth adapter.",
+      "description": "The Bluetooth scan mode determines if the local adapter is connectable and/or discoverable\nfrom remote Bluetooth devices.\nPossible values are [SCAN_MODE_CONNECTABLE](api:Modules.Bluetooth#SCAN_MODE_CONNECTABLE),\n[SCAN_MODE_CONNECTABLE_DISCOVERABLE](api:Modules.Bluetooth#SCAN_MODE_CONNECTABLE_DISCOVERABLE)\nand [SCAN_MODE_NONE](api:Modules.Bluetooth#SCAN_MODE_NONE). \nIf Bluetooth state is not [STATE_ON](api:Modules.Bluetooth#STATE_ON), this API will return\n[SCAN_MODE_NONE](api:Modules.Bluetooth#SCAN_MODE_NONE).\nAfter turning the Bluetooth on, wait for the [stateChanged](api:Modules.Bluetooth#stateChanged)\nevent with STATE_ON to get the updated value. If Bluetooth is not supported on the device,\nthis property returns an error number which is different from the possible values.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "state",
+      "platforms": [
+        "android"
+      ],
+      "summary": "The current state of the local Bluetooth adapter.",
+      "description": "Possible values are [STATE_OFF](api:Modules.Bluetooth#STATE_OFF), [STATE_ON](api:Modules.Bluetooth#STATE_ON),\n[STATE_TURNING_OFF](api:Modules.Bluetooth#STATE_TURNING_OFF), [STATE_TURNING_ON](api:Modules.Bluetooth#STATE_TURNING_ON)\nIf Bluetooth is not supported on the device, this property returns an error number which is different\nfrom the possible values.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "STATE_OFF",
+      "platforms": [
+        "android"
+      ],
+      "summary": "One of the possible values returned by the [state](api:Modules.Bluetooth#state) property. This value indicates that the local Bluetooth adapter is off.",
+      "description": "Listen for the [stateChanged](api:Modules.Bluetooth#stateChanged) event to be notified when the\nlocal Bluetooth adapter is off.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "STATE_ON",
+      "platforms": [
+        "android"
+      ],
+      "summary": "One of the possible values returned by the [state](api:Modules.Bluetooth#state) property. This value indicates that the local Bluetooth adapter is on, and ready for use.",
+      "description": "Listen for the [stateChanged](api:Modules.Bluetooth#stateChanged) event to be notified when the\nlocal Bluetooth adapter is on.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "STATE_TURNING_OFF",
+      "platforms": [
+        "android"
+      ],
+      "summary": "One of the possible values returned by the [state](api:Modules.Bluetooth#state) property. This value indicates that the local Bluetooth adapter is turning off.",
+      "description": "Listen for the [stateChanged](api:Modules.Bluetooth#stateChanged) event to be notified when the\nlocal Bluetooth adapter is turning off.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "STATE_TURNING_ON",
+      "platforms": [
+        "android"
+      ],
+      "summary": "One of the possible values returned by the [state](api:Modules.Bluetooth#state) property. This value indicates that the local Bluetooth adapter is turning on.",
+      "description": "Listen for the [stateChanged](api:Modules.Bluetooth#stateChanged) event to be notified when the\nlocal Bluetooth adapter is turning on. \n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.0.0",
+      "permission": "read-only"
+    }
+  ],
+  "methods": [
+    {
+      "name": "cancelDiscovery",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Cancels the current device discovery process.",
+      "description": "As discovery is a heavyweight procedure for the Bluetooth adapter, this method should\nalways be called before attempting to connect to a remote device via [connect](api:Modules.Bluetooth.BluetoothSocket#connect).\nDiscovery is run as a system service, so an application should always call cancel discovery\neven if it did not directly request a discovery, just to be sure. If Bluetooth state is not\n[STATE_ON](api:Modules.Bluetooth#STATE_ON) or if there is no ongoing discovery process this\nfunction will return false. Listen for the [discoveryFinished](api:Modules.Bluetooth#discoveryFinished)\nevent to be notified when the device discovery process finished.\n",
+      "since": "1.0.0",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ],
+          "summary": "true on success, false on error"
+        }
+      ]
+    },
+    {
+      "name": "checkBluetoothAddress",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Validates a Bluetooth address, such as \"00:43:A8:23:10:F0\". Alphabetic characters must be uppercase to be valid.",
+      "since": "1.0.0",
+      "parameters": [
+        {
+          "name": "address",
+          "summary": "a string representing the address, such as \"00:43:A8:23:10:F0\".",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ],
+          "summary": "Returns true if the address is valid, false otherwise."
+        }
+      ]
+    },
+    {
+      "name": "createServerSocket",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Creates an object of [BluetoothServerSocket](api:Modules.Bluetooth.BluetoothServerSocket) which can be used to listen for incoming connections.",
+      "description": "This method, when called, creates an object of [BluetoothServerSocket](api:Modules.Bluetooth.BluetoothServerSocket)\nwhich can be used to listen for the incoming connection and accept it by calling the\n[startAccept](api:Modules.Bluetooth.BluetoothServerSocket#startAccept) method. This method\nreturns null, if Bluetooth is not supported on the device.\n",
+      "since": "1.0.0",
+      "parameters": [
+        {
+          "name": "params",
+          "summary": "Dictionary which contains value for name, uuid and security level.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "ServerSocketType"
+            }
+          ],
+          "inlined": {
+            "name": "ServerSocketType",
+            "summary": "Dictionary passed to [createServerSocket](api:Modules.Bluetooth#createServerSocket)",
+            "properties": [
+              {
+                "name": "name",
+                "platforms": [
+                  "android"
+                ],
+                "summary": "Name of the service for SDP record.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  }
+                ]
+              },
+              {
+                "name": "secure",
+                "platforms": [
+                  "android"
+                ],
+                "summary": "Determines whether the connection will be secured.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Boolean"
+                  }
+                ],
+                "default": "false",
+                "optional": true
+              },
+              {
+                "name": "uuid",
+                "platforms": [
+                  "android"
+                ],
+                "summary": "The UUID of the service for SDP record.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Bluetooth.BluetoothServerSocket"
+            }
+          ],
+          "summary": "listening socket for the device"
+        }
+      ]
+    },
+    {
+      "name": "disable",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Disables the local Bluetooth adapter.",
+      "description": "Listen for the [stateChanged](api:Modules.Bluetooth#stateChanged) event to be notified when the local\nBluetooth adapter is turning off.\n",
+      "since": "1.0.0",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ],
+          "summary": "Returns true if the process is initiated successfully or when the bluetooth is already off."
+        }
+      ]
+    },
+    {
+      "name": "enable",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Enables the local Bluetooth adapter.",
+      "description": "Listen for the [stateChanged](api:Modules.Bluetooth#stateChanged) event to be notified when the local\nBluetooth adapter is turning on.\n",
+      "since": "1.0.0",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ],
+          "summary": "Returns true if the process is initiated successfully or when the bluetooth is already on."
+        }
+      ]
+    },
+    {
+      "name": "ensureDiscoverable",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Make the local device discoverable to other devices.",
+      "description": "Displays a system activity that asks the user for permission to make the local device discoverable\nby other devices, and to turn on Bluetooth if it is not currently enabled.\nChange the scan mode to [SCAN_MODE_CONNECTABLE_DISCOVERABLE](api:Modules.Bluetooth#SCAN_MODE_CONNECTABLE_DISCOVERABLE).\nBy default, the device becomes discoverable for 300 seconds, or 5 minutes. You can define a\ndifferent duration, up to 3600 seconds or 1 hour. \n",
+      "since": "1.0.0",
+      "parameters": [
+        {
+          "name": "interval",
+          "summary": "It represents the time duration in seconds to make local device discoverable.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "optional": true,
+          "default": "300"
+        }
+      ]
+    },
+    {
+      "name": "getName",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Gets the friendly Bluetooth name of the local Bluetooth adapter.",
+      "since": "1.0.0",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ],
+          "summary": "Name of the local Bluetooth adapter. In case of error it can be null."
+        }
+      ]
+    },
+    {
+      "name": "getPairedDevices",
+      "platforms": [
+        "android"
+      ],
+      "summary": "This method is use to get the devices that are paired to the local Bluetooth adapter.",
+      "description": "Returns the [PairedDevicesType](api:PairedDevicesType). In this if the paired devices are\nsuccessfully fetched then the [success](api:PairedDevicesType#success) will be true and can get\narray of paired devices with the [pairedDevices](api:PairedDevicesType#pairedDevices).\nIf it is false then we can get description of it via [message](api:PairedDevicesType#message)\nIf there's any issue fetching paired device, or if there no paired devices then this methods\nreturn false. Refer [message](api:PairedDevicesType#message) for detailed reason of failure.\n",
+      "since": "1.0.0",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "PairedDevicesType"
+            }
+          ],
+          "summary": "Dictionary of arguments passed by the method, e.g. success, message and pairedDevices"
+        }
+      ]
+    },
+    {
+      "name": "getRemoteDevice",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Get a [BluetoothDevice](api:Modules.Bluetooth.BluetoothDevice) object for the given Bluetooth hardware address.",
+      "description": "If Bluetooth is not supported on the device, this method return null.\n",
+      "since": "1.0.0",
+      "parameters": [
+        {
+          "name": "address",
+          "summary": "Valid Bluetooth hardware addresses must be upper case, in a format such as \"00:11:22:33:AA:BB\"..",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Bluetooth.BluetoothDevice"
+            }
+          ],
+          "summary": "Object of the [BluetoothDevice](api:Modules.Bluetooth.BluetoothDevice)"
+        }
+      ]
+    },
+    {
+      "name": "isDiscovering",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Determines whether the local Bluetooth adapter is currently in the device discovery process or not.",
+      "description": "Device discovery is a heavyweight procedure. New connections to remote Bluetooth devices\nshould not be attempted while discovery is in progress, and existing connections will \nexperience limited bandwidth and high latency. Use [cancelDiscovery](api:Modules.Bluetooth#cancelDiscovery)\nto cancel an ongoing discovery. If Bluetooth is not supported on the device or Bluetooth \nstate is not [STATE_ON](api:Modules.Bluetooth#STATE_ON) this function will return false.\n",
+      "since": "1.0.0",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ],
+          "summary": "true if the local Bluetooth adapter is currently in the device discovery process."
+        }
+      ]
+    },
+    {
+      "name": "isEnabled",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Determines if Bluetooth is currently enabled and ready for use.",
+      "description": "If Bluetooth is not supported on the device, this method will return false.\n",
+      "since": "1.0.0",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ],
+          "summary": "Returns true if the local adapter is on."
+        }
+      ]
+    },
+    {
+      "name": "isRequiredPermissionsGranted",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Determines whether the required permissions are granted or not.",
+      "description": "Checks if the following permissions are defined and have been granted by the user:\n\n* `android.permission.ACCESS_FINE_LOCATION`\n* `android.permission.BLUETOOTH`\n* `android.permission.BLUETOOTH_ADMIN`\n* `android.permission.BLUETOOTH_ADVERTISE`\n* `android.permission.BLUETOOTH_CONNECT`\n* `android.permission.BLUETOOTH_SCAN`\n\nIf this method returns `false`, then you should call the\n[requestPermissions](api:Modules.Bluetooth#requestPermissions) method to display a dialog\nrequesting permissions from the user.\n",
+      "since": "1.0.0",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ],
+          "summary": "Returns true if all the permissions are granted."
+        }
+      ]
+    },
+    {
+      "name": "isSupported",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Determines whether Bluetooth is supported on the local Bluetooth device.",
+      "since": "1.0.0",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ],
+          "summary": "Returns true if Bluetooth is supported on the device, false otherwise."
+        }
+      ]
+    },
+    {
+      "name": "requestAccessFinePermission",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Displays a dialog requesting location permission from the user.",
+      "description": "Displays a dialog requesting the user for the `ACCESS_FINE_LOCATION` permission.\nThis permission is required by the [startDiscovery](api:Modules.Bluetooth#startDiscovery) method.\nThe dialog will not be dispayed if permission has already been granted.\n\nThe given optional callback argument and returned `Promise` will provide a `success` property\nindicating if permission was granted or not.\n",
+      "since": "1.0.0",
+      "parameters": [
+        {
+          "name": "callback",
+          "summary": "Function to be invoked indicating if permission was granted or not.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Callback",
+              "args": [
+                {
+                  "kind": "unknown",
+                  "name": "Titanium.Android.RequestPermissionAccessResult"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Promise",
+              "args": [
+                {
+                  "kind": "unknown",
+                  "name": "Titanium.Android.RequestPermissionAccessResult"
+                }
+              ]
+            }
+          ],
+          "summary": "As of 2.0.0, this method will return a `Promise` whose resolved value is equivalent to that passed to the optional callback argument."
+        }
+      ]
+    },
+    {
+      "name": "requestPermissions",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Displays a dialog requesting all permissions needed by the bluetooth module from the user.",
+      "description": "Displays a dialog requesting the user for the `ACCESS_FINE_LOCATION` permission.\nWill also request the `BLUETOOTH_ADVERTISE`, `BLUETOOTH_CONNECT`, and `BLUETOOTH_SCAN` permissions\nif running on Android 12 or higher. These permission are required by this module to\ndiscover devices and to make the app's device discoverable by other devices.\n\nThe given optional callback argument and returned `Promise` will provide a `success` property\nindicating if permissions were granted or not.\n",
+      "since": "2.0.0",
+      "parameters": [
+        {
+          "name": "callback",
+          "summary": "Function to be invoked indicating if permissions were granted or not.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Callback",
+              "args": [
+                {
+                  "kind": "unknown",
+                  "name": "Titanium.Android.RequestPermissionAccessResult"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Promise",
+              "args": [
+                {
+                  "kind": "unknown",
+                  "name": "Titanium.Android.RequestPermissionAccessResult"
+                }
+              ]
+            }
+          ],
+          "summary": "Returns a `Promise` whose resolved value is equivalent to that passed to the optional callback argument."
+        }
+      ]
+    },
+    {
+      "name": "setName",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Sets the friendly Bluetooth name of the local Bluetooth adapter.",
+      "description": "The Bluetooth adapter must be turned on before you can set the name. After turning the Bluetooth\non, wait for the [stateChanged](api:Modules.Bluetooth#stateChanged) event with [STATE_ON](api:Modules.Bluetooth#STATE_ON)\nto get the updated value.\n",
+      "parameters": [
+        {
+          "name": "name",
+          "summary": "Name for the local Bluetooth adapter. Bluetooth names can be maximum of 248 bytes using UTF-8 encoding. Although, it may vary upon Bluetooth devices. Some can only display first 40 characters, and some may be limited to just 20.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "startDiscovery",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Starts the remote device discovery process.",
+      "description": "This method starts the discovery for the nearby Bluetooth devices. The process of the discovery\ntakes upto 12 seconds.This is an asynchronous call, it will return immediately. Register for\n[discoveryStarted](api:Modules.Bluetooth#discoveryStarted) and [discoveryFinished](api:Modules.Bluetooth#discoveryFinished)\nevents to determine exactly when discovery starts and completes. Register for [deviceFound](api:Modules.Bluetooth#deviceFound)\nevent to be notified when a nearby device is found. From API level 29 and above make sure\nthat the location services is on in the device to start the scanning process. Device discovery\nwill only find remote devices that are currently in discoverable mode. Many Bluetooth devices\nare not discoverable by default, and need to be entered into a discoverable mode. This method may\nreturn same device multiple times from the `deviceFound` event in span of 12 seconds.\nIf Bluetooth state is not [STATE_ON](api:Modules.Bluetooth#STATE_ON) or the required permission\nnot granted than this function will return false.\n",
+      "since": "1.0.0",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ],
+          "summary": "Returns true to indicate success, or false on immediate error."
+        }
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "deviceFound",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Fired when the local Bluetooth adapter discovers a device.",
+      "description": "This event may get called several times for the same Bluetooth device in the range.\nFor not listing the same Bluetooth device many times, one should add a check before adding it to\nthe list. You can do following to avoid the above.\n```\n// Extract the device from this event properties.\n  var device = e.device;\n  var numRows = btDevicesListSection.rowCount; // count the number of rows in the section where rows are added.\n  if(numRows > 0)\n  {\n    var rowArray = btDevicesListSection.rows; // Extract all the rows into an array.\n    for(var i =0; i< numRows; i++)\n    {\n      //Check if the already added row with the id is same as newly found device.\n      // The id is the property of the row. You should add device address into it.\n      if(rowarray[i].id == device.address) \n      {\n        //update the device info. Some devices might get updated and changed the friendly name.\n        return;\n      }\n    }\n  }          \n```\n",
+      "since": "1.0.0",
+      "properties": [
+        {
+          "name": "device",
+          "summary": "The discovered Bluetooth device.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Bluetooth.BluetoothDevice"
+            }
+          ]
+        },
+        {
+          "name": "RSSI",
+          "summary": "The RSSI value at the time of device discovery.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "discoveryFinished",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Fired when the local Bluetooth adapter finished discovery.",
+      "since": "1.0.0"
+    },
+    {
+      "name": "discoveryStarted",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Fired when the local Bluetooth adapter started discovery.",
+      "since": "1.0.0"
+    },
+    {
+      "name": "stateChanged",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Fired when the state of the local Bluetooth adapter changes.",
+      "description": "Most possible reason for this event to occur is either bluetooth is turning on or off.\n",
+      "since": "1.0.0"
+    }
+  ],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "references": [
+    "Modules.Bluetooth.BluetoothDevice",
+    "Modules.Bluetooth.BluetoothServerSocket",
+    "Modules.Bluetooth.BluetoothSocket",
+    "PairedDevicesType",
+    "ServerSocketType"
+  ],
+  "externalReferences": [
+    "Modules",
+    "Titanium.Module"
+  ],
+  "source": "Bluetooth.yml"
+}

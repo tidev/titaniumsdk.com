@@ -1,0 +1,145 @@
+{
+  "schemaVersion": 1,
+  "name": "Modules.BLE.Beacon",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "iphone",
+    "ipad"
+  ],
+  "since": "1.1.0",
+  "summary": "Represents a beacon that was encountered during region monitoring. You do not create instances of this class directly. They will be delivered via the rangedBeacons event.",
+  "description": "The Beacon class represents a beacon that was observed during beacon ranging. You do not create instances of this class directly. The region manager (RegionManager) object reports observed beacons to its associated delegate object.\nThe identity of a beacon is defined by its uuid, major, and minor properties. These values are coded into the beacon itself. For a more thorough description of the meaning of those values, see BeaconRegion.\n",
+  "properties": [
+    {
+      "name": "accuracy",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Indicates the one sigma horizontal accuracy in meters.",
+      "description": "Use this property to differentiate between beacons with the same proximity value. Do not use it to identify a precise location for the beacon. Accuracy values may fluctuate due to RF interference. A negative value in this property signifies that the actual accuracy could not be determined.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "1.1.0"
+    },
+    {
+      "name": "major",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "The value identifying a group of beacons.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.1.0"
+    },
+    {
+      "name": "minor",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "The value identifying a specific beacon within a group.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.1.0"
+    },
+    {
+      "name": "proximity",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "The relative distance to the beacon.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.1.0"
+    },
+    {
+      "name": "rssi",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "The received signal strength of the beacon, measured in decibels.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.1.0"
+    },
+    {
+      "name": "timestamp",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "The time when this beacon was observed.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.1.0",
+      "osver": {
+        "ios": {
+          "min": "13.0"
+        }
+      }
+    },
+    {
+      "name": "uuid",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "The unique ID of the beacons being targeted.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "1.1.0",
+      "osver": {
+        "ios": {
+          "min": "13.0"
+        }
+      }
+    }
+  ],
+  "methods": [],
+  "events": [],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "externalReferences": [
+    "Titanium.Proxy"
+  ],
+  "source": "Beacon.yml"
+}

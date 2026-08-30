@@ -1,0 +1,656 @@
+{
+  "schemaVersion": 1,
+  "name": "Modules.Applesignin",
+  "kind": "module",
+  "extends": "Titanium.Module",
+  "inheritanceChain": [
+    "Titanium.Module"
+  ],
+  "platforms": [
+    "iphone",
+    "ipad"
+  ],
+  "since": "1.0.0",
+  "summary": "A module to use apple signin functionality.\n",
+  "description": "### Apple sign in Resources\n  - [Sign In with Apple](https://developer.apple.com/sign-in-with-apple/)\n  - [Introducing Sign In with Apple  at WWDC17](https://developer.apple.com/videos/play/wwdc2019/706/)\n\n### Requirements\n\n  - iOS 13 and later\n\n### Getting Started\n\n### Configure iOS: Capabilities and Provisioning Profiles\n\n-   Required capabilities:\n\n    ``` xml\n    <key>com.apple.developer.applesignin</key>\n    <array>\n      [string](api:Global.String)Default</string>\n    </array>\n    ```\n\n-   Provisioning Profile entitled with 'Sign In with Apple' capability\n\n### Accessing the Module\n\n-   Use `require` to access this module from JavaScript:\n\n    ``` javascript\n    var AppleSignin = require('ti.applesignin');\n    ```\n\n    The `AppleSignin` variable is a reference to the Module object.\n\n### Example applications\n\n-   Example applications are located in the `example/ios` folder of the module:\n",
+  "properties": [
+    {
+      "name": "AUTHORIZATION_SCOPE_EMAIL",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "A scope that includes the user's email address.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "AUTHORIZATION_SCOPE_FULLNAME",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "A scope that includes the user's full name.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "BUTTON_STYLE_BLACK",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Authorization button style black. Use with [Modules.Applesignin.LoginButton.style](api:Modules.Applesignin.LoginButton#style).",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "BUTTON_STYLE_WHITE",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Authorization button style white. Use with [Modules.Applesignin.LoginButton.style](api:Modules.Applesignin.LoginButton#style).",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "BUTTON_STYLE_WHITE_OUTLINE",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Authorization button style white outline. Use with [Modules.Applesignin.LoginButton.style](api:Modules.Applesignin.LoginButton#style).",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "BUTTON_TYPE_CONTINUE",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Continue authorization button type. Use with [Modules.Applesignin.LoginButton.type](api:Modules.Applesignin.LoginButton#type).",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "BUTTON_TYPE_DEFAULT",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Default authorization button type. Use with [Modules.Applesignin.LoginButton.type](api:Modules.Applesignin.LoginButton#type).",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "BUTTON_TYPE_SIGN_IN",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Signin authorization button type. Use with [Modules.Applesignin.LoginButton.type](api:Modules.Applesignin.LoginButton#type).",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "CREDENTIAL_STATE_AUTHORIZED",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "The user is authorized.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "CREDENTIAL_STATE_NOT_FOUNFD",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "The user can't be found.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "CREDENTIAL_STATE_REVOKED",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Authorization for the given user has been revoked.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "USER_DETECTION_STATUS_REAL",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "The user appears to be a real person.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "USER_DETECTION_STATUS_UNKNOWN",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "The system hasn't determined whether the user might be a real person.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "USER_DETECTION_STATUS_UNSUPPORTED",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "The system can't determine this user's status as a real person.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.0.0",
+      "permission": "read-only"
+    }
+  ],
+  "methods": [
+    {
+      "name": "authorize",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Request Apple ID authorization.",
+      "description": "After authorizarion it will fire event [Modules.Applesignin.login](api:Modules.Applesignin#login) event which tells success or failure of login.\n",
+      "parameters": [
+        {
+          "name": "scopes",
+          "summary": "The contact information to be requested from the user during authentication. Use the Modules.Applesignin.AUTHORIZATION_SCOPE_* constant values to populate the array.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "primitive",
+                  "name": "Number"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "createLoginButton",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Creates and returns an instance of [Modules.Applesignin.LoginButton](api:Modules.Applesignin.LoginButton).",
+      "since": "1.0.0",
+      "factoryFor": "Modules.Applesignin.LoginButton",
+      "parameters": [
+        {
+          "name": "parameters",
+          "summary": "Properties to set on a new object, including any defined by [Modules.Applesignin.LoginButton](api:Modules.Applesignin.LoginButton) except those marked not-creation or read-only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.Applesignin.LoginButton"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Applesignin.LoginButton"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "getCredentialState",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Returns the credential state for the given user.",
+      "description": "This method returns immediately without waiting for tasks to finish. Once a session is invalidated,\nnew tasks cannot be created in the session, but existing tasks continue until completion. Once\ninvalidated, references to the events and callback objects are broken. Session objects cannot be\nreused. To cancel all outstanding tasks, call `invalidateAndCancel` instead.\n",
+      "parameters": [
+        {
+          "name": "userId",
+          "summary": "A string, <Modules.Applesignin.ProfileObject.userId>, associated with the Apple ID that your app receives in [Modules.Applesignin.login](api:Modules.Applesignin#login) event.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "callback",
+          "summary": "Function to invoke on success or failure.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Callback",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "CredentialStateResponse"
+                }
+              ]
+            }
+          ],
+          "inlined": {
+            "name": "CredentialStateResponse",
+            "summary": "Simple object returned in the callback from the\n[getCredentialState](api:Modules.Applesignin#getCredentialState) method.\n",
+            "properties": [
+              {
+                "name": "state",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Possible values for the credential state of a user.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ],
+                "constants": [
+                  "Modules.Applesignin.CREDENTIAL_STATE_AUTHORIZED",
+                  "Modules.Applesignin.CREDENTIAL_STATE_NOT_FOUNFD",
+                  "Modules.Applesignin.CREDENTIAL_STATE_REVOKED"
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "login",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Fired at login.",
+      "properties": [
+        {
+          "name": "success",
+          "summary": "Indicates if the user was logged in successfully.\nReturns `true` if request succeeded, `false` otherwise.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "cancelled",
+          "summary": "Indicates if the user cancelled the login request by closing the dialog.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "error",
+          "summary": "Error message, if any returned. Will be undefined if `success` is `true`.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "profile",
+          "summary": "User profile returned after successful login.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "ProfileObject"
+            }
+          ],
+          "inlined": {
+            "name": "ProfileObject",
+            "summary": "Dictionary of parameter recieved after successful login.",
+            "properties": [
+              {
+                "name": "authorizationCode",
+                "platforms": [
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "A short-lived token used by your app for proof of authorization when interacting with the app's server counterpart.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  }
+                ]
+              },
+              {
+                "name": "authorizedScopes",
+                "platforms": [
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "This value will contain a list of scopes for which the user provided authorization.",
+                "type": [
+                  {
+                    "kind": "generic",
+                    "name": "Array",
+                    "args": [
+                      {
+                        "kind": "primitive",
+                        "name": "String"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "email",
+                "platforms": [
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "The user's email address.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  }
+                ]
+              },
+              {
+                "name": "identityToken",
+                "platforms": [
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "Web Token that securely communicates information about the user to your app.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  }
+                ]
+              },
+              {
+                "name": "name",
+                "platforms": [
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "Name of user.",
+                "type": [
+                  {
+                    "kind": "type",
+                    "name": "PersonName"
+                  }
+                ],
+                "inlined": {
+                  "name": "PersonName",
+                  "summary": "Full name of user.",
+                  "properties": [
+                    {
+                      "name": "firstName",
+                      "platforms": [
+                        "iphone",
+                        "ipad"
+                      ],
+                      "summary": "Name bestowed upon an individual to differentiate them from other members of a group that share a family name (for example, \"Johnathan\").",
+                      "type": [
+                        {
+                          "kind": "primitive",
+                          "name": "String"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "lastName",
+                      "platforms": [
+                        "iphone",
+                        "ipad"
+                      ],
+                      "summary": "Name bestowed upon an individual to denote membership in a group or family. (for example, \"Appleseed\").",
+                      "type": [
+                        {
+                          "kind": "primitive",
+                          "name": "String"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "middleName",
+                      "platforms": [
+                        "iphone",
+                        "ipad"
+                      ],
+                      "summary": "Secondary name bestowed upon an individual to differentiate them from others that have the same given name (for example, \"Maple\").",
+                      "type": [
+                        {
+                          "kind": "primitive",
+                          "name": "String"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "namePrefix",
+                      "platforms": [
+                        "iphone",
+                        "ipad"
+                      ],
+                      "summary": "The portion of a name's full form of address that precedes the name itself (for example, \"Dr.,\" \"Mr.,\" \"Ms.\").",
+                      "type": [
+                        {
+                          "kind": "primitive",
+                          "name": "String"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "nameSuffix",
+                      "platforms": [
+                        "iphone",
+                        "ipad"
+                      ],
+                      "summary": "The portion of a name's full form of address that follows the name itself (for example, \"Esq.,\" \"Jr.,\" \"Ph.D.\").",
+                      "type": [
+                        {
+                          "kind": "primitive",
+                          "name": "String"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "nickname",
+                      "platforms": [
+                        "iphone",
+                        "ipad"
+                      ],
+                      "summary": "Name substituted for the purposes of familiarity (for example, \"Johnny\").",
+                      "type": [
+                        {
+                          "kind": "primitive",
+                          "name": "String"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "name": "realUserStatus",
+                "platforms": [
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "Possible values for the real user indicator.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ]
+              },
+              {
+                "name": "state",
+                "platforms": [
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "A string that your app provided to the request that generated the credential.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  }
+                ]
+              },
+              {
+                "name": "userId",
+                "platforms": [
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "An identifier associated with the authenticated user.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "references": [
+    "CredentialStateResponse",
+    "Modules.Applesignin.LoginButton",
+    "ProfileObject"
+  ],
+  "externalReferences": [
+    "Global.String",
+    "Modules.Applesignin.ProfileObject.userId",
+    "Titanium.Module"
+  ],
+  "source": "Applesignin.yml"
+}

@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "name": "Modules.Map.Route",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
+  "since": {
+    "android": "3.1.0",
+    "iphone": "3.2.0",
+    "ipad": "3.2.0",
+    "macos": "9.2.0"
+  },
+  "summary": "Represents a path between two or more points of interest.",
+  "description": "The `Route` object gives you low-level control over routes that can be added to a\n[map view](api:Modules.Map.View). A route must have its `points` property set to appear on a map.\n\nUse the [Modules.Map.createRoute](api:Modules.Map#createRoute) method to create a route.\n\n### iOS Platform Notes\n\nThe `addRoute` method no longer accepts a dictionary as a parameter. Pass a [Modules.Map.Route](api:Modules.Map.Route) object instead.\n\n### Android Platform Notes\nThe parameter `points` accepts additional the route in format `encoded polyline`.  \nhttps://developers.google.com/maps/documentation/utilities/polylinealgorithm \n",
+  "properties": [
+    {
+      "name": "color",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Color to use when drawing the route, as a color name or hex triplet.\n",
+      "description": "For information about color values, see the \"Colors\" section of [Titanium.UI](api:Titanium.UI).\n\n**iOS Note:** Changing the color of an existing route will only work on iOS 7 and later \n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "default": "black"
+    },
+    {
+      "name": "level",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The map level at which to place the route. Available in iOS 7.0 and later.\n",
+      "description": "Specify one of the following levels:\n    [Modules.Map.OVERLAY_LEVEL_ABOVE_LABELS](api:Modules.Map#OVERLAY_LEVEL_ABOVE_LABELS),\n    [Modules.Map.OVERLAY_LEVEL_ABOVE_ROADS](api:Modules.Map#OVERLAY_LEVEL_ABOVE_ROADS).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "3.2.0",
+      "availability": "creation",
+      "default": "<Modules.Map.OVERLAY_LEVEL_ABOVE_LABELS>"
+    },
+    {
+      "name": "points",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Array of map points making up the route.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        },
+        {
+          "kind": "generic",
+          "name": "Array",
+          "args": [
+            {
+              "kind": "type",
+              "name": "MapPointType"
+            }
+          ]
+        }
+      ],
+      "availability": "creation"
+    },
+    {
+      "name": "width",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Line width in pixels to use when drawing the route.",
+      "description": "**iOS Note:** Changing the width of an existing route will only work on iOS 7 and later\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "default": "10"
+    }
+  ],
+  "methods": [],
+  "events": [],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "references": [
+    "MapPointType",
+    "Modules.Map",
+    "Modules.Map.View"
+  ],
+  "externalReferences": [
+    "Titanium.Proxy",
+    "Titanium.UI"
+  ],
+  "source": "Route.yml"
+}

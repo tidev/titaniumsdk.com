@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "name": "Modules.BLE.Descriptor",
+  "kind": "pseudo",
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
+  "since": "1.0.0",
+  "summary": "An object that provides further information about a remote peripheral’s characteristic.",
+  "description": "Descriptor objects represent the descriptors of a remote peripheral’s characteristic. Descriptors\nprovide further information about a characteristic’s value. For example, they may describe the\nvalue in human-readable form and describe how to format the value for presentation purposes.\nCharacteristic descriptors also indicate whether a characteristic’s value indicates or notifies\na client (a central) when the value of the characteristic changes.\niOS Note: You must use only one of the two currently supported descriptor \ntypes: CBUUID_CHARACTERISTIC_USER_DESCRIPTION_STRING or CBUUID_CHARACTERISTIC_FORMAT_STRING. \nReference (https://developer.apple.com/documentation/corebluetooth/cbmutabledescriptor/1518999-init)\n",
+  "properties": [
+    {
+      "name": "characteristic",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "A back-pointer to the characteristic this descriptor belongs to.",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Modules.BLE.Characteristic"
+        }
+      ],
+      "since": "1.0.0"
+    },
+    {
+      "name": "uuid",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "The Bluetooth UUID of the descriptor.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "1.0.0"
+    },
+    {
+      "name": "value",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "The value of the descriptor.",
+      "description": "The return type of this property varies as per the platform. In iphone and ipad, it can have\nmultiple return type as String, Number and Titanium.Buffer. In android, the return type is \nTitanium.Buffer only.\niOS Note: The descriptor value to cache. You must provide a non-nil value.\nOnce published, you can’t update the value dynamically.\nReference (https://developer.apple.com/documentation/corebluetooth/cbmutabledescriptor/1518999-init)\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.Buffer"
+        },
+        {
+          "kind": "primitive",
+          "name": "String"
+        },
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.0.0"
+    }
+  ],
+  "methods": [],
+  "events": [],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "references": [
+    "Modules.BLE.Characteristic"
+  ],
+  "externalReferences": [
+    "Titanium.Buffer"
+  ],
+  "source": "Descriptor.yml"
+}

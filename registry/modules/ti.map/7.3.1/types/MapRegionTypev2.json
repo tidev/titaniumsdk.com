@@ -1,0 +1,162 @@
+{
+  "schemaVersion": 1,
+  "name": "MapRegionTypev2",
+  "kind": "pseudo",
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
+  "summary": "Simple object representing a map location and zoom level.",
+  "properties": [
+    {
+      "name": "bearing",
+      "platforms": [
+        "android"
+      ],
+      "summary": "The direction in which a vertical line on the map points, measured in degrees clockwise from north.",
+      "description": "For more details, see [Google Docs](https://developers.google.com/maps/documentation/android/views#the_camera_position).\nCannot be used in conjunction with [longitudeDelta](api:MapRegionTypev2#longitudeDelta) or [latitudeDelta](api:MapRegionTypev2#latitudeDelta)\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "3.2.3"
+    },
+    {
+      "name": "latitude",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Latitude value for the center point of the map, in decimal degrees.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ]
+    },
+    {
+      "name": "latitudeDelta",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The amount of north-to-south distance displayed on the map, measured in decimal degrees.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ]
+    },
+    {
+      "name": "longitude",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Longitude value for the center point of the map, in decimal degrees.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ]
+    },
+    {
+      "name": "longitudeDelta",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The amount of east-to-west distance displayed on the map, measured in decimal degrees.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ]
+    },
+    {
+      "name": "selectableMapFeatures",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The property that describes which selectable features the map responds to.",
+      "description": "Pass one or more of [Modules.Map.FEATURE_TERRITORIES](api:Modules.Map#FEATURE_TERRITORIES), [Modules.Map.FEATURE_PHYSICAL_FEATURES](api:Modules.Map#FEATURE_PHYSICAL_FEATURES)\nor [Modules.Map.FEATURE_TYPE_POINT_OF_INTEREST](api:Modules.Map#FEATURE_TYPE_POINT_OF_INTEREST) as an array to make these features selectable.\n",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Array",
+          "args": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ],
+      "since": "12.0.0",
+      "osver": {
+        "ios": {
+          "min": "16.0"
+        }
+      }
+    },
+    {
+      "name": "tilt",
+      "platforms": [
+        "android"
+      ],
+      "summary": "The camera's position on an arc between directly over the map's center position and the surface of the Earth, measured in degrees from the nadir.",
+      "description": "For more details, see [Google Docs](https://developers.google.com/maps/documentation/android/views#the_camera_position).\nCannot be used in conjunction with [longitudeDelta](api:MapRegionTypev2#longitudeDelta) or [latitudeDelta](api:MapRegionTypev2#latitudeDelta)\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "3.2.3"
+    },
+    {
+      "name": "zoomLevel",
+      "platforms": [
+        "android"
+      ],
+      "summary": "The zoom level of the map.",
+      "description": "For more details, see [Google Docs](https://developers.google.com/maps/documentation/android/views#zoom).\nCannot be used in conjunction with [longitudeDelta](api:MapRegionTypev2#longitudeDelta) or [latitudeDelta](api:MapRegionTypev2#latitudeDelta)\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.0.2"
+    }
+  ],
+  "methods": [],
+  "events": [],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "references": [
+    "Modules.Map"
+  ],
+  "source": "View.yml"
+}

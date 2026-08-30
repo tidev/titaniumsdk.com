@@ -1,0 +1,197 @@
+{
+  "schemaVersion": 1,
+  "name": "Modules.CoreMotion.Gyroscope",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "iphone",
+    "ipad"
+  ],
+  "since": "5.2.0",
+  "summary": "Allows Titanium client applications to access CoreMotion's Gyroscope APIs.",
+  "properties": [],
+  "methods": [
+    {
+      "name": "getGyroData",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Returns the latest sample of gyroscope data.",
+      "description": "An app that is receiving gyroscope data after calling \n[Modules.CoreMotion.Gyroscope.startGyroUpdates](api:Modules.CoreMotion.Gyroscope#startGyroUpdates) with no callback, needs to periodically\ncheck the value returned by this method and process the gyroscope data.\n",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "CoreMotionGyroData"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "isGyroActive",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Returns a Boolean indicating whether gyroscope updates are currently happening.",
+      "description": "Indicates whether [Modules.CoreMotion.Gyroscope.startGyroUpdates](api:Modules.CoreMotion.Gyroscope#startGyroUpdates) has been called since \n[Modules.CoreMotion.Gyroscope.stopGyroUpdates](api:Modules.CoreMotion.Gyroscope#stopGyroUpdates).\n",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "isGyroAvailable",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Returns a Boolean indicating whether a gyroscope is available on the device.",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "setGyroUpdateInterval",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "The interval in milliseconds, for providing gyroscope updates to the callback.",
+      "parameters": [
+        {
+          "name": "interval",
+          "summary": "The interval in milliseconds",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "startGyroUpdates",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Starts gyroscope updates.",
+      "description": "If a callback is passed to this method, it will be called whenever there is an update.\nThe frequency of these updates can be controlled using the\n<Modules.CoreMotion.setGyroUpdateInterval> method. If no callback is passed,\nthe gyroscope data can be accessed using the  [Modules.CoreMotion.Gyroscope.getGyroData](api:Modules.CoreMotion.Gyroscope#getGyroData)\nmethod. To stop the delivery of events, \ncall the [Modules.CoreMotion.Gyroscope.stopGyroUpdates](api:Modules.CoreMotion.Gyroscope#stopGyroUpdates) method.\nNote: It is recommended to set an update interval of at least 250ms before, to avoid receiving\ntoo many callbacks at once.\n",
+      "parameters": [
+        {
+          "name": "callback",
+          "summary": "The method to be called when there is an update.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Callback",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "CoreMotionGyroDataWithSuccess"
+                }
+              ]
+            }
+          ],
+          "optional": true,
+          "inlined": {
+            "name": "CoreMotionGyroDataWithSuccess",
+            "summary": "Dictionary passed to the callback of the [Gyroscope.startGyroUpdates()](api:Modules.CoreMotion.Gyroscope#startGyroUpdates) method.\n",
+            "properties": [
+              {
+                "name": "code",
+                "platforms": [
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "An error code describing the error if there was one.",
+                "description": "See `ERROR` constants for possible values.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ],
+                "permission": "read-only"
+              },
+              {
+                "name": "error",
+                "platforms": [
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "An error message describing the error if there was one.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  }
+                ],
+                "permission": "read-only"
+              },
+              {
+                "name": "success",
+                "platforms": [
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "A Boolean indicating if the operation was successful or not.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Boolean"
+                  }
+                ],
+                "permission": "read-only"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "stopGyroUpdates",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Stops gyroscope updates."
+    }
+  ],
+  "events": [],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "references": [
+    "CoreMotionGyroData",
+    "CoreMotionGyroDataWithSuccess"
+  ],
+  "externalReferences": [
+    "Modules.CoreMotion.setGyroUpdateInterval",
+    "Titanium.Proxy"
+  ],
+  "source": "Gyroscope.yml"
+}

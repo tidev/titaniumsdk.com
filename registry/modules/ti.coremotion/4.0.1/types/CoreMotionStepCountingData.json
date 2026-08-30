@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "name": "CoreMotionStepCountingData",
+  "kind": "pseudo",
+  "platforms": [
+    "iphone",
+    "ipad"
+  ],
+  "since": "3.3.0",
+  "summary": "Represents the steps that are returned by a step-count event.",
+  "properties": [
+    {
+      "name": "numberOfSteps",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "The total number of steps since the [StepCounter.startStepCountingUpdates](api:Modules.CoreMotion.StepCounter#startStepCountingUpdates) method was called.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "timestamp",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "The time at which the current step count was reported.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Date"
+        }
+      ],
+      "permission": "read-only"
+    }
+  ],
+  "methods": [],
+  "events": [],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "references": [
+    "Modules.CoreMotion.StepCounter"
+  ],
+  "source": "CoreMotion.yml"
+}

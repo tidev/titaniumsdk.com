@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "generator": "sha256:ac231061067ed51d0966e3953108bbd9c19cae952495be231d05241eb191edf3",
+  "external": {
+    "repo": "tidev/titanium-sdk",
+    "version": "main",
+    "hash": "sha256:0c8e94bd4e64c06147ad9ff63806ba4cc4617e8aca5fa7095f28472598bbf5a4"
+  },
+  "generatedAt": "2026-08-30T20:27:27.057Z",
+  "sources": {
+    "BarcodeModule.yml": {
+      "hash": "sha256:e9c514ba0eeb9e442d02365d715b662ee0a046f77b83a327a351e47a043a4a61",
+      "types": [
+        "Modules.Barcode",
+        "BarcodeCaptureDict",
+        "BarcodeParseDict"
+      ]
+    }
+  },
+  "types": {
+    "Modules.Barcode": {
+      "source": "BarcodeModule.yml",
+      "extends": "Titanium.Module",
+      "outputHash": "sha256:f4a48bc8eba6eedf2d3953852145c722d9df6a4f460f745b22cf7be61d987e9f"
+    }
+  }
+}

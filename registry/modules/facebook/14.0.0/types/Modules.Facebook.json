@@ -1,0 +1,2217 @@
+{
+  "schemaVersion": 1,
+  "name": "Modules.Facebook",
+  "kind": "module",
+  "extends": "Titanium.Module",
+  "inheritanceChain": [
+    "Titanium.Module"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad"
+  ],
+  "since": "3.1.0",
+  "summary": "Add-on Facebook module.\n",
+  "description": "The Facebook module is used for connecting your application with Facebook. \nThis module supports the following features:\n\n* Logging in to Facebook and authorizing your application with either the\n  [Login button](api:Modules.Facebook.LoginButton) or programatically.\n\n* Making requests through the Facebook Graph API using the\n  [requestWithGraphPath()](api:Modules.Facebook#requestWithGraphPath) method.\n\n## Getting Started\n\nTo use the Facebook module, you need a Facebook application. To create a Facebook App,\ngo to the Facebook Developer App: [developers.facebook.com/apps](https://developers.facebook.com/apps).\n\n- Edit the `modules` section of your tiapp.xml file to include this module:\n\n    ``` xml\n    [modules](api:Modules)\n        <!-- Add the appropriate line(s) to your modules section -->\n        <module platform=\"android\">facebook</module>\n        <module platform=\"iphone\">facebook</module>\n    </modules>\n    ```\n\n- Instantiate the module with the `require('facebook')` method, then make subsequent API calls\n  with the new Facebook object.\n\n    ``` javascript\n    var fb = require('facebook');\n    fb.permissions = [FACEBOOK_APP_PERMISSIONS]; // e.g. ['email']\n    fb.initialize();\n    fb.authorize();\n    ```\n\n### Additional iOS Setup Steps\n\nFor the iOS platform, in the `ios plist dict` section of your `tiapp.xml` file, add the following keys:\n\n  * `FacebookAppID` key with your Facebook App ID as the string value\n  * `FacebookDisplayName` key with your Facebook App name (the one from `developer.facebook.com`) as the string value\n  * `CFBundleURLTypes` key with a single-element array containing a dict as the value, where the dict contains:\n      * `CFBundleURLName` key with the application app ID (same value as the `id` in the `tiapp.xml` file) as the string value\n      * `CFBundleURLSchemes` key with a single-element array containing the Facebook App ID prefixed with `fb` as a string value\n\nFor example:\n\n``` xml\n<ti:app>\n    <ios>\n        <plist>\n            <dict>\n                <key>CFBundleURLTypes</key>\n                <array>\n                    <dict>\n                        <key>CFBundleURLName</key>\n                        <!-- Application ID same as the id value in the tiapp.xml file -->\n                        [string](api:Global.String)APP_ID</string>\n                        <key>CFBundleURLSchemes</key>\n                        <array>\n                            <!-- Prefix the Facebook App ID with 'fb' -->\n                            [string](api:Global.String)fbFACEBOOK_APP_ID</string>\n                        </array>\n                    </dict>\n                </array>\n                <key>FacebookAppID</key>\n                <!-- Facebook App ID -->\n                [string](api:Global.String)FACEBOOK_APP_ID</string>\n                <key>FacebookDisplayName</key>\n                <!-- Facebook App Name from developer.facebook.com -->\n                [string](api:Global.String)FACEBOOK_APP_NAME</string>\n            </dict>\n        </plist>\n    </ios>\n</ti:app>\n```\n\nTo enable the use of Facebook dialogs (e.g., Login, Share), you also need to include the following key and values in `tiapp.xml`\nto handle the switching in and out of your app:\n\n``` xml\n<key>LSApplicationQueriesSchemes</key>\n<array>\n    [string](api:Global.String)fbapi</string>\n    [string](api:Global.String)fb-messenger-api</string>\n    [string](api:Global.String)fbauth2</string>\n    [string](api:Global.String)fbshareextension</string>\n</array>\n```\n\nIf you choose to enable App Transport Security (ATS), you have to set the following keys and values in `tiapp.xml` `<ios>` section for facebook module:\n\n``` xml\n<key>NSAppTransportSecurity</key>\n<dict>\n    <key>NSExceptionDomains</key>\n        <dict>\n            <key>facebook.com</key>\n            <dict>\n                <key>NSIncludesSubdomains</key> \n                <true/>\n                <key>NSExceptionRequiresForwardSecrecy</key> \n                <false/>\n            </dict>\n            <key>fbcdn.net</key>\n            <dict>\n                <key>NSIncludesSubdomains</key> \n                <true/>\n                <key>NSExceptionRequiresForwardSecrecy</key>  \n                <false/>\n            </dict>\n            <key>akamaihd.net</key>\n            <dict>\n                <key>NSIncludesSubdomains</key> \n                <true/>\n                <key>NSExceptionRequiresForwardSecrecy</key> \n                <false/>\n            </dict>\n        </dict>\n</dict>\n```\n\n### Additional Android Setup Steps\n\nFor the Android platform, you need to:\n\n  * Add the Facebook Login activity to the Android manifest\n  * Add the Facebook App ID to the Android resources `string.xml` file\n  * Create a Facebook proxy and associate it with the current active activity\n\n**Modify the Android Manifest**\n\nAdd the Facebook Login activity to the `android manifest` section of your `tiapp.xml` file.\nYou may need to add the `manifest` and `application` elements.\n\n``` xml\n<ti:app>\n    <android xmlns:android=\"http://schemas.android.com/apk/res/android\">\n        <manifest>\n            <application>\n                <activity android:name=\"com.facebook.FacebookActivity\" \n                          android:theme=\"@android:style/Theme.Translucent.NoTitleBar\" \n                          android:label=\"YourAppName\" \n                          android:configChanges=\"keyboard|keyboardHidden|screenLayout|screenSize|orientation\" />\n                <meta-data android:name=\"com.facebook.sdk.ApplicationId\" android:value=\"@string/facebook_app_id\"/>\n\n                <provider android:name=\"com.facebook.FacebookContentProvider\"\n                          android:authorities=\"com.facebook.app.FacebookContentProvider<YOUR_APP_ID>\"\n                          android:exported=\"true\" />\n            </application>\n        </manifest>\n    </android>\n<ti:app>\n```\n\n**Add the Facebook App ID to Android Resources**\n\nAdd a string element to the `/platform/android/res/values/strings.xml` file with the `name`\nattribute set to `facebook_app_id` and the node text set to your Facebook App ID. Create the\nfile if it does not exist.\n\n``` xml\n<resources>\n    <string name=\"facebook_app_id\">FACEBOOK_APP_ID</string>\n</resources>\n```\n    \n**Generate the Key Hashes**\n\nFacebook requires you to add the Key Hash of the Android app in order for you to use the module. \nSteps to get the Key Hash as follows. Alternatively, if you do not have the correct Key Hash on \nthe Android App, the App will give an error message when you login with the Key Hash of the App \nwhich you can then copy.\n\nUse the following command to generate and receive the key-hashpath of your app. To do do, \nreplace `<sdk-version>` with your SDK-version and run:\n\n``` sh\nkeytool -exportcert -alias androiddebugkey -keystore ~/Library/Application\\ Support/Titanium/mobilesdk/osx/<sdk-version>/dev_keystore | openssl sha1 -binary | openssl base64\n```\n\nYou would also require, to fill up the Google Play Package Name which is the Application ID \nand the Class Name which is the Application ID followed by the Application Name concatenated \nwith the word Activity. Example, an App called Kitchensink with Application ID of \n\"com.appcelerator.kitchensink\" will have the Class Name as \"com.appcelerator.kitchensink.KitchensinkActivity\".\nAlternatively, you can check the Class Name in `<project>/build/android/AndroidManifest.xml` which is \ngenerated when you build the project. The launcher activity is the Class Name of the Application.\n\nFor more info, please see https://developers.facebook.com/docs/android/getting-started\n\n**Create a Facebook Proxy**\n\nUse the [createActivityWorker()](api:Modules.Facebook#createActivityWorker) method to create a\nFacebook proxy. Pass the method a dictionary with the `lifecycleContainer` property set to\nthe current active instance of a standalone Window (window not contained in a tab group) or TabGroup.\nCreate the proxy before calling the `open()` method on either the window or tab group.\n\nThe Facebook module needs to hook into the lifecycle events of the current active activity\nin order to synchronize its state between various activities in the application, for example,\nto update the label of the Login button when the user logs in or out of Facebook.\n\nAttach the proxy to the Window or TabGroup object, so it does not get garbage collected.\n\n``` javascript\nwin.fbProxy = fb.createActivityWorker({ lifecycleContainer: win });\n```\n\n## Module API Usage\n\n### Facebook Login and Authorization\n\nTo use Facebook, a user must logged into Facebook and explicitly authorize the application to\nperform certain actions, such as accessing profile information or posting status messages.\n\nCall [authorize](api:Modules.Facebook#authorize) to prompt the user to login and authorize\nthe application. Before calling this method, set the [Modules.Facebook.permissions](api:Modules.Facebook#permissions) property\nif additional permissions are needed.\n\nWhich approach you take depends on your UI and how central Facebook is to your\napplication.\n\n### Manage Read and Write Permissions\n\nIn order to read or write content to a user's Facebook page, you need to request permission from\nthe user.  You can either request permissions when the user authorizes your application or\nrequest permissions on the fly.\n\nBefore the user logs in and authorizes the application, you can request permissions for the\napplication to use by either: Setting the [Modules.Facebook.permissions](api:Modules.Facebook#permissions) property if you are using `authorize()` \nmethod to have the user login and authorize the application.\n\nFor a complete list of permissions, see the [official Facebook Permissions Reference](https://developers.facebook.com/docs/facebook-login/permissions/)\n\n**Refresh Application Permissions**\n\nSince the user can selectively turn application permissions on and off from their Facebook\npage, the application may need to refresh its granted permissions.\n\nTo refresh the application's permissions, call the\n[refreshPermissionsFromServer()](api:Modules.Facebook#refreshPermissionsFromServer) method, then\nlisten for the [Modules.Facebook.tokenUpdated](api:Modules.Facebook#tokenUpdated) event to be notified when permissions are updated.\n\n``` javascript\nfb.addEventListener('tokenUpdated', function (e) {\n    Ti.API.info('Updated permissions: ' + JSON.stringify(fb.permissions));\n});\nfb.refreshPermissionsFromServer();\n```\n\n### Share Dialogs\n\nThe Share dialog prompts a person to publish an individual story or an Open Graph story\nto their timeline. This does not require the user to authorize your app or any extended permissions,\nso it is the easiest way to enable sharing.\n\nPass either method parameters you want to add to the post, such as a `link` or `hashtag`, or to\nshare the user's status, do not pass any parameters to the methods. Note: The `link` parameter is\n**required** by the Facebook SDK.\n\nTo monitor if the share request succeeded or not, listen to the [Modules.Facebook.shareCompleted](api:Modules.Facebook#shareCompleted)\nevent.\n\n``` javascript\nfb.addEventListener('shareCompleted', function (e) {\n    if (e.success) {\n        Ti.API.info('Share request succeeded.');\n    } else {\n        Ti.API.warn('Failed to share.');\n    }\n});\n\nfb.presentShareDialog({\n    link: 'https://appcelerator.com/',\n    hashtag: 'codestrong'\n});\n```\n\nFor details on the Share dialog, see the\n[official Facebook Share Dialogs documentation](https://developers.facebook.com/docs/sharing/reference/share-dialog).\n\n### Messenger Button\n\nThe Messenger button provides a quick mechanism for users to share content to the Facebook Messenger.\nA click on the button can share the content to multiple users.\n\nTo create a Messenger button, call the [createMessengerButton()](Modules.Facebook.createMessengerButton)\nmethod and pass the \"mode\" and \"style\" properties:\n\n``` javascript\nvar messengerButton = fb.createMessengerButton({\n    mode: fb.MESSENGER_BUTTON_MODE_RECTANGULAR\n    style: fb.MESSENGER_BUTTON_STYLE_BLUE\n});\nwin.add(messengerButton);\n```\n\nFor more information, see the [MessengerButton API reference](Modules.Facebook.MessengerButton).\n\n### Login Tracking (iOS only)\n\nThe Ti.Facecebook iOS version 10.0.0 and later supports the `loginTracking` property in the [LoginButton](api:Modules.Facebook.LoginButton#loginTracking)\nand as a top-level property [loginTracking](api:Modules.Facebook#loginTracking). You can choose between the two constants\n[LOGIN_TRACKING_ENABLED](api:Modules.Facebook#LOGIN_TRACKING_ENABLED) (default) and [LOGIN_TRACKING_LIMITED](api:Modules.Facebook#LOGIN_TRACKING_LIMITED).\n\nFor more information, see the [Login Tracking API reference](https://developers.facebook.com/docs/facebook-login/limited-login) and review the constants above.\n",
+  "examples": [
+    {
+      "title": "Authorize",
+      "code": "Shows official Facebook dialog for logging in the user and prompting the user to approve your\nrequested permissions.  Listen for the module's [login](Modules.Facebook.login) event to\ndetermine whether the request succeeded.\n\n``` javascript\nvar fb = require('facebook');\nfb.initialize();\nfb.addEventListener('login', function (e) {\n    if (e.success) {\n        alert('Logged in with User ID: ' + e.uid + ', Name: ' + JSON.parse(e.data).name);\n        label.text = 'Logged In = ' + fb.loggedIn;\n    }\n    else if (e.cancelled) {\n        // user cancelled\n        alert('cancelled');\n    }\n    else {\n        alert(e.error);\n    }\n});\nfb.authorize();\n```\n"
+    },
+    {
+      "title": "Logout",
+      "code": "Logout the user and forget the authorization token.  The\n[logout](Modules.Facebook.logout) event is fired after the user is logged out.\n\n``` javascript\nfb.addEventListener('logout', function (e) {\n    alert('Logged out');\n});\nfb.logout();\n```\n"
+    },
+    {
+      "title": "Authorize/Logout Using the Facebook LoginButton",
+      "code": "You can use the the native Facebook [LoginButton](Modules.Facebook.LoginButton)\nto allow the user to log in as required. The button updates its state automatically depending\non whether the user is logged in or not.  When the user is logged in, then the button\nwill show \"Logout\", and vice-versa.\n\nNote that you don't need to set a click listener or anything else on the button.\nTo be notified when the user logs in or out, add event listeners for the\n[login](Modules.Facebook.login) and [logout](Modules.Facebook.logout) events\nprovided by the Facebook module, as in the example below.\n\n``` javascript\n// Don't forget to set your requested permissions, else the login button won't be effective.\nvar win = Ti.UI.createWindow({ backgroundColor: 'white' });\nvar fb = require('facebook');\n\nfb.addEventListener('login', function (e) {\n    if (e.success) {\n        alert('Logged in');\n    }\n});\nfb.addEventListener('logout', function (e) {\n    alert('Logged out');\n});\n\nif (Ti.Platform.name === 'android') {\n    win.fbProxy = fb.createActivityWorker({ lifecycleContainer: win });\n}\n\n// Add the button.  Note that it doesn't need a click event listener.\nwin.add(fb.createLoginButton({\n        readPermissions: ['read_stream','email'],\n        top: 50\n}));\n\nwin.open()\n```\n"
+    },
+    {
+      "title": "Simple Graph API Call",
+      "code": "This example makes a call to the \"me\" graph path, which represents the current\nuser. The JSON results are simply displayed in an alert.  This example assumes\nthe user is already logged in. You can check this with <Modules.Facebook.loggedIn>.\n\n``` javascript\nfb.requestWithGraphPath('me', {}, 'GET', function (e) {\n    if (e.success) {\n        alert(e.result);\n    } else if (e.error) {\n        alert(e.error);\n    } else {\n        alert('Unknown response');\n    }\n});\n```\n"
+    },
+    {
+      "title": "Post a Photo Using the Graph API from the Gallery.",
+      "code": "This example posts a photo to the user's account using the Graph API.\nThis requires the \"publish_actions\" permission.\n\n``` javascript\nvar b1 = Ti.UI.createButton({\n    title: 'Upload Photo from Gallery with Graph API'\n});\n\nb1.addEventListener('click', function () {\n    Titanium.Media.openPhotoGallery({\n        success: function (event) {\n            b1.title = 'Uploading Photo...';\n            var data = { picture: event.media };\n            // If publish_actions permission is not granted, request it\n            if (fb.permissions.indexOf('publish_actions') === -1) {\n                fb.requestNewPublishPermissions(['publish_actions'], fb.AUDIENCE_FRIENDS, function (e) {\n                    if (!e.success) {\n                        Ti.API.info('Publish permission error');\n                        return;\n                    }\n                    if (e.cancelled) {\n                        Ti.API.info('Publish permission cancelled');\n                        return;\n                    }\n                    \n                    Ti.API.info('Permissions: ' + fb.permissions);\n                    fb.requestWithGraphPath('me/photos', data, 'POST', showRequestResult);\n                });\n            } else {\n                fb.requestWithGraphPath('me/photos', data, 'POST', showRequestResult);\n            }\n        },\n        error: function (e) {\n            Ti.API.error('Error opening photo gallery: ' + e.error);\n        }\n    });\n});\n```\n\nFor more information on posting photos, see:\n\n* [Photo in the Facebook Graph API Reference](https://developers.facebook.com/docs/graph-api/reference/photo)\n"
+    },
+    {
+      "title": "Post a Photo Using the Graph API with an image in resources directory",
+      "code": "This example posts a photo to the user's account using the Graph API.\nThis requires the \"publish_actions\" permission.\n\n``` javascript\nvar b2 = Ti.UI.createButton({\n    title: 'Upload Photo from file with Graph API',\n    left: 10, \n    right: 10, \n    top: 90, \n    height: 80\n});\n\nb2.addEventListener('click', function () {\n    b2.title = 'Uploading Photo...';\n    var f = Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, 'images', 'flower.jpg');\n    var blob = f.read();\n    var data = {\n        picture: blob\n    };\n    // If publish_actions permission is not granted, request it\n    if (fb.permissions.indexOf('publish_actions') < 0) {\n        fb.requestNewPublishPermissions(['publish_actions'], fb.AUDIENCE_FRIENDS, function (e) {\n            if (e.success) {\n                Ti.API.info('Permissions: ' + fb.permissions);\n                fb.requestWithGraphPath('me/photos', data, 'POST', showRequestResult);\n            }\n            if (e.error) {\n                Ti.API.info('Publish permission error');\n            }\n            if (e.cancelled) {\n                Ti.API.info('Publish permission cancelled');\n            }\n        });\n    } else {\n        fb.requestWithGraphPath('me/photos', data, 'POST', showRequestResult);\n    }\n});\n```\n\nFor more information on posting photos, see:\n\n* [Photo in the Facebook Graph API Reference](https://developers.facebook.com/docs/graph-api/reference/photo)\n"
+    },
+    {
+      "title": "Show a basic Share Dialog",
+      "code": "This example shows how to show a basic Share Dialog.\n\n``` javascript\nvar button = Ti.UI.createButton({\n    title: 'Share URL with Share Dialog'\n});\n\nbutton.addEventListener('click', function () {\n    fb.presentShareDialog({\n        link: 'https://appcelerator.com/',\n        hashtag: 'codestrong'\n    });\n});\n```\n\nFor more information on Facebook Dialogs, see:\n\n* [Facebook Share Dialog Reference](https://developers.facebook.com/docs/sharing/reference/share-dialog)\n"
+    },
+    {
+      "title": "Share content to the Facebook Messenger",
+      "code": "This example shows how to share images, GIF's and videos to the Facebook messenger.\n\n``` javascript\nvar btn = Ti.UI.createButton({\n    title: 'Share media to messenger'\n});\nbtn.addEventListener('click', function (e) {\n    var media = [\n        Ti.UI.createView({ height: 30, width: 30,backgroundColor: '#ff0' }).toImage(), // Image blob\n        Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, 'test.gif').read(), // GIF Blob\n        Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, 'movie.mp4').read() // Video Blob\n    ];\n\n    var options = Ti.UI.createOptionDialog({\n        options: ['Photo', 'GIF', 'Video', 'Cancel'],\n        cancel: 3\n    });\n    options.addEventListener('click', function (e) {\n        if (e.index == 3) {\n            return;\n        }\n        FB.shareMediaToMessenger({\n            media: media[e.index],\n            metadata: 'Ti rocks!',\n            link: 'https://appcelerator.com',\n        });\n    });\n    options.show();\n});\n```\n\nFor more information on sharing media to the Facebook Messenger, see:\n\n* [Facebook Messenger Reference](https://developers.facebook.com/docs/messenger)\n"
+    },
+    {
+      "title": "Requesting additional permissions",
+      "code": "This example shows how to use the `requestNewPublishPermissions` method to request additional permissions\nto publish a post to the user's wall.\n\n``` javascript\nfb.requestNewPublishPermissions(['publish_actions'], fb.AUDIENCE_FRIENDS, function (e) {\n    if (e.success) {\n        fb.requestWithGraphPath('me/feed', null, 'POST', showRequestResult);\n    } else {\n        Ti.API.debug('Failed authorization due to: ' + e.error);\n    }\n});\n```\n"
+    }
+  ],
+  "properties": [
+    {
+      "name": "accessToken",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "OAuth token set after a successful `authorize`.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "accessTokenActive",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Returns `true` if the [Modules.Facebook.accessToken](api:Modules.Facebook#accessToken) is not `null` AND not expired.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "7.4.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "accessTokenExpired",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Returns whether the [Modules.Facebook.accessToken](api:Modules.Facebook#accessToken) is expired by checking its [Modules.Facebook.expirationDate](api:Modules.Facebook#expirationDate) property.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "7.4.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "ACTION_TYPE_ASK_FOR",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "The user is asking for an object from friends.",
+      "description": "Use to set the actionType with [presentSendRequestDialog()](Modules.Facebook.presentSendRequestDialog)\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "ACTION_TYPE_NONE",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "No action type.",
+      "description": "Use to set the actionType with [presentSendRequestDialog()](Modules.Facebook.presentSendRequestDialog)\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "ACTION_TYPE_SEND",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "The user is sending an object to the friends.",
+      "description": "Use to set the actionType with [presentSendRequestDialog()](Modules.Facebook.presentSendRequestDialog)\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "ACTION_TYPE_TURN",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "It is the turn of the friends to play against the user in a match.",
+      "description": "Use to set the actionType with [presentSendRequestDialog()](Modules.Facebook.presentSendRequestDialog)\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "appID",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "If not explicitly set, the default will be read from the application's \nplist (FacebookAppID) which is the recommended way. \n\nSince Titanium SDK 6.2.0, this property also has a getter to return the currently set appID.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "AUDIENCE_EVERYONE",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Published content is visible to all Facebook users.",
+      "description": "Use to set the default audience with either [LoginButton.audience](api:Modules.Facebook.LoginButton#audience)\nor [Modules.Facebook.requestNewPublishPermissions](api:Modules.Facebook#requestNewPublishPermissions).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "4.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "AUDIENCE_FRIENDS",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Published content is only visible to the user and user's friends.",
+      "description": "Use to set the default audience with either [LoginButton.audience](api:Modules.Facebook.LoginButton#audience)\nor [Modules.Facebook.requestNewPublishPermissions](api:Modules.Facebook#requestNewPublishPermissions).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "4.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "AUDIENCE_ONLY_ME",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Published content is only visible to the user.",
+      "description": "Use to set the default audience with either [LoginButton.audience](api:Modules.Facebook.LoginButton#audience)\nor [Modules.Facebook.requestNewPublishPermissions](api:Modules.Facebook#requestNewPublishPermissions).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "4.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "canPresentOpenGraphActionDialog",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Checks if the device can support the use of the Facebook Open Graph action dialog from the Facebook App.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "4.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "EVENT_NAME_ADDED_PAYMENT_INFO",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Log this event when the user has entered their payment info.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": {
+        "android": "8.0.0",
+        "iphone": "7.0.0",
+        "ipad": "7.0.0"
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "EVENT_NAME_ADDED_TO_CART",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Log this event when the user has added an item to their cart.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": {
+        "android": "8.0.0",
+        "iphone": "7.0.0",
+        "ipad": "7.0.0"
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "EVENT_NAME_COMPLETED_REGISTRATION",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Log this event when a user has completed registration with the app.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": {
+        "android": "8.0.0",
+        "iphone": "7.0.0",
+        "ipad": "7.0.0"
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "EVENT_NAME_INITIATED_CHECKOUT",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Log this event when the user has entered the checkout process.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": {
+        "android": "8.0.0",
+        "iphone": "7.0.0",
+        "ipad": "7.0.0"
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "EVENT_NAME_VIEWED_CONTENT",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Log this event when a user has viewed a form of content in the app.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": {
+        "android": "8.0.0",
+        "iphone": "7.0.0",
+        "ipad": "7.0.0"
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "EVENT_PARAM_CONTENT",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Parameter key used to specify data for the one or more pieces of content being logged about.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": {
+        "android": "8.0.0",
+        "iphone": "7.0.0",
+        "ipad": "7.0.0"
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "EVENT_PARAM_CONTENT_ID",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Parameter key used to specify an ID for the specific piece of content being logged about.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": {
+        "android": "8.0.0",
+        "iphone": "7.0.0",
+        "ipad": "7.0.0"
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "EVENT_PARAM_CONTENT_TYPE",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Parameter key used to specify a generic content type/family for the logged event.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": {
+        "android": "8.0.0",
+        "iphone": "7.0.0",
+        "ipad": "7.0.0"
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "EVENT_PARAM_CURRENCY",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Parameter key used to specify currency used with logged event.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": {
+        "android": "8.0.0",
+        "iphone": "7.0.0",
+        "ipad": "7.0.0"
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "EVENT_PARAM_NUM_ITEMS",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Parameter key used to specify how many items are being processed.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": {
+        "android": "8.0.0",
+        "iphone": "7.0.0",
+        "ipad": "7.0.0"
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "EVENT_PARAM_PAYMENT_INFO_AVAILABLE",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Parameter key used to specify whether payment info is available.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": {
+        "android": "8.0.0",
+        "iphone": "7.0.0",
+        "ipad": "7.0.0"
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "expirationDate",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Time at which the `accessToken` expires.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Date"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "FILTER_APP_NON_USERS",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Friends not using the app can be displayed.",
+      "description": "Use to set the filter with [presentSendRequestDialog()](Modules.Facebook.presentSendRequestDialog)\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "FILTER_APP_USERS",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Friends using the app can be displayed.",
+      "description": "Use to set the filter with [presentSendRequestDialog()](Modules.Facebook.presentSendRequestDialog)\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "FILTER_NONE",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "No filter all friends can be displayed.",
+      "description": "Use to set the filter with [presentSendRequestDialog()](Modules.Facebook.presentSendRequestDialog)\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "loggedIn",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Indicates if the user is logged in.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "LOGIN_BUTTON_TOOLTIP_BEHAVIOR_AUTOMATIC",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "The default behavior. The tooltip will only be displayed if the app is eligible \n(determined by possible server round trip).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "LOGIN_BUTTON_TOOLTIP_BEHAVIOR_DISABLE",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Force disable. In this case you can still exert more refined control by manually \nconstructing a new login button.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "LOGIN_BUTTON_TOOLTIP_BEHAVIOR_FORCE_DISPLAY",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Force display of the tooltip (typically for UI testing).",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "LOGIN_BUTTON_TOOLTIP_STYLE_FRIENDLY_BLUE",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Light blue background, white text, faded blue close button.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "LOGIN_BUTTON_TOOLTIP_STYLE_NEUTRAL_GRAY",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Dark gray background, white text, light gray close button.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "LOGIN_TRACKING_ENABLED",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Use with [LoginButton.loginTracking](api:Modules.Facebook.LoginButton#loginTracking) or the top-level\n[loginTracking](api:Modules.Facebook#loginTracking) property to set the desired tracking preference.\n",
+      "description": "For more information on the differences between\n`LOGIN_TRACKING_ENABLED` and `LOGIN_TRACKING_LIMITED` see: https://developers.facebook.com/docs/facebook-login/ios/limited-login/\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "10.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "LOGIN_TRACKING_LIMITED",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Use with [LoginButton.loginTracking](api:Modules.Facebook.LoginButton#loginTracking) or the top-level\n[loginTracking](api:Modules.Facebook#loginTracking) property to set the desired tracking preference.\n",
+      "description": "For more information on the differences between\n`LOGIN_TRACKING_ENABLED` and `LOGIN_TRACKING_LIMITED` see: https://developers.facebook.com/docs/facebook-login/ios/limited-login/\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "10.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "loginTracking",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Gets or sets the desired tracking preference to use for login attempts.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "10.0.0",
+      "default": "Modules.Facebook.LOGIN_TRACKING_ENABLED",
+      "constants": [
+        "Modules.Facebook.LOGIN_TRACKING_ENABLED",
+        "Modules.Facebook.LOGIN_TRACKING_LIMITED"
+      ]
+    },
+    {
+      "name": "MESSENGER_BUTTON_MODE_CIRCULAR",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Use with [MessengerButton.mode](Modules.Facebook.MessengerButton.mode) to specify\nthe default send button reading \"Send\".\n",
+      "description": "You can localize the button by localizing \"Send\" in your strings.xml. Learn more about\nthat topic [here](http://docs.appcelerator.com/platform/latest/#!/guide/Internationalization).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.4.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "MESSENGER_BUTTON_MODE_RECTANGULAR",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Use with [MessengerButton.mode](Modules.Facebook.MessengerButton.mode) to specify\nthe default send button reading \"Send\".\n",
+      "description": "You can localize the button by localizing \"Send\" in your strings.xml. Learn more about\nthat topic [here](http://docs.appcelerator.com/platform/latest/#!/guide/Internationalization).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.4.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "permissions",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Array of permissions to request for your app.",
+      "description": "Be sure the permissions you want are set before calling\n[authorize](api:Modules.Facebook#authorize).\n\nFor a complete list of permissions, see the\n[official Facebook Permissions Reference](https://developers.facebook.com/docs/facebook-login/permissions)\n\n#### iOS Platform Notes\n\nOn iOS, do not request any write permissions before calling the `authorize()` method.  Use the\n[requestNewPublishPermissions()](api:Modules.Facebook#requestNewPublishPermissions)\nto request write permissions once the user authorizes the application.\n\n**Prior to Release 4.0.0**\n\nTo use the build-in iOS 6 login, this property cannot contain any of the following:\noffline_access, publish_actions, publish_stream, publish_checkins,\nads_management, create_event, rsvp_event, manage_friendlists, manage_notifications,\nor manage_pages.\n",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Array",
+          "args": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "SHARE_DIALOG_MODE_AUTOMATIC",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Acts with the most appropriate mode that is available.",
+      "description": "Use with [presentShareDialog()](api:Modules.Facebook#presentShareDialog).",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "SHARE_DIALOG_MODE_BROWSER",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Displays the dialog in Safari.",
+      "description": "Use with [presentShareDialog()](api:Modules.Facebook#presentShareDialog).",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "SHARE_DIALOG_MODE_FEED_BROWSER",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Displays the feed dialog in Safari.",
+      "description": "Use with [presentShareDialog()](api:Modules.Facebook#presentShareDialog).",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "SHARE_DIALOG_MODE_FEED_WEB",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Displays the feed dialog in a webview within the app.",
+      "description": "Use with [presentShareDialog()](api:Modules.Facebook#presentShareDialog).",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "SHARE_DIALOG_MODE_NATIVE",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Displays the dialog in the main native Facebook app.",
+      "description": "Use with [presentShareDialog()](api:Modules.Facebook#presentShareDialog).",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "SHARE_DIALOG_MODE_SHARE_SHEET",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Displays the dialog in the iOS integrated share sheet.",
+      "description": "Use with [presentShareDialog()](api:Modules.Facebook#presentShareDialog).",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "SHARE_DIALOG_MODE_WEB",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Displays the dialog in a web view within the app.",
+      "description": "Use with [presentShareDialog()](api:Modules.Facebook#presentShareDialog).",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "uid",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Unique user ID returned from Facebook.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "permission": "read-only"
+    }
+  ],
+  "methods": [
+    {
+      "name": "authorize",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Prompts the user to log in (if not already logged in) and authorize your application.\nYou can also use [LoginButton](api:Modules.Facebook.LoginButton) to log in.\n",
+      "description": "Be sure to set your required [permissions](api:Modules.Facebook#permissions) before\ncalling `authorize`.\n\nA [login](api:Modules.Facebook#login) event is generated to indicate a successful or\nunsuccessful login attempt.\n\n#### iOS Platform Notes\n\nOn iOS, do not request any write permissions before calling this method.  Use the\n[requestNewPublishPermissions()](api:Modules.Facebook#requestNewPublishPermissions)\nto request write permissions once the user authorizes the application.\n"
+    },
+    {
+      "name": "createActivityWorker",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Creates a Facebook proxy to hook into the activity of either a standalone [Titanium.UI.Window](api:Titanium.UI.Window)\n(not inside a TabGroup) or [Titanium.UI.TabGroup](api:Titanium.UI.TabGroup).\n",
+      "description": "Set the `lifecycleContainer` property in the dictionary passed to the method to either\nthe current active  instance of a [Titanium.UI.Window](api:Titanium.UI.Window) or [Titanium.UI.TabGroup](api:Titanium.UI.TabGroup) in order to monitor the activity's\nlifecycle events, required by Facebook to synchronize its state between various\nactivities in the application.\n\nThe proxy object must be created before calling the `open()` method on the associated Window\nor TabGroup.\n",
+      "since": "4.0.0",
+      "parameters": [
+        {
+          "name": "parameters",
+          "summary": "Properties to set on a new object, including any defined by [Titanium.Proxy](api:Titanium.Proxy) except\nthose marked not-creation or read-only.\n\n**Note:** You must set the `lifecycleContainer` property.\n",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Titanium.Proxy"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Proxy"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "createLoginButton",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Creates and returns an instance of [Modules.Facebook.LoginButton](api:Modules.Facebook.LoginButton).",
+      "since": "3.1.0",
+      "factoryFor": "Modules.Facebook.LoginButton",
+      "parameters": [
+        {
+          "name": "parameters",
+          "summary": "Properties to set on a new object, including any defined by [Modules.Facebook.LoginButton](api:Modules.Facebook.LoginButton) except those marked not-creation or read-only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.Facebook.LoginButton"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Facebook.LoginButton"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "fetchDeferredAppLink",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Fetch the deferred app link",
+      "description": "Deferred deep linking allows you to send people to a custom view after \nthey installed your app via the app store.\n",
+      "since": "5.4.0",
+      "parameters": [
+        {
+          "name": "callback",
+          "summary": "Callback to invoke when the request completes.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Callback",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "FacebookDeferredAppLinkResponse"
+                }
+              ]
+            }
+          ],
+          "inlined": {
+            "name": "FacebookDeferredAppLinkResponse",
+            "summary": "Object returned from the [fetchDeferredAppLink()](api:Modules.Facebook#fetchDeferredAppLink) method",
+            "properties": [
+              {
+                "name": "error",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "A string that contain the error.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  }
+                ],
+                "optional": true
+              },
+              {
+                "name": "success",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "Indicates if the response has succeded and the response contain a URL.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Boolean"
+                  }
+                ]
+              },
+              {
+                "name": "url",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "The URL returned from the server.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "initialize",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Loads a cached Facebook session if available, then fires the `login` event.\n",
+      "description": "Be sure to set your [login](api:Modules.Facebook#login) and [logout](api:Modules.Facebook#logout)\nevent listeners before calling `initialize`. \n\n**Note: This method needs to be called before calling [Modules.Facebook.authorize](api:Modules.Facebook#authorize) \nin order to be handle the auth-flow correctly. Otherwise, you might see a white screen without\nany response.\n",
+      "since": "4.0.0"
+    },
+    {
+      "name": "logCustomEvent",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Logs a custom event to Facebook.",
+      "description": "**From the Facebook API Reference:**\n\nEvents are not sent immediately when logged. They're cached and flushed out to the Facebook servers\nin a number of situations:\n\n  * when an event count threshold is passed (currently 100 logged events).\n  * when a time threshold is passed (currently 15 seconds).\n  * when an app has gone to background and is then brought back to the foreground.\n\nSome things to note when logging events:\n\n  * There is a limit on the number of unique event names an app can use, on the order of 300.\n  * Event names must be between 2 and 40 characters and must consist of alphanumeric\n    characters, `_`, `-` or spaces.\n",
+      "since": "4.0.0",
+      "parameters": [
+        {
+          "name": "event",
+          "summary": "Arbitrary string to log as an event.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "valueToSum",
+          "summary": "An arbitrary number that can represent any value (e.g., a price or a quantity). \nWhen reported, all of the valueToSum properties will be summed together in Facebook \nAnalytics for Apps (since 5.4.0).\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "optional": true
+        },
+        {
+          "name": "params",
+          "summary": "A dictionary object containing optional parameters (since 5.4.0).\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Object"
+            }
+          ],
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "logout",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Clears the OAuth `accessToken` and logs out the user."
+    },
+    {
+      "name": "logPurchase",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Log a purchase of the specified amount, in the specified currency.",
+      "since": "5.2.0",
+      "parameters": [
+        {
+          "name": "amount",
+          "summary": "Purchase amount to be logged, as expressed in the specified currency.\nThis value will be rounded to the thousandths place (e.g., 12.34567 becomes 12.346).\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "currency",
+          "summary": "Currency, is denoted as, e.g. \"USD\", \"EUR\", \"GBP\".  See ISO-4217 for specific values.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "parameters",
+          "summary": "A dictionary object containing optional parameters (since 8.0.0 in android and since 7.0.0 in ios). \n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Object"
+            }
+          ],
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "logPushNotificationOpen",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Log an app event that tracks that the application was open via Push Notification.",
+      "since": "6.1.0",
+      "parameters": [
+        {
+          "name": "payload",
+          "summary": "Notification payload received via in the  push-notification callback.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Dictionary"
+            }
+          ]
+        },
+        {
+          "name": "action",
+          "summary": "Name of the action that was taken.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ],
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "presentPhotoShareDialog",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Opens a Facebook photo share dialog.",
+      "description": "Note: The `images` parameter is **required** by the Facebook SDK.\n\nAndroid Note: In order to share images on Android, the Facebook app needs to be installed and the\n\"content provider\" settings in your Android manifest needs to be configured:\n\n``` xml    \n<provider android:name=\"com.facebook.FacebookContentProvider\"\n          android:authorities=\"com.facebook.app.FacebookContentProvider<YOUR_APP_ID>\"\n          android:exported=\"true\" />\n```\n\nListen for the [Modules.Facebook.shareCompleted](api:Modules.Facebook#shareCompleted) to be notified if the attempt was\nsuccessful or not.\n",
+      "since": "7.4.0",
+      "parameters": [
+        {
+          "name": "params",
+          "summary": "A dictionary object containing the required and optional parameters.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "SharePhotoContentParams"
+            }
+          ],
+          "inlined": {
+            "name": "SharePhotoContentParams",
+            "summary": "Parameters to pass to the the [presentPhotoShareDialog()](api:Modules.Facebook#presentPhotoShareDialog) method.\n",
+            "properties": [
+              {
+                "name": "mode",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "The mode to select for presenting a share dialog.",
+                "description": "The automatic mode will progressively check the availability of different modes and \nopen the most appropriate mode for the dialog that is available.\n",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ],
+                "default": "Modules.Facebook.SHARE_DIALOG_MODE_AUTOMATIC",
+                "optional": true,
+                "constants": [
+                  "Modules.Facebook.SHARE_DIALOG_MODE_AUTOMATIC",
+                  "Modules.Facebook.SHARE_DIALOG_MODE_BROWSER",
+                  "Modules.Facebook.SHARE_DIALOG_MODE_FEED_BROWSER",
+                  "Modules.Facebook.SHARE_DIALOG_MODE_FEED_WEB",
+                  "Modules.Facebook.SHARE_DIALOG_MODE_NATIVE",
+                  "Modules.Facebook.SHARE_DIALOG_MODE_SHARE_SHEET",
+                  "Modules.Facebook.SHARE_DIALOG_MODE_WEB"
+                ]
+              },
+              {
+                "name": "photos",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "An array of photos that is represented by an object of `photo`, `caption` and `userGenerated`\nparameters.\n",
+                "type": [
+                  {
+                    "kind": "generic",
+                    "name": "Array",
+                    "args": [
+                      {
+                        "kind": "type",
+                        "name": "SharePhotoContentPhotoParams"
+                      }
+                    ]
+                  }
+                ],
+                "inlined": {
+                  "name": "SharePhotoContentPhotoParams",
+                  "summary": "Parameters to pass to the `images` property of the [presentPhotoShareDialog()](api:Modules.Facebook#presentPhotoShareDialog)\nmethod.\n",
+                  "properties": [
+                    {
+                      "name": "caption",
+                      "platforms": [
+                        "android",
+                        "iphone",
+                        "ipad",
+                        "macos"
+                      ],
+                      "summary": "The user generated caption for the photo. Note that the 'caption' must come from\nthe user, as pre-filled content is forbidden by the Platform Policies (2.3).\n",
+                      "type": [
+                        {
+                          "kind": "primitive",
+                          "name": "String"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "photo",
+                      "platforms": [
+                        "android",
+                        "iphone",
+                        "ipad",
+                        "macos"
+                      ],
+                      "summary": "The (required) photo. Can either be a file on the local disk (represented as a [Titanium.Blob](api:Titanium.Blob))\nor a photo URL (represented as a String).\n",
+                      "type": [
+                        {
+                          "kind": "type",
+                          "name": "Titanium.Blob"
+                        },
+                        {
+                          "kind": "primitive",
+                          "name": "String"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "presentShareDialog",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Opens a Facebook link share dialog.",
+      "description": "Note: The `link` parameter is **required** by the Facebook SDK.\n\nListen for the [Modules.Facebook.shareCompleted](api:Modules.Facebook#shareCompleted) to be notified if the attempt was\nsuccessful or not.\n",
+      "since": "4.0.0",
+      "parameters": [
+        {
+          "name": "params",
+          "summary": "A dictionary object containing the required and optional parameters.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "ShareLinkContentParams"
+            }
+          ],
+          "inlined": {
+            "name": "ShareLinkContentParams",
+            "summary": "Optional parameters to pass to the [presentShareDialog()](api:Modules.Facebook#presentShareDialog) method.\n",
+            "properties": [
+              {
+                "name": "hashtag",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "Hashtag for the content being shared.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  }
+                ]
+              },
+              {
+                "name": "link",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "URL to share (required for any link of sharing).",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  }
+                ]
+              },
+              {
+                "name": "mode",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "The mode to select for presenting a share dialog. Only used in `presentShareDialog`.",
+                "description": "The automatic mode will progressively check the availability of different modes and \nopen the most appropriate mode for the dialog that is available.\n",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ],
+                "since": "6.0.0",
+                "default": "Modules.Facebook.SHARE_DIALOG_MODE_AUTOMATIC",
+                "optional": true,
+                "constants": [
+                  "Modules.Facebook.SHARE_DIALOG_MODE_AUTOMATIC",
+                  "Modules.Facebook.SHARE_DIALOG_MODE_BROWSER",
+                  "Modules.Facebook.SHARE_DIALOG_MODE_FEED_BROWSER",
+                  "Modules.Facebook.SHARE_DIALOG_MODE_FEED_WEB",
+                  "Modules.Facebook.SHARE_DIALOG_MODE_NATIVE",
+                  "Modules.Facebook.SHARE_DIALOG_MODE_SHARE_SHEET",
+                  "Modules.Facebook.SHARE_DIALOG_MODE_WEB"
+                ]
+              },
+              {
+                "name": "placeID",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "The ID for a place to tag with this content.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  }
+                ]
+              },
+              {
+                "name": "referal",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "A value to be added to the referrer URL when a person follows a link from this shared content on feed.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  }
+                ]
+              },
+              {
+                "name": "to",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "List of IDs for taggable people to tag with this content.",
+                "description": "See Facebook documentation for Taggable Friends (https://developers.facebook.com/docs/graph-api/reference/user/taggable_friends)\n",
+                "type": [
+                  {
+                    "kind": "generic",
+                    "name": "Array",
+                    "args": [
+                      {
+                        "kind": "primitive",
+                        "name": "String"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "refreshPermissionsFromServer",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Makes a request to Facebook to get the latest permissions granted.",
+      "description": "Facebook now grants total control over granted permissions, and if the user modified the permissions\noutside of your app your cached token may not be updated.\n\nListen for the [Modules.Facebook.tokenUpdated](api:Modules.Facebook#tokenUpdated) event to be notified if the attempt was\nsuccessful.\n",
+      "since": "4.0.0"
+    },
+    {
+      "name": "requestNewPublishPermissions",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Makes a request to Facebook for additional write permissions.",
+      "description": "Note that it is not an error for the user to 'Skip' your requested permissions,\nso you should check the module's `permissions` property following the call.\n",
+      "since": "4.0.0",
+      "deprecated": {
+        "since": "8.2.0",
+        "notes": "Request all permissions via the `permissions` property before calling `authorize`."
+      },
+      "parameters": [
+        {
+          "name": "permissions",
+          "summary": "Array of additional permissions to request. For a complete list of permissions, see the\n[official Facebook Permissions Reference](https://developers.facebook.com/docs/facebook-login/permissions)\n",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "primitive",
+                  "name": "String"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "audience",
+          "summary": "The extent of the visibility write permissions will have.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "callback",
+          "summary": "Callback to invoke when the request completes.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Callback",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "FacebookPermissionResponse"
+                }
+              ]
+            }
+          ],
+          "inlined": {
+            "name": "FacebookPermissionResponse",
+            "summary": "Argument passed to the dialog callback when a dialog is completed or canceled.",
+            "description": "The `success` and `cancelled` properties may not be reliable for dialogs. In the event\nthat the user canceled the dialog, the `result` field is `undefined`.\n",
+            "properties": [
+              {
+                "name": "cancelled",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "Indicates if the user canceled the dialog.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Boolean"
+                  }
+                ]
+              },
+              {
+                "name": "error",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "Error message, if any returned.\nWill be undefined if `success` is `true`.\n",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  }
+                ]
+              },
+              {
+                "name": "success",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "Indicates if successful\n",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Boolean"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "requestNewReadPermissions",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Makes a request to Facebook for additional read permissions.",
+      "description": "Note that it is not an error for the user to 'Skip' your requested permissions,\nso you should check the module's `permissions` property following the call.\n",
+      "since": "4.0.0",
+      "deprecated": {
+        "since": "8.2.0",
+        "notes": "Request all permissions via the `permissions` property before calling `authorize`."
+      },
+      "parameters": [
+        {
+          "name": "permissions",
+          "summary": "Array of additional permissions to request. For a complete list of permissions, see the\n[official Facebook Permissions Reference](https://developers.facebook.com/docs/facebook-login/permissions)\n",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "primitive",
+                  "name": "String"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "callback",
+          "summary": "Callback to invoke when the request completes.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Callback",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "FacebookPermissionResponse"
+                }
+              ]
+            }
+          ],
+          "inlined": {
+            "name": "FacebookPermissionResponse",
+            "summary": "Argument passed to the dialog callback when a dialog is completed or canceled.",
+            "description": "The `success` and `cancelled` properties may not be reliable for dialogs. In the event\nthat the user canceled the dialog, the `result` field is `undefined`.\n",
+            "properties": [
+              {
+                "name": "cancelled",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "Indicates if the user canceled the dialog.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Boolean"
+                  }
+                ]
+              },
+              {
+                "name": "error",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "Error message, if any returned.\nWill be undefined if `success` is `true`.\n",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  }
+                ]
+              },
+              {
+                "name": "success",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "Indicates if successful\n",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Boolean"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "requestWithGraphPath",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Makes a Facebook Graph API request.",
+      "description": "If the request requires user authorization, the user must be logged in, and your app\nmust be authorized to make the request. You can check the\n[loggedIn](api:Modules.Facebook#loggedIn) property to determine if the user is logged in.\n\nEvery Facebook object has an associated path. For example, \"me\" requests information about\nthe current user.\n\nFor a complete list of Graph API methods, parameters and return types, see the\n[official Facebook Graph API documentation](https://developers.facebook.com/docs/graph-api).\n",
+      "parameters": [
+        {
+          "name": "path",
+          "summary": "Graph API path to request.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "params",
+          "summary": "A dictionary object for setting parameters required by the call, if any.\n",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Dictionary"
+            }
+          ]
+        },
+        {
+          "name": "httpMethod",
+          "summary": "The HTTP method (GET/POST/DELETE) to use for the call.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "callback",
+          "summary": "Callback to invoke  when the request completes.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Callback",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "FacebookGraphResponse"
+                }
+              ]
+            }
+          ],
+          "inlined": {
+            "name": "FacebookGraphResponse",
+            "summary": "Argument passed to the graph API callback, in response to a\n[requestWithGraphPath](api:Modules.Facebook#requestWithGraphPath) call.\n",
+            "properties": [
+              {
+                "name": "path",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "Graph API path of the original request.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  }
+                ]
+              },
+              {
+                "name": "result",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "If successful, returns the JSON response returned by Facebook.\nIf the request is not successfully completed, the result is undefined.\n",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "setCurrentAccessToken",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Set a new access token for using Facebook services.",
+      "since": "6.2.0",
+      "parameters": [
+        {
+          "name": "params",
+          "summary": "A dictionary object containing required and optional parameters. \n\nNote: There is an [open issue](https://developers.facebook.com/bugs/675847029242342/) in the native Facebook SDK causing the appID\nfrom not being updated although specified in the parameters. You can use \nthe [Modules.Facebook.appID](api:Modules.Facebook#appID) setter to change the appID inside your app.\n",
+          "type": [
+            {
+              "kind": "type",
+              "name": "CurrentAccessTokenParams"
+            }
+          ],
+          "inlined": {
+            "name": "CurrentAccessTokenParams",
+            "summary": "Dictionary of parameter passed to [setAccessToken()](Modules.Facebook.setAccessToken).",
+            "properties": [
+              {
+                "name": "accessToken",
+                "platforms": [
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "The opaque token string.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  }
+                ]
+              },
+              {
+                "name": "appID",
+                "platforms": [
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "The app ID.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  }
+                ]
+              },
+              {
+                "name": "declinedPermissions",
+                "platforms": [
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "The declined permissions.",
+                "type": [
+                  {
+                    "kind": "generic",
+                    "name": "Array",
+                    "args": [
+                      {
+                        "kind": "primitive",
+                        "name": "String"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "exipirationDate",
+                "platforms": [
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "The optional expiration date (defaults to distant future).",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Date"
+                  }
+                ]
+              },
+              {
+                "name": "permissions",
+                "platforms": [
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "The granted permissions.",
+                "type": [
+                  {
+                    "kind": "generic",
+                    "name": "Array",
+                    "args": [
+                      {
+                        "kind": "primitive",
+                        "name": "String"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "refreshDate",
+                "platforms": [
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "The optional date the token was last refreshed (defaults to today).",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Date"
+                  }
+                ]
+              },
+              {
+                "name": "userID",
+                "platforms": [
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "The user ID.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "setPushNotificationsDeviceToken",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Sets a device token to register the current application installation for push notifications.",
+      "since": "6.1.0",
+      "parameters": [
+        {
+          "name": "deviceToken",
+          "summary": "Device-token received when registering for push-notifications.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "inviteCompleted",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Fired when the Invite dialog is closed.",
+      "since": "5.4.0",
+      "properties": [
+        {
+          "name": "success",
+          "summary": "Returns `true` if request succeeded, `false` otherwise.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "cancelled",
+          "summary": "Indicates if the user canceled the request by closing the dialog.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "error",
+          "summary": "Error message, if any returned.\nWill be undefined if `success` is `true`.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "login",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Fired at session login.",
+      "properties": [
+        {
+          "name": "success",
+          "summary": "Indicates if the user was logged in successfully.\nReturns `true` if request succeeded, `false` otherwise.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "cancelled",
+          "summary": "Indicates if the user canceled the login request by closing the dialog.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "error",
+          "summary": "Error message, if any returned.\nWill be undefined if `success` is `true`.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "code",
+          "summary": "Error code.\nError code will be 0 if `success` is `true`, nonzero otherwise. If the error\nwas generated by the operating system, that system's error value is used.\nOtherwise, this value will be -1.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "uid",
+          "summary": "User ID returned by Facebook if the login was successful.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "data",
+          "summary": "Data returned by Facebook when we query for the UID (using graph path \"me\")\nafter a successful login. Data is in JSON format, and includes information\nsuch as user name, locale and gender.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "logout",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Fired at session logout."
+    },
+    {
+      "name": "requestDialogCompleted",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Fired when the Send Request dialog is closed.",
+      "since": "4.0.2",
+      "properties": [
+        {
+          "name": "success",
+          "summary": "Returns `true` if request succeeded, `false` otherwise.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "cancelled",
+          "summary": "Indicates if the user canceled the request by closing the dialog.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "error",
+          "summary": "Error message, if any returned.\nWill be undefined if `success` is `true`.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "data",
+          "summary": "data returned by Facebook. See Facebook reference for details.\n",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Dictionary"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "shareCompleted",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Fired when the Share dialog or Web Share dialog is closed.",
+      "since": "4.0.0",
+      "properties": [
+        {
+          "name": "success",
+          "summary": "Returns `true` if request succeeded, `false` otherwise.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "cancelled",
+          "summary": "Indicates if the user canceled the request by closing the dialog.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "error",
+          "summary": "Error message, if any returned.\nWill be undefined if `success` is `true`.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "tokenUpdated",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Fired when [refreshPermissionsFromServer](api:Modules.Facebook#refreshPermissionsFromServer) is completed.",
+      "since": "4.0.0"
+    }
+  ],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "references": [
+    "CurrentAccessTokenParams",
+    "FacebookDeferredAppLinkResponse",
+    "FacebookGraphResponse",
+    "FacebookPermissionResponse",
+    "Modules.Facebook.LoginButton",
+    "ShareLinkContentParams",
+    "SharePhotoContentParams"
+  ],
+  "externalReferences": [
+    "Dictionary",
+    "Global.String",
+    "Modules",
+    "Modules.Facebook.MessengerButton",
+    "Modules.Facebook.MessengerButton.mode",
+    "Modules.Facebook.createMessengerButton",
+    "Modules.Facebook.presentSendRequestDialog",
+    "Titanium.Module",
+    "Titanium.Proxy",
+    "Titanium.UI.TabGroup",
+    "Titanium.UI.Window"
+  ],
+  "source": "Facebook.yml"
+}

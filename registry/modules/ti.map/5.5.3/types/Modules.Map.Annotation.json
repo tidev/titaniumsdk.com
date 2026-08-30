@@ -1,0 +1,735 @@
+{
+  "schemaVersion": 1,
+  "name": "Modules.Map.Annotation",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
+  "since": {
+    "android": "3.0.2",
+    "iphone": "3.2.0",
+    "ipad": "3.2.0",
+    "macos": "9.2.0"
+  },
+  "summary": "Represents a labeled point of interest on the map that the user can click on.",
+  "description": "The `Annotation` object gives you low-level control over annotations that can be added to\n[map view](api:Modules.Map.View). An annotation must have its `latitude` and `longitude`\nproperties set to appear on a map.\n\nUse the [Modules.Map.createAnnotation](api:Modules.Map#createAnnotation) method to create an annotation.  Starting with Alloy\n1.4.0, use the **`<Annotation>`** Alloy element to define one in XML markup.\n\nAn annotation can also have a title, a subtitle, and two inset buttons or views on the left\nand right side of the title. All of these items are optional.\n\nThe controls on the left and right side of the annotation can be specified in one of two\nways:\n\n* To display an image, set the [leftButton](Titanium.Map.Annotation.leftButton) or\n  [rightButton](Titanium.Map.Annotation.rightButton) property to an image URL. (On\n  iOS, you can also use a [SystemButton](Titanium.UI.iPhone.SystemButton) constant\n  to use one of the native system button icons.)\n\n* To add another type of view to the annotation, set the\n  [leftView](Titanium.Map.Annotation.leftView) or\n  [rightView](Titanium.Map.Annotation.rightView) property to a [View](api:Titanium.UI.View)\n  object.\n\nAn annotation has two states: selected and deselected. A deselected annotation\nis marked by a pin image. When the user selects the pin, the full annotation is\ndisplayed.\n\nYou can specify a custom image for the map pin by setting the\n[image](api:Modules.Map.Annotation#image) property.\n\nWhen the user clicks on an annotation, a `click` event is generated.\n\nOn iOS, You can add a click event listener to a specific annotation, or add a\nclick event listener to the map view to receive click events from all annotations\non the map.\n\nOn Android, you must add the click event listener to the map view; the annotation\nitself does not generate these events.\n",
+  "properties": [
+    {
+      "name": "annotationDisplayPriority",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The display priority of this annotation view.",
+      "description": "An annotation view whose priority is set to MKFeatureDisplayPriorityRequired is always visible \non the map, whereas other priorities may result in the annotation view being hidden. Use \n[Modules.Map.FEATURE_DISPLAY_PRIORITY_REQUIRED](api:Modules.Map#FEATURE_DISPLAY_PRIORITY_REQUIRED), [Modules.Map.FEATURE_DISPLAY_PRIORITY_DEFAULT_HIGH](api:Modules.Map#FEATURE_DISPLAY_PRIORITY_DEFAULT_HIGH) or \n[Modules.Map.FEATURE_DISPLAY_PRIORITY_DEFAULT_LOW](api:Modules.Map#FEATURE_DISPLAY_PRIORITY_DEFAULT_LOW).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.3.0",
+      "default": "Modules.Map.FEATURE_DISPLAY_PRIORITY_REQUIRE",
+      "osver": {
+        "ios": {
+          "min": "11.0"
+        }
+      },
+      "constants": [
+        "Modules.Map.FEATURE_DISPLAY_PRIORITY_DEFAULT_HIGH",
+        "Modules.Map.FEATURE_DISPLAY_PRIORITY_DEFAULT_LOW",
+        "Modules.Map.FEATURE_DISPLAY_PRIORITY_REQUIRED"
+      ]
+    },
+    {
+      "name": "canShowCallout",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Defines whether the annotation view is able to display extra information in a callout bubble.",
+      "description": "When this is set to `true`, the annotation view shows the callout bubble on selection.\nSet this to `false` to disabled the showing of the callout bubble on selection.\nThis must be set before the annotation is added to the map.\n\nIf this value is undefined, the value is treated as **explicit true**.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ]
+    },
+    {
+      "name": "centerOffset",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Defines a center offset point for the annotation.",
+      "description": "By default, the center point of an annotation view is placed at the coordinate point of the\nassociated annotation. Use this property to reposition the annotation view as needed.\nPositive offset values move the annotation view down and right, while negative values\nmove it up and left.\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Point"
+        }
+      ]
+    },
+    {
+      "name": "clusterIdentifier",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "An identifier that determines whether the annotation view participates in clustering.",
+      "description": "The default value of this property is null, which prevents the annotation view from being clustered \nwith other annotation views. Setting the property to a non null value it to participate in clustering.\nClustering occurs when there is a collision between multiple annotation views with the same identifier\non the map surface. The annotation views involved in the collision are removed from the map view and \nreplaced by a clustering annotation view, which displays the title from one of the annotations and \nprovides access to the other annotations.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": {
+        "android": "7.4.0",
+        "iphone": "6.3.0",
+        "ipad": "6.3.0",
+        "macos": "9.2.0"
+      },
+      "default": "null",
+      "osver": {
+        "ios": {
+          "min": "11.0"
+        }
+      }
+    },
+    {
+      "name": "collisionMode",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The collision mode to use when interpreting the collision frame rectangle.",
+      "description": "Use [Modules.Map.ANNOTATION_VIEW_COLLISION_MODE_RECTANGLE](api:Modules.Map#ANNOTATION_VIEW_COLLISION_MODE_RECTANGLE) or [Modules.Map.ANNOTATION_VIEW_COLLISION_MODE_CIRCLE](api:Modules.Map#ANNOTATION_VIEW_COLLISION_MODE_CIRCLE).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.3.0",
+      "osver": {
+        "ios": {
+          "min": "11.0"
+        }
+      },
+      "constants": [
+        "Modules.Map.ANNOTATION_VIEW_COLLISION_MODE_CIRCLE",
+        "Modules.Map.ANNOTATION_VIEW_COLLISION_MODE_RECTANGLE"
+      ]
+    },
+    {
+      "name": "customView",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Defines a custom view to be used by the annotation.",
+      "description": "Must be set during creation. **User interaction is disabled on the view.**\nNo view interaction events (click, touchstart etc) will be fired.\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.UI.View"
+        }
+      ],
+      "since": "3.1.0"
+    },
+    {
+      "name": "draggable",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Determines whether the pin can be dragged by the user.",
+      "description": "When an annotation is draggable, it can be moved by the user by long pressing on the pin.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "default": "false"
+    },
+    {
+      "name": "hidden",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Determines whether the annotation is hidden or not.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "6.1.0",
+      "default": "false"
+    },
+    {
+      "name": "image",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Image to use for the the pin.",
+      "description": "Must be set during creation. This is ignored if the customView property is set.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        },
+        {
+          "kind": "type",
+          "name": "Titanium.Blob"
+        }
+      ],
+      "default": "If not specified, a standard map pin image is used."
+    },
+    {
+      "name": "latitude",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Latitude of the annotation, in decimal degrees.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ]
+    },
+    {
+      "name": "leftButton",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Left button image on the annotation, specified as an image URL.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "3.1.0"
+    },
+    {
+      "name": "leftView",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Left view that is displayed on the annotation.",
+      "description": "This is ignored if the `leftButton` property is set.\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.UI.View"
+        }
+      ],
+      "since": "3.1.0"
+    },
+    {
+      "name": "longitude",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Longitude of the annotation, in decimal degrees.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ]
+    },
+    {
+      "name": "markerAnimatesWhenAdded",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Boolean indicating whether the marker animates into position onscreen.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "6.3.0",
+      "default": "false",
+      "osver": {
+        "ios": {
+          "min": "11.0"
+        }
+      }
+    },
+    {
+      "name": "markerColor",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The background color of the marker balloon.",
+      "description": "The default value of this property is undefined, which applies the standard color that is appropriate\nfor the current map style.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "6.3.0",
+      "osver": {
+        "ios": {
+          "min": "11.0"
+        }
+      }
+    },
+    {
+      "name": "markerGlyphColor",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The color to apply to the glyph text or image.",
+      "description": "The default value of this property is undefined, which applies the standard tint color for the \ncurrent map style.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "6.3.0",
+      "osver": {
+        "ios": {
+          "min": "11.0"
+        }
+      }
+    },
+    {
+      "name": "markerGlyphImage",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The image displayed in the marker balloon.",
+      "description": "Use this property or the [Modules.Map.Annotation.markerGlyphText](api:Modules.Map.Annotation#markerGlyphText) property to specify the marker balloon content.\nIf you specify both an image and text, the text is displayed.\nThe glyph image is displayed when the marker is in the normal state. Create glyph images as template \nimages so that the glyph tint color can be applied to it. Normally, you set the size of this image to \n20 by 20 points on iOS. However, if you do not provide a separate selected image in the [Modules.Map.Annotation.markerSelectedGlyphImage](api:Modules.Map.Annotation#markerSelectedGlyphImage) \nproperty, make the size of this image 40 by 40 points on iOS. MapKit scales images that are larger or \nsmaller than those sizes.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        },
+        {
+          "kind": "type",
+          "name": "Titanium.Blob"
+        }
+      ],
+      "since": "6.3.0",
+      "osver": {
+        "ios": {
+          "min": "11.0"
+        }
+      }
+    },
+    {
+      "name": "markerGlyphText",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The text to display in the marker balloon.",
+      "description": "Use this property or the [Modules.Map.Annotation.markerGlyphImage](api:Modules.Map.Annotation#markerGlyphImage) property to specify the marker balloon content. \nIf you specify both an image and text, the text is displayed.\nThe amount of space available for displaying your glyph text is limited. Specify no more than \ntwo or three characters for any strings you assign to this property.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "6.3.0",
+      "osver": {
+        "ios": {
+          "min": "11.0"
+        }
+      }
+    },
+    {
+      "name": "markerSelectedGlyphImage",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The image to display when the marker is selected.",
+      "description": "The glyph image is displayed when the marker is in the selected state. This image is displayed only when the \nmarker is selected. If you specify an image for this property, you should also specify an image in the [Modules.Map.Annotation.markerGlyphImage](api:Modules.Map.Annotation#markerGlyphImage) \nproperty.\nCreate glyph images as template images so that the glyph tint color can be applied to it. Set the size of this image \nto 40 by 40 points on iOS. MapKit scales images that are larger or smaller than those sizes.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        },
+        {
+          "kind": "type",
+          "name": "Titanium.Blob"
+        }
+      ],
+      "since": "6.3.0",
+      "osver": {
+        "ios": {
+          "min": "11.0"
+        }
+      }
+    },
+    {
+      "name": "markerSubtitleVisibility",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The visibility of the subtitle text rendered below the marker balloon.",
+      "description": "The subtitle text is hidden when the marker is not selected. The text is shown when the marker \nis selected. Use [Modules.Map.FEATURE_VISIBILITY_ADAPTIVE](api:Modules.Map#FEATURE_VISIBILITY_ADAPTIVE), [Modules.Map.FEATURE_VISIBILITY_VISIBLE](api:Modules.Map#FEATURE_VISIBILITY_VISIBLE) or [Modules.Map.FEATURE_VISIBILITY_HIDDEN](api:Modules.Map#FEATURE_VISIBILITY_HIDDEN).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.3.0",
+      "osver": {
+        "ios": {
+          "min": "11.0"
+        }
+      },
+      "constants": [
+        "Modules.Map.FEATURE_VISIBILITY_ADAPTIVE",
+        "Modules.Map.FEATURE_VISIBILITY_HIDDEN",
+        "Modules.Map.FEATURE_VISIBILITY_VISIBLE"
+      ]
+    },
+    {
+      "name": "markerTitleVisibility",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The visibility of the title text rendered below the marker balloon.",
+      "description": "Title text is normally displayed below the marker balloon. Use [Modules.Map.FEATURE_VISIBILITY_ADAPTIVE](api:Modules.Map#FEATURE_VISIBILITY_ADAPTIVE),\n[Modules.Map.FEATURE_VISIBILITY_VISIBLE](api:Modules.Map#FEATURE_VISIBILITY_VISIBLE) or [Modules.Map.FEATURE_VISIBILITY_HIDDEN](api:Modules.Map#FEATURE_VISIBILITY_HIDDEN).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.3.0",
+      "osver": {
+        "ios": {
+          "min": "11.0"
+        }
+      },
+      "constants": [
+        "Modules.Map.FEATURE_VISIBILITY_ADAPTIVE",
+        "Modules.Map.FEATURE_VISIBILITY_HIDDEN",
+        "Modules.Map.FEATURE_VISIBILITY_VISIBLE"
+      ]
+    },
+    {
+      "name": "pincolor",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The color of the pin-annotation. Use the `ANNOTATION_*` constants for pre-\ndefined colors, e.g `ANNOTATION_GREEN`.\n\nNote for iOS: Apps running iOS 9 and later can also specify a non-constant\nvalue, e.g. \"blue\", \"rgb(0, 0, 255 ,1)\" or \"#0000ff\".   \n",
+      "description": "Pin color is ignored if a custom pin image is specified using [Modules.Map.Annotation.image](api:Modules.Map.Annotation#image).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        },
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "previewContext",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The preview context used in the 3D-Touch feature \"Peek and Pop\".",
+      "description": "Preview context to present the \"Peek and Pop\" of a view. Use an configured instance\nof [Titanium.UI.iOS.PreviewContext](api:Titanium.UI.iOS.PreviewContext) here.\n\nNote: This property can only be used on devices running iOS9 or later and supporting 3D-Touch.\nIt is ignored on older devices and can manually be checked using [Titanium.UI.iOS.forceTouchSupported](api:Titanium.UI.iOS#forceTouchSupported).\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.UI.iOS.PreviewContext"
+        }
+      ],
+      "since": "6.2.0",
+      "osver": {
+        "ios": {
+          "min": "9.0"
+        }
+      }
+    },
+    {
+      "name": "rightButton",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Right button image on the annotation, specified as an image URL.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "3.1.0"
+    },
+    {
+      "name": "rightView",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Right view that is displayed on the annotation.",
+      "description": "This is ignored if the `rightButton` property is set.\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.UI.View"
+        }
+      ],
+      "since": "3.1.0"
+    },
+    {
+      "name": "showAsMarker",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Boolean to show an annotation view that displays a balloon-shaped \nmarker at the designated location.\n",
+      "description": "Must be set during creation. This is ignored if the customView property is set.\nSee the example \"Map Example With Marker Annotation and Clustering\".\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "6.3.0",
+      "default": "false",
+      "osver": {
+        "ios": {
+          "min": "11.0"
+        }
+      }
+    },
+    {
+      "name": "showInfoWindow",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Show or hide the view that is displayed on the annotation when clicked.",
+      "description": "When this is false, clicking on the annotation will not center it on the map, but the\nannotation will still be selected, thus triggering the click event.\nIf the annotation is selected, and the info window is hidden, then the next click\nwill deselect the annotation, thus will NOT show the info window, regardless of the current state of this property.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "3.2.0",
+      "default": "true"
+    },
+    {
+      "name": "subtitle",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Secondary title of the annotation view.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "subtitleid",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Key in the locale file to use for the subtitle property.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "3.1.0"
+    },
+    {
+      "name": "title",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Primary title of the annotation view.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "titleid",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Key in the locale file to use for the title property.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "3.1.0"
+    }
+  ],
+  "methods": [
+    {
+      "name": "animate",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Animate annotation to new location.",
+      "since": "9.2.0",
+      "parameters": [
+        {
+          "name": "newLocation",
+          "summary": "latitude and longitude where annotation will animate.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "primitive",
+                  "name": "Number"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rotate",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Rotate annotation on its location.",
+      "since": "9.2.0",
+      "parameters": [
+        {
+          "name": "angle",
+          "summary": "angle on which annotation will rotate.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "events": [],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "references": [
+    "Modules.Map",
+    "Modules.Map.View"
+  ],
+  "externalReferences": [
+    "Point",
+    "Titanium.Blob",
+    "Titanium.Proxy",
+    "Titanium.UI.View",
+    "Titanium.UI.iOS",
+    "Titanium.UI.iOS.PreviewContext"
+  ],
+  "source": "Annotation.yml"
+}

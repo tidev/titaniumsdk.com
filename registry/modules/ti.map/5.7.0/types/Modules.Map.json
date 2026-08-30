@@ -1,0 +1,1717 @@
+{
+  "schemaVersion": 1,
+  "name": "Modules.Map",
+  "kind": "module",
+  "extends": "Titanium.Module",
+  "inheritanceChain": [
+    "Titanium.Module"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
+  "since": {
+    "android": "3.1.0",
+    "iphone": "3.2.0",
+    "ipad": "3.2.0",
+    "macos": "9.2.0"
+  },
+  "summary": "Add-on Map module",
+  "description": "### Requirements\n\n-   Google Maps API key (required for both development and production)\n-   Google Play services SDK installed using the Android SDK manager\n-   This module only works on Android devices.  This module is not supported on the Android emulator\n\n### Getting Started\n\n-   Edit the `modules` section of your tiapp.xml file to include this module:\n\n    ``` xml\n    <ti:app>\n        [modules](api:Modules)\n            <!-- Add this line to your modules section -->\n            <module platform=\"android\">ti.map</module>\n        </modules>\n    </ti:app>\n    ```\n\n-   Obtain a Google Maps API key.  For instructions, refer to the \"Obtain and Add a Google API Key\"\n    section in the\n    [Google Maps v2 for Android guide](http://docs.appcelerator.com/titanium/latest/#!/guide/Google_Maps_v2_for_Android).\n\n-   Add the following `meta-tag` element to the Android manifest section of the tiapp.xml\n    file. You may need to add the `manifest` and `application` elements.\n    ``` xml\n    <ti:app>\n        <android xmlns:android=\"http://schemas.android.com/apk/res/android\">\n            <manifest>\n                <application>\n                    <!-- Replace \"YOUR_API_KEY\" with the Google API key you obtained -->\n                    <meta-data \n                        android:name=\"com.google.android.geo.API_KEY\"\n                        android:value=\"YOUR_API_KEY\" />\n                </application>\n            </manifest>\n        </android>\n    </ti:app>\n    ```\n\n-   Instantiate the module with the `import Map from 'ti.map'` API, then make subsequent API calls with\n    the new map object.\n\n    ``` javascript\n    import Map from 'ti.map';\n\n    const mapView = Map.createView({\n      mapType: Map.NORMAL_TYPE\n    });\n    ```\n\n## iOS\n\nThis module is a replacement for the built-in Titanium.Map module on iOS.\n\nFor more instructions and examples of using the module, refer to the\n[iOS Map Kit guide](http://docs.appcelerator.com/titanium/latest/#!/guide/iOS_Map_Kit).\n\n### Requirements\n\n-   Applications using this module must be built using Xcode 5 or later.\n\n### Getting Started\n\n-   Edit the `modules` section of your tiapp.xml file to include this module:\n\n    ``` xml\n    <ti:app>\n        [modules](api:Modules)\n            <!-- Add this line to your modules section -->\n            <module platform=\"iphone\">ti.map</module>\n        </modules>\n    </ti:app>\n    ```\n\n-   To use the `userLocation` property in iOS 8 and later, add either the\n    [`NSLocationWhenInUseUsageDescription`](https://developer.apple.com/library/prerelease/ios/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW26)\n    or\n    [`NSLocationAlwaysUsageDescription`](https://developer.apple.com/library/prerelease/ios/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW18)\n    key to the iOS plist section of the project's `tiapp.xml` file.\n\n    ``` xml\n    <ti:app>\n        <ios>\n            <plist>\n                <dict>\n                    <key>NSLocationAlwaysUsageDescription</key>\n                    [string](api:Global.String)\n                        Specify the reason for accessing the user's location information.\n                        This appears in the alert dialog when asking the user for permission to\n                        access their location.\n                    </string>\n                </dict>\n            </plist>\n        </ios>\n    </ti:app>\n    ```\n\n-   Instantiate the module with the `import Map from 'ti.map'` API, then make subsequent API calls with\n    the new map object.\n\n    ``` javascript\n    import Map from 'ti.map';\n\n    const mapView = Map.createView({\n      mapType: Map.NORMAL_TYPE\n    });\n    ```\n\n### Breaking Changes\n\n-   The `addRoute` method no longer accepts a dictionary as a parameter. Pass a [Modules.Map.Route](api:Modules.Map.Route) object instead.\n",
+  "examples": [
+    {
+      "title": "Basic Map Example",
+      "code": "This is a basic map example that places a custom annotation on the map, and\nlistens for click events on the annotation.\n\nIn this example, a custom property (`myid`) is added to the annotation object.\nWhile adding custom members to a Titanium object is not generally recommended,\nin this case it provides a mechanism for uniquely identifying an annotation. This\ncan be useful, for example, if the annotations are dynamically generated\nand it is not practical to identify them by title.\n\n``` javascript\nimport Map from 'ti.map';\n\nconst window = Ti.UI.createWindow();\n\nconst mountainView = Map.createAnnotation({\n    latitude: 37.390749,\n    longitude: -122.081651,\n    title: 'Appcelerator Headquarters',\n    subtitle: 'Mountain View, CA',\n    pincolor: Map.ANNOTATION_RED,\n    myid: 1 // Custom property to uniquely identify this annotation.\n});\n\nconst mapView = Map.createView({\n    mapType: Map.NORMAL_TYPE,\n    region: { \n        latitude: 33.74511,\n        longitude: -84.38993,\n        latitudeDelta: 0.01,\n        longitudeDelta: 0.01\n    },\n    animate: true,\n    regionFit: true,\n    userLocation: true,\n    annotations: [ mountainView ]\n});\n\nconst circle = Map.createCircle({\n    center: {\n        latitude: 33.74511,\n        longitude: -84.38993\n    },\n    radius: 1000, // = 1.0 km\n    fillColor: '#20FF0000'\n});\n\nmapView.addCircle(circle);\nwindow.add(mapView);\n\nmapView.addEventListener('click', event => {\n    Ti.API.info('Clicked ' + event.clicksource + ' on ' + event.latitude + ', ' + event.longitude);\n});\n\nwindown.open();\n```\n"
+    },
+    {
+      "title": "Alloy XML Markup",
+      "code": "Previous example as an Alloy view.\n\nIn XML markup, use the `View` element with the `module` attribute set to `ti.map` to create an\ninstance of a map view, then use the `Annotation` element to define an annotation.\n\nIn the initializer file, load the map module and assign it to the `Alloy.Globals.Map` namespace.\nThis variable can be used to reference map module constants in the project, as seen in the TSS\nfile to assign the `pincolor` attribute.\n\n`alloy.js`:\n\n``` javascript\n// Loads the map module to the global Alloy scope, which can be referenced by Alloy.Globals.Map\nAlloy.Globals.Map = require('ti.map');\n```\n\n`app/views/index.xml`:\n\n``` xml\n<Alloy>\n    <Window>\n        <Module id=\"mapView\" module=\"ti.map\" onClick=\"report\" method=\"createView\">\n            <Annotation id=\"appcHQ\" myId=\"1337\" />\n        </Module>\n    </Window>\n</Alloy>\n```\n\n`app/styles/index.tss`:\n\n``` javascript\n\"#mapView\": {\n    region: {\n        latitude: 33.74511,\n        longitude: -84.38993,\n        latitudeDelta: 0.01,\n        longitudeDelta: 0.01\n    }\n},\n\"#appcHQ\": {\n    latitude: 37.368122,\n    longitude: -121.913653,\n    title: \"Appcelerator Headquarters\",\n    subtitle: \"San Jose, CA\",\n    pincolor: Alloy.Globals.Map.ANNOTATION_RED\n}\n```\n\n`app/controllers/index.js`:\n\n``` javascript\nfunction report(event) {\n    Ti.API.info('Annotation ' + event.title + ' clicked, ID: ' + event.annotation.myID);\n}\n\n$.index.open();\n```\n"
+    },
+    {
+      "title": "Map Clustering (iOS 11+)",
+      "code": "This is a map-example which creates marker annotation and clustering of annotations.\n\nThe `clusterIdentifier` property and the `clusterstart` event are required in order to enable\nclustering. You can control the clustering by defining the `collisionMode` property and\nsetting special cluster annotations using the `setClusterAnnotation` method on your map\nview instance.\n\n``` javascript\nimport Map from 'ti.map';\n\nconst window = Ti.UI.createWindow();\nconst annotations = [];\n\nfor (let i = 0; i < 10; i++) {\n    annotations.push(Map.createAnnotation({\n        title: 'Appcelerator Inc.',\n        subtitle: 'TiRocks!',\n        clusterIdentifier: 'abc', // Required for clusters\n        collisionMode: Map.ANNOTATION_VIEW_COLLISION_MODE_RECTANGLE,\n        showAsMarker: true,\n        markerGlyphText: i.toString(),\n        markerColor: 'blue',\n        markerGlyphColor: 'green',\n        markerTitleVisibility: Map.FEATURE_VISIBILITY_VISIBLE,\n        markerSubtitleVisibility: Map.FEATURE_VISIBILITY_HIDDEN,\n        markerGlyphImage: 'path/to/flag.png',\n        markerSelectedGlyphImage: 'path/to/flag-selected.png',\n        annotationDisplayPriority: Map.FEATURE_DISPLAY_PRIORITY_DEFAULT_LOW,\n        latitude: (Math.random() * 10) + 40,\n        longitude: Math.random() * 10,\n    }));\n}\n\nconst mapView = Map.createView({\n    annotations: annotations,\n    rotateEnabled: true,\n    mapType: Map.MUTED_STANDARD_TYPE,\n    showsPointsOfInterest: false,\n    userLocation: true\n});\n\nmapView.addEventListener('clusterstart', event => {\n    Ti.API.info('clustering started!');\n\n    const clusterAnnotation = Map.createAnnotation({\n        showAsMarker: true,\n        markerText: event.memberAnnotations.length.toString(),\n        title: 'Cluster Title',\n        subtitle: 'Cluster Subtitle',\n    });\n\n    mapView.setClusterAnnotation({\n        annotation: clusterAnnotation,\n        memberAnnotations: event.memberAnnotations\n    });\n});\nwindow.add(mapView);\nwindow.open();\n```\n"
+    },
+    {
+      "title": "Search Request (iOS only)",
+      "code": "The following example shows the MapKit based search request.\nThe options in `search` (2nd parameter) are optional, but improve\nthe accuracy of the results.\n\n```javascript\nimport Map from 'ti.map';\n\nMap.addEventListener('didUpdateResults', event => {\n    console.warn('Found place:');\n    console.warn(event)\n});\n\nMap.search('Colosseum', {\n  region: {\n    latitude: 41.890560,\n    longitude: 12.494270,\n    latitudeDelta: 1,\n    longitudeDelta: 1,\n  },\n  resultTypes: [Map.SEARCH_RESULT_TYPE_POINT_OF_INTEREST, Map.SEARCH_RESULT_TYPE_ADDRESS]\n});\n```\n"
+    }
+  ],
+  "properties": [
+    {
+      "name": "ANNOTATION_AZURE",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Color constant used to set a map annotation to azure via the\n[Modules.Map.Annotation.pincolor](api:Modules.Map.Annotation#pincolor) property.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": {
+        "iphone": "6.1.0",
+        "ipad": "6.1.0",
+        "android": "3.1.0",
+        "macos": "9.2.0"
+      },
+      "permission": "read-only",
+      "osver": {
+        "ios": {
+          "min": "9.0"
+        }
+      }
+    },
+    {
+      "name": "ANNOTATION_BLUE",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Color constant used to set a map annotation to blue via the\n[Modules.Map.Annotation.pincolor](api:Modules.Map.Annotation#pincolor) property.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": {
+        "iphone": "6.1.0",
+        "ipad": "6.1.0",
+        "android": "3.1.0"
+      },
+      "permission": "read-only",
+      "osver": {
+        "ios": {
+          "min": "9.0"
+        }
+      }
+    },
+    {
+      "name": "ANNOTATION_CYAN",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Color constant used to set a map annotation to cyan via the\n[Modules.Map.Annotation.pincolor](api:Modules.Map.Annotation#pincolor) property.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": {
+        "iphone": "6.1.0",
+        "ipad": "6.1.0",
+        "android": "3.1.0",
+        "macos": "9.2.0"
+      },
+      "permission": "read-only",
+      "osver": {
+        "ios": {
+          "min": "9.0"
+        }
+      }
+    },
+    {
+      "name": "ANNOTATION_DRAG_STATE_END",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Used in the [pinchangedragstate](api:Modules.Map.View#pinchangedragstate) event\nto indicate that the user finished moving the annotation.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "3.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "ANNOTATION_DRAG_STATE_START",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Used in the [pinchangedragstate](api:Modules.Map.View#pinchangedragstate) event\nto indicate that the user started dragging the annotation.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "3.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "ANNOTATION_GREEN",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Color constant used to set a map annotation to green via the\n[Modules.Map.Annotation.pincolor](api:Modules.Map.Annotation#pincolor) property.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "ANNOTATION_MAGENTA",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Color constant used to set a map annotation to magenta via the\n[Modules.Map.Annotation.pincolor](api:Modules.Map.Annotation#pincolor) property.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": {
+        "iphone": "6.1.0",
+        "ipad": "6.1.0",
+        "android": "3.1.0",
+        "macos": "9.2.0"
+      },
+      "permission": "read-only",
+      "osver": {
+        "ios": {
+          "min": "9.0"
+        }
+      }
+    },
+    {
+      "name": "ANNOTATION_ORANGE",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Color constant used to set a map annotation to orange via the\n[Modules.Map.Annotation.pincolor](api:Modules.Map.Annotation#pincolor) property.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": {
+        "iphone": "6.1.0",
+        "ipad": "6.1.0",
+        "android": "3.1.0",
+        "macos": "9.2.0"
+      },
+      "permission": "read-only",
+      "osver": {
+        "ios": {
+          "min": "9.0"
+        }
+      }
+    },
+    {
+      "name": "ANNOTATION_PURPLE",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Color constant used to set a map annotation to purple via the\n[Modules.Map.Annotation.pincolor](api:Modules.Map.Annotation#pincolor) property.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": {
+        "iphone": "3.2.0",
+        "ipad": "3.2.0",
+        "android": "6.1.0",
+        "macos": "9.2.0"
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "ANNOTATION_RED",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Color constant used to set a map annotation to red via the\n[Modules.Map.Annotation.pincolor](api:Modules.Map.Annotation#pincolor) property.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "ANNOTATION_ROSE",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Color constant used to set a map annotation to rose via the\n[Modules.Map.Annotation.pincolor](api:Modules.Map.Annotation#pincolor) property.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": {
+        "iphone": "6.1.0",
+        "ipad": "6.1.0",
+        "android": "3.1.0",
+        "macos": "9.2.0"
+      },
+      "permission": "read-only",
+      "osver": {
+        "ios": {
+          "min": "9.0"
+        }
+      }
+    },
+    {
+      "name": "ANNOTATION_VIEW_COLLISION_MODE_CIRCLE",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Constant indicating that a circle inscribed in the collision frame rectangle should\nbe used to determine collisions.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.3.0",
+      "permission": "read-only",
+      "osver": {
+        "ios": {
+          "min": "11.0"
+        }
+      }
+    },
+    {
+      "name": "ANNOTATION_VIEW_COLLISION_MODE_RECTANGLE",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Constant indicating that the full collision frame rectangle should be used for\ndetecting collisions.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.3.0",
+      "permission": "read-only",
+      "osver": {
+        "ios": {
+          "min": "11.0"
+        }
+      }
+    },
+    {
+      "name": "ANNOTATION_VIOLET",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Color constant used to set a map annotation to violet via the\n[Modules.Map.Annotation.pincolor](api:Modules.Map.Annotation#pincolor) property.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": {
+        "iphone": "6.1.0",
+        "ipad": "6.1.0",
+        "android": "3.1.0",
+        "macos": "9.2.0"
+      },
+      "permission": "read-only",
+      "osver": {
+        "ios": {
+          "min": "9.0"
+        }
+      }
+    },
+    {
+      "name": "ANNOTATION_YELLOW",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Color constant used to set a map annotation to yellow via the\n[Modules.Map.Annotation.pincolor](api:Modules.Map.Annotation#pincolor) property.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": {
+        "iphone": "6.1.0",
+        "ipad": "6.1.0",
+        "android": "3.1.0",
+        "macos": "9.2.0"
+      },
+      "permission": "read-only",
+      "osver": {
+        "ios": {
+          "min": "9.0"
+        }
+      }
+    },
+    {
+      "name": "FEATURE_DISPLAY_PRIORITY_DEFAULT_HIGH",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Constant indicating that the item's display priority is high.",
+      "description": "An annotation view with this priority is removed from the map when its bounds\ncollide with the bounds of another view with a higher priority. If the priorities\nof the two views are equal, the view furthest from the center of the map's visible\nregion is hidden first.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.3.0",
+      "permission": "read-only",
+      "osver": {
+        "ios": {
+          "min": "11.0"
+        }
+      }
+    },
+    {
+      "name": "FEATURE_DISPLAY_PRIORITY_DEFAULT_LOW",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Constant indicating that the item's display priority is low.",
+      "description": "An annotation view with this priority is removed from the map when its bounds\ncollide with the bounds of another view with a higher priority. If the priorities\nof the two views are equal, the view furthest from the center of the map's visible\nregion is hidden first.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.3.0",
+      "permission": "read-only",
+      "osver": {
+        "ios": {
+          "min": "11.0"
+        }
+      }
+    },
+    {
+      "name": "FEATURE_DISPLAY_PRIORITY_REQUIRED",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Constant indicating that the item is required.",
+      "description": "An annotation view with this priority does not participate in clustering.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.3.0",
+      "permission": "read-only",
+      "osver": {
+        "ios": {
+          "min": "11.0"
+        }
+      }
+    },
+    {
+      "name": "FEATURE_PHYSICAL_FEATURES",
+      "platforms": [
+        "android"
+      ],
+      "summary": "The option that represents physical map features such as mountain ranges, rivers,\nand ocean basins.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "12.0.0",
+      "permission": "read-only",
+      "osver": {
+        "ios": {
+          "min": "16.0"
+        }
+      }
+    },
+    {
+      "name": "FEATURE_TERRITORIES",
+      "platforms": [
+        "android"
+      ],
+      "summary": "The option that represents territorial boundaries such as a national border,\na state boundary, or a neighborhood.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "12.0.0",
+      "permission": "read-only",
+      "osver": {
+        "ios": {
+          "min": "16.0"
+        }
+      }
+    },
+    {
+      "name": "FEATURE_TYPE_POINT_OF_INTEREST",
+      "platforms": [
+        "android"
+      ],
+      "summary": "The option that represents points of interest such as museums, cafes, parks, or schools.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "12.0.0",
+      "permission": "read-only",
+      "osver": {
+        "ios": {
+          "min": "16.0"
+        }
+      }
+    },
+    {
+      "name": "FEATURE_VISIBILITY_ADAPTIVE",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Constant indicating that title text adapts to the current map state.",
+      "description": "For markers in the normal state, title text is displayed and subtitle text is hidden. When a marker\nis selected, the title and subtitle text are hidden when the marker requires a callout.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.3.0",
+      "permission": "read-only",
+      "osver": {
+        "ios": {
+          "min": "11.0"
+        }
+      }
+    },
+    {
+      "name": "FEATURE_VISIBILITY_HIDDEN",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Constant indicating that title text is always hidden.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.3.0",
+      "permission": "read-only",
+      "osver": {
+        "ios": {
+          "min": "11.0"
+        }
+      }
+    },
+    {
+      "name": "FEATURE_VISIBILITY_VISIBLE",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Constant indicating that title text is always visible.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.3.0",
+      "permission": "read-only",
+      "osver": {
+        "ios": {
+          "min": "11.0"
+        }
+      }
+    },
+    {
+      "name": "HYBRID_FLYOVER_TYPE",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Used with [mapType](api:Modules.Map.View#mapType) to display a satellite flyover image of the area with road and road name information layered on top. Available in iOS 9.0 and later.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "HYBRID_TYPE",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Used with [mapType](api:Modules.Map.View#mapType) to display a satellite image of the area with road and road name information layered on top.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "MUTED_STANDARD_TYPE",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Used with [mapType](api:Modules.Map.View#mapType) to display a street map where your data is emphasized over\nthe underlying map details. Available in iOS 11.0 and later. On Android it is mapped to `NORMAL_TYPE`.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only",
+      "osver": {
+        "ios": {
+          "min": "11.0"
+        }
+      }
+    },
+    {
+      "name": "NORMAL_TYPE",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Used with [mapType](api:Modules.Map.View#mapType) to display a street map that shows the position of all roads and some road names.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "OVERLAY_LEVEL_ABOVE_LABELS",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Place the overlay above roadways but below map labels, shields, or point-of-interest icons. Available in iOS 7.0 and later.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "3.2.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "OVERLAY_LEVEL_ABOVE_ROADS",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Place the overlay above map labels, shields, or point-of-interest icons but below annotations and 3D projections of buildings.\nAvailable in iOS 7.0 and later.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "3.2.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "POLYLINE_JOINT_BEVEL",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Flat bevel on the outside of the joint.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "POLYLINE_JOINT_DEFAULT",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Default: Mitered joint, with fixed pointed extrusion equal to half the stroke width on the outside of the joint.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "POLYLINE_JOINT_ROUND",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Rounded on the outside of the joint by an arc of radius equal to half the stroke width, centered at the vertex.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "POLYLINE_PATTERN_DASHED",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Polyline type constant used to display a dashed polyline via [Modules.Map.Polyline.pattern](api:Modules.Map.Polyline#pattern) property.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.2.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "POLYLINE_PATTERN_DOTTED",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Polyline type constant used to display a dotted polyline via [Modules.Map.Polyline.pattern](api:Modules.Map.Polyline#pattern) property.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.2.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "REASON_API_ANIMATION",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Used in the [regionwillchange](api:Modules.Map.View#regionwillchange) event. The animation was initiated in response to the user actions.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "REASON_DEVELOPER_ANIMATION",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Used in the [regionwillchange](api:Modules.Map.View#regionwillchange) event. The camera moved in response to a request from the application.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "REASON_GESTURE",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Used in the [regionwillchange](api:Modules.Map.View#regionwillchange) event. The camera moved in response to the user gestures on the map.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "SATELLITE_FLYOVER_TYPE",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Used with [mapType](api:Modules.Map.View#mapType) to display satellite flyover imagery of the area. Available in iOS 9.0 and later.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "SATELLITE_TYPE",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Used with [mapType](api:Modules.Map.View#mapType) to display satellite imagery of the area.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "SEARCH_RESULT_TYPE_ADDRESS",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "A value that indicates that search results include addresses.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "12.3.0",
+      "permission": "read-only",
+      "osver": {
+        "ios": {
+          "min": "13.0"
+        }
+      }
+    },
+    {
+      "name": "SEARCH_RESULT_TYPE_POINT_OF_INTEREST",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "A value that indicates that search results include points of interest.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "12.3.0",
+      "permission": "read-only",
+      "osver": {
+        "ios": {
+          "min": "13.0"
+        }
+      }
+    },
+    {
+      "name": "SEARCH_RESULT_TYPE_QUERY",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "A value that indicates that the search completer includes query completions in results.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "12.3.0",
+      "permission": "read-only",
+      "osver": {
+        "ios": {
+          "min": "13.0"
+        }
+      }
+    },
+    {
+      "name": "SERVICE_DISABLED",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Code returned from [Modules.Map.isGooglePlayServicesAvailable](api:Modules.Map#isGooglePlayServicesAvailable). Google Play services has been disabled on this device.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "SERVICE_INVALID",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Code returned from [Modules.Map.isGooglePlayServicesAvailable](api:Modules.Map#isGooglePlayServicesAvailable). The version of Google Play services installed on this device is not authentic.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "SERVICE_MISSING",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Code returned from [Modules.Map.isGooglePlayServicesAvailable](api:Modules.Map#isGooglePlayServicesAvailable). Google Play services is not installed on the device.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "SERVICE_VERSION_UPDATE_REQUIRED",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Code returned from [Modules.Map.isGooglePlayServicesAvailable](api:Modules.Map#isGooglePlayServicesAvailable). Google Play services is out of date.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "SUCCESS",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Code returned from [Modules.Map.isGooglePlayServicesAvailable](api:Modules.Map#isGooglePlayServicesAvailable). Google Play services is available, and the connection is successful.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "TERRAIN_TYPE",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Used with [mapType](api:Modules.Map.View#mapType) to display the terrain that shows the position of all roads and some road names.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    }
+  ],
+  "methods": [
+    {
+      "name": "createAnnotation",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Creates and returns an instance of [Modules.Map.Annotation](api:Modules.Map.Annotation).",
+      "since": {
+        "android": "3.0.2",
+        "iphone": "3.2.0",
+        "ipad": "3.2.0",
+        "macos": "9.2.0"
+      },
+      "factoryFor": "Modules.Map.Annotation",
+      "parameters": [
+        {
+          "name": "parameters",
+          "summary": "Properties to set on a new object, including any defined by [Modules.Map.Annotation](api:Modules.Map.Annotation) except those marked not-creation or read-only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.Map.Annotation"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Map.Annotation"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "createCamera",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Creates and returns an instance of [Modules.Map.Camera](api:Modules.Map.Camera).",
+      "since": {
+        "android": "9.1.0",
+        "iphone": "3.2.0",
+        "ipad": "3.2.0",
+        "macos": "9.2.0"
+      },
+      "factoryFor": "Modules.Map.Camera",
+      "parameters": [
+        {
+          "name": "parameters",
+          "summary": "Properties to set on a new object, including any defined by [Modules.Map.Camera](api:Modules.Map.Camera) except those marked not-creation or read-only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.Map.Camera"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Map.Camera"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "createCircle",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Creates and returns an instance of [Modules.Map.Circle](api:Modules.Map.Circle).",
+      "since": {
+        "android": "4.1.0",
+        "iphone": "4.1.0",
+        "ipad": "4.1.0",
+        "macos": "9.2.0"
+      },
+      "factoryFor": "Modules.Map.Circle",
+      "parameters": [
+        {
+          "name": "parameters",
+          "summary": "Properties to set on a new object, including any defined by [Modules.Map.Circle](api:Modules.Map.Circle) except those marked not-creation or read-only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.Map.Circle"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Map.Circle"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "createImageOverlay",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Creates and returns an instance of [Modules.Map.ImageOverlay](api:Modules.Map.ImageOverlay).",
+      "since": {
+        "iphone": "7.2.0",
+        "ipad": "7.2.0",
+        "android": "7.4.0",
+        "macos": "9.2.0"
+      },
+      "factoryFor": "Modules.Map.ImageOverlay",
+      "parameters": [
+        {
+          "name": "parameters",
+          "summary": "Properties to set on a new object, including any defined by [Modules.Map.ImageOverlay](api:Modules.Map.ImageOverlay) except those marked not-creation or read-only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.Map.ImageOverlay"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Map.ImageOverlay"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "createPolygon",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Creates and returns an instance of [Modules.Map.Polygon](api:Modules.Map.Polygon).",
+      "since": {
+        "android": "4.1.0",
+        "iphone": "4.1.0",
+        "ipad": "4.1.0",
+        "macos": "9.2.0"
+      },
+      "factoryFor": "Modules.Map.Polygon",
+      "parameters": [
+        {
+          "name": "parameters",
+          "summary": "Properties to set on a new object, including any defined by [Modules.Map.Polygon](api:Modules.Map.Polygon) except those marked not-creation or read-only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.Map.Polygon"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Map.Polygon"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "createPolyline",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Creates and returns an instance of [Modules.Map.Polyline](api:Modules.Map.Polyline).",
+      "since": {
+        "android": "4.1.0",
+        "iphone": "4.1.0",
+        "ipad": "4.1.0",
+        "macos": "9.2.0"
+      },
+      "factoryFor": "Modules.Map.Polyline",
+      "parameters": [
+        {
+          "name": "parameters",
+          "summary": "Properties to set on a new object, including any defined by [Modules.Map.Polyline](api:Modules.Map.Polyline) except those marked not-creation or read-only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.Map.Polyline"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Map.Polyline"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "createRoute",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Creates and returns an instance of [Modules.Map.Route](api:Modules.Map.Route).",
+      "since": {
+        "android": "3.1.0",
+        "iphone": "3.2.0",
+        "ipad": "3.2.0",
+        "macos": "9.2.0"
+      },
+      "factoryFor": "Modules.Map.Route",
+      "parameters": [
+        {
+          "name": "parameters",
+          "summary": "Properties to set on a new object, including any defined by [Modules.Map.Route](api:Modules.Map.Route) except those marked not-creation or read-only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.Map.Route"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Map.Route"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "createSnapshotter",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Creates and returns an instance of [Modules.Map.Snapshotter](api:Modules.Map.Snapshotter).",
+      "since": {
+        "iphone": "6.0.0",
+        "ipad": "6.0.0",
+        "macos": "9.2.0"
+      },
+      "factoryFor": "Modules.Map.Snapshotter",
+      "parameters": [
+        {
+          "name": "parameters",
+          "summary": "Properties to set on a new object, including any defined by [Modules.Map.Snapshotter](api:Modules.Map.Snapshotter) except those marked not-creation or read-only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.Map.Snapshotter"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Map.Snapshotter"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "createStreetViewPanorama",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Creates and returns an instance of [Modules.Map.StreetViewPanorama](api:Modules.Map.StreetViewPanorama).",
+      "since": "5.2.0",
+      "factoryFor": "Modules.Map.StreetViewPanorama",
+      "parameters": [
+        {
+          "name": "parameters",
+          "summary": "Properties to set on a new object, including any defined by [Modules.Map.StreetViewPanorama](api:Modules.Map.StreetViewPanorama) except those marked not-creation or read-only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.Map.StreetViewPanorama"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Map.StreetViewPanorama"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "createView",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Creates and returns an instance of [Modules.Map.View](api:Modules.Map.View).",
+      "since": {
+        "android": "3.1.0",
+        "iphone": "3.2.0",
+        "ipad": "3.2.0",
+        "macos": "9.2.0"
+      },
+      "factoryFor": "Modules.Map.View",
+      "parameters": [
+        {
+          "name": "parameters",
+          "summary": "Properties to set on a new object, including any defined by [Modules.Map.View](api:Modules.Map.View) except those marked not-creation or read-only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.Map.View"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Map.View"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "geocodeAddress",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Resolve address details using the `CLGeocoder` to get information (e.g.\nlatitude, longitude, postal code and city) about a given input address.\n",
+      "description": "The result is provided via the callback (second function argument).\n",
+      "since": "12.3.0",
+      "parameters": [
+        {
+          "name": "address",
+          "summary": "The address to resolve.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "callback",
+          "summary": "Function to be called upon completion (either success with a place\nor an error).\n",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Callback",
+              "args": [
+                {
+                  "kind": "primitive",
+                  "name": "Object"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "getLookAroundImage",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "A utility function that you use to create a static image from a LookAround scene.",
+      "since": "12.0.0",
+      "osver": {
+        "ios": {
+          "min": "16.0"
+        }
+      },
+      "parameters": [
+        {
+          "name": "callback",
+          "summary": "Function to be called upon completion (either success with an image or an error).",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Callback",
+              "args": [
+                {
+                  "kind": "primitive",
+                  "name": "Object"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "latitude",
+          "summary": "Latitude of the preferred region.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "longitude",
+          "summary": "Longitude of the preferred region.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "isGooglePlayServicesAvailable",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Returns a code to indicate whether Google Play Services is available on the device.",
+      "since": "3.1.1",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "summary": "One of the following status codes:\n[Modules.Map.SUCCESS](api:Modules.Map#SUCCESS), [Modules.Map.SERVICE_MISSING](api:Modules.Map#SERVICE_MISSING),\n[Modules.Map.SERVICE_VERSION_UPDATE_REQUIRED](api:Modules.Map#SERVICE_VERSION_UPDATE_REQUIRED),\n[Modules.Map.SERVICE_DISABLED](api:Modules.Map#SERVICE_DISABLED) or [Modules.Map.SERVICE_INVALID](api:Modules.Map#SERVICE_INVALID).\n"
+        }
+      ]
+    },
+    {
+      "name": "openLookAroundDialog",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Opens a LookAround window modally.",
+      "since": "12.0.0",
+      "osver": {
+        "ios": {
+          "min": "16.0"
+        }
+      },
+      "parameters": [
+        {
+          "name": "latitude",
+          "summary": "Latitude of the preferred region.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "longitude",
+          "summary": "Longitude of the preferred region.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "search",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Uses the native `MKLocalSearchCompleter` class to search places for\na given input value.\n",
+      "description": "Please use the `didUpdateResults` event to get updates for a search\ncompletion request via the `results` field. If the search failed, the\n`results` field is empty and an `error` is provided.\n",
+      "since": "12.3.0",
+      "parameters": [
+        {
+          "name": "value",
+          "summary": "The value to search with.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "options",
+          "summary": "Additional options to fine-tune the search request.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "SearchCompletionOptions"
+            }
+          ],
+          "inlined": {
+            "name": "SearchCompletionOptions",
+            "summary": "Additional options to fine-tune the search request.",
+            "description": "The latitute and longitude describe the location, the delta values the distance to include.",
+            "properties": [
+              {
+                "name": "region",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "The region to look for results. Note that only `latitude`, `longitude`, `latitudeDelta` and `longitudeDelta`\nare currently handled to define the region.\n",
+                "type": [
+                  {
+                    "kind": "type",
+                    "name": "MapRegionTypev2"
+                  }
+                ]
+              },
+              {
+                "name": "resultTypes",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "These options configure the types of search results you want to receive, including points of interest and addresses.",
+                "description": "Use one or more of the following constants:\n  - [Modules.Map.SEARCH_RESULT_TYPE_ADDRESS](api:Modules.Map#SEARCH_RESULT_TYPE_ADDRESS)\n  - [Modules.Map.SEARCH_RESULT_TYPE_POINT_OF_INTEREST](api:Modules.Map#SEARCH_RESULT_TYPE_POINT_OF_INTEREST)\n  - [Modules.Map.SEARCH_RESULT_TYPE_QUERY](api:Modules.Map#SEARCH_RESULT_TYPE_QUERY)\n",
+                "type": [
+                  {
+                    "kind": "generic",
+                    "name": "Array",
+                    "args": [
+                      {
+                        "kind": "primitive",
+                        "name": "Number"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "events": [],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "references": [
+    "Modules.Map.Annotation",
+    "Modules.Map.Camera",
+    "Modules.Map.Circle",
+    "Modules.Map.ImageOverlay",
+    "Modules.Map.Polygon",
+    "Modules.Map.Polyline",
+    "Modules.Map.Route",
+    "Modules.Map.Snapshotter",
+    "Modules.Map.StreetViewPanorama",
+    "Modules.Map.View",
+    "SearchCompletionOptions"
+  ],
+  "externalReferences": [
+    "Global.String",
+    "Modules",
+    "Titanium.Module"
+  ],
+  "source": "Map.yml"
+}

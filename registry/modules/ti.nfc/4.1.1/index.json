@@ -1,0 +1,913 @@
+{
+  "schemaVersion": 1,
+  "counts": {
+    "types": 29,
+    "inlined": 2,
+    "members": 226
+  },
+  "types": [
+    {
+      "name": "Modules.Nfc",
+      "kind": "module",
+      "summary": "A cross-platform Near-Field-Communication (NFC) module for iOS and Android. \nDownload the latest release via [Github](https://github.com/appcelerator-modules/ti.nfc/releases).\n",
+      "platforms": [
+        "android",
+        "iphone"
+      ],
+      "since": {
+        "android": "1.0.0",
+        "iphone": "2.0.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Module",
+      "counts": {
+        "properties": 61,
+        "methods": 22,
+        "events": 0
+      },
+      "members": [
+        "ACTION_NDEF_DISCOVERED",
+        "ACTION_TAG_DISCOVERED",
+        "ACTION_TECH_DISCOVERED",
+        "COMMAND_CONFIGURATION_ERROR_INVALID_PARAMETERS",
+        "ENCODING_UTF16",
+        "ENCODING_UTF8",
+        "ERROR_SECURITY_VIOLATION",
+        "ERROR_UNSUPPORTED_FEATURE",
+        "INVALIDATION_ERROR_FIRST_NDEF_TAG_READ",
+        "INVALIDATION_ERROR_SESSION_TERMINATED_UNEXPECTEDLY",
+        "INVALIDATION_ERROR_SESSION_TIMEOUT",
+        "INVALIDATION_ERROR_SYSTEM_IS_BUSY",
+        "INVALIDATION_ERROR_USER_CANCELED",
+        "MIFARE_BLOCK_SIZE",
+        "MIFARE_SIZE_1K",
+        "MIFARE_SIZE_2K",
+        "MIFARE_SIZE_4K",
+        "MIFARE_SIZE_MINI",
+        "MIFARE_TAG_TYPE_CLASSIC",
+        "MIFARE_TAG_TYPE_PLUS",
+        "MIFARE_TAG_TYPE_PRO",
+        "MIFARE_TAG_TYPE_UNKNOWN",
+        "MIFARE_ULTRALIGHT_PAGE_SIZE",
+        "MIFARE_ULTRALIGHT_TYPE_ULTRALIGHT",
+        "MIFARE_ULTRALIGHT_TYPE_ULTRALIGHT_C",
+        "MIFARE_ULTRALIGHT_TYPE_UNKNOWN",
+        "RECOMMENDED_ACTION_DO_ACTION",
+        "RECOMMENDED_ACTION_OPEN_FOR_EDITING",
+        "RECOMMENDED_ACTION_SAVE_FOR_LATER",
+        "RECOMMENDED_ACTION_UNKNOWN",
+        "RTD_ALTERNATIVE_CARRIER",
+        "RTD_HANDOVER_CARRIER",
+        "RTD_HANDOVER_REQUEST",
+        "RTD_HANDOVER_SELECT",
+        "RTD_SMART_POSTER",
+        "RTD_TEXT",
+        "RTD_URI",
+        "TAG_TYPE_MIFARE_CLASSIC",
+        "TAG_TYPE_NFC_FORUM_TYPE_1",
+        "TAG_TYPE_NFC_FORUM_TYPE_2",
+        "TAG_TYPE_NFC_FORUM_TYPE_3",
+        "TAG_TYPE_NFC_FORUM_TYPE_4",
+        "TECH_ISODEP",
+        "TECH_MIFARE_CLASSIC",
+        "TECH_MIFARE_ULTRALIGHT",
+        "TECH_NDEF",
+        "TECH_NDEFFORMATABLE",
+        "TECH_NFCA",
+        "TECH_NFCB",
+        "TECH_NFCF",
+        "TECH_NFCV",
+        "TNF_ABSOLUTE_URI",
+        "TNF_EMPTY",
+        "TNF_EXTERNAL_TYPE",
+        "TNF_MIME_MEDIA",
+        "TNF_UNCHANGED",
+        "TNF_UNKNOWN",
+        "TNF_WELL_KNOWN",
+        "TRANSCEIVE_ERROR_RETRY_EXCEEDED",
+        "TRANSCEIVE_ERROR_TAG_CONNECTION_LOST",
+        "TRANSCEIVE_ERROR_TAG_RESPONSE_ERROR",
+        "createMifareTagTechnology",
+        "createNativeTagTechnology",
+        "createNdefMessage",
+        "createNdefRecordApplication",
+        "createNdefRecordEmpty",
+        "createNdefRecordExternal",
+        "createNdefRecordMedia",
+        "createNdefRecordSmartPoster",
+        "createNdefRecordText",
+        "createNdefRecordUnknown",
+        "createNdefRecordUri",
+        "createNfcAdapter",
+        "createNfcForegroundDispatchFilter",
+        "createTagTechnologyIsoDep",
+        "createTagTechnologyMifareClassic",
+        "createTagTechnologyMifareUltralight",
+        "createTagTechnologyNdef",
+        "createTagTechnologyNdefFormatable",
+        "createTagTechnologyNfcA",
+        "createTagTechnologyNfcB",
+        "createTagTechnologyNfcF",
+        "createTagTechnologyNfcV"
+      ]
+    },
+    {
+      "name": "Modules.Nfc.MifareTagTechnology",
+      "kind": "proxy",
+      "summary": "Provides access to MIFARE Ultralight properties and I/O operations on a [Modules.Nfc.NfcTag](api:Modules.Nfc.NfcTag).",
+      "platforms": [
+        "iphone"
+      ],
+      "since": "1.1.0",
+      "deprecated": false,
+      "extends": "Modules.Nfc.NativeTagTechnology",
+      "counts": {
+        "properties": 0,
+        "methods": 7,
+        "events": 0
+      },
+      "members": [
+        "connect",
+        "historicalBytes",
+        "identifier",
+        "isConnected",
+        "mifareFamily",
+        "sendMiFareCommand",
+        "sendMiFareISO7816Command"
+      ]
+    },
+    {
+      "name": "Modules.Nfc.NativeTagTechnology",
+      "kind": "proxy",
+      "summary": "Native Tag Technology class will have the common methods.",
+      "platforms": [
+        "iphone"
+      ],
+      "since": "1.1.0",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 0,
+        "methods": 2,
+        "events": 0
+      },
+      "members": [
+        "connect",
+        "isConnected"
+      ]
+    },
+    {
+      "name": "Modules.Nfc.NdefMessage",
+      "kind": "proxy",
+      "summary": "Represents an immutable NDEF message.",
+      "platforms": [
+        "android",
+        "iphone"
+      ],
+      "since": {
+        "android": "1.0.0",
+        "iphone": "6.3.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 1,
+        "methods": 1,
+        "events": 0
+      },
+      "members": [
+        "records",
+        "toByte"
+      ]
+    },
+    {
+      "name": "Modules.Nfc.NdefRecord",
+      "kind": "proxy",
+      "summary": "Represents an immutable NDEF record.",
+      "platforms": [
+        "android",
+        "iphone"
+      ],
+      "since": {
+        "android": "1.0.0",
+        "iphone": "6.3.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 6,
+        "methods": 5,
+        "events": 0
+      },
+      "members": [
+        "getHashCode",
+        "getId",
+        "getRecordType",
+        "getTnf",
+        "getType",
+        "hashCode",
+        "id",
+        "payload",
+        "recordType",
+        "tnf",
+        "type"
+      ]
+    },
+    {
+      "name": "Modules.Nfc.NdefRecordApplication",
+      "kind": "proxy",
+      "summary": "Represents an immutable NDEF record indicating the package that should be used to handle the entire NDEF message.",
+      "platforms": [
+        "android"
+      ],
+      "since": "1.0.0",
+      "deprecated": false,
+      "extends": "Modules.Nfc.NdefRecord",
+      "counts": {
+        "properties": 7,
+        "methods": 5,
+        "events": 0
+      },
+      "members": [
+        "getHashCode",
+        "getId",
+        "getRecordType",
+        "getTnf",
+        "getType",
+        "hashCode",
+        "id",
+        "packageName",
+        "payload",
+        "recordType",
+        "tnf",
+        "type"
+      ]
+    },
+    {
+      "name": "Modules.Nfc.NdefRecordEmpty",
+      "kind": "proxy",
+      "summary": "Represents an immutable NDEF record that is empty.",
+      "platforms": [
+        "android"
+      ],
+      "since": "1.0.0",
+      "deprecated": false,
+      "extends": "Modules.Nfc.NdefRecord",
+      "counts": {
+        "properties": 6,
+        "methods": 5,
+        "events": 0
+      },
+      "members": [
+        "getHashCode",
+        "getId",
+        "getRecordType",
+        "getTnf",
+        "getType",
+        "hashCode",
+        "id",
+        "payload",
+        "recordType",
+        "tnf",
+        "type"
+      ]
+    },
+    {
+      "name": "Modules.Nfc.NdefRecordExternal",
+      "kind": "proxy",
+      "summary": "Represents an immutable NDEF record containing external (application-specific) data.",
+      "platforms": [
+        "android"
+      ],
+      "since": "1.0.0",
+      "deprecated": false,
+      "extends": "Modules.Nfc.NdefRecord",
+      "counts": {
+        "properties": 8,
+        "methods": 5,
+        "events": 0
+      },
+      "members": [
+        "domain",
+        "domainType",
+        "getHashCode",
+        "getId",
+        "getRecordType",
+        "getTnf",
+        "getType",
+        "hashCode",
+        "id",
+        "payload",
+        "recordType",
+        "tnf",
+        "type"
+      ]
+    },
+    {
+      "name": "Modules.Nfc.NdefRecordMedia",
+      "kind": "proxy",
+      "summary": "Represents an immutable NDEF record containing MIME data.",
+      "platforms": [
+        "android"
+      ],
+      "since": "1.0.0",
+      "deprecated": false,
+      "extends": "Modules.Nfc.NdefRecord",
+      "counts": {
+        "properties": 7,
+        "methods": 5,
+        "events": 0
+      },
+      "members": [
+        "getHashCode",
+        "getId",
+        "getRecordType",
+        "getTnf",
+        "getType",
+        "hashCode",
+        "id",
+        "mimeType",
+        "payload",
+        "recordType",
+        "tnf",
+        "type"
+      ]
+    },
+    {
+      "name": "Modules.Nfc.NdefRecordSmartPoster",
+      "kind": "proxy",
+      "summary": "Represents an immutable NDEF record containing a Smart Poster message.",
+      "platforms": [
+        "android"
+      ],
+      "since": "1.0.0",
+      "deprecated": false,
+      "extends": "Modules.Nfc.NdefRecord",
+      "counts": {
+        "properties": 10,
+        "methods": 5,
+        "events": 0
+      },
+      "members": [
+        "action",
+        "getHashCode",
+        "getId",
+        "getRecordType",
+        "getTnf",
+        "getType",
+        "hashCode",
+        "id",
+        "mimeType",
+        "payload",
+        "recordType",
+        "title",
+        "tnf",
+        "type",
+        "uri"
+      ]
+    },
+    {
+      "name": "Modules.Nfc.NdefRecordText",
+      "kind": "proxy",
+      "summary": "Represents an immutable NDEF record containing text.",
+      "platforms": [
+        "android"
+      ],
+      "since": "1.0.0",
+      "deprecated": false,
+      "extends": "Modules.Nfc.NdefRecord",
+      "counts": {
+        "properties": 9,
+        "methods": 5,
+        "events": 0
+      },
+      "members": [
+        "encoding",
+        "getHashCode",
+        "getId",
+        "getRecordType",
+        "getTnf",
+        "getType",
+        "hashCode",
+        "id",
+        "languageCode",
+        "payload",
+        "recordType",
+        "text",
+        "tnf",
+        "type"
+      ]
+    },
+    {
+      "name": "Modules.Nfc.NdefRecordUnknown",
+      "kind": "proxy",
+      "summary": "Represents an immutable NDEF record containing an unknown data format.",
+      "platforms": [
+        "android"
+      ],
+      "since": "1.0.0",
+      "deprecated": false,
+      "extends": "Modules.Nfc.NdefRecord",
+      "counts": {
+        "properties": 6,
+        "methods": 5,
+        "events": 0
+      },
+      "members": [
+        "getHashCode",
+        "getId",
+        "getRecordType",
+        "getTnf",
+        "getType",
+        "hashCode",
+        "id",
+        "payload",
+        "recordType",
+        "tnf",
+        "type"
+      ]
+    },
+    {
+      "name": "Modules.Nfc.NdefRecordUri",
+      "kind": "proxy",
+      "summary": "Represents an immutable NDEF record containing a URI.",
+      "platforms": [
+        "android"
+      ],
+      "since": "1.0.0",
+      "deprecated": false,
+      "extends": "Modules.Nfc.NdefRecord",
+      "counts": {
+        "properties": 7,
+        "methods": 5,
+        "events": 0
+      },
+      "members": [
+        "getHashCode",
+        "getId",
+        "getRecordType",
+        "getTnf",
+        "getType",
+        "hashCode",
+        "id",
+        "payload",
+        "recordType",
+        "tnf",
+        "type",
+        "uri"
+      ]
+    },
+    {
+      "name": "Modules.Nfc.NfcAdapter",
+      "kind": "proxy",
+      "summary": "Represents the local NFC adapter.",
+      "platforms": [
+        "android",
+        "iphone"
+      ],
+      "since": "1.0.0",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 8,
+        "methods": 9,
+        "events": 0
+      },
+      "members": [
+        "disableForegroundDispatch",
+        "disableForegroundNdefPush",
+        "enableForegroundDispatch",
+        "enableForegroundNdefPush",
+        "invalidateAfterFirstRead",
+        "isEnabled",
+        "isNdefPushEnabled",
+        "onBeamPushUris",
+        "onNdefDiscovered",
+        "onNdefInvalidated",
+        "onNewIntent",
+        "onPushComplete",
+        "onPushMessage",
+        "onTagDiscovered",
+        "onTechDiscovered",
+        "setBeamPushUris",
+        "setNdefPushMessage"
+      ]
+    },
+    {
+      "name": "Modules.Nfc.NfcForegroundDispatchFilter",
+      "kind": "proxy",
+      "summary": "A filter specifying intent, intent filters and technology lists used to match dispatch intents.",
+      "platforms": [
+        "android"
+      ],
+      "since": "1.0.0",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 3,
+        "methods": 0,
+        "events": 0
+      },
+      "members": [
+        "intent",
+        "intentFilters",
+        "techLists"
+      ]
+    },
+    {
+      "name": "Modules.Nfc.NfcNDEFTag",
+      "kind": "proxy",
+      "summary": "An interface for interacting with an NDEF tag.",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "since": "3.0.1",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 0,
+        "methods": 1,
+        "events": 0
+      },
+      "members": [
+        "available"
+      ]
+    },
+    {
+      "name": "Modules.Nfc.NfcNDEFTagTechnology",
+      "kind": "proxy",
+      "summary": "Provides access to NDEF tag and I/O operations on a [Modules.Nfc.NfcNDEFTag](api:Modules.Nfc.NfcNDEFTag)",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "since": "3.0.1",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 0,
+        "methods": 5,
+        "events": 5
+      },
+      "members": [
+        "connect",
+        "didConnectTag",
+        "didQueryNDEFStatus",
+        "didReadNDEFMessage",
+        "didWirteNDEFMessage",
+        "didWriteLock",
+        "queryNDEFStatus",
+        "readNDEF",
+        "writeLock",
+        "writeNDEF"
+      ]
+    },
+    {
+      "name": "Modules.Nfc.NfcTag",
+      "kind": "proxy",
+      "summary": "Represents an NFC tag that has been discovered",
+      "platforms": [
+        "android",
+        "iphone"
+      ],
+      "since": "1.0.0",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 2,
+        "methods": 3,
+        "events": 0
+      },
+      "members": [
+        "available",
+        "getId",
+        "getTechList",
+        "id",
+        "techList"
+      ]
+    },
+    {
+      "name": "Modules.Nfc.TagTechnology",
+      "kind": "proxy",
+      "summary": "Represents an interface to a specific tag technology.",
+      "platforms": [
+        "android"
+      ],
+      "since": "1.1.0",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 1,
+        "methods": 4,
+        "events": 0
+      },
+      "members": [
+        "close",
+        "connect",
+        "isConnected",
+        "isValid",
+        "tag"
+      ]
+    },
+    {
+      "name": "Modules.Nfc.TagTechnologyIsoDep",
+      "kind": "proxy",
+      "summary": "Provides access to ISO-DEP (ISO 14443-4) properties and I/O operations on a [Modules.Nfc.NfcTag](api:Modules.Nfc.NfcTag).",
+      "platforms": [
+        "android"
+      ],
+      "since": "1.1.0",
+      "deprecated": false,
+      "extends": "Modules.Nfc.TagTechnology",
+      "counts": {
+        "properties": 1,
+        "methods": 11,
+        "events": 0
+      },
+      "members": [
+        "close",
+        "connect",
+        "getHiLayerResponse",
+        "getHistoricalBytes",
+        "getMaxTransceiveLength",
+        "getTimeout",
+        "isConnected",
+        "isExtendedLengthApduSupported",
+        "isValid",
+        "setTimeout",
+        "tag",
+        "transceive"
+      ]
+    },
+    {
+      "name": "Modules.Nfc.TagTechnologyMifareClassic",
+      "kind": "proxy",
+      "summary": "Provides access to MIFARE Classic properties and I/O operations on a [Modules.Nfc.NfcTag](api:Modules.Nfc.NfcTag).",
+      "platforms": [
+        "android"
+      ],
+      "since": "1.1.0",
+      "deprecated": false,
+      "extends": "Modules.Nfc.TagTechnology",
+      "counts": {
+        "properties": 4,
+        "methods": 23,
+        "events": 0
+      },
+      "members": [
+        "KEY_DEFAULT",
+        "KEY_MIFARE_APPLICATION_DIRECTORY",
+        "KEY_NFC_FORUM",
+        "authenticateSectorWithKeyA",
+        "authenticateSectorWithKeyB",
+        "blockToSector",
+        "close",
+        "connect",
+        "decrement",
+        "getBlockCount",
+        "getBlockCountInSector",
+        "getMaxTransceiveLength",
+        "getSectorCount",
+        "getSize",
+        "getTimeout",
+        "getType",
+        "increment",
+        "isConnected",
+        "isValid",
+        "readBlock",
+        "restore",
+        "sectorToBlock",
+        "setTimeout",
+        "tag",
+        "transceive",
+        "transfer",
+        "writeBlock"
+      ]
+    },
+    {
+      "name": "Modules.Nfc.TagTechnologyMifareUltralight",
+      "kind": "proxy",
+      "summary": "Provides access to MIFARE Ultralight properties and I/O operations on a [Modules.Nfc.NfcTag](api:Modules.Nfc.NfcTag).",
+      "platforms": [
+        "android"
+      ],
+      "since": "1.1.0",
+      "deprecated": false,
+      "extends": "Modules.Nfc.TagTechnology",
+      "counts": {
+        "properties": 1,
+        "methods": 11,
+        "events": 0
+      },
+      "members": [
+        "close",
+        "connect",
+        "getMaxTransceiveLength",
+        "getTimeout",
+        "getType",
+        "isConnected",
+        "isValid",
+        "readPages",
+        "setTimeout",
+        "tag",
+        "transceive",
+        "writePage"
+      ]
+    },
+    {
+      "name": "Modules.Nfc.TagTechnologyNdef",
+      "kind": "proxy",
+      "summary": "Provides access to NDEF content and operations on a [Modules.Nfc.NfcTag](api:Modules.Nfc.NfcTag).",
+      "platforms": [
+        "android"
+      ],
+      "since": "1.1.0",
+      "deprecated": false,
+      "extends": "Modules.Nfc.TagTechnology",
+      "counts": {
+        "properties": 1,
+        "methods": 12,
+        "events": 0
+      },
+      "members": [
+        "canMakeReadOnly",
+        "close",
+        "connect",
+        "getCachedNdefMessage",
+        "getMaxSize",
+        "getNdefMessage",
+        "getType",
+        "isConnected",
+        "isValid",
+        "isWritable",
+        "makeReadOnly",
+        "tag",
+        "writeNdefMessage"
+      ]
+    },
+    {
+      "name": "Modules.Nfc.TagTechnologyNdefFormatable",
+      "kind": "proxy",
+      "summary": "Provide access to NDEF format operations on a [Modules.Nfc.NfcTag](api:Modules.Nfc.NfcTag).",
+      "platforms": [
+        "android"
+      ],
+      "since": "1.1.0",
+      "deprecated": false,
+      "extends": "Modules.Nfc.TagTechnology",
+      "counts": {
+        "properties": 1,
+        "methods": 6,
+        "events": 0
+      },
+      "members": [
+        "close",
+        "connect",
+        "format",
+        "formatReadOnly",
+        "isConnected",
+        "isValid",
+        "tag"
+      ]
+    },
+    {
+      "name": "Modules.Nfc.TagTechnologyNfcA",
+      "kind": "proxy",
+      "summary": "Provides access to NFC-A (ISO 14443-3A) properties and I/O operations on a [Modules.Nfc.NfcTag](api:Modules.Nfc.NfcTag).",
+      "platforms": [
+        "android"
+      ],
+      "since": "1.1.0",
+      "deprecated": false,
+      "extends": "Modules.Nfc.TagTechnology",
+      "counts": {
+        "properties": 1,
+        "methods": 10,
+        "events": 0
+      },
+      "members": [
+        "close",
+        "connect",
+        "getAtqa",
+        "getMaxTransceiveLength",
+        "getSak",
+        "getTimeout",
+        "isConnected",
+        "isValid",
+        "setTimeout",
+        "tag",
+        "transceive"
+      ]
+    },
+    {
+      "name": "Modules.Nfc.TagTechnologyNfcB",
+      "kind": "proxy",
+      "summary": "Provides access to NFC-B (ISO 14443-3B) properties and I/O operations on a [Modules.Nfc.NfcTag](api:Modules.Nfc.NfcTag).",
+      "platforms": [
+        "android"
+      ],
+      "since": "1.1.0",
+      "deprecated": false,
+      "extends": "Modules.Nfc.TagTechnology",
+      "counts": {
+        "properties": 1,
+        "methods": 8,
+        "events": 0
+      },
+      "members": [
+        "close",
+        "connect",
+        "getApplicationData",
+        "getMaxTransceiveLength",
+        "getProtocolInfo",
+        "isConnected",
+        "isValid",
+        "tag",
+        "transceive"
+      ]
+    },
+    {
+      "name": "Modules.Nfc.TagTechnologyNfcF",
+      "kind": "proxy",
+      "summary": "Provides access to NFC-F (JIS 6319-4) properties and I/O operations on a [Modules.Nfc.NfcTag](api:Modules.Nfc.NfcTag).",
+      "platforms": [
+        "android"
+      ],
+      "since": "1.1.0",
+      "deprecated": false,
+      "extends": "Modules.Nfc.TagTechnology",
+      "counts": {
+        "properties": 1,
+        "methods": 10,
+        "events": 0
+      },
+      "members": [
+        "close",
+        "connect",
+        "getManufacturer",
+        "getMaxTransceiveLength",
+        "getSystemCode",
+        "getTimeout",
+        "isConnected",
+        "isValid",
+        "setTimeout",
+        "tag",
+        "transceive"
+      ]
+    },
+    {
+      "name": "Modules.Nfc.TagTechnologyNfcV",
+      "kind": "proxy",
+      "summary": "Provides access to NFC-V (ISO 15693) properties and I/O operations on a [Modules.Nfc.NfcTag](api:Modules.Nfc.NfcTag).",
+      "platforms": [
+        "android"
+      ],
+      "since": "1.1.0",
+      "deprecated": false,
+      "extends": "Modules.Nfc.TagTechnology",
+      "counts": {
+        "properties": 1,
+        "methods": 8,
+        "events": 0
+      },
+      "members": [
+        "close",
+        "connect",
+        "getDsfId",
+        "getMaxTransceiveLength",
+        "getResponseFlags",
+        "isConnected",
+        "isValid",
+        "tag",
+        "transceive"
+      ]
+    },
+    {
+      "name": "NdefDiscovered",
+      "kind": "pseudo",
+      "summary": "Argument passed to the callback when an NDEF message, tag, or technology is discovered.",
+      "platforms": [
+        "android",
+        "iphone"
+      ],
+      "since": "1.0.0",
+      "deprecated": false,
+      "counts": {
+        "properties": 4,
+        "methods": 0,
+        "events": 0
+      },
+      "members": [
+        "action",
+        "error",
+        "messsages",
+        "tag"
+      ]
+    }
+  ],
+  "inlined": [
+    "NdefInvalidated",
+    "NfcIntentFilter"
+  ]
+}

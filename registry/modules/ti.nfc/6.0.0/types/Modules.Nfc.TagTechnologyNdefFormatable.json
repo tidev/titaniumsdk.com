@@ -1,0 +1,107 @@
+{
+  "schemaVersion": 1,
+  "name": "Modules.Nfc.TagTechnologyNdefFormatable",
+  "kind": "proxy",
+  "extends": "Modules.Nfc.TagTechnology",
+  "inheritanceChain": [
+    "Modules.Nfc.TagTechnology",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android"
+  ],
+  "since": "1.1.0",
+  "summary": "Provide access to NDEF format operations on a [Modules.Nfc.NfcTag](api:Modules.Nfc.NfcTag).",
+  "description": "Use the [Modules.Nfc.createTagTechnologyNdefFormatable](api:Modules.Nfc#createTagTechnologyNdefFormatable) method to create this tag technology.\n\nSee also:\n[NdefFormatable](http://developer.android.com/reference/android/nfc/tech/NdefFormatable.html)\n",
+  "properties": [],
+  "methods": [
+    {
+      "name": "format",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Format a tag as NDEF, and write a [Modules.Nfc.NdefMessage](api:Modules.Nfc.NdefMessage).",
+      "parameters": [
+        {
+          "name": "message",
+          "summary": "The NDEF message to write after formatting, can be null.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Nfc.NdefMessage"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "formatReadOnly",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Formats a tag as NDEF, write a [Modules.Nfc.NdefMessage](api:Modules.Nfc.NdefMessage), and make read-only.",
+      "parameters": [
+        {
+          "name": "message",
+          "summary": "The NDEF message to write after formatting",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Nfc.NdefMessage"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "tag",
+        "from": "Modules.Nfc.TagTechnology",
+        "platforms": [
+          "android"
+        ]
+      }
+    ],
+    "methods": [
+      {
+        "name": "close",
+        "from": "Modules.Nfc.TagTechnology",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "connect",
+        "from": "Modules.Nfc.TagTechnology",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "isConnected",
+        "from": "Modules.Nfc.TagTechnology",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "isValid",
+        "from": "Modules.Nfc.TagTechnology",
+        "platforms": [
+          "android"
+        ]
+      }
+    ],
+    "events": []
+  },
+  "references": [
+    "Modules.Nfc",
+    "Modules.Nfc.NdefMessage",
+    "Modules.Nfc.NfcTag",
+    "Modules.Nfc.TagTechnology"
+  ],
+  "source": "TagTechnology.yml"
+}

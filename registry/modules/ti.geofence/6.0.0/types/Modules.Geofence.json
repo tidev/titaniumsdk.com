@@ -1,0 +1,569 @@
+{
+  "schemaVersion": 1,
+  "name": "Modules.Geofence",
+  "kind": "module",
+  "extends": "Titanium.Module",
+  "inheritanceChain": [
+    "Titanium.Module"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad"
+  ],
+  "since": "3.1.3",
+  "summary": "Provides a battery-efficient way to monitor a device's movement into or out of a geographic region.",
+  "description": "<p class=\"note\">This feature requires a Pro or Enterprise subscription!</p>\n\nYou use the Geofence module to define and monitor geofences in your application. A geofence is a circular\nregion defined by a point (a latitude/longitude pair) and a radius, and represented by the\n[Region](api:Modules.Geofence.Region) object. When a device moves into\nor out of a geofence being monitored, the module notifies your application of the event.\n\nEnterprise customers can also define geofences on the server using the \n<a href=\"/cloud/latest/#!/api/GeoFences-method-create\">Appcelerator Cloud Services API</a>. \nAn application can query the server for any defined geofences and begin monitoring them. \nSee the RegionMonitoring example in the module ZIP download.\n\n## Getting Started\n\nOnce you have [installed](#!/guide/Using_a_Module) the module, use `require()` to access it from JavaScript:\n\n``` javascript\nvar Geofence = require('ti.geofence');\n```\n\n### Location Permissions\n\nPlease ensure to request proper location permissions before attempting to use geofencing feautures. See\n[Titanium.Geolocation.hasLocationPermissions(type)](api:Titanium.Geolocation#hasLocationPermissions) and [Titanium.Geolocation.requestLocationPermissions(type, callback)](api:Titanium.Geolocation#requestLocationPermissions)\nfor details. Example:\n  \n``` javascript\nif (!Ti.Geolocation.hasLocationPermissions(Ti.Geolocation.AUTHORIZATION_ALWAYS)) {\n    Ti.Geolocation.requestLocationPermissions(Ti.Geolocation.AUTHORIZATION_ALWAYS, function (e) {\n        if (!e.success) {\n            alert('Location permissions declined!');\n            return;\n        }\n\n        alert('Location permissions ready');\n        // Initialize monitoring here\n    });\n}\n```\n\n### Creating and monitoring geofence regions\n\nYou use the [Geofence.createRegion()](api:Modules.Geofence#createRegion) method to define a [Region](api:Modules.Geofence.Region) object.\nA geofence is a circular area defined by a point (latitude and longitude) and a radius (in meters).\n\n``` javascript\nvar newRegion = Geofence.createRegion({\n    center: {\n        latitude: 37.389601,\n        longitude: -122.050169\n    },\n    radius: 500,\n    identifier: 'Appcelerator'\n});\n```\n\nTo start monitoring a region, call the [Geofence.startMonitoringForRegions()](api:Modules.Geofence#startMonitoringForRegions) method, passing it the\nregion or regions you want to monitor.\n\n``` javascript\nGeofence.startMonitoringForRegions([region1, region2]);\n```\n\nTo be notified when the device moves into or out of a geofence region, create an event listener\nfor the [enterregions](api:Modules.Geofence#enterregions) or [exitregions](api:Modules.Geofence#exitregions) events, respectively.\nFor example:\n\n``` javascript\nGeofence.addEventListener('enterregions', function (e) {\n    e.regions.forEach(function (region) {\n        // Display local notification\n        showNotification({\n            title: 'ENTER',\n            body: 'enter - ' + region.identifier\n        });\n    });\n});\n```\n\nThe event object passed to the event handler contains a `regions` property that identifies the region(s)\nthat were entered or exited. On iOS this property contains an array of [Region](api:Modules.Geofence.Region) objects;\non Android, it contains an array of generic objects that each contain a property called\n`identifier`. The value of this property corresponds to the one assigned to the [Region](api:Modules.Geofence.Region)\nwhen it was created.\n\n## Testing Geofence monitoring\n\nYou have a few options for testing geofence monitoring in your application. One approach\nis field testing: travel (drive, walk, etc.) between monitored regions while the application is running.\nYou can also pass mock location data to the application running on a device or Simulator.\n\nNote: The timing and frequency of location events may vary from one environment to another (device, OS version, network availability).\n\n### Mock locations from the iOS Simulator\n\nOnce the application is running in the simulator, select **Debug** > **Location** in the Simulator and\nselect a predefined location or route that you would like to be sent to the Simulator. You can\nalso enter a custom location (latitude, longitude).\n\n### Mock locations using Xcode\n\nThis method will work on both the iOS Simulator and on device.\n\n1. Launch your application once, then go to the build folder of your project and open the Xcode project found in **build/iphone/**.\n2. Run your project using Xcode.\n3. Once app is running, in Xcode debug area, click the Simulate Location icon to display a list of mock locations that can be sent to your application.\n5. Select one of these locations to send it to your app.\n    Alternately, click on **Add GPX File to Project...** and select a GPX file with mock locations. A GPX file is provided in the **example/MockLocationData** folder in module download. The route starts at North De Anza Blvd and I-280 in Cupertino, CA and travels north on I-280.\n8. After adding a GPX file, go back and click on the mock locations arrow. The GPX file should now be in the list. Select the mock location to start using it.\n\n### Mock locations on Android\n\nAdd the following to your `tiapp.xml`.\n\n``` xml\n<uses-permission android:name=\"android.permission.ACCESS_MOCK_LOCATION\" />\n```\n\nFor more information, see [Provide Mock Location Data](https://developer.android.com/guide/topics/location/strategies#MockData)\n\n### Sample applications\n\nThe module ZIP file contains two Geofence sample applications (**examples/Basic** and **examples/RegionMonitoring**) \nand a GPX file (**examples/MockLocationData**) for mocking location data in Xcode.\n",
+  "properties": [
+    {
+      "name": "LOCATION_STATUS_ERROR",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Possible value of the `errorcode` property in the [error](api:Modules.Geofence#error) event object indicating an unspecified error occurred.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "LOCATION_STATUS_GEOFENCE_NOT_AVAILABLE",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Possible value of the `errorcode` property in the [error](api:Modules.Geofence#error) event object indicating the geofence service is not available now.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "LOCATION_STATUS_GEOFENCE_TOO_MANY_GEOFENCES",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Possible value of the `errorcode` property in the [error](api:Modules.Geofence#error) event object indicating your application has registered more than 100 geofences.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "LOCATION_STATUS_GEOFENCE_TOO_MANY_PENDING_INTENTS",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Possible value of the `errorcode` property in the [error](api:Modules.Geofence#error) event object.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "monitoredRegions",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "An array of the regions currently being monitored for the current application.",
+      "description": "Example:\n\n``` javascript\nvar regions = Geofence.monitoredRegions;\n```\n",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Array",
+          "args": [
+            {
+              "kind": "type",
+              "name": "Modules.Geofence.Region"
+            }
+          ]
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "REGION_STATE_INSIDE",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Possible value of the `state` property in the [regionstate](api:Modules.Geofence#regionstate) event object.",
+      "description": "The location is inside the given region.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "7.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "REGION_STATE_OUTSIDE",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Possible value of the `state` property in the [regionstate](api:Modules.Geofence#regionstate) event object.",
+      "description": "The location is outside of the given region.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "7.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "REGION_STATE_UNKNOWN",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Possible value of the `state` property in the [regionstate](api:Modules.Geofence#regionstate) event object.",
+      "description": "It is unknown whether the location is inside or outside of the region.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "7.1.0",
+      "permission": "read-only"
+    }
+  ],
+  "methods": [
+    {
+      "name": "createRegion",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Creates a geofence [Region](api:Modules.Geofence.Region).",
+      "description": "Example:\n\n``` javascript\nvar region = Geofence.createRegion({\n    center: {\n        latitude: 37.38960100,\n        longitude: -122.05016900\n    },\n    radius: 30,\n    identifier: 'Appcelerator'\n});\n```\n",
+      "parameters": [
+        {
+          "name": "object",
+          "summary": "Object with properties of the [Region](api:Modules.Geofence.Region) object.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.Geofence.Region"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Geofence.Region"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "isGooglePlayServicesAvailable",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Returns a number value indicating the availability of Google Play Services which are required to monitor regions.",
+      "description": "Possible values include [SUCCESS](Modules.Geofence.SUCCESS), [SERVICE_MISSING](Modules.Geofence.SERVICE_MISSING), [SERVICE_VERSION_UPDATE_REQUIRED](Modules.Geofence.SERVICE_VERSION_UPDATE_REQUIRED), [SERVICE_DISABLED](Modules.Geofence.SERVICE_DISABLED), and [SERVICE_INVALID](Modules.Geofence.SERVICE_INVALID).\nExample:\n    \n``` javascript\nvar Playservices = require('ti.playservices');\nvar hasGooglePlayServices = Playservices.isGooglePlayServicesAvailable();\n```\n",
+      "deprecated": {
+        "since": "3.0.0",
+        "removed": "3.0.0",
+        "notes": "Use [Modules.PlayServices.isGooglePlayServicesAvailable](Modules.PlayServices.isGooglePlayServicesAvailable) in Titanium SDK 7.0.0 and later."
+      },
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "regionMonitoringAvailable",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Returns a boolean that indicates if region monitoring is supported on the current device.",
+      "description": "Example:\n\n``` javascript\nvar canMonitor = Geofence.regionMonitoringAvailable();\n```\n",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "requestStateForRegion",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Asynchronously retrieve the cached state of the specified region.",
+      "description": "The state is returned to the delegate via the `regionstate` event.",
+      "since": "7.1.0"
+    },
+    {
+      "name": "startMonitoringForRegions",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Starts monitoring the [Region(s)](api:Modules.Geofence.Region) passed as a parameter.",
+      "description": "Takes either an array of [Region](api:Modules.Geofence.Region) objects or a single\n[Region](api:Modules.Geofence.Region) object as an argument.\n\nOn Android, if the device is located in a [Region](api:Modules.Geofence.Region) that has just\nstarted being monitored, an [enterregions](api:Modules.Geofence#enterregions)\nevent is generated. On iOS, this scenario will not generate an `enterregions` event;\ninstead, call the [containsCoordinate()](api:Modules.Geofence.Region#containsCoordinate) method \non the newly `Region` object to check if the device is located within it.\n\nEach platform limits the number of regions that can be monitored at one time. On iOS this limit is 20 regions, \nand 100 regions on Android. The following example creates a new Region object and then starts monitoring it.\n\n``` javascript\nvar region1 = Geofence.createRegion({\n    center: {\n        latitude: 37.389601,\n        longitude: -122.050169\n    },\n    radius: 500,\n    identifier: 'Appcelerator'\n});\nGeofence.startMonitoringForRegions(region1);\n```\n",
+      "parameters": [
+        {
+          "name": "Region",
+          "summary": "Either an array of [Region](api:Modules.Geofence.Region) objects or a single [Region](api:Modules.Geofence.Region) object.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.Geofence.Region"
+                }
+              ]
+            },
+            {
+              "kind": "type",
+              "name": "Modules.Geofence.Region"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "stopMonitoringAllRegions",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Stops monitoring all of the regions that are currently being monitored.",
+      "description": "This method is asynchronous on Android. The `removeregions` event will fire on completion.\n\nExample:\n\n``` javascript\nGeofence.stopMonitoringAllRegions();\n```\n"
+    },
+    {
+      "name": "stopMonitoringForRegions",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Stops monitoring the specified region or regions.",
+      "description": "Takes either an array of [Region](api:Modules.Geofence.Region) objects or a single\n[Region](api:Modules.Geofence.Region) object as an argument.\n\nThis method is asynchronous on Android. The `removeregions` event will fire on completion.\n\n``` javascript\nGeofence.stopMonitoringForRegions([region, region1]);\n```\n",
+      "parameters": [
+        {
+          "name": "Region",
+          "summary": "Either an array of [Region](api:Modules.Geofence.Region) objects or a single [Region](api:Modules.Geofence.Region) object.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.Geofence.Region"
+                }
+              ]
+            },
+            {
+              "kind": "type",
+              "name": "Modules.Geofence.Region"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "enterregions",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Fired when the device enters a monitored region.",
+      "properties": [
+        {
+          "name": "regions",
+          "summary": "The region(s) that were entered. On iOS, this property contains an array of [Region](api:Modules.Geofence.Region) objects representing the regions that were entered. On Android, this property contains an array of generic objects, each of which has an [identifier](api:Modules.Geofence.Region#identifier) property that corresponds to the region(s) that were entered.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Dictionary"
+                }
+              ]
+            },
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.Geofence.Region"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "error",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Fired when there is an error, or monitoring failed for a region.",
+      "properties": [
+        {
+          "name": "error",
+          "summary": "A string that describes the error.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "errorcode",
+          "summary": "A number that describes the error (Android, only). Can be one of the following: [LOCATION_STATUS_ERROR](api:Modules.Geofence#LOCATION_STATUS_ERROR), [LOCATION_STATUS_GEOFENCE_NOT_AVAILABLE](api:Modules.Geofence#LOCATION_STATUS_GEOFENCE_NOT_AVAILABLE), [LOCATION_STATUS_GEOFENCE_TOO_MANY_GEOFENCES](api:Modules.Geofence#LOCATION_STATUS_GEOFENCE_TOO_MANY_GEOFENCES), [LOCATION_STATUS_GEOFENCE_TOO_MANY_PENDING_INTENTS](api:Modules.Geofence#LOCATION_STATUS_GEOFENCE_TOO_MANY_PENDING_INTENTS)",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "regions",
+          "summary": "The regions for which monitoring failed. On iOS, this property contains an array of [Region](api:Modules.Geofence.Region) objects representing the regions for which monitoring failed. On Android, this property contains an array of generic objects, each of which has an [identifier](api:Modules.Geofence.Region#identifier) property that corresponds to the region(s) that were entered.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Dictionary"
+                }
+              ]
+            },
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.Geofence.Region"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "exitregions",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Fired when the device exits a monitored region.",
+      "properties": [
+        {
+          "name": "regions",
+          "summary": "The region(s) that were exited. On iOS, this property contains an array of [Region](api:Modules.Geofence.Region) objects representing the regions that were exited. On Android, this property contains an array of generic objects, each of which has an [identifier](api:Modules.Geofence.Region#identifier) property that corresponds to the region(s) that were exited.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Dictionary"
+                }
+              ]
+            },
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.Geofence.Region"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "monitorregions",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Fired when [startMonitoringForRegions()](api:Modules.Geofence#startMonitoringForRegions) and monitoring has successfully started for those regions.",
+      "properties": [
+        {
+          "name": "regions",
+          "summary": "The region(s) for which monitoring has started. On iOS, this property contains an array of [Region](api:Modules.Geofence.Region) objects representing the regions for which monitoring has started. On Android, there is no property for you to check.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Dictionary"
+                }
+              ]
+            },
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.Geofence.Region"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "regionstate",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Fired when [requestStateForRegion()](api:Modules.Geofence#requestStateForRegion) requested a state or there is\na state transition for a monitored region.\n",
+      "properties": [
+        {
+          "name": "region",
+          "summary": "The region that triggered the state change.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Geofence.Region"
+            }
+          ]
+        },
+        {
+          "name": "state",
+          "summary": "The updated region state. One of `REGION_STATE_*`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "removeregions",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Fired on Android when regions are removed using `stopMonitoringForRegions` or `stopMonitoringAllRegions` and monitoring has successfully stopped for those regions.",
+      "properties": [
+        {
+          "name": "regions",
+          "summary": "The region(s) for which monitoring has stopped. On iOS, this property contains an array of [Region](api:Modules.Geofence.Region) objects representing the regions for which monitoring has stopped. On Android, this property contains an array of generic objects, each of which has an [identifier](api:Modules.Geofence.Region#identifier) property that corresponds to the region(s) for which monitoring has stopped.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Dictionary"
+                }
+              ]
+            },
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.Geofence.Region"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "references": [
+    "Modules.Geofence.Region"
+  ],
+  "externalReferences": [
+    "Dictionary",
+    "Modules.Geofence.SERVICE_DISABLED",
+    "Modules.Geofence.SERVICE_INVALID",
+    "Modules.Geofence.SERVICE_MISSING",
+    "Modules.Geofence.SERVICE_VERSION_UPDATE_REQUIRED",
+    "Modules.Geofence.SUCCESS",
+    "Titanium.Geolocation",
+    "Titanium.Module"
+  ],
+  "source": "geofence.yml"
+}

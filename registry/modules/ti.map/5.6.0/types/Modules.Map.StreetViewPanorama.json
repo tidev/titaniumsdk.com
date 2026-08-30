@@ -1,0 +1,141 @@
+{
+  "schemaVersion": 1,
+  "name": "Modules.Map.StreetViewPanorama",
+  "kind": "view",
+  "extends": "Titanium.UI.View",
+  "inheritanceChain": [
+    "Titanium.UI.View"
+  ],
+  "platforms": [
+    "android"
+  ],
+  "since": "5.2.0",
+  "summary": "Provides panoramic 360-degree views from designated roads throughout its coverage area.",
+  "description": "Each street view panorama is an image, or set of images, that provides a full 360-degree view from\na single location. It provides a viewer that renders the panorama as a sphere with a camera at its center.\nA window can only contain one street view.\n",
+  "properties": [
+    {
+      "name": "panning",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Determines whether the user is able to re-orient the camera by dragging.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "default": "true"
+    },
+    {
+      "name": "position",
+      "platforms": [
+        "android"
+      ],
+      "summary": "A dictionary specifying the position of the street view.",
+      "type": [
+        {
+          "kind": "type",
+          "name": "StreetViewPosition"
+        }
+      ],
+      "inlined": {
+        "name": "StreetViewPosition",
+        "summary": "Simple object representing a street view coordinates.",
+        "properties": [
+          {
+            "name": "latitude",
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
+            "summary": "Latitude value for the center point of the view, in decimal degrees.",
+            "type": [
+              {
+                "kind": "primitive",
+                "name": "Number"
+              }
+            ],
+            "default": "0"
+          },
+          {
+            "name": "longitude",
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
+            "summary": "Longitude value for the center point of the view, in decimal degrees.",
+            "type": [
+              {
+                "kind": "primitive",
+                "name": "Number"
+              }
+            ],
+            "default": "0"
+          }
+        ]
+      }
+    },
+    {
+      "name": "streetNames",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Determines whether the user is able to see street names displayed.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "default": "true"
+    },
+    {
+      "name": "userNavigation",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Determines whether the user is able to move to a different panorama.",
+      "description": "If `true`, users can use a single tap on navigation links, or double tap the\nview, to move to a new panorama.    \n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "default": "true"
+    },
+    {
+      "name": "zoom",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Determines whether the user is able to pinch to zoom.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "default": "true"
+    }
+  ],
+  "methods": [],
+  "events": [],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "references": [
+    "StreetViewPosition"
+  ],
+  "externalReferences": [
+    "Titanium.UI.View"
+  ],
+  "source": "StreetViewPanorama.yml"
+}

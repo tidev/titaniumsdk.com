@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "generator": "sha256:ac231061067ed51d0966e3953108bbd9c19cae952495be231d05241eb191edf3",
+  "external": {
+    "repo": "tidev/titanium-sdk",
+    "version": "main",
+    "hash": "sha256:0c8e94bd4e64c06147ad9ff63806ba4cc4617e8aca5fa7095f28472598bbf5a4"
+  },
+  "generatedAt": "2026-08-30T20:27:17.609Z",
+  "sources": {
+    "Bluetooth.yml": {
+      "hash": "sha256:d5c60dfff2877cab3e7c6ab175e9c662b32cf562e10efb0b566c764efa30be98",
+      "types": [
+        "Modules.Bluetooth",
+        "ServerSocketType",
+        "PairedDevicesType"
+      ]
+    },
+    "BluetoothDevice.yml": {
+      "hash": "sha256:79b2d179007859544ee68152f172f5b486cccc21aaeeab1d55ae316335530407",
+      "types": [
+        "Modules.Bluetooth.BluetoothDevice"
+      ]
+    },
+    "BluetoothServerSocket.yml": {
+      "hash": "sha256:3b34442fc55da72e6a47ae7d381d3ff0b8d03d145b562a03fad69ba56550ec0a",
+      "types": [
+        "Modules.Bluetooth.BluetoothServerSocket"
+      ]
+    },
+    "BluetoothSocket.yml": {
+      "hash": "sha256:cf9afcc3fddd8e4d12f76f2b17a9f770110ca16c23c6dcd2884535e89d26aa2e",
+      "types": [
+        "Modules.Bluetooth.BluetoothSocket"
+      ]
+    }
+  },
+  "types": {
+    "Modules.Bluetooth": {
+      "source": "Bluetooth.yml",
+      "extends": "Titanium.Module",
+      "outputHash": "sha256:d36046f5d2f8629e883a3b0cb97a789db546df733f29aeeb11ac76743083416f"
+    },
+    "Modules.Bluetooth.BluetoothDevice": {
+      "source": "BluetoothDevice.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:c053626e4ef577d23b56ffcf9f220ec6ee0b9bfb3f67115e9dc3bf770815214a"
+    },
+    "Modules.Bluetooth.BluetoothServerSocket": {
+      "source": "BluetoothServerSocket.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:921b830be98933f5c9dabcd0f341f3a308cb3821f3c78954f42c2daf1ba4a645"
+    },
+    "Modules.Bluetooth.BluetoothSocket": {
+      "source": "BluetoothSocket.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:05d8b8fdbbe432c30145efa0c1694ec21813555c5d3ef578fa57c45fcbeea867"
+    }
+  }
+}

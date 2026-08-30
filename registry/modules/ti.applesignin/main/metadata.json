@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "ti.applesignin",
+  "version": "main",
+  "mutable": true,
+  "platforms": [
+    "ios"
+  ],
+  "manifests": [
+    {
+      "platform": "ios",
+      "version": "3.1.4",
+      "minsdk": "9.2.0",
+      "apiversion": 2,
+      "architectures": [
+        "arm64",
+        "x86_64"
+      ],
+      "guid": "cb40d586-ff2c-483e-8fac-69d1e82bd94c",
+      "author": "Hans Knöchel",
+      "license": "MIT",
+      "copyright": "Copyright (c) 2019-present by Hans Knöchel",
+      "description": "titanium-apple-sign-in is a Swift based Titanium module.",
+      "mac": false
+    }
+  ],
+  "assets": [],
+  "hasApiDocs": true
+}

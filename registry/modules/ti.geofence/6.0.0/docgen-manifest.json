@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "generator": "sha256:ac231061067ed51d0966e3953108bbd9c19cae952495be231d05241eb191edf3",
+  "external": {
+    "repo": "tidev/titanium-sdk",
+    "version": "main",
+    "hash": "sha256:0c8e94bd4e64c06147ad9ff63806ba4cc4617e8aca5fa7095f28472598bbf5a4"
+  },
+  "generatedAt": "2026-08-30T20:27:29.207Z",
+  "sources": {
+    "geofence.yml": {
+      "hash": "sha256:132be044f07dddff86dc1df32ea69244a0a3eba1f0142ce663877e0ea20f434c",
+      "types": [
+        "Modules.Geofence"
+      ]
+    },
+    "region.yml": {
+      "hash": "sha256:08a476e0bb56286428ab2c1ddcf21949ad3006c638f7123fc61f1f0b6a2465ec",
+      "types": [
+        "Modules.Geofence.Region"
+      ]
+    }
+  },
+  "types": {
+    "Modules.Geofence": {
+      "source": "geofence.yml",
+      "extends": "Titanium.Module",
+      "outputHash": "sha256:1b45d6c6bd27f174eae1d8f9c823bd1e31d2046f9543800c2a7a9b831478fe5f"
+    },
+    "Modules.Geofence.Region": {
+      "source": "region.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:4d27a6e8e831d473d8def6068f5300c968ed337267f12db7f313a958ebef5ad6"
+    }
+  }
+}

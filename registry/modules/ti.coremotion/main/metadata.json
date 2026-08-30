@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "ti.coremotion",
+  "version": "main",
+  "mutable": true,
+  "platforms": [
+    "ios"
+  ],
+  "manifests": [
+    {
+      "platform": "ios",
+      "version": "4.0.1",
+      "minsdk": "9.2.0",
+      "apiversion": 2,
+      "architectures": [
+        "armv7",
+        "arm64",
+        "i386",
+        "x86_64"
+      ],
+      "guid": "bba89061-0fdb-4ff1-95a8-02876f5601f9",
+      "author": "Hans Knoechel",
+      "license": "Apache",
+      "copyright": "Copyright (c) 2015-Present by Appcelerator Inc.",
+      "description": "ti.coremotion"
+    }
+  ],
+  "assets": [],
+  "hasApiDocs": true
+}

@@ -1,0 +1,765 @@
+{
+  "schemaVersion": 1,
+  "name": "Modules.BLE.CentralManager",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad"
+  ],
+  "since": "1.0.0",
+  "summary": "An object that scans for, discovers, connects to, and manages peripherals.",
+  "description": "CentralManager objects manage discovered or connected remote peripheral devices (represented by Peripheral objects), including scanning for, discovering, and connecting to advertising peripherals.\n",
+  "properties": [
+    {
+      "name": "isScanning",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "A Boolean value that indicates whether the central is currently scanning.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "1.0.0"
+    },
+    {
+      "name": "peripherals",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "All discovered peripherals",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Array",
+          "args": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.Peripheral"
+            }
+          ]
+        }
+      ],
+      "since": "1.0.0"
+    },
+    {
+      "name": "state",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "State of the module's internal central manager. For android, it is the current state of the local Bluetooth adapter. Its value is one of the MANAGER_STATE_* constants.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.0.0",
+      "permission": "read-only"
+    }
+  ],
+  "methods": [
+    {
+      "name": "cancelPeripheralConnection",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Cancels an active or pending connection to peripheral. Note that this is non-blocking, and any Peripheral commands that are still pending to peripheral may or may not complete.",
+      "since": "1.0.0",
+      "parameters": [
+        {
+          "name": "peripheral",
+          "summary": "peripheral object which connnection will be canceled",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.Peripheral"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "void"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "connectPeripheral",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Initiates a connection to peripheral. Connection attempts never time out and, depending on the outcome, will result in a call to either didConnectPeripheral or didFailToConnectPeripheral event. Pending attempts are cancelled automatically upon deallocation of peripheral, and explicitly via Modules.BLE.CentralManager.cancelPeripheralConnection}.",
+      "since": "1.0.0",
+      "parameters": [
+        {
+          "name": "peripheral",
+          "summary": "peripheral object to connect",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.Peripheral"
+            }
+          ]
+        },
+        {
+          "name": "options",
+          "summary": "This parameter is specific for the iphone, ipad platforms. An optional dictionary specifying connection behavior options. all available dictionary keys are defined as Modules.BLE.CONNECT_PERIPHERAL_OPTIONS_KEY_*",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Object"
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "void"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "createPeripheral",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Creates a Modules.BLE.Peripheral class object with the given address.",
+      "since": "1.0.0",
+      "parameters": [
+        {
+          "name": "address",
+          "summary": "address of the remote bluetooth device.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.Peripheral"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "isAccessFineLocationPermissionGranted",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Determines whether the ACCESS_FINE_LOCATION permission is granted or not.",
+      "description": "ACCESS_FINE_LOCATION permission is provided at runtime by the app user. To request this permission\nuse [requestAccessFineLocationPermission](api:Modules.BLE.CentralManager#requestAccessFineLocationPermission) method\n",
+      "since": "1.0.0",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ],
+          "summary": "Returns true if the ACCESS_FINE_LOCATION permission is granted"
+        }
+      ]
+    },
+    {
+      "name": "registerForConnectionEvents",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Calls connectionEventDidOccur event when a connection event occurs matching any of the given options. Passing nil in the option parameter clears any prior registered matching options.",
+      "since": "1.0.0",
+      "parameters": [
+        {
+          "name": "peripherals",
+          "summary": "A list of peripherals UUIDs.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "primitive",
+                  "name": "String"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        },
+        {
+          "name": "services",
+          "summary": "A list of services UUIDs.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "primitive",
+                  "name": "String"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "void"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "requestAccessFineLocationPermission",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Request for the `ACCESS_FINE_LOCATION`.",
+      "description": "This permission is necessary for the Bluetooth device to scan the nearby BLE devices or other Bluetooth operations.\n",
+      "since": "1.0.0"
+    },
+    {
+      "name": "retrieveConnectedPeripheralsWithServices",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Returns a list of the peripherals connected to the system whose services match a given set of criteria.",
+      "since": "1.0.0",
+      "parameters": [
+        {
+          "name": "UUIDs",
+          "summary": "A list of service UUIDs.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "primitive",
+                  "name": "String"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.BLE.Peripheral"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "retrievePeripheralsWithIdentifiers",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Returns a list of known peripherals by their identifiers.",
+      "since": "1.0.0",
+      "parameters": [
+        {
+          "name": "UUIDs",
+          "summary": "A list of peripheral identifiers from which Peripheral objects can be retrieved.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "primitive",
+                  "name": "String"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.BLE.Peripheral"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "startScan",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Starts scanning for peripherals.",
+      "since": "1.0.0",
+      "parameters": [
+        {
+          "name": "services",
+          "summary": "The UUIDs of services.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "primitive",
+                  "name": "String"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        },
+        {
+          "name": "options",
+          "summary": "Key/value pairs specifying options for the scan.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.CentralScanOptions"
+            }
+          ],
+          "optional": true,
+          "inlined": {
+            "name": "Modules.BLE.CentralScanOptions",
+            "summary": "Simple object passed to [Modules.BLE.CentralManager.startScan](api:Modules.BLE.CentralManager#startScan) method",
+            "properties": [
+              {
+                "name": "allowDuplicatesKey",
+                "platforms": [
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "A Boolean value that specifies whether the scan should run without duplicate filtering.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Boolean"
+                  }
+                ],
+                "since": "1.0.0"
+              },
+              {
+                "name": "solicitedServiceUUIDsKey",
+                "platforms": [
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "An array of service UUIDs that you want to scan for.",
+                "type": [
+                  {
+                    "kind": "generic",
+                    "name": "Array",
+                    "args": [
+                      {
+                        "kind": "primitive",
+                        "name": "String"
+                      }
+                    ]
+                  }
+                ],
+                "since": "1.0.0"
+              }
+            ]
+          }
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "void"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "stopScan",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Stops scanning for peripherals.",
+      "since": "1.0.0",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "void"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "connectionEventDidOccur",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "This method is called upon the connection or disconnection of a peripheral that matches any of the options provided in registerForConnectionEventsWithOptions",
+      "since": "1.0.0",
+      "properties": [
+        {
+          "name": "event",
+          "summary": "event value will be Moduels.BLE.CONNECTION_EVENT_TYPE_PEER_DISCONNECTED or Moduels.BLE.CONNECTION_EVENT_TYPE_PEER_CONNECTED",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "peripheral",
+          "summary": "object of peripheral.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.Peripheral"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "didConnectPeripheral",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "This event is called when a connection initiated by connectPeripheral has succeeded.",
+      "description": "This event is called when a connection initiated by connectPeripheral has succeeded.\n",
+      "since": "1.0.0",
+      "properties": [
+        {
+          "name": "peripheral",
+          "summary": "An object representing the peripheral that connected to the local central manager.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.Peripheral"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "didDisconnectPeripheral",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "This event is called when a peripheral disconnected.",
+      "description": "This event is called upon the disconnection of a peripheral that was connected by connectPeripheral If the disconnection\nwas not initiated by cancelPeripheralConnection, the cause will be detailed in the error parameter. Once this method has been\ncalled, no more event will be invoked on peripheral.\n",
+      "since": "1.0.0",
+      "properties": [
+        {
+          "name": "peripheral",
+          "summary": "An object representing the peripheral that disconnected.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.Peripheral"
+            }
+          ]
+        },
+        {
+          "name": "errorCode",
+          "summary": "The error code; only present if an error occurred.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "errorDomain",
+          "summary": "The error domain; only present if an error occurred..",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "errorDescription",
+          "summary": "The error description; only peresent if an",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "didDiscoverPeripheral",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "A event called when centrel manager discover peripheral",
+      "description": "This method is invoked while scanning, upon the discovery of peripheral by central. A discovered peripheral must\nbe retained in order to use it; otherwise, it is assumed to not be of interest and will be cleaned up by the central manager. For\na list of discovered peripherals, see peripherals property\n",
+      "since": "1.0.0",
+      "properties": [
+        {
+          "name": "peripheral",
+          "summary": "object of discovered  peripheral",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.Peripheral"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "didFailToConnectPeripheral",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "This event is called when a connection initiated by connectPeripheral has failed.",
+      "description": "This event is called when a connection initiated by connectPeripheral has failed to complete. As connection attempts do not\ntimeout, the failure of a connection is atypical and usually indicative of a transient issue.\n",
+      "since": "1.0.0",
+      "properties": [
+        {
+          "name": "peripheral",
+          "summary": "An object representing the peripheral that failed to connect.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.Peripheral"
+            }
+          ]
+        },
+        {
+          "name": "errorCode",
+          "summary": "The error code; only present if an error occurred.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "errorDomain",
+          "summary": "The error domain; only present if an error occurred..",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "errorDescription",
+          "summary": "The error description; only peresent if an",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "didUpdateANCSAuthorization",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "This event is called when the authorization status changes for a peripheral connected with connectPeripheral with option Modules.BLE.CONNECT_PERIPHERAL_OPTIONS_KEY_REQUIRES_ANCS",
+      "since": "1.0.0",
+      "properties": [
+        {
+          "name": "peripheral",
+          "summary": "object of peripheral which disconnected.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.Peripheral"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "didUpdateState",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "A event called when centrel manager state updated",
+      "description": "Invoked whenever the central manager's state has been updated. Commands should only be issued when the state is\nModules.BLE.MANAGER_STATE_POWERED_ON. A state below Modules.BLE.MANAGER_STATE_POWERED_ON\nimplies that scanning has stopped and any connected peripherals have been disconnected. If the state moves below\nModules.BLE.MANAGER_STATE_POWERED_OFF, all Peripheral objects obtained from this central\nmanager become invalid and must be retrieved or discovered again.\n",
+      "since": "1.0.0",
+      "properties": [
+        {
+          "name": "state",
+          "summary": "state of central manager",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "willRestoreState",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "A event called when centrel manager will restore state",
+      "description": "For apps that opt-in to state preservation and restoration, this is the first event invoked when your app is relaunched into \nthe background to complete some Bluetooth-related task. Use this method to synchronize your app's state with the state of the\nBluetooth system.\n",
+      "since": "1.0.0",
+      "properties": [
+        {
+          "name": "peripherals",
+          "summary": "The array contains all of the peripherals connected to the central manager (or had a pending connection) at the time the system terminated the app.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.BLE.Peripheral"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "services",
+          "summary": "an NSArray of service UUIDs containing all the services the central manager was scanning for at the time the system terminated the app.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.BLE.Service"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "options",
+          "summary": "The dictionary contains all of the peripheral scan options in use by the central manager when the system terminated the app.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.BLE.Service"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "references": [
+    "Modules.BLE.CentralScanOptions",
+    "Modules.BLE.Peripheral",
+    "Modules.BLE.Service"
+  ],
+  "externalReferences": [
+    "Titanium.Proxy"
+  ],
+  "source": "CentralManager.yml"
+}

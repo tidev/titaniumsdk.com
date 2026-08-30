@@ -1,0 +1,181 @@
+{
+  "schemaVersion": 1,
+  "name": "Modules.Facebook.LoginButton",
+  "kind": "view",
+  "extends": "Titanium.UI.View",
+  "inheritanceChain": [
+    "Titanium.UI.View"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad"
+  ],
+  "since": "3.1.0",
+  "summary": "A Facebook Login Button.",
+  "description": "Use the [createLoginButton()](api:Modules.Facebook#createLoginButton) method\nto create a Login button. If you want to request user permissions when the\nuser logs in, set either the [Modules.Facebook.LoginButton.readPermissions](api:Modules.Facebook.LoginButton#readPermissions) or\n[Modules.Facebook.LoginButton.publishPermissions](api:Modules.Facebook.LoginButton#publishPermissions) property, but do not set both.  If both\nproperties are set, the application will throw an exception.  If neither property is set, by\ndefault, only the `user_profile` permission is requested.\n\nThe Login button does not require a click event handler or any listeners.\nClick events on the button are automatically handled by the Facebook module.\n\nThe button changes its label to reflect the current state of the Facebook\nsession.  For example, if the user is already logged in, the button will show \"Logout\".\n\n#### Android Platform Notes\n\nIn Android, the button's width will change depending on the current state it is in. When\nlogged out, it will show \"Log in with Facebook\" and its width will match the length of\nthe text. When logged in, it will show \"Log out\" and its width will match the length of\nthe text.\n\n#### iOS Platform Notes\n\nIn iOS, the width and height of the button can be changed using the `width` and `height` property.\nThe Facebook SDK 4.19.0 and later (used in Ti.Facebook 5.4.0 and later) provides an updated Login \nbutton. The title now is \"Continue with Facebook\" instead of \"Login with Facebook\" and the recommended \nheight is 28px. Please always specify a height for best results.\n",
+  "properties": [
+    {
+      "name": "audience",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Default audience to use for Facebook posts if publish permissions are requested.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "4.0.0",
+      "default": "Modules.Facebook.AUDIENCE_FRIENDS",
+      "constants": [
+        "Modules.Facebook.AUDIENCE_EVERYONE",
+        "Modules.Facebook.AUDIENCE_FRIENDS",
+        "Modules.Facebook.AUDIENCE_ONLY_ME"
+      ]
+    },
+    {
+      "name": "loginTracking",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Gets or sets the desired tracking preference to use for login attempts.",
+      "description": "iOS only. The Facebook Android SDK's `LoginButton` does not support\nLimited Login configuration; on Android, trigger Limited Login by setting\n[Modules.Facebook.loginTracking](api:Modules.Facebook#loginTracking) and\ncalling [Modules.Facebook.authorize](api:Modules.Facebook#authorize) instead\nof using this widget.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "10.0.0",
+      "default": "Modules.Facebook.LOGIN_TRACKING_ENABLED",
+      "constants": [
+        "Modules.Facebook.LOGIN_TRACKING_ENABLED",
+        "Modules.Facebook.LOGIN_TRACKING_LIMITED"
+      ]
+    },
+    {
+      "name": "nonce",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Gets or sets an optional nonce to use for login attempts.",
+      "description": "A valid nonce must be a non-empty string without whitespace.\nAn invalid nonce will not be set. Instead, default unique nonceswill be used\nfor login attempts.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "10.0.0"
+    },
+    {
+      "name": "publishPermissions",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Requested write permissions.\n",
+      "description": "For a complete list of permissions, see the\n[official Facebook Permissions Reference](https://developers.facebook.com/docs/facebook-login/permissions/).\n\nSets the permissions to use when the session is opened. The permissions here should\nonly be write permissions. If any read permissions are included, the login\nattempt by the user will fail. The LoginButton can only be associated with either\nread permissions or publish permissions, but not both. Using both the `readPermissions`\nand `publishPermissions` property on the same instance of LoginButton will result in an\nexception being thrown.\n\nSet this property before the session is open. If this property is set\nafter the session is opened, and the list of permissions passed in is not a subset\nof the permissions granted during the authorization, it will log an error.\n\nSince the session can be automatically opened when the LoginButton is constructed, it is\nimportant to always pass in a consistent set of permissions to this property, or manage\nthe setting of permissions outside of the LoginButton class altogether (by managing\nthe session explicitly).\n",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Array",
+          "args": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ],
+      "since": "4.0.0"
+    },
+    {
+      "name": "readPermissions",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Requested read permissions.\n",
+      "description": "For a complete list of permissions, see the\n[official Facebook Permissions Reference](https://developers.facebook.com/docs/facebook-login/permissions/).\n\nSets the permissions to use when the session is opened. The permissions here can\nonly be read permissions. If any publish permissions are included, the login\nattempt by the user will fail. The LoginButton can only be associated with either\nread permissions or publish permissions, but not both. Using both the `readPermissions`\nand `publishPermissions` property on the same instance of LoginButton will result in an\nexception being thrown.\n\nSet this property before the session is open. If this property is set\nafter the session is opened, and the list of permissions passed in is not a subset\nof the permissions granted during the authorization, it will log an error.\n\nSince the session can be automatically opened when the LoginButton is constructed, it is\nimportant to always pass in a consistent set of permissions to this property, or manage\nthe setting of permissions outside of the LoginButton class altogether (by managing\nthe session explicitly).\n",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Array",
+          "args": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ],
+      "since": "4.0.0"
+    },
+    {
+      "name": "tooltipBehavior",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Gets or sets the desired tooltip behavior.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.1.0",
+      "default": "Modules.Facebook.LOGIN_BUTTON_TOOLTIP_BEHAVIOR_AUTOMATIC",
+      "constants": [
+        "Modules.Facebook.LOGIN_BUTTON_TOOLTIP_BEHAVIOR_AUTOMATIC",
+        "Modules.Facebook.LOGIN_BUTTON_TOOLTIP_BEHAVIOR_DISABLE",
+        "Modules.Facebook.LOGIN_BUTTON_TOOLTIP_BEHAVIOR_FORCE_DISPLAY"
+      ]
+    },
+    {
+      "name": "tooltipColorStyle",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Gets or sets the desired tooltip color style.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.1.0",
+      "default": "Modules.Facebook.LOGIN_BUTTON_TOOLTIP_STYLE_FRIENDLY_BLUE",
+      "constants": [
+        "Modules.Facebook.LOGIN_BUTTON_TOOLTIP_STYLE_FRIENDLY_BLUE",
+        "Modules.Facebook.LOGIN_BUTTON_TOOLTIP_STYLE_NEUTRAL_GRAY"
+      ]
+    }
+  ],
+  "methods": [],
+  "events": [],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "references": [
+    "Modules.Facebook"
+  ],
+  "externalReferences": [
+    "Titanium.UI.View"
+  ],
+  "source": "LoginButton.yml"
+}

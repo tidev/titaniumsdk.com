@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "counts": {
+    "types": 3,
+    "inlined": 1,
+    "members": 20
+  },
+  "types": [
+    {
+      "name": "AuthenticationSessionCallback",
+      "kind": "pseudo",
+      "summary": "The callback which is called when the session is completed successfully or canceled by user.",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "deprecated": false,
+      "counts": {
+        "properties": 3,
+        "methods": 0,
+        "events": 0
+      },
+      "members": [
+        "callbackURL",
+        "error",
+        "success"
+      ]
+    },
+    {
+      "name": "Modules.WebDialog",
+      "kind": "module",
+      "summary": "Allows a Titanium application to use the Safari Controller (iOS) and Chrome Tabs (Android) to create an embedded browser.",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "since": "7.1.0",
+      "deprecated": false,
+      "extends": "Titanium.Module",
+      "counts": {
+        "properties": 3,
+        "methods": 5,
+        "events": 4
+      },
+      "members": [
+        "DISMISS_BUTTON_STYLE_CANCEL",
+        "DISMISS_BUTTON_STYLE_CLOSE",
+        "DISMISS_BUTTON_STYLE_DONE",
+        "close",
+        "createAuthenticationSession",
+        "isOpen",
+        "isSupported",
+        "load",
+        "open",
+        "redirect"
+      ]
+    },
+    {
+      "name": "Modules.WebDialog.AuthenticationSession",
+      "kind": "proxy",
+      "summary": "Authenticate a user with a web service, even if the web service is run by a third party.",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "since": "7.1.0",
+      "deprecated": false,
+      "extends": "Titanium.Proxy",
+      "counts": {
+        "properties": 2,
+        "methods": 2,
+        "events": 1
+      },
+      "members": [
+        "callback",
+        "cancel",
+        "scheme",
+        "start",
+        "url"
+      ]
+    }
+  ],
+  "inlined": [
+    "WebDialogOpenParams"
+  ]
+}

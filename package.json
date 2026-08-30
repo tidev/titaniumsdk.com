@@ -21,7 +21,8 @@
     "tokens": "node scripts/generate-tokens.ts && oxfmt src/app/globals.css",
     "test": "node --test 'scripts/**/*.test.ts' 'src/**/*.test.ts'",
     "assets": "node scripts/sync-doc-assets.ts",
-    "audit:guides": "node scripts/audit-legacy-guides.ts"
+    "audit:guides": "node scripts/audit-legacy-guides.ts",
+    "registry:module-docs": "node scripts/backfill-module-docs.ts"
   },
   "dependencies": {
     "dotenv": "^17.4.2",
