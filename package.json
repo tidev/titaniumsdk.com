@@ -13,6 +13,7 @@
     "fmt": "oxfmt",
     "fmt:check": "oxfmt --check",
     "lint": "oxlint",
+    "redirects": "node scripts/generate-api-redirects.ts",
     "registry:builds": "node scripts/generate-builds.ts",
     "registry:prune": "node scripts/prune-builds.ts",
     "start": "next start",
