@@ -47,7 +47,8 @@ export default async function VersionIndex({ params }: PageProps<'/docs/sdk/[ver
   }
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-10 sm:px-6">
+    // The layout supplies the gutters; this only owns its own measure.
+    <div className="max-w-4xl py-10">
       <header>
         <h1 className="text-3xl font-semibold tracking-tight">SDK API reference</h1>
         <p className="mt-2 text-text-muted">

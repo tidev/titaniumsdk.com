@@ -17,7 +17,7 @@
     "registry:prune": "node scripts/prune-builds.ts",
     "start": "next start",
     "tokens": "node scripts/generate-tokens.ts && oxfmt src/app/globals.css",
-    "test": "node --test 'scripts/**/*.test.ts'",
+    "test": "node --test 'scripts/**/*.test.ts' 'src/**/*.test.ts'",
     "assets": "node scripts/sync-doc-assets.ts"
   },
   "dependencies": {
