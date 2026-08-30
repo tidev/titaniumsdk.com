@@ -15,6 +15,7 @@
     "lint": "oxlint",
     "redirects": "node scripts/generate-api-redirects.ts",
     "registry:builds": "node scripts/generate-builds.ts",
+    "registry:modules": "node scripts/generate-modules.ts",
     "registry:prune": "node scripts/prune-builds.ts",
     "start": "next start",
     "tokens": "node scripts/generate-tokens.ts && oxfmt src/app/globals.css",

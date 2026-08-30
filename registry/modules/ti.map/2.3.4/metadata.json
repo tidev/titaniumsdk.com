@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "ti.map",
+  "version": "2.3.4",
+  "mutable": false,
+  "platforms": [
+    "android"
+  ],
+  "publishedAt": "2015-10-07T11:00:23Z",
+  "tag": "android-2.3.4",
+  "manifests": [
+    {
+      "platform": "android",
+      "version": "2.3.4",
+      "name": "map",
+      "minsdk": "4.1.0",
+      "apiversion": 2,
+      "architectures": [
+        "armeabi",
+        "armeabi-v7a",
+        "x86"
+      ],
+      "guid": "f0d8fd44-86d2-4730-b67d-bd454577aeee",
+      "author": "Hieu Pham",
+      "license": "Apache Public License v2",
+      "copyright": "Copyright (c) 2013 by Appcelerator, Inc.",
+      "description": "External version of Map module to support new Google Map v2 sdk",
+      "respackage": "com.google.android.gms"
+    }
+  ],
+  "assets": [
+    {
+      "platform": "android",
+      "filename": "ti.map-android-2.3.4.zip",
+      "url": "https://github.com/tidev/ti.map/releases/download/android-2.3.4/ti.map-android-2.3.4.zip",
+      "size": 1574701,
+      "tag": "android-2.3.4"
+    }
+  ],
+  "hasApiDocs": false
+}

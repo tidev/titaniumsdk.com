@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "facebook",
+  "version": "8.1.0",
+  "mutable": false,
+  "platforms": [
+    "android"
+  ],
+  "publishedAt": "2019-05-30T22:21:40Z",
+  "tag": "android-8.1.0",
+  "prerelease": true,
+  "manifests": [
+    {
+      "platform": "android",
+      "version": "8.0.0",
+      "name": "Facebook",
+      "minsdk": "7.0.0",
+      "apiversion": 4,
+      "architectures": [
+        "arm64-v8a",
+        "armeabi-v7a",
+        "x86"
+      ],
+      "guid": "e4f7ac61-1ee7-44c5-bc27-fa6876e2dce9",
+      "author": "Mark Mokryn and Ashraf A. S. (Appcelerator)",
+      "license": "Apache License Version 2.0",
+      "copyright": "Copyright (c) 2014 by Mark Mokryn, Copyright (c) 2009-present by Appcelerator",
+      "description": "facebook"
+    }
+  ],
+  "assets": [
+    {
+      "platform": "android",
+      "filename": "facebook-android-8.1.0.zip",
+      "url": "https://github.com/tidev/ti.facebook/releases/download/android-8.1.0/facebook-android-8.1.0.zip",
+      "size": 1466445,
+      "tag": "android-8.1.0"
+    }
+  ],
+  "hasApiDocs": false
+}

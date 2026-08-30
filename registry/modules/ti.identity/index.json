@@ -1,0 +1,169 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "ti.identity",
+  "description": "A collection of API's to authenticate with your device: Keychain/Keystore, Touch ID and Face ID",
+  "repo": "https://github.com/tidev/titanium-identity",
+  "aliases": [
+    "titanium-identity"
+  ],
+  "curation": "tidev",
+  "latest": {
+    "android": "3.2.0",
+    "ios": "5.0.0"
+  },
+  "versions": [
+    {
+      "version": "3.2.0",
+      "platforms": [
+        "android"
+      ],
+      "publishedAt": "2025-09-10T14:10:03Z"
+    },
+    {
+      "version": "5.0.0",
+      "platforms": [
+        "ios"
+      ],
+      "publishedAt": "2022-06-15T07:53:43Z"
+    },
+    {
+      "version": "3.1.0",
+      "platforms": [
+        "android"
+      ],
+      "publishedAt": "2022-04-11T13:03:07Z"
+    },
+    {
+      "version": "4.0.1",
+      "platforms": [
+        "ios"
+      ],
+      "publishedAt": "2021-07-22T23:54:16Z",
+      "prerelease": true
+    },
+    {
+      "version": "4.0.0",
+      "platforms": [
+        "ios"
+      ],
+      "publishedAt": "2021-02-18T14:33:22Z"
+    },
+    {
+      "version": "3.0.3",
+      "platforms": [
+        "android"
+      ],
+      "publishedAt": "2020-09-14T18:53:21Z"
+    },
+    {
+      "version": "3.0.2",
+      "platforms": [
+        "android"
+      ],
+      "publishedAt": "2020-07-23T23:09:24Z"
+    },
+    {
+      "version": "3.0.1",
+      "platforms": [
+        "android"
+      ],
+      "publishedAt": "2020-02-05T23:23:43Z"
+    },
+    {
+      "version": "3.0.0",
+      "platforms": [
+        "android",
+        "ios"
+      ],
+      "publishedAt": "2020-01-31T21:49:58Z"
+    },
+    {
+      "version": "2.2.0",
+      "platforms": [
+        "android"
+      ],
+      "publishedAt": "2019-12-19T23:23:43Z",
+      "prerelease": true
+    },
+    {
+      "version": "1.1.0",
+      "platforms": [
+        "ios"
+      ],
+      "publishedAt": "2019-12-11T20:02:57Z"
+    },
+    {
+      "version": "1.0.6",
+      "platforms": [
+        "ios"
+      ],
+      "publishedAt": "2019-09-27T15:23:06Z"
+    },
+    {
+      "version": "2.1.1",
+      "platforms": [
+        "android"
+      ],
+      "publishedAt": "2019-09-27T15:23:02Z"
+    },
+    {
+      "version": "1.0.5",
+      "platforms": [
+        "ios"
+      ],
+      "publishedAt": "2018-05-11T10:21:37Z"
+    },
+    {
+      "version": "1.0.4",
+      "platforms": [
+        "ios"
+      ],
+      "publishedAt": "2018-03-30T16:04:44Z"
+    },
+    {
+      "version": "2.1.0",
+      "platforms": [
+        "android"
+      ],
+      "publishedAt": "2017-12-21T20:29:05Z"
+    },
+    {
+      "version": "1.0.3",
+      "platforms": [
+        "ios"
+      ],
+      "publishedAt": "2017-12-16T12:47:10Z"
+    },
+    {
+      "version": "2.0.0",
+      "platforms": [
+        "android",
+        "ios"
+      ],
+      "publishedAt": "2017-12-13T16:31:52Z"
+    },
+    {
+      "version": "1.0.2",
+      "platforms": [
+        "ios"
+      ],
+      "publishedAt": "2017-12-04T16:34:05Z"
+    },
+    {
+      "version": "1.0.1",
+      "platforms": [
+        "ios"
+      ],
+      "publishedAt": "2017-11-03T11:31:20Z"
+    },
+    {
+      "version": "1.0.0",
+      "platforms": [
+        "android",
+        "ios"
+      ],
+      "publishedAt": "2017-11-02T06:20:31Z"
+    }
+  ],
+  "readme": "# 🔐 Ti.Identity Module [![Build Status](https://jenkins.appcelerator.org/buildStatus/icon?job=modules%2Ftitanium-identity%2Fmaster)](https://jenkins.appcelerator.org/job/modules/job/titanium-identityy/job/master/) [![@titanium-sdk/facebook](https://img.shields.io/npm/v/@titanium-sdk/ti.identity.png)](https://www.npmjs.com/package/@titanium-sdk/ti.identity)\n\nThis native module allows you to use Fingerprint authentication, Keychain Access and Face authentication (iOS) with Axway Titanium.\n\n## Requirements\n- Titanium SDK 6.2.0 or later\n- iOS 8.0 or later\n- Xcode 8 or later\n\n## Features\n- [x] Use the Fingerprint sensor of your device to authenticate\n- [x] Use the Face detection API's of your device to authenticate (iOS 11+)\n- [x] Store, read, update and delete items with the native keychain\n\n## Example\nPlease see the full-featured example in `ios/example/app.js` and `ios/example/app.js`.\n\n## Build from Source\n- iOS: `appc run -p ios --build-only` from the `ios` directory\n- Android: `appc run -p android --build-only` from the `android` directory\n\n> Note: Please do not use the (deprecated) `build.py` for iOS and `ant` for Android anymore.\n> Those are unified in the above appc-cli these days.\n\n## Author\nHans Knöchel, Axway\n\n## License\nApache 2.0\n\n## Contributing\nCode contributions are greatly appreciated, please submit a new [pull request](https://github.com/appcelerator-modules/titanium-identity/pull/new/master)!\n"
+}

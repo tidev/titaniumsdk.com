@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "ti.playservices",
+  "version": "16.1.5",
+  "mutable": false,
+  "platforms": [
+    "android"
+  ],
+  "publishedAt": "2019-09-04T14:57:08Z",
+  "tag": "v16.1.5",
+  "manifests": [
+    {
+      "platform": "android",
+      "version": "16.1.5",
+      "name": "playservices",
+      "minsdk": "7.0.0",
+      "apiversion": 4,
+      "architectures": [
+        "arm64-v8a",
+        "armeabi-v7a",
+        "x86"
+      ],
+      "guid": "32184149-411f-436b-92a8-c6ddb98a5fb6",
+      "license": "Apache Public License v2",
+      "copyright": "Copyright (c) 2017-2019 by Axway Appcelerator",
+      "description": "Titanium Google Play Services module."
+    }
+  ],
+  "assets": [
+    {
+      "platform": "android",
+      "filename": "ti.playservices-android-16.1.5.zip",
+      "url": "https://github.com/tidev/ti.playservices/releases/download/v16.1.5/ti.playservices-android-16.1.5.zip",
+      "size": 6469031,
+      "tag": "v16.1.5"
+    }
+  ],
+  "hasApiDocs": false
+}

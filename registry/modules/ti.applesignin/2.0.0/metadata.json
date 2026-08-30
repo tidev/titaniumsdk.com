@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "ti.applesignin",
+  "version": "2.0.0",
+  "mutable": false,
+  "platforms": [
+    "ios"
+  ],
+  "publishedAt": "2020-09-14T19:27:31Z",
+  "tag": "v2.0.0",
+  "manifests": [
+    {
+      "platform": "ios",
+      "version": "2.0.0",
+      "name": "titanium-apple-sign-in",
+      "minsdk": "9.2.0",
+      "apiversion": 2,
+      "architectures": [
+        "arm64",
+        "x86_64",
+        "i386",
+        "armv7"
+      ],
+      "guid": "cb40d586-ff2c-483e-8fac-69d1e82bd94c",
+      "author": "Hans Knöchel",
+      "license": "MIT",
+      "copyright": "Copyright (c) 2019 by Hans Knöchel",
+      "description": "titanium-apple-sign-in is a Swift based Titanium module."
+    }
+  ],
+  "assets": [
+    {
+      "platform": "ios",
+      "filename": "ti.applesignin-iphone-2.0.0.zip",
+      "url": "https://github.com/tidev/titanium-apple-sign-in/releases/download/v2.0.0/ti.applesignin-iphone-2.0.0.zip",
+      "size": 235247,
+      "tag": "v2.0.0"
+    }
+  ],
+  "hasApiDocs": false
+}

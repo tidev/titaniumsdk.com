@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "ti.coremotion",
+  "description": "Support for the native iOS CoreMotion framework in Appcelerator Titanium",
+  "repo": "https://github.com/tidev/ti.coremotion",
+  "aliases": [
+    "ti.coremotion"
+  ],
+  "curation": "tidev",
+  "latest": {
+    "ios": "4.0.0"
+  },
+  "versions": [
+    {
+      "version": "4.0.1",
+      "platforms": [
+        "ios"
+      ],
+      "publishedAt": "2021-07-23T00:01:44Z",
+      "prerelease": true
+    },
+    {
+      "version": "4.0.0",
+      "platforms": [
+        "ios"
+      ],
+      "publishedAt": "2021-02-17T21:14:00Z"
+    },
+    {
+      "version": "3.0.0",
+      "platforms": [
+        "ios"
+      ],
+      "publishedAt": "2020-09-15T09:19:34Z"
+    },
+    {
+      "version": "2.1.0",
+      "platforms": [
+        "ios"
+      ],
+      "publishedAt": "2019-10-17T15:28:48Z"
+    },
+    {
+      "version": "2.0.1",
+      "platforms": [
+        "ios"
+      ],
+      "publishedAt": "2016-11-21T03:51:36Z"
+    },
+    {
+      "version": "2.0.0",
+      "platforms": [
+        "ios"
+      ],
+      "publishedAt": "2015-11-14T17:46:31Z"
+    },
+    {
+      "version": "1.1.0",
+      "platforms": [
+        "ios"
+      ],
+      "publishedAt": "2014-12-01T23:00:33Z"
+    },
+    {
+      "version": "1.0.1",
+      "platforms": [
+        "ios"
+      ],
+      "publishedAt": "2014-06-04T22:39:51Z"
+    }
+  ],
+  "readme": "# Core Motion [![Build Status](https://jenkins.appcelerator.org/buildStatus/icon?job=modules%2Fti.coremotion%2Fmaster)](https://jenkins.appcelerator.org/job/modules/job/ti.coremotion/job/master/) [![@titanium-sdk/ti.coremotion](https://img.shields.io/npm/v/@titanium-sdk/ti.coremotion.png)](https://www.npmjs.com/package/@titanium-sdk/ti.coremotion)\n\nThis is the CoreMotion module for Titanium Mobile covering the iOS 7+ APIs of the CoreMotion framework.\n\nThis is the Map Module for Titanium. Please use [JIRA](http://jira.appcelerator.org) to report issues or ask our [TiSlack community](http://tislack.org) for help! :rocket:\n\n## Contributors\n\n* Please see https://github.com/appcelerator-modules/ti.coremotion/graphs/contributors\n* Interested in contributing? Read the [contributors/committer's](https://wiki.appcelerator.org/display/community/Home) guide.\n\n## Build\n```js\ncd iphone\nappc ti build -p ios --build-only\n```\n\n## Legal\n\nThis module is Copyright (c) 2010-present by Axway Appcelerator, Inc. All Rights Reserved. Usage of this module is subject to \nthe Terms of Service agreement with Appcelerator, Inc.  \n\n# Example\n\nPlease check the demo located in `iphone/example/app.js` for using this module.\n"
+}

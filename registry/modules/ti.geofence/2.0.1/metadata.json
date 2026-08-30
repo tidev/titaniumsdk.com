@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "ti.geofence",
+  "version": "2.0.1",
+  "mutable": false,
+  "platforms": [
+    "android",
+    "ios"
+  ],
+  "publishedAt": "2016-10-10T18:28:45Z",
+  "manifests": [
+    {
+      "platform": "android",
+      "version": "2.0.0",
+      "name": "geofence",
+      "minsdk": "6.0.0",
+      "apiversion": 3,
+      "architectures": [
+        "armeabi-v7a",
+        "x86"
+      ],
+      "guid": "a2ed656c-026c-461e-bc0d-95e745ab10ae",
+      "author": "Jon Alter",
+      "license": "Appcelerator Commercial License",
+      "copyright": "Copyright (c) 2013-2016 by Appcelerator, Inc.",
+      "description": "Monitoring geo regions"
+    },
+    {
+      "platform": "ios",
+      "version": "2.0.0",
+      "name": "geofence",
+      "minsdk": "5.0.0.GA",
+      "apiversion": 2,
+      "architectures": [
+        "armv7",
+        "i386",
+        "x86_64",
+        "arm64"
+      ],
+      "guid": "a2ed656c-026c-461e-bc0d-95e745ab10ae",
+      "author": "Jon Alter",
+      "license": "Appcelerator Commercial License",
+      "copyright": "Copyright (c) 2013-2014 by Appcelerator, Inc.",
+      "description": "Monitoring geo regions"
+    }
+  ],
+  "assets": [
+    {
+      "platform": "android",
+      "filename": "ti.geofence-android-2.0.1.zip",
+      "url": "https://github.com/tidev/ti.geofence/releases/download/android-2.0.1/ti.geofence-android-2.0.1.zip",
+      "size": 854203,
+      "tag": "android-2.0.1"
+    },
+    {
+      "platform": "ios",
+      "filename": "ti.geofence-titanium-2.0.1.zip",
+      "url": "https://github.com/tidev/ti.geofence/releases/download/2.0.1/ti.geofence-titanium-2.0.1.zip",
+      "size": 987766,
+      "tag": "2.0.1",
+      "universal": true
+    }
+  ],
+  "hasApiDocs": false
+}

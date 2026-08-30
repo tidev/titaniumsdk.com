@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "facebook",
+  "version": "6.1.0",
+  "mutable": false,
+  "platforms": [
+    "android",
+    "ios"
+  ],
+  "publishedAt": "2016-10-24T22:50:25Z",
+  "manifests": [
+    {
+      "platform": "android",
+      "version": "6.1.0",
+      "name": "Facebook",
+      "minsdk": "6.0.0",
+      "apiversion": 3,
+      "architectures": [
+        "armeabi-v7a",
+        "x86"
+      ],
+      "guid": "e4f7ac61-1ee7-44c5-bc27-fa6876e2dce9",
+      "author": "Mark Mokryn and Ashraf A. S. (Appcelerator)",
+      "license": "Apache License Version 2.0",
+      "copyright": "Copyright (c) 2014 by Mark Mokryn, Copyright (c) 2009-2016 by Appcelerator",
+      "description": "facebook",
+      "respackage": "com.facebook"
+    },
+    {
+      "platform": "ios",
+      "version": "6.0.0",
+      "name": "titanium-facebook",
+      "minsdk": "6.3.0",
+      "apiversion": 2,
+      "architectures": [
+        "armv7",
+        "arm64",
+        "i386",
+        "x86_64"
+      ],
+      "guid": "da8acc57-8673-4692-9282-e3c1a21f5d83",
+      "author": "Mark Mokryn, Ng Chee Kiat and Hans Knoechel",
+      "license": "Apache License Version 2.0",
+      "copyright": "Copyright (c) 2009-present by Axway Appcelerator",
+      "description": "Use the native Facebook iOS SDK in Axway Titanium."
+    }
+  ],
+  "assets": [
+    {
+      "platform": "android",
+      "filename": "facebook-android-6.1.0.zip",
+      "url": "https://github.com/tidev/ti.facebook/releases/download/android-6.1.0/facebook-android-6.1.0.zip",
+      "size": 1268085,
+      "tag": "android-6.1.0"
+    },
+    {
+      "platform": "ios",
+      "filename": "facebook-iphone-6.1.0.zip",
+      "url": "https://github.com/tidev/ti.facebook/releases/download/ios-6.1.0/facebook-iphone-6.1.0.zip",
+      "size": 34757553,
+      "tag": "ios-6.1.0"
+    }
+  ],
+  "hasApiDocs": false
+}

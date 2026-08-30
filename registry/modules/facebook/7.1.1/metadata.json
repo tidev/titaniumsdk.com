@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "facebook",
+  "version": "7.1.1",
+  "mutable": false,
+  "platforms": [
+    "android"
+  ],
+  "publishedAt": "2018-02-10T19:13:02Z",
+  "tag": "android-7.1.1",
+  "manifests": [
+    {
+      "platform": "android",
+      "version": "7.1.1",
+      "name": "Facebook",
+      "minsdk": "7.0.0",
+      "apiversion": 4,
+      "architectures": [
+        "arm64-v8a",
+        "armeabi-v7a",
+        "x86"
+      ],
+      "guid": "e4f7ac61-1ee7-44c5-bc27-fa6876e2dce9",
+      "author": "Mark Mokryn and Ashraf A. S. (Appcelerator)",
+      "license": "Apache License Version 2.0",
+      "copyright": "Copyright (c) 2014 by Mark Mokryn, Copyright (c) 2009-present by Appcelerator",
+      "description": "facebook"
+    }
+  ],
+  "assets": [
+    {
+      "platform": "android",
+      "filename": "facebook-android-7.1.1.zip",
+      "url": "https://github.com/tidev/ti.facebook/releases/download/android-7.1.1/facebook-android-7.1.1.zip",
+      "size": 1351069,
+      "tag": "android-7.1.1"
+    }
+  ],
+  "hasApiDocs": false
+}

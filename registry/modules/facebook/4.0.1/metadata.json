@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "facebook",
+  "version": "4.0.1",
+  "mutable": false,
+  "platforms": [
+    "android"
+  ],
+  "publishedAt": "2015-03-13T22:04:29Z",
+  "tag": "android-4.0.1",
+  "manifests": [
+    {
+      "platform": "android",
+      "version": "4.0.1",
+      "name": "Facebook",
+      "minsdk": "3.5.1.RC",
+      "apiversion": 2,
+      "architectures": [
+        "armeabi",
+        "armeabi-v7a",
+        "x86"
+      ],
+      "guid": "e4f7ac61-1ee7-44c5-bc27-fa6876e2dce9",
+      "author": "Mark Mokryn and Ashraf A. S. (Appcelerator)",
+      "license": "Apache License Version 2.0",
+      "copyright": "Copyright (c) 2014 by Mark Mokryn, Copyright (c) 2009-2015 by Appcelerator",
+      "description": "facebook",
+      "respackage": "com.facebook.android"
+    }
+  ],
+  "assets": [
+    {
+      "platform": "android",
+      "filename": "facebook-android-4.0.1.zip",
+      "url": "https://github.com/tidev/ti.facebook/releases/download/android-4.0.1/facebook-android-4.0.1.zip",
+      "size": 897885,
+      "tag": "android-4.0.1"
+    }
+  ],
+  "hasApiDocs": false
+}

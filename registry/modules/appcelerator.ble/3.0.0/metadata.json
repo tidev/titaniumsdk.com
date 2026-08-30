@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "appcelerator.ble",
+  "version": "3.0.0",
+  "mutable": false,
+  "platforms": [
+    "ios"
+  ],
+  "publishedAt": "2025-09-19T19:20:37Z",
+  "tag": "v3.0.0-iphone",
+  "manifests": [
+    {
+      "platform": "ios",
+      "version": "3.0.0",
+      "name": "BluetoothLowEnergy",
+      "minsdk": "12.0.0",
+      "apiversion": 2,
+      "architectures": [
+        "arm64",
+        "x86_64"
+      ],
+      "guid": "8d0b486f-27ff-4029-a989-56e4a6755e6f",
+      "author": "Axway",
+      "license": "Proprietary",
+      "copyright": "Copyright (c) 2020 by Axway Appcelerator",
+      "description": "Provides BluetoothLowEnergy module for Titanium applications.",
+      "mac": false
+    }
+  ],
+  "assets": [
+    {
+      "platform": "ios",
+      "filename": "appcelerator.ble-iphone-3.0.0.zip",
+      "url": "https://github.com/tidev/appcelerator.ble/releases/download/v3.0.0-iphone/appcelerator.ble-iphone-3.0.0.zip",
+      "size": 408452,
+      "tag": "v3.0.0-iphone"
+    }
+  ],
+  "hasApiDocs": false
+}

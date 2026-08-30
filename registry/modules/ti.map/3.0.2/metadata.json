@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "ti.map",
+  "version": "3.0.2",
+  "mutable": false,
+  "platforms": [
+    "android",
+    "ios"
+  ],
+  "publishedAt": "2016-11-01T20:05:13Z",
+  "manifests": [
+    {
+      "platform": "android",
+      "version": "3.0.1",
+      "name": "map",
+      "minsdk": "6.0.0",
+      "apiversion": 3,
+      "architectures": [
+        "armeabi-v7a",
+        "x86"
+      ],
+      "guid": "f0d8fd44-86d2-4730-b67d-bd454577aeee",
+      "author": "Hieu Pham",
+      "license": "Apache Public License v2",
+      "copyright": "Copyright (c) 2013-2016 by Appcelerator, Inc.",
+      "description": "External version of Map module to support new Google Map v2 sdk",
+      "respackage": "com.google.android.gms"
+    },
+    {
+      "platform": "ios",
+      "version": "3.0.2",
+      "name": "map",
+      "minsdk": "6.2.2.GA",
+      "apiversion": 2,
+      "architectures": [
+        "armv7",
+        "arm64",
+        "i386",
+        "x86_64"
+      ],
+      "guid": "fee93b77-8eb3-418c-8f04-013664c4af83",
+      "author": "Jeff Haynie, Jon Alter, Pedro Enrique, Hans Knöchel, Vijay Singh",
+      "license": "Apache Public License v2",
+      "copyright": "Copyright (c) 2013-present by Axway Appcelerator",
+      "description": "External version of Map module"
+    }
+  ],
+  "assets": [
+    {
+      "platform": "android",
+      "filename": "ti.map-android-3.0.2.zip",
+      "url": "https://github.com/tidev/ti.map/releases/download/android-3.0.2/ti.map-android-3.0.2.zip",
+      "size": 1606488,
+      "tag": "android-3.0.2"
+    },
+    {
+      "platform": "ios",
+      "filename": "ti.map-iphone-3.0.2.zip",
+      "url": "https://github.com/tidev/ti.map/releases/download/ios-3.0.2/ti.map-iphone-3.0.2.zip",
+      "size": 1667531,
+      "tag": "ios-3.0.2"
+    }
+  ],
+  "hasApiDocs": false
+}

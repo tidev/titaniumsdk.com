@@ -1,0 +1,156 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "appcelerator.https",
+  "description": "This Titanium module prevents \"Man-in-the-Middle\" attacks when used with Ti.Network.HTTPClient",
+  "repo": "https://github.com/tidev/appcelerator.https",
+  "aliases": [
+    "appcelerator.https"
+  ],
+  "curation": "tidev",
+  "latest": {
+    "android": "5.0.0",
+    "ios": "3.0.1"
+  },
+  "versions": [
+    {
+      "version": "5.0.0",
+      "platforms": [
+        "android"
+      ],
+      "publishedAt": "2025-10-25T11:54:42Z"
+    },
+    {
+      "version": "2.3.1",
+      "platforms": [
+        "ios"
+      ],
+      "publishedAt": "2020-05-01T12:18:08Z"
+    },
+    {
+      "version": "4.0.0",
+      "platforms": [
+        "android"
+      ],
+      "publishedAt": "2020-05-01T12:18:04Z"
+    },
+    {
+      "version": "3.0.1",
+      "platforms": [
+        "android",
+        "ios"
+      ],
+      "publishedAt": "2018-07-14T11:19:22Z"
+    },
+    {
+      "version": "2.3.0",
+      "platforms": [
+        "ios"
+      ],
+      "publishedAt": "2018-03-09T11:42:27Z"
+    },
+    {
+      "version": "2.1.1",
+      "platforms": [
+        "ios"
+      ],
+      "publishedAt": "2017-11-19T13:35:31Z"
+    },
+    {
+      "version": "3.0.0",
+      "platforms": [
+        "android",
+        "ios"
+      ],
+      "publishedAt": "2017-11-16T22:20:16Z"
+    },
+    {
+      "version": "2.2.0",
+      "platforms": [
+        "android",
+        "ios"
+      ],
+      "publishedAt": "2017-10-24T17:43:13Z"
+    },
+    {
+      "version": "2.1.0",
+      "platforms": [
+        "android",
+        "ios"
+      ],
+      "publishedAt": "2017-10-22T08:52:28Z"
+    },
+    {
+      "version": "1.2.0",
+      "platforms": [
+        "android"
+      ],
+      "publishedAt": "2017-10-11T21:13:06Z",
+      "prerelease": true
+    },
+    {
+      "version": "2.0.2",
+      "platforms": [
+        "android",
+        "ios"
+      ],
+      "publishedAt": "2016-11-14T12:41:56Z"
+    },
+    {
+      "version": "1.1.4",
+      "platforms": [
+        "android",
+        "ios"
+      ],
+      "publishedAt": "2016-11-11T02:47:36Z"
+    },
+    {
+      "version": "2.0.1",
+      "platforms": [
+        "android",
+        "ios"
+      ],
+      "publishedAt": "2016-10-20T08:49:45Z"
+    },
+    {
+      "version": "2.0.0",
+      "platforms": [
+        "android",
+        "ios"
+      ],
+      "publishedAt": "2016-07-27T13:36:30Z"
+    },
+    {
+      "version": "1.1.3",
+      "platforms": [
+        "android",
+        "ios"
+      ],
+      "publishedAt": "2015-11-27T03:01:19Z"
+    },
+    {
+      "version": "1.1.2",
+      "platforms": [
+        "android",
+        "ios"
+      ],
+      "publishedAt": "2015-02-06T17:17:03Z"
+    },
+    {
+      "version": "1.1.1",
+      "platforms": [
+        "android",
+        "ios"
+      ],
+      "publishedAt": "2014-12-09T21:16:47Z"
+    },
+    {
+      "version": "1.0.0",
+      "platforms": [
+        "android",
+        "ios"
+      ],
+      "publishedAt": "2014-08-12T16:21:51Z"
+    }
+  ],
+  "readme": "# Appcelerator HTTPS Module [![Build Status](https://magnum.travis-ci.com/appcelerator-modules/appcelerator.https.svg?token=ph6xdReX6PW2XENunBEH)](https://magnum.travis-ci.com/appcelerator-modules/appcelerator.https)\n\nThis Titanium module for both iOS and Android will prevent a \"Man-in-the-Middle\" attack when used with the standard Ti.Network.createHTTPClient.\n\n\nThe following example does a simple secure GET request that prevents a \"Man-in-the-Middle\" attack.\n\n```JavaScript\n/**\n * This is an example of how to use the appcelerator.https module.\n *\n * Author: Matt Langston\n * Created: 2014.04.29\n */\n\nvar https = require('appcelerator.https'),\n\tsecurityManager,\n\thttpClient;\n\n/*\n * Create a Security Manager for Titanium.Network.HTTPClient that\n * authenticates a currated set of HTTPS servers. It does this by\n * \"pinning\" an HTTPS server's URL to it's public key which I have\n * embedded in my app. The security manager will guarantee that all\n * HTTPClient connections to this URL are to a server that holds the\n * private key corresponding to the public key embedded in my app,\n * therefore authenticating the server.\n *\n * This is what prevents the \"Man-in-the-Middle\" attack.\n *\n * In this example I am pinning two URLs.\n *\n * The first URL, https://dashboard.appcelerator.com, is pinned to the\n * public key in the X.509 certificate in the file named\n * dashboard.appcelerator.com.pem in my App's Resources directory.\n *\n * The second URL, https://www.wellsfargo.com, is pinned to the public\n * key in the X.509 certificate in the file named wellsfargo.der in my\n * App's Resources directory.\n *\n * The X.509 certificate files can have any name and extension you\n * wish, but they must be in the DER binary format.\n */\nsecurityManager = https.createX509CertificatePinningSecurityManager([\n\t{\n\t\turl: \"https://dashboard.appcelerator.com\",\n\t\tserverCertificate: \"dashboard.appcelerator.com.der\"\n\t},\n\t{\n\t\turl: \"https://www.wellsfargo.com\",\n\t\tserverCertificate: \"wellsfargo.der\"\n\t}\n]);\n\n\n/*\n * Create an HTTP client the same way you always have, but pass in an\n * (optional) Security Manager. In this example, we pass in the\n * \"Certificate Pinning Security Manager \" that I configured above.\n */\nhttpClient = Ti.Network.createHTTPClient({\n\t\n    onload: function(e) {\n        Ti.API.info(\"Received text: \" + this.responseText);\n    },\n\t\n    onerror: function(e) {\n        Ti.API.debug(e.error);\n    },\n\t\n    timeout : 5000,\t\t\t\t// in milliseconds\n\n\t// This is new.\n\tsecurityManager: securityManager\n});\n\n\n/*\n * Prepare and use the HTTPS connection in the same way you always\n * have and the Security Manager will authenticate all servers for\n * which it was configured before any communication happens.\n *\n * In this example, the server with the DNS name\n * dashboard.appcelerator.com will be authenticated before any\n * communications happens. A Security Exception it thrown if\n * authentication fails.\n */\nhttpClient.open(\"GET\", \"https://dashboard.appcelerator.com\");\n\n/*\n * Send the request in the same way you always have.\n */\nhttpClient.send();\n```\n\nThis module implements the Enterprise module portion for \"TLS Certificate Pinning\", specifically\n[MOD-1706](https://jira.appcelerator.org/browse/MOD-1706) and\n[MOD-1707](https://jira.appcelerator.org/browse/MOD-1707).\n\nThese are all of the tickets associated with this feature.\n\n* [TIMOB-16856\\]](https://jira.appcelerator.org/browse/TIMOB-16856)  (Story) Prevent HTTPS \"Man-in-the-Middle\" attack\n* [TIMOB-16855\\]](https://jira.appcelerator.org/browse/TIMOB-16855)  (New Feature) iOS: Support custom NSURLConnectionDelegate in TiHTTPRequest\n* [TIMOB-16857\\]](https://jira.appcelerator.org/browse/TIMOB-16857)  (New Feature) Android: Support custom TLS Server Trust evaluation for TiHTTPRequest\n* [MOD-1706\\]](https://jira.appcelerator.org/browse/MOD-1706)  (Module) iOS: Authenticate server in HTTPS connections made by TiHTTPRequest\n* [MOD-1707\\]](https://jira.appcelerator.org/browse/MOD-1707)  (Module) Android: Authenticate server in HTTPS connections made by TiHTTPClient\n"
+}

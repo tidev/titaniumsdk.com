@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "ti.geofence",
+  "version": "3.0.0",
+  "mutable": false,
+  "platforms": [
+    "android",
+    "ios"
+  ],
+  "publishedAt": "2017-11-15T18:48:50Z",
+  "manifests": [
+    {
+      "platform": "android",
+      "version": "2.0.1",
+      "name": "geofence",
+      "minsdk": "6.0.0",
+      "apiversion": 3,
+      "architectures": [
+        "armeabi-v7a",
+        "x86"
+      ],
+      "guid": "a2ed656c-026c-461e-bc0d-95e745ab10ae",
+      "author": "Jon Alter",
+      "license": "Appcelerator Commercial License",
+      "copyright": "Copyright (c) 2013-2016 by Appcelerator, Inc.",
+      "description": "Monitoring geo regions"
+    },
+    {
+      "platform": "ios",
+      "version": "3.0.0",
+      "name": "geofence",
+      "minsdk": "9.2.0",
+      "apiversion": 2,
+      "architectures": [
+        "armv7",
+        "i386",
+        "x86_64",
+        "arm64"
+      ],
+      "guid": "a2ed656c-026c-461e-bc0d-95e745ab10ae",
+      "author": "Jon Alter, Hans Knoechel",
+      "license": "Appcelerator Commercial License",
+      "copyright": "Copyright (c) 2013-2017 by Appcelerator, Inc.",
+      "description": "Monitoring geo regions"
+    }
+  ],
+  "assets": [
+    {
+      "platform": "android",
+      "filename": "ti.geofence-android-3.0.0.zip",
+      "url": "https://github.com/tidev/ti.geofence/releases/download/android-3.0.0/ti.geofence-android-3.0.0.zip",
+      "size": 117145,
+      "tag": "android-3.0.0"
+    },
+    {
+      "platform": "ios",
+      "filename": "ti.geofence-iphone-3.0.0.zip",
+      "url": "https://github.com/tidev/ti.geofence/releases/download/v3.0.0-iphone/ti.geofence-iphone-3.0.0.zip",
+      "size": 282288,
+      "tag": "v3.0.0-iphone"
+    }
+  ],
+  "hasApiDocs": false
+}

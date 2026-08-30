@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "appcelerator.https",
+  "version": "2.3.1",
+  "mutable": false,
+  "platforms": [
+    "ios"
+  ],
+  "publishedAt": "2020-05-01T12:18:08Z",
+  "tag": "v2.3.1-iphone",
+  "manifests": [
+    {
+      "platform": "ios",
+      "version": "2.3.1",
+      "name": "https",
+      "minsdk": "5.0.0",
+      "apiversion": 2,
+      "architectures": [
+        "armv7",
+        "i386",
+        "x86_64",
+        "arm64"
+      ],
+      "guid": "2163621d-1a78-4215-8244-bda08724ffed",
+      "author": "Matt Langston",
+      "license": "Appcelerator Commercial License",
+      "copyright": "Copyright (c) 2014-present by Axway Appcelerator. All Rights Reserved.",
+      "description": "Authenticate server in HTTPS connections made by TiHTTPClient"
+    }
+  ],
+  "assets": [
+    {
+      "platform": "ios",
+      "filename": "appcelerator.https-iphone-2.3.1.zip",
+      "url": "https://github.com/tidev/appcelerator.https/releases/download/v2.3.1-iphone/appcelerator.https-iphone-2.3.1.zip",
+      "size": 674794,
+      "tag": "v2.3.1-iphone"
+    }
+  ],
+  "hasApiDocs": false
+}

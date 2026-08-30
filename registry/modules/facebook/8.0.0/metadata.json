@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "facebook",
+  "version": "8.0.0",
+  "mutable": false,
+  "platforms": [
+    "android",
+    "ios"
+  ],
+  "publishedAt": "2019-09-13T21:06:37Z",
+  "manifests": [
+    {
+      "platform": "android",
+      "version": "8.0.0",
+      "name": "Facebook",
+      "minsdk": "7.0.0",
+      "apiversion": 4,
+      "architectures": [
+        "arm64-v8a",
+        "armeabi-v7a",
+        "x86"
+      ],
+      "guid": "e4f7ac61-1ee7-44c5-bc27-fa6876e2dce9",
+      "author": "Mark Mokryn and Ashraf A. S. (Appcelerator)",
+      "license": "Apache License Version 2.0",
+      "copyright": "Copyright (c) 2014 by Mark Mokryn, Copyright (c) 2009-present by Appcelerator",
+      "description": "facebook"
+    },
+    {
+      "platform": "ios",
+      "version": "8.0.0",
+      "name": "titanium-facebook",
+      "minsdk": "8.0.0",
+      "apiversion": 2,
+      "architectures": [
+        "armv7",
+        "arm64",
+        "i386",
+        "x86_64"
+      ],
+      "guid": "da8acc57-8673-4692-9282-e3c1a21f5d83",
+      "author": "Mark Mokryn, Ng Chee Kiat and Hans Knoechel",
+      "license": "Apache License Version 2.0",
+      "copyright": "Copyright (c) 2009-present by Axway Appcelerator",
+      "description": "Use the native Facebook iOS SDK in Axway Titanium."
+    }
+  ],
+  "assets": [
+    {
+      "platform": "android",
+      "filename": "facebook-android-8.0.0.zip",
+      "url": "https://github.com/tidev/ti.facebook/releases/download/v8.0.0-android/facebook-android-8.0.0.zip",
+      "size": 1406640,
+      "tag": "v8.0.0-android"
+    },
+    {
+      "platform": "ios",
+      "filename": "facebook-iphone-8.0.0.zip",
+      "url": "https://github.com/tidev/ti.facebook/releases/download/v8.0.0-iphone/facebook-iphone-8.0.0.zip",
+      "size": 33565214,
+      "tag": "v8.0.0-iphone"
+    }
+  ],
+  "hasApiDocs": false
+}

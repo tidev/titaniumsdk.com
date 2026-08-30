@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "ti.identity",
+  "version": "1.0.1",
+  "mutable": false,
+  "platforms": [
+    "ios"
+  ],
+  "publishedAt": "2017-11-03T11:31:20Z",
+  "tag": "ios-1.0.1",
+  "manifests": [
+    {
+      "platform": "ios",
+      "version": "1.0.1",
+      "name": "titanium-identity",
+      "minsdk": "6.2.0",
+      "apiversion": 2,
+      "architectures": [
+        "armv7",
+        "arm64",
+        "i386",
+        "x86_64"
+      ],
+      "guid": "ae6ffc93-6e6e-4251-8373-b0cb263a1662",
+      "author": "Hans Knoechel",
+      "license": "Apache 2",
+      "copyright": "Copyright (c) 2017-present by Axway Appcelerator",
+      "description": "titanium-identity"
+    }
+  ],
+  "assets": [
+    {
+      "platform": "ios",
+      "filename": "ti.identity-iphone-1.0.1.zip",
+      "url": "https://github.com/tidev/titanium-identity/releases/download/ios-1.0.1/ti.identity-iphone-1.0.1.zip",
+      "size": 282080,
+      "tag": "ios-1.0.1"
+    }
+  ],
+  "hasApiDocs": false
+}

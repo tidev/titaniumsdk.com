@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "appcelerator.encrypteddatabase",
+  "version": "1.2.0",
+  "mutable": false,
+  "platforms": [
+    "ios"
+  ],
+  "publishedAt": "2015-08-05T03:07:58Z",
+  "tag": "ios-1.2.0",
+  "manifests": [
+    {
+      "platform": "ios",
+      "version": "1.0.4",
+      "name": "encrypteddatabase",
+      "minsdk": "3.3.0",
+      "apiversion": 2,
+      "guid": "d1b3740c-ec53-45c6-8454-8748f91da6ad",
+      "author": "Dawson Toth",
+      "license": "Appcelerator Commercial License",
+      "copyright": "Copyright (c) 2013 by Appcelerator, Inc.",
+      "description": "Provides transparent, secure 256-bit AES encryption of SQLite database files."
+    }
+  ],
+  "assets": [
+    {
+      "platform": "ios",
+      "filename": "appcelerator.encrypteddatabase-iphone-1.2.0.zip",
+      "url": "https://github.com/tidev/appcelerator.encrypteddatabase/releases/download/ios-1.2.0/appcelerator.encrypteddatabase-iphone-1.2.0.zip",
+      "size": 4660103,
+      "tag": "ios-1.2.0"
+    }
+  ],
+  "hasApiDocs": false
+}

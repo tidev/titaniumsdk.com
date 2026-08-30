@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "appcelerator.encrypteddatabase",
+  "version": "2.0.7",
+  "mutable": false,
+  "platforms": [
+    "ios"
+  ],
+  "publishedAt": "2020-03-03T20:47:15Z",
+  "tag": "ios-2.0.7",
+  "manifests": [
+    {
+      "platform": "ios",
+      "version": "2.0.7",
+      "name": "encrypteddatabase",
+      "minsdk": "3.3.0",
+      "apiversion": 2,
+      "architectures": [
+        "armv7",
+        "arm64",
+        "i386",
+        "x86_64"
+      ],
+      "guid": "d1b3740c-ec53-45c6-8454-8748f91da6ad",
+      "author": "Dawson Toth",
+      "license": "Appcelerator Commercial License",
+      "copyright": "Copyright (c) 2013-2018 by Axway, Inc.",
+      "description": "Provides transparent, secure 256-bit AES encryption of SQLite database files."
+    }
+  ],
+  "assets": [
+    {
+      "platform": "ios",
+      "filename": "appcelerator.encrypteddatabase-iphone-2.0.7.zip",
+      "url": "https://github.com/tidev/appcelerator.encrypteddatabase/releases/download/ios-2.0.7/appcelerator.encrypteddatabase-iphone-2.0.7.zip",
+      "size": 6582472,
+      "tag": "ios-2.0.7"
+    }
+  ],
+  "hasApiDocs": false
+}

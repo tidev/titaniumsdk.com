@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "facebook",
+  "version": "16.0.0",
+  "mutable": false,
+  "platforms": [
+    "ios"
+  ],
+  "publishedAt": "2026-05-08T22:13:17Z",
+  "tag": "ios-16.0.0",
+  "manifests": [
+    {
+      "platform": "ios",
+      "version": "16.0.0",
+      "name": "titanium-facebook",
+      "minsdk": "13.0.0",
+      "apiversion": 2,
+      "architectures": [
+        "arm64",
+        "x86_64"
+      ],
+      "guid": "e4f7ac61-1ee7-44c5-bc27-fa6876e2dce9",
+      "author": "Mark Mokryn, Ng Chee Kiat and Hans Knoechel",
+      "license": "Apache License Version 2.0",
+      "copyright": "Copyright (c) 2009-present by Axway Appcelerator",
+      "description": "Use the native Facebook iOS SDK in Axway Titanium.",
+      "mac": true
+    }
+  ],
+  "assets": [
+    {
+      "platform": "ios",
+      "filename": "facebook-iphone-16.0.0.zip",
+      "url": "https://github.com/tidev/ti.facebook/releases/download/ios-16.0.0/facebook-iphone-16.0.0.zip",
+      "size": 38634898,
+      "tag": "ios-16.0.0"
+    }
+  ],
+  "hasApiDocs": false
+}

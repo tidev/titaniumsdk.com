@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "ti.barcode",
+  "version": "6.0.0",
+  "mutable": false,
+  "platforms": [
+    "ios"
+  ],
+  "publishedAt": "2020-09-22T18:18:09Z",
+  "tag": "v6.0.0-iphone",
+  "manifests": [
+    {
+      "platform": "ios",
+      "version": "6.0.0",
+      "name": "barcode",
+      "minsdk": "9.2.0",
+      "apiversion": 2,
+      "architectures": [
+        "armv7",
+        "i386",
+        "x86_64",
+        "arm64"
+      ],
+      "guid": "fe2e658e-0eaf-44a6-b6d1-c074d6b986a3",
+      "author": "Stephen Tramer, Jeff English, Hans Knöchel, Vijay Singh",
+      "license": "Apache License, Version 2.0",
+      "copyright": "Copyright (c) 2010-Present by Axway Appcelerator.",
+      "description": "Lets you process 1D/2D barcodes."
+    }
+  ],
+  "assets": [
+    {
+      "platform": "ios",
+      "filename": "ti.barcode-iphone-6.0.0.zip",
+      "url": "https://github.com/tidev/ti.barcode/releases/download/v6.0.0-iphone/ti.barcode-iphone-6.0.0.zip",
+      "size": 22888128,
+      "tag": "v6.0.0-iphone"
+    }
+  ],
+  "hasApiDocs": false
+}

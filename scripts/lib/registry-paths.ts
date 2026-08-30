@@ -10,6 +10,19 @@ export const RELEASES_DIR = 'registry/sdk';
 export const BUILDS_DIR = 'registry/builds';
 
 /**
+ * Published modules, one directory per manifest `moduleid`.
+ *
+ * Keyed on the module id rather than the repository name because the two differ
+ * for 5 of the 16 repos — tidev/titanium-identity publishes `ti.identity` — and
+ * the id is what an app's tiapp.xml names.
+ */
+export const MODULES_DIR = 'registry/modules';
+
+export const moduleDir = (moduleId: string) => `${MODULES_DIR}/${moduleId}`;
+export const moduleVersionDir = (moduleId: string, version: string) =>
+  `${MODULES_DIR}/${moduleId}/${version}`;
+
+/**
  * Runs whose artifacts no longer exist.
  *
  * Not build data — a negative-result cache, so a regen skips re-fetching

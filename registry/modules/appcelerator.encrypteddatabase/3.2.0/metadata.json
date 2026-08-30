@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "appcelerator.encrypteddatabase",
+  "version": "3.2.0",
+  "mutable": false,
+  "platforms": [
+    "android"
+  ],
+  "publishedAt": "2019-12-17T22:15:55Z",
+  "tag": "android-3.2.0",
+  "manifests": [
+    {
+      "platform": "android",
+      "version": "3.1.0",
+      "name": "encrypteddatabase",
+      "minsdk": "7.0.0",
+      "apiversion": 4,
+      "architectures": [
+        "arm64-v8a",
+        "armeabi-v7a",
+        "x86"
+      ],
+      "guid": "d1b3740c-ec53-45c6-8454-8748f91da6ad",
+      "author": "Dawson Toth",
+      "license": "Appcelerator Commercial License",
+      "copyright": "Copyright (c) 2013-2019 by Axway, Inc.",
+      "description": "Provides transparent, secure 256-bit AES encryption of SQLite database files."
+    }
+  ],
+  "assets": [
+    {
+      "platform": "android",
+      "filename": "appcelerator.encrypteddatabase-android-3.2.0.zip",
+      "url": "https://github.com/tidev/appcelerator.encrypteddatabase/releases/download/android-3.2.0/appcelerator.encrypteddatabase-android-3.2.0.zip",
+      "size": 7012497,
+      "tag": "android-3.2.0"
+    }
+  ],
+  "hasApiDocs": false
+}

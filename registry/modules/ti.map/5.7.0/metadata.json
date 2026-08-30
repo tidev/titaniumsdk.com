@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "ti.map",
+  "version": "5.7.0",
+  "mutable": false,
+  "platforms": [
+    "android"
+  ],
+  "publishedAt": "2025-09-10T14:08:11Z",
+  "tag": "v5.7.0-android",
+  "manifests": [
+    {
+      "platform": "android",
+      "version": "5.7.0",
+      "name": "map",
+      "minsdk": "12.7.0",
+      "apiversion": 4,
+      "architectures": [
+        "arm64-v8a",
+        "armeabi-v7a",
+        "x86",
+        "x86_64"
+      ],
+      "guid": "f0d8fd44-86d2-4730-b67d-bd454577aeee",
+      "author": "Appcelerator",
+      "license": "Apache Public License v2",
+      "copyright": "Copyright (c) 2013-present by Axway, Inc.",
+      "description": "External version of Map module using native Google Maps library",
+      "respackage": "com.google.android.gms"
+    }
+  ],
+  "assets": [
+    {
+      "platform": "android",
+      "filename": "ti.map-android-5.7.0.zip",
+      "url": "https://github.com/tidev/ti.map/releases/download/v5.7.0-android/ti.map-android-5.7.0.zip",
+      "size": 285073,
+      "tag": "v5.7.0-android"
+    }
+  ],
+  "hasApiDocs": false
+}

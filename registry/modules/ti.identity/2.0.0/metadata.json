@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "ti.identity",
+  "version": "2.0.0",
+  "mutable": false,
+  "platforms": [
+    "android",
+    "ios"
+  ],
+  "publishedAt": "2017-12-13T16:31:52Z",
+  "manifests": [
+    {
+      "platform": "android",
+      "version": "2.0.0",
+      "name": "titanium-identity",
+      "minsdk": "7.0.0",
+      "apiversion": 4,
+      "architectures": [
+        "arm64-v8a",
+        "armeabi-v7a",
+        "x86"
+      ],
+      "guid": "c3d987a8-8bd4-42cd-a3e4-2a75952d1ea0",
+      "author": "Hans Knoechel",
+      "license": "Specify your license",
+      "copyright": "Copyright (c) 2017 by Your Company",
+      "description": "titanium-identity"
+    },
+    {
+      "platform": "ios",
+      "version": "2.0.0",
+      "name": "titanium-identity",
+      "minsdk": "9.2.0",
+      "apiversion": 2,
+      "architectures": [
+        "armv7",
+        "arm64",
+        "i386",
+        "x86_64"
+      ],
+      "guid": "ae6ffc93-6e6e-4251-8373-b0cb263a1662",
+      "author": "Hans Knoechel",
+      "license": "Apache 2",
+      "copyright": "Copyright (c) 2017-present by Axway Appcelerator",
+      "description": "titanium-identity"
+    }
+  ],
+  "assets": [
+    {
+      "platform": "android",
+      "filename": "ti.identity-android-2.0.0.zip",
+      "url": "https://github.com/tidev/titanium-identity/releases/download/android-2.0.0/ti.identity-android-2.0.0.zip",
+      "size": 103207,
+      "tag": "android-2.0.0"
+    },
+    {
+      "platform": "ios",
+      "filename": "ti.identity-iphone-2.0.0.zip",
+      "url": "https://github.com/tidev/titanium-identity/releases/download/v2.0.0-iphone/ti.identity-iphone-2.0.0.zip",
+      "size": 479650,
+      "tag": "v2.0.0-iphone"
+    }
+  ],
+  "hasApiDocs": false
+}

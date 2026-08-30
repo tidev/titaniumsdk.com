@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "ti.map",
+  "version": "2.8.2",
+  "mutable": false,
+  "platforms": [
+    "ios"
+  ],
+  "publishedAt": "2017-01-21T12:51:58Z",
+  "tag": "ios-2.8.2",
+  "manifests": [
+    {
+      "platform": "ios",
+      "version": "2.8.2",
+      "name": "map",
+      "minsdk": "5.1.0",
+      "apiversion": 2,
+      "architectures": [
+        "armv7",
+        "arm64",
+        "i386",
+        "x86_64"
+      ],
+      "guid": "fee93b77-8eb3-418c-8f04-013664c4af83",
+      "author": "Jeff Haynie, Jon Alter, & Pedro Enrique",
+      "license": "Apache Public License v2",
+      "copyright": "Copyright (c) 2013-2016 by Appcelerator, Inc.",
+      "description": "External version of Map module"
+    }
+  ],
+  "assets": [
+    {
+      "platform": "ios",
+      "filename": "ti.map-iphone-2.8.2.zip",
+      "url": "https://github.com/tidev/ti.map/releases/download/ios-2.8.2/ti.map-iphone-2.8.2.zip",
+      "size": 1610201,
+      "tag": "ios-2.8.2"
+    }
+  ],
+  "hasApiDocs": false
+}

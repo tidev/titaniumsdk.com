@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "ti.nfc",
+  "version": "5.0.0",
+  "mutable": false,
+  "platforms": [
+    "android"
+  ],
+  "publishedAt": "2021-09-03T21:39:55Z",
+  "tag": "v5.0.0-android",
+  "manifests": [
+    {
+      "platform": "android",
+      "version": "5.0.0",
+      "name": "nfc",
+      "minsdk": "9.0.0",
+      "apiversion": 4,
+      "architectures": [
+        "arm64-v8a",
+        "armeabi-v7a",
+        "x86",
+        "x86_64"
+      ],
+      "guid": "50513178-f1da-40e1-8031-75c08db86d6f",
+      "author": "Jeff English",
+      "license": "Apache Public License v2",
+      "copyright": "Copyright (c) 2013 by Appcelerator, Inc.",
+      "description": "Near Field Communication (NFC)"
+    }
+  ],
+  "assets": [
+    {
+      "platform": "android",
+      "filename": "ti.nfc-android-5.0.0.zip",
+      "url": "https://github.com/tidev/ti.nfc/releases/download/v5.0.0-android/ti.nfc-android-5.0.0.zip",
+      "size": 7818858,
+      "tag": "v5.0.0-android"
+    }
+  ],
+  "hasApiDocs": false
+}

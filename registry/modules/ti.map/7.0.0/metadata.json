@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "ti.map",
+  "version": "7.0.0",
+  "mutable": false,
+  "platforms": [
+    "ios"
+  ],
+  "publishedAt": "2022-06-15T08:01:25Z",
+  "tag": "v7.0.0-ios",
+  "manifests": [
+    {
+      "platform": "ios",
+      "version": "7.0.0",
+      "name": "map",
+      "minsdk": "10.0.0.GA",
+      "apiversion": 2,
+      "architectures": [
+        "arm64",
+        "x86_64"
+      ],
+      "guid": "f0d8fd44-86d2-4730-b67d-bd454577aeee",
+      "author": "Jeff Haynie, Jon Alter, Pedro Enrique, Hans Knöchel, Vijay Singh",
+      "license": "Apache Public License v2",
+      "copyright": "Copyright (c) 2013-present by Axway Appcelerator",
+      "description": "External version of Map module",
+      "mac": true
+    }
+  ],
+  "assets": [
+    {
+      "platform": "ios",
+      "filename": "ti.map-iphone-7.0.0.zip",
+      "url": "https://github.com/tidev/ti.map/releases/download/v7.0.0-ios/ti.map-iphone-7.0.0.zip",
+      "size": 774881,
+      "tag": "v7.0.0-ios"
+    }
+  ],
+  "hasApiDocs": false
+}

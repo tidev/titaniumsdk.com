@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "moduleId": "appcelerator.ble",
+  "version": "2.0.0",
+  "mutable": false,
+  "platforms": [
+    "android"
+  ],
+  "publishedAt": "2021-10-06T20:28:25Z",
+  "tag": "v2.0.0-android",
+  "manifests": [
+    {
+      "platform": "android",
+      "version": "2.0.0",
+      "name": "BluetoothLowEnergy",
+      "minsdk": "10.0.0",
+      "apiversion": 4,
+      "architectures": [
+        "arm64-v8a",
+        "armeabi-v7a",
+        "x86",
+        "x86_64"
+      ],
+      "guid": "8d0b486f-27ff-4029-a989-56e4a6755e6f",
+      "author": "Axway",
+      "license": "Proprietary",
+      "copyright": "Copyright (c) 2020 by Axway Appcelerator",
+      "description": "Provides BluetoothLowEnergy module for Titanium applications."
+    }
+  ],
+  "assets": [
+    {
+      "platform": "android",
+      "filename": "appcelerator.ble-android-2.0.0.zip",
+      "url": "https://github.com/tidev/appcelerator.ble/releases/download/v2.0.0-android/appcelerator.ble-android-2.0.0.zip",
+      "size": 355496,
+      "tag": "v2.0.0-android"
+    }
+  ],
+  "hasApiDocs": false
+}
