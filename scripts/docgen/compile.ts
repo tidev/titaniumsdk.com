@@ -1,4 +1,10 @@
 import { emit } from './emit.ts';
+import {
+  externalLabel,
+  loadExternalCorpus,
+  type ExternalCorpus,
+  type ExternalSource,
+} from './external.ts';
 import { loadApiDocs, type LoadResult } from './load.ts';
 import {
   describe,
@@ -39,6 +45,16 @@ export type CompileOptions = {
    * whose corpus it is holding cannot tell a fixed reference from an absent one.
    */
   sourceRepo?: string;
+  /**
+   * A corpus compiled from another repo that this one's references resolve into.
+   *
+   * A module's prose says `<Titanium.UI.View>`, a type its own compile never
+   * sees; pointed at the SDK's compiled index those references link, and one
+   * naming something the SDK does not have fails the compile instead of
+   * rendering as literal text. The version is the caller's to state: which SDK a
+   * module documents against is a decision, not a default.
+   */
+  external?: ExternalSource;
   log?: (message: string) => void;
 };
 
@@ -53,6 +69,8 @@ export type CompileResult = {
   inlined: number;
   /** Unresolved references that are on the allowlist, so not fatal. */
   knownBroken: number;
+  /** Distinct types in the external corpus that this compile linked to. */
+  crossRepo: number;
   /** Allowlist entries that no longer occur — upstream fixed them. */
   staleAllowlist: string[];
 };
@@ -74,8 +92,20 @@ export function compile(options: CompileOptions): CompileResult {
 
   if (!existsSync(apidoc)) throw new CompileError(`no such directory: ${apidoc}`);
 
+  let external: ExternalCorpus | undefined;
+  if (options.external) {
+    try {
+      external = loadExternalCorpus(options.external);
+    } catch (err) {
+      throw new CompileError((err as Error).message);
+    }
+  }
+
   const { types, sources, problems } = loadApiDocs(apidoc);
   log(`${sources.length} source files, ${types.size} types`);
+  if (external) {
+    log(`resolving into ${externalLabel(external)}: ${external.members.size} types`);
+  }
 
   if (problems.length) {
     // Surfaced, never swallowed. The old pipeline silently collided two distinct
@@ -89,7 +119,12 @@ export function compile(options: CompileOptions): CompileResult {
   // make the dry run useless for seeing what an incremental build would touch.
   const previous = readManifest(manifestPath);
   const generator = generatorHash();
-  const work = plan(previous, sources, types, generator);
+  const externalRecord = external && {
+    repo: external.repo,
+    version: external.version,
+    hash: external.hash,
+  };
+  const work = plan(previous, sources, types, generator, externalRecord);
 
   log(`\n${describe(work)}`);
   if (work.removedTypes.length) {
@@ -106,11 +141,12 @@ export function compile(options: CompileOptions): CompileResult {
     removed: [],
     inlined: 0,
     knownBroken: 0,
+    crossRepo: 0,
     staleAllowlist: [],
   };
   if (planOnly) return empty;
 
-  const resolved = resolveAll(types);
+  const resolved = resolveAll(types, external);
 
   // Broken cross-references fail the compile rather than shipping a dead link.
   // The ones already in the source are listed in known-broken-refs.json so that
@@ -141,6 +177,14 @@ export function compile(options: CompileOptions): CompileResult {
     log(`\n${resolved.problems.length} known-broken reference(s) left unlinked`);
   }
 
+  const crossRepo = new Set<string>();
+  if (external) {
+    for (const t of resolved.types.values()) {
+      for (const r of t.externalReferences ?? []) if (external.members.has(r)) crossRepo.add(r);
+    }
+    log(`\n${crossRepo.size} type(s) linked in ${externalLabel(external)}`);
+  }
+
   const out = emit(
     outDir,
     resolved,
@@ -160,6 +204,7 @@ export function compile(options: CompileOptions): CompileResult {
   const manifest: Manifest = {
     schemaVersion: MANIFEST_VERSION,
     generator,
+    ...(externalRecord ? { external: externalRecord } : {}),
     // Held steady when nothing changed, so an unchanged run leaves the tree
     // clean and the commit step has an empty diff rather than a timestamp.
     generatedAt:
@@ -188,6 +233,7 @@ export function compile(options: CompileOptions): CompileResult {
     removed: out.removed,
     inlined: resolved.inlined.size,
     knownBroken: resolved.problems.length,
+    crossRepo: crossRepo.size,
     staleAllowlist: stale,
   };
 }

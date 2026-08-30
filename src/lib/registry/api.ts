@@ -200,6 +200,15 @@ export const ApiIndexSchema = z.strictObject({
         methods: z.number().int().nonnegative(),
         events: z.number().int().nonnegative(),
       }),
+      /**
+       * Every member name the type's page carries, declared and inherited,
+       * flattened because that is what a `#member` anchor addresses.
+       *
+       * Carried in the index because docgen compiles one repo at a time: a
+       * module resolving `<Titanium.UI.ANIMATION_CURVE_LINEAR>` has only this
+       * file to check the member against, and counts cannot answer it.
+       */
+      members: z.array(z.string()),
     })
   ),
   /** Pseudo-types folded into a referent; no file is emitted for these. */

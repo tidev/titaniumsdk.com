@@ -19,7 +19,7 @@
     "macos": "9.2.0"
   },
   "summary": "Represents a labeled point of interest on the map that the user can click on.",
-  "description": "The `Annotation` object gives you low-level control over annotations that can be added to\n[map view](api:Modules.Map.View). An annotation must have its `latitude` and `longitude`\nproperties set to appear on a map.\n\nUse the [Modules.Map.createAnnotation](api:Modules.Map#createAnnotation) method to create an annotation.  Starting with Alloy\n1.4.0, use the **`<Annotation>`** Alloy element to define one in XML markup.\n\nAn annotation can also have a title, a subtitle, and two inset buttons or views on the left\nand right side of the title. All of these items are optional.\n\nThe controls on the left and right side of the annotation can be specified in one of two\nways:\n\n* To display an image, set the [leftButton](Titanium.Map.Annotation.leftButton) or\n  [rightButton](Titanium.Map.Annotation.rightButton) property to an image URL. (On\n  iOS, you can also use a [SystemButton](Titanium.UI.iPhone.SystemButton) constant\n  to use one of the native system button icons.)\n\n* To add another type of view to the annotation, set the\n  [leftView](Titanium.Map.Annotation.leftView) or\n  [rightView](Titanium.Map.Annotation.rightView) property to a [View](Titanium.UI.View)\n  object.\n\nAn annotation has two states: selected and deselected. A deselected annotation\nis marked by a pin image. When the user selects the pin, the full annotation is\ndisplayed.\n\nYou can specify a custom image for the map pin by setting the\n[image](api:Modules.Map.Annotation#image) property.\n\nWhen the user clicks on an annotation, a `click` event is generated.\n\nOn iOS, You can add a click event listener to a specific annotation, or add a\nclick event listener to the map view to receive click events from all annotations\non the map.\n\nOn Android, you must add the click event listener to the map view; the annotation\nitself does not generate these events.\n",
+  "description": "The `Annotation` object gives you low-level control over annotations that can be added to\n[map view](api:Modules.Map.View). An annotation must have its `latitude` and `longitude`\nproperties set to appear on a map.\n\nUse the [Modules.Map.createAnnotation](api:Modules.Map#createAnnotation) method to create an annotation.  Starting with Alloy\n1.4.0, use the **`<Annotation>`** Alloy element to define one in XML markup.\n\nAn annotation can also have a title, a subtitle, and two inset buttons or views on the left\nand right side of the title. All of these items are optional.\n\nThe controls on the left and right side of the annotation can be specified in one of two\nways:\n\n* To display an image, set the [leftButton](Titanium.Map.Annotation.leftButton) or\n  [rightButton](Titanium.Map.Annotation.rightButton) property to an image URL. (On\n  iOS, you can also use a [SystemButton](Titanium.UI.iPhone.SystemButton) constant\n  to use one of the native system button icons.)\n\n* To add another type of view to the annotation, set the\n  [leftView](Titanium.Map.Annotation.leftView) or\n  [rightView](Titanium.Map.Annotation.rightView) property to a [View](api:Titanium.UI.View)\n  object.\n\nAn annotation has two states: selected and deselected. A deselected annotation\nis marked by a pin image. When the user selects the pin, the full annotation is\ndisplayed.\n\nYou can specify a custom image for the map pin by setting the\n[image](api:Modules.Map.Annotation#image) property.\n\nWhen the user clicks on an annotation, a `click` event is generated.\n\nOn iOS, You can add a click event listener to a specific annotation, or add a\nclick event listener to the map view to receive click events from all annotations\non the map.\n\nOn Android, you must add the click event listener to the map view; the annotation\nitself does not generate these events.\n",
   "properties": [
     {
       "name": "annotationDisplayPriority",
@@ -44,7 +44,9 @@
         }
       },
       "constants": [
-        "Modules.Map.FEATURE_DISPLAY_PRIORITY_*"
+        "Modules.Map.FEATURE_DISPLAY_PRIORITY_DEFAULT_HIGH",
+        "Modules.Map.FEATURE_DISPLAY_PRIORITY_DEFAULT_LOW",
+        "Modules.Map.FEATURE_DISPLAY_PRIORITY_REQUIRED"
       ]
     },
     {
@@ -75,7 +77,7 @@
       "description": "By default, the center point of an annotation view is placed at the coordinate point of the\nassociated annotation. Use this property to reposition the annotation view as needed.\nPositive offset values move the annotation view down and right, while negative values\nmove it up and left.\n",
       "type": [
         {
-          "kind": "unknown",
+          "kind": "type",
           "name": "Point"
         }
       ]
@@ -131,7 +133,8 @@
         }
       },
       "constants": [
-        "Modules.Map.ANNOTATION_VIEW_COLLISION_MODE_*"
+        "Modules.Map.ANNOTATION_VIEW_COLLISION_MODE_CIRCLE",
+        "Modules.Map.ANNOTATION_VIEW_COLLISION_MODE_RECTANGLE"
       ]
     },
     {
@@ -146,7 +149,7 @@
       "description": "Must be set during creation. **User interaction is disabled on the view.**\nNo view interaction events (click, touchstart etc) will be fired.\n",
       "type": [
         {
-          "kind": "unknown",
+          "kind": "type",
           "name": "Titanium.UI.View"
         }
       ],
@@ -204,7 +207,7 @@
           "name": "String"
         },
         {
-          "kind": "unknown",
+          "kind": "type",
           "name": "Titanium.Blob"
         }
       ],
@@ -255,7 +258,7 @@
       "description": "This is ignored if the `leftButton` property is set.\n",
       "type": [
         {
-          "kind": "unknown",
+          "kind": "type",
           "name": "Titanium.UI.View"
         }
       ],
@@ -358,7 +361,7 @@
           "name": "String"
         },
         {
-          "kind": "unknown",
+          "kind": "type",
           "name": "Titanium.Blob"
         }
       ],
@@ -406,7 +409,7 @@
           "name": "String"
         },
         {
-          "kind": "unknown",
+          "kind": "type",
           "name": "Titanium.Blob"
         }
       ],
@@ -439,7 +442,9 @@
         }
       },
       "constants": [
-        "Modules.Map.FEATURE_VISIBILITY_*"
+        "Modules.Map.FEATURE_VISIBILITY_ADAPTIVE",
+        "Modules.Map.FEATURE_VISIBILITY_HIDDEN",
+        "Modules.Map.FEATURE_VISIBILITY_VISIBLE"
       ]
     },
     {
@@ -464,7 +469,9 @@
         }
       },
       "constants": [
-        "Modules.Map.FEATURE_VISIBILITY_*"
+        "Modules.Map.FEATURE_VISIBILITY_ADAPTIVE",
+        "Modules.Map.FEATURE_VISIBILITY_HIDDEN",
+        "Modules.Map.FEATURE_VISIBILITY_VISIBLE"
       ]
     },
     {
@@ -496,10 +503,10 @@
         "macos"
       ],
       "summary": "The preview context used in the 3D-Touch feature \"Peek and Pop\".",
-      "description": "Preview context to present the \"Peek and Pop\" of a view. Use an configured instance\nof <Titanium.UI.iOS.PreviewContext> here.\n\nNote: This property can only be used on devices running iOS9 or later and supporting 3D-Touch.\nIt is ignored on older devices and can manually be checked using <Titanium.UI.iOS.forceTouchSupported>.\n",
+      "description": "Preview context to present the \"Peek and Pop\" of a view. Use an configured instance\nof [Titanium.UI.iOS.PreviewContext](api:Titanium.UI.iOS.PreviewContext) here.\n\nNote: This property can only be used on devices running iOS9 or later and supporting 3D-Touch.\nIt is ignored on older devices and can manually be checked using [Titanium.UI.iOS.forceTouchSupported](api:Titanium.UI.iOS#forceTouchSupported).\n",
       "type": [
         {
-          "kind": "unknown",
+          "kind": "type",
           "name": "Titanium.UI.iOS.PreviewContext"
         }
       ],
@@ -539,7 +546,7 @@
       "description": "This is ignored if the `rightButton` property is set.\n",
       "type": [
         {
-          "kind": "unknown",
+          "kind": "type",
           "name": "Titanium.UI.View"
         }
       ],
@@ -715,6 +722,14 @@
   "references": [
     "Modules.Map",
     "Modules.Map.View"
+  ],
+  "externalReferences": [
+    "Point",
+    "Titanium.Blob",
+    "Titanium.Proxy",
+    "Titanium.UI.View",
+    "Titanium.UI.iOS",
+    "Titanium.UI.iOS.PreviewContext"
   ],
   "source": "Annotation.yml"
 }

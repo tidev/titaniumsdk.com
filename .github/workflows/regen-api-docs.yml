@@ -20,6 +20,10 @@ on:
         description: 'Registry version to write. `main` is the only mutable one.'
         required: false
         default: main
+      sdk:
+        description: 'Compiled SDK a module resolves its Titanium.* references against'
+        required: false
+        default: main
 
 # One regen at a time per source. Two dispatches for the same repo would race on
 # the same output paths and on the commit; different repos write to different
@@ -38,6 +42,10 @@ jobs:
       SOURCE_REPO: ${{ github.event.client_payload.repo || inputs.repo }}
       SOURCE_REF: ${{ github.event.client_payload.ref || inputs.ref }}
       TARGET_VERSION: ${{ github.event.client_payload.version || inputs.version || 'main' }}
+      # Which compiled SDK a module's references into Titanium.* resolve against.
+      # Only modules use it, and the compile refuses to guess: a module's links
+      # point at one particular SDK's pages, so the caller says which.
+      SDK_VERSION: ${{ github.event.client_payload.sdk || inputs.sdk || 'main' }}
 
     steps:
       - name: Checkout this repo
@@ -57,6 +65,7 @@ jobs:
       # Before any clone. The dispatch payload comes from outside, so an
       # unlisted repo has to be refused rather than fetched.
       - name: Check the source is on the allowlist
+        id: source
         run: node scripts/docgen/check-source.ts "$SOURCE_REPO"
 
       - name: Checkout the source repo
@@ -79,11 +88,17 @@ jobs:
 
       - name: Compile
         id: regen
+        env:
+          SOURCE_KIND: ${{ steps.source.outputs.kind }}
         run: |
-          node scripts/docgen/regen.ts \
-            --repo "$SOURCE_REPO" \
-            --checkout source \
-            --version "$TARGET_VERSION"
+          args=(--repo "$SOURCE_REPO" --checkout source --version "$TARGET_VERSION")
+          # The SDK is the corpus the modules resolve into, so it takes no --sdk
+          # of its own; regen.ts refuses either flag in the wrong place rather
+          # than compiling something whose links were never checked.
+          if [ "$SOURCE_KIND" = module ]; then
+            args+=(--sdk "$SDK_VERSION")
+          fi
+          node scripts/docgen/regen.ts "${args[@]}"
 
       - name: Validate against the schemas
         run: node scripts/validate-registry.ts

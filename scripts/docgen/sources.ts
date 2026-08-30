@@ -19,6 +19,17 @@ const table: Record<string, { kind: SourceKind; apidoc: string }> = JSON.parse(
 
 export const sources = (): Source[] => Object.entries(table).map(([repo, s]) => ({ repo, ...s }));
 
+/**
+ * The one source of kind `sdk`, which every module resolves its cross-repo
+ * references into. Read from the table rather than spelled out, so the repo name
+ * lives in exactly one place.
+ */
+export function sdkSource(): Source {
+  const sdk = sources().find((s) => s.kind === 'sdk');
+  if (!sdk) throw new Error('no source of kind "sdk" in scripts/docgen/sources.json');
+  return sdk;
+}
+
 /** Throws rather than returning null: an unknown repo must stop the run, not skip a step. */
 export function resolveSource(repo: string): Source {
   const entry = table[repo];

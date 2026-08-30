@@ -105,6 +105,12 @@ export type Resolver = {
   canonical: (name: string) => string | undefined;
   /** First segment of every type name, e.g. Titanium, Global, Modules, fs. */
   isRoot: (segment: string) => boolean;
+  /**
+   * Did this name come from another repo's compiled index rather than from this
+   * compile? Such a type resolves and links like any other, but nothing here
+   * emits a file for it, so it is reported separately.
+   */
+  isExternal: (name: string) => boolean;
 };
 
 /**
@@ -152,8 +158,10 @@ export type RewriteResult = {
   /** Types this prose links to. Feeds the reference graph. */
   references: string[];
   /**
-   * Refs into a namespace this corpus does not contain. `Modules.*` types are
-   * compiled from their own repos, so a reference to one is deferred, not broken.
+   * Refs that leave this corpus. Two kinds, both of them another repo's:
+   * resolved against a corpus the compile was given — a module linking to
+   * `Titanium.UI.View` — and unresolved refs into a namespace it was not, which
+   * are deferred rather than called broken because nothing here can check them.
    */
   external: string[];
   /** Refs that look like API links but resolve to nothing. */
@@ -180,6 +188,10 @@ export function rewriteCrossRefs(markdown: string, r: Resolver): RewriteResult {
    * markup, and `<YourService.js>` is a filename an author wrapped in brackets —
    * none are broken links. Requiring a known root segment separates them from a
    * genuine typo such as `<Ti.Color>`.
+   *
+   * The roots include those of any corpus the compile was given, which is what
+   * makes a module's `<Titanium.Map.Annotation.leftView>` reportable: compiled
+   * alone, `Titanium` is not a root of a module and the dead ref passes silently.
    */
   const looksLikeApiRef = (ref: string) => {
     const root = ref.split('.')[0];
@@ -188,9 +200,13 @@ export function rewriteCrossRefs(markdown: string, r: Resolver): RewriteResult {
 
   const record = (ref: string, target: string | null): boolean => {
     if (target) {
-      references.add(target.slice(4).split('#')[0]);
+      const name = target.slice(4).split('#')[0];
+      (r.isExternal(name) ? external : references).add(name);
       return true;
     }
+    // Deferral is tested first because the SDK declares `Modules` itself, as a
+    // namespace stub with nothing under it — so its root alone says nothing
+    // about whether the reference could have been checked.
     if (EXTERNAL_ROOTS.has(ref.split('.')[0])) external.add(ref);
     else if (looksLikeApiRef(ref)) broken.add(ref);
     return false;

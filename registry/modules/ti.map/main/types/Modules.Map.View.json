@@ -19,7 +19,7 @@
     "macos": "9.2.0"
   },
   "summary": "Map view is used for embedding native mapping capabilities as a view in your application.",
-  "description": "With native maps, you can control the mapping location, the type of map, the zoom level\nand you can add custom annotations and routes directly to the map. Once the map view is\ndisplayed, the user can pan, zoom and tilt the map using the native control gestures.\n\nUse the [Modules.Map.createView](api:Modules.Map#createView) method to create a map view.\n\nIn Alloy, use the **`<Module>`** element with the `module` attribute set to `ti.map`\nand `method` attribute set to `createView` to create a map view in XML markup:\n\n``` xml\n<Module module=\"ti.map\" method=\"createView\" />\n```\n\nAll latitude and longitude values are specified in decimal degrees. Values in degrees,\nminutes and seconds (DMS) must be converted to decimal degrees before being passed to\nthe map view.\n\nYou can add [Annotation](api:Modules.Map.Annotation) objects to the map to mark points of\ninterest. An annotation has two states: selected and deselected. A deselected annotation\nis marked by a pin image. When selected, the full annotation is displayed, typically\nincluding a title and an optional subtitle.\n\nYou can add [Route](api:Modules.Map.Route) objects to the map to create paths between\ntwo or more points of interest.\n\nTo use the `userLocation` property in iOS 8 and later, add either the\n[`NSLocationWhenInUseUsageDescription`](https://developer.apple.com/library/prerelease/ios/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW26)\nor\n[`NSLocationAlwaysUsageDescription`](https://developer.apple.com/library/prerelease/ios/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW18)\nkey to the iOS plist section of the project's `tiapp.xml` file.\n\n``` xml\n<ti:app>\n    <ios>\n        <plist>\n            <dict>\n                <key>NSLocationAlwaysUsageDescription</key>\n                <string>\n                    Specify the reason for accessing the user's location information.\n                    This appears in the alert dialog when asking the user for permission to\n                    access their location.\n                </string>\n            </dict>\n        </plist>\n    </ios>\n</ti:app>\n```\n",
+  "description": "With native maps, you can control the mapping location, the type of map, the zoom level\nand you can add custom annotations and routes directly to the map. Once the map view is\ndisplayed, the user can pan, zoom and tilt the map using the native control gestures.\n\nUse the [Modules.Map.createView](api:Modules.Map#createView) method to create a map view.\n\nIn Alloy, use the **`<Module>`** element with the `module` attribute set to `ti.map`\nand `method` attribute set to `createView` to create a map view in XML markup:\n\n``` xml\n<Module module=\"ti.map\" method=\"createView\" />\n```\n\nAll latitude and longitude values are specified in decimal degrees. Values in degrees,\nminutes and seconds (DMS) must be converted to decimal degrees before being passed to\nthe map view.\n\nYou can add [Annotation](api:Modules.Map.Annotation) objects to the map to mark points of\ninterest. An annotation has two states: selected and deselected. A deselected annotation\nis marked by a pin image. When selected, the full annotation is displayed, typically\nincluding a title and an optional subtitle.\n\nYou can add [Route](api:Modules.Map.Route) objects to the map to create paths between\ntwo or more points of interest.\n\nTo use the `userLocation` property in iOS 8 and later, add either the\n[`NSLocationWhenInUseUsageDescription`](https://developer.apple.com/library/prerelease/ios/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW26)\nor\n[`NSLocationAlwaysUsageDescription`](https://developer.apple.com/library/prerelease/ios/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW18)\nkey to the iOS plist section of the project's `tiapp.xml` file.\n\n``` xml\n<ti:app>\n    <ios>\n        <plist>\n            <dict>\n                <key>NSLocationAlwaysUsageDescription</key>\n                [string](api:Global.String)\n                    Specify the reason for accessing the user's location information.\n                    This appears in the alert dialog when asking the user for permission to\n                    access their location.\n                </string>\n            </dict>\n        </plist>\n    </ios>\n</ti:app>\n```\n",
   "properties": [
     {
       "name": "animate",
@@ -997,7 +997,7 @@
                   "macos"
                 ],
                 "summary": "Animation curve or easing function to apply to the animation.",
-                "description": "Specify one of the animation constants,\n<Titanium.UI.ANIMATION_CURVE_EASE_IN>,\n<Titanium.UI.ANIMATION_CURVE_EASE_IN_OUT>,\n<Titanium.UI.ANIMATION_CURVE_EASE_OUT>,\nor <Titanium.UI.ANIMATION_CURVE_LINEAR>.\n",
+                "description": "Specify one of the animation constants,\n[Titanium.UI.ANIMATION_CURVE_EASE_IN](api:Titanium.UI#ANIMATION_CURVE_EASE_IN),\n[Titanium.UI.ANIMATION_CURVE_EASE_IN_OUT](api:Titanium.UI#ANIMATION_CURVE_EASE_IN_OUT),\n[Titanium.UI.ANIMATION_CURVE_EASE_OUT](api:Titanium.UI#ANIMATION_CURVE_EASE_OUT),\nor [Titanium.UI.ANIMATION_CURVE_LINEAR](api:Titanium.UI#ANIMATION_CURVE_LINEAR).\n",
                 "type": [
                   {
                     "kind": "primitive",
@@ -1886,7 +1886,7 @@
           "summary": "snapshot of the current map",
           "type": [
             {
-              "kind": "unknown",
+              "kind": "type",
               "name": "Titanium.Blob"
             }
           ]
@@ -2258,7 +2258,10 @@
     "Modules.Map.Route"
   ],
   "externalReferences": [
-    "Modules.Map.View.selectableMapFeatures"
+    "Global.String",
+    "Modules.Map.View.selectableMapFeatures",
+    "Titanium.Blob",
+    "Titanium.UI.View"
   ],
   "source": "View.yml"
 }

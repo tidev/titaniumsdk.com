@@ -37,6 +37,9 @@ jobs:
           echo "version=$version" >> "$GITHUB_OUTPUT"
           echo "Dispatching ${{ github.repository }} @ $version" >> "$GITHUB_STEP_SUMMARY"
 
+      # `sdk` is what a module's references into Titanium.* resolve against, and
+      # it is stated rather than left to a default: a module's compiled links
+      # point at one SDK's pages, so which one is part of the request.
       - name: Repository dispatch
         uses: peter-evans/repository-dispatch@v4
         with:
@@ -47,5 +50,6 @@ jobs:
             {
               "repo": "${{ github.repository }}",
               "ref": "${{ github.ref_name }}",
-              "version": "${{ steps.target.outputs.version }}"
+              "version": "${{ steps.target.outputs.version }}",
+              "sdk": "main"
             }

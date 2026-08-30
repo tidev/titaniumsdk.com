@@ -1,7 +1,8 @@
 import { API_DOCS_DIR } from '../lib/registry-paths.ts';
 import { copyImages } from './assets.ts';
 import { compile, CompileError } from './compile.ts';
-import { moduleIdFrom, resolveSource, type Source } from './sources.ts';
+import type { ExternalSource } from './external.ts';
+import { moduleIdFrom, resolveSource, sdkSource, type Source } from './sources.ts';
 /**
  * Regenerates one repository's API docs into the registry.
  *
@@ -9,10 +10,15 @@ import { moduleIdFrom, resolveSource, type Source } from './sources.ts';
  * anything not on the allowlist, works out where its output belongs, and
  * refuses to rewrite a version that has already been published.
  *
- *   node scripts/docgen/regen.ts --repo tidev/ti.map --checkout ./source [--version 7.3.1]
+ *   node scripts/docgen/regen.ts --repo tidev/ti.map --checkout ./source --sdk main [--version 7.3.1]
  *
  * `--version` defaults to `main`, the one mutable tree. Any other value is
  * written once and then frozen.
+ *
+ * `--sdk` names the compiled SDK a module's references into `Titanium.*` resolve
+ * against. It is required for a module and has no default: a module's docs are
+ * written against a particular SDK, and quietly picking `main` would make what
+ * its links point at a property of when CI happened to run.
  */
 import { execFileSync } from 'node:child_process';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
@@ -31,12 +37,14 @@ function flag(name: string): string | undefined {
 const repo = flag('repo');
 const checkoutArg = flag('checkout');
 const version = flag('version') || MUTABLE;
+/** Which compiled SDK a module's cross-repo references resolve against. */
+const sdkVersion = flag('sdk');
 /** Re-publish a frozen version. Requires a human deciding to, never CI. */
 const force = argv.includes('--force');
 
 if (!repo || !checkoutArg) {
   console.error(
-    'usage: node scripts/docgen/regen.ts --repo <owner/name> --checkout <dir> [--version <v>]'
+    'usage: node scripts/docgen/regen.ts --repo <owner/name> --checkout <dir> [--version <v>] [--sdk <v>]'
   );
   process.exit(1);
 }
@@ -55,6 +63,39 @@ try {
 const apidoc = join(checkout, source.apidoc);
 if (!existsSync(apidoc)) {
   console.error(`\n${repo} has no ${source.apidoc}/ directory at ${checkout}`);
+  process.exit(1);
+}
+
+/**
+ * The compiled SDK a module's `Titanium.*` references resolve into.
+ *
+ * Nothing here is guessed. The SDK is found in the source table rather than
+ * spelled out, and which version to resolve against comes from the caller —
+ * a module compiled against a different SDK links to different pages, so that
+ * belongs in the dispatch, not in a default here.
+ */
+let external: ExternalSource | undefined;
+if (source.kind === 'module') {
+  if (!sdkVersion) {
+    console.error(
+      `\n${repo} is a module, so its references into Titanium.* need an SDK to resolve against.\n` +
+        'Pass --sdk <version|main>.'
+    );
+    process.exit(1);
+  }
+  const index = join(root, API_DOCS_DIR, sdkVersion, 'index.json');
+  if (!existsSync(index)) {
+    console.error(
+      `\nnothing compiled at ${API_DOCS_DIR}/${sdkVersion}/index.json.\n` +
+        `Compile the SDK at ${sdkVersion} before the modules that resolve against it.`
+    );
+    process.exit(1);
+  }
+  external = { repo: sdkSource().repo, version: sdkVersion, index };
+} else if (sdkVersion) {
+  console.error(
+    '\n--sdk does not apply to the SDK itself: it is the corpus the modules resolve into.'
+  );
   process.exit(1);
 }
 
@@ -177,7 +218,13 @@ function writeMetadata(dir: string, commit: string | undefined) {
 }
 
 try {
-  const result = compile({ apidoc, outDir, sourceRepo: repo, log: (m) => console.log(m) });
+  const result = compile({
+    apidoc,
+    outDir,
+    sourceRepo: repo,
+    external,
+    log: (m) => console.log(m),
+  });
 
   // apidoc prose references images sitting beside the YAML, so they travel with
   // the compiled types rather than being resolved against the source repo.

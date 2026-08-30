@@ -92,7 +92,7 @@
         "macos"
       ],
       "summary": "Color to use for the the polyline, as a color name or hex triplet.\n",
-      "description": "For information about color values, see the \"Colors\" section of <Titanium.UI>.\n",
+      "description": "For information about color values, see the \"Colors\" section of [Titanium.UI](api:Titanium.UI).\n",
       "type": [
         {
           "kind": "primitive",
@@ -163,6 +163,10 @@
     "MapPointType",
     "Modules.Map",
     "Modules.Map.View"
+  ],
+  "externalReferences": [
+    "Titanium.Proxy",
+    "Titanium.UI"
   ],
   "source": "Polyline.yml"
 }

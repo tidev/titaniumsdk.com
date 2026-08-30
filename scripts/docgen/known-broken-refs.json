@@ -7,6 +7,9 @@
     "Keyed by source repo: an entry only applies to, and is only reported stale by,",
     "a compile of that repo. Without that, compiling any module would report all 23",
     "SDK entries as no-longer-occurring, which reads as 'upstream fixed everything'.",
+    "A module's entries cover references into the SDK too: those are checked against",
+    "the compiled SDK index it is told to resolve against, so a module naming a type",
+    "or member the SDK does not have fails the same way one of its own does.",
     "Run docgen with --strict to compile as if this file were empty."
   ],
   "refs": {
@@ -34,6 +37,18 @@
       "fs.rm": "method referenced but never declared",
       "fs.rmDir": "method referenced but never declared",
       "fs.rmDirSync": "method referenced but never declared"
+    },
+    "tidev/ti.map": {
+      "Titanium.Map.ANNOTATION_DRAG_STATE_CANCEL": "the built-in Titanium.Map went away when mapping moved into this module, and this constant did not come with it — only START and END are declared, on Modules.Map",
+      "Titanium.Map.ANNOTATION_DRAG_STATE_DRAG": "as above",
+      "Titanium.Map.ANNOTATION_DRAG_STATE_END": "the built-in Titanium.Map went away when mapping moved into this module; the constant is now Modules.Map.ANNOTATION_DRAG_STATE_END",
+      "Titanium.Map.ANNOTATION_DRAG_STATE_NONE": "as ANNOTATION_DRAG_STATE_CANCEL: never declared on Modules.Map either",
+      "Titanium.Map.ANNOTATION_DRAG_STATE_START": "as ANNOTATION_DRAG_STATE_END: the constant is now Modules.Map.ANNOTATION_DRAG_STATE_START",
+      "Titanium.Map.Annotation.leftButton": "declared on Modules.Map.Annotation; the reference still names the removed built-in Titanium.Map",
+      "Titanium.Map.Annotation.leftView": "as above",
+      "Titanium.Map.Annotation.rightButton": "as above",
+      "Titanium.Map.Annotation.rightView": "as above",
+      "Titanium.UI.iPhone.SystemButton": "Titanium.UI.iPhone was removed from the SDK; the type is Titanium.UI.iOS.SystemButton"
     }
   }
 }
