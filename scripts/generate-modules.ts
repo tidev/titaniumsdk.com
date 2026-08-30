@@ -368,6 +368,44 @@ async function buildVersions(m: Collected): Promise<ModuleVersion[]> {
  * Highest rather than newest: ti.map still ships iOS 7.3.1 from 2024 as its
  * current iOS build, and an android release in 2025 did not supersede it.
  */
+/**
+ * Names worth overriding, because the manifest's is a build identifier.
+ *
+ * Explicit rather than "keep whatever index.json already says": the generator
+ * cannot otherwise tell a name a human chose from one it wrote itself, so a
+ * derived name would harden into a curated one on the next run and never
+ * improve.
+ */
+const CURATED_NAMES: Record<string, string> = {
+  'ti.map': 'Map',
+  'ti.playservices': 'Google Play Services',
+};
+
+/**
+ * The module's declared name, from its manifests.
+ *
+ * Both platforms carry one and they agree everywhere except `facebook`, which
+ * says "Facebook" on Android and "titanium-facebook" on iOS across 15 releases.
+ * Android wins that one, and preferring it generally is the better rule anyway:
+ * Android manifests name the module (`map`, `nfc`, `barcode`) where iOS ones
+ * tend to repeat the package (`titanium-facebook`, `ti.urlsession`).
+ *
+ * Android is searched across every version before iOS is considered, not just
+ * within the newest. `facebook`'s newest release is iOS-only, so looking at one
+ * version at a time returns "titanium-facebook" and never sees the "Facebook"
+ * that Android has carried for fifteen releases.
+ *
+ * Within a platform the newest wins, so a rename follows the module rather than
+ * being pinned to whatever shipped first.
+ */
+function declaredName(moduleId: string, versions: ModuleVersion[]): string | undefined {
+  const curated = CURATED_NAMES[moduleId];
+  if (curated) return curated;
+  const named = (platform: Platform) =>
+    versions.flatMap((v) => v.manifests.filter((m) => m.platform === platform && m.name))[0]?.name;
+  return named('android') ?? named('ios');
+}
+
 function latestPerPlatform(versions: ModuleVersion[]): Partial<Record<Platform, string>> {
   const latest: Partial<Record<Platform, string>> = {};
   for (const platform of PLATFORMS) {
@@ -487,14 +525,14 @@ for (const m of collected) {
   const existing = readJson<ModuleIndex>(join(dir, 'index.json'));
   const readme = await file(m.repo, 'README.md', repo.default_branch);
   const newest = versions[0]?.manifests[0];
+  const declared = declaredName(m.moduleId, versions);
 
   const index: ModuleIndex = {
     schemaVersion: SCHEMA_VERSION,
     moduleId: m.moduleId,
-    // Prose is left alone once it is there. A manifest `name` is a build id --
-    // ti.facebook calls itself "Facebook" on android and "titanium-facebook" on
-    // iOS in the same release -- so a human title, once written, outranks it.
-    ...(existing?.name ? { name: existing.name } : {}),
+    // Every module declares a name in its manifest, so that is the source,
+    // with CURATED_NAMES overriding where the manifest carries a build id.
+    ...(declared ? { name: declared } : {}),
     ...((existing?.description ?? repo.description ?? newest?.description)
       ? { description: existing?.description ?? repo.description ?? newest?.description }
       : {}),

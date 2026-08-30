@@ -48,6 +48,14 @@ export const ModuleManifestSchema = z
   .object({
     platform: PlatformSchema,
     version: VersionString,
+    /**
+     * The module's declared name, used as its display name.
+     *
+     * Present on every module on both platforms. They agree everywhere except
+     * `facebook`, which says "Facebook" on Android and "titanium-facebook" on
+     * iOS across 15 releases — Android is preferred when they differ.
+     */
+    name: z.string().optional(),
     minsdk: z.string().optional(),
     apiversion: z.union([z.string(), z.number()]).optional(),
     architectures: z.array(z.string()).optional(),
