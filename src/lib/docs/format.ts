@@ -56,6 +56,25 @@ export function formatOsver(osver: unknown): string | null {
   return parts.length ? parts.join(', ') : null;
 }
 
+/**
+ * A release date, as the registry stores it: an ISO instant.
+ *
+ * Pinned to UTC rather than the builder's zone. These are rendered once at
+ * build time and served to everyone, so a machine an hour behind UTC would
+ * otherwise stamp a different day into the HTML than the last build did.
+ */
+export function formatDate(iso: string | undefined): string | null {
+  if (!iso) return null;
+  const at = new Date(iso);
+  if (Number.isNaN(at.getTime())) return null;
+  return at.toLocaleDateString('en-US', {
+    timeZone: 'UTC',
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  });
+}
+
 /** Splits a fully-qualified constant into the type that holds it and its name. */
 export function splitConstant(ref: string): { owner: string; name: string } | null {
   const dot = ref.lastIndexOf('.');

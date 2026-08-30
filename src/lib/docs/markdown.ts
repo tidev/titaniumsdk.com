@@ -1,3 +1,4 @@
+import { apiTarget, pathLinker, type ApiLinker } from './links.ts';
 import MarkdownIt from 'markdown-it';
 import sanitizeHtml from 'sanitize-html';
 
@@ -8,7 +9,11 @@ import sanitizeHtml from 'sanitize-html';
  * hand-written HTML — `Titanium.UI.View` has a `<table class="doc-table">` — so
  * inline HTML is enabled and the result is sanitized. And cross-references were
  * resolved at compile time to `api:` URIs, which are turned into real paths here
- * because only the renderer knows which version it is rendering.
+ * because only the renderer knows which tree it is rendering into.
+ *
+ * The same function also renders third-party README markdown, which is why the
+ * sanitizer is not optional: that text is written by whoever wrote the module,
+ * not by docgen.
  */
 
 const md = new MarkdownIt({
@@ -16,20 +21,6 @@ const md = new MarkdownIt({
   linkify: false,
   typographer: false,
 });
-
-/** `api:Titanium.UI.View` and `api:Titanium.UI.View#backgroundColor`. */
-const API_HREF = /^api:([A-Za-z_][\w.]*)(?:#(.+))?$/;
-
-export function apiHref(base: string, target: string): string | null {
-  const m = API_HREF.exec(target);
-  if (!m) return null;
-  return `${base}/${m[1]}${m[2] ? `#${anchorFor(m[2])}` : ''}`;
-}
-
-/** Member anchors, kept stable and URL-safe so they can be deep-linked. */
-export function anchorFor(member: string): string {
-  return member.replace(/[^\w.-]/g, '-');
-}
 
 const SANITIZE: sanitizeHtml.IOptions = {
   allowedTags: [
@@ -58,24 +49,38 @@ const SANITIZE: sanitizeHtml.IOptions = {
 };
 
 export type RenderOptions = {
-  /** Path prefix that `api:` references resolve against, e.g. `/docs/sdk/main`. */
-  base: string;
   /**
-   * Path that relative image references resolve against.
+   * Where `api:` references point. A path prefix is shorthand for the SDK's
+   * one-type-per-page arrangement; a module passes a function, because half of
+   * its references are anchors on the page being rendered and the other half
+   * are pages in the SDK tree.
+   */
+  link: string | ApiLinker;
+  /**
+   * Where relative references resolve.
    *
    * apidoc images sit beside the YAML, so `Titanium/UI/Button.yml` writes
-   * `./button_android.png` meaning `Titanium/UI/button_android.png`. Only
-   * type-level descriptions carry them -- 29 types, and no member prose -- so
-   * one base per page is enough.
+   * `./button_android.png` meaning `Titanium/UI/button_android.png`. A README
+   * is the same problem against a different root, and its links need rewriting
+   * as well as its images — they are relative to a repository we do not serve.
+   *
+   * A root-relative `/x.png` is left alone in both cases: in apidoc it means
+   * the site root and is already correct, and no README in the registry uses
+   * one.
    */
-  imageBase?: string;
+  relative?: { images: string; links?: string };
 };
 
-export function renderMarkdown(
-  source: string | undefined,
-  { base, imageBase }: RenderOptions
-): string {
+/** Absolute, protocol-relative, or root-relative — nothing to resolve. */
+const isAbsolute = (ref: string) => /^(?:[a-z][\w+.-]*:)?\/\//i.test(ref) || ref.startsWith('/');
+
+const resolveRelative = (base: string, ref: string) => `${base}/${ref.replace(/^\.\//, '')}`;
+
+export function renderMarkdown(source: string | undefined, options: RenderOptions): string {
   if (!source) return '';
+
+  const link = typeof options.link === 'string' ? pathLinker(options.link) : options.link;
+  const relative = options.relative;
 
   const html = md.render(source);
 
@@ -84,24 +89,53 @@ export function renderMarkdown(
     transformTags: {
       img: (tagName, attribs) => {
         const src = attribs.src ?? '';
-        // Absolute and remote sources are left exactly as they are.
-        if (!imageBase || /^(?:[a-z]+:)?\/\//i.test(src) || src.startsWith('/')) {
-          return { tagName, attribs };
-        }
-        const clean = src.replace(/^\.\//, '');
+        if (!relative || !src || isAbsolute(src)) return { tagName, attribs };
         return {
           tagName,
-          attribs: { ...attribs, src: `${imageBase}/${clean}`, loading: 'lazy' },
+          attribs: { ...attribs, src: resolveRelative(relative.images, src), loading: 'lazy' },
         };
       },
       a: (tagName, attribs) => {
         const href = attribs.href ?? '';
-        // A single leftover anchor from the ExtJS-era docs, pointing at a
-        // fragment that no longer exists. The examples are on the page now.
-        const legacy = /^#!\/api\/[\w.]+-examples$/.exec(href);
-        if (legacy) return { tagName, attribs: { ...attribs, href: '#examples' } };
-        const resolved = apiHref(base, href);
-        if (resolved) return { tagName, attribs: { ...attribs, href: resolved } };
+
+        // Hand-written leftovers from the ExtJS-era docs, whose addresses this
+        // site does not serve. 46 survive in the registry's prose. Three shapes:
+        // the examples of a type, which are on the page now; a plain type
+        // reference docgen never converted to an `api:` URI, which the linker
+        // can still resolve; and a guide, which has no address here at all —
+        // that one loses its link and keeps its text, because "once you have
+        // [installed] the module" reads fine without one and a dead `#!`
+        // fragment does not.
+        if (href.startsWith('#!/')) {
+          if (/^#!\/api\/[\w.]+-examples$/.test(href)) {
+            return { tagName, attribs: { ...attribs, href: '#examples' } };
+          }
+          const legacy = /^#!\/api\/([A-Za-z_][\w.]*)$/.exec(href);
+          const resolved = legacy && link(legacy[1]);
+          if (!resolved) return { tagName: 'span', attribs: {} };
+          return { tagName, attribs: { ...attribs, href: resolved } };
+        }
+
+        const target = apiTarget(href);
+        if (target) {
+          const resolved = link(target.type, target.member);
+          // Nothing renders this type. Keeping the anchor would ship a 404, so
+          // the text stays and the link goes.
+          if (!resolved) return { tagName: 'span', attribs: {} };
+          return { tagName, attribs: { ...attribs, href: resolved } };
+        }
+
+        if (relative?.links && href && !href.startsWith('#') && !isAbsolute(href)) {
+          return {
+            tagName,
+            attribs: {
+              ...attribs,
+              href: resolveRelative(relative.links, href),
+              rel: 'noopener noreferrer',
+            },
+          };
+        }
+
         // Anything leaving the site opens safely; internal links are untouched.
         if (/^https?:\/\//.test(href)) {
           return { tagName, attribs: { ...attribs, rel: 'noopener noreferrer' } };

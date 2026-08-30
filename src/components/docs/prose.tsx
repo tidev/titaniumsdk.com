@@ -1,4 +1,4 @@
-import { renderMarkdown } from '@/lib/docs/markdown';
+import { renderMarkdown, type RenderOptions } from '@/lib/docs/markdown';
 
 /**
  * Renders a registry prose field.
@@ -10,13 +10,11 @@ import { renderMarkdown } from '@/lib/docs/markdown';
  */
 export function Prose({
   markdown,
-  base,
-  imageBase,
+  link,
+  relative,
   className = '',
-}: {
+}: RenderOptions & {
   markdown: string | undefined;
-  base: string;
-  imageBase?: string;
   className?: string;
 }) {
   if (!markdown) return null;
@@ -24,7 +22,7 @@ export function Prose({
     <div
       className={`prose-docs text-text-muted ${className}`}
       // Sanitized in renderMarkdown; see the allowlist there.
-      dangerouslySetInnerHTML={{ __html: renderMarkdown(markdown, { base, imageBase }) }}
+      dangerouslySetInnerHTML={{ __html: renderMarkdown(markdown, { link, relative }) }}
     />
   );
 }

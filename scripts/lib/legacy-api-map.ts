@@ -1,4 +1,4 @@
-import { anchorFor } from '../../src/lib/docs/markdown.ts';
+import { anchorFor } from '../../src/lib/docs/links.ts';
 import type { ApiType } from '../../src/lib/registry/index.ts';
 
 /**

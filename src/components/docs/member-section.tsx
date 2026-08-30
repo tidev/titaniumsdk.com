@@ -2,7 +2,7 @@ import { DeprecatedBadge, PlatformBadges, SinceBadge } from './badges';
 import { Prose } from './prose';
 import { TypeRefText } from './type-ref';
 import { formatOsver, formatSince, splitConstant } from '@/lib/docs/format';
-import { anchorFor } from '@/lib/docs/markdown';
+import type { ApiLinker } from '@/lib/docs/links';
 import type { ResolvedMember } from '@/lib/docs/type-view';
 import type { ApiPlatform } from '@/lib/registry';
 
@@ -14,31 +14,71 @@ import type { ApiPlatform } from '@/lib/registry';
  * blocks reflows; only the genuinely tabular parts (a method's parameters) stay
  * as a table, and that scrolls inside its own container.
  */
+
+/**
+ * How this group's members are addressed and how they address others.
+ *
+ * `anchor` is separate from `link` because a member's own id depends on what
+ * else is on the page: the SDK gives a type a page to itself, so the member
+ * name is unique there, while a module renders its whole namespace at once and
+ * has to qualify. Passed in rather than inferred — a wrong default here is a
+ * silently broken deep link.
+ */
+type Addressing = {
+  link: ApiLinker;
+  anchor: (member: string) => string;
+};
+
+/**
+ * Where this group sits in the page's outline.
+ *
+ * An SDK page gives the whole document to one type, so its member groups are
+ * the page's own sections. A module page nests them under a type, one level
+ * down. The headings have to move with that or the outline lies.
+ */
+type Level = 2 | 3;
+
 export function MemberSection({
   id,
   title,
   members,
-  base,
+  link,
+  anchor,
   typePlatforms,
-}: {
+  level = 2,
+}: Addressing & {
   id: string;
   title: string;
   members: ResolvedMember[];
-  base: string;
   typePlatforms: readonly ApiPlatform[];
+  level?: Level;
 }) {
   if (!members.length) return null;
 
+  const Heading = level === 2 ? 'h2' : 'h3';
+
   return (
-    <section aria-labelledby={id} className="mt-12">
-      <h2 id={id} className="scroll-mt-24 text-2xl font-semibold tracking-tight">
+    <section aria-labelledby={id} className={level === 2 ? 'mt-12' : 'mt-8'}>
+      <Heading
+        id={id}
+        className={`scroll-mt-24 font-semibold tracking-tight ${
+          level === 2 ? 'text-2xl' : 'text-lg'
+        }`}
+      >
         {title}{' '}
         <span className="font-mono text-base font-normal text-text-subtle">{members.length}</span>
-      </h2>
+      </Heading>
 
       <div className="mt-4 divide-y divide-border border-t border-border">
         {members.map((m) => (
-          <Member key={m.name} member={m} base={base} typePlatforms={typePlatforms} />
+          <Member
+            key={m.name}
+            member={m}
+            link={link}
+            anchor={anchor}
+            typePlatforms={typePlatforms}
+            level={level}
+          />
         ))}
       </div>
     </section>
@@ -47,29 +87,34 @@ export function MemberSection({
 
 function Member({
   member,
-  base,
+  link,
+  anchor,
   typePlatforms,
-}: {
+  level,
+}: Addressing & {
   member: ResolvedMember;
-  base: string;
   typePlatforms: readonly ApiPlatform[];
+  level: Level;
 }) {
-  const anchor = anchorFor(member.name);
+  const id = anchor(member.name);
   const since = formatSince(member.since);
   const osver = formatOsver(member.osver);
+  const declaredAt = member.inheritedFrom && link(member.inheritedFrom, member.name);
+  const Heading = level === 2 ? 'h3' : 'h4';
+  const ExampleHeading = level === 2 ? 'h4' : 'h5';
 
   return (
-    <article id={anchor} className="scroll-mt-24 py-6">
+    <article id={id} className="scroll-mt-24 py-6">
       <div className="flex flex-wrap items-baseline gap-x-3 gap-y-2">
-        <h3 className="font-mono text-base font-semibold">
-          <a href={`#${anchor}`} className="hover:text-link">
+        <Heading className="font-mono text-base font-semibold break-words">
+          <a href={`#${id}`} className="hover:text-link">
             {member.name}
           </a>
-        </h3>
+        </Heading>
 
         {member.type && (
           <span className="font-mono text-sm text-text-muted">
-            <TypeRefText refs={member.type} base={base} />
+            <TypeRefText refs={member.type} link={link} />
           </span>
         )}
 
@@ -89,14 +134,15 @@ function Member({
       </div>
 
       {member.inheritedFrom && (
-        <p className="mt-1 text-xs text-text-subtle">
+        <p className="mt-1 text-xs break-words text-text-subtle">
           Inherited from{' '}
-          <a
-            href={`${base}/${member.inheritedFrom}#${anchor}`}
-            className="text-link hover:underline"
-          >
-            {member.inheritedFrom}
-          </a>
+          {declaredAt ? (
+            <a href={declaredAt} className="text-link hover:underline">
+              {member.inheritedFrom}
+            </a>
+          ) : (
+            <span className="font-mono">{member.inheritedFrom}</span>
+          )}
         </p>
       )}
 
@@ -106,11 +152,11 @@ function Member({
             Deprecated{member.deprecated.since ? ` since ${member.deprecated.since}` : ''}
             {member.deprecated.removed ? `, removed in ${member.deprecated.removed}` : ''}
           </p>
-          <Prose markdown={member.deprecated.notes} base={base} className="mt-1 text-sm" />
+          <Prose markdown={member.deprecated.notes} link={link} className="mt-1 text-sm" />
         </div>
       )}
 
-      <Prose markdown={member.summary} base={base} className="mt-2" />
+      <Prose markdown={member.summary} link={link} className="mt-2" />
 
       {/*
         An inherited member shows its summary but not its full description: that
@@ -120,7 +166,7 @@ function Member({
         declaring type.
       */}
       {!member.inheritedFrom && (
-        <Prose markdown={member.description} base={base} className="mt-2 text-sm" />
+        <Prose markdown={member.description} link={link} className="mt-2 text-sm" />
       )}
 
       {/* A constant's own value, which is the whole point of the member. */}
@@ -131,14 +177,16 @@ function Member({
         </p>
       )}
 
-      {!!member.constants?.length && <Constants refs={member.constants} base={base} />}
+      {!!member.constants?.length && <Constants refs={member.constants} link={link} />}
 
       {!!member.examples?.length && (
         <div className="mt-3">
           {member.examples.map((ex, i) => (
             <div key={i} className="mt-2">
-              {ex.title && <h4 className="text-sm font-medium">{ex.title}</h4>}
-              <Prose markdown={ex.code} base={base} className="mt-1 text-sm" />
+              {ex.title && (
+                <ExampleHeading className="text-sm font-medium">{ex.title}</ExampleHeading>
+              )}
+              <Prose markdown={ex.code} link={link} className="mt-1 text-sm" />
             </div>
           ))}
         </div>
@@ -151,19 +199,19 @@ function Member({
       )}
 
       {!!member.parameters?.length && (
-        <Parameters rows={member.parameters} base={base} caption="Parameters" />
+        <Parameters rows={member.parameters} link={link} caption="Parameters" />
       )}
       {!!member.properties?.length && (
-        <Parameters rows={member.properties} base={base} caption="Event properties" />
+        <Parameters rows={member.properties} link={link} caption="Event properties" />
       )}
 
       {!!member.returns?.length && (
         <div className="mt-3 text-sm">
           <span className="text-text-subtle">Returns </span>
           <span className="font-mono">
-            <TypeRefText refs={member.returns[0].type} base={base} />
+            <TypeRefText refs={member.returns[0].type} link={link} />
           </span>
-          <Prose markdown={member.returns[0].summary} base={base} className="mt-1" />
+          <Prose markdown={member.returns[0].summary} link={link} className="mt-1" />
         </div>
       )}
     </article>
@@ -176,22 +224,20 @@ function Member({
  * Collapsed past a handful: the corpus expands to 1,245 constant references and
  * one member lists 33, which would otherwise dominate the entry it belongs to.
  */
-function Constants({ refs, base }: { refs: string[]; base: string }) {
+function Constants({ refs, link }: { refs: string[]; link: ApiLinker }) {
   const links = (
     <ul className="mt-1 flex flex-wrap gap-x-3 gap-y-1">
       {refs.map((ref) => {
         const parts = splitConstant(ref);
+        const href = parts && link(parts.owner, parts.name);
         return (
           <li key={ref} className="font-mono text-xs break-all">
-            {parts ? (
-              <a
-                href={`${base}/${parts.owner}#${anchorFor(parts.name)}`}
-                className="text-link hover:underline"
-              >
+            {href ? (
+              <a href={href} className="text-link hover:underline">
                 {parts.name}
               </a>
             ) : (
-              ref
+              (parts?.name ?? ref)
             )}
           </li>
         );
@@ -219,7 +265,7 @@ function Constants({ refs, base }: { refs: string[]; base: string }) {
 type Row = NonNullable<ResolvedMember['parameters']>[number];
 
 /** The one genuinely tabular thing on the page, so it scrolls rather than the page. */
-function Parameters({ rows, base, caption }: { rows: Row[]; base: string; caption: string }) {
+function Parameters({ rows, link, caption }: { rows: Row[]; link: ApiLinker; caption: string }) {
   return (
     <div className="mt-3 overflow-x-auto">
       <table className="w-full min-w-md border-collapse text-left text-sm">
@@ -245,10 +291,10 @@ function Parameters({ rows, base, caption }: { rows: Row[]; base: string; captio
                 {p.optional && <span className="text-text-subtle">?</span>}
               </td>
               <td className="py-2 pr-4 font-mono text-text-muted">
-                <TypeRefText refs={p.type} base={base} />
+                <TypeRefText refs={p.type} link={link} />
               </td>
               <td className="py-2">
-                <Prose markdown={p.summary} base={base} className="text-sm" />
+                <Prose markdown={p.summary} link={link} className="text-sm" />
                 {p.inlined && (
                   <details className="mt-2">
                     <summary className="cursor-pointer text-xs text-text-subtle">
@@ -262,11 +308,11 @@ function Parameters({ rows, base, caption }: { rows: Row[]; base: string; captio
                             {f.name}
                             {f.optional && <span className="text-text-subtle">?</span>}{' '}
                             <span className="text-text-muted">
-                              <TypeRefText refs={f.type} base={base} />
+                              <TypeRefText refs={f.type} link={link} />
                             </span>
                           </dt>
                           <dd>
-                            <Prose markdown={f.summary} base={base} className="text-xs" />
+                            <Prose markdown={f.summary} link={link} className="text-xs" />
                           </dd>
                         </div>
                       ))}
