@@ -1,6 +1,6 @@
 import { API_DOCS_DIR } from '../lib/registry-paths.ts';
 import { compile, CompileError } from './compile.ts';
-import { moduleIdFrom, resolveSource } from './sources.ts';
+import { moduleIdFrom, resolveSource, type Source } from './sources.ts';
 /**
  * Regenerates one repository's API docs into the registry.
  *
@@ -13,7 +13,8 @@ import { moduleIdFrom, resolveSource } from './sources.ts';
  * `--version` defaults to `main`, the one mutable tree. Any other value is
  * written once and then frozen.
  */
-import { existsSync, readFileSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -42,7 +43,7 @@ if (!repo || !checkoutArg) {
 const root = fileURLToPath(new URL('../..', import.meta.url));
 const checkout = resolve(checkoutArg);
 
-let source;
+let source: Source;
 try {
   source = resolveSource(repo);
 } catch (err) {
@@ -108,11 +109,79 @@ if (version !== MUTABLE && !force) {
   }
 }
 
+/**
+ * The commit the docs were compiled from.
+ *
+ * Without it there is no way to tell whether a compiled tree is current, or to
+ * reproduce it. Absent when the source is not a git checkout, which is only the
+ * case for a local run against an exported tree.
+ */
+function sourceCommit(dir: string): string | undefined {
+  try {
+    return execFileSync('git', ['-C', dir, 'rev-parse', 'HEAD'], {
+      encoding: 'utf8',
+      stdio: ['ignore', 'pipe', 'ignore'],
+    }).trim();
+  } catch {
+    return undefined;
+  }
+}
+
+/**
+ * Records what this version is and where it came from, beside the compiled types.
+ *
+ * For the SDK this file is docgen's to write. For a module it belongs to the
+ * release pipeline, which supplies platforms, manifests, and assets -- data a
+ * docs compile does not have. So a module's file is enriched with provenance if
+ * it already exists, and is never created here; writing a partial one would only
+ * produce something that fails its own schema.
+ */
+function writeMetadata(dir: string, commit: string | undefined) {
+  const path = join(dir, 'metadata.json');
+  const present = existsSync(path);
+  if (source.kind === 'module' && !present) return false;
+
+  const existing = present
+    ? (JSON.parse(readFileSync(path, 'utf8')) as Record<string, unknown>)
+    : {};
+
+  const merged = {
+    ...existing,
+    schemaVersion: 1,
+    version,
+    mutable: version === MUTABLE,
+    source: {
+      ...(existing.source as Record<string, unknown>),
+      repo,
+      ref: flag('version') ? version : MUTABLE,
+      ...(commit ? { commit } : {}),
+      builtAt: new Date().toISOString(),
+    },
+  };
+  // builtAt moves every run, so only rewrite when something else did too --
+  // otherwise every no-op regen would commit a timestamp.
+  const { source: newSource, ...newRest } = merged as Record<string, unknown>;
+  const { source: oldSource, ...oldRest } = existing;
+  const sameRest = JSON.stringify(newRest) === JSON.stringify(oldRest);
+  // builtAt is excluded from the comparison: it changes every run by design.
+  const stripTime = (o: unknown) => {
+    const rest = { ...(o as Record<string, unknown>) };
+    delete rest.builtAt;
+    return JSON.stringify(rest);
+  };
+  if (sameRest && stripTime(newSource) === stripTime(oldSource)) return false;
+
+  writeFileSync(path, `${JSON.stringify(merged, null, 2)}\n`);
+  return true;
+}
+
 try {
   const result = compile({ apidoc, outDir, sourceRepo: repo, log: (m) => console.log(m) });
 
+  const metadataChanged = writeMetadata(outDir, sourceCommit(checkout));
+
   // The workflow reads these to decide whether to commit and what to say.
-  const changed = result.written.length + result.removed.length;
+  const changed = result.written.length + result.removed.length + (metadataChanged ? 1 : 0);
   console.log(`\n::notice::${repo}@${version}: ${changed} file(s) changed`);
   if (process.env.GITHUB_OUTPUT) {
     const { appendFileSync } = await import('node:fs');

@@ -42,15 +42,13 @@ function schemaFor(rel: string): ZodType | null {
   // corrupt one costs time rather than correctness. Nothing to enforce.
   if (file === 'docgen-manifest.json') return null;
 
-  if (parts[0] === 'sdk' && parts.length === 2) {
-    // sdk/{ga,rc,beta}.json are release lists
-    return BuildListSchema;
-  }
-
-  // docs/sdk/<version>/ holds the compiled SDK reference.
-  if (parts[0] === 'docs') {
+  if (parts[0] === 'sdk') {
+    // sdk/{ga,rc,beta}.json are release lists; sdk/<version>/ is one compiled
+    // version, shaped like a module version directory.
+    if (parts.length === 2) return BuildListSchema;
     if (parts.includes('types')) return ApiTypeSchema;
     if (file === 'index.json') return ApiIndexSchema;
+    if (file === 'metadata.json') return SdkVersionSchema;
   }
 
   if (parts[0] === 'modules') {
@@ -64,8 +62,6 @@ function schemaFor(rel: string): ZodType | null {
     if (file === 'index.json') return ApiIndexSchema;
     if (file === 'metadata.json') return ModuleVersionSchema;
   }
-
-  if (file === 'metadata.json' && parts[0] === 'sdk') return SdkVersionSchema;
 
   return null;
 }

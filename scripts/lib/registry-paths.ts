@@ -40,9 +40,9 @@ export type PrunedRun = { id: number; html_url: string };
 /**
  * Compiled API reference, one directory per SDK version.
  *
- * Kept out of `registry/sdk`, which holds release metadata — a few hundred KB
- * of JSON describing downloads. This is the reference itself, and it is two
- * orders of magnitude larger.
+ * Sits beside the release channel files rather than in a tree of its own, so an
+ * SDK version directory has the same shape as a module version directory:
+ * metadata.json, index.json, types/.
  */
-export const API_DOCS_DIR = 'registry/docs/sdk';
+export const API_DOCS_DIR = 'registry/sdk';
 export const apiDocsDir = (version: string) => `${API_DOCS_DIR}/${version}`;
