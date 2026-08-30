@@ -87,7 +87,12 @@
       "availability": "creation",
       "default": "<Titanium.UI.INPUT_BORDERSTYLE_FILLED>",
       "constants": [
-        "Titanium.UI.INPUT_BORDERSTYLE_*"
+        "Titanium.UI.INPUT_BORDERSTYLE_BEZEL",
+        "Titanium.UI.INPUT_BORDERSTYLE_FILLED",
+        "Titanium.UI.INPUT_BORDERSTYLE_LINE",
+        "Titanium.UI.INPUT_BORDERSTYLE_NONE",
+        "Titanium.UI.INPUT_BORDERSTYLE_ROUNDED",
+        "Titanium.UI.INPUT_BORDERSTYLE_UNDERLINED"
       ]
     },
     {
@@ -195,7 +200,10 @@
         }
       },
       "constants": [
-        "Titanium.UI.DATE_PICKER_STYLE_*"
+        "Titanium.UI.DATE_PICKER_STYLE_AUTOMATIC",
+        "Titanium.UI.DATE_PICKER_STYLE_COMPACT",
+        "Titanium.UI.DATE_PICKER_STYLE_INLINE",
+        "Titanium.UI.DATE_PICKER_STYLE_WHEELS"
       ]
     },
     {
@@ -371,7 +379,9 @@
         }
       },
       "constants": [
-        "Titanium.UI.USER_INTERFACE_STYLE_*"
+        "Titanium.UI.USER_INTERFACE_STYLE_DARK",
+        "Titanium.UI.USER_INTERFACE_STYLE_LIGHT",
+        "Titanium.UI.USER_INTERFACE_STYLE_UNSPECIFIED"
       ]
     },
     {
@@ -428,7 +438,10 @@
       "since": "12.4.0",
       "default": "<Titanium.UI.TEXT_ALIGNMENT_LEFT>,",
       "constants": [
-        "Titanium.UI.TEXT_ALIGNMENT_*"
+        "Titanium.UI.TEXT_ALIGNMENT_CENTER",
+        "Titanium.UI.TEXT_ALIGNMENT_JUSTIFY",
+        "Titanium.UI.TEXT_ALIGNMENT_LEFT",
+        "Titanium.UI.TEXT_ALIGNMENT_RIGHT"
       ]
     },
     {
@@ -449,7 +462,11 @@
       ],
       "default": "<Titanium.UI.PICKER_TYPE_PLAIN>",
       "constants": [
-        "Titanium.UI.PICKER_TYPE_*"
+        "Titanium.UI.PICKER_TYPE_COUNT_DOWN_TIMER",
+        "Titanium.UI.PICKER_TYPE_DATE",
+        "Titanium.UI.PICKER_TYPE_DATE_AND_TIME",
+        "Titanium.UI.PICKER_TYPE_PLAIN",
+        "Titanium.UI.PICKER_TYPE_TIME"
       ]
     },
     {

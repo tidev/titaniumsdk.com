@@ -218,7 +218,10 @@
       ],
       "permission": "read-only",
       "constants": [
-        "Titanium.Calendar.RECURRENCEFREQUENCY_*"
+        "Titanium.Calendar.RECURRENCEFREQUENCY_DAILY",
+        "Titanium.Calendar.RECURRENCEFREQUENCY_MONTHLY",
+        "Titanium.Calendar.RECURRENCEFREQUENCY_WEEKLY",
+        "Titanium.Calendar.RECURRENCEFREQUENCY_YEARLY"
       ]
     },
     {

@@ -379,7 +379,12 @@
                   }
                 ],
                 "constants": [
-                  "Titanium.Codec.TYPE_*"
+                  "Titanium.Codec.TYPE_BYTE",
+                  "Titanium.Codec.TYPE_DOUBLE",
+                  "Titanium.Codec.TYPE_FLOAT",
+                  "Titanium.Codec.TYPE_INT",
+                  "Titanium.Codec.TYPE_LONG",
+                  "Titanium.Codec.TYPE_SHORT"
                 ]
               }
             ]
@@ -450,7 +455,12 @@
                 "default": "<Titanium.Codec.CHARSET_UTF8>",
                 "optional": true,
                 "constants": [
-                  "Titanium.Codec.CHARSET_*"
+                  "Titanium.Codec.CHARSET_ASCII",
+                  "Titanium.Codec.CHARSET_ISO_LATIN_1",
+                  "Titanium.Codec.CHARSET_UTF16",
+                  "Titanium.Codec.CHARSET_UTF16BE",
+                  "Titanium.Codec.CHARSET_UTF16LE",
+                  "Titanium.Codec.CHARSET_UTF8"
                 ]
               },
               {
@@ -639,7 +649,12 @@
                   }
                 ],
                 "constants": [
-                  "Titanium.Codec.TYPE_*"
+                  "Titanium.Codec.TYPE_BYTE",
+                  "Titanium.Codec.TYPE_DOUBLE",
+                  "Titanium.Codec.TYPE_FLOAT",
+                  "Titanium.Codec.TYPE_INT",
+                  "Titanium.Codec.TYPE_LONG",
+                  "Titanium.Codec.TYPE_SHORT"
                 ]
               }
             ]
@@ -716,7 +731,12 @@
                 "default": "<Titanium.Codec.CHARSET_UTF8>",
                 "optional": true,
                 "constants": [
-                  "Titanium.Codec.CHARSET_*"
+                  "Titanium.Codec.CHARSET_ASCII",
+                  "Titanium.Codec.CHARSET_ISO_LATIN_1",
+                  "Titanium.Codec.CHARSET_UTF16",
+                  "Titanium.Codec.CHARSET_UTF16BE",
+                  "Titanium.Codec.CHARSET_UTF16LE",
+                  "Titanium.Codec.CHARSET_UTF8"
                 ]
               },
               {

@@ -148,7 +148,11 @@
       ],
       "permission": "read-only",
       "constants": [
-        "Titanium.Network.NETWORK_*"
+        "Titanium.Network.NETWORK_LAN",
+        "Titanium.Network.NETWORK_MOBILE",
+        "Titanium.Network.NETWORK_NONE",
+        "Titanium.Network.NETWORK_UNKNOWN",
+        "Titanium.Network.NETWORK_WIFI"
       ]
     },
     {
@@ -1260,7 +1264,10 @@
                   }
                 ],
                 "constants": [
-                  "Titanium.Network.NOTIFICATION_TYPE_*"
+                  "Titanium.Network.NOTIFICATION_TYPE_ALERT",
+                  "Titanium.Network.NOTIFICATION_TYPE_BADGE",
+                  "Titanium.Network.NOTIFICATION_TYPE_NEWSSTAND",
+                  "Titanium.Network.NOTIFICATION_TYPE_SOUND"
                 ]
               }
             ]

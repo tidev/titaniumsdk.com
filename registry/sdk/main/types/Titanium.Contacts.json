@@ -206,7 +206,9 @@
       },
       "permission": "read-only",
       "constants": [
-        "Titanium.Contacts.AUTHORIZATION_*"
+        "Titanium.Contacts.AUTHORIZATION_AUTHORIZED",
+        "Titanium.Contacts.AUTHORIZATION_DENIED",
+        "Titanium.Contacts.AUTHORIZATION_UNKNOWN"
       ]
     },
     {

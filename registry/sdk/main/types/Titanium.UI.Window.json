@@ -65,9 +65,13 @@
       },
       "constants": [
         "Titanium.UI.Android.TRANSITION_EXPLODE",
-        "Titanium.UI.Android.TRANSITION_FADE_*",
-        "Titanium.UI.Android.TRANSITION_SLIDE_*",
-        "Titanium.UI.Android.TRANSITION_NONE"
+        "Titanium.UI.Android.TRANSITION_FADE_IN",
+        "Titanium.UI.Android.TRANSITION_FADE_OUT",
+        "Titanium.UI.Android.TRANSITION_NONE",
+        "Titanium.UI.Android.TRANSITION_SLIDE_BOTTOM",
+        "Titanium.UI.Android.TRANSITION_SLIDE_LEFT",
+        "Titanium.UI.Android.TRANSITION_SLIDE_RIGHT",
+        "Titanium.UI.Android.TRANSITION_SLIDE_TOP"
       ]
     },
     {
@@ -93,9 +97,13 @@
       },
       "constants": [
         "Titanium.UI.Android.TRANSITION_EXPLODE",
-        "Titanium.UI.Android.TRANSITION_FADE_*",
-        "Titanium.UI.Android.TRANSITION_SLIDE_*",
-        "Titanium.UI.Android.TRANSITION_NONE"
+        "Titanium.UI.Android.TRANSITION_FADE_IN",
+        "Titanium.UI.Android.TRANSITION_FADE_OUT",
+        "Titanium.UI.Android.TRANSITION_NONE",
+        "Titanium.UI.Android.TRANSITION_SLIDE_BOTTOM",
+        "Titanium.UI.Android.TRANSITION_SLIDE_LEFT",
+        "Titanium.UI.Android.TRANSITION_SLIDE_RIGHT",
+        "Titanium.UI.Android.TRANSITION_SLIDE_TOP"
       ]
     },
     {
@@ -121,9 +129,13 @@
       },
       "constants": [
         "Titanium.UI.Android.TRANSITION_EXPLODE",
-        "Titanium.UI.Android.TRANSITION_FADE_*",
-        "Titanium.UI.Android.TRANSITION_SLIDE_*",
-        "Titanium.UI.Android.TRANSITION_NONE"
+        "Titanium.UI.Android.TRANSITION_FADE_IN",
+        "Titanium.UI.Android.TRANSITION_FADE_OUT",
+        "Titanium.UI.Android.TRANSITION_NONE",
+        "Titanium.UI.Android.TRANSITION_SLIDE_BOTTOM",
+        "Titanium.UI.Android.TRANSITION_SLIDE_LEFT",
+        "Titanium.UI.Android.TRANSITION_SLIDE_RIGHT",
+        "Titanium.UI.Android.TRANSITION_SLIDE_TOP"
       ]
     },
     {
@@ -149,9 +161,13 @@
       },
       "constants": [
         "Titanium.UI.Android.TRANSITION_EXPLODE",
-        "Titanium.UI.Android.TRANSITION_FADE_*",
-        "Titanium.UI.Android.TRANSITION_SLIDE_*",
-        "Titanium.UI.Android.TRANSITION_NONE"
+        "Titanium.UI.Android.TRANSITION_FADE_IN",
+        "Titanium.UI.Android.TRANSITION_FADE_OUT",
+        "Titanium.UI.Android.TRANSITION_NONE",
+        "Titanium.UI.Android.TRANSITION_SLIDE_BOTTOM",
+        "Titanium.UI.Android.TRANSITION_SLIDE_LEFT",
+        "Titanium.UI.Android.TRANSITION_SLIDE_RIGHT",
+        "Titanium.UI.Android.TRANSITION_SLIDE_TOP"
       ]
     },
     {
@@ -176,7 +192,10 @@
         }
       },
       "constants": [
-        "Titanium.UI.Android.TRANSITION_CHANGE_*",
+        "Titanium.UI.Android.TRANSITION_CHANGE_BOUNDS",
+        "Titanium.UI.Android.TRANSITION_CHANGE_CLIP_BOUNDS",
+        "Titanium.UI.Android.TRANSITION_CHANGE_IMAGE_TRANSFORM",
+        "Titanium.UI.Android.TRANSITION_CHANGE_TRANSFORM",
         "Titanium.UI.Android.TRANSITION_NONE"
       ]
     },
@@ -202,7 +221,10 @@
         }
       },
       "constants": [
-        "Titanium.UI.Android.TRANSITION_CHANGE_*",
+        "Titanium.UI.Android.TRANSITION_CHANGE_BOUNDS",
+        "Titanium.UI.Android.TRANSITION_CHANGE_CLIP_BOUNDS",
+        "Titanium.UI.Android.TRANSITION_CHANGE_IMAGE_TRANSFORM",
+        "Titanium.UI.Android.TRANSITION_CHANGE_TRANSFORM",
         "Titanium.UI.Android.TRANSITION_NONE"
       ]
     },
@@ -228,7 +250,10 @@
         }
       },
       "constants": [
-        "Titanium.UI.Android.TRANSITION_CHANGE_*",
+        "Titanium.UI.Android.TRANSITION_CHANGE_BOUNDS",
+        "Titanium.UI.Android.TRANSITION_CHANGE_CLIP_BOUNDS",
+        "Titanium.UI.Android.TRANSITION_CHANGE_IMAGE_TRANSFORM",
+        "Titanium.UI.Android.TRANSITION_CHANGE_TRANSFORM",
         "Titanium.UI.Android.TRANSITION_NONE"
       ]
     },
@@ -254,7 +279,10 @@
         }
       },
       "constants": [
-        "Titanium.UI.Android.TRANSITION_CHANGE_*",
+        "Titanium.UI.Android.TRANSITION_CHANGE_BOUNDS",
+        "Titanium.UI.Android.TRANSITION_CHANGE_CLIP_BOUNDS",
+        "Titanium.UI.Android.TRANSITION_CHANGE_IMAGE_TRANSFORM",
+        "Titanium.UI.Android.TRANSITION_CHANGE_TRANSFORM",
         "Titanium.UI.Android.TRANSITION_NONE"
       ]
     },
@@ -460,7 +488,12 @@
         "macos": "9.2.0"
       },
       "constants": [
-        "Titanium.UI.EXTEND_EDGE_*"
+        "Titanium.UI.EXTEND_EDGE_ALL",
+        "Titanium.UI.EXTEND_EDGE_BOTTOM",
+        "Titanium.UI.EXTEND_EDGE_LEFT",
+        "Titanium.UI.EXTEND_EDGE_NONE",
+        "Titanium.UI.EXTEND_EDGE_RIGHT",
+        "Titanium.UI.EXTEND_EDGE_TOP"
       ]
     },
     {
@@ -744,7 +777,9 @@
       },
       "default": "Titanium.UI.iOS.LARGE_TITLE_DISPLAY_MODE_AUTOMATIC",
       "constants": [
-        "Titanium.UI.iOS.LARGE_TITLE_DISPLAY_MODE_*"
+        "Titanium.UI.iOS.LARGE_TITLE_DISPLAY_MODE_ALWAYS",
+        "Titanium.UI.iOS.LARGE_TITLE_DISPLAY_MODE_AUTOMATIC",
+        "Titanium.UI.iOS.LARGE_TITLE_DISPLAY_MODE_NEVER"
       ]
     },
     {
@@ -993,7 +1028,8 @@
       },
       "permission": "read-only",
       "constants": [
-        "Titanium.UI.LANDSCAPE_*",
+        "Titanium.UI.LANDSCAPE_LEFT",
+        "Titanium.UI.LANDSCAPE_RIGHT",
         "Titanium.UI.PORTRAIT",
         "Titanium.UI.UPSIDE_PORTRAIT"
       ]
@@ -1022,7 +1058,8 @@
       ],
       "default": "empty array",
       "constants": [
-        "Titanium.UI.LANDSCAPE_*",
+        "Titanium.UI.LANDSCAPE_LEFT",
+        "Titanium.UI.LANDSCAPE_RIGHT",
         "Titanium.UI.PORTRAIT",
         "Titanium.UI.UPSIDE_PORTRAIT"
       ]
@@ -1519,7 +1556,20 @@
       ],
       "since": "1.8.0",
       "constants": [
-        "Titanium.UI.Android.PIXEL_FORMAT_*"
+        "Titanium.UI.Android.PIXEL_FORMAT_A_8",
+        "Titanium.UI.Android.PIXEL_FORMAT_LA_88",
+        "Titanium.UI.Android.PIXEL_FORMAT_L_8",
+        "Titanium.UI.Android.PIXEL_FORMAT_OPAQUE",
+        "Titanium.UI.Android.PIXEL_FORMAT_RGBA_4444",
+        "Titanium.UI.Android.PIXEL_FORMAT_RGBA_5551",
+        "Titanium.UI.Android.PIXEL_FORMAT_RGBA_8888",
+        "Titanium.UI.Android.PIXEL_FORMAT_RGBX_8888",
+        "Titanium.UI.Android.PIXEL_FORMAT_RGB_332",
+        "Titanium.UI.Android.PIXEL_FORMAT_RGB_565",
+        "Titanium.UI.Android.PIXEL_FORMAT_RGB_888",
+        "Titanium.UI.Android.PIXEL_FORMAT_TRANSLUCENT",
+        "Titanium.UI.Android.PIXEL_FORMAT_TRANSPARENT",
+        "Titanium.UI.Android.PIXEL_FORMAT_UNKNOWN"
       ]
     },
     {
@@ -1537,8 +1587,15 @@
       ],
       "availability": "creation",
       "constants": [
-        "Titanium.UI.Android.SOFT_INPUT_STATE_*",
-        "Titanium.UI.Android.SOFT_INPUT_ADJUST_*"
+        "Titanium.UI.Android.SOFT_INPUT_ADJUST_NOTHING",
+        "Titanium.UI.Android.SOFT_INPUT_ADJUST_PAN",
+        "Titanium.UI.Android.SOFT_INPUT_ADJUST_RESIZE",
+        "Titanium.UI.Android.SOFT_INPUT_ADJUST_UNSPECIFIED",
+        "Titanium.UI.Android.SOFT_INPUT_STATE_ALWAYS_HIDDEN",
+        "Titanium.UI.Android.SOFT_INPUT_STATE_ALWAYS_VISIBLE",
+        "Titanium.UI.Android.SOFT_INPUT_STATE_HIDDEN",
+        "Titanium.UI.Android.SOFT_INPUT_STATE_UNSPECIFIED",
+        "Titanium.UI.Android.SOFT_INPUT_STATE_VISIBLE"
       ],
       "examples": [
         {
@@ -1707,7 +1764,14 @@
                 ],
                 "default": "<Titanium.UI.iOS.AnimationStyle.NONE>",
                 "constants": [
-                  "Titanium.UI.iOS.AnimationStyle.*"
+                  "Titanium.UI.iOS.AnimationStyle.CROSS_DISSOLVE",
+                  "Titanium.UI.iOS.AnimationStyle.CURL_DOWN",
+                  "Titanium.UI.iOS.AnimationStyle.CURL_UP",
+                  "Titanium.UI.iOS.AnimationStyle.FLIP_FROM_BOTTOM",
+                  "Titanium.UI.iOS.AnimationStyle.FLIP_FROM_LEFT",
+                  "Titanium.UI.iOS.AnimationStyle.FLIP_FROM_RIGHT",
+                  "Titanium.UI.iOS.AnimationStyle.FLIP_FROM_TOP",
+                  "Titanium.UI.iOS.AnimationStyle.NONE"
                 ]
               }
             ]

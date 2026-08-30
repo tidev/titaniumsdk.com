@@ -428,7 +428,11 @@
       ],
       "permission": "read-only",
       "constants": [
-        "Titanium.Media.MUSIC_MEDIA_TYPE_*"
+        "Titanium.Media.MUSIC_MEDIA_TYPE_ALL",
+        "Titanium.Media.MUSIC_MEDIA_TYPE_ANY_AUDIO",
+        "Titanium.Media.MUSIC_MEDIA_TYPE_AUDIOBOOK",
+        "Titanium.Media.MUSIC_MEDIA_TYPE_MUSIC",
+        "Titanium.Media.MUSIC_MEDIA_TYPE_PODCAST"
       ]
     },
     {

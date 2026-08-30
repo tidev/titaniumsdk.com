@@ -26,7 +26,10 @@
         }
       ],
       "constants": [
-        "Titanium.UI.TEXT_ALIGNMENT_*"
+        "Titanium.UI.TEXT_ALIGNMENT_CENTER",
+        "Titanium.UI.TEXT_ALIGNMENT_JUSTIFY",
+        "Titanium.UI.TEXT_ALIGNMENT_LEFT",
+        "Titanium.UI.TEXT_ALIGNMENT_RIGHT"
       ]
     },
     {
@@ -117,7 +120,12 @@
         }
       ],
       "constants": [
-        "Titanium.UI.ATTRIBUTE_LINE_BREAK_*"
+        "Titanium.UI.ATTRIBUTE_LINE_BREAK_BY_CHAR_WRAPPING",
+        "Titanium.UI.ATTRIBUTE_LINE_BREAK_BY_CLIPPING",
+        "Titanium.UI.ATTRIBUTE_LINE_BREAK_BY_TRUNCATING_HEAD",
+        "Titanium.UI.ATTRIBUTE_LINE_BREAK_BY_TRUNCATING_MIDDLE",
+        "Titanium.UI.ATTRIBUTE_LINE_BREAK_BY_TRUNCATING_TAIL",
+        "Titanium.UI.ATTRIBUTE_LINE_BREAK_BY_WORD_WRAPPING"
       ]
     },
     {

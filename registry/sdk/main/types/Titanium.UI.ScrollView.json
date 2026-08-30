@@ -125,7 +125,8 @@
       "since": "3.2.3",
       "default": "Undefined.",
       "constants": [
-        "Titanium.UI.iOS.SCROLL_DECELERATION_RATE_*"
+        "Titanium.UI.iOS.SCROLL_DECELERATION_RATE_FAST",
+        "Titanium.UI.iOS.SCROLL_DECELERATION_RATE_NORMAL"
       ]
     },
     {
@@ -201,7 +202,9 @@
       "since": "6.0.0",
       "default": "Undefined (behaves like Titanium.UI.iOS.KEYBOARD_DISMISS_MODE_NONE)",
       "constants": [
-        "Titanium.UI.iOS.KEYBOARD_DISMISS_MODE_*"
+        "Titanium.UI.iOS.KEYBOARD_DISMISS_MODE_INTERACTIVE",
+        "Titanium.UI.iOS.KEYBOARD_DISMISS_MODE_NONE",
+        "Titanium.UI.iOS.KEYBOARD_DISMISS_MODE_ON_DRAG"
       ]
     },
     {
@@ -253,7 +256,9 @@
       "since": "3.1.0",
       "default": "Titanium.UI.Android.OVER_SCROLL_ALWAYS",
       "constants": [
-        "Titanium.UI.Android.OVER_SCROLL_*"
+        "Titanium.UI.Android.OVER_SCROLL_ALWAYS",
+        "Titanium.UI.Android.OVER_SCROLL_IF_CONTENT_SCROLLS",
+        "Titanium.UI.Android.OVER_SCROLL_NEVER"
       ]
     },
     {
@@ -294,7 +299,9 @@
       ],
       "default": "Titanium.UI.iOS.ScrollIndicatorStyle.DEFAULT",
       "constants": [
-        "Titanium.UI.iOS.ScrollIndicatorStyle.*"
+        "Titanium.UI.iOS.ScrollIndicatorStyle.BLACK",
+        "Titanium.UI.iOS.ScrollIndicatorStyle.DEFAULT",
+        "Titanium.UI.iOS.ScrollIndicatorStyle.WHITE"
       ]
     },
     {

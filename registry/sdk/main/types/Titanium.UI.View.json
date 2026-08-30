@@ -614,8 +614,8 @@
       ],
       "since": "6.1.0",
       "constants": [
-        "Titanium.UI.HIDDEN_BEHAVIOR_INVISIBLE",
-        "Titanium.UI.HIDDEN_BEHAVIOR_GONE"
+        "Titanium.UI.HIDDEN_BEHAVIOR_GONE",
+        "Titanium.UI.HIDDEN_BEHAVIOR_INVISIBLE"
       ]
     },
     {
@@ -1032,7 +1032,9 @@
         }
       ],
       "constants": [
-        "Titanium.UI.Android.SOFT_KEYBOARD_*"
+        "Titanium.UI.Android.SOFT_KEYBOARD_DEFAULT_ON_FOCUS",
+        "Titanium.UI.Android.SOFT_KEYBOARD_HIDE_ON_FOCUS",
+        "Titanium.UI.Android.SOFT_KEYBOARD_SHOW_ON_FOCUS"
       ]
     },
     {

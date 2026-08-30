@@ -67,7 +67,18 @@
         }
       ],
       "constants": [
-        "Titanium.UI.AUTOLINK_*"
+        "Titanium.UI.AUTOLINK_ALL",
+        "Titanium.UI.AUTOLINK_CALENDAR",
+        "Titanium.UI.AUTOLINK_EMAIL_ADDRESSES",
+        "Titanium.UI.AUTOLINK_FLIGHT_NUMBER",
+        "Titanium.UI.AUTOLINK_LOOKUP_SUGGESTION",
+        "Titanium.UI.AUTOLINK_MAP_ADDRESSES",
+        "Titanium.UI.AUTOLINK_MONEY",
+        "Titanium.UI.AUTOLINK_NONE",
+        "Titanium.UI.AUTOLINK_PHONE_NUMBERS",
+        "Titanium.UI.AUTOLINK_PHYSICAL_VALUE",
+        "Titanium.UI.AUTOLINK_SHIPMENT_TRACKING_NUMBER",
+        "Titanium.UI.AUTOLINK_URLS"
       ]
     },
     {
@@ -160,7 +171,9 @@
       ],
       "since": "12.3.0",
       "constants": [
-        "Titanium.UI.BREAK_*"
+        "Titanium.UI.BREAK_BALANCED",
+        "Titanium.UI.BREAK_HIGH_QUALITY",
+        "Titanium.UI.BREAK_SIMPLE"
       ]
     },
     {
@@ -201,7 +214,14 @@
       ],
       "default": "Titanium.UI.TEXT_ELLIPSIZE_TRUNCATE_END",
       "constants": [
-        "Titanium.UI.TEXT_ELLIPSIZE_TRUNCATE_*"
+        "Titanium.UI.TEXT_ELLIPSIZE_TRUNCATE_CHAR_WRAP",
+        "Titanium.UI.TEXT_ELLIPSIZE_TRUNCATE_CLIP",
+        "Titanium.UI.TEXT_ELLIPSIZE_TRUNCATE_END",
+        "Titanium.UI.TEXT_ELLIPSIZE_TRUNCATE_MARQUEE",
+        "Titanium.UI.TEXT_ELLIPSIZE_TRUNCATE_MIDDLE",
+        "Titanium.UI.TEXT_ELLIPSIZE_TRUNCATE_NONE",
+        "Titanium.UI.TEXT_ELLIPSIZE_TRUNCATE_START",
+        "Titanium.UI.TEXT_ELLIPSIZE_TRUNCATE_WORD_WRAP"
       ]
     },
     {
@@ -278,7 +298,11 @@
       ],
       "since": "12.3.0",
       "constants": [
-        "Titanium.UI.HYPHEN_*"
+        "Titanium.UI.HYPHEN_FULL",
+        "Titanium.UI.HYPHEN_FULL_FAST",
+        "Titanium.UI.HYPHEN_NONE",
+        "Titanium.UI.HYPHEN_NORMAL",
+        "Titanium.UI.HYPHEN_NORMAL_FAST"
       ]
     },
     {
@@ -527,7 +551,10 @@
         }
       ],
       "constants": [
-        "Titanium.UI.TEXT_ALIGNMENT_*"
+        "Titanium.UI.TEXT_ALIGNMENT_CENTER",
+        "Titanium.UI.TEXT_ALIGNMENT_JUSTIFY",
+        "Titanium.UI.TEXT_ALIGNMENT_LEFT",
+        "Titanium.UI.TEXT_ALIGNMENT_RIGHT"
       ]
     },
     {
@@ -592,7 +619,9 @@
       },
       "default": "undefined",
       "constants": [
-        "Titanium.UI.TEXT_VERTICAL_ALIGNMENT_*"
+        "Titanium.UI.TEXT_VERTICAL_ALIGNMENT_BOTTOM",
+        "Titanium.UI.TEXT_VERTICAL_ALIGNMENT_CENTER",
+        "Titanium.UI.TEXT_VERTICAL_ALIGNMENT_TOP"
       ]
     },
     {

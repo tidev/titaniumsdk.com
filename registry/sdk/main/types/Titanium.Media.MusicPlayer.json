@@ -63,7 +63,12 @@
       ],
       "permission": "read-only",
       "constants": [
-        "Titanium.Media.MUSIC_PLAYER_STATE_*"
+        "Titanium.Media.MUSIC_PLAYER_STATE_INTERRUPTED",
+        "Titanium.Media.MUSIC_PLAYER_STATE_PAUSED",
+        "Titanium.Media.MUSIC_PLAYER_STATE_PLAYING",
+        "Titanium.Media.MUSIC_PLAYER_STATE_SEEK_BACKWARD",
+        "Titanium.Media.MUSIC_PLAYER_STATE_SEEK_FORWARD",
+        "Titanium.Media.MUSIC_PLAYER_STATE_STOPPED"
       ]
     },
     {
@@ -81,7 +86,10 @@
         }
       ],
       "constants": [
-        "Titanium.Media.MUSIC_PLAYER_REPEAT_*"
+        "Titanium.Media.MUSIC_PLAYER_REPEAT_ALL",
+        "Titanium.Media.MUSIC_PLAYER_REPEAT_DEFAULT",
+        "Titanium.Media.MUSIC_PLAYER_REPEAT_NONE",
+        "Titanium.Media.MUSIC_PLAYER_REPEAT_ONE"
       ]
     },
     {
@@ -99,7 +107,10 @@
         }
       ],
       "constants": [
-        "Titanium.Media.MUSIC_PLAYER_SHUFFLE_*"
+        "Titanium.Media.MUSIC_PLAYER_SHUFFLE_ALBUMS",
+        "Titanium.Media.MUSIC_PLAYER_SHUFFLE_DEFAULT",
+        "Titanium.Media.MUSIC_PLAYER_SHUFFLE_NONE",
+        "Titanium.Media.MUSIC_PLAYER_SHUFFLE_SONGS"
       ]
     }
   ],

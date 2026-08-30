@@ -230,7 +230,9 @@
                   }
                 ],
                 "constants": [
-                  "Titanium.App.iOS.USER_NOTIFICATION_SETTING_*"
+                  "Titanium.App.iOS.USER_NOTIFICATION_SETTING_DISABLED",
+                  "Titanium.App.iOS.USER_NOTIFICATION_SETTING_ENABLED",
+                  "Titanium.App.iOS.USER_NOTIFICATION_SETTING_NOT_SUPPORTED"
                 ]
               },
               {
@@ -248,7 +250,9 @@
                   }
                 ],
                 "constants": [
-                  "Titanium.App.iOS.USER_NOTIFICATION_ALERT_STYLE_*"
+                  "Titanium.App.iOS.USER_NOTIFICATION_ALERT_STYLE_ALERT",
+                  "Titanium.App.iOS.USER_NOTIFICATION_ALERT_STYLE_BANNER",
+                  "Titanium.App.iOS.USER_NOTIFICATION_ALERT_STYLE_NONE"
                 ]
               },
               {
@@ -266,7 +270,10 @@
                   }
                 ],
                 "constants": [
-                  "Titanium.App.iOS.USER_NOTIFICATION_AUTHORIZATION_STATUS_*"
+                  "Titanium.App.iOS.USER_NOTIFICATION_AUTHORIZATION_STATUS_AUTHORIZED",
+                  "Titanium.App.iOS.USER_NOTIFICATION_AUTHORIZATION_STATUS_DENIED",
+                  "Titanium.App.iOS.USER_NOTIFICATION_AUTHORIZATION_STATUS_NOT_DETERMINED",
+                  "Titanium.App.iOS.USER_NOTIFICATION_AUTHORIZATION_STATUS_PROVISIONAL"
                 ]
               },
               {
@@ -284,7 +291,9 @@
                   }
                 ],
                 "constants": [
-                  "Titanium.App.iOS.USER_NOTIFICATION_SETTING_*"
+                  "Titanium.App.iOS.USER_NOTIFICATION_SETTING_DISABLED",
+                  "Titanium.App.iOS.USER_NOTIFICATION_SETTING_ENABLED",
+                  "Titanium.App.iOS.USER_NOTIFICATION_SETTING_NOT_SUPPORTED"
                 ]
               },
               {
@@ -302,7 +311,9 @@
                   }
                 ],
                 "constants": [
-                  "Titanium.App.iOS.USER_NOTIFICATION_SETTING_*"
+                  "Titanium.App.iOS.USER_NOTIFICATION_SETTING_DISABLED",
+                  "Titanium.App.iOS.USER_NOTIFICATION_SETTING_ENABLED",
+                  "Titanium.App.iOS.USER_NOTIFICATION_SETTING_NOT_SUPPORTED"
                 ]
               },
               {
@@ -342,7 +353,9 @@
                   }
                 ],
                 "constants": [
-                  "Titanium.App.iOS.USER_NOTIFICATION_SETTING_*"
+                  "Titanium.App.iOS.USER_NOTIFICATION_SETTING_DISABLED",
+                  "Titanium.App.iOS.USER_NOTIFICATION_SETTING_ENABLED",
+                  "Titanium.App.iOS.USER_NOTIFICATION_SETTING_NOT_SUPPORTED"
                 ]
               },
               {
@@ -360,7 +373,9 @@
                   }
                 ],
                 "constants": [
-                  "Titanium.App.iOS.USER_NOTIFICATION_SETTING_*"
+                  "Titanium.App.iOS.USER_NOTIFICATION_SETTING_DISABLED",
+                  "Titanium.App.iOS.USER_NOTIFICATION_SETTING_ENABLED",
+                  "Titanium.App.iOS.USER_NOTIFICATION_SETTING_NOT_SUPPORTED"
                 ]
               },
               {
@@ -378,7 +393,9 @@
                   }
                 ],
                 "constants": [
-                  "Titanium.App.iOS.USER_NOTIFICATION_SETTING_*"
+                  "Titanium.App.iOS.USER_NOTIFICATION_SETTING_DISABLED",
+                  "Titanium.App.iOS.USER_NOTIFICATION_SETTING_ENABLED",
+                  "Titanium.App.iOS.USER_NOTIFICATION_SETTING_NOT_SUPPORTED"
                 ]
               },
               {
@@ -396,7 +413,9 @@
                   }
                 ],
                 "constants": [
-                  "Titanium.App.iOS.USER_NOTIFICATION_SETTING_*"
+                  "Titanium.App.iOS.USER_NOTIFICATION_SETTING_DISABLED",
+                  "Titanium.App.iOS.USER_NOTIFICATION_SETTING_ENABLED",
+                  "Titanium.App.iOS.USER_NOTIFICATION_SETTING_NOT_SUPPORTED"
                 ]
               },
               {
@@ -414,7 +433,9 @@
                   }
                 ],
                 "constants": [
-                  "Titanium.App.iOS.USER_NOTIFICATION_SETTING_*"
+                  "Titanium.App.iOS.USER_NOTIFICATION_SETTING_DISABLED",
+                  "Titanium.App.iOS.USER_NOTIFICATION_SETTING_ENABLED",
+                  "Titanium.App.iOS.USER_NOTIFICATION_SETTING_NOT_SUPPORTED"
                 ]
               },
               {
@@ -439,7 +460,13 @@
                   }
                 ],
                 "constants": [
-                  "Titanium.App.iOS.USER_NOTIFICATION_TYPE_*"
+                  "Titanium.App.iOS.USER_NOTIFICATION_TYPE_ALERT",
+                  "Titanium.App.iOS.USER_NOTIFICATION_TYPE_BADGE",
+                  "Titanium.App.iOS.USER_NOTIFICATION_TYPE_CRITICAL_ALERT",
+                  "Titanium.App.iOS.USER_NOTIFICATION_TYPE_NONE",
+                  "Titanium.App.iOS.USER_NOTIFICATION_TYPE_PROVIDES_APP_NOTIFICATION_SETTINGS",
+                  "Titanium.App.iOS.USER_NOTIFICATION_TYPE_PROVISIONAL",
+                  "Titanium.App.iOS.USER_NOTIFICATION_TYPE_SOUND"
                 ]
               }
             ]

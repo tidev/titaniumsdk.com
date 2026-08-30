@@ -99,7 +99,11 @@
         }
       ],
       "constants": [
-        "Titanium.Calendar.AVAILABILITY_*"
+        "Titanium.Calendar.AVAILABILITY_BUSY",
+        "Titanium.Calendar.AVAILABILITY_FREE",
+        "Titanium.Calendar.AVAILABILITY_NOTSUPPORTED",
+        "Titanium.Calendar.AVAILABILITY_TENTATIVE",
+        "Titanium.Calendar.AVAILABILITY_UNAVAILABLE"
       ]
     },
     {
@@ -312,7 +316,10 @@
       ],
       "permission": "read-only",
       "constants": [
-        "Titanium.Calendar.STATUS_*"
+        "Titanium.Calendar.STATUS_CANCELED",
+        "Titanium.Calendar.STATUS_CONFIRMED",
+        "Titanium.Calendar.STATUS_NONE",
+        "Titanium.Calendar.STATUS_TENTATIVE"
       ]
     },
     {
@@ -346,7 +353,10 @@
       ],
       "permission": "read-only",
       "constants": [
-        "Titanium.Calendar.VISIBILITY_*"
+        "Titanium.Calendar.VISIBILITY_CONFIDENTIAL",
+        "Titanium.Calendar.VISIBILITY_DEFAULT",
+        "Titanium.Calendar.VISIBILITY_PRIVATE",
+        "Titanium.Calendar.VISIBILITY_PUBLIC"
       ]
     }
   ],

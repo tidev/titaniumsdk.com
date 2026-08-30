@@ -218,7 +218,11 @@
       "since": "3.0.0",
       "permission": "write-only",
       "constants": [
-        "Titanium.Android.SHOW_AS_ACTION_*"
+        "Titanium.Android.SHOW_AS_ACTION_ALWAYS",
+        "Titanium.Android.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW",
+        "Titanium.Android.SHOW_AS_ACTION_IF_ROOM",
+        "Titanium.Android.SHOW_AS_ACTION_NEVER",
+        "Titanium.Android.SHOW_AS_ACTION_WITH_TEXT"
       ]
     },
     {

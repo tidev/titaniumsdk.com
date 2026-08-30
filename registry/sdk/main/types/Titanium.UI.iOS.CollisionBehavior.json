@@ -114,7 +114,9 @@
       ],
       "default": "<Titanium.UI.iOS.COLLISION_MODE_ALL>",
       "constants": [
-        "Titanium.UI.iOS.COLLISION_MODE_*"
+        "Titanium.UI.iOS.COLLISION_MODE_ALL",
+        "Titanium.UI.iOS.COLLISION_MODE_BOUNDARY",
+        "Titanium.UI.iOS.COLLISION_MODE_ITEM"
       ]
     },
     {

@@ -312,7 +312,11 @@
       },
       "default": "System default video controls (<Titanium.Media.VIDEO_CONTROL_DEFAULT>).",
       "constants": [
-        "Titanium.Media.VIDEO_CONTROL_*"
+        "Titanium.Media.VIDEO_CONTROL_DEFAULT",
+        "Titanium.Media.VIDEO_CONTROL_EMBEDDED",
+        "Titanium.Media.VIDEO_CONTROL_FULLSCREEN",
+        "Titanium.Media.VIDEO_CONTROL_HIDDEN",
+        "Titanium.Media.VIDEO_CONTROL_NONE"
       ]
     },
     {
@@ -332,7 +336,16 @@
       "permission": "read-only",
       "default": "<Titanium.Media.VIDEO_MEDIA_TYPE_VIDEO>",
       "constants": [
-        "Titanium.Media.VIDEO_MEDIA_TYPE_*"
+        "Titanium.Media.VIDEO_MEDIA_TYPE_AUDIO",
+        "Titanium.Media.VIDEO_MEDIA_TYPE_CLOSED_CAPTION",
+        "Titanium.Media.VIDEO_MEDIA_TYPE_DEPTH_DATA",
+        "Titanium.Media.VIDEO_MEDIA_TYPE_METADATA",
+        "Titanium.Media.VIDEO_MEDIA_TYPE_METADATA_OBJECT",
+        "Titanium.Media.VIDEO_MEDIA_TYPE_MUXED",
+        "Titanium.Media.VIDEO_MEDIA_TYPE_SUBTITLE",
+        "Titanium.Media.VIDEO_MEDIA_TYPE_TEXT",
+        "Titanium.Media.VIDEO_MEDIA_TYPE_TIMECODE",
+        "Titanium.Media.VIDEO_MEDIA_TYPE_VIDEO"
       ]
     },
     {
@@ -351,7 +364,9 @@
       ],
       "permission": "read-only",
       "constants": [
-        "Titanium.Media.VIDEO_LOAD_STATE_*"
+        "Titanium.Media.VIDEO_LOAD_STATE_FAILED",
+        "Titanium.Media.VIDEO_LOAD_STATE_PLAYABLE",
+        "Titanium.Media.VIDEO_LOAD_STATE_UNKNOWN"
       ]
     },
     {
@@ -475,7 +490,12 @@
       ],
       "permission": "read-only",
       "constants": [
-        "Titanium.Media.VIDEO_PLAYBACK_STATE_*"
+        "Titanium.Media.VIDEO_PLAYBACK_STATE_INTERRUPTED",
+        "Titanium.Media.VIDEO_PLAYBACK_STATE_PAUSED",
+        "Titanium.Media.VIDEO_PLAYBACK_STATE_PLAYING",
+        "Titanium.Media.VIDEO_PLAYBACK_STATE_SEEKING_BACKWARD",
+        "Titanium.Media.VIDEO_PLAYBACK_STATE_SEEKING_FORWARD",
+        "Titanium.Media.VIDEO_PLAYBACK_STATE_STOPPED"
       ]
     },
     {
@@ -517,7 +537,8 @@
       },
       "default": "Titanium.Media.VIDEO_REPEAT_MODE_NONE",
       "constants": [
-        "Titanium.Media.VIDEO_REPEAT_MODE_*"
+        "Titanium.Media.VIDEO_REPEAT_MODE_NONE",
+        "Titanium.Media.VIDEO_REPEAT_MODE_ONE"
       ]
     },
     {
@@ -537,7 +558,13 @@
       ],
       "default": "<Titanium.Media.VIDEO_SCALING_RESIZE_ASPECT> on Android, <Titanium.Media.VIDEO_SCALING_RESIZE> on iOS",
       "constants": [
-        "Titanium.Media.VIDEO_SCALING_*"
+        "Titanium.Media.VIDEO_SCALING_ASPECT_FILL",
+        "Titanium.Media.VIDEO_SCALING_ASPECT_FIT",
+        "Titanium.Media.VIDEO_SCALING_MODE_FILL",
+        "Titanium.Media.VIDEO_SCALING_NONE",
+        "Titanium.Media.VIDEO_SCALING_RESIZE",
+        "Titanium.Media.VIDEO_SCALING_RESIZE_ASPECT",
+        "Titanium.Media.VIDEO_SCALING_RESIZE_ASPECT_FILL"
       ]
     },
     {

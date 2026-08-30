@@ -111,7 +111,13 @@
         }
       ],
       "constants": [
-        "Titanium.Android.IMPORTANCE_*"
+        "Titanium.Android.IMPORTANCE_DEFAULT",
+        "Titanium.Android.IMPORTANCE_HIGH",
+        "Titanium.Android.IMPORTANCE_LOW",
+        "Titanium.Android.IMPORTANCE_MAX",
+        "Titanium.Android.IMPORTANCE_MIN",
+        "Titanium.Android.IMPORTANCE_NONE",
+        "Titanium.Android.IMPORTANCE_UNSPECIFIED"
       ]
     },
     {
@@ -140,7 +146,9 @@
         }
       ],
       "constants": [
-        "Titanium.Android.VISIBILITY_*"
+        "Titanium.Android.VISIBILITY_PRIVATE",
+        "Titanium.Android.VISIBILITY_PUBLIC",
+        "Titanium.Android.VISIBILITY_SECRET"
       ]
     },
     {

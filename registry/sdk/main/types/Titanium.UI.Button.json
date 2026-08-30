@@ -385,7 +385,12 @@
       },
       "default": "<Titanium.UI.BUTTON_STYLE_TEXT> (on iOS),\n<Titanium.UI.BUTTON_STYLE_FILLED> (on Android)\n",
       "constants": [
-        "Titanium.UI.BUTTON_STYLE_*"
+        "Titanium.UI.BUTTON_STYLE_FILLED",
+        "Titanium.UI.BUTTON_STYLE_OPTION_NEGATIVE",
+        "Titanium.UI.BUTTON_STYLE_OPTION_NEUTRAL",
+        "Titanium.UI.BUTTON_STYLE_OPTION_POSITIVE",
+        "Titanium.UI.BUTTON_STYLE_OUTLINED",
+        "Titanium.UI.BUTTON_STYLE_TEXT"
       ]
     },
     {
@@ -404,7 +409,32 @@
         }
       ],
       "constants": [
-        "Titanium.UI.iOS.SystemButton.*"
+        "Titanium.UI.iOS.SystemButton.ACTION",
+        "Titanium.UI.iOS.SystemButton.ACTIVITY",
+        "Titanium.UI.iOS.SystemButton.ADD",
+        "Titanium.UI.iOS.SystemButton.BOOKMARKS",
+        "Titanium.UI.iOS.SystemButton.CAMERA",
+        "Titanium.UI.iOS.SystemButton.CANCEL",
+        "Titanium.UI.iOS.SystemButton.COMPOSE",
+        "Titanium.UI.iOS.SystemButton.CONTACT_ADD",
+        "Titanium.UI.iOS.SystemButton.DISCLOSURE",
+        "Titanium.UI.iOS.SystemButton.DONE",
+        "Titanium.UI.iOS.SystemButton.EDIT",
+        "Titanium.UI.iOS.SystemButton.FAST_FORWARD",
+        "Titanium.UI.iOS.SystemButton.FIXED_SPACE",
+        "Titanium.UI.iOS.SystemButton.FLEXIBLE_SPACE",
+        "Titanium.UI.iOS.SystemButton.INFO_DARK",
+        "Titanium.UI.iOS.SystemButton.INFO_LIGHT",
+        "Titanium.UI.iOS.SystemButton.ORGANIZE",
+        "Titanium.UI.iOS.SystemButton.PAUSE",
+        "Titanium.UI.iOS.SystemButton.PLAY",
+        "Titanium.UI.iOS.SystemButton.REFRESH",
+        "Titanium.UI.iOS.SystemButton.REPLY",
+        "Titanium.UI.iOS.SystemButton.REWIND",
+        "Titanium.UI.iOS.SystemButton.SAVE",
+        "Titanium.UI.iOS.SystemButton.SPINNER",
+        "Titanium.UI.iOS.SystemButton.STOP",
+        "Titanium.UI.iOS.SystemButton.TRASH"
       ]
     },
     {
@@ -428,7 +458,10 @@
       ],
       "default": "<Titanium.UI.TEXT_ALIGNMENT_CENTER>",
       "constants": [
-        "Titanium.UI.TEXT_ALIGNMENT_*"
+        "Titanium.UI.TEXT_ALIGNMENT_CENTER",
+        "Titanium.UI.TEXT_ALIGNMENT_JUSTIFY",
+        "Titanium.UI.TEXT_ALIGNMENT_LEFT",
+        "Titanium.UI.TEXT_ALIGNMENT_RIGHT"
       ]
     },
     {
@@ -531,7 +564,9 @@
       ],
       "default": "Titanium.UI.TEXT_VERTICAL_ALIGNMENT_CENTER",
       "constants": [
-        "Titanium.UI.TEXT_VERTICAL_ALIGNMENT_*"
+        "Titanium.UI.TEXT_VERTICAL_ALIGNMENT_BOTTOM",
+        "Titanium.UI.TEXT_VERTICAL_ALIGNMENT_CENTER",
+        "Titanium.UI.TEXT_VERTICAL_ALIGNMENT_TOP"
       ]
     }
   ],

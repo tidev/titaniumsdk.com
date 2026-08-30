@@ -35,3 +35,30 @@ export function typeRefText(ref: TypeRef): string {
 
 export const typeListText = (refs: TypeRef[] | undefined): string =>
   refs?.length ? refs.map(typeRefText).join(' | ') : '';
+
+/**
+ * OS version constraints, e.g. `{ ios: { min: '9.1' } }` becomes `iOS 9.1+`.
+ *
+ * Distinct from `since`, which is the Titanium version. This is the platform's
+ * own minimum, and 176 members carry one.
+ */
+export function formatOsver(osver: unknown): string | null {
+  if (!osver || typeof osver !== 'object') return null;
+  const parts: string[] = [];
+  for (const [platform, range] of Object.entries(osver as Record<string, unknown>)) {
+    if (!range || typeof range !== 'object') continue;
+    const { min, max } = range as { min?: string; max?: string };
+    const label = platform === 'ios' ? 'iOS' : platform === 'android' ? 'Android' : platform;
+    if (min && max) parts.push(`${label} ${min}–${max}`);
+    else if (min) parts.push(`${label} ${min}+`);
+    else if (max) parts.push(`${label} ≤${max}`);
+  }
+  return parts.length ? parts.join(', ') : null;
+}
+
+/** Splits a fully-qualified constant into the type that holds it and its name. */
+export function splitConstant(ref: string): { owner: string; name: string } | null {
+  const dot = ref.lastIndexOf('.');
+  if (dot <= 0) return null;
+  return { owner: ref.slice(0, dot), name: ref.slice(dot + 1) };
+}

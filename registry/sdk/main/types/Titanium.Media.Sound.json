@@ -143,7 +143,12 @@
       "since": "6.2.0",
       "default": "<Titanium.Media.AudioPlayer.AUDIO_TYPE_MEDIA>",
       "constants": [
-        "Titanium.Media.Sound.AUDIO_TYPE_*"
+        "Titanium.Media.Sound.AUDIO_TYPE_ALARM",
+        "Titanium.Media.Sound.AUDIO_TYPE_MEDIA",
+        "Titanium.Media.Sound.AUDIO_TYPE_NOTIFICATION",
+        "Titanium.Media.Sound.AUDIO_TYPE_RING",
+        "Titanium.Media.Sound.AUDIO_TYPE_SIGNALLING",
+        "Titanium.Media.Sound.AUDIO_TYPE_VOICE"
       ]
     },
     {

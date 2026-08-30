@@ -152,7 +152,9 @@
       ],
       "permission": "read-only",
       "constants": [
-        "Titanium.Calendar.STATE_*"
+        "Titanium.Calendar.STATE_DISMISSED",
+        "Titanium.Calendar.STATE_FIRED",
+        "Titanium.Calendar.STATE_SCHEDULED"
       ]
     }
   ],

@@ -319,6 +319,46 @@ export function resolveAll(types: Map<string, RawType>): ResolveResult {
     rawMembers.set(t.name, groups);
   }
 
+  /**
+   * Expands the constant globs a property lists as its valid values.
+   *
+   * `Titanium.UI.ATTRIBUTE_UNDERLINE_STYLE_*` means every all-caps property of
+   * `Titanium.UI` starting with that prefix, and a bare `Foo.*` means every
+   * all-caps property of `Foo`. 198 of the 299 constant references in the corpus
+   * are globs, so leaving them unexpanded loses two thirds of the information --
+   * and expanding at render would mean the renderer holding the whole type table
+   * to resolve one field.
+   */
+  const CONSTANT_NAME = /^[A-Z_0-9]*$/;
+
+  function expandConstants(raw: unknown): string[] | undefined {
+    const listed =
+      typeof raw === 'string'
+        ? [raw]
+        : Array.isArray(raw)
+          ? raw.filter((c): c is string => typeof c === 'string')
+          : [];
+    if (!listed.length) return undefined;
+
+    const out: string[] = [];
+    for (const entry of listed) {
+      if (!entry.endsWith('*')) {
+        out.push(entry);
+        continue;
+      }
+      const dot = entry.lastIndexOf('.');
+      const owner = entry.slice(0, dot);
+      const prefix = entry.slice(dot + 1, -1);
+      for (const p of rawMembers.get(owner)?.properties ?? []) {
+        const name = p.name;
+        if (typeof name !== 'string') continue;
+        if (name.startsWith(prefix) && CONSTANT_NAME.test(name)) out.push(`${owner}.${name}`);
+      }
+    }
+    // A glob and an explicit entry can name the same constant.
+    return out.length ? [...new Set(out)].sort() : undefined;
+  }
+
   /** A member is reachable on `owner` only if their platform sets overlap. */
   const reachable = (raw: Record<string, unknown>, owner: string): Platform[] =>
     narrowPlatforms(raw, typePlatforms.get(owner) ?? DEFAULT_PLATFORMS);
@@ -461,9 +501,8 @@ export function resolveAll(types: Map<string, RawType>): ResolveResult {
     if (raw.optional === true) out.optional = true;
     if (raw.value !== undefined) out.value = raw.value;
     if (raw.osver !== undefined) out.osver = raw.osver;
-    if (Array.isArray(raw.constants))
-      out.constants = raw.constants.filter((c) => typeof c === 'string');
-    else if (typeof raw.constants === 'string') out.constants = [raw.constants];
+    const constants = expandConstants(raw.constants);
+    if (constants) out.constants = constants;
 
     const ex = examples(raw.examples);
     if (ex) out.examples = ex;

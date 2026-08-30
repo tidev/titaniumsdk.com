@@ -32,7 +32,8 @@
       ],
       "availability": "creation",
       "constants": [
-        "Titanium.App.iOS.USER_NOTIFICATION_ACTIVATION_MODE_*"
+        "Titanium.App.iOS.USER_NOTIFICATION_ACTIVATION_MODE_BACKGROUND",
+        "Titanium.App.iOS.USER_NOTIFICATION_ACTIVATION_MODE_FOREGROUND"
       ]
     },
     {
@@ -69,7 +70,8 @@
       "availability": "creation",
       "default": "<Titanium.App.iOS.USER_NOTIFICATION_BEHAVIOR_DEFAULT>",
       "constants": [
-        "Titanium.App.iOS.USER_NOTIFICATION_BEHAVIOR_*"
+        "Titanium.App.iOS.USER_NOTIFICATION_BEHAVIOR_DEFAULT",
+        "Titanium.App.iOS.USER_NOTIFICATION_BEHAVIOR_TEXTINPUT"
       ]
     },
     {

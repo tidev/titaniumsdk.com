@@ -605,7 +605,14 @@
         }
       ],
       "constants": [
-        "Titanium.Media.MUSIC_MEDIA_GROUP_*"
+        "Titanium.Media.MUSIC_MEDIA_GROUP_ALBUM",
+        "Titanium.Media.MUSIC_MEDIA_GROUP_ALBUM_ARTIST",
+        "Titanium.Media.MUSIC_MEDIA_GROUP_ARTIST",
+        "Titanium.Media.MUSIC_MEDIA_GROUP_COMPOSER",
+        "Titanium.Media.MUSIC_MEDIA_GROUP_GENRE",
+        "Titanium.Media.MUSIC_MEDIA_GROUP_PLAYLIST",
+        "Titanium.Media.MUSIC_MEDIA_GROUP_PODCAST_TITLE",
+        "Titanium.Media.MUSIC_MEDIA_GROUP_TITLE"
       ]
     },
     {
@@ -821,7 +828,11 @@
         }
       ],
       "constants": [
-        "Titanium.Media.MUSIC_MEDIA_TYPE_*"
+        "Titanium.Media.MUSIC_MEDIA_TYPE_ALL",
+        "Titanium.Media.MUSIC_MEDIA_TYPE_ANY_AUDIO",
+        "Titanium.Media.MUSIC_MEDIA_TYPE_AUDIOBOOK",
+        "Titanium.Media.MUSIC_MEDIA_TYPE_MUSIC",
+        "Titanium.Media.MUSIC_MEDIA_TYPE_PODCAST"
       ],
       "inlined": {
         "name": "MediaQueryInfoType",

@@ -81,7 +81,8 @@
       "permission": "read-only",
       "default": "Titanium.Media.ASPECT_RATIO_4_3",
       "constants": [
-        "Titanium.Media.ASPECT_RATIO_*"
+        "Titanium.Media.ASPECT_RATIO_16_9",
+        "Titanium.Media.ASPECT_RATIO_4_3"
       ]
     },
     {
@@ -876,7 +877,11 @@
       ],
       "since": "3.4.2",
       "constants": [
-        "Titanium.Media.AUDIO_SESSION_CATEGORY*"
+        "Titanium.Media.AUDIO_SESSION_CATEGORY_AMBIENT",
+        "Titanium.Media.AUDIO_SESSION_CATEGORY_PLAYBACK",
+        "Titanium.Media.AUDIO_SESSION_CATEGORY_PLAY_AND_RECORD",
+        "Titanium.Media.AUDIO_SESSION_CATEGORY_RECORD",
+        "Titanium.Media.AUDIO_SESSION_CATEGORY_SOLO_AMBIENT"
       ]
     },
     {
@@ -900,7 +905,9 @@
         }
       ],
       "constants": [
-        "Titanium.Media.MEDIA_TYPE_*"
+        "Titanium.Media.MEDIA_TYPE_LIVEPHOTO",
+        "Titanium.Media.MEDIA_TYPE_PHOTO",
+        "Titanium.Media.MEDIA_TYPE_VIDEO"
       ]
     },
     {
@@ -954,7 +961,9 @@
         }
       ],
       "constants": [
-        "Titanium.Media.MEDIA_TYPE_*"
+        "Titanium.Media.MEDIA_TYPE_LIVEPHOTO",
+        "Titanium.Media.MEDIA_TYPE_PHOTO",
+        "Titanium.Media.MEDIA_TYPE_VIDEO"
       ]
     },
     {
@@ -978,7 +987,9 @@
         }
       ],
       "constants": [
-        "Titanium.Media.MEDIA_TYPE_*"
+        "Titanium.Media.MEDIA_TYPE_LIVEPHOTO",
+        "Titanium.Media.MEDIA_TYPE_PHOTO",
+        "Titanium.Media.MEDIA_TYPE_VIDEO"
       ]
     },
     {
@@ -1188,7 +1199,10 @@
       "since": "5.2.0",
       "permission": "read-only",
       "constants": [
-        "Titanium.Media.CAMERA_AUTHORIZATION_*"
+        "Titanium.Media.CAMERA_AUTHORIZATION_AUTHORIZED",
+        "Titanium.Media.CAMERA_AUTHORIZATION_DENIED",
+        "Titanium.Media.CAMERA_AUTHORIZATION_RESTRICTED",
+        "Titanium.Media.CAMERA_AUTHORIZATION_UNKNOWN"
       ]
     },
     {
@@ -1213,7 +1227,9 @@
       },
       "default": "<Titanium.Media.CAMERA_FLASH_AUTO> on iOS, <Titanium.Media.CAMERA_FLASH_OFF> on Android",
       "constants": [
-        "Titanium.Media.CAMERA_FLASH_*"
+        "Titanium.Media.CAMERA_FLASH_AUTO",
+        "Titanium.Media.CAMERA_FLASH_OFF",
+        "Titanium.Media.CAMERA_FLASH_ON"
       ]
     },
     {
@@ -1292,7 +1308,20 @@
               }
             ],
             "constants": [
-              "Titanium.Media.AUDIO_SESSION_PORT_*"
+              "Titanium.Media.AUDIO_SESSION_PORT_AIRPLAY",
+              "Titanium.Media.AUDIO_SESSION_PORT_BLUETOOTHA2DP",
+              "Titanium.Media.AUDIO_SESSION_PORT_BLUETOOTHHFP",
+              "Titanium.Media.AUDIO_SESSION_PORT_BLUETOOTHLE",
+              "Titanium.Media.AUDIO_SESSION_PORT_BUILTINMIC",
+              "Titanium.Media.AUDIO_SESSION_PORT_BUILTINRECEIVER",
+              "Titanium.Media.AUDIO_SESSION_PORT_BUILTINSPEAKER",
+              "Titanium.Media.AUDIO_SESSION_PORT_CARAUDIO",
+              "Titanium.Media.AUDIO_SESSION_PORT_HDMI",
+              "Titanium.Media.AUDIO_SESSION_PORT_HEADPHONES",
+              "Titanium.Media.AUDIO_SESSION_PORT_HEADSETMIC",
+              "Titanium.Media.AUDIO_SESSION_PORT_LINEIN",
+              "Titanium.Media.AUDIO_SESSION_PORT_LINEOUT",
+              "Titanium.Media.AUDIO_SESSION_PORT_USBAUDIO"
             ]
           },
           {
@@ -1316,7 +1345,20 @@
               }
             ],
             "constants": [
-              "Titanium.Media.AUDIO_SESSION_PORT_*"
+              "Titanium.Media.AUDIO_SESSION_PORT_AIRPLAY",
+              "Titanium.Media.AUDIO_SESSION_PORT_BLUETOOTHA2DP",
+              "Titanium.Media.AUDIO_SESSION_PORT_BLUETOOTHHFP",
+              "Titanium.Media.AUDIO_SESSION_PORT_BLUETOOTHLE",
+              "Titanium.Media.AUDIO_SESSION_PORT_BUILTINMIC",
+              "Titanium.Media.AUDIO_SESSION_PORT_BUILTINRECEIVER",
+              "Titanium.Media.AUDIO_SESSION_PORT_BUILTINSPEAKER",
+              "Titanium.Media.AUDIO_SESSION_PORT_CARAUDIO",
+              "Titanium.Media.AUDIO_SESSION_PORT_HDMI",
+              "Titanium.Media.AUDIO_SESSION_PORT_HEADPHONES",
+              "Titanium.Media.AUDIO_SESSION_PORT_HEADSETMIC",
+              "Titanium.Media.AUDIO_SESSION_PORT_LINEIN",
+              "Titanium.Media.AUDIO_SESSION_PORT_LINEOUT",
+              "Titanium.Media.AUDIO_SESSION_PORT_USBAUDIO"
             ]
           }
         ]
@@ -2260,8 +2302,8 @@
       "permission": "read-only",
       "default": "Titanium.Media.IMAGE_SCALING_ASPECT_FILL",
       "constants": [
-        "Titanium.Media.IMAGE_SCALING_ASPECT_FIT",
-        "Titanium.Media.IMAGE_SCALING_ASPECT_FILL"
+        "Titanium.Media.IMAGE_SCALING_ASPECT_FILL",
+        "Titanium.Media.IMAGE_SCALING_ASPECT_FIT"
       ]
     },
     {
@@ -2394,7 +2436,9 @@
       "permission": "read-only",
       "default": "Titanium.Media.VERTICAL_ALIGN_CENTER",
       "constants": [
-        "Titanium.Media.VERTICAL_ALIGN_*"
+        "Titanium.Media.VERTICAL_ALIGN_BOTTOM",
+        "Titanium.Media.VERTICAL_ALIGN_CENTER",
+        "Titanium.Media.VERTICAL_ALIGN_TOP"
       ]
     },
     {
@@ -3710,7 +3754,11 @@
                 ],
                 "default": "All available types.",
                 "constants": [
-                  "Titanium.Media.MUSIC_MEDIA_TYPE_*"
+                  "Titanium.Media.MUSIC_MEDIA_TYPE_ALL",
+                  "Titanium.Media.MUSIC_MEDIA_TYPE_ANY_AUDIO",
+                  "Titanium.Media.MUSIC_MEDIA_TYPE_AUDIOBOOK",
+                  "Titanium.Media.MUSIC_MEDIA_TYPE_MUSIC",
+                  "Titanium.Media.MUSIC_MEDIA_TYPE_PODCAST"
                 ]
               },
               {
@@ -3911,7 +3959,12 @@
                   }
                 ],
                 "constants": [
-                  "Titanium.UI.iPad.POPOVER_ARROW_DIRECTION*"
+                  "Titanium.UI.iPad.POPOVER_ARROW_DIRECTION_ANY",
+                  "Titanium.UI.iPad.POPOVER_ARROW_DIRECTION_DOWN",
+                  "Titanium.UI.iPad.POPOVER_ARROW_DIRECTION_LEFT",
+                  "Titanium.UI.iPad.POPOVER_ARROW_DIRECTION_RIGHT",
+                  "Titanium.UI.iPad.POPOVER_ARROW_DIRECTION_UNKNOWN",
+                  "Titanium.UI.iPad.POPOVER_ARROW_DIRECTION_UP"
                 ]
               },
               {
@@ -4019,7 +4072,9 @@
                 },
                 "default": "Only photo and video allowed.",
                 "constants": [
-                  "Titanium.Media.MEDIA_TYPE_*"
+                  "Titanium.Media.MEDIA_TYPE_LIVEPHOTO",
+                  "Titanium.Media.MEDIA_TYPE_PHOTO",
+                  "Titanium.Media.MEDIA_TYPE_VIDEO"
                 ]
               },
               {
@@ -4604,7 +4659,12 @@
                   }
                 ],
                 "constants": [
-                  "Titanium.UI.iPad.POPOVER_ARROW_DIRECTION*"
+                  "Titanium.UI.iPad.POPOVER_ARROW_DIRECTION_ANY",
+                  "Titanium.UI.iPad.POPOVER_ARROW_DIRECTION_DOWN",
+                  "Titanium.UI.iPad.POPOVER_ARROW_DIRECTION_LEFT",
+                  "Titanium.UI.iPad.POPOVER_ARROW_DIRECTION_RIGHT",
+                  "Titanium.UI.iPad.POPOVER_ARROW_DIRECTION_UNKNOWN",
+                  "Titanium.UI.iPad.POPOVER_ARROW_DIRECTION_UP"
                 ]
               },
               {
@@ -4731,8 +4791,8 @@
                 },
                 "default": "Both photo and video allowed.",
                 "constants": [
-                  "Titanium.Media.MEDIA_TYPE_PHOTO",
                   "Titanium.Media.MEDIA_TYPE_LIVEPHOTO",
+                  "Titanium.Media.MEDIA_TYPE_PHOTO",
                   "Titanium.Media.MEDIA_TYPE_VIDEO"
                 ]
               },
@@ -5033,7 +5093,13 @@
                   "android": "5.4.0"
                 },
                 "constants": [
-                  "Titanium.Media.QUALITY_*"
+                  "Titanium.Media.QUALITY_FHD",
+                  "Titanium.Media.QUALITY_HD",
+                  "Titanium.Media.QUALITY_HIGH",
+                  "Titanium.Media.QUALITY_LOW",
+                  "Titanium.Media.QUALITY_MEDIUM",
+                  "Titanium.Media.QUALITY_SD",
+                  "Titanium.Media.QUALITY_UHD"
                 ]
               },
               {
@@ -5302,7 +5368,20 @@
                   }
                 ],
                 "constants": [
-                  "Titanium.Media.AUDIO_SESSION_PORT_*"
+                  "Titanium.Media.AUDIO_SESSION_PORT_AIRPLAY",
+                  "Titanium.Media.AUDIO_SESSION_PORT_BLUETOOTHA2DP",
+                  "Titanium.Media.AUDIO_SESSION_PORT_BLUETOOTHHFP",
+                  "Titanium.Media.AUDIO_SESSION_PORT_BLUETOOTHLE",
+                  "Titanium.Media.AUDIO_SESSION_PORT_BUILTINMIC",
+                  "Titanium.Media.AUDIO_SESSION_PORT_BUILTINRECEIVER",
+                  "Titanium.Media.AUDIO_SESSION_PORT_BUILTINSPEAKER",
+                  "Titanium.Media.AUDIO_SESSION_PORT_CARAUDIO",
+                  "Titanium.Media.AUDIO_SESSION_PORT_HDMI",
+                  "Titanium.Media.AUDIO_SESSION_PORT_HEADPHONES",
+                  "Titanium.Media.AUDIO_SESSION_PORT_HEADSETMIC",
+                  "Titanium.Media.AUDIO_SESSION_PORT_LINEIN",
+                  "Titanium.Media.AUDIO_SESSION_PORT_LINEOUT",
+                  "Titanium.Media.AUDIO_SESSION_PORT_USBAUDIO"
                 ]
               },
               {
@@ -5326,7 +5405,20 @@
                   }
                 ],
                 "constants": [
-                  "Titanium.Media.AUDIO_SESSION_PORT_*"
+                  "Titanium.Media.AUDIO_SESSION_PORT_AIRPLAY",
+                  "Titanium.Media.AUDIO_SESSION_PORT_BLUETOOTHA2DP",
+                  "Titanium.Media.AUDIO_SESSION_PORT_BLUETOOTHHFP",
+                  "Titanium.Media.AUDIO_SESSION_PORT_BLUETOOTHLE",
+                  "Titanium.Media.AUDIO_SESSION_PORT_BUILTINMIC",
+                  "Titanium.Media.AUDIO_SESSION_PORT_BUILTINRECEIVER",
+                  "Titanium.Media.AUDIO_SESSION_PORT_BUILTINSPEAKER",
+                  "Titanium.Media.AUDIO_SESSION_PORT_CARAUDIO",
+                  "Titanium.Media.AUDIO_SESSION_PORT_HDMI",
+                  "Titanium.Media.AUDIO_SESSION_PORT_HEADPHONES",
+                  "Titanium.Media.AUDIO_SESSION_PORT_HEADSETMIC",
+                  "Titanium.Media.AUDIO_SESSION_PORT_LINEIN",
+                  "Titanium.Media.AUDIO_SESSION_PORT_LINEOUT",
+                  "Titanium.Media.AUDIO_SESSION_PORT_USBAUDIO"
                 ]
               }
             ]
@@ -5366,7 +5458,20 @@
                   }
                 ],
                 "constants": [
-                  "Titanium.Media.AUDIO_SESSION_PORT_*"
+                  "Titanium.Media.AUDIO_SESSION_PORT_AIRPLAY",
+                  "Titanium.Media.AUDIO_SESSION_PORT_BLUETOOTHA2DP",
+                  "Titanium.Media.AUDIO_SESSION_PORT_BLUETOOTHHFP",
+                  "Titanium.Media.AUDIO_SESSION_PORT_BLUETOOTHLE",
+                  "Titanium.Media.AUDIO_SESSION_PORT_BUILTINMIC",
+                  "Titanium.Media.AUDIO_SESSION_PORT_BUILTINRECEIVER",
+                  "Titanium.Media.AUDIO_SESSION_PORT_BUILTINSPEAKER",
+                  "Titanium.Media.AUDIO_SESSION_PORT_CARAUDIO",
+                  "Titanium.Media.AUDIO_SESSION_PORT_HDMI",
+                  "Titanium.Media.AUDIO_SESSION_PORT_HEADPHONES",
+                  "Titanium.Media.AUDIO_SESSION_PORT_HEADSETMIC",
+                  "Titanium.Media.AUDIO_SESSION_PORT_LINEIN",
+                  "Titanium.Media.AUDIO_SESSION_PORT_LINEOUT",
+                  "Titanium.Media.AUDIO_SESSION_PORT_USBAUDIO"
                 ]
               },
               {
@@ -5390,7 +5495,20 @@
                   }
                 ],
                 "constants": [
-                  "Titanium.Media.AUDIO_SESSION_PORT_*"
+                  "Titanium.Media.AUDIO_SESSION_PORT_AIRPLAY",
+                  "Titanium.Media.AUDIO_SESSION_PORT_BLUETOOTHA2DP",
+                  "Titanium.Media.AUDIO_SESSION_PORT_BLUETOOTHHFP",
+                  "Titanium.Media.AUDIO_SESSION_PORT_BLUETOOTHLE",
+                  "Titanium.Media.AUDIO_SESSION_PORT_BUILTINMIC",
+                  "Titanium.Media.AUDIO_SESSION_PORT_BUILTINRECEIVER",
+                  "Titanium.Media.AUDIO_SESSION_PORT_BUILTINSPEAKER",
+                  "Titanium.Media.AUDIO_SESSION_PORT_CARAUDIO",
+                  "Titanium.Media.AUDIO_SESSION_PORT_HDMI",
+                  "Titanium.Media.AUDIO_SESSION_PORT_HEADPHONES",
+                  "Titanium.Media.AUDIO_SESSION_PORT_HEADSETMIC",
+                  "Titanium.Media.AUDIO_SESSION_PORT_LINEIN",
+                  "Titanium.Media.AUDIO_SESSION_PORT_LINEOUT",
+                  "Titanium.Media.AUDIO_SESSION_PORT_USBAUDIO"
                 ]
               }
             ]

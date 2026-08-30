@@ -137,7 +137,12 @@
       "since": "6.1.0",
       "permission": "read-only",
       "constants": [
-        "Titanium.Calendar.SOURCE_TYPE_*"
+        "Titanium.Calendar.SOURCE_TYPE_BIRTHDAYS",
+        "Titanium.Calendar.SOURCE_TYPE_CALDAV",
+        "Titanium.Calendar.SOURCE_TYPE_EXCHANGE",
+        "Titanium.Calendar.SOURCE_TYPE_LOCAL",
+        "Titanium.Calendar.SOURCE_TYPE_MOBILEME",
+        "Titanium.Calendar.SOURCE_TYPE_SUBSCRIBED"
       ]
     }
   ],

@@ -441,7 +441,13 @@
       ],
       "permission": "write-only",
       "constants": [
-        "Titanium.Android.SCREEN_ORIENTATION_*"
+        "Titanium.Android.SCREEN_ORIENTATION_BEHIND",
+        "Titanium.Android.SCREEN_ORIENTATION_LANDSCAPE",
+        "Titanium.Android.SCREEN_ORIENTATION_NOSENSOR",
+        "Titanium.Android.SCREEN_ORIENTATION_PORTRAIT",
+        "Titanium.Android.SCREEN_ORIENTATION_SENSOR",
+        "Titanium.Android.SCREEN_ORIENTATION_UNSPECIFIED",
+        "Titanium.Android.SCREEN_ORIENTATION_USER"
       ]
     },
     {

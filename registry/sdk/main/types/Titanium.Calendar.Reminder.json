@@ -41,7 +41,10 @@
       ],
       "permission": "read-only",
       "constants": [
-        "Titanium.Calendar.METHOD_*"
+        "Titanium.Calendar.METHOD_ALERT",
+        "Titanium.Calendar.METHOD_DEFAULT",
+        "Titanium.Calendar.METHOD_EMAIL",
+        "Titanium.Calendar.METHOD_SMS"
       ]
     },
     {

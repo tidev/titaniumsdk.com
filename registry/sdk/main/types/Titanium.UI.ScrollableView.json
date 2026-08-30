@@ -187,7 +187,9 @@
       "since": "3.1.0",
       "default": "Titanium.UI.Android.OVER_SCROLL_ALWAYS",
       "constants": [
-        "Titanium.UI.Android.OVER_SCROLL_*"
+        "Titanium.UI.Android.OVER_SCROLL_ALWAYS",
+        "Titanium.UI.Android.OVER_SCROLL_IF_CONTENT_SCROLLS",
+        "Titanium.UI.Android.OVER_SCROLL_NEVER"
       ]
     },
     {

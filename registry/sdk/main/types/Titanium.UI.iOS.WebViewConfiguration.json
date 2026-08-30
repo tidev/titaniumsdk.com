@@ -84,7 +84,10 @@
       ],
       "default": "Titanium.UI.iOS.AUDIOVISUAL_MEDIA_TYPE_NONE",
       "constants": [
-        "Titanium.UI.iOS.AUDIOVISUAL_MEDIA_TYPE_*"
+        "Titanium.UI.iOS.AUDIOVISUAL_MEDIA_TYPE_ALL",
+        "Titanium.UI.iOS.AUDIOVISUAL_MEDIA_TYPE_AUDIO",
+        "Titanium.UI.iOS.AUDIOVISUAL_MEDIA_TYPE_NONE",
+        "Titanium.UI.iOS.AUDIOVISUAL_MEDIA_TYPE_VIDEO"
       ]
     },
     {
@@ -189,7 +192,8 @@
       ],
       "default": "Titanium.UI.iOS.SELECTION_GRANULARITY_DYNAMIC",
       "constants": [
-        "Titanium.UI.iOS.SELECTION_GRANULARITY_*"
+        "Titanium.UI.iOS.SELECTION_GRANULARITY_CHARACTER",
+        "Titanium.UI.iOS.SELECTION_GRANULARITY_DYNAMIC"
       ]
     },
     {

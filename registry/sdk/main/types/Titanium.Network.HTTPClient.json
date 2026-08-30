@@ -424,11 +424,11 @@
       ],
       "permission": "read-only",
       "constants": [
-        "Titanium.Network.HTTPClient.UNSENT",
-        "Titanium.Network.HTTPClient.OPENED",
+        "Titanium.Network.HTTPClient.DONE",
         "Titanium.Network.HTTPClient.HEADERS_RECEIVED",
         "Titanium.Network.HTTPClient.LOADING",
-        "Titanium.Network.HTTPClient.DONE"
+        "Titanium.Network.HTTPClient.OPENED",
+        "Titanium.Network.HTTPClient.UNSENT"
       ]
     },
     {
@@ -624,7 +624,10 @@
       },
       "default": "undefined, behaves as `Ti.Network.TLS_VERSION_1_2`.\n",
       "constants": [
-        "Titanium.Network.TLS_VERSION_*"
+        "Titanium.Network.TLS_VERSION_1_0",
+        "Titanium.Network.TLS_VERSION_1_1",
+        "Titanium.Network.TLS_VERSION_1_2",
+        "Titanium.Network.TLS_VERSION_1_3"
       ]
     },
     {

@@ -406,7 +406,10 @@
         }
       },
       "constants": [
-        "Titanium.UI.iOS.TAB_GROUP_MINIMIZE_BEHAVIOR_*"
+        "Titanium.UI.iOS.TAB_GROUP_MINIMIZE_BEHAVIOR_AUTOMATIC",
+        "Titanium.UI.iOS.TAB_GROUP_MINIMIZE_BEHAVIOR_NEVER",
+        "Titanium.UI.iOS.TAB_GROUP_MINIMIZE_BEHAVIOR_ON_SCROLL_DOWN",
+        "Titanium.UI.iOS.TAB_GROUP_MINIMIZE_BEHAVIOR_ON_SCROLL_UP"
       ]
     },
     {
@@ -592,7 +595,8 @@
       "since": "8.0.0",
       "availability": "creation",
       "constants": [
-        "Titanium.UI.Android.TABS_STYLE_*"
+        "Titanium.UI.Android.TABS_STYLE_BOTTOM_NAVIGATION",
+        "Titanium.UI.Android.TABS_STYLE_DEFAULT"
       ]
     },
     {
@@ -646,7 +650,8 @@
       "since": "12.2.0",
       "availability": "creation",
       "constants": [
-        "Titanium.UI.Android.TAB_MODE_*"
+        "Titanium.UI.Android.TAB_MODE_FIXED",
+        "Titanium.UI.Android.TAB_MODE_SCROLLABLE"
       ]
     },
     {
@@ -910,7 +915,10 @@
       ],
       "availability": "creation",
       "constants": [
-        "Titanium.UI.Android.SOFT_INPUT_ADJUST_*"
+        "Titanium.UI.Android.SOFT_INPUT_ADJUST_NOTHING",
+        "Titanium.UI.Android.SOFT_INPUT_ADJUST_PAN",
+        "Titanium.UI.Android.SOFT_INPUT_ADJUST_RESIZE",
+        "Titanium.UI.Android.SOFT_INPUT_ADJUST_UNSPECIFIED"
       ]
     }
   ],

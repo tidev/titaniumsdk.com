@@ -181,7 +181,10 @@
         "ipad": "0.9"
       },
       "constants": [
-        "Titanium.UI.ANIMATION_CURVE_*"
+        "Titanium.UI.ANIMATION_CURVE_EASE_IN",
+        "Titanium.UI.ANIMATION_CURVE_EASE_IN_OUT",
+        "Titanium.UI.ANIMATION_CURVE_EASE_OUT",
+        "Titanium.UI.ANIMATION_CURVE_LINEAR"
       ]
     },
     {
@@ -448,7 +451,14 @@
         }
       ],
       "constants": [
-        "Titanium.UI.iOS.AnimationStyle.*"
+        "Titanium.UI.iOS.AnimationStyle.CROSS_DISSOLVE",
+        "Titanium.UI.iOS.AnimationStyle.CURL_DOWN",
+        "Titanium.UI.iOS.AnimationStyle.CURL_UP",
+        "Titanium.UI.iOS.AnimationStyle.FLIP_FROM_BOTTOM",
+        "Titanium.UI.iOS.AnimationStyle.FLIP_FROM_LEFT",
+        "Titanium.UI.iOS.AnimationStyle.FLIP_FROM_RIGHT",
+        "Titanium.UI.iOS.AnimationStyle.FLIP_FROM_TOP",
+        "Titanium.UI.iOS.AnimationStyle.NONE"
       ]
     },
     {

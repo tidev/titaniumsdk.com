@@ -334,7 +334,11 @@
       "since": "10.1.0",
       "default": "<Titanium.Media.IMAGE_SCALING_AUTO>",
       "constants": [
-        "Titanium.Media.IMAGE_SCALING_*"
+        "Titanium.Media.IMAGE_SCALING_ASPECT_FILL",
+        "Titanium.Media.IMAGE_SCALING_ASPECT_FIT",
+        "Titanium.Media.IMAGE_SCALING_AUTO",
+        "Titanium.Media.IMAGE_SCALING_FILL",
+        "Titanium.Media.IMAGE_SCALING_NONE"
       ]
     },
     {

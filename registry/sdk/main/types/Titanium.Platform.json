@@ -192,7 +192,10 @@
       ],
       "permission": "read-only",
       "constants": [
-        "Titanium.Platform.BATTERY_STATE_*"
+        "Titanium.Platform.BATTERY_STATE_CHARGING",
+        "Titanium.Platform.BATTERY_STATE_FULL",
+        "Titanium.Platform.BATTERY_STATE_UNKNOWN",
+        "Titanium.Platform.BATTERY_STATE_UNPLUGGED"
       ]
     },
     {

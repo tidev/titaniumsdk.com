@@ -94,7 +94,9 @@
         }
       },
       "constants": [
-        "Titanium.WatchSession.ACTIVATION_STATE_*"
+        "Titanium.WatchSession.ACTIVATION_STATE_ACTIVATED",
+        "Titanium.WatchSession.ACTIVATION_STATE_INACTIVE",
+        "Titanium.WatchSession.ACTIVATION_STATE_NOT_ACTIVATED"
       ]
     },
     {

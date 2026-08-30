@@ -543,7 +543,9 @@
       "since": "12.2.0",
       "default": "Undefined (behaves like <Titanium.UI.iOS.KEYBOARD_DISMISS_MODE_NONE>)",
       "constants": [
-        "Titanium.UI.iOS.KEYBOARD_DISMISS_MODE_*"
+        "Titanium.UI.iOS.KEYBOARD_DISMISS_MODE_INTERACTIVE",
+        "Titanium.UI.iOS.KEYBOARD_DISMISS_MODE_NONE",
+        "Titanium.UI.iOS.KEYBOARD_DISMISS_MODE_ON_DRAG"
       ]
     },
     {
@@ -658,7 +660,9 @@
       "since": "3.1.0",
       "default": "Titanium.UI.Android.OVER_SCROLL_ALWAYS",
       "constants": [
-        "Titanium.UI.Android.OVER_SCROLL_*"
+        "Titanium.UI.Android.OVER_SCROLL_ALWAYS",
+        "Titanium.UI.Android.OVER_SCROLL_IF_CONTENT_SCROLLS",
+        "Titanium.UI.Android.OVER_SCROLL_NEVER"
       ]
     },
     {
@@ -764,7 +768,8 @@
       "since": "7.3.0",
       "availability": "creation",
       "constants": [
-        "Titanium.UI.TABLE_VIEW_SEPARATOR_STYLE_*"
+        "Titanium.UI.TABLE_VIEW_SEPARATOR_STYLE_NONE",
+        "Titanium.UI.TABLE_VIEW_SEPARATOR_STYLE_SINGLE_LINE"
       ]
     },
     {
@@ -837,7 +842,9 @@
       "since": "2.1.0",
       "default": "<Titanium.UI.iOS.ScrollIndicatorStyle.DEFAULT>",
       "constants": [
-        "Titanium.UI.iOS.ScrollIndicatorStyle.*"
+        "Titanium.UI.iOS.ScrollIndicatorStyle.BLACK",
+        "Titanium.UI.iOS.ScrollIndicatorStyle.DEFAULT",
+        "Titanium.UI.iOS.ScrollIndicatorStyle.WHITE"
       ]
     },
     {
@@ -1042,7 +1049,8 @@
         "android": "5.2.0"
       },
       "constants": [
-        "Titanium.UI.TABLE_VIEW_SEPARATOR_STYLE_*"
+        "Titanium.UI.TABLE_VIEW_SEPARATOR_STYLE_NONE",
+        "Titanium.UI.TABLE_VIEW_SEPARATOR_STYLE_SINGLE_LINE"
       ]
     },
     {
@@ -1133,7 +1141,9 @@
         }
       ],
       "constants": [
-        "Titanium.UI.iOS.TableViewStyle.*"
+        "Titanium.UI.iOS.TableViewStyle.GROUPED",
+        "Titanium.UI.iOS.TableViewStyle.INSET_GROUPED",
+        "Titanium.UI.iOS.TableViewStyle.PLAIN"
       ]
     },
     {
@@ -1277,7 +1287,12 @@
                 ],
                 "default": "If `animated` is `true` but no `animationStyle` is specified, the style defaults to\n[FADE](Titanium.UI.iOS.RowAnimationStyle.FADE).\n",
                 "constants": [
-                  "Titanium.UI.iOS.RowAnimationStyle.*"
+                  "Titanium.UI.iOS.RowAnimationStyle.BOTTOM",
+                  "Titanium.UI.iOS.RowAnimationStyle.FADE",
+                  "Titanium.UI.iOS.RowAnimationStyle.LEFT",
+                  "Titanium.UI.iOS.RowAnimationStyle.NONE",
+                  "Titanium.UI.iOS.RowAnimationStyle.RIGHT",
+                  "Titanium.UI.iOS.RowAnimationStyle.TOP"
                 ]
               },
               {
@@ -1297,7 +1312,10 @@
                 ],
                 "default": "<Titanium.UI.TableViewScrollPosition.NONE>",
                 "constants": [
-                  "Titanium.UI.TableViewScrollPosition.*"
+                  "Titanium.UI.TableViewScrollPosition.BOTTOM",
+                  "Titanium.UI.TableViewScrollPosition.MIDDLE",
+                  "Titanium.UI.TableViewScrollPosition.NONE",
+                  "Titanium.UI.TableViewScrollPosition.TOP"
                 ]
               }
             ]
@@ -1412,7 +1430,12 @@
                 ],
                 "default": "If `animated` is `true` but no `animationStyle` is specified, the style defaults to\n[FADE](Titanium.UI.iOS.RowAnimationStyle.FADE).\n",
                 "constants": [
-                  "Titanium.UI.iOS.RowAnimationStyle.*"
+                  "Titanium.UI.iOS.RowAnimationStyle.BOTTOM",
+                  "Titanium.UI.iOS.RowAnimationStyle.FADE",
+                  "Titanium.UI.iOS.RowAnimationStyle.LEFT",
+                  "Titanium.UI.iOS.RowAnimationStyle.NONE",
+                  "Titanium.UI.iOS.RowAnimationStyle.RIGHT",
+                  "Titanium.UI.iOS.RowAnimationStyle.TOP"
                 ]
               },
               {
@@ -1432,7 +1455,10 @@
                 ],
                 "default": "<Titanium.UI.TableViewScrollPosition.NONE>",
                 "constants": [
-                  "Titanium.UI.TableViewScrollPosition.*"
+                  "Titanium.UI.TableViewScrollPosition.BOTTOM",
+                  "Titanium.UI.TableViewScrollPosition.MIDDLE",
+                  "Titanium.UI.TableViewScrollPosition.NONE",
+                  "Titanium.UI.TableViewScrollPosition.TOP"
                 ]
               }
             ]
@@ -1514,7 +1540,12 @@
                 ],
                 "default": "If `animated` is `true` but no `animationStyle` is specified, the style defaults to\n[FADE](Titanium.UI.iOS.RowAnimationStyle.FADE).\n",
                 "constants": [
-                  "Titanium.UI.iOS.RowAnimationStyle.*"
+                  "Titanium.UI.iOS.RowAnimationStyle.BOTTOM",
+                  "Titanium.UI.iOS.RowAnimationStyle.FADE",
+                  "Titanium.UI.iOS.RowAnimationStyle.LEFT",
+                  "Titanium.UI.iOS.RowAnimationStyle.NONE",
+                  "Titanium.UI.iOS.RowAnimationStyle.RIGHT",
+                  "Titanium.UI.iOS.RowAnimationStyle.TOP"
                 ]
               },
               {
@@ -1534,7 +1565,10 @@
                 ],
                 "default": "<Titanium.UI.TableViewScrollPosition.NONE>",
                 "constants": [
-                  "Titanium.UI.TableViewScrollPosition.*"
+                  "Titanium.UI.TableViewScrollPosition.BOTTOM",
+                  "Titanium.UI.TableViewScrollPosition.MIDDLE",
+                  "Titanium.UI.TableViewScrollPosition.NONE",
+                  "Titanium.UI.TableViewScrollPosition.TOP"
                 ]
               }
             ]
@@ -1613,7 +1647,12 @@
                 ],
                 "default": "If `animated` is `true` but no `animationStyle` is specified, the style defaults to\n[FADE](Titanium.UI.iOS.RowAnimationStyle.FADE).\n",
                 "constants": [
-                  "Titanium.UI.iOS.RowAnimationStyle.*"
+                  "Titanium.UI.iOS.RowAnimationStyle.BOTTOM",
+                  "Titanium.UI.iOS.RowAnimationStyle.FADE",
+                  "Titanium.UI.iOS.RowAnimationStyle.LEFT",
+                  "Titanium.UI.iOS.RowAnimationStyle.NONE",
+                  "Titanium.UI.iOS.RowAnimationStyle.RIGHT",
+                  "Titanium.UI.iOS.RowAnimationStyle.TOP"
                 ]
               },
               {
@@ -1633,7 +1672,10 @@
                 ],
                 "default": "<Titanium.UI.TableViewScrollPosition.NONE>",
                 "constants": [
-                  "Titanium.UI.TableViewScrollPosition.*"
+                  "Titanium.UI.TableViewScrollPosition.BOTTOM",
+                  "Titanium.UI.TableViewScrollPosition.MIDDLE",
+                  "Titanium.UI.TableViewScrollPosition.NONE",
+                  "Titanium.UI.TableViewScrollPosition.TOP"
                 ]
               }
             ]
@@ -1752,7 +1794,12 @@
                 ],
                 "default": "If `animated` is `true` but no `animationStyle` is specified, the style defaults to\n[FADE](Titanium.UI.iOS.RowAnimationStyle.FADE).\n",
                 "constants": [
-                  "Titanium.UI.iOS.RowAnimationStyle.*"
+                  "Titanium.UI.iOS.RowAnimationStyle.BOTTOM",
+                  "Titanium.UI.iOS.RowAnimationStyle.FADE",
+                  "Titanium.UI.iOS.RowAnimationStyle.LEFT",
+                  "Titanium.UI.iOS.RowAnimationStyle.NONE",
+                  "Titanium.UI.iOS.RowAnimationStyle.RIGHT",
+                  "Titanium.UI.iOS.RowAnimationStyle.TOP"
                 ]
               },
               {
@@ -1772,7 +1819,10 @@
                 ],
                 "default": "<Titanium.UI.TableViewScrollPosition.NONE>",
                 "constants": [
-                  "Titanium.UI.TableViewScrollPosition.*"
+                  "Titanium.UI.TableViewScrollPosition.BOTTOM",
+                  "Titanium.UI.TableViewScrollPosition.MIDDLE",
+                  "Titanium.UI.TableViewScrollPosition.NONE",
+                  "Titanium.UI.TableViewScrollPosition.TOP"
                 ]
               }
             ]
@@ -1870,7 +1920,12 @@
                 ],
                 "default": "If `animated` is `true` but no `animationStyle` is specified, the style defaults to\n[FADE](Titanium.UI.iOS.RowAnimationStyle.FADE).\n",
                 "constants": [
-                  "Titanium.UI.iOS.RowAnimationStyle.*"
+                  "Titanium.UI.iOS.RowAnimationStyle.BOTTOM",
+                  "Titanium.UI.iOS.RowAnimationStyle.FADE",
+                  "Titanium.UI.iOS.RowAnimationStyle.LEFT",
+                  "Titanium.UI.iOS.RowAnimationStyle.NONE",
+                  "Titanium.UI.iOS.RowAnimationStyle.RIGHT",
+                  "Titanium.UI.iOS.RowAnimationStyle.TOP"
                 ]
               },
               {
@@ -1890,7 +1945,10 @@
                 ],
                 "default": "<Titanium.UI.TableViewScrollPosition.NONE>",
                 "constants": [
-                  "Titanium.UI.TableViewScrollPosition.*"
+                  "Titanium.UI.TableViewScrollPosition.BOTTOM",
+                  "Titanium.UI.TableViewScrollPosition.MIDDLE",
+                  "Titanium.UI.TableViewScrollPosition.NONE",
+                  "Titanium.UI.TableViewScrollPosition.TOP"
                 ]
               }
             ]
@@ -1989,7 +2047,12 @@
                 ],
                 "default": "If `animated` is `true` but no `animationStyle` is specified, the style defaults to\n[FADE](Titanium.UI.iOS.RowAnimationStyle.FADE).\n",
                 "constants": [
-                  "Titanium.UI.iOS.RowAnimationStyle.*"
+                  "Titanium.UI.iOS.RowAnimationStyle.BOTTOM",
+                  "Titanium.UI.iOS.RowAnimationStyle.FADE",
+                  "Titanium.UI.iOS.RowAnimationStyle.LEFT",
+                  "Titanium.UI.iOS.RowAnimationStyle.NONE",
+                  "Titanium.UI.iOS.RowAnimationStyle.RIGHT",
+                  "Titanium.UI.iOS.RowAnimationStyle.TOP"
                 ]
               },
               {
@@ -2009,7 +2072,10 @@
                 ],
                 "default": "<Titanium.UI.TableViewScrollPosition.NONE>",
                 "constants": [
-                  "Titanium.UI.TableViewScrollPosition.*"
+                  "Titanium.UI.TableViewScrollPosition.BOTTOM",
+                  "Titanium.UI.TableViewScrollPosition.MIDDLE",
+                  "Titanium.UI.TableViewScrollPosition.NONE",
+                  "Titanium.UI.TableViewScrollPosition.TOP"
                 ]
               }
             ]
@@ -2108,7 +2174,12 @@
                 ],
                 "default": "If `animated` is `true` but no `animationStyle` is specified, the style defaults to\n[FADE](Titanium.UI.iOS.RowAnimationStyle.FADE).\n",
                 "constants": [
-                  "Titanium.UI.iOS.RowAnimationStyle.*"
+                  "Titanium.UI.iOS.RowAnimationStyle.BOTTOM",
+                  "Titanium.UI.iOS.RowAnimationStyle.FADE",
+                  "Titanium.UI.iOS.RowAnimationStyle.LEFT",
+                  "Titanium.UI.iOS.RowAnimationStyle.NONE",
+                  "Titanium.UI.iOS.RowAnimationStyle.RIGHT",
+                  "Titanium.UI.iOS.RowAnimationStyle.TOP"
                 ]
               },
               {
@@ -2128,7 +2199,10 @@
                 ],
                 "default": "<Titanium.UI.TableViewScrollPosition.NONE>",
                 "constants": [
-                  "Titanium.UI.TableViewScrollPosition.*"
+                  "Titanium.UI.TableViewScrollPosition.BOTTOM",
+                  "Titanium.UI.TableViewScrollPosition.MIDDLE",
+                  "Titanium.UI.TableViewScrollPosition.NONE",
+                  "Titanium.UI.TableViewScrollPosition.TOP"
                 ]
               }
             ]
@@ -2206,7 +2280,12 @@
                 ],
                 "default": "If `animated` is `true` but no `animationStyle` is specified, the style defaults to\n[FADE](Titanium.UI.iOS.RowAnimationStyle.FADE).\n",
                 "constants": [
-                  "Titanium.UI.iOS.RowAnimationStyle.*"
+                  "Titanium.UI.iOS.RowAnimationStyle.BOTTOM",
+                  "Titanium.UI.iOS.RowAnimationStyle.FADE",
+                  "Titanium.UI.iOS.RowAnimationStyle.LEFT",
+                  "Titanium.UI.iOS.RowAnimationStyle.NONE",
+                  "Titanium.UI.iOS.RowAnimationStyle.RIGHT",
+                  "Titanium.UI.iOS.RowAnimationStyle.TOP"
                 ]
               },
               {
@@ -2226,7 +2305,10 @@
                 ],
                 "default": "<Titanium.UI.TableViewScrollPosition.NONE>",
                 "constants": [
-                  "Titanium.UI.TableViewScrollPosition.*"
+                  "Titanium.UI.TableViewScrollPosition.BOTTOM",
+                  "Titanium.UI.TableViewScrollPosition.MIDDLE",
+                  "Titanium.UI.TableViewScrollPosition.NONE",
+                  "Titanium.UI.TableViewScrollPosition.TOP"
                 ]
               }
             ]
@@ -2304,7 +2386,12 @@
                 ],
                 "default": "If `animated` is `true` but no `animationStyle` is specified, the style defaults to\n[FADE](Titanium.UI.iOS.RowAnimationStyle.FADE).\n",
                 "constants": [
-                  "Titanium.UI.iOS.RowAnimationStyle.*"
+                  "Titanium.UI.iOS.RowAnimationStyle.BOTTOM",
+                  "Titanium.UI.iOS.RowAnimationStyle.FADE",
+                  "Titanium.UI.iOS.RowAnimationStyle.LEFT",
+                  "Titanium.UI.iOS.RowAnimationStyle.NONE",
+                  "Titanium.UI.iOS.RowAnimationStyle.RIGHT",
+                  "Titanium.UI.iOS.RowAnimationStyle.TOP"
                 ]
               },
               {
@@ -2324,7 +2411,10 @@
                 ],
                 "default": "<Titanium.UI.TableViewScrollPosition.NONE>",
                 "constants": [
-                  "Titanium.UI.TableViewScrollPosition.*"
+                  "Titanium.UI.TableViewScrollPosition.BOTTOM",
+                  "Titanium.UI.TableViewScrollPosition.MIDDLE",
+                  "Titanium.UI.TableViewScrollPosition.NONE",
+                  "Titanium.UI.TableViewScrollPosition.TOP"
                 ]
               }
             ]
@@ -2535,7 +2625,12 @@
                 ],
                 "default": "If `animated` is `true` but no `animationStyle` is specified, the style defaults to\n[FADE](Titanium.UI.iOS.RowAnimationStyle.FADE).\n",
                 "constants": [
-                  "Titanium.UI.iOS.RowAnimationStyle.*"
+                  "Titanium.UI.iOS.RowAnimationStyle.BOTTOM",
+                  "Titanium.UI.iOS.RowAnimationStyle.FADE",
+                  "Titanium.UI.iOS.RowAnimationStyle.LEFT",
+                  "Titanium.UI.iOS.RowAnimationStyle.NONE",
+                  "Titanium.UI.iOS.RowAnimationStyle.RIGHT",
+                  "Titanium.UI.iOS.RowAnimationStyle.TOP"
                 ]
               },
               {
@@ -2555,7 +2650,10 @@
                 ],
                 "default": "<Titanium.UI.TableViewScrollPosition.NONE>",
                 "constants": [
-                  "Titanium.UI.TableViewScrollPosition.*"
+                  "Titanium.UI.TableViewScrollPosition.BOTTOM",
+                  "Titanium.UI.TableViewScrollPosition.MIDDLE",
+                  "Titanium.UI.TableViewScrollPosition.NONE",
+                  "Titanium.UI.TableViewScrollPosition.TOP"
                 ]
               }
             ]
@@ -2668,7 +2766,12 @@
                 ],
                 "default": "If `animated` is `true` but no `animationStyle` is specified, the style defaults to\n[FADE](Titanium.UI.iOS.RowAnimationStyle.FADE).\n",
                 "constants": [
-                  "Titanium.UI.iOS.RowAnimationStyle.*"
+                  "Titanium.UI.iOS.RowAnimationStyle.BOTTOM",
+                  "Titanium.UI.iOS.RowAnimationStyle.FADE",
+                  "Titanium.UI.iOS.RowAnimationStyle.LEFT",
+                  "Titanium.UI.iOS.RowAnimationStyle.NONE",
+                  "Titanium.UI.iOS.RowAnimationStyle.RIGHT",
+                  "Titanium.UI.iOS.RowAnimationStyle.TOP"
                 ]
               },
               {
@@ -2688,7 +2791,10 @@
                 ],
                 "default": "<Titanium.UI.TableViewScrollPosition.NONE>",
                 "constants": [
-                  "Titanium.UI.TableViewScrollPosition.*"
+                  "Titanium.UI.TableViewScrollPosition.BOTTOM",
+                  "Titanium.UI.TableViewScrollPosition.MIDDLE",
+                  "Titanium.UI.TableViewScrollPosition.NONE",
+                  "Titanium.UI.TableViewScrollPosition.TOP"
                 ]
               }
             ]
@@ -2776,7 +2882,12 @@
                 ],
                 "default": "If `animated` is `true` but no `animationStyle` is specified, the style defaults to\n[FADE](Titanium.UI.iOS.RowAnimationStyle.FADE).\n",
                 "constants": [
-                  "Titanium.UI.iOS.RowAnimationStyle.*"
+                  "Titanium.UI.iOS.RowAnimationStyle.BOTTOM",
+                  "Titanium.UI.iOS.RowAnimationStyle.FADE",
+                  "Titanium.UI.iOS.RowAnimationStyle.LEFT",
+                  "Titanium.UI.iOS.RowAnimationStyle.NONE",
+                  "Titanium.UI.iOS.RowAnimationStyle.RIGHT",
+                  "Titanium.UI.iOS.RowAnimationStyle.TOP"
                 ]
               },
               {
@@ -2796,7 +2907,10 @@
                 ],
                 "default": "<Titanium.UI.TableViewScrollPosition.NONE>",
                 "constants": [
-                  "Titanium.UI.TableViewScrollPosition.*"
+                  "Titanium.UI.TableViewScrollPosition.BOTTOM",
+                  "Titanium.UI.TableViewScrollPosition.MIDDLE",
+                  "Titanium.UI.TableViewScrollPosition.NONE",
+                  "Titanium.UI.TableViewScrollPosition.TOP"
                 ]
               }
             ]

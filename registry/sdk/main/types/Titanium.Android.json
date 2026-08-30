@@ -4124,7 +4124,8 @@
                 "default": "Titanium.Android.START_REDELIVER_INTENT",
                 "optional": true,
                 "constants": [
-                  "Titanium.Android.START_*"
+                  "Titanium.Android.START_NOT_STICKY",
+                  "Titanium.Android.START_REDELIVER_INTENT"
                 ]
               },
               {

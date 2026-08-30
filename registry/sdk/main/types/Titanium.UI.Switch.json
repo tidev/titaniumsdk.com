@@ -174,7 +174,10 @@
       },
       "default": "<Titanium.UI.SWITCH_STYLE_SLIDER>",
       "constants": [
-        "Titanium.UI.SWITCH_STYLE_*"
+        "Titanium.UI.SWITCH_STYLE_CHECKBOX",
+        "Titanium.UI.SWITCH_STYLE_CHIP",
+        "Titanium.UI.SWITCH_STYLE_SLIDER",
+        "Titanium.UI.SWITCH_STYLE_TOGGLE_BUTTON"
       ]
     },
     {
@@ -196,7 +199,10 @@
       ],
       "default": "<Titanium.UI.TEXT_ALIGNMENT_CENTER> (toggle button, Android),\n<Titanium.UI.TEXT_ALIGNMENT_LEFT> (slider, Android),\n<Titanium.UI.TEXT_ALIGNMENT_LEFT> (checkbox, Android)\n",
       "constants": [
-        "Titanium.UI.TEXT_ALIGNMENT_*"
+        "Titanium.UI.TEXT_ALIGNMENT_CENTER",
+        "Titanium.UI.TEXT_ALIGNMENT_JUSTIFY",
+        "Titanium.UI.TEXT_ALIGNMENT_LEFT",
+        "Titanium.UI.TEXT_ALIGNMENT_RIGHT"
       ]
     },
     {
@@ -347,7 +353,9 @@
       ],
       "default": "Titanium.UI.TEXT_VERTICAL_ALIGNMENT_CENTER",
       "constants": [
-        "Titanium.UI.TEXT_VERTICAL_ALIGNMENT_*"
+        "Titanium.UI.TEXT_VERTICAL_ALIGNMENT_BOTTOM",
+        "Titanium.UI.TEXT_VERTICAL_ALIGNMENT_CENTER",
+        "Titanium.UI.TEXT_VERTICAL_ALIGNMENT_TOP"
       ]
     }
   ],

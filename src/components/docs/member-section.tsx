@@ -1,7 +1,7 @@
 import { DeprecatedBadge, PlatformBadges, SinceBadge } from './badges';
 import { Prose } from './prose';
 import { TypeRefText } from './type-ref';
-import { formatSince } from '@/lib/docs/format';
+import { formatOsver, formatSince, splitConstant } from '@/lib/docs/format';
 import { anchorFor } from '@/lib/docs/markdown';
 import type { ResolvedMember } from '@/lib/docs/type-view';
 import type { ApiPlatform } from '@/lib/registry';
@@ -56,6 +56,7 @@ function Member({
 }) {
   const anchor = anchorFor(member.name);
   const since = formatSince(member.since);
+  const osver = formatOsver(member.osver);
 
   return (
     <article id={anchor} className="scroll-mt-24 py-6">
@@ -78,6 +79,12 @@ function Member({
 
         {member.permission && (
           <span className="font-mono text-xs text-text-subtle">{member.permission}</span>
+        )}
+
+        {osver && (
+          <span className="font-mono text-xs text-text-subtle" title="Minimum OS version">
+            {osver}
+          </span>
         )}
       </div>
 
@@ -116,6 +123,27 @@ function Member({
         <Prose markdown={member.description} base={base} className="mt-2 text-sm" />
       )}
 
+      {/* A constant's own value, which is the whole point of the member. */}
+      {member.value !== undefined && (
+        <p className="mt-2 text-sm">
+          <span className="text-text-subtle">Value </span>
+          <code className="font-mono">{JSON.stringify(member.value)}</code>
+        </p>
+      )}
+
+      {!!member.constants?.length && <Constants refs={member.constants} base={base} />}
+
+      {!!member.examples?.length && (
+        <div className="mt-3">
+          {member.examples.map((ex, i) => (
+            <div key={i} className="mt-2">
+              {ex.title && <h4 className="text-sm font-medium">{ex.title}</h4>}
+              <Prose markdown={ex.code} base={base} className="mt-1 text-sm" />
+            </div>
+          ))}
+        </div>
+      )}
+
       {member.default !== undefined && (
         <p className="mt-2 text-sm text-text-subtle">
           Default: <code className="font-mono">{member.default}</code>
@@ -139,6 +167,52 @@ function Member({
         </div>
       )}
     </article>
+  );
+}
+
+/**
+ * The constants a property accepts as values.
+ *
+ * Collapsed past a handful: the corpus expands to 1,245 constant references and
+ * one member lists 33, which would otherwise dominate the entry it belongs to.
+ */
+function Constants({ refs, base }: { refs: string[]; base: string }) {
+  const links = (
+    <ul className="mt-1 flex flex-wrap gap-x-3 gap-y-1">
+      {refs.map((ref) => {
+        const parts = splitConstant(ref);
+        return (
+          <li key={ref} className="font-mono text-xs">
+            {parts ? (
+              <a
+                href={`${base}/${parts.owner}#${anchorFor(parts.name)}`}
+                className="text-link hover:underline"
+              >
+                {parts.name}
+              </a>
+            ) : (
+              ref
+            )}
+          </li>
+        );
+      })}
+    </ul>
+  );
+
+  if (refs.length <= 8) {
+    return (
+      <div className="mt-3 text-sm">
+        <span className="text-text-subtle">Accepts</span>
+        {links}
+      </div>
+    );
+  }
+
+  return (
+    <details className="mt-3 text-sm">
+      <summary className="cursor-pointer text-text-subtle">Accepts {refs.length} constants</summary>
+      {links}
+    </details>
   );
 }
 

@@ -138,7 +138,13 @@
               }
             ],
             "constants": [
-              "Titanium.App.iOS.USER_NOTIFICATION_TYPE_*"
+              "Titanium.App.iOS.USER_NOTIFICATION_TYPE_ALERT",
+              "Titanium.App.iOS.USER_NOTIFICATION_TYPE_BADGE",
+              "Titanium.App.iOS.USER_NOTIFICATION_TYPE_CRITICAL_ALERT",
+              "Titanium.App.iOS.USER_NOTIFICATION_TYPE_NONE",
+              "Titanium.App.iOS.USER_NOTIFICATION_TYPE_PROVIDES_APP_NOTIFICATION_SETTINGS",
+              "Titanium.App.iOS.USER_NOTIFICATION_TYPE_PROVISIONAL",
+              "Titanium.App.iOS.USER_NOTIFICATION_TYPE_SOUND"
             ]
           }
         ]
@@ -769,7 +775,9 @@
         }
       },
       "constants": [
-        "Titanium.App.iOS.USER_INTERFACE_STYLE_*"
+        "Titanium.App.iOS.USER_INTERFACE_STYLE_DARK",
+        "Titanium.App.iOS.USER_INTERFACE_STYLE_LIGHT",
+        "Titanium.App.iOS.USER_INTERFACE_STYLE_UNSPECIFIED"
       ]
     },
     {
@@ -1844,7 +1852,13 @@
                   }
                 ],
                 "constants": [
-                  "Titanium.App.iOS.USER_NOTIFICATION_TYPE_*"
+                  "Titanium.App.iOS.USER_NOTIFICATION_TYPE_ALERT",
+                  "Titanium.App.iOS.USER_NOTIFICATION_TYPE_BADGE",
+                  "Titanium.App.iOS.USER_NOTIFICATION_TYPE_CRITICAL_ALERT",
+                  "Titanium.App.iOS.USER_NOTIFICATION_TYPE_NONE",
+                  "Titanium.App.iOS.USER_NOTIFICATION_TYPE_PROVIDES_APP_NOTIFICATION_SETTINGS",
+                  "Titanium.App.iOS.USER_NOTIFICATION_TYPE_PROVISIONAL",
+                  "Titanium.App.iOS.USER_NOTIFICATION_TYPE_SOUND"
                 ]
               }
             ]

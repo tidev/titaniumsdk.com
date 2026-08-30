@@ -34,15 +34,15 @@
         }
       ],
       "constants": [
-        "Titanium.Geolocation.ACCURACY_HIGH",
-        "Titanium.Geolocation.ACCURACY_BEST_FOR_NAVIGATION",
-        "Titanium.Geolocation.ACCURACY_LOW",
         "Titanium.Geolocation.ACCURACY_BEST",
-        "Titanium.Geolocation.ACCURACY_NEAREST_TEN_METERS",
+        "Titanium.Geolocation.ACCURACY_BEST_FOR_NAVIGATION",
+        "Titanium.Geolocation.ACCURACY_HIGH",
         "Titanium.Geolocation.ACCURACY_HUNDRED_METERS",
         "Titanium.Geolocation.ACCURACY_KILOMETER",
-        "Titanium.Geolocation.ACCURACY_THREE_KILOMETERS",
-        "Titanium.Geolocation.ACCURACY_REDUCED"
+        "Titanium.Geolocation.ACCURACY_LOW",
+        "Titanium.Geolocation.ACCURACY_NEAREST_TEN_METERS",
+        "Titanium.Geolocation.ACCURACY_REDUCED",
+        "Titanium.Geolocation.ACCURACY_THREE_KILOMETERS"
       ]
     },
     {
@@ -268,7 +268,10 @@
       "since": "3.1.0",
       "default": "<Titanium.Geolocation.ACTIVITYTYPE_OTHER>",
       "constants": [
-        "Titanium.Geolocation.ACTIVITYTYPE_*"
+        "Titanium.Geolocation.ACTIVITYTYPE_AUTOMOTIVE_NAVIGATION",
+        "Titanium.Geolocation.ACTIVITYTYPE_FITNESS",
+        "Titanium.Geolocation.ACTIVITYTYPE_OTHER",
+        "Titanium.Geolocation.ACTIVITYTYPE_OTHER_NAVIGATION"
       ]
     },
     {
@@ -713,7 +716,12 @@
       ],
       "permission": "read-only",
       "constants": [
-        "Titanium.Geolocation.AUTHORIZATION_*"
+        "Titanium.Geolocation.AUTHORIZATION_ALWAYS",
+        "Titanium.Geolocation.AUTHORIZATION_AUTHORIZED",
+        "Titanium.Geolocation.AUTHORIZATION_DENIED",
+        "Titanium.Geolocation.AUTHORIZATION_RESTRICTED",
+        "Titanium.Geolocation.AUTHORIZATION_UNKNOWN",
+        "Titanium.Geolocation.AUTHORIZATION_WHEN_IN_USE"
       ]
     },
     {

@@ -37,7 +37,13 @@
         }
       ],
       "constants": [
-        "Titanium.Android.STREAM*"
+        "Titanium.Android.STREAM_ALARM",
+        "Titanium.Android.STREAM_DEFAULT",
+        "Titanium.Android.STREAM_MUSIC",
+        "Titanium.Android.STREAM_NOTIFICATION",
+        "Titanium.Android.STREAM_RING",
+        "Titanium.Android.STREAM_SYSTEM",
+        "Titanium.Android.STREAM_VOICE_CALL"
       ]
     },
     {
@@ -55,7 +61,36 @@
       ],
       "since": "3.6.0",
       "constants": [
-        "Titanium.Android.CATEGORY_*"
+        "Titanium.Android.CATEGORY_ALARM",
+        "Titanium.Android.CATEGORY_ALTERNATIVE",
+        "Titanium.Android.CATEGORY_BROWSABLE",
+        "Titanium.Android.CATEGORY_CALL",
+        "Titanium.Android.CATEGORY_DEFAULT",
+        "Titanium.Android.CATEGORY_DEVELOPMENT_PREFERENCE",
+        "Titanium.Android.CATEGORY_EMAIL",
+        "Titanium.Android.CATEGORY_EMBED",
+        "Titanium.Android.CATEGORY_ERROR",
+        "Titanium.Android.CATEGORY_EVENT",
+        "Titanium.Android.CATEGORY_FRAMEWORK_INSTRUMENTATION_TEST",
+        "Titanium.Android.CATEGORY_HOME",
+        "Titanium.Android.CATEGORY_INFO",
+        "Titanium.Android.CATEGORY_LAUNCHER",
+        "Titanium.Android.CATEGORY_MESSAGE",
+        "Titanium.Android.CATEGORY_MONKEY",
+        "Titanium.Android.CATEGORY_OPENABLE",
+        "Titanium.Android.CATEGORY_PREFERENCE",
+        "Titanium.Android.CATEGORY_PROGRESS",
+        "Titanium.Android.CATEGORY_PROMO",
+        "Titanium.Android.CATEGORY_RECOMMENDATION",
+        "Titanium.Android.CATEGORY_SAMPLE_CODE",
+        "Titanium.Android.CATEGORY_SELECTED_ALTERNATIVE",
+        "Titanium.Android.CATEGORY_SERVICE",
+        "Titanium.Android.CATEGORY_SOCIAL",
+        "Titanium.Android.CATEGORY_STATUS",
+        "Titanium.Android.CATEGORY_TAB",
+        "Titanium.Android.CATEGORY_TEST",
+        "Titanium.Android.CATEGORY_TRANSPORT",
+        "Titanium.Android.CATEGORY_UNIT_TEST"
       ]
     },
     {
@@ -160,7 +195,10 @@
         }
       ],
       "constants": [
-        "Titanium.Android.DEFAULT_*"
+        "Titanium.Android.DEFAULT_ALL",
+        "Titanium.Android.DEFAULT_LIGHTS",
+        "Titanium.Android.DEFAULT_SOUND",
+        "Titanium.Android.DEFAULT_VIBRATE"
       ]
     },
     {
@@ -341,7 +379,11 @@
       "since": "3.6.0",
       "default": "undefined but behaves as Titanium.Android.PRIORITY_DEFAULT",
       "constants": [
-        "Titanium.Android.PRIORITY_*"
+        "Titanium.Android.PRIORITY_DEFAULT",
+        "Titanium.Android.PRIORITY_HIGH",
+        "Titanium.Android.PRIORITY_LOW",
+        "Titanium.Android.PRIORITY_MAX",
+        "Titanium.Android.PRIORITY_MIN"
       ]
     },
     {
@@ -412,7 +454,9 @@
       "since": "3.6.0",
       "default": "undefined but behaves as Titanium.Android.VISIBILITY_PUBLIC",
       "constants": [
-        "Titanium.Android.VISIBILITY_*"
+        "Titanium.Android.VISIBILITY_PRIVATE",
+        "Titanium.Android.VISIBILITY_PUBLIC",
+        "Titanium.Android.VISIBILITY_SECRET"
       ]
     },
     {
@@ -450,7 +494,12 @@
             ],
             "default": "Titanium.Android.WAKE_LOCK_FULL | Titanium.Android.WAKE_LOCK_ACQUIRE_CAUSES_WAKEUP | Titanium.Android.WAKE_LOCK_ON_AFTER_RELEASE",
             "constants": [
-              "Titanium.Android.WAKE_LOCK_*"
+              "Titanium.Android.WAKE_LOCK_ACQUIRE_CAUSES_WAKEUP",
+              "Titanium.Android.WAKE_LOCK_FULL",
+              "Titanium.Android.WAKE_LOCK_ON_AFTER_RELEASE",
+              "Titanium.Android.WAKE_LOCK_PARTIAL",
+              "Titanium.Android.WAKE_LOCK_SCREEN_BRIGHT",
+              "Titanium.Android.WAKE_LOCK_SCREEN_DIM"
             ]
           },
           {

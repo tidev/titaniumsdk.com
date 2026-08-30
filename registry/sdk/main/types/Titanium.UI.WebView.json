@@ -240,7 +240,10 @@
       "since": "3.2.0",
       "default": "<Titanium.UI.Android.WEBVIEW_LOAD_DEFAULT>",
       "constants": [
-        "Titanium.UI.Android.WEBVIEW_LOAD_*"
+        "Titanium.UI.Android.WEBVIEW_LOAD_CACHE_ELSE_NETWORK",
+        "Titanium.UI.Android.WEBVIEW_LOAD_CACHE_ONLY",
+        "Titanium.UI.Android.WEBVIEW_LOAD_DEFAULT",
+        "Titanium.UI.Android.WEBVIEW_LOAD_NO_CACHE"
       ]
     },
     {
@@ -263,7 +266,10 @@
         "macos": "9.2.0"
       },
       "constants": [
-        "Titanium.UI.iOS.CACHE_POLICY_*"
+        "Titanium.UI.iOS.CACHE_POLICY_RELOAD_IGNORING_LOCAL_CACHE_DATA",
+        "Titanium.UI.iOS.CACHE_POLICY_RETURN_CACHE_DATA_DONT_LOAD",
+        "Titanium.UI.iOS.CACHE_POLICY_RETURN_CACHE_DATA_ELSE_LOAD",
+        "Titanium.UI.iOS.CACHE_POLICY_USE_PROTOCOL_CACHE_POLICY"
       ]
     },
     {
@@ -576,7 +582,9 @@
       },
       "default": "<Titanium.UI.WebView.LAYER_TYPE_NONE>",
       "constants": [
-        "Titanium.UI.WebView.LAYER_TYPE_*"
+        "Titanium.UI.WebView.LAYER_TYPE_HARDWARE",
+        "Titanium.UI.WebView.LAYER_TYPE_NONE",
+        "Titanium.UI.WebView.LAYER_TYPE_SOFTWARE"
       ]
     },
     {
@@ -730,7 +738,9 @@
       "since": "3.1.0",
       "default": "Titanium.UI.Android.OVER_SCROLL_ALWAYS",
       "constants": [
-        "Titanium.UI.Android.OVER_SCROLL_*"
+        "Titanium.UI.Android.OVER_SCROLL_ALWAYS",
+        "Titanium.UI.Android.OVER_SCROLL_IF_CONTENT_SCROLLS",
+        "Titanium.UI.Android.OVER_SCROLL_NEVER"
       ]
     },
     {
@@ -824,7 +834,9 @@
       "since": "1.8.0",
       "default": "<Titanium.UI.Android.WEBVIEW_PLUGINS_OFF>",
       "constants": [
-        "Titanium.UI.Android.WEBVIEW_PLUGINS_*"
+        "Titanium.UI.Android.WEBVIEW_PLUGINS_OFF",
+        "Titanium.UI.Android.WEBVIEW_PLUGINS_ON",
+        "Titanium.UI.Android.WEBVIEW_PLUGINS_ON_DEMAND"
       ]
     },
     {
@@ -907,7 +919,10 @@
       "since": "12.3.0",
       "default": "<Titanium.UI.Android.WEBVIEW_SCROLLBARS_DEFAULT>",
       "constants": [
-        "Titanium.UI.Android.WEBVIEW_SCROLLBARS_*"
+        "Titanium.UI.Android.WEBVIEW_SCROLLBARS_DEFAULT",
+        "Titanium.UI.Android.WEBVIEW_SCROLLBARS_HIDE_ALL",
+        "Titanium.UI.Android.WEBVIEW_SCROLLBARS_HIDE_HORIZONTAL",
+        "Titanium.UI.Android.WEBVIEW_SCROLLBARS_HIDE_VERTICAL"
       ]
     },
     {
@@ -974,7 +989,8 @@
       },
       "permission": "read-only",
       "constants": [
-        "Titanium.UI.iOS.SELECTION_GRANULARITY_*"
+        "Titanium.UI.iOS.SELECTION_GRANULARITY_CHARACTER",
+        "Titanium.UI.iOS.SELECTION_GRANULARITY_DYNAMIC"
       ]
     },
     {
@@ -1179,7 +1195,8 @@
                 "default": "Titanium.UI.iOS.INJECTION_TIME_DOCUMENT_START",
                 "optional": true,
                 "constants": [
-                  "Titanium.UI.iOS.INJECTION_TIME_DOCUMENT_*"
+                  "Titanium.UI.iOS.INJECTION_TIME_DOCUMENT_END",
+                  "Titanium.UI.iOS.INJECTION_TIME_DOCUMENT_START"
                 ]
               },
               {

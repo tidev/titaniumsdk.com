@@ -477,7 +477,9 @@
       "since": "6.0.0",
       "default": "Undefined (behaves like <Titanium.UI.iOS.KEYBOARD_DISMISS_MODE_NONE>)",
       "constants": [
-        "Titanium.UI.iOS.KEYBOARD_DISMISS_MODE_*"
+        "Titanium.UI.iOS.KEYBOARD_DISMISS_MODE_INTERACTIVE",
+        "Titanium.UI.iOS.KEYBOARD_DISMISS_MODE_NONE",
+        "Titanium.UI.iOS.KEYBOARD_DISMISS_MODE_ON_DRAG"
       ]
     },
     {
@@ -672,7 +674,8 @@
       "since": "6.1.0",
       "availability": "creation",
       "constants": [
-        "Titanium.UI.TABLE_VIEW_SEPARATOR_STYLE_*"
+        "Titanium.UI.TABLE_VIEW_SEPARATOR_STYLE_NONE",
+        "Titanium.UI.TABLE_VIEW_SEPARATOR_STYLE_SINGLE_LINE"
       ]
     },
     {
@@ -708,7 +711,9 @@
       ],
       "default": "<Titanium.UI.iOS.ScrollIndicatorStyle.DEFAULT>",
       "constants": [
-        "Titanium.UI.iOS.ScrollIndicatorStyle.*"
+        "Titanium.UI.iOS.ScrollIndicatorStyle.BLACK",
+        "Titanium.UI.iOS.ScrollIndicatorStyle.DEFAULT",
+        "Titanium.UI.iOS.ScrollIndicatorStyle.WHITE"
       ]
     },
     {
@@ -1050,7 +1055,8 @@
         "ipad": "3.2.0"
       },
       "constants": [
-        "Titanium.UI.TABLE_VIEW_SEPARATOR_STYLE_*"
+        "Titanium.UI.TABLE_VIEW_SEPARATOR_STYLE_NONE",
+        "Titanium.UI.TABLE_VIEW_SEPARATOR_STYLE_SINGLE_LINE"
       ]
     },
     {
@@ -1144,7 +1150,9 @@
       "availability": "creation",
       "default": "Titanium.UI.iOS.ListViewStyle.PLAIN",
       "constants": [
-        "Titanium.UI.iOS.ListViewStyle.*"
+        "Titanium.UI.iOS.ListViewStyle.GROUPED",
+        "Titanium.UI.iOS.ListViewStyle.INSET_GROUPED",
+        "Titanium.UI.iOS.ListViewStyle.PLAIN"
       ]
     },
     {

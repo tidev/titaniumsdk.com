@@ -47,7 +47,10 @@
       ],
       "default": "Titanium.UI.LIST_ACCESSORY_TYPE_NONE",
       "constants": [
-        "Titanium.UI.LIST_ACCESSORY_TYPE_*"
+        "Titanium.UI.LIST_ACCESSORY_TYPE_CHECKMARK",
+        "Titanium.UI.LIST_ACCESSORY_TYPE_DETAIL",
+        "Titanium.UI.LIST_ACCESSORY_TYPE_DISCLOSURE",
+        "Titanium.UI.LIST_ACCESSORY_TYPE_NONE"
       ]
     },
     {
@@ -498,7 +501,8 @@
         "macos": "9.2.0"
       },
       "constants": [
-        "Titanium.UI.SELECTION_STYLE_*"
+        "Titanium.UI.SELECTION_STYLE_DEFAULT",
+        "Titanium.UI.SELECTION_STYLE_NONE"
       ]
     },
     {

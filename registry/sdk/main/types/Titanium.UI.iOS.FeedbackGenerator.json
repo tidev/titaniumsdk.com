@@ -29,7 +29,9 @@
       "default": "<Titanium.UI.iOS.FEEDBACK_GENERATOR_IMPACT_STYLE_MEDIUM>",
       "optional": true,
       "constants": [
-        "Titanium.UI.iOS.FEEDBACK_GENERATOR_IMPACT_STYLE_*"
+        "Titanium.UI.iOS.FEEDBACK_GENERATOR_IMPACT_STYLE_HEAVY",
+        "Titanium.UI.iOS.FEEDBACK_GENERATOR_IMPACT_STYLE_LIGHT",
+        "Titanium.UI.iOS.FEEDBACK_GENERATOR_IMPACT_STYLE_MEDIUM"
       ]
     },
     {
@@ -46,7 +48,9 @@
       ],
       "availability": "creation",
       "constants": [
-        "Titanium.UI.iOS.FEEDBACK_GENERATOR_TYPE_*"
+        "Titanium.UI.iOS.FEEDBACK_GENERATOR_TYPE_IMPACT",
+        "Titanium.UI.iOS.FEEDBACK_GENERATOR_TYPE_NOTIFICATION",
+        "Titanium.UI.iOS.FEEDBACK_GENERATOR_TYPE_SELECTION"
       ]
     }
   ],

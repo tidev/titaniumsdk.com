@@ -121,7 +121,9 @@
                   }
                 ],
                 "constants": [
-                  "Titanium.Stream.MODE_*"
+                  "Titanium.Stream.MODE_APPEND",
+                  "Titanium.Stream.MODE_READ",
+                  "Titanium.Stream.MODE_WRITE"
                 ]
               },
               {

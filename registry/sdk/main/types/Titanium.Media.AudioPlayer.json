@@ -191,7 +191,12 @@
       "since": "6.2.0",
       "default": "<Titanium.Media.AudioPlayer.AUDIO_TYPE_MEDIA>",
       "constants": [
-        "Titanium.Media.Sound.AUDIO_TYPE_*"
+        "Titanium.Media.Sound.AUDIO_TYPE_ALARM",
+        "Titanium.Media.Sound.AUDIO_TYPE_MEDIA",
+        "Titanium.Media.Sound.AUDIO_TYPE_NOTIFICATION",
+        "Titanium.Media.Sound.AUDIO_TYPE_RING",
+        "Titanium.Media.Sound.AUDIO_TYPE_SIGNALLING",
+        "Titanium.Media.Sound.AUDIO_TYPE_VOICE"
       ]
     },
     {
@@ -381,7 +386,14 @@
       ],
       "permission": "read-only",
       "constants": [
-        "Titanium.Media.AUDIO_STATE_*"
+        "Titanium.Media.AUDIO_STATE_BUFFERING",
+        "Titanium.Media.AUDIO_STATE_INITIALIZED",
+        "Titanium.Media.AUDIO_STATE_PAUSED",
+        "Titanium.Media.AUDIO_STATE_PLAYING",
+        "Titanium.Media.AUDIO_STATE_STARTING",
+        "Titanium.Media.AUDIO_STATE_STOPPED",
+        "Titanium.Media.AUDIO_STATE_STOPPING",
+        "Titanium.Media.AUDIO_STATE_WAITING_FOR_DATA"
       ]
     },
     {

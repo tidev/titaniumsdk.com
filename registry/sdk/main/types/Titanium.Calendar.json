@@ -659,7 +659,10 @@
       "since": "5.2.0",
       "permission": "read-only",
       "constants": [
-        "Titanium.Calendar.AUTHORIZATION_*"
+        "Titanium.Calendar.AUTHORIZATION_AUTHORIZED",
+        "Titanium.Calendar.AUTHORIZATION_DENIED",
+        "Titanium.Calendar.AUTHORIZATION_RESTRICTED",
+        "Titanium.Calendar.AUTHORIZATION_UNKNOWN"
       ]
     },
     {

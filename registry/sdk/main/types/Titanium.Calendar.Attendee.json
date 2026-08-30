@@ -90,7 +90,11 @@
       ],
       "permission": "read-only",
       "constants": [
-        "Titanium.Calendar.ATTENDEE_ROLE_*"
+        "Titanium.Calendar.ATTENDEE_ROLE_CHAIR",
+        "Titanium.Calendar.ATTENDEE_ROLE_NON_PARTICIPANT",
+        "Titanium.Calendar.ATTENDEE_ROLE_OPTIONAL",
+        "Titanium.Calendar.ATTENDEE_ROLE_REQUIRED",
+        "Titanium.Calendar.ATTENDEE_ROLE_UNKNOWN"
       ]
     },
     {
@@ -114,7 +118,15 @@
       },
       "permission": "read-only",
       "constants": [
-        "Titanium.Calendar.ATTENDEE_STATUS_*"
+        "Titanium.Calendar.ATTENDEE_STATUS_ACCEPTED",
+        "Titanium.Calendar.ATTENDEE_STATUS_DECLINED",
+        "Titanium.Calendar.ATTENDEE_STATUS_DELEGATED",
+        "Titanium.Calendar.ATTENDEE_STATUS_INVITED",
+        "Titanium.Calendar.ATTENDEE_STATUS_IN_PROCESS",
+        "Titanium.Calendar.ATTENDEE_STATUS_NONE",
+        "Titanium.Calendar.ATTENDEE_STATUS_PENDING",
+        "Titanium.Calendar.ATTENDEE_STATUS_TENTATIVE",
+        "Titanium.Calendar.ATTENDEE_STATUS_UNKNOWN"
       ]
     },
     {
@@ -138,7 +150,13 @@
       },
       "permission": "read-only",
       "constants": [
-        "Titanium.Calendar.ATTENDEE_TYPE_*"
+        "Titanium.Calendar.ATTENDEE_TYPE_GROUP",
+        "Titanium.Calendar.ATTENDEE_TYPE_NONE",
+        "Titanium.Calendar.ATTENDEE_TYPE_PERSON",
+        "Titanium.Calendar.ATTENDEE_TYPE_REQUIRED",
+        "Titanium.Calendar.ATTENDEE_TYPE_RESOURCE",
+        "Titanium.Calendar.ATTENDEE_TYPE_ROOM",
+        "Titanium.Calendar.ATTENDEE_TYPE_UNKNOWN"
       ]
     }
   ],

@@ -3674,7 +3674,9 @@
         }
       },
       "constants": [
-        "Titanium.UI.USER_INTERFACE_STYLE_*"
+        "Titanium.UI.USER_INTERFACE_STYLE_DARK",
+        "Titanium.UI.USER_INTERFACE_STYLE_LIGHT",
+        "Titanium.UI.USER_INTERFACE_STYLE_UNSPECIFIED"
       ]
     },
     {
@@ -4101,7 +4103,8 @@
         "notes": "Use [userInterfaceStyle](Titanium.UI.userInterfaceStyle) instead."
       },
       "constants": [
-        "Titanium.UI.SEMANTIC_COLOR_TYPE_*"
+        "Titanium.UI.SEMANTIC_COLOR_TYPE_DARK",
+        "Titanium.UI.SEMANTIC_COLOR_TYPE_LIGHT"
       ]
     },
     {
@@ -5306,7 +5309,9 @@
         }
       },
       "constants": [
-        "Titanium.UI.USER_INTERFACE_STYLE_*"
+        "Titanium.UI.USER_INTERFACE_STYLE_DARK",
+        "Titanium.UI.USER_INTERFACE_STYLE_LIGHT",
+        "Titanium.UI.USER_INTERFACE_STYLE_UNSPECIFIED"
       ]
     }
   ],

@@ -52,25 +52,25 @@
         }
       ],
       "constants": [
+        "Titanium.UI.ATTRIBUTE_BACKGROUND_COLOR",
+        "Titanium.UI.ATTRIBUTE_BASELINE_OFFSET",
+        "Titanium.UI.ATTRIBUTE_EXPANSION",
         "Titanium.UI.ATTRIBUTE_FONT",
         "Titanium.UI.ATTRIBUTE_FOREGROUND_COLOR",
-        "Titanium.UI.ATTRIBUTE_BACKGROUND_COLOR",
-        "Titanium.UI.ATTRIBUTE_STRIKETHROUGH_STYLE",
-        "Titanium.UI.ATTRIBUTE_UNDERLINES_STYLE",
-        "Titanium.UI.ATTRIBUTE_LINK",
-        "Titanium.UI.ATTRIBUTE_UNDERLINE_COLOR",
-        "Titanium.UI.ATTRIBUTE_LIGATURE",
         "Titanium.UI.ATTRIBUTE_KERN",
+        "Titanium.UI.ATTRIBUTE_LIGATURE",
+        "Titanium.UI.ATTRIBUTE_LINE_BREAK",
+        "Titanium.UI.ATTRIBUTE_LINK",
+        "Titanium.UI.ATTRIBUTE_OBLIQUENESS",
+        "Titanium.UI.ATTRIBUTE_SHADOW",
+        "Titanium.UI.ATTRIBUTE_STRIKETHROUGH_COLOR",
+        "Titanium.UI.ATTRIBUTE_STRIKETHROUGH_STYLE",
         "Titanium.UI.ATTRIBUTE_STROKE_COLOR",
         "Titanium.UI.ATTRIBUTE_STROKE_WIDTH",
-        "Titanium.UI.ATTRIBUTE_SHADOW",
-        "Titanium.UI.ATTRIBUTE_WRITING_DIRECTION",
         "Titanium.UI.ATTRIBUTE_TEXT_EFFECT",
-        "Titanium.UI.ATTRIBUTE_BASELINE_OFFSET",
-        "Titanium.UI.ATTRIBUTE_STRIKETHROUGH_COLOR",
-        "Titanium.UI.ATTRIBUTE_OBLIQUENESS",
-        "Titanium.UI.ATTRIBUTE_EXPANSION",
-        "Titanium.UI.ATTRIBUTE_LINE_BREAK"
+        "Titanium.UI.ATTRIBUTE_UNDERLINES_STYLE",
+        "Titanium.UI.ATTRIBUTE_UNDERLINE_COLOR",
+        "Titanium.UI.ATTRIBUTE_WRITING_DIRECTION"
       ]
     },
     {
@@ -106,9 +106,16 @@
         }
       ],
       "constants": [
-        "Titanium.UI.ATTRIBUTE_UNDERLINE_STYLE_*",
-        "Titanium.UI.ATTRIBUTE_WRITING_DIRECTION_*",
-        "Titanium.UI.ATTRIBUTE_LETTERPRESS_STYLE"
+        "Titanium.UI.ATTRIBUTE_LETTERPRESS_STYLE",
+        "Titanium.UI.ATTRIBUTE_UNDERLINE_STYLE_DOUBLE",
+        "Titanium.UI.ATTRIBUTE_UNDERLINE_STYLE_NONE",
+        "Titanium.UI.ATTRIBUTE_UNDERLINE_STYLE_SINGLE",
+        "Titanium.UI.ATTRIBUTE_UNDERLINE_STYLE_THICK",
+        "Titanium.UI.ATTRIBUTE_WRITING_DIRECTION_EMBEDDING",
+        "Titanium.UI.ATTRIBUTE_WRITING_DIRECTION_LEFT_TO_RIGHT",
+        "Titanium.UI.ATTRIBUTE_WRITING_DIRECTION_NATURAL",
+        "Titanium.UI.ATTRIBUTE_WRITING_DIRECTION_OVERRIDE",
+        "Titanium.UI.ATTRIBUTE_WRITING_DIRECTION_RIGHT_TO_LEFT"
       ]
     }
   ],

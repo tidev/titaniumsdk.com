@@ -73,7 +73,9 @@
       ],
       "since": "10.0.0",
       "constants": [
-        "Titanium.Android.TILE_STATE_*"
+        "Titanium.Android.TILE_STATE_ACTIVE",
+        "Titanium.Android.TILE_STATE_INACTIVE",
+        "Titanium.Android.TILE_STATE_UNAVAILABLE"
       ]
     }
   ],

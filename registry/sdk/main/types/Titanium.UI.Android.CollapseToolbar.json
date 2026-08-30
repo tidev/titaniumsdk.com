@@ -104,7 +104,13 @@
         }
       ],
       "constants": [
-        "Titanium.UI.Android.SCROLL_FLAG_*"
+        "Titanium.UI.Android.SCROLL_FLAG_ENTER_ALWAYS",
+        "Titanium.UI.Android.SCROLL_FLAG_ENTER_ALWAYS_COLLAPSED",
+        "Titanium.UI.Android.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED",
+        "Titanium.UI.Android.SCROLL_FLAG_NO_SCROLL",
+        "Titanium.UI.Android.SCROLL_FLAG_SCROLL",
+        "Titanium.UI.Android.SCROLL_FLAG_SNAP",
+        "Titanium.UI.Android.SCROLL_FLAG_SNAP_MARGINS"
       ]
     },
     {

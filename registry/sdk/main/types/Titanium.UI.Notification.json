@@ -37,7 +37,8 @@
       ],
       "default": "<Titanium.UI.NOTIFICATION_DURATION_SHORT>",
       "constants": [
-        "Titanium.UI.NOTIFICATION_DURATION_*"
+        "Titanium.UI.NOTIFICATION_DURATION_LONG",
+        "Titanium.UI.NOTIFICATION_DURATION_SHORT"
       ]
     },
     {
@@ -54,7 +55,33 @@
       ],
       "since": "5.4.0",
       "constants": [
-        "Titanium.UI.Android.GRAVITY_*"
+        "Titanium.UI.Android.GRAVITY_AXIS_CLIP",
+        "Titanium.UI.Android.GRAVITY_AXIS_PULL_AFTER",
+        "Titanium.UI.Android.GRAVITY_AXIS_PULL_BEFORE",
+        "Titanium.UI.Android.GRAVITY_AXIS_SPECIFIED",
+        "Titanium.UI.Android.GRAVITY_AXIS_X_SHIFT",
+        "Titanium.UI.Android.GRAVITY_AXIS_Y_SHIFT",
+        "Titanium.UI.Android.GRAVITY_BOTTOM",
+        "Titanium.UI.Android.GRAVITY_CENTER",
+        "Titanium.UI.Android.GRAVITY_CENTER_HORIZONTAL",
+        "Titanium.UI.Android.GRAVITY_CENTER_VERTICAL",
+        "Titanium.UI.Android.GRAVITY_CLIP_HORIZONTAL",
+        "Titanium.UI.Android.GRAVITY_CLIP_VERTICAL",
+        "Titanium.UI.Android.GRAVITY_DISPLAY_CLIP_HORIZONTAL",
+        "Titanium.UI.Android.GRAVITY_DISPLAY_CLIP_VERTICAL",
+        "Titanium.UI.Android.GRAVITY_END",
+        "Titanium.UI.Android.GRAVITY_FILL",
+        "Titanium.UI.Android.GRAVITY_FILL_HORIZONTAL",
+        "Titanium.UI.Android.GRAVITY_FILL_VERTICAL",
+        "Titanium.UI.Android.GRAVITY_HORIZONTAL_GRAVITY_MASK",
+        "Titanium.UI.Android.GRAVITY_LEFT",
+        "Titanium.UI.Android.GRAVITY_NO_GRAVITY",
+        "Titanium.UI.Android.GRAVITY_RELATIVE_HORIZONTAL_GRAVITY_MASK",
+        "Titanium.UI.Android.GRAVITY_RELATIVE_LAYOUT_DIRECTION",
+        "Titanium.UI.Android.GRAVITY_RIGHT",
+        "Titanium.UI.Android.GRAVITY_START",
+        "Titanium.UI.Android.GRAVITY_TOP",
+        "Titanium.UI.Android.GRAVITY_VERTICAL_GRAVITY_MASK"
       ]
     },
     {
