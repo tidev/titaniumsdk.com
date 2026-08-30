@@ -19,6 +19,9 @@ const type = (name: string, extend?: string): IndexType => ({
   deprecated: false,
   ...(extend ? { extends: extend } : {}),
   counts: { properties: 0, methods: 0, events: 0 },
+  // Required on an index entry so a module compile can verify a cross-repo
+  // member anchor against it. Irrelevant to grouping, which is why it is empty.
+  members: [],
 });
 
 const TYPES: IndexType[] = [
