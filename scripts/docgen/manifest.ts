@@ -16,17 +16,22 @@ import { fileURLToPath } from 'node:url';
 
 export const MANIFEST_VERSION = 1;
 
+/** Which other repo's compiled corpus this build resolved its references into. */
+export type ExternalRecord = { repo: string; version: string; hash: string };
+
 export type Manifest = {
   schemaVersion: number;
   /** Hash of the generator's own source. Changing docgen invalidates everything. */
   generator: string;
+  /** Absent when the compile resolved against nothing but itself. */
+  external?: ExternalRecord;
   generatedAt: string;
   sources: Record<string, { hash: string; types: string[] }>;
   types: Record<string, { source: string; extends?: string; outputHash: string }>;
 };
 
 export type Plan = {
-  reason: 'first-run' | 'generator-changed' | 'incremental';
+  reason: 'first-run' | 'generator-changed' | 'external-changed' | 'incremental';
   /** Types to regenerate. */
   dirty: string[];
   /** Types whose sources are untouched but which inherit from something dirty. */
@@ -92,7 +97,8 @@ export function plan(
   previous: Manifest | null,
   sources: SourceFile[],
   types: Map<string, RawType>,
-  generator: string
+  generator: string,
+  external?: ExternalRecord
 ): Plan {
   const all = [...types.keys()];
 
@@ -111,6 +117,26 @@ export function plan(
   if (previous.generator !== generator) {
     return {
       reason: 'generator-changed',
+      dirty: all,
+      viaInheritance: [],
+      unchanged: [],
+      addedSources: [],
+      changedSources: [],
+      removedSources: [],
+      removedTypes: [],
+    };
+  }
+  // The corpus a compile resolves into is an input like the YAML is: these
+  // outputs hold links into it, so a type leaving the SDK has to invalidate
+  // every one of them rather than wait for this repo's own source to change.
+  const was = previous.external;
+  if (
+    was?.repo !== external?.repo ||
+    was?.version !== external?.version ||
+    was?.hash !== external?.hash
+  ) {
+    return {
+      reason: 'external-changed',
       dirty: all,
       viaInheritance: [],
       unchanged: [],
@@ -161,6 +187,9 @@ export function describe(p: Plan): string {
   if (p.reason === 'first-run') return `first run — generating all ${p.dirty.length} types`;
   if (p.reason === 'generator-changed') {
     return `generator changed — regenerating all ${p.dirty.length} types`;
+  }
+  if (p.reason === 'external-changed') {
+    return `the corpus this resolves against changed — regenerating all ${p.dirty.length} types`;
   }
   const direct = p.dirty.length - p.viaInheritance.length;
   const src =

@@ -91,7 +91,7 @@
           "name": "String"
         },
         {
-          "kind": "unknown",
+          "kind": "type",
           "name": "Titanium.Blob"
         }
       ],
@@ -109,6 +109,10 @@
     "MapBoundsCoordinateType",
     "Modules.Map",
     "Modules.Map.View"
+  ],
+  "externalReferences": [
+    "Titanium.Blob",
+    "Titanium.Proxy"
   ],
   "source": "ImageOverlay.yml"
 }

@@ -165,7 +165,7 @@
               "name": "Callback",
               "args": [
                 {
-                  "kind": "unknown",
+                  "kind": "type",
                   "name": "Titanium.Blob"
                 }
               ]
@@ -187,7 +187,7 @@
         {
           "type": [
             {
-              "kind": "unknown",
+              "kind": "type",
               "name": "Titanium.Blob"
             }
           ]
@@ -207,7 +207,9 @@
     "SnapshotSize"
   ],
   "externalReferences": [
-    "Modules.Map.STANDARD_TYPE"
+    "Modules.Map.STANDARD_TYPE",
+    "Titanium.Blob",
+    "Titanium.Proxy"
   ],
   "source": "Snapshotter.yml"
 }

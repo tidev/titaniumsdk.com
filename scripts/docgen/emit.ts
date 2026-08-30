@@ -14,6 +14,8 @@ import { join } from 'node:path';
 
 export const SCHEMA_VERSION = 1;
 
+const MEMBER_GROUPS = ['properties', 'methods', 'events'] as const;
+
 export type IndexEntry = {
   name: string;
   kind: ResolvedType['kind'];
@@ -23,6 +25,15 @@ export type IndexEntry = {
   deprecated: boolean;
   extends?: string;
   counts: { properties: number; methods: number; events: number };
+  /**
+   * Every member name the page carries, declared and inherited.
+   *
+   * Here rather than only in the type file because this index is what another
+   * repo's compile reads: counts cannot answer whether
+   * `Titanium.UI.ANIMATION_CURVE_LINEAR` exists, so without the names a
+   * cross-repo member reference could only be guessed at.
+   */
+  members: string[];
 };
 
 /** Drops undefined so the JSON stays free of null noise, and keeps key order fixed. */
@@ -156,6 +167,17 @@ export function emit(
             methods: t.methods.length + t.inherited.methods.length,
             events: t.events.length + t.inherited.events.length,
           },
+          // Flat and deduplicated, because that is what a member anchor is:
+          // #backgroundColor names one thing on the page whichever group it
+          // came from.
+          members: [
+            ...new Set(
+              MEMBER_GROUPS.flatMap((g) => [
+                ...t[g].map((m) => m.name),
+                ...t.inherited[g].map((m) => m.name),
+              ])
+            ),
+          ].sort(),
         })
       )
       .sort((a, b) => a.name.localeCompare(b.name)),

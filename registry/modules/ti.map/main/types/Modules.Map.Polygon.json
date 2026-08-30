@@ -44,7 +44,7 @@
         "macos"
       ],
       "summary": "Color to use when shading the polygon, as a color name or hex triplet.\n",
-      "description": "For information about color values, see the \"Colors\" section of <Titanium.UI>.\n",
+      "description": "For information about color values, see the \"Colors\" section of [Titanium.UI](api:Titanium.UI).\n",
       "type": [
         {
           "kind": "primitive",
@@ -115,7 +115,7 @@
         "macos"
       ],
       "summary": "Color to use for the border of the polygon, as a color name or hex triplet.\n",
-      "description": "For information about color values, see the \"Colors\" section of <Titanium.UI>.\n",
+      "description": "For information about color values, see the \"Colors\" section of [Titanium.UI](api:Titanium.UI).\n",
       "type": [
         {
           "kind": "primitive",
@@ -187,6 +187,10 @@
     "MapRegionTypev2",
     "Modules.Map",
     "Modules.Map.View"
+  ],
+  "externalReferences": [
+    "Titanium.Proxy",
+    "Titanium.UI"
   ],
   "source": "Polygon.yml"
 }

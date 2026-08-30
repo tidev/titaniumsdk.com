@@ -21,7 +21,11 @@
         "properties": 2,
         "methods": 0,
         "events": 0
-      }
+      },
+      "members": [
+        "latitude",
+        "longitude"
+      ]
     },
     {
       "name": "MapRegionTypev2",
@@ -38,7 +42,17 @@
         "properties": 8,
         "methods": 0,
         "events": 0
-      }
+      },
+      "members": [
+        "bearing",
+        "latitude",
+        "latitudeDelta",
+        "longitude",
+        "longitudeDelta",
+        "selectableMapFeatures",
+        "tilt",
+        "zoomLevel"
+      ]
     },
     {
       "name": "Modules.Map",
@@ -62,7 +76,73 @@
         "properties": 49,
         "methods": 15,
         "events": 0
-      }
+      },
+      "members": [
+        "ANNOTATION_AZURE",
+        "ANNOTATION_BLUE",
+        "ANNOTATION_CYAN",
+        "ANNOTATION_DRAG_STATE_END",
+        "ANNOTATION_DRAG_STATE_START",
+        "ANNOTATION_GREEN",
+        "ANNOTATION_MAGENTA",
+        "ANNOTATION_ORANGE",
+        "ANNOTATION_PURPLE",
+        "ANNOTATION_RED",
+        "ANNOTATION_ROSE",
+        "ANNOTATION_VIEW_COLLISION_MODE_CIRCLE",
+        "ANNOTATION_VIEW_COLLISION_MODE_RECTANGLE",
+        "ANNOTATION_VIOLET",
+        "ANNOTATION_YELLOW",
+        "FEATURE_DISPLAY_PRIORITY_DEFAULT_HIGH",
+        "FEATURE_DISPLAY_PRIORITY_DEFAULT_LOW",
+        "FEATURE_DISPLAY_PRIORITY_REQUIRED",
+        "FEATURE_PHYSICAL_FEATURES",
+        "FEATURE_TERRITORIES",
+        "FEATURE_TYPE_POINT_OF_INTEREST",
+        "FEATURE_VISIBILITY_ADAPTIVE",
+        "FEATURE_VISIBILITY_HIDDEN",
+        "FEATURE_VISIBILITY_VISIBLE",
+        "HYBRID_FLYOVER_TYPE",
+        "HYBRID_TYPE",
+        "MUTED_STANDARD_TYPE",
+        "NORMAL_TYPE",
+        "OVERLAY_LEVEL_ABOVE_LABELS",
+        "OVERLAY_LEVEL_ABOVE_ROADS",
+        "POLYLINE_JOINT_BEVEL",
+        "POLYLINE_JOINT_DEFAULT",
+        "POLYLINE_JOINT_ROUND",
+        "POLYLINE_PATTERN_DASHED",
+        "POLYLINE_PATTERN_DOTTED",
+        "REASON_API_ANIMATION",
+        "REASON_DEVELOPER_ANIMATION",
+        "REASON_GESTURE",
+        "SATELLITE_FLYOVER_TYPE",
+        "SATELLITE_TYPE",
+        "SEARCH_RESULT_TYPE_ADDRESS",
+        "SEARCH_RESULT_TYPE_POINT_OF_INTEREST",
+        "SEARCH_RESULT_TYPE_QUERY",
+        "SERVICE_DISABLED",
+        "SERVICE_INVALID",
+        "SERVICE_MISSING",
+        "SERVICE_VERSION_UPDATE_REQUIRED",
+        "SUCCESS",
+        "TERRAIN_TYPE",
+        "createAnnotation",
+        "createCamera",
+        "createCircle",
+        "createImageOverlay",
+        "createPolygon",
+        "createPolyline",
+        "createRoute",
+        "createSnapshotter",
+        "createStreetViewPanorama",
+        "createView",
+        "geocodeAddress",
+        "getLookAroundImage",
+        "isGooglePlayServicesAvailable",
+        "openLookAroundDialog",
+        "search"
+      ]
     },
     {
       "name": "Modules.Map.Annotation",
@@ -86,7 +166,42 @@
         "properties": 31,
         "methods": 2,
         "events": 0
-      }
+      },
+      "members": [
+        "animate",
+        "annotationDisplayPriority",
+        "canShowCallout",
+        "centerOffset",
+        "clusterIdentifier",
+        "collisionMode",
+        "customView",
+        "draggable",
+        "hidden",
+        "image",
+        "latitude",
+        "leftButton",
+        "leftView",
+        "longitude",
+        "markerAnimatesWhenAdded",
+        "markerColor",
+        "markerGlyphColor",
+        "markerGlyphImage",
+        "markerGlyphText",
+        "markerSelectedGlyphImage",
+        "markerSubtitleVisibility",
+        "markerTitleVisibility",
+        "pincolor",
+        "previewContext",
+        "rightButton",
+        "rightView",
+        "rotate",
+        "showAsMarker",
+        "showInfoWindow",
+        "subtitle",
+        "subtitleid",
+        "title",
+        "titleid"
+      ]
     },
     {
       "name": "Modules.Map.Camera",
@@ -110,7 +225,14 @@
         "properties": 5,
         "methods": 0,
         "events": 0
-      }
+      },
+      "members": [
+        "altitude",
+        "centerCoordinate",
+        "eyeCoordinate",
+        "heading",
+        "pitch"
+      ]
     },
     {
       "name": "Modules.Map.Circle",
@@ -134,7 +256,18 @@
         "properties": 9,
         "methods": 0,
         "events": 0
-      }
+      },
+      "members": [
+        "blendMode",
+        "center",
+        "fillColor",
+        "opacity",
+        "radius",
+        "strokeColor",
+        "strokeWidth",
+        "touchEnabled",
+        "zIndex"
+      ]
     },
     {
       "name": "Modules.Map.ImageOverlay",
@@ -158,7 +291,11 @@
         "properties": 2,
         "methods": 0,
         "events": 0
-      }
+      },
+      "members": [
+        "boundsCoordinate",
+        "image"
+      ]
     },
     {
       "name": "Modules.Map.Polygon",
@@ -182,7 +319,17 @@
         "properties": 8,
         "methods": 0,
         "events": 0
-      }
+      },
+      "members": [
+        "bounds",
+        "fillColor",
+        "holes",
+        "points",
+        "strokeColor",
+        "strokeWidth",
+        "touchEnabled",
+        "zIndex"
+      ]
     },
     {
       "name": "Modules.Map.Polyline",
@@ -206,7 +353,16 @@
         "properties": 7,
         "methods": 0,
         "events": 0
-      }
+      },
+      "members": [
+        "jointType",
+        "pattern",
+        "points",
+        "strokeColor",
+        "strokeWidth",
+        "touchEnabled",
+        "zIndex"
+      ]
     },
     {
       "name": "Modules.Map.Route",
@@ -230,7 +386,13 @@
         "properties": 4,
         "methods": 0,
         "events": 0
-      }
+      },
+      "members": [
+        "color",
+        "level",
+        "points",
+        "width"
+      ]
     },
     {
       "name": "Modules.Map.Snapshotter",
@@ -252,7 +414,15 @@
         "properties": 5,
         "methods": 1,
         "events": 0
-      }
+      },
+      "members": [
+        "mapType",
+        "region",
+        "showsBuildings",
+        "showsPointsOfInterest",
+        "size",
+        "takeSnapshot"
+      ]
     },
     {
       "name": "Modules.Map.StreetViewPanorama",
@@ -268,7 +438,14 @@
         "properties": 5,
         "methods": 0,
         "events": 0
-      }
+      },
+      "members": [
+        "panning",
+        "position",
+        "streetNames",
+        "userNavigation",
+        "zoom"
+      ]
     },
     {
       "name": "Modules.Map.View",
@@ -292,7 +469,82 @@
         "properties": 29,
         "methods": 34,
         "events": 12
-      }
+      },
+      "members": [
+        "addAnnotation",
+        "addAnnotations",
+        "addCircle",
+        "addCircles",
+        "addHeatmap",
+        "addImageOverlay",
+        "addImageOverlays",
+        "addPolygon",
+        "addPolygons",
+        "addPolyline",
+        "addPolylines",
+        "addRoute",
+        "animate",
+        "animateCamera",
+        "annotations",
+        "camera",
+        "click",
+        "clusterstart",
+        "compassEnabled",
+        "complete",
+        "containsCoordinate",
+        "deselectAnnotation",
+        "enableZoomControls",
+        "indoorEnabled",
+        "liteMode",
+        "longclick",
+        "mapToolbarEnabled",
+        "mapType",
+        "mapclick",
+        "maxZoomLevel",
+        "minClusterSize",
+        "minZoomLevel",
+        "onsnapshotready",
+        "padding",
+        "pinchangedragstate",
+        "pitchEnabled",
+        "poiclick",
+        "poideselect",
+        "region",
+        "regionchanged",
+        "regionwillchange",
+        "removeAllAnnotations",
+        "removeAllCircles",
+        "removeAllImageOverlays",
+        "removeAllPolygons",
+        "removeAllPolylines",
+        "removeAnnotation",
+        "removeAnnotations",
+        "removeCircle",
+        "removeImageOverlay",
+        "removePolygon",
+        "removePolyline",
+        "removeRoute",
+        "rotateEnabled",
+        "scrollEnabled",
+        "selectAnnotation",
+        "setClusterAnnotation",
+        "setLocation",
+        "setMapType",
+        "showAnnotations",
+        "showsBuildings",
+        "showsCompass",
+        "showsPointsOfInterest",
+        "showsScale",
+        "showsTraffic",
+        "snapshot",
+        "style",
+        "traffic",
+        "userLocation",
+        "userLocationButton",
+        "zOrderOnTop",
+        "zoom",
+        "zoomEnabled"
+      ]
     }
   ],
   "inlined": [

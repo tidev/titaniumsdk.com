@@ -1,7 +1,12 @@
 {
   "schemaVersion": 1,
-  "generator": "sha256:dbf10557d55741c70167a46a57b5311020a496dfb36ae4a385b0ab081acc4d59",
-  "generatedAt": "2026-08-28T07:08:05.698Z",
+  "generator": "sha256:ac231061067ed51d0966e3953108bbd9c19cae952495be231d05241eb191edf3",
+  "external": {
+    "repo": "tidev/titanium-sdk",
+    "version": "main",
+    "hash": "sha256:0c8e94bd4e64c06147ad9ff63806ba4cc4617e8aca5fa7095f28472598bbf5a4"
+  },
+  "generatedAt": "2026-08-30T06:52:26.739Z",
   "sources": {
     "Annotation.yml": {
       "hash": "sha256:bbc4cfc3af9d0cb1468f4df93b27e3b07137da0779c2045361d0b91c96b60d00",
@@ -84,27 +89,27 @@
     "Modules.Map.Annotation": {
       "source": "Annotation.yml",
       "extends": "Titanium.Proxy",
-      "outputHash": "sha256:cb29a60f7e5762ba03ad7494878cd087c2f9b7bccd979bb1ac2bbbbf57d5870d"
+      "outputHash": "sha256:df126d0e7739b078b129fa1cde8492328568f533a2b194a7da4e647f1653758a"
     },
     "Modules.Map.Camera": {
       "source": "Camera.yml",
       "extends": "Titanium.Proxy",
-      "outputHash": "sha256:675b7e9f2e47fdb64bc98b431d918710d9952d775749b3537c1f71075ad021ea"
+      "outputHash": "sha256:f402b850c4409b91c7ad4cc5a52a7ea913b681b66e40e012db21447022ae0f25"
     },
     "Modules.Map.Circle": {
       "source": "Circle.yml",
       "extends": "Titanium.Proxy",
-      "outputHash": "sha256:81b27811edc21ea1288648eeb74988e592f144747e95d49f87cd2c36c029c90e"
+      "outputHash": "sha256:823f243443a0c340d192aa6cb5a756088e272432a1fe38f90ea06a9f989daba9"
     },
     "Modules.Map.ImageOverlay": {
       "source": "ImageOverlay.yml",
       "extends": "Titanium.Proxy",
-      "outputHash": "sha256:40b5df7fe1c3d39635c926a3414afa9215d30c0ecf97f638e7fc1d4193d00b55"
+      "outputHash": "sha256:2f3e26d0c651fb7dabe3bfc302510b3cafc3e402a34bc36ca51d969ed52a4b93"
     },
     "Modules.Map": {
       "source": "Map.yml",
       "extends": "Titanium.Module",
-      "outputHash": "sha256:a9005dbefe44ea682ec175de1b87ff0a72023181520081b0b513621b43a889e4"
+      "outputHash": "sha256:82d001ea5028d3bc2133cfad8ec3f5585388aa12d5b3556f0c13b0f1265967fe"
     },
     "MapPointType": {
       "source": "Map.yml",
@@ -113,32 +118,32 @@
     "Modules.Map.Polygon": {
       "source": "Polygon.yml",
       "extends": "Titanium.Proxy",
-      "outputHash": "sha256:1d20c95b7d090345245da8dda992587e6372cbc0f8b759a587a0679c7aed41fe"
+      "outputHash": "sha256:bd4dae7d03592cdba33d5c2624bde2b2ed3332e3d49ce1ccfef50c4f9bcead02"
     },
     "Modules.Map.Polyline": {
       "source": "Polyline.yml",
       "extends": "Titanium.Proxy",
-      "outputHash": "sha256:51e56854933c5221820cb1802483dc943fce56e696220a4d8c3beed826b1798b"
+      "outputHash": "sha256:034b0063e6abfa0d0ee08b454909e03c4cf76ee7865c80ee9d49ff2b47de2231"
     },
     "Modules.Map.Route": {
       "source": "Route.yml",
       "extends": "Titanium.Proxy",
-      "outputHash": "sha256:429d30d87c4ffda5bdb23ee4ac6c63e44d34f1ed336d6d7034e910d56974c7f6"
+      "outputHash": "sha256:b5b27ff09590d7351e3e998826ca204c12b1cc471b5cb945722639cd2c5d7469"
     },
     "Modules.Map.Snapshotter": {
       "source": "Snapshotter.yml",
       "extends": "Titanium.Proxy",
-      "outputHash": "sha256:8dff1a44923ccc3e24695105b280ce09bd957c5e5762badae1e5d38090a04ccd"
+      "outputHash": "sha256:e84da81dd3b93687c9d639a8f0881798040f6a9667fb143438aaa2546886b00e"
     },
     "Modules.Map.StreetViewPanorama": {
       "source": "StreetViewPanorama.yml",
       "extends": "Titanium.UI.View",
-      "outputHash": "sha256:d2ac244e9efa4dae795edd07156ff9210a406c21407686c80e1b0950bff4c461"
+      "outputHash": "sha256:53771840e5ff69561872b70a428aeff62c883bea9fe5b92a2bc027c124430050"
     },
     "Modules.Map.View": {
       "source": "View.yml",
       "extends": "Titanium.UI.View",
-      "outputHash": "sha256:595f7b6f9499c4e9bb43956a5f6e437ec3dca85faa27f02e3b1f73e03f558082"
+      "outputHash": "sha256:b3a7f8fc8239f514658d0cc4340e93b4949bfee48a3d9f60916de3f4f1c1b36c"
     },
     "MapRegionTypev2": {
       "source": "View.yml",

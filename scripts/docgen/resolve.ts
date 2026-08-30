@@ -1,3 +1,4 @@
+import type { ExternalCorpus } from './external.ts';
 import type { RawType } from './load.ts';
 import {
   parseTypeField,
@@ -111,7 +112,11 @@ export type ResolvedType = {
   inherited: Record<'properties' | 'methods' | 'events', InheritedRef[]>;
   /** Types this one links to in prose or member types. */
   references: string[];
-  /** Refs into namespaces compiled from other repos, e.g. Modules.*. */
+  /**
+   * Refs that leave this corpus: types resolved in another repo's compiled
+   * index, and unresolved refs into a namespace compiled elsewhere, e.g.
+   * Modules.*. Both link with an `api:` URI; only these say so.
+   */
   externalReferences?: string[];
   source: string;
 };
@@ -285,9 +290,18 @@ function synthesizeFactories(
   return extra;
 }
 
-export function resolveAll(types: Map<string, RawType>): ResolveResult {
+/**
+ * @param external  a corpus compiled from another repo that references may
+ *   resolve into. Types in it link like local ones but emit no file here, so
+ *   they land in `externalReferences` rather than in `references`.
+ */
+export function resolveAll(types: Map<string, RawType>, external?: ExternalCorpus): ResolveResult {
   const problems: ResolveResult['problems'] = [];
   const known = new Set(types.keys());
+  const foreign = external?.members ?? new Map<string, ReadonlySet<string>>();
+  // Everything a reference may name. Kept apart from `known`, which stays the
+  // set this compile owns and emits.
+  const linkable = new Set([...known, ...foreign.keys()]);
 
   const chains = new Map<string, string[]>();
   for (const name of known) chains.set(name, chainOf(name, types));
@@ -437,14 +451,17 @@ export function resolveAll(types: Map<string, RawType>): ResolveResult {
   }
 
   // Case-insensitive index, so `Ti.Network.HttpClient` finds `HTTPClient`.
-  const byLower = new Map([...known].map((n) => [n.toLowerCase(), n]));
-  const roots = new Set([...known].map((n) => n.split('.')[0]));
+  const byLower = new Map([...linkable].map((n) => [n.toLowerCase(), n]));
+  const roots = new Set([...linkable].map((n) => n.split('.')[0]));
 
   const resolver: Resolver = {
-    hasType: (n) => known.has(n),
-    hasMember: (t, m) => members.get(t)?.has(m) ?? false,
-    canonical: (n) => (known.has(n) ? n : byLower.get(n.toLowerCase())),
+    hasType: (n) => linkable.has(n),
+    // The external corpus records its member names for exactly this: a
+    // cross-repo member reference is verified, not assumed.
+    hasMember: (t, m) => members.get(t)?.has(m) ?? foreign.get(t)?.has(m) ?? false,
+    canonical: (n) => (linkable.has(n) ? n : byLower.get(n.toLowerCase())),
     isRoot: (segment) => roots.has(segment),
+    isExternal: (n) => !known.has(n) && foreign.has(n),
   };
 
   // Prose and type fields, per type. Cross-refs resolved once here.
@@ -473,7 +490,7 @@ export function resolveAll(types: Map<string, RawType>): ResolveResult {
     const out: Param = { name: str(raw.name) ?? '' };
     if (str(raw.summary)) out.summary = prose(owner, raw.summary);
     if (str(raw.description)) out.description = prose(owner, raw.description);
-    const t = parseTypeField(raw.type, known);
+    const t = parseTypeField(raw.type, linkable);
     if (t.length) out.type = t;
     if (raw.optional === true) out.optional = true;
     if (raw.repeatable === true) out.repeatable = true;
@@ -487,7 +504,7 @@ export function resolveAll(types: Map<string, RawType>): ResolveResult {
     if (str(raw.summary)) out.summary = prose(owner, raw.summary);
     if (str(raw.description)) out.description = prose(owner, raw.description);
 
-    const t = parseTypeField(raw.type, known);
+    const t = parseTypeField(raw.type, linkable);
     if (t.length) out.type = t;
 
     const s = since(raw.since);
@@ -521,7 +538,7 @@ export function resolveAll(types: Map<string, RawType>): ResolveResult {
         .filter((x): x is Record<string, unknown> => !!x && typeof x === 'object')
         .map((x) => {
           const r: { type?: TypeRef[]; summary?: string } = {};
-          const rt = parseTypeField(x.type, known);
+          const rt = parseTypeField(x.type, linkable);
           if (rt.length) r.type = rt;
           if (str(x.summary)) r.summary = prose(owner, x.summary);
           return r;
@@ -632,8 +649,13 @@ export function resolveAll(types: Map<string, RawType>): ResolveResult {
     if (rt.extends) refs.add(rt.extends);
     refs.delete(rt.name);
     rt.references = [...refs].filter((n) => resolved.has(n)).sort();
-    const ext = externalFor.get(rt.name);
-    if (ext?.size) rt.externalReferences = [...ext].sort();
+
+    const ext = externalFor.get(rt.name) ?? new Set<string>();
+    // Signatures and `extends` cross repos too, not only prose: Modules.Map.View
+    // extends Titanium.UI.View, and dropping that would leave the one reference
+    // a reader most needs unrecorded.
+    for (const n of refs) if (!resolved.has(n) && foreign.has(n)) ext.add(n);
+    if (ext.size) rt.externalReferences = [...ext].sort();
   }
 
   return { types: resolved, inlined: inlinePseudoTypes(resolved), problems };
