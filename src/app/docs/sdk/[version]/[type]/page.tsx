@@ -155,7 +155,10 @@ export default async function TypePage({ params }: PageProps<'/docs/sdk/[version
         {editUrl && (
           <a
             href={editUrl}
-            className="inline-flex items-center gap-1.5 rounded-md border border-border px-2 py-1 text-text-muted transition-colors hover:border-border-strong hover:text-text"
+            // ml-auto rather than justify-between on the footer: when the two
+            // wrap onto separate lines, justify-between leaves one item per
+            // line and stops right-aligning anything.
+            className="ml-auto inline-flex items-center gap-1.5 rounded-md border border-border px-2 py-1 text-text-muted transition-colors hover:border-border-strong hover:text-text"
             rel="noopener noreferrer"
           >
             <svg viewBox="0 0 16 16" aria-hidden className="size-3.5 fill-current">
