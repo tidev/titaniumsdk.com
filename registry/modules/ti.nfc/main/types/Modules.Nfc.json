@@ -1,0 +1,1848 @@
+{
+  "schemaVersion": 1,
+  "name": "Modules.Nfc",
+  "kind": "module",
+  "extends": "Titanium.Module",
+  "inheritanceChain": [
+    "Titanium.Module"
+  ],
+  "platforms": [
+    "android",
+    "iphone"
+  ],
+  "since": {
+    "android": "1.0.0",
+    "iphone": "2.0.0"
+  },
+  "summary": "A cross-platform Near-Field-Communication (NFC) module for iOS and Android. \nDownload the latest release via [Github](https://github.com/appcelerator-modules/ti.nfc/releases).\n",
+  "description": "This module provides access to Near Field Communication (NFC) functionality, \nallowing applications to read and write (Android-only) NFC tags. \nA \"tag\" may actually be another device that appears as a tag.\n\n### NFC Resources\n\n- **Android**\n  - [Near Field Communication](http://developer.android.com/guide/topics/connectivity/nfc/index.html)\n  - [android.nfc](http://developer.android.com/reference/android/nfc/package-summary.html)\n- **iOS**\n  - [CoreNFC](https://developer.apple.com/documentation/corenfc)\n  - [Introduction to CoreNFC at WWDC17](https://developer.apple.com/videos/play/wwdc2017/718/)\n  - [Native example](https://github.com/hansemannn/iOS11-NFC-Example)\n\n### Requirements\n\n- **Android**\n  - Android 4.1 (API 16) and later\n  - An NFC capable device\n\n- **iOS**\n  - iOS 11 and later\n  - iPhone 7 / iPhone 7 Plus and later\n\n### Getting Started\n\n-   View the [Using Titanium Modules](http://docs.appcelerator.com/platform/latest/#!/guide/Using_Titanium_Modules) \n    document for instructions on getting started with using this module in your application.\n    \n### Configure iOS: Capabilities and Provisioning Profiles\n\n-   Required capabilities:\n\n    ``` xml\n    <key>com.apple.developer.nfc.readersession.formats</key>\n    <array>\n        [string](api:Global.String)NDEF</string>\n    </array>\n    ```\n\n-   Provisioning Profile entitled with the NFC Tag Reading capability\n\n### Configure Android: Tag Dispatching and Intent Filters\n\n-   The Android [tag dispatch system](http://developer.android.com/guide/topics/connectivity/nfc/nfc.html#tag-dispatch)\n    is responsible for dispatching NFC messages to the appropriate application. In the\n    situation where you are not using foreground dispatching, you will need to define intent-filters in the \n    tiapp.xml file to specify which types of NFC messages the application wants to receive. By using intent-filters in\n    the tiapp.xml file, the application will be automatically started if a matching\n    NFC message is dispatched. \n\n    Add code similar to the following to your tiapp.xml file:\n\n    - Replace occurrences of the activity name (`Tagviewer`) with your activity name.\n    - Add the NFC permissions to your Android configuration\n    - Replace the NFC specific intent filters with filters appropriate for your application.\n\n        ``` xml\n        <android xmlns:android=\"http://schemas.android.com/apk/res/android\">\n            <manifest>\n                <!-- Required NFC permissions -->\n                <uses-permission android:name=\"android.permission.NFC\" />\n                <uses-feature android:name=\"android.hardware.nfc\" android:required=\"true\" /> \n                \n                <!-- NFC Intent filters -->\n                <application>\n                    <activity android:name=\".TagviewerActivity\"\n                      android:label=\"TagViewer\" android:theme=\"@style/Theme.Titanium\"\n                      android:configChanges=\"keyboardHidden|orientation\"\n                      android:exported=\"true\">\n                        <intent-filter>\n                            <action android:name=\"android.nfc.action.TECH_DISCOVERED\"/>\n                            <category android:name=\"android.intent.category.DEFAULT\"/>\n                        </intent-filter>\n\n                        <intent-filter>\n                            <action android:name=\"android.nfc.action.NDEF_DISCOVERED\"/>\n                            <category android:name=\"android.intent.category.DEFAULT\"/>\n                            <data android:mimeType=\"text/plain\" />\n                        </intent-filter>\n\n                        <intent-filter>\n                            <action android:name=\"android.nfc.action.TAG_DISCOVERED\"/>\n                            <category android:name=\"android.intent.category.DEFAULT\"/>\n                        </intent-filter>\n                    </activity>\n                </application>\n            </manifest>\n        </android>\n        ```\n\n    Note that if you are using [foreground dispatching](http://developer.android.com/guide/topics/connectivity/nfc/advanced-nfc.html#foreground-dispatch)\n    you do not need to define intent filters in the application's tiapp.xml file.\n\n### Accessing the Module\n\n-   Use `require` to access this module from JavaScript:\n\n    ``` javascript\n    var nfc = require('ti.nfc');\n    ```\n\n    The `nfc` variable is a reference to the Module object.\n\n### Creating an Adapter\n\n-   The NFC adapter gives you access to the features of the NFC device. The NFC adapter proxy is always\n    associated with the activity that was the current activity when it was created. Therefore, the NFC \n    Adapter should be created after the activity has been opened. You can use the window `open` event to know\n    when the activity has been opened. \n\n    ``` javascript\n    $.index.addEventListener('open', function(e) {\n        nfcAdapter = nfc.createNfcAdapter({\n            onNdefDiscovered: handleDiscovery,\n            onTagDiscovered: handleDiscovery, // Android-only\n            onTechDiscovered: handleDiscovery // Android-only\n        });\n\n        if (!nfcAdapter.isEnabled()) {\n            Ti.API.error('NFC is not enabled on this device!');\n            return;\n        }\n    });\n    ```\n\n### Handling Intents (Android)\n\n-   NFC Intents are dispatched to an activity by the Android tag dispatch system. When your activity receives a new intent,\n    it must forward the intent to the `onNewIntent` method of the NFC adapter for processing.\n\n    ``` javascript\n    Ti.Android.currentActivity.addEventListener('newintent', function (e) {\n        nfcAdapter.onNewIntent(e.intent);\n    });\n    ```\n\n    If your application is started as the result of an NFC intent, that intent will automatically be processed when the\n    NFC module is loaded.\n\n### Foreground Dispatch\n\n-   The foreground dispatch system allows an activity to intercept an intent and claim priority over other activities that handle the same intent.\n    When using foreground dispatching, you must process the `pause` and `resume` events on the activity and enable or disable\n    foreground dispatching.\n\n    ``` javascript\n    var currentActivity = Ti.Android.currentActivity;\n\n    currentActivity.addEventListener('resume', function(e) {\n        nfcAdapter.enableForegroundDispatch(dispatchFilter);\n    });\n    currentActivity.addEventListener('pause', function(e) {\n        nfcAdapter.disableForegroundDispatch();\n    });\n    ```\n\n### Example applications\n\n-   Android example applications are located in the `example/android` folder of the module:\n\n    - `TagBeam` demonstrates how to use Android Beam to send messages to another NFC capable device.\n    - `TagForeground` demonstrates how to read NFC tags only when the application is in the foreground.\n    - `TagViewer` demonstrates how to receive NFC tag intents even when the application is not running.\n    - `TagWriter` demonstrates how to write to an NFC tag using the Ndef tag technology data format.\n    \n-   iOS example applications are located in the `example/ios` folder of the module:\n    \n    - `TagViewer` demonstrates how to receive NFC tags even when the application is running.\n",
+  "examples": [
+    {
+      "title": "Creating NFC Adapter (iOS & Android)",
+      "code": "This example demonstrates the proper technique for creating an NFC adapter. \nThe NFC Adapter should be created after the window has been opened.\n\n``` javascript\nvar nfc = require('ti.nfc');\nvar nfcAdapter = null;\n\n$.index.addEventListener('open', function(e) {\n    // Must wait until the activity has been opened before setting up NFC\n    // Create the NFC adapter to be associated with this activity. \n    // There should only be ONE adapter created per activity.\n    nfcAdapter = nfc.createNfcAdapter({\n        onNdefDiscovered: handleDiscovery,\n        onTagDiscovered: handleDiscovery, // Android-only\n        onTechDiscovered: handleDiscovery // Android-only\n    });\n\n    // It's possible that the device does not support NFC. Check it here\n    // before we go any further. For iOS, right now this is decided \n    // internally by the system. \n    if (OS_ANDROID) {\n        if (!nfcAdapter.isEnabled()) {\n            alert('NFC is not enabled on this device');\n            return;\n        }\n        Ti.Android.currentActivity.addEventListener('newintent', function (e) {\n            nfcAdapter.onNewIntent(e.intent);\n        });\n        \n    // iOS needs to be told to scan\n    } else if (OS_IOS) {\n        nfcAdapter.begin();\n    }\n});\n\nfunction handleDiscovery(e) {\n    alert(JSON.stringify(e, null, 2));\n}\n\n$.index.open();\n```\n"
+    }
+  ],
+  "properties": [
+    {
+      "name": "ACTION_NDEF_DISCOVERED",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Intent to start an activity when a tag with NDEF payload is discovered.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "1.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "ACTION_TAG_DISCOVERED",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Intent to start an activity when a tag is discovered.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "1.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "ACTION_TECH_DISCOVERED",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Intent to start an activity when a tag is discovered and activities are registered for the specific technologies on the tag.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "1.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "COMMAND_CONFIGURATION_ERROR_INVALID_PARAMETERS",
+      "platforms": [
+        "iphone"
+      ],
+      "summary": "The tag has been configured with invalid parameters.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "2.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "ENCODING_UTF16",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Used with ndefRecord records.    \nIndicates UTF-16 text encoding.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "1.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "ENCODING_UTF8",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Used with ndefRecord records.    \nIndicates UTF-8 text encoding.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "1.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "ERROR_SECURITY_VIOLATION",
+      "platforms": [
+        "iphone"
+      ],
+      "summary": "A security violation associated with the reader session has occurred.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "2.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "ERROR_UNSUPPORTED_FEATURE",
+      "platforms": [
+        "iphone"
+      ],
+      "summary": "The reader session does not support this feature.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "2.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "INVALIDATION_ERROR_FIRST_NDEF_TAG_READ",
+      "platforms": [
+        "iphone"
+      ],
+      "summary": "The first NDEF tag read by this session is invalid.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "2.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "INVALIDATION_ERROR_SESSION_TERMINATED_UNEXPECTEDLY",
+      "platforms": [
+        "iphone"
+      ],
+      "summary": "The reader session terminated unexpectedly.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "2.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "INVALIDATION_ERROR_SESSION_TIMEOUT",
+      "platforms": [
+        "iphone"
+      ],
+      "summary": "The reader session timed out.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "2.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "INVALIDATION_ERROR_SYSTEM_IS_BUSY",
+      "platforms": [
+        "iphone"
+      ],
+      "summary": "The reader session failed because the system is busy.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "2.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "INVALIDATION_ERROR_USER_CANCELED",
+      "platforms": [
+        "iphone"
+      ],
+      "summary": "The user canceled the reader session.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "2.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "MIFARE_BLOCK_SIZE",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Used with TECH_MIFARE_CLASSIC tag technology.\nSize of a MIFARE CLassic block (in bytes).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "MIFARE_SIZE_1K",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Used with TECH_MIFARE_CLASSIC tag technology.\nTag contains 16 sectors, each with 4 blocks.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "MIFARE_SIZE_2K",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Used with TECH_MIFARE_CLASSIC tag technology.\nTag contains 32 sectors, each with 4 blocks.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "MIFARE_SIZE_4K",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Used with TECH_MIFARE_CLASSIC tag technology.\nTag contains 40 sectors.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "MIFARE_SIZE_MINI",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Used with TECH_MIFARE_CLASSIC tag technology.\nTag contains 5 sectors, each with 4 blocks.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "MIFARE_TAG_TYPE_CLASSIC",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Used with TECH_MIFARE_CLASSIC tag technology.\nA MIFARE Classic tag.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "MIFARE_TAG_TYPE_PLUS",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Used with TECH_MIFARE_CLASSIC tag technology.\nA MIFARE Plus tag.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "MIFARE_TAG_TYPE_PRO",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Used with TECH_MIFARE_CLASSIC tag technology.\nA MIFARE Pro tag.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "MIFARE_TAG_TYPE_UNKNOWN",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Used with TECH_MIFARE_CLASSIC tag technology.\nA MIFARE Classic compatible card of unknown type.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "MIFARE_ULTRALIGHT_PAGE_SIZE",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Used with TECH_MIFARE_ULTRALIGHT tag technology.\nSize of a MIFARE Ultralight page (in bytes).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "MIFARE_ULTRALIGHT_TYPE_ULTRALIGHT",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Used with TECH_MIFARE_ULTRALIGHT tag technology.\nA MIFARE Ultralight tag.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "MIFARE_ULTRALIGHT_TYPE_ULTRALIGHT_C",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Used with TECH_MIFARE_ULTRALIGHT tag technology.\nA MIFARE Ultralight C tag.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "MIFARE_ULTRALIGHT_TYPE_UNKNOWN",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Used with TECH_MIFARE_ULTRALIGHT tag technology.\nA MIFARE Ultralight compatible tag of unknown type.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "RECOMMENDED_ACTION_DO_ACTION",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Used with NdefSmartPoster records (RTD_SMART_POSTER).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "RECOMMENDED_ACTION_OPEN_FOR_EDITING",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Used with NdefSmartPoster records (RTD_SMART_POSTER).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "RECOMMENDED_ACTION_SAVE_FOR_LATER",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Used with NdefSmartPoster records (RTD_SMART_POSTER).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "RECOMMENDED_ACTION_UNKNOWN",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Used with NdefSmartPoster records (RTD_SMART_POSTER).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "RTD_ALTERNATIVE_CARRIER",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Used with ndefRecord records.    \nRTD Alternative Carrier type. For use with TNF_WELL_KNOWN.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "1.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "RTD_HANDOVER_CARRIER",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Used with ndefRecord records.    \nRTD Handover Carrier type. For use with TNF_WELL_KNOWN.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "1.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "RTD_HANDOVER_REQUEST",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Used with ndefRecord records.    \nRTD Handover Request type. For use with TNF_WELL_KNOWN.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "1.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "RTD_HANDOVER_SELECT",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Used with ndefRecord records.    \nRTD Handover Select type. For use with TNF_WELL_KNOWN.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "1.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "RTD_SMART_POSTER",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Used with ndefRecord records.    \nRTD Smart Poster type. For use with TNF_WELL_KNOWN.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "1.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "RTD_TEXT",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Used with ndefRecord records.    \nRTD Text type. For use with TNF_WELL_KNOWN.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "1.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "RTD_URI",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Used with ndefRecord records.    \nRTD URI type. For use with TNF_WELL_KNOWN.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "1.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "TAG_TYPE_MIFARE_CLASSIC",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Used with TECH_NDEF tag technology.\nNDEF on MIFARE Classic.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "1.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "TAG_TYPE_NFC_FORUM_TYPE_1",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Used with TECH_NDEF tag technology.\nNFC Forum Tag Type 1.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "1.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "TAG_TYPE_NFC_FORUM_TYPE_2",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Used with TECH_NDEF tag technology.\nNFC Forum Tag Type 2.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "1.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "TAG_TYPE_NFC_FORUM_TYPE_3",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Used with TECH_NDEF tag technology.\nNFC Forum Tag Type 3.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "1.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "TAG_TYPE_NFC_FORUM_TYPE_4",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Used with TECH_NDEF tag technology.\nNFC Forum Tag Type 4.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "1.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "TECH_ISODEP",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Available tag technology used with getTechList and AdapterProxy.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "TECH_MIFARE_CLASSIC",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Available tag technology used with getTechList and AdapterProxy.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "TECH_MIFARE_ULTRALIGHT",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Available tag technology used with getTechList and AdapterProxy.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "TECH_NDEF",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Available tag technology used with getTechList and AdapterProxy.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "TECH_NDEFFORMATABLE",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Available tag technology used with getTechList and AdapterProxy.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "TECH_NFCA",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Available tag technology used with getTechList and AdapterProxy.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "TECH_NFCB",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Available tag technology used with getTechList and AdapterProxy.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "TECH_NFCF",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Available tag technology used with getTechList and AdapterProxy.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "TECH_NFCV",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Available tag technology used with getTechList and AdapterProxy.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "TNF_ABSOLUTE_URI",
+      "platforms": [
+        "android",
+        "iphone"
+      ],
+      "summary": "Used with ndefRecord records.\nIndicates the type field contains an absolute-URI BNF construct defined by RFC 3986.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": {
+        "android": "1.0.0",
+        "iphone": "2.0.0"
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "TNF_EMPTY",
+      "platforms": [
+        "android",
+        "iphone"
+      ],
+      "summary": "Used with ndefRecord records.\nIndicates the record is empty.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": {
+        "android": "1.0.0",
+        "iphone": "2.0.0"
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "TNF_EXTERNAL_TYPE",
+      "platforms": [
+        "android",
+        "iphone"
+      ],
+      "summary": "Used with ndefRecord records.\nIndicates the type field contains an external type name.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": {
+        "android": "1.0.0",
+        "iphone": "2.0.0"
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "TNF_MIME_MEDIA",
+      "platforms": [
+        "android",
+        "iphone"
+      ],
+      "summary": "Used with ndefRecord records.    \nIndicates the type field contains a media-type BNF construct, defined by RFC 2046.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": {
+        "android": "1.0.0",
+        "iphone": "2.0.0"
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "TNF_UNCHANGED",
+      "platforms": [
+        "android",
+        "iphone"
+      ],
+      "summary": "Used with ndefRecord records.    \nIndicates the payload is an intermediate or final chunk of a chunked NDEF Record.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": {
+        "android": "1.0.0",
+        "iphone": "2.0.0"
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "TNF_UNKNOWN",
+      "platforms": [
+        "android",
+        "iphone"
+      ],
+      "summary": "Used with ndefRecord records.    \nIndicates the payload type is unknown.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": {
+        "android": "1.0.0",
+        "iphone": "2.0.0"
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "TNF_WELL_KNOWN",
+      "platforms": [
+        "android",
+        "iphone"
+      ],
+      "summary": "Used with ndefRecord records.    \nIndicates the type field contains a well-known RTD type name.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": {
+        "android": "1.0.0",
+        "iphone": "2.0.0"
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "TRANSCEIVE_ERROR_RETRY_EXCEEDED",
+      "platforms": [
+        "iphone"
+      ],
+      "summary": "Too many retries have occurred.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "2.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "TRANSCEIVE_ERROR_TAG_CONNECTION_LOST",
+      "platforms": [
+        "iphone"
+      ],
+      "summary": "Connection to the tag has been lost.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "2.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "TRANSCEIVE_ERROR_TAG_RESPONSE_ERROR",
+      "platforms": [
+        "iphone"
+      ],
+      "summary": "The tag has responded with an error.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "2.0.0",
+      "permission": "read-only"
+    }
+  ],
+  "methods": [
+    {
+      "name": "createMifareTagTechnology",
+      "platforms": [
+        "iphone"
+      ],
+      "summary": "Creates and returns an instance of [Modules.Nfc.MifareTagTechnology](api:Modules.Nfc.MifareTagTechnology).",
+      "since": "1.1.0",
+      "factoryFor": "Modules.Nfc.MifareTagTechnology",
+      "parameters": [
+        {
+          "name": "parameters",
+          "summary": "Properties to set on a new object, including any defined by [Modules.Nfc.MifareTagTechnology](api:Modules.Nfc.MifareTagTechnology) except those marked not-creation or read-only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.Nfc.MifareTagTechnology"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Nfc.MifareTagTechnology"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "createNativeTagTechnology",
+      "platforms": [
+        "iphone"
+      ],
+      "summary": "Creates and returns an instance of [Modules.Nfc.NativeTagTechnology](api:Modules.Nfc.NativeTagTechnology).",
+      "since": "1.1.0",
+      "factoryFor": "Modules.Nfc.NativeTagTechnology",
+      "parameters": [
+        {
+          "name": "parameters",
+          "summary": "Properties to set on a new object, including any defined by [Modules.Nfc.NativeTagTechnology](api:Modules.Nfc.NativeTagTechnology) except those marked not-creation or read-only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.Nfc.NativeTagTechnology"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Nfc.NativeTagTechnology"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "createNdefMessage",
+      "platforms": [
+        "android",
+        "iphone"
+      ],
+      "summary": "Creates and returns an instance of [Modules.Nfc.NdefMessage](api:Modules.Nfc.NdefMessage).",
+      "since": {
+        "android": "1.0.0",
+        "iphone": "6.3.0"
+      },
+      "factoryFor": "Modules.Nfc.NdefMessage",
+      "parameters": [
+        {
+          "name": "parameters",
+          "summary": "Properties to set on a new object, including any defined by [Modules.Nfc.NdefMessage](api:Modules.Nfc.NdefMessage) except those marked not-creation or read-only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.Nfc.NdefMessage"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Nfc.NdefMessage"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "createNdefRecordApplication",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Creates and returns an instance of [Modules.Nfc.NdefRecordApplication](api:Modules.Nfc.NdefRecordApplication).",
+      "since": "1.0.0",
+      "factoryFor": "Modules.Nfc.NdefRecordApplication",
+      "parameters": [
+        {
+          "name": "parameters",
+          "summary": "Properties to set on a new object, including any defined by [Modules.Nfc.NdefRecordApplication](api:Modules.Nfc.NdefRecordApplication) except those marked not-creation or read-only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.Nfc.NdefRecordApplication"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Nfc.NdefRecordApplication"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "createNdefRecordEmpty",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Creates and returns an instance of [Modules.Nfc.NdefRecordEmpty](api:Modules.Nfc.NdefRecordEmpty).",
+      "since": "1.0.0",
+      "factoryFor": "Modules.Nfc.NdefRecordEmpty",
+      "parameters": [
+        {
+          "name": "parameters",
+          "summary": "Properties to set on a new object, including any defined by [Modules.Nfc.NdefRecordEmpty](api:Modules.Nfc.NdefRecordEmpty) except those marked not-creation or read-only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.Nfc.NdefRecordEmpty"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Nfc.NdefRecordEmpty"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "createNdefRecordExternal",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Creates and returns an instance of [Modules.Nfc.NdefRecordExternal](api:Modules.Nfc.NdefRecordExternal).",
+      "since": "1.0.0",
+      "factoryFor": "Modules.Nfc.NdefRecordExternal",
+      "parameters": [
+        {
+          "name": "parameters",
+          "summary": "Properties to set on a new object, including any defined by [Modules.Nfc.NdefRecordExternal](api:Modules.Nfc.NdefRecordExternal) except those marked not-creation or read-only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.Nfc.NdefRecordExternal"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Nfc.NdefRecordExternal"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "createNdefRecordMedia",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Creates and returns an instance of [Modules.Nfc.NdefRecordMedia](api:Modules.Nfc.NdefRecordMedia).",
+      "since": "1.0.0",
+      "factoryFor": "Modules.Nfc.NdefRecordMedia",
+      "parameters": [
+        {
+          "name": "parameters",
+          "summary": "Properties to set on a new object, including any defined by [Modules.Nfc.NdefRecordMedia](api:Modules.Nfc.NdefRecordMedia) except those marked not-creation or read-only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.Nfc.NdefRecordMedia"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Nfc.NdefRecordMedia"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "createNdefRecordSmartPoster",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Creates and returns an instance of [Modules.Nfc.NdefRecordSmartPoster](api:Modules.Nfc.NdefRecordSmartPoster).",
+      "since": "1.0.0",
+      "factoryFor": "Modules.Nfc.NdefRecordSmartPoster",
+      "parameters": [
+        {
+          "name": "parameters",
+          "summary": "Properties to set on a new object, including any defined by [Modules.Nfc.NdefRecordSmartPoster](api:Modules.Nfc.NdefRecordSmartPoster) except those marked not-creation or read-only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.Nfc.NdefRecordSmartPoster"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Nfc.NdefRecordSmartPoster"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "createNdefRecordText",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Creates and returns an instance of [Modules.Nfc.NdefRecordText](api:Modules.Nfc.NdefRecordText).",
+      "since": "1.0.0",
+      "factoryFor": "Modules.Nfc.NdefRecordText",
+      "parameters": [
+        {
+          "name": "parameters",
+          "summary": "Properties to set on a new object, including any defined by [Modules.Nfc.NdefRecordText](api:Modules.Nfc.NdefRecordText) except those marked not-creation or read-only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.Nfc.NdefRecordText"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Nfc.NdefRecordText"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "createNdefRecordUnknown",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Creates and returns an instance of [Modules.Nfc.NdefRecordUnknown](api:Modules.Nfc.NdefRecordUnknown).",
+      "since": "1.0.0",
+      "factoryFor": "Modules.Nfc.NdefRecordUnknown",
+      "parameters": [
+        {
+          "name": "parameters",
+          "summary": "Properties to set on a new object, including any defined by [Modules.Nfc.NdefRecordUnknown](api:Modules.Nfc.NdefRecordUnknown) except those marked not-creation or read-only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.Nfc.NdefRecordUnknown"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Nfc.NdefRecordUnknown"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "createNdefRecordUri",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Creates and returns an instance of [Modules.Nfc.NdefRecordUri](api:Modules.Nfc.NdefRecordUri).",
+      "since": "1.0.0",
+      "factoryFor": "Modules.Nfc.NdefRecordUri",
+      "parameters": [
+        {
+          "name": "parameters",
+          "summary": "Properties to set on a new object, including any defined by [Modules.Nfc.NdefRecordUri](api:Modules.Nfc.NdefRecordUri) except those marked not-creation or read-only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.Nfc.NdefRecordUri"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Nfc.NdefRecordUri"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "createNfcAdapter",
+      "platforms": [
+        "android",
+        "iphone"
+      ],
+      "summary": "Creates and returns an instance of [Modules.Nfc.NfcAdapter](api:Modules.Nfc.NfcAdapter).",
+      "since": "1.0.0",
+      "factoryFor": "Modules.Nfc.NfcAdapter",
+      "parameters": [
+        {
+          "name": "parameters",
+          "summary": "Properties to set on a new object, including any defined by [Modules.Nfc.NfcAdapter](api:Modules.Nfc.NfcAdapter) except those marked not-creation or read-only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.Nfc.NfcAdapter"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Nfc.NfcAdapter"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "createNfcForegroundDispatchFilter",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Creates and returns an instance of [Modules.Nfc.NfcForegroundDispatchFilter](api:Modules.Nfc.NfcForegroundDispatchFilter).",
+      "since": "1.0.0",
+      "factoryFor": "Modules.Nfc.NfcForegroundDispatchFilter",
+      "parameters": [
+        {
+          "name": "parameters",
+          "summary": "Properties to set on a new object, including any defined by [Modules.Nfc.NfcForegroundDispatchFilter](api:Modules.Nfc.NfcForegroundDispatchFilter) except those marked not-creation or read-only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.Nfc.NfcForegroundDispatchFilter"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Nfc.NfcForegroundDispatchFilter"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "createTagTechnologyIsoDep",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Creates and returns an instance of [Modules.Nfc.TagTechnologyIsoDep](api:Modules.Nfc.TagTechnologyIsoDep).",
+      "since": "1.1.0",
+      "factoryFor": "Modules.Nfc.TagTechnologyIsoDep",
+      "parameters": [
+        {
+          "name": "parameters",
+          "summary": "Properties to set on a new object, including any defined by [Modules.Nfc.TagTechnologyIsoDep](api:Modules.Nfc.TagTechnologyIsoDep) except those marked not-creation or read-only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.Nfc.TagTechnologyIsoDep"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Nfc.TagTechnologyIsoDep"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "createTagTechnologyMifareClassic",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Creates and returns an instance of [Modules.Nfc.TagTechnologyMifareClassic](api:Modules.Nfc.TagTechnologyMifareClassic).",
+      "since": "1.1.0",
+      "factoryFor": "Modules.Nfc.TagTechnologyMifareClassic",
+      "parameters": [
+        {
+          "name": "parameters",
+          "summary": "Properties to set on a new object, including any defined by [Modules.Nfc.TagTechnologyMifareClassic](api:Modules.Nfc.TagTechnologyMifareClassic) except those marked not-creation or read-only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.Nfc.TagTechnologyMifareClassic"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Nfc.TagTechnologyMifareClassic"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "createTagTechnologyMifareUltralight",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Creates and returns an instance of [Modules.Nfc.TagTechnologyMifareUltralight](api:Modules.Nfc.TagTechnologyMifareUltralight).",
+      "since": "1.1.0",
+      "factoryFor": "Modules.Nfc.TagTechnologyMifareUltralight",
+      "parameters": [
+        {
+          "name": "parameters",
+          "summary": "Properties to set on a new object, including any defined by [Modules.Nfc.TagTechnologyMifareUltralight](api:Modules.Nfc.TagTechnologyMifareUltralight) except those marked not-creation or read-only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.Nfc.TagTechnologyMifareUltralight"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Nfc.TagTechnologyMifareUltralight"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "createTagTechnologyNdef",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Creates and returns an instance of [Modules.Nfc.TagTechnologyNdef](api:Modules.Nfc.TagTechnologyNdef).",
+      "since": "1.1.0",
+      "factoryFor": "Modules.Nfc.TagTechnologyNdef",
+      "parameters": [
+        {
+          "name": "parameters",
+          "summary": "Properties to set on a new object, including any defined by [Modules.Nfc.TagTechnologyNdef](api:Modules.Nfc.TagTechnologyNdef) except those marked not-creation or read-only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.Nfc.TagTechnologyNdef"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Nfc.TagTechnologyNdef"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "createTagTechnologyNdefFormatable",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Creates and returns an instance of [Modules.Nfc.TagTechnologyNdefFormatable](api:Modules.Nfc.TagTechnologyNdefFormatable).",
+      "since": "1.1.0",
+      "factoryFor": "Modules.Nfc.TagTechnologyNdefFormatable",
+      "parameters": [
+        {
+          "name": "parameters",
+          "summary": "Properties to set on a new object, including any defined by [Modules.Nfc.TagTechnologyNdefFormatable](api:Modules.Nfc.TagTechnologyNdefFormatable) except those marked not-creation or read-only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.Nfc.TagTechnologyNdefFormatable"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Nfc.TagTechnologyNdefFormatable"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "createTagTechnologyNfcA",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Creates and returns an instance of [Modules.Nfc.TagTechnologyNfcA](api:Modules.Nfc.TagTechnologyNfcA).",
+      "since": "1.1.0",
+      "factoryFor": "Modules.Nfc.TagTechnologyNfcA",
+      "parameters": [
+        {
+          "name": "parameters",
+          "summary": "Properties to set on a new object, including any defined by [Modules.Nfc.TagTechnologyNfcA](api:Modules.Nfc.TagTechnologyNfcA) except those marked not-creation or read-only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.Nfc.TagTechnologyNfcA"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Nfc.TagTechnologyNfcA"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "createTagTechnologyNfcB",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Creates and returns an instance of [Modules.Nfc.TagTechnologyNfcB](api:Modules.Nfc.TagTechnologyNfcB).",
+      "since": "1.1.0",
+      "factoryFor": "Modules.Nfc.TagTechnologyNfcB",
+      "parameters": [
+        {
+          "name": "parameters",
+          "summary": "Properties to set on a new object, including any defined by [Modules.Nfc.TagTechnologyNfcB](api:Modules.Nfc.TagTechnologyNfcB) except those marked not-creation or read-only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.Nfc.TagTechnologyNfcB"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Nfc.TagTechnologyNfcB"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "createTagTechnologyNfcF",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Creates and returns an instance of [Modules.Nfc.TagTechnologyNfcF](api:Modules.Nfc.TagTechnologyNfcF).",
+      "since": "1.1.0",
+      "factoryFor": "Modules.Nfc.TagTechnologyNfcF",
+      "parameters": [
+        {
+          "name": "parameters",
+          "summary": "Properties to set on a new object, including any defined by [Modules.Nfc.TagTechnologyNfcF](api:Modules.Nfc.TagTechnologyNfcF) except those marked not-creation or read-only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.Nfc.TagTechnologyNfcF"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Nfc.TagTechnologyNfcF"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "createTagTechnologyNfcV",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Creates and returns an instance of [Modules.Nfc.TagTechnologyNfcV](api:Modules.Nfc.TagTechnologyNfcV).",
+      "since": "1.1.0",
+      "factoryFor": "Modules.Nfc.TagTechnologyNfcV",
+      "parameters": [
+        {
+          "name": "parameters",
+          "summary": "Properties to set on a new object, including any defined by [Modules.Nfc.TagTechnologyNfcV](api:Modules.Nfc.TagTechnologyNfcV) except those marked not-creation or read-only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.Nfc.TagTechnologyNfcV"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Nfc.TagTechnologyNfcV"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "events": [],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "references": [
+    "Modules.Nfc.MifareTagTechnology",
+    "Modules.Nfc.NativeTagTechnology",
+    "Modules.Nfc.NdefMessage",
+    "Modules.Nfc.NdefRecordApplication",
+    "Modules.Nfc.NdefRecordEmpty",
+    "Modules.Nfc.NdefRecordExternal",
+    "Modules.Nfc.NdefRecordMedia",
+    "Modules.Nfc.NdefRecordSmartPoster",
+    "Modules.Nfc.NdefRecordText",
+    "Modules.Nfc.NdefRecordUnknown",
+    "Modules.Nfc.NdefRecordUri",
+    "Modules.Nfc.NfcAdapter",
+    "Modules.Nfc.NfcForegroundDispatchFilter",
+    "Modules.Nfc.TagTechnologyIsoDep",
+    "Modules.Nfc.TagTechnologyMifareClassic",
+    "Modules.Nfc.TagTechnologyMifareUltralight",
+    "Modules.Nfc.TagTechnologyNdef",
+    "Modules.Nfc.TagTechnologyNdefFormatable",
+    "Modules.Nfc.TagTechnologyNfcA",
+    "Modules.Nfc.TagTechnologyNfcB",
+    "Modules.Nfc.TagTechnologyNfcF",
+    "Modules.Nfc.TagTechnologyNfcV"
+  ],
+  "externalReferences": [
+    "Global.String",
+    "Titanium.Module"
+  ],
+  "source": "Nfc.yml"
+}

@@ -1,0 +1,404 @@
+{
+  "schemaVersion": 1,
+  "name": "Modules.WebDialog",
+  "kind": "module",
+  "extends": "Titanium.Module",
+  "inheritanceChain": [
+    "Titanium.Module"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad"
+  ],
+  "since": "7.1.0",
+  "summary": "Allows a Titanium application to use the Safari Controller (iOS) and Chrome Tabs (Android) to create an embedded browser.",
+  "description": "The WebDialog module provides Titanium access to the native `SFSafariViewController` (iOS) and `ChromeTabs` (Android). \nThis enables you to deliver interactive web content in your app just like the built-in browser, including the native UI elements already \nfamiliar to your users.\n\n### Requirements\n\nThe WebDialog module is available with the Titanium SDK starting with Release 7.1.0.\nThis module only works with devices running iOS 9 / Android 4.1 and later.\nPlease make sure you have at least Xcode 7 to build to the required iOS sources.\n\n### Getting Started\n\nAdd the module as a dependency to your application by adding a **`<module>`** item to the\n**`[modules](api:Modules)`** element of your `tiapp.xml` file:\n\n``` xml\n<ti:app>\n  <!-- ... -->\n  [modules](api:Modules)\n    <module platform=\"iphone\">ti.webdialog</module>\n  </modules>\n  <!-- ... -->\n</ti:app>\n```\n\nUse `require()` to access the module from JavaScript:\n\n``` javascript\nvar dialog = require('ti.webdialog');\n```\n\nThe `dialog` variable is a reference to the module. Make API calls using this reference:\n\n``` javascript\nif (dialog.isSupported()) {\n    dialog.open({\n        url: 'https://titaniumsdk.com'\n    });\n}\n```\n\n### Sample Application\n\nThe module contains a sample application in the\n`<TITANIUM_SDK_HOME>/modules/iphone/ti.webdialog/<VERSION>/example/` folder.\n",
+  "properties": [
+    {
+      "name": "DISMISS_BUTTON_STYLE_CANCEL",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Button style used to display a localized \"Cancel\" button.",
+      "description": "Use with the `dismissButtonStyle` property in [Modules.WebDialog.open](api:Modules.WebDialog#open).",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "DISMISS_BUTTON_STYLE_CLOSE",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Button style used to display a localized \"Close\" button.",
+      "description": "Use with the `dismissButtonStyle` property in [Modules.WebDialog.open](api:Modules.WebDialog#open).",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "DISMISS_BUTTON_STYLE_DONE",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Button style used to display a localized \"Done\" button.",
+      "description": "Use with the `dismissButtonStyle` property in [Modules.WebDialog.open](api:Modules.WebDialog#open).",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    }
+  ],
+  "methods": [
+    {
+      "name": "close",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Programmatically closes the web dialog.",
+      "description": "``` javascript\nvar dialog = require('ti.webdialog');\nif (dialog.isOpen()) {\n    dialog.close();\n}\n```\n"
+    },
+    {
+      "name": "createAuthenticationSession",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Creates and returns an instance of [Modules.WebDialog.AuthenticationSession](api:Modules.WebDialog.AuthenticationSession).",
+      "since": "7.1.0",
+      "factoryFor": "Modules.WebDialog.AuthenticationSession",
+      "parameters": [
+        {
+          "name": "parameters",
+          "summary": "Properties to set on a new object, including any defined by [Modules.WebDialog.AuthenticationSession](api:Modules.WebDialog.AuthenticationSession) except those marked not-creation or read-only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.WebDialog.AuthenticationSession"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.WebDialog.AuthenticationSession"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "isOpen",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Indicates if the web dialog is open.",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "isSupported",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Indicates if the web dialog is supported.",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "open",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Opens the web dialog with the options provided.",
+      "description": "``` javascript\nvar dialog = require('ti.webdialog');\nif (dialog.isSupported()) {\n    dialog.open({\n        url: 'https://titaniumsdk.com',\n        tintColor: 'red'\n    });\n}\n```\n",
+      "parameters": [
+        {
+          "name": "params",
+          "summary": "Dictionary used to configure the web dialog.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "WebDialogOpenParams"
+            }
+          ],
+          "inlined": {
+            "name": "WebDialogOpenParams",
+            "summary": "Parameters used in the [Modules.WebDialog.open](api:Modules.WebDialog#open) method",
+            "properties": [
+              {
+                "name": "barCollapsingEnabled",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "Indicates if the web dialog should enable collapsing of the navigation \nbar and hiding of the bottom toolbar when the user scrolls web content.\nFor iOS, this API is available on iOS 11 and later.\n",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Boolean"
+                  }
+                ],
+                "default": "true",
+                "optional": true
+              },
+              {
+                "name": "barColor",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "The bar-color of the web dialog. For iOS, available on iOS 10 and later.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  }
+                ],
+                "optional": true
+              },
+              {
+                "name": "dismissButtonStyle",
+                "platforms": [
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "The dismiss-button-style of the web dialog close button.\nFor iOS, this API is available on iOS 11 and later.\n",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ],
+                "optional": true,
+                "constants": [
+                  "Modules.WebDialog.DISMISS_BUTTON_STYLE_CANCEL",
+                  "Modules.WebDialog.DISMISS_BUTTON_STYLE_CLOSE",
+                  "Modules.WebDialog.DISMISS_BUTTON_STYLE_DONE"
+                ]
+              },
+              {
+                "name": "entersReaderIfAvailable",
+                "platforms": [
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "Indicates if the reader version of content should be shown automatically.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Boolean"
+                  }
+                ],
+                "optional": true
+              },
+              {
+                "name": "intentFlags",
+                "platforms": [
+                  "android"
+                ],
+                "summary": "Intent flags to be used for the Chrome Custom Tab, specified as a Bitwise-OR",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ],
+                "optional": true
+              },
+              {
+                "name": "tintColor",
+                "platforms": [
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "The tint-color of the web dialog.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  }
+                ],
+                "optional": true
+              },
+              {
+                "name": "url",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "The URL to be opened.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "close",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "The close event is fired when the web dialog is closed by the user \nor programmatically.\n",
+      "properties": [
+        {
+          "name": "url",
+          "summary": "The URL provided when opening the web dialog.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "load",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Fired when the initial URL load is complete.",
+      "description": "This event is invoked when the erb dialog completes the loading of the \nURL that you pass to it's initializer. It is not invoked for any subsequent \npage loads in the same web dialog instance.         \n",
+      "properties": [
+        {
+          "name": "url",
+          "summary": "The URL provided when opening the web dialog.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "success",
+          "summary": "Returns `true` if loading completed successfully, `false` otherwise.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "open",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "The open event is fired after the web dialog has opened.\n",
+      "properties": [
+        {
+          "name": "url",
+          "summary": "The URL provided when opening the web dialog.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "redirect",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Fired when the browser is redirected to another URL before the first page load finishes.",
+      "properties": [
+        {
+          "name": "url",
+          "summary": "The URL provided when opening the web dialog.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "references": [
+    "Modules.WebDialog.AuthenticationSession",
+    "WebDialogOpenParams"
+  ],
+  "externalReferences": [
+    "Modules",
+    "Titanium.Module"
+  ],
+  "source": "WebDialog.yml"
+}

@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "generator": "sha256:ac231061067ed51d0966e3953108bbd9c19cae952495be231d05241eb191edf3",
+  "external": {
+    "repo": "tidev/titanium-sdk",
+    "version": "main",
+    "hash": "sha256:0c8e94bd4e64c06147ad9ff63806ba4cc4617e8aca5fa7095f28472598bbf5a4"
+  },
+  "generatedAt": "2026-08-30T19:02:16.077Z",
+  "sources": {
+    "AuthenticationSession.yml": {
+      "hash": "sha256:7c786e6f8ad1e1e8f8ae107e703df266ad4f051ee04dbd0794f6fe7b8112aa43",
+      "types": [
+        "Modules.WebDialog.AuthenticationSession",
+        "AuthenticationSessionCallback"
+      ]
+    },
+    "WebDialog.yml": {
+      "hash": "sha256:77c064be8959e3986e0814442b6112b8b577b42e8e7224c19a657c7d20702456",
+      "types": [
+        "Modules.WebDialog",
+        "WebDialogOpenParams"
+      ]
+    }
+  },
+  "types": {
+    "Modules.WebDialog.AuthenticationSession": {
+      "source": "AuthenticationSession.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:1d05360dd2d4129883b109d921c3ef156d56bbc4298c6fbe6cd68b675b98b9e5"
+    },
+    "AuthenticationSessionCallback": {
+      "source": "AuthenticationSession.yml",
+      "outputHash": "sha256:53bce4d526570e81b8999ab0df97d12088c80600d29d08cf341700cf6e044048"
+    },
+    "Modules.WebDialog": {
+      "source": "WebDialog.yml",
+      "extends": "Titanium.Module",
+      "outputHash": "sha256:063fea7d4571d9b05ba8e7debb46f3aed5cfeb81682dc6eeb9a7c796ae0742a8"
+    }
+  }
+}

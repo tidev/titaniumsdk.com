@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "name": "CoreMotionMagneticField",
+  "kind": "pseudo",
+  "platforms": [
+    "iphone",
+    "ipad"
+  ],
+  "since": "3.3.0",
+  "summary": "A structure containing 3-axis magnetometer data.",
+  "properties": [
+    {
+      "name": "x",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "X-axis magnetic field in microteslas.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "y",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Y-axis magnetic field in microteslas.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "z",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Z-axis magnetic field in microteslas.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    }
+  ],
+  "methods": [],
+  "events": [],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "source": "CoreMotion.yml"
+}

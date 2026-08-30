@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "generator": "sha256:ac231061067ed51d0966e3953108bbd9c19cae952495be231d05241eb191edf3",
+  "external": {
+    "repo": "tidev/titanium-sdk",
+    "version": "main",
+    "hash": "sha256:0c8e94bd4e64c06147ad9ff63806ba4cc4617e8aca5fa7095f28472598bbf5a4"
+  },
+  "generatedAt": "2026-08-30T19:02:14.291Z",
+  "sources": {
+    "Https.yml": {
+      "hash": "sha256:6669311af966bea7dd3bfda8c2d0125f1fdba33eaff77bfc983f6444ac73c5a2",
+      "types": [
+        "Modules.Https"
+      ]
+    }
+  },
+  "types": {
+    "Modules.Https": {
+      "source": "Https.yml",
+      "extends": "Titanium.Module",
+      "outputHash": "sha256:4704b9596fe86cf94b310bd4296de2aeb4be3ac3bce50348a312fede383b21ca"
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "name": "CoreMotionStepCountingQueryData",
+  "kind": "pseudo",
+  "platforms": [
+    "iphone",
+    "ipad"
+  ],
+  "since": "3.3.0",
+  "summary": "Represents the steps that are returned by a step-count query.",
+  "properties": [
+    {
+      "name": "numberOfSteps",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "The number of steps that occurred between the start and end times specified by the query.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    }
+  ],
+  "methods": [],
+  "events": [],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "source": "CoreMotion.yml"
+}

@@ -1,0 +1,131 @@
+{
+  "schemaVersion": 1,
+  "name": "CoreMotionActivity",
+  "kind": "pseudo",
+  "platforms": [
+    "iphone",
+    "ipad"
+  ],
+  "since": "3.3.0",
+  "summary": "Contains the data for a single motion update event.",
+  "description": "For more information see,\n[iOS Developer Library: CMMotionActivity Class Reference](https://developer.apple.com/library/ios/documentation/CoreMotion/Reference/CMMotionActivity_class/Reference/Reference.html).\n",
+  "properties": [
+    {
+      "name": "automotive",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "A Boolean indicating whether the device is in an automobile.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "confidence",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "The confidence in the assessment of the motion type.",
+      "description": "Could be [Modules.CoreMotion.MOTION_ACTIVITY_CONFIDENCE_LOW](api:Modules.CoreMotion#MOTION_ACTIVITY_CONFIDENCE_LOW),\n[Modules.CoreMotion.MOTION_ACTIVITY_CONFIDENCE_MEDIUM](api:Modules.CoreMotion#MOTION_ACTIVITY_CONFIDENCE_MEDIUM), or\n[Modules.CoreMotion.MOTION_ACTIVITY_CONFIDENCE_HIGH](api:Modules.CoreMotion#MOTION_ACTIVITY_CONFIDENCE_HIGH)\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "running",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "A Boolean indicating whether the device is on a running person.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "startDate",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "The time at which the change in motion occurred.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Date"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "stationary",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "A Boolean indicating whether the device is stationary.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "unknown",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "A Boolean indicating whether the type of motion is unknown.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "walking",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "A Boolean indicating whether the device is on a walking person.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "permission": "read-only"
+    }
+  ],
+  "methods": [],
+  "events": [],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "references": [
+    "Modules.CoreMotion"
+  ],
+  "source": "CoreMotion.yml"
+}

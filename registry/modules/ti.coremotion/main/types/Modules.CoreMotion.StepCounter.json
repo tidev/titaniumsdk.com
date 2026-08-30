@@ -1,0 +1,298 @@
+{
+  "schemaVersion": 1,
+  "name": "Modules.CoreMotion.StepCounter",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "iphone",
+    "ipad"
+  ],
+  "since": "5.2.0",
+  "deprecated": {
+    "since": "5.2.0",
+    "notes": "This API was deprecated by Apple in iOS 7 and is only available for backward compatibility \nwith older versions of this module. It will be removed in the next release. Please use\n[Modules.CoreMotion.Pedometer](Modules.CoreMotion.Pedometer) API instead, which provides the same functionality including\nnew properties like `floorCount` and `distance`.\n"
+  },
+  "summary": "Allows Titanium client applications to access CoreMotion's (deprecated) StepCounter APIs.",
+  "properties": [],
+  "methods": [
+    {
+      "name": "isStepCountingAvailable",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Returns a Boolean indicating whether step-counting support is available on the current device.",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "queryStepCount",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Gathers and returns historical step count data for the specified time period.",
+      "description": "The system stores only the last seven days worth of step data at most. \nIf there are no samples for the specified range of time, a value of 0 is passed to the callback.\n",
+      "parameters": [
+        {
+          "name": "args",
+          "summary": "An object of arguments",
+          "type": [
+            {
+              "kind": "type",
+              "name": "CoreMotionQueryStepCountArgs"
+            }
+          ],
+          "inlined": {
+            "name": "CoreMotionQueryStepCountArgs",
+            "summary": "Dictionary of arguments to pass to the [Stepcounter.queryStepCount()](api:Modules.CoreMotion.StepCounter#queryStepCount) method.\n",
+            "properties": [
+              {
+                "name": "end",
+                "platforms": [
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "The end time to use when gathering step count data.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Date"
+                  }
+                ]
+              },
+              {
+                "name": "start",
+                "platforms": [
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "The start time to use when gathering step count data.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Date"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "callback",
+          "summary": "The callback to execute with the results.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Callback",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "CoreMotionStepCountingQueryDataWithSuccess"
+                }
+              ]
+            }
+          ],
+          "inlined": {
+            "name": "CoreMotionStepCountingQueryDataWithSuccess",
+            "summary": "Dictionary passed to the callback of the [StepCounter.queryStepCount()](api:Modules.CoreMotion.StepCounter#queryStepCount) method.\n",
+            "properties": [
+              {
+                "name": "code",
+                "platforms": [
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "An error code describing the error if there was one.",
+                "description": "See `ERROR` constants for possible values.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ],
+                "permission": "read-only"
+              },
+              {
+                "name": "error",
+                "platforms": [
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "An error message describing the error if there was one.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  }
+                ],
+                "permission": "read-only"
+              },
+              {
+                "name": "success",
+                "platforms": [
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "A Boolean indicating if the operation was successful or not.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Boolean"
+                  }
+                ],
+                "permission": "read-only"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "startStepCountingUpdates",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Starts the delivery of current step-counting data to your app.",
+      "description": "This method initiates tracking of the user's steps and calls the callback \nperiodically to deliver the results. When you call this method, the step counter \nresets the current step count value to 0 and begins counting. Each time the step \ncounter records the number of steps in the stepCounts parameter, it executes the \nspecified callback. For example, if stepCounts is 100, it would send updates \nat 100 steps, 200 steps, 300 steps, and so on. The number of steps reported to your \nhandler is always the total number of steps since you called this method.\n\nThe callback is executed on a best effort basis each time the step count \nthreshold is exceeded. If your app is suspended when the threshold is exceeded, \nthe callback is not executed. When your app resumes, the callback is not executed \nuntil the threshold is exceeded again.\n\nTo stop the delivery of step-counting updates, call the \n[Modules.CoreMotion.StepCounter.stopStepCountingUpdates](api:Modules.CoreMotion.StepCounter#stopStepCountingUpdates) method.\n",
+      "parameters": [
+        {
+          "name": "args",
+          "summary": "An object of arguments",
+          "type": [
+            {
+              "kind": "type",
+              "name": "CoreMotionStartStepCountingArgs"
+            }
+          ],
+          "inlined": {
+            "name": "CoreMotionStartStepCountingArgs",
+            "summary": "Dictionary of arguments to pass to the [StepCounter.startStepCountingUpdates()](api:Modules.CoreMotion.StepCounter#startStepCountingUpdates) method.\n",
+            "properties": [
+              {
+                "name": "stepCounts",
+                "platforms": [
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "The number of steps to record before executing the callback.\nThe number of steps must be greater than 0.\n",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "callback",
+          "summary": "The callback to execute with the results.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Callback",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "CoreMotionStepCountingDataWithSuccess"
+                }
+              ]
+            }
+          ],
+          "inlined": {
+            "name": "CoreMotionStepCountingDataWithSuccess",
+            "summary": "Dictionary passed to the callback of the [StepCounter.startStepCountingUpdates()](api:Modules.CoreMotion.StepCounter#startStepCountingUpdates) method.\n",
+            "properties": [
+              {
+                "name": "code",
+                "platforms": [
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "An error code describing the error if there was one.",
+                "description": "See `ERROR` constants for possible values.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ],
+                "permission": "read-only"
+              },
+              {
+                "name": "error",
+                "platforms": [
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "An error message describing the error if there was one.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  }
+                ],
+                "permission": "read-only"
+              },
+              {
+                "name": "success",
+                "platforms": [
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "A Boolean indicating if the operation was successful or not.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Boolean"
+                  }
+                ],
+                "permission": "read-only"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "stopStepCountingUpdates",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Stops the delivery of step-counting updates to your app.",
+      "description": "Call this method to stop the delivery of updates that you started by calling \nthe <Modules.CoreMotion.startStepCountingUpdates> method. This method does not \nstop queries started using the [Modules.CoreMotion.StepCounter.queryStepCount](api:Modules.CoreMotion.StepCounter#queryStepCount) method.\n"
+    }
+  ],
+  "events": [],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "references": [
+    "CoreMotionQueryStepCountArgs",
+    "CoreMotionStartStepCountingArgs",
+    "CoreMotionStepCountingDataWithSuccess",
+    "CoreMotionStepCountingQueryDataWithSuccess"
+  ],
+  "externalReferences": [
+    "Modules.CoreMotion.startStepCountingUpdates",
+    "Titanium.Proxy"
+  ],
+  "source": "StepCounter.yml"
+}

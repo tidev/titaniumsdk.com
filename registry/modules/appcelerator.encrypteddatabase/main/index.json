@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "counts": {
+    "types": 1,
+    "inlined": 1,
+    "members": 9
+  },
+  "types": [
+    {
+      "name": "Modules.EncryptedDatabase",
+      "kind": "pseudo",
+      "summary": "Provides transparent, secure 256-bit AES encryption of SQLite database files.",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "since": "1.0.0",
+      "deprecated": false,
+      "extends": "Titanium.Database",
+      "counts": {
+        "properties": 7,
+        "methods": 2,
+        "events": 0
+      },
+      "members": [
+        "HMAC_SHA1",
+        "HMAC_SHA256",
+        "HMAC_SHA512",
+        "cipherUpgrade",
+        "hmacAlgorithm",
+        "hmacKdfIterations",
+        "isCipherUpgradeRequired",
+        "pageSize",
+        "password"
+      ]
+    }
+  ],
+  "inlined": [
+    "CipherUpgradeResult"
+  ]
+}

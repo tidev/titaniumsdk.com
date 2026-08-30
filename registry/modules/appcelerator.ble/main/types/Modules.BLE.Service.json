@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 1,
+  "name": "Modules.BLE.Service",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad"
+  ],
+  "since": "1.0.0",
+  "summary": "A collection of data and associated behaviors that accomplish a function or feature of a device.",
+  "description": "represent services of a remote peripheral. Services are either primary or secondary and may contain multiple characteristics \nor included services (references to other services).\n",
+  "properties": [
+    {
+      "name": "characteristics",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "A list of characteristics discovered in this service.",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Array",
+          "args": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.Characteristic"
+            }
+          ]
+        }
+      ],
+      "since": "1.0.0"
+    },
+    {
+      "name": "includedServices",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "A list of included services discovered in this service.",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Array",
+          "args": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.Service"
+            }
+          ]
+        }
+      ],
+      "since": "1.0.0"
+    },
+    {
+      "name": "isPrimary",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "A Boolean value that indicates whether the type of service is primary or secondary.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "1.0.0"
+    },
+    {
+      "name": "peripheral",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "The peripheral to which this service belongs.",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Modules.BLE.Peripheral"
+        }
+      ],
+      "since": "1.0.0"
+    },
+    {
+      "name": "uuid",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "The Bluetooth-specific UUID of the attribute.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "1.0.0"
+    }
+  ],
+  "methods": [],
+  "events": [],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "references": [
+    "Modules.BLE.Characteristic",
+    "Modules.BLE.Peripheral"
+  ],
+  "externalReferences": [
+    "Titanium.Proxy"
+  ],
+  "source": "Service.yml"
+}

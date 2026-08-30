@@ -1,0 +1,178 @@
+{
+  "schemaVersion": 1,
+  "name": "Modules.BLE.Characteristic",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "iphone",
+    "ipad"
+  ],
+  "since": "1.0.0",
+  "summary": "A characteristic of a remote peripheral’s service.",
+  "description": "It represent the characteristics of a remote peripheral’s service. A characteristic contains a\nsingle value and any number of descriptors describing that value. The properties of a characteristic\ndetermine how you can use a characteristic’s value, and how you access the descriptors.\n",
+  "properties": [
+    {
+      "name": "descriptors",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "A list of the Descriptor* objects that have so far been discovered in this characteristic. It is writeable if this JavaScript object represents a mutable characteristic.",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Array",
+          "args": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.Descriptor"
+            }
+          ]
+        }
+      ],
+      "since": "1.0.0"
+    },
+    {
+      "name": "isMutable",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Indicates whether this characteristic is mutable.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "1.0.0"
+    },
+    {
+      "name": "isNotifying",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Whether the characteristic is currently notifying or not.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "1.0.0"
+    },
+    {
+      "name": "properties",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "The properties of the characteristic as a bitfield.",
+      "description": "See also CHARACTERISTIC_PROPERTY_* module constants for the possible return values of this property.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.0.0"
+    },
+    {
+      "name": "service",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "The service this characteristic belongs to.",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Modules.BLE.Service"
+        }
+      ],
+      "since": "1.0.0"
+    },
+    {
+      "name": "uuid",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "The Bluetooth-specific UUID of the attribute.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "1.0.0"
+    },
+    {
+      "name": "value",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "The value of the characteristic.",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.Buffer"
+        }
+      ],
+      "since": "1.0.0"
+    }
+  ],
+  "methods": [
+    {
+      "name": "equal",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "tests whether two characteristics are same or not.",
+      "since": "1.0.0",
+      "parameters": [
+        {
+          "name": "characteristic",
+          "summary": "the characteristic that will be compared.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.BLE.Characteristic"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "events": [],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "references": [
+    "Modules.BLE.Descriptor",
+    "Modules.BLE.Service"
+  ],
+  "externalReferences": [
+    "Titanium.Buffer",
+    "Titanium.Proxy"
+  ],
+  "source": "Characteristic.yml"
+}

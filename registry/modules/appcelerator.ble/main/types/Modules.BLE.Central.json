@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "name": "Modules.BLE.Central",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad"
+  ],
+  "since": {
+    "android": "1.1.0",
+    "iphone": "1.0.0",
+    "ipad": "1.0.0"
+  },
+  "summary": "represent a remote device acting as central, connected to a local app, which is acting as a peripheral.",
+  "description": "This class represents remote central devices (or centrals) that have connected to an\napp implementing the peripheral role on a local device. Remote centrals use universally unique\nidentifiers (UUIDs), to identify themselves. In Android, they have address to identify themselves.\n",
+  "properties": [
+    {
+      "name": "address",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "The address (UUID) of device acting as a central.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": {
+        "android": "1.1.0",
+        "iphone": "1.0.0",
+        "ipad": "1.0.0"
+      }
+    },
+    {
+      "name": "maximumUpdateValueLength",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "The maximum amount of data, in bytes, that can be received by the central in a single notification or indication.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.0.0"
+    }
+  ],
+  "methods": [],
+  "events": [],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "externalReferences": [
+    "Titanium.Proxy"
+  ],
+  "source": "Central.yml"
+}

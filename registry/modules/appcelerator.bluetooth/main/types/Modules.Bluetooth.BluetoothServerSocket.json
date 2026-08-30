@@ -1,0 +1,132 @@
+{
+  "schemaVersion": 1,
+  "name": "Modules.Bluetooth.BluetoothServerSocket",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android"
+  ],
+  "since": "1.0.0",
+  "summary": "A listening Bluetooth socket.",
+  "description": "The purpose of the `BluetoothSocketServer` object is to listen for incoming connection requests\nand provide a connected `BluetoothSocket` after a request is accepted.\n",
+  "properties": [],
+  "methods": [
+    {
+      "name": "close",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Closes the server socket.",
+      "description": "This method, when called, closes the server socket. One cannot start accepting connections\nagain after calling this method. On error, this method will throw an exception.\n",
+      "since": "1.0.0"
+    },
+    {
+      "name": "isAccepting",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Determines whether the server socket is currently accepting connections.",
+      "since": "1.0.0",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ],
+          "summary": "True if the server socket is accepting connections, false otherwise."
+        }
+      ]
+    },
+    {
+      "name": "startAccept",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Inform the server socket to start accepting incoming connections.",
+      "description": "This method, when called, starts listening for the incoming Bluetooth connections and block\nuntil a connection is established. Listen for the \n[connectionReceived](api:Modules.Bluetooth.BluetoothServerSocket#connectionReceived) event to be\nnotified when a connection is received or the [error](api:Modules.Bluetooth.BluetoothServerSocket#error)\nevent when an error occured during accepting connection.\n",
+      "since": "1.0.0",
+      "parameters": [
+        {
+          "name": "keepListening",
+          "summary": "Defines whether the server socket should keep listening after an incoming connection was received. If this parameter is false, it will stop accepting connections after a single connection is recieved.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ],
+          "optional": true,
+          "default": "false"
+        }
+      ]
+    },
+    {
+      "name": "stopAccept",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Inform the server socket to stop accepting incoming connections.",
+      "description": "This method, when called stop accepting incoming connections. One can again start accepting\nconnections via [startAccept](api:Modules.Bluetooth.BluetoothServerSocket#startAccept) method\nafter calling this method. On error, this method will throw an exception.\n",
+      "since": "1.0.0"
+    }
+  ],
+  "events": [
+    {
+      "name": "connectionReceived",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Fired when the server socket receives an incoming connection.",
+      "since": "1.0.0",
+      "properties": [
+        {
+          "name": "socket",
+          "summary": "The socket object bind to the connection.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.Bluetooth.BluetoothSocket"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "error",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Fired when a socket operation fails.",
+      "since": "1.0.0",
+      "properties": [
+        {
+          "name": "errorMessage",
+          "summary": "Description of the error.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "references": [
+    "Modules.Bluetooth.BluetoothSocket"
+  ],
+  "externalReferences": [
+    "Titanium.Proxy"
+  ],
+  "source": "BluetoothServerSocket.yml"
+}

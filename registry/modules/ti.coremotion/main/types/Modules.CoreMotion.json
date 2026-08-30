@@ -1,0 +1,725 @@
+{
+  "schemaVersion": 1,
+  "name": "Modules.CoreMotion",
+  "kind": "module",
+  "extends": "Titanium.Module",
+  "inheritanceChain": [
+    "Titanium.Module"
+  ],
+  "platforms": [
+    "iphone",
+    "ipad"
+  ],
+  "since": "3.3.0",
+  "summary": "Allows Titanium client applications to access Apple's CoreMotion APIs.",
+  "description": "The Core Motion module provides access to Apple's CoreMotion APIs. The Core Motion module provides support\nfor monitoring various hardware sensors on iOS devices, such as the accelerometer, gyroscope, and\nmagnetometer. The Core Motion module allows you to access the metrics provided by these sensors.\n\nFor instruction and examples of using the Core Motion Module, see the\n[Core Motion Module guide](http://docs.appcelerator.com/platform/latest/#!/guide/Core_Motion_Module).\n\n\n### Requirements\n\nThis module only works with devices running iOS 7 and later. Not all devices have the same hardware sensors,\nso all features may not be available for all devices. Be sure to use the API to check the device\nfor the existence of a feature.\n\nYou can only test the Core Motion module on a device. The Core Motion API cannot be tested on the iOS\nsimulator.\n\nSome features may require permission to use \"Motion Activity\". iOS requires the user's approval to\nuse the \"Motion Activity\" permission. When the application uses the Core Motion API for the first\ntime, iOS prompts the user to either approve or deny access to the Core Motion features of the\ndevice. The user can change the permission settings with **Settings** > **Privacy**.\n\n\n### Getting Started\n\nOnce you have [installed](#!/guide/Using_a_Module) the module and added it as a depedency,\nuse `require()` to access it from JavaScript:\n\n``` javascript\nvar CoreMotion = require(\"ti.coremotion\");\n\n// The `CoreMotion` variable is a reference to the Module object.  Use this reference to make\n// subsequent calls to the CoreMotion Module API. The following example shows the step counting\n// API of `CoreMotion`.\n\nvar pedometer = CoreMotion.createPedometer();\n\n// This code checks to see if the device can gather step counting data\nif (pedometer.isStepCountingAvailable()) {\n    // If it can, it starts the step counter and outputs the data to the console\n    pedometer.startPedometerUpdates(function(e) {\n        Ti.API.info(JSON.stringify(e));\n    });\n} else {\n    Ti.API.warn('This device does not support counting steps.');\n}\n```\n\n### Sample Application\n\nThe module ZIP file contains a Core Motion sample applications in `example/app.js`.\n\n### Further Reading\n\n- [iOS Developer Library: Core Motion Framework Reference](https://developer.apple.com/library/ios/documentation/CoreMotion/Reference/CoreMotion_Reference/_index.html)\n- [iOS Developer Library: Motion Events](https://developer.apple.com/library/ios/documentation/EventHandling/Conceptual/EventHandlingiPhoneOS/motion_event_basics/motion_event_basics.html)\n",
+  "properties": [
+    {
+      "name": "ATTITUDE_REFERENCE_FRAME_X_ARBITRARY_CORRECTED_Z_VERTICAL",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Describes the same reference frame as\n[Modules.CoreMotion.ATTITUDE_REFERENCE_FRAME_X_ARBITRARY_Z_VERTICAL](api:Modules.CoreMotion#ATTITUDE_REFERENCE_FRAME_X_ARBITRARY_Z_VERTICAL)\nexcept that the magnetometer, when available and calibrated, is used to\nimprove long-term yaw accuracy. Using this constant instead of\n[Modules.CoreMotion.ATTITUDE_REFERENCE_FRAME_X_ARBITRARY_Z_VERTICAL](api:Modules.CoreMotion#ATTITUDE_REFERENCE_FRAME_X_ARBITRARY_Z_VERTICAL)\nresults in increased CPU usage.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "ATTITUDE_REFERENCE_FRAME_X_ARBITRARY_Z_VERTICAL",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Describes a reference frame in which the Z axis is vertical and the X axis points\nin an arbitrary direction in the horizontal plane.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "ATTITUDE_REFERENCE_FRAME_X_MAGNETIC_NORTH_Z_VERTICAL",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Describes a reference frame in which the Z axis is vertical and the X axis points\ntoward magnetic north. Note that using this reference frame may require device\nmovement to calibrate the magnetometer.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "ATTITUDE_REFERENCE_FRAME_X_TRUE_NORTH_Z_VERTICAL",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Describes a reference frame in which the Z axis is vertical and the X axis points\ntoward true north. Note that using this reference frame may require device movement\nto calibrate the magnetometer. It also requires the location to be available in order\nto calculate the difference between magnetic and true north.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "AUTHORIZATION_STATUS_AUTHORIZED",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Access is authorized by the user.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "8.3.0",
+      "permission": "read-only",
+      "osver": {
+        "ios": {
+          "min": "11.0"
+        }
+      }
+    },
+    {
+      "name": "AUTHORIZATION_STATUS_DENIED",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Access is denied by the user.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "8.3.0",
+      "permission": "read-only",
+      "osver": {
+        "ios": {
+          "min": "11.0"
+        }
+      }
+    },
+    {
+      "name": "AUTHORIZATION_STATUS_NOT_DETERMINED",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "The user has not been prompted yet.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "8.3.0",
+      "permission": "read-only",
+      "osver": {
+        "ios": {
+          "min": "11.0"
+        }
+      }
+    },
+    {
+      "name": "AUTHORIZATION_STATUS_RESTRICTED",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Access is denied due to system-wide restrictions.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "8.3.0",
+      "permission": "read-only",
+      "osver": {
+        "ios": {
+          "min": "11.0"
+        }
+      }
+    },
+    {
+      "name": "ERROR_DEVICE_REQUIRES_MOVEMENT",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "The device must move for a sampling of motion data to occur.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "ERROR_INVALID_PARAMETER",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "An invalid parameter was specified.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "ERROR_MOTION_ACTIVITY_NOT_AUTHORIZED",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "The app is not currently authorized to use motion activity support.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "ERROR_MOTION_ACTIVITY_NOT_AVAILABLE",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Motion activity support is not available on the current device.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "ERROR_MOTION_ACTIVITY_NOT_ENTITLED",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "The app is missing a required entitlement.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "ERROR_NULL",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "No error.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "ERROR_TRUE_NORTH_NOT_AVAILABLE",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "True north is not available on this device. This usually indicates that the device's location is not yet available.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "ERROR_UNKNOWN",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "An unknown error occurred.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "MAGNETIC_FIELD_CALIBRATION_ACCURACY_HIGH",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "The accuracy of the magnetic field calibration is high.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "MAGNETIC_FIELD_CALIBRATION_ACCURACY_LOW",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "The accuracy of the magnetic field calibration is low.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "MAGNETIC_FIELD_CALIBRATION_ACCURACY_MEDIUM",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "The accuracy of the magnetic field calibration is medium.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "MAGNETIC_FIELD_CALIBRATION_ACCURACY_UNCALIBRATED",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "The magnetic field estimate is not calibrated.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "MOTION_ACTIVITY_CONFIDENCE_HIGH",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Confidence is high.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "MOTION_ACTIVITY_CONFIDENCE_LOW",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Confidence is low.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "MOTION_ACTIVITY_CONFIDENCE_MEDIUM",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Confidence is good.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    }
+  ],
+  "methods": [
+    {
+      "name": "createAccelerometer",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Creates and returns an instance of [Modules.CoreMotion.Accelerometer](api:Modules.CoreMotion.Accelerometer).",
+      "since": "5.2.0",
+      "factoryFor": "Modules.CoreMotion.Accelerometer",
+      "parameters": [
+        {
+          "name": "parameters",
+          "summary": "Properties to set on a new object, including any defined by [Modules.CoreMotion.Accelerometer](api:Modules.CoreMotion.Accelerometer) except those marked not-creation or read-only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.CoreMotion.Accelerometer"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.CoreMotion.Accelerometer"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "createAltimeter",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Creates and returns an instance of [Modules.CoreMotion.Altimeter](api:Modules.CoreMotion.Altimeter).",
+      "since": "8.3.0",
+      "factoryFor": "Modules.CoreMotion.Altimeter",
+      "parameters": [
+        {
+          "name": "parameters",
+          "summary": "Properties to set on a new object, including any defined by [Modules.CoreMotion.Altimeter](api:Modules.CoreMotion.Altimeter) except those marked not-creation or read-only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.CoreMotion.Altimeter"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.CoreMotion.Altimeter"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "createDeviceMotion",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Creates and returns an instance of [Modules.CoreMotion.DeviceMotion](api:Modules.CoreMotion.DeviceMotion).",
+      "since": "5.2.0",
+      "factoryFor": "Modules.CoreMotion.DeviceMotion",
+      "parameters": [
+        {
+          "name": "parameters",
+          "summary": "Properties to set on a new object, including any defined by [Modules.CoreMotion.DeviceMotion](api:Modules.CoreMotion.DeviceMotion) except those marked not-creation or read-only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.CoreMotion.DeviceMotion"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.CoreMotion.DeviceMotion"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "createGyroscope",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Creates and returns an instance of [Modules.CoreMotion.Gyroscope](api:Modules.CoreMotion.Gyroscope).",
+      "since": "5.2.0",
+      "factoryFor": "Modules.CoreMotion.Gyroscope",
+      "parameters": [
+        {
+          "name": "parameters",
+          "summary": "Properties to set on a new object, including any defined by [Modules.CoreMotion.Gyroscope](api:Modules.CoreMotion.Gyroscope) except those marked not-creation or read-only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.CoreMotion.Gyroscope"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.CoreMotion.Gyroscope"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "createMagnetometer",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Creates and returns an instance of [Modules.CoreMotion.Magnetometer](api:Modules.CoreMotion.Magnetometer).",
+      "since": "5.2.0",
+      "factoryFor": "Modules.CoreMotion.Magnetometer",
+      "parameters": [
+        {
+          "name": "parameters",
+          "summary": "Properties to set on a new object, including any defined by [Modules.CoreMotion.Magnetometer](api:Modules.CoreMotion.Magnetometer) except those marked not-creation or read-only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.CoreMotion.Magnetometer"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.CoreMotion.Magnetometer"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "createMotionActivity",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Creates and returns an instance of [Modules.CoreMotion.MotionActivity](api:Modules.CoreMotion.MotionActivity).",
+      "since": "5.2.0",
+      "factoryFor": "Modules.CoreMotion.MotionActivity",
+      "parameters": [
+        {
+          "name": "parameters",
+          "summary": "Properties to set on a new object, including any defined by [Modules.CoreMotion.MotionActivity](api:Modules.CoreMotion.MotionActivity) except those marked not-creation or read-only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.CoreMotion.MotionActivity"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.CoreMotion.MotionActivity"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "createPedometer",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Creates and returns an instance of [Modules.CoreMotion.Pedometer](api:Modules.CoreMotion.Pedometer).",
+      "since": "5.2.0",
+      "factoryFor": "Modules.CoreMotion.Pedometer",
+      "parameters": [
+        {
+          "name": "parameters",
+          "summary": "Properties to set on a new object, including any defined by [Modules.CoreMotion.Pedometer](api:Modules.CoreMotion.Pedometer) except those marked not-creation or read-only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.CoreMotion.Pedometer"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.CoreMotion.Pedometer"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "createStepCounter",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Creates and returns an instance of [Modules.CoreMotion.StepCounter](api:Modules.CoreMotion.StepCounter).",
+      "since": "5.2.0",
+      "deprecated": {
+        "since": "5.2.0",
+        "notes": "This API was deprecated by Apple in iOS 7 and is only available for backward compatibility \nwith older versions of this module. It will be removed in the next release. Please use\n[Modules.CoreMotion.Pedometer](Modules.CoreMotion.Pedometer) API instead, which provides the same functionality including\nnew properties like `floorCount` and `distance`.\n"
+      },
+      "factoryFor": "Modules.CoreMotion.StepCounter",
+      "parameters": [
+        {
+          "name": "parameters",
+          "summary": "Properties to set on a new object, including any defined by [Modules.CoreMotion.StepCounter](api:Modules.CoreMotion.StepCounter) except those marked not-creation or read-only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Modules.CoreMotion.StepCounter"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Modules.CoreMotion.StepCounter"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "events": [],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "references": [
+    "Modules.CoreMotion.Accelerometer",
+    "Modules.CoreMotion.Altimeter",
+    "Modules.CoreMotion.DeviceMotion",
+    "Modules.CoreMotion.Gyroscope",
+    "Modules.CoreMotion.Magnetometer",
+    "Modules.CoreMotion.MotionActivity",
+    "Modules.CoreMotion.Pedometer",
+    "Modules.CoreMotion.StepCounter"
+  ],
+  "externalReferences": [
+    "Titanium.Module"
+  ],
+  "source": "CoreMotion.yml"
+}

@@ -1,0 +1,165 @@
+{
+  "schemaVersion": 1,
+  "name": "Modules.Identity.KeychainItem",
+  "kind": "module",
+  "extends": "Titanium.Module",
+  "inheritanceChain": [
+    "Titanium.Module"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad"
+  ],
+  "since": {
+    "iphone": "6.1.0",
+    "ipad": "6.1.0",
+    "android": "6.1.0"
+  },
+  "summary": "Represents a keychain item to communicate with the native iOS Keychain and Android Keystore.",
+  "description": "The following example demonstrates the basic usage to save, read and delete\nvalues with the native iOS Keychain and/or Android Keystore:\n\n``` javascript\nvar Identity = require('ti.identity');\n\n// Create a keychain item\nvar keychainItem = Identity.createKeychainItem({\n    identifier: 'password'\n});\n\n// Triggered when the keychain item was successfully saved\nkeychainItem.addEventListener('save', function(e) {\n    // Notify the user that the operation succeeded or failed\n});\n\n// Write to the keychain\nkeychainItem.save('s3cr3t_p4$$w0rd');\n```\n\nFor advanced security options, you can specify accessibility mode to the keychain\nthat will be applied when writing items to the keychain, for example:\n\n``` javascript\nvar Identity = require('ti.identity');\n\n// Create a keychain item\nvar keychainItem = Identity.createKeychainItem({\n  identifier: 'mypassword',\n  service: 'my_service', // iOS only. Defaults to 'ti.touchid' for backwards compatibility\n  accessGroup: '<YOUR-TEAM-ID>.com.appc.identitytest',\n  accessibilityMode: Identity.ACCESSIBLE_WHEN_PASSCODE_SET_THIS_DEVICE_ONLY,\n  accessControlMode: Identity.ACCESS_CONTROL_TOUCH_ID_ANY,\n  // Pass more native options to the keychain. Since there are hundrets of them,\n  // look up the value of the constant and pass it here. Example:\n    options: {\n      // The value of kSecUseOperationPrompt\n      'u_OpPrompt': 'Please authenticate yourself!'\n  }\n});\n```\n",
+  "properties": [],
+  "methods": [
+    {
+      "name": "fetchExistence",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Asynchronously determines whether or not a value of the specified identifier\nexists in the keychain item.\n",
+      "since": "6.1.0",
+      "parameters": [
+        {
+          "name": "result",
+          "summary": "Use the event key `exists` of the callback to determine the\nexistence of the keychain item.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Callback"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "read",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Reads an existing value to the native keychain.",
+      "description": "The [Modules.Identity.KeychainItem.read](api:Modules.Identity.KeychainItem#read) event is triggered when\nan item is fetched. If an error occurs, the `error` key informs you\nabout the exact error.\n",
+      "since": "6.1.0"
+    },
+    {
+      "name": "reset",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Resets an existing value from the native keychain.",
+      "description": "The [Modules.Identity.KeychainItem.reset](api:Modules.Identity.KeychainItem#reset) event is triggered when\na new item is saved. If an error occurs, the `error` key informs you\nabout the exact error.\n",
+      "since": "6.1.0"
+    },
+    {
+      "name": "save",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Saves a new value to the native keychain.",
+      "description": "The [Modules.Identity.KeychainItem.save](api:Modules.Identity.KeychainItem#save) event is triggered when\na new item is saved. If an error occurs, the `error` key informs you\nabout the exact error.\n\nOn Android this will also overwrite any existing value.\n",
+      "since": "6.1.0",
+      "parameters": [
+        {
+          "name": "value",
+          "summary": "The value to be stored in the native keychain.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "update",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Updates an existing value to the native keychain.",
+      "description": "The [Modules.Identity.KeychainItem.update](api:Modules.Identity.KeychainItem#update) event is triggered when\nan item is updated. If an error occurs, the `error` key informs you\nabout the exact error.\n",
+      "since": "6.1.0",
+      "parameters": [
+        {
+          "name": "value",
+          "summary": "The value to be stored in the native keychain.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "read",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Triggered when a new keychain item is read (or an error occurred).",
+      "since": "6.1.0"
+    },
+    {
+      "name": "reset",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Triggered when a new keychain item is reset (or an error occurred).",
+      "since": "6.1.0"
+    },
+    {
+      "name": "save",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Triggered when a new keychain item is saved (or an error occurred).",
+      "since": "6.1.0"
+    },
+    {
+      "name": "update",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Triggered when a new keychain item is updated (or an error occurred).",
+      "since": "6.1.0"
+    }
+  ],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "externalReferences": [
+    "Titanium.Module"
+  ],
+  "source": "KeychainItem.yml"
+}

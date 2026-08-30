@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+  "counts": {
+    "types": 1,
+    "inlined": 2,
+    "members": 44
+  },
+  "types": [
+    {
+      "name": "Modules.Barcode",
+      "kind": "module",
+      "summary": "Add-on Barcode module",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "since": {
+        "android": "3.1.0",
+        "iphone": "3.2.0",
+        "ipad": "3.2.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Module",
+      "counts": {
+        "properties": 37,
+        "methods": 4,
+        "events": 3
+      },
+      "members": [
+        "BOOKMARK",
+        "CALENDAR",
+        "CONTACT",
+        "EMAIL",
+        "FORMAT_AZTEC",
+        "FORMAT_CODABAR",
+        "FORMAT_CODE_128",
+        "FORMAT_CODE_39",
+        "FORMAT_CODE_39_MOD_43",
+        "FORMAT_CODE_93",
+        "FORMAT_DATA_MATRIX",
+        "FORMAT_EAN_13",
+        "FORMAT_EAN_8",
+        "FORMAT_INTERLEAVED_2_OF_5",
+        "FORMAT_ITF",
+        "FORMAT_MAXICODE",
+        "FORMAT_NONE",
+        "FORMAT_PDF_417",
+        "FORMAT_QR_CODE",
+        "FORMAT_RSS_14",
+        "FORMAT_RSS_EXPANDED",
+        "FORMAT_UPC_A",
+        "FORMAT_UPC_E",
+        "GEOLOCATION",
+        "SMS",
+        "TELEPHONE",
+        "TEXT",
+        "UNKNOWN",
+        "URL",
+        "WIFI",
+        "allowInstructions",
+        "allowMenu",
+        "allowRotation",
+        "canShow",
+        "cancel",
+        "capture",
+        "copyToClipboard",
+        "displayedMessage",
+        "error",
+        "parse",
+        "success",
+        "useFrontCamera",
+        "useLED"
+      ]
+    }
+  ],
+  "inlined": [
+    "BarcodeCaptureDict",
+    "BarcodeParseDict"
+  ]
+}

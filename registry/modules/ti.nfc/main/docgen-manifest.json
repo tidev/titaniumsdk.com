@@ -1,0 +1,244 @@
+{
+  "schemaVersion": 1,
+  "generator": "sha256:ac231061067ed51d0966e3953108bbd9c19cae952495be231d05241eb191edf3",
+  "external": {
+    "repo": "tidev/titanium-sdk",
+    "version": "main",
+    "hash": "sha256:0c8e94bd4e64c06147ad9ff63806ba4cc4617e8aca5fa7095f28472598bbf5a4"
+  },
+  "generatedAt": "2026-08-30T19:02:18.680Z",
+  "sources": {
+    "NativeTagTechnology.yml": {
+      "hash": "sha256:51a9c22830d228caeac0cc9638ce115f348ce66c32ad941dc5253f4e6d0632ee",
+      "types": [
+        "Modules.Nfc.NativeTagTechnology"
+      ]
+    },
+    "NdefMessage.yml": {
+      "hash": "sha256:2e3520cdf61afdee6ada25cdf28d41f48131a25b49ad96587c1de85d23fc8ee8",
+      "types": [
+        "Modules.Nfc.NdefMessage"
+      ]
+    },
+    "NdefRecord.yml": {
+      "hash": "sha256:ea9d3244cf5af4faeb67aebfbee1b38bb89e1f77c7aee549ae6180fa9fa34e40",
+      "types": [
+        "Modules.Nfc.NdefRecord",
+        "Modules.Nfc.NdefRecordApplication",
+        "Modules.Nfc.NdefRecordEmpty",
+        "Modules.Nfc.NdefRecordExternal",
+        "Modules.Nfc.NdefRecordMedia",
+        "Modules.Nfc.NdefRecordSmartPoster",
+        "Modules.Nfc.NdefRecordText",
+        "Modules.Nfc.NdefRecordUnknown",
+        "Modules.Nfc.NdefRecordUri"
+      ]
+    },
+    "Nfc.yml": {
+      "hash": "sha256:2b2f75e94072b8362b90354b390a930a6553c1c9abf3a8de66157b470e2abe97",
+      "types": [
+        "Modules.Nfc"
+      ]
+    },
+    "NfcAdapter.yml": {
+      "hash": "sha256:82d268a5482c42cba140c45dbc74dda8e6486fa1e401db104471464513fef322",
+      "types": [
+        "Modules.Nfc.NfcAdapter",
+        "NdefInvalidated",
+        "NdefDiscovered"
+      ]
+    },
+    "NfcForegroundDispatchFilter.yml": {
+      "hash": "sha256:ee645ce00ce298045f5a1680c7c2294b4352bd3ac5a40f1b9a725b5fc85e77c8",
+      "types": [
+        "Modules.Nfc.NfcForegroundDispatchFilter",
+        "NfcIntentFilter"
+      ]
+    },
+    "NfcMiFareTagTechnology.yml": {
+      "hash": "sha256:43f309ba884f7fb07be460aeb224b5d62722213c35ad412a39aeccd0ea77772d",
+      "types": [
+        "Modules.Nfc.MifareTagTechnology"
+      ]
+    },
+    "NfcNDEFTag.yml": {
+      "hash": "sha256:bf76366fd8eec567908e3dc3e4d8a594cce8f9089abe5b7e443f0cdde89a68d0",
+      "types": [
+        "Modules.Nfc.NfcNDEFTag"
+      ]
+    },
+    "NfcNDEFTagTechnology.yml": {
+      "hash": "sha256:e4a3158c4b10e0d09e016ab431a919819d58c98161819c6f12221bacffa108b3",
+      "types": [
+        "Modules.Nfc.NfcNDEFTagTechnology"
+      ]
+    },
+    "NfcTag.yml": {
+      "hash": "sha256:526369695791419e93d598a076aa7d4e1773818effbe362ee431d6e43e34dc24",
+      "types": [
+        "Modules.Nfc.NfcTag"
+      ]
+    },
+    "TagTechnology.yml": {
+      "hash": "sha256:535dbd54d0bef08229d1549a759984bd29b591e31a29268968263032e92fdfaf",
+      "types": [
+        "Modules.Nfc.TagTechnology",
+        "Modules.Nfc.TagTechnologyIsoDep",
+        "Modules.Nfc.TagTechnologyMifareClassic",
+        "Modules.Nfc.TagTechnologyMifareUltralight",
+        "Modules.Nfc.TagTechnologyNdefFormatable",
+        "Modules.Nfc.TagTechnologyNdef",
+        "Modules.Nfc.TagTechnologyNfcA",
+        "Modules.Nfc.TagTechnologyNfcB",
+        "Modules.Nfc.TagTechnologyNfcF",
+        "Modules.Nfc.TagTechnologyNfcV"
+      ]
+    }
+  },
+  "types": {
+    "Modules.Nfc.NativeTagTechnology": {
+      "source": "NativeTagTechnology.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:3431f50e127adb15a4e1ff17c315e9c091364fbb98ef2f23defc0e092f1bc64c"
+    },
+    "Modules.Nfc.NdefMessage": {
+      "source": "NdefMessage.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:46301b5e339c4eb7872f142bc22dae441fe0de98fb460aa4e51e65d4e9ea7463"
+    },
+    "Modules.Nfc.NdefRecord": {
+      "source": "NdefRecord.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:43845d1aec7ee421fef2e4472bd55b36ee9f1d3cd3515cade695bcfa16ea1420"
+    },
+    "Modules.Nfc.NdefRecordApplication": {
+      "source": "NdefRecord.yml",
+      "extends": "Modules.Nfc.NdefRecord",
+      "outputHash": "sha256:510cdef4589f1963596129502ecf802ac13dd3acbffd93befe0eb26d6a7ca99e"
+    },
+    "Modules.Nfc.NdefRecordEmpty": {
+      "source": "NdefRecord.yml",
+      "extends": "Modules.Nfc.NdefRecord",
+      "outputHash": "sha256:17cdf2616224d84fb0df4f89227ba770aa9bc308dce84542df21af49f49be122"
+    },
+    "Modules.Nfc.NdefRecordExternal": {
+      "source": "NdefRecord.yml",
+      "extends": "Modules.Nfc.NdefRecord",
+      "outputHash": "sha256:9cc213b1d748a35186c0e7c73bbbb979196ef8578cc0320d63e2012c5c366fc1"
+    },
+    "Modules.Nfc.NdefRecordMedia": {
+      "source": "NdefRecord.yml",
+      "extends": "Modules.Nfc.NdefRecord",
+      "outputHash": "sha256:87c7b4e410591a798673668be706b92d5c0fbf5edfed9687dd83927d483f21fe"
+    },
+    "Modules.Nfc.NdefRecordSmartPoster": {
+      "source": "NdefRecord.yml",
+      "extends": "Modules.Nfc.NdefRecord",
+      "outputHash": "sha256:8c7b29f7b2dc2bc02ca2e8d2e5a15d2ffe5ce279b46c6c6b535189e49e3ee4d8"
+    },
+    "Modules.Nfc.NdefRecordText": {
+      "source": "NdefRecord.yml",
+      "extends": "Modules.Nfc.NdefRecord",
+      "outputHash": "sha256:e8397dc79493bbb94a89d1d7a10fdbe4a5a88ad616f4ecc5e371d2b2d7d96116"
+    },
+    "Modules.Nfc.NdefRecordUnknown": {
+      "source": "NdefRecord.yml",
+      "extends": "Modules.Nfc.NdefRecord",
+      "outputHash": "sha256:f713748bac152ff0481f24ce34d7684532a27f2bbe5f3d91c3484c82abf1b016"
+    },
+    "Modules.Nfc.NdefRecordUri": {
+      "source": "NdefRecord.yml",
+      "extends": "Modules.Nfc.NdefRecord",
+      "outputHash": "sha256:5aacf537ee3348b310f768231ec3a88ce8494bbd997c9d1835185ff580834341"
+    },
+    "Modules.Nfc": {
+      "source": "Nfc.yml",
+      "extends": "Titanium.Module",
+      "outputHash": "sha256:a4486eb729352c12488638013003d2d6c0bff0d75510f58a41cece2e9c90c4a8"
+    },
+    "Modules.Nfc.NfcAdapter": {
+      "source": "NfcAdapter.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:f30ffa58bab558cbb2991bac67e98a7c194b3f173b334a9b515ad90b4566ce36"
+    },
+    "NdefDiscovered": {
+      "source": "NfcAdapter.yml",
+      "outputHash": "sha256:fa22275366aa875047187cc3ac04609cf2547e06b105f720b8dc14983c68920f"
+    },
+    "Modules.Nfc.NfcForegroundDispatchFilter": {
+      "source": "NfcForegroundDispatchFilter.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:dd94d6af606c02d1a4399a85dbed958b869313faa774763544bb31962e2cacab"
+    },
+    "Modules.Nfc.MifareTagTechnology": {
+      "source": "NfcMiFareTagTechnology.yml",
+      "extends": "Modules.Nfc.NativeTagTechnology",
+      "outputHash": "sha256:4c28d54572d1d7b459aa720ca38d591052e06b5b59bbf8f58d404e2f9a73beaa"
+    },
+    "Modules.Nfc.NfcNDEFTag": {
+      "source": "NfcNDEFTag.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:d7d31ef6135686bb40e12b6262774ee7fb86bd1be332b03ca135474425524407"
+    },
+    "Modules.Nfc.NfcNDEFTagTechnology": {
+      "source": "NfcNDEFTagTechnology.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:13a117d5cdefc31dfc0b29a995087b5c04e27a144fe651438770f02b9350c738"
+    },
+    "Modules.Nfc.NfcTag": {
+      "source": "NfcTag.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:00e3cca3f377c7188afa1e6081b01a5e3af30e4dca86f6f798e8f6dc4c4c1023"
+    },
+    "Modules.Nfc.TagTechnology": {
+      "source": "TagTechnology.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:9c593f9e2c3fc1d93cca4926243718526580df0425824ff5bbed9fb886424eff"
+    },
+    "Modules.Nfc.TagTechnologyIsoDep": {
+      "source": "TagTechnology.yml",
+      "extends": "Modules.Nfc.TagTechnology",
+      "outputHash": "sha256:91b4ffbbc524cb4d1e11e341597e6d5a7cf2dbb53048d4575e3ff0f4bd45cf5e"
+    },
+    "Modules.Nfc.TagTechnologyMifareClassic": {
+      "source": "TagTechnology.yml",
+      "extends": "Modules.Nfc.TagTechnology",
+      "outputHash": "sha256:9daf6b64268ea1dced015aa6da13a01c6aff32f618d006d2fac1bb59c3fc56c4"
+    },
+    "Modules.Nfc.TagTechnologyMifareUltralight": {
+      "source": "TagTechnology.yml",
+      "extends": "Modules.Nfc.TagTechnology",
+      "outputHash": "sha256:6350cd6471fe64dd62e84cd1446ecdfc1dfe94682dae61fb5a2d260628ba508e"
+    },
+    "Modules.Nfc.TagTechnologyNdefFormatable": {
+      "source": "TagTechnology.yml",
+      "extends": "Modules.Nfc.TagTechnology",
+      "outputHash": "sha256:f001b1ffd561fc26327e3b37fa9ae36a6662e0927f3c5eb27b0a708c98e60998"
+    },
+    "Modules.Nfc.TagTechnologyNdef": {
+      "source": "TagTechnology.yml",
+      "extends": "Modules.Nfc.TagTechnology",
+      "outputHash": "sha256:29607e8ce81dfe3418b256a35d9fda8e989ec11c4eca97d48825493c11a0db4b"
+    },
+    "Modules.Nfc.TagTechnologyNfcA": {
+      "source": "TagTechnology.yml",
+      "extends": "Modules.Nfc.TagTechnology",
+      "outputHash": "sha256:11b6553b00adcd345e11f77162bd63610dfcafae1ddcbae7dcd74aef39083b57"
+    },
+    "Modules.Nfc.TagTechnologyNfcB": {
+      "source": "TagTechnology.yml",
+      "extends": "Modules.Nfc.TagTechnology",
+      "outputHash": "sha256:c7193d05416e24113ae7cfb1252ac4f3e28fcad70b846c457666cc5ff632c174"
+    },
+    "Modules.Nfc.TagTechnologyNfcF": {
+      "source": "TagTechnology.yml",
+      "extends": "Modules.Nfc.TagTechnology",
+      "outputHash": "sha256:14c7d959c81cda122d50b4a9d4f147555a657a6177ec519045c3189d63030e76"
+    },
+    "Modules.Nfc.TagTechnologyNfcV": {
+      "source": "TagTechnology.yml",
+      "extends": "Modules.Nfc.TagTechnology",
+      "outputHash": "sha256:1890a475896c235478d4fe96ee264eee59ff732917cca03cf4801e2271b6ed11"
+    }
+  }
+}

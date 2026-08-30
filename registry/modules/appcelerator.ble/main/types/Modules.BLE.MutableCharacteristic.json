@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "name": "Modules.BLE.MutableCharacteristic",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad"
+  ],
+  "since": {
+    "android": "1.1.0",
+    "iphone": "1.0.0",
+    "ipad": "1.0.0"
+  },
+  "summary": "A characteristic of a local peripheral’s service.",
+  "description": "It objects represent the characteristics of a local peripheral’s service. This class adds write access to many of the properties in the Characteristic class, which it inherits from.\n",
+  "properties": [
+    {
+      "name": "permissions",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "The permissions of the characteristic value. It is only present if this JavaScript object represents a mutable characteristic.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.0.0"
+    },
+    {
+      "name": "subscribedCentrals",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "For notifying characteristics, the set of currently subscribed centrals.",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Modules.BLE.Central"
+        }
+      ],
+      "since": {
+        "android": "1.1.0",
+        "iphone": "1.0.0",
+        "ipad": "1.0.0"
+      }
+    }
+  ],
+  "methods": [],
+  "events": [],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "references": [
+    "Modules.BLE.Central"
+  ],
+  "externalReferences": [
+    "Titanium.Proxy"
+  ],
+  "source": "MutableCharacteristic.yml"
+}

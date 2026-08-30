@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "generator": "sha256:ac231061067ed51d0966e3953108bbd9c19cae952495be231d05241eb191edf3",
+  "external": {
+    "repo": "tidev/titanium-sdk",
+    "version": "main",
+    "hash": "sha256:0c8e94bd4e64c06147ad9ff63806ba4cc4617e8aca5fa7095f28472598bbf5a4"
+  },
+  "generatedAt": "2026-08-30T19:02:08.975Z",
+  "sources": {
+    "CryptoModule.yml": {
+      "hash": "sha256:1b57c5277f00471e8b940685120251e39b4456991e393abeefa4f0a9b687568e",
+      "types": [
+        "Modules.Crypto",
+        "EncodeDataDict",
+        "DecodeDataDict"
+      ]
+    },
+    "Cryptor.yml": {
+      "hash": "sha256:b1cec339a08e4fd75aa4cabcb6c572a10c2eeb2822c425f720daf96caed08ecb",
+      "types": [
+        "Modules.Crypto.Cryptor"
+      ]
+    }
+  },
+  "types": {
+    "Modules.Crypto": {
+      "source": "CryptoModule.yml",
+      "extends": "Titanium.Module",
+      "outputHash": "sha256:54cb530f733d8e164b79e849b5b21bcc4b49e629774310fa20af2e10d89daf06"
+    },
+    "Modules.Crypto.Cryptor": {
+      "source": "Cryptor.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:c5a38ae56b54dbc5106ed0a72328e27c7d533f7e7dc94d33c2f53bc5cc730959"
+    }
+  }
+}

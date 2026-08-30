@@ -1,0 +1,206 @@
+{
+  "schemaVersion": 1,
+  "generator": "sha256:ac231061067ed51d0966e3953108bbd9c19cae952495be231d05241eb191edf3",
+  "external": {
+    "repo": "tidev/titanium-sdk",
+    "version": "main",
+    "hash": "sha256:0c8e94bd4e64c06147ad9ff63806ba4cc4617e8aca5fa7095f28472598bbf5a4"
+  },
+  "generatedAt": "2026-08-30T19:02:12.481Z",
+  "sources": {
+    "Beacon.yml": {
+      "hash": "sha256:e9e80218dc74140f014a6098e36955e2ddf71763a432789e7e10ed890d695679",
+      "types": [
+        "Modules.BLE.Beacon"
+      ]
+    },
+    "BeaconIdentityConstraint.yml": {
+      "hash": "sha256:b228e9d97e0cc338fdacf80dae47c9005b577d52a8ce60d161abfd8388f313b8",
+      "types": [
+        "Modules.BLE.BeaconIdentityConstraint"
+      ]
+    },
+    "BeaconRegion.yml": {
+      "hash": "sha256:ba08648da967029dd01e7a42597facbd99c04ad9840d2d330802d526f9e67080",
+      "types": [
+        "Modules.BLE.BeaconRegion"
+      ]
+    },
+    "Ble.yml": {
+      "hash": "sha256:e42845257a32f4e57c94c63e26eff37ed821518fd54d84edf67d41a50328ec8c",
+      "types": [
+        "Modules.BLE"
+      ]
+    },
+    "Central.yml": {
+      "hash": "sha256:b903e2a7ad3c99af2338297bab2fb8fb315a6a98b613fc9fc1f604cd7ff43b66",
+      "types": [
+        "Modules.BLE.Central"
+      ]
+    },
+    "CentralManager.yml": {
+      "hash": "sha256:e49580c5b59c64ef2dad25c1ecce6fbd30ae042d95f2c0e3575bdfe498c64a12",
+      "types": [
+        "Modules.BLE.CentralManager"
+      ]
+    },
+    "CentralScanOptions.yml": {
+      "hash": "sha256:63eb7804c30844be935d2a02a285faf2b8ee7cd13fe44a68170c6ef7447f4607",
+      "types": [
+        "Modules.BLE.CentralScanOptions"
+      ]
+    },
+    "Characteristic.yml": {
+      "hash": "sha256:87afb1ceecec5e1cddb9a0293f00f9f694e727f3dfa437b64b2ce07448701ac4",
+      "types": [
+        "Modules.BLE.Characteristic"
+      ]
+    },
+    "Descriptor.yml": {
+      "hash": "sha256:5ae539676d61988c8eee4ab08f93121d973f2e0f2319fb6fefb190d609f63a1e",
+      "types": [
+        "Modules.BLE.Descriptor"
+      ]
+    },
+    "DescriptorRequest.yml": {
+      "hash": "sha256:0477630cdf869276769e0f94a66269b47721370a274aadec92a8b4137008cc5f",
+      "types": [
+        "Modules.BLE.DescriptorRequest"
+      ]
+    },
+    "L2CAPchannel.yml": {
+      "hash": "sha256:aad558f1c7ffe5edc7af10262d6a8cd6ecad113af5ee29ba66ba6880cabc1551",
+      "types": [
+        "Modules.BLE.L2CAPChannel"
+      ]
+    },
+    "MutableCharacteristic.yml": {
+      "hash": "sha256:64c5cfd1b6d0e304248325bd7624f1754557562d10bd9e73143bb7a6e522d4d0",
+      "types": [
+        "Modules.BLE.MutableCharacteristic"
+      ]
+    },
+    "Peer.yml": {
+      "hash": "sha256:9011ad6c603e934d484c30143f2cddc53b0247ccaff393f0ef0014c4bee834d4",
+      "types": [
+        "Modules.BLE.Peer"
+      ]
+    },
+    "Peripheral.yml": {
+      "hash": "sha256:e701951ebb484bb9ca3d58e58b10a11c039f6365ae582e32d04d48f3ea33ddbe",
+      "types": [
+        "Modules.BLE.Peripheral"
+      ]
+    },
+    "PeripheralManager.yml": {
+      "hash": "sha256:3d2609950a493f73eace7d52de437e4fcef36a85783dcd36c40da1647d8b2833",
+      "types": [
+        "Modules.BLE.PeripheralManager"
+      ]
+    },
+    "RegionManager.yml": {
+      "hash": "sha256:06152a2eeb333b21f01007eedb31b75ebc3be6b16cba5b093851763e376877ba",
+      "types": [
+        "Modules.BLE.RegionManager"
+      ]
+    },
+    "Request.yml": {
+      "hash": "sha256:59261096e70b0fb60fbb64fe27efa8defe031958bf881fbe21b431d38d75b6ac",
+      "types": [
+        "Modules.BLE.Request"
+      ]
+    },
+    "Service.yml": {
+      "hash": "sha256:d49b7cdfca95cb7fa9838c5a18b722bb3c505f59fc845411d67d46a8f1a8b7f0",
+      "types": [
+        "Modules.BLE.Service"
+      ]
+    }
+  },
+  "types": {
+    "Modules.BLE.Beacon": {
+      "source": "Beacon.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:354e235107208de2cc797582554d568a7da3f69262a30e3e0d00028a7dc744e1"
+    },
+    "Modules.BLE.BeaconIdentityConstraint": {
+      "source": "BeaconIdentityConstraint.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:14ee64a0635defe4d2c1b70141695ca9f8b8f94413b324385715f2c779e2bd8d"
+    },
+    "Modules.BLE.BeaconRegion": {
+      "source": "BeaconRegion.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:1e53a5e864526e3902be57cf181aaf183edabfef5841061733a5a6e67c413e68"
+    },
+    "Modules.BLE": {
+      "source": "Ble.yml",
+      "extends": "Titanium.Module",
+      "outputHash": "sha256:1e466009219f38c537c3c33cea8a2f65e6796a564b54a05fad124cde8eb6ac6e"
+    },
+    "Modules.BLE.Central": {
+      "source": "Central.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:48668dad5ea0e9d9f549ba538d237cdb7e72a7da9c971269ecf02c464b45af02"
+    },
+    "Modules.BLE.CentralManager": {
+      "source": "CentralManager.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:4d3d950c74030de3d3f92c156855ba390cc225e4973032aead446cd26257d9d9"
+    },
+    "Modules.BLE.Characteristic": {
+      "source": "Characteristic.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:71f7610d2edbfd1eac6195374d3f3e7a0d38a32a93956709e51c182cbdd5caf8"
+    },
+    "Modules.BLE.Descriptor": {
+      "source": "Descriptor.yml",
+      "outputHash": "sha256:05c9914bc4c61cae42efa71ae96581c9e3864cd9713e0074cc645a89be3d00f8"
+    },
+    "Modules.BLE.DescriptorRequest": {
+      "source": "DescriptorRequest.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:8be91324ae8a278cbf0bfd48f8020fa095b4230ef32129cf3dceaa0c061e3cf0"
+    },
+    "Modules.BLE.L2CAPChannel": {
+      "source": "L2CAPchannel.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:8c6b7ea9c018eb36d1b03271abb4d898e1a95615405cd009844e324a6d6b74da"
+    },
+    "Modules.BLE.MutableCharacteristic": {
+      "source": "MutableCharacteristic.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:c63eec4132adcea16109323d0b500d109ffc5b72a7230353597f977eb2d4f2c1"
+    },
+    "Modules.BLE.Peer": {
+      "source": "Peer.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:09d40efb532afb03c977a8f6f36796ab718e77e2b707eef95f0a2e606d7dc18f"
+    },
+    "Modules.BLE.Peripheral": {
+      "source": "Peripheral.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:d3a01aa7d239a10b947dff0a6a3278bac4218e08fbeef1fb515bf7d48c2a0b40"
+    },
+    "Modules.BLE.PeripheralManager": {
+      "source": "PeripheralManager.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:72315a3f9c0c340b3a04fc5b79bd4046ee08f13d61e6cc1be29ad1399b9ee4de"
+    },
+    "Modules.BLE.RegionManager": {
+      "source": "RegionManager.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:4d5dfbe63b7012c9f2849ce066d376fbdba508b27d5fe77edb1b3f51a6a44ee3"
+    },
+    "Modules.BLE.Request": {
+      "source": "Request.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:5ba96aa6f88888327409bea798d717740a2d02f3a608c135d558a364ab043d4e"
+    },
+    "Modules.BLE.Service": {
+      "source": "Service.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:59e0abec90dd3ee3e6fe50b33bb6b5360db86bfaec738a679e0835a377a545b7"
+    }
+  }
+}

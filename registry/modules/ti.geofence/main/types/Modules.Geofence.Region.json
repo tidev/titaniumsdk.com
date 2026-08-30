@@ -1,0 +1,134 @@
+{
+  "schemaVersion": 1,
+  "name": "Modules.Geofence.Region",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad"
+  ],
+  "since": "3.1.3",
+  "summary": "Represents a geographic region to be monitored.",
+  "description": "A Region is a circular area defined by a center point (latitude, longitude) and a radius in meters. \nUse the [Geofence.createRegion](api:Modules.Geofence#createRegion) method to create a region.\n",
+  "properties": [
+    {
+      "name": "center",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "An object representing the center coordinate for the region.",
+      "description": "The object must contain the following properties:\n  \n  * `latitude`: The latitude of the point to be tested\n  * `longitude`: The longitude of the point to be tested\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Dictionary"
+        }
+      ]
+    },
+    {
+      "name": "identifier",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "The unique identifier of the region.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "notifyOnEntry",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "A boolean that controls whether the region will notify on entry.",
+      "description": "If `true`, an [enterregions](api:Modules.Geofence#enterregions) event is generated when the device enters the region.\nIf `false`, no event is generated. Default is `true`.\n\nThis property can only be set when calling [Geofence.createRegion()](api:Modules.Geofence#createRegion).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ]
+    },
+    {
+      "name": "notifyOnExit",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "A boolean that controlls whether the region will notify on exit.",
+      "description": "If `true`, an [exitregions](api:Modules.Geofence#exitregions) event is generated when the device exit the region.\nIf `false`, no event is generated. Default is `true`.\n\nThis property can only be set when calling [Geofence.createRegion()](api:Modules.Geofence#createRegion).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ]
+    },
+    {
+      "name": "radius",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "The radius of the region to monitor in meters.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "containsCoordinate",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Returns `true` if the coordinates passed to the method represent a point that is within the region.",
+      "description": "On iOS, if the device is located in a [Region](api:Modules.Geofence.Region) that has just\nstarted being monitored, an [enterregions](api:Modules.Geofence#enterregions) event is not generated. \nInstead, when starting to monitor a new region, use this method to check if the device is \nlocated within a the current Region.\n\nFor example, the following code creates a new Region and then immediately checks if the device\nis located in the newly created region and, if so, displays a notification.\n\n``` javascript\nvar region = Geofence.createRegion({\n    center: { \n        latitude:37.389601,\n        longitude:-122.050169\n    },\n    radius: 50,\n    identifier: 'Appcelerator'\n});\n\n// Should be true\nif (region.containsCoordinate(e.coords)) {\n    var notification = Ti.App.iOS.scheduleLocalNotification({\n        alertBody: 'Point is within region: ' + region.identifier\n    });\n}\n```\n",
+      "parameters": [
+        {
+          "name": "point",
+          "summary": "A Dictionary that defines `latitude` and `longitude` properties.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Dictionary"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "events": [],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "references": [
+    "Modules.Geofence"
+  ],
+  "externalReferences": [
+    "Dictionary",
+    "Titanium.Proxy"
+  ],
+  "source": "region.yml"
+}

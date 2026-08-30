@@ -1,0 +1,162 @@
+{
+  "schemaVersion": 1,
+  "name": "Modules.Nfc.NfcForegroundDispatchFilter",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android"
+  ],
+  "since": "1.0.0",
+  "summary": "A filter specifying intent, intent filters and technology lists used to match dispatch intents.",
+  "description": "The [Modules.Nfc.NfcAdapter.enableForegroundDispatch](api:Modules.Nfc.NfcAdapter#enableForegroundDispatch) method is used to give priority to the foreground activity when dispatching\na discovered tag to an application. This proxy is used to specify the intent, intent filters, and technology\nlists used to filter the dispatched intents. This proxy automatically creates the required pending intent and\nwill create an intent for the current activity if one is not provided.\n\nUse the [Modules.Nfc.createNfcForegroundDispatchFilter](api:Modules.Nfc#createNfcForegroundDispatchFilter) method to create a foreground dispatch filter.\n\nSee also:\n[enableForegroundDispatch](http://developer.android.com/reference/android/nfc/NfcAdapter.html#enableForegroundDispatch(android.app.Activity,%20android.app.PendingIntent,%20android.content.IntentFilter[],%20java.lang.String[][]))\n",
+  "examples": [
+    {
+      "title": "Foreground Dispatch filter",
+      "code": "This example creates a dispatch filter used to filter NDEF messages that are of mime type 'text/plain' or\nURI from 'http://www.appcelerator.com'. Additionally, the filter will match tags with the specified\ntechnologies. The dispatch filter is then used when calling the `enableForegroundDispatch` API of the\n<Modules.Nfc.NfcAdapter> proxy.\n\n``` javascript\ndispatchFilter = nfc.createNfcForegroundDispatchFilter({\n    intentFilters: [\n        { action: nfc.ACTION_NDEF_DISCOVERED, mimeType: 'text/plain' },\n        { action: nfc.ACTION_NDEF_DISCOVERED, scheme: 'http', host: 'www.appcelerator.com' }\n    ],\n    techLists: [\n        [ \"android.nfc.tech.NfcF\", \"android.nfc.tech.NfcA\", \"android.nfc.Ndef\" ],\n        [ \"android.nfc.tech.Ndef\" ],\n        [ \"android.nfc.tech.MifareClassic\" ],\n        [ \"android.nfc.tech.NfcA\" ]\n    ]\n});\n\n// All tag scans are received by the activity as a new intent. Each\n// scan intent needs to be passed to the nfc adapter for processing.\nvar act = Ti.Android.currentActivity;\nact.addEventListener('newintent', function(e) {\n    nfcAdapter.onNewIntent(e.intent);\n});\n\n// To enable NFC dispatching only while the application is in the foreground,\n// the application must signal the module whenever the application state changes.\nact.addEventListener('resume', function(e) {\n    nfcAdapter.enableForegroundDispatch(dispatchFilter);\n});\nact.addEventListener('pause', function(e) {\n    nfcAdapter.disableForegroundDispatch();\n});\n```\n"
+    }
+  ],
+  "properties": [
+    {
+      "name": "intent",
+      "platforms": [
+        "android"
+      ],
+      "summary": "The intent to start the dispatch when matched.",
+      "description": "This optional property allows you to override the default behavior for dispatching the\nintent. If an intent is not provided (the default behavior), then an intent based on the current\nactivity is automatically created with a flag of FLAG_ACTIVITY_SINGLE_TOP.\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.Android.Intent"
+        }
+      ],
+      "optional": true
+    },
+    {
+      "name": "intentFilters",
+      "platforms": [
+        "android"
+      ],
+      "summary": "The intent filters to override dispatching for, or null to always dispatch.",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Array",
+          "args": [
+            {
+              "kind": "type",
+              "name": "NfcIntentFilter"
+            }
+          ]
+        }
+      ],
+      "optional": true,
+      "inlined": {
+        "name": "NfcIntentFilter",
+        "summary": "Intent filter.",
+        "properties": [
+          {
+            "name": "action",
+            "platforms": [
+              "android"
+            ],
+            "summary": "Identifies the action from the intent.",
+            "description": "This value will be one of the constants defined on the [Modules.Nfc](api:Modules.Nfc) module object (ACTION_NDEF_DISCOVERED, ACTION_TAG_DISCOVERED, or\nACTION_TECH_DISCOVERED).\n",
+            "type": [
+              {
+                "kind": "primitive",
+                "name": "String"
+              }
+            ]
+          },
+          {
+            "name": "host",
+            "platforms": [
+              "android"
+            ],
+            "summary": "Data authority to match against.",
+            "type": [
+              {
+                "kind": "primitive",
+                "name": "String"
+              }
+            ],
+            "optional": true
+          },
+          {
+            "name": "mimeType",
+            "platforms": [
+              "android"
+            ],
+            "summary": "A valid MIME type.",
+            "type": [
+              {
+                "kind": "primitive",
+                "name": "String"
+              }
+            ]
+          },
+          {
+            "name": "scheme",
+            "platforms": [
+              "android"
+            ],
+            "summary": "Data scheme to match against.",
+            "type": [
+              {
+                "kind": "primitive",
+                "name": "String"
+              }
+            ],
+            "optional": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "techLists",
+      "platforms": [
+        "android"
+      ],
+      "summary": "The tech lists used to perform matching for dispatching the ACTION_TECH_DISCOVERED intent.",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Array",
+          "args": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "primitive",
+                  "name": "String"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "optional": true
+    }
+  ],
+  "methods": [],
+  "events": [],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "references": [
+    "Modules.Nfc",
+    "Modules.Nfc.NfcAdapter",
+    "NfcIntentFilter"
+  ],
+  "externalReferences": [
+    "Titanium.Android.Intent",
+    "Titanium.Proxy"
+  ],
+  "source": "NfcForegroundDispatchFilter.yml"
+}

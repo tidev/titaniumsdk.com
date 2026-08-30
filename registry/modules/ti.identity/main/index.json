@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 1,
+  "counts": {
+    "types": 2,
+    "inlined": 3,
+    "members": 54
+  },
+  "types": [
+    {
+      "name": "Modules.Identity",
+      "kind": "module",
+      "summary": "Allows a Titanium application to use the iOS Touch ID / Face ID authentication mechanism.",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "since": {
+        "iphone": "6.3.0",
+        "ipad": "6.3.0",
+        "android": "6.3.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Module",
+      "counts": {
+        "properties": 40,
+        "methods": 5,
+        "events": 0
+      },
+      "members": [
+        "ACCESSIBLE_AFTER_FIRST_UNLOCK",
+        "ACCESSIBLE_AFTER_FIRST_UNLOCK_THIS_DEVICE_ONLY",
+        "ACCESSIBLE_ALWAYS",
+        "ACCESSIBLE_ALWAYS_THIS_DEVICE_ONLY",
+        "ACCESSIBLE_WHEN_PASSCODE_SET_THIS_DEVICE_ONLY",
+        "ACCESSIBLE_WHEN_UNLOCKED",
+        "ACCESSIBLE_WHEN_UNLOCKED_THIS_DEVICE_ONLY",
+        "ACCESS_CONTROL_AND",
+        "ACCESS_CONTROL_APPLICATION_PASSWORD",
+        "ACCESS_CONTROL_DEVICE_PASSCODE",
+        "ACCESS_CONTROL_OR",
+        "ACCESS_CONTROL_PRIVATE_KEY_USAGE",
+        "ACCESS_CONTROL_TOUCH_ID_ANY",
+        "ACCESS_CONTROL_TOUCH_ID_CURRENT_SET",
+        "ACCESS_CONTROL_USER_PRESENCE",
+        "AUTHENTICATION_POLICY_BIOMETRICS",
+        "AUTHENTICATION_POLICY_BIOMETRICS_OR_WATCH",
+        "AUTHENTICATION_POLICY_PASSCODE",
+        "AUTHENTICATION_POLICY_WATCH",
+        "BIOMETRY_TYPE_FACE_ID",
+        "BIOMETRY_TYPE_NONE",
+        "BIOMETRY_TYPE_TOUCH_ID",
+        "ERROR_APP_CANCELLED",
+        "ERROR_AUTHENTICATION_FAILED",
+        "ERROR_BIOMETRY_LOCKOUT",
+        "ERROR_BIOMETRY_NOT_AVAILABLE",
+        "ERROR_BIOMETRY_NOT_ENROLLED",
+        "ERROR_INVALID_CONTEXT",
+        "ERROR_PASSCODE_NOT_SET",
+        "ERROR_SYSTEM_CANCEL",
+        "ERROR_TOUCH_ID_LOCKOUT",
+        "ERROR_TOUCH_ID_NOT_AVAILABLE",
+        "ERROR_TOUCH_ID_NOT_ENROLLED",
+        "ERROR_USER_CANCEL",
+        "ERROR_USER_FALLBACK",
+        "authenticate",
+        "authenticationPolicy",
+        "biometryType",
+        "createKeychainItem",
+        "deviceCanAuthenticate",
+        "hasFaceScanner",
+        "hasFingerprintScanner",
+        "hasIrisScanner",
+        "invalidate",
+        "isSupported"
+      ]
+    },
+    {
+      "name": "Modules.Identity.KeychainItem",
+      "kind": "module",
+      "summary": "Represents a keychain item to communicate with the native iOS Keychain and Android Keystore.",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "since": {
+        "iphone": "6.1.0",
+        "ipad": "6.1.0",
+        "android": "6.1.0"
+      },
+      "deprecated": false,
+      "extends": "Titanium.Module",
+      "counts": {
+        "properties": 0,
+        "methods": 5,
+        "events": 4
+      },
+      "members": [
+        "fetchExistence",
+        "read",
+        "reset",
+        "save",
+        "update"
+      ]
+    }
+  ],
+  "inlined": [
+    "DeviceCanAuthenticateResult",
+    "IdentityAuthenticationType",
+    "KeychainItemType"
+  ]
+}

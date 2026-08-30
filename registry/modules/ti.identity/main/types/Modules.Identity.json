@@ -1,0 +1,1148 @@
+{
+  "schemaVersion": 1,
+  "name": "Modules.Identity",
+  "kind": "module",
+  "extends": "Titanium.Module",
+  "inheritanceChain": [
+    "Titanium.Module"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad"
+  ],
+  "since": {
+    "iphone": "6.3.0",
+    "ipad": "6.3.0",
+    "android": "6.3.0"
+  },
+  "summary": "Allows a Titanium application to use the iOS Touch ID / Face ID authentication mechanism.",
+  "description": "Touch ID / Face ID are security mechanisms that use biometric sensors to authenticate the user.\n\n### Requirements\n\nThe Identity module is available with the Titanium SDK starting with Release 6.3.0.\nThis module only works with devices running iOS 8 and later.\n\n### Getting Started\n\nAdd the module as a dependency to your application by adding a **`<module>`** item to the\n**`[modules](api:Modules)`** element of your `tiapp.xml` file:\n\n``` xml\n<ti:app>\n  <!-- ... -->\n  [modules](api:Modules)\n    <module platform=\"iphone\">ti.identity</module>\n  </modules>\n  <!-- ... -->\n</ti:app>\n```\n\nUse `require()` to access the module from JavaScript:\n\n``` javascript\nvar Identity = require('ti.identity');\n```\n\nThe `Identity` variable is a reference to the module. Make API calls using this reference:\n\n``` javascript\nIdentity.authenticate({\n    reason: 'Verify to modify personal settings',\n    callback: function(e) {\n        Ti.API.info(e);\n    }\n});\n```\n\n### Lifetime Notes (iOS-only)\n\nThe current context will, once evaluated, be used until it's instance gets released or invalidated.\nYou can you use the [Modules.Identity.invalidate](api:Modules.Identity#invalidate) method to force the user to be prompted every time a\nnew authentication is triggered. On iOS 9 and later, this can also be called to cancel a current\nevaluation of an auth-context, e.g. to hide the auth-dialoag.\n\n## Distinguish between Touch ID and Face ID\n\nUse the [Modules.Identity.biometryType](api:Modules.Identity#biometryType) to receive the currently used biometry type. See an example of\nusing the property to create a personalized interface when using Touch ID and Face ID:\n\n``` javascript\nvar authPhrase = 'Unknown';\n\nif (TiIdentity.biometryType === TiIdentity.BIOMETRY_TYPE_FACE_ID) { // Face ID\n    authPhrase = 'Face ID';\n} else if (TiIdentity.biometryType === TiIdentity.BIOMETRY_TYPE_TOUCH_ID) { // Touch ID\n    authPhrase = 'Touch ID';\n}\n```\n## Face ID Requirements (iOS only)\n\nFor Face ID to work properly, you need to add a **`<key>`** item to the\n**`<plist>`** element of your `tiapp.xml` file:\n\n``` xml\n<ti:app>\n  <!-- ... -->\n  <ios>\n    <!-- ... -->\n    <plist>\n      <dict>\n        <key>NSFaceIDUsageDescription</key>\n        [string](api:Global.String)Why you need Face ID.</string>\n      </dict>\n    </plist>\n    <!-- ... -->\n  </ios>\n  <!-- ... -->\n</ti:app>\n```\n\n### Native Keychain Integration\n\nFor more infos regarding the keychain integration, check the \"KeychainItem\" \"documentation.\n\n### Sample Application\n\nThe module contains a sample application in the\n`<TITANIUM_SDK_HOME>/modules/iphone/ti.identity/<VERSION>/example/` folder.\n",
+  "properties": [
+    {
+      "name": "ACCESS_CONTROL_AND",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Constraint logic operation - When using more than one constraint, all must\nbe satisfied.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "ACCESS_CONTROL_APPLICATION_PASSWORD",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Security: Application provided password for data encryption key generation.\nThis is not a constraint but additional item encryption mechanism.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "ACCESS_CONTROL_DEVICE_PASSCODE",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Constraint - Device passcode.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "ACCESS_CONTROL_OR",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Constraint logic operation - When using more than one constraint, at least\none of them must be satisfied.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "ACCESS_CONTROL_PRIVATE_KEY_USAGE",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Create access control for private key operations (i.e. sign operation).",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "ACCESS_CONTROL_TOUCH_ID_ANY",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Constraint - Touch ID (any finger). Touch ID must be available and at least\none finger must be enrolled. Item is still accessible by Touch ID even if\nfingers are added or removed.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "ACCESS_CONTROL_TOUCH_ID_CURRENT_SET",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Constraint - Touch ID from the set of currently enrolled fingers. Touch ID\nmust be available and at least one finger must be enrolled. When fingers\nare added or removed, the item is invalidated.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "ACCESS_CONTROL_USER_PRESENCE",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "User presence policy using Touch ID, Face ID or Passcode. Touch ID / Face ID does not have\nto be available or enrolled. Item is still accessible by Touch ID / Face ID even\nif fingers are added or removed.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "ACCESSIBLE_AFTER_FIRST_UNLOCK",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Item data can only be accessed once the device has been unlocked after\na restart.  This is recommended for items that need to be accesible by\nbackground applications. Items with this attribute will migrate to a new\ndevice when using encrypted backups.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "6.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "ACCESSIBLE_AFTER_FIRST_UNLOCK_THIS_DEVICE_ONLY",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Item data can only be accessed once the device has been unlocked after a\nrestart. This is recommended for items that need to be accessible by\nbackground applications. Items with this attribute will never migrate to\na new device, so after a backup is restored to a new device these items\nwill be missing.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "6.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "ACCESSIBLE_ALWAYS",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Item data can always be accessed regardless of the lock state of the device.\nThis is not recommended for anything except system use. Items with this\nattribute will migrate to a new device when using encrypted backups.\n",
+      "description": "Value is a Number on Android, a String on iOS.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        },
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "6.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "ACCESSIBLE_ALWAYS_THIS_DEVICE_ONLY",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Item data can always be accessed regardless of the lock state of the device.\nThis option is not recommended for anything except system use. Items with\nthis attribute will never migrate to a new device, so after a backup is\nrestored to a new device, these items will be missing.\n",
+      "description": "Value is a Number on Android, a String on iOS.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        },
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "6.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "ACCESSIBLE_WHEN_PASSCODE_SET_THIS_DEVICE_ONLY",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Item data can only be accessed while the device is unlocked. This class\nis only available if a passcode is set on the device. This is recommended\nfor items that only need to be accessible while the application is in the\nforeground. Items with this attribute will never migrate to a new\ndevice, so after a backup is restored to a new device, these items\nwill be missing. No items can be stored in this class on devices\nwithout a passcode. Disabling the device passcode will cause all\nitems in this class to be deleted.\n",
+      "description": "Value is a Number on Android, a String on iOS.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        },
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "6.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "ACCESSIBLE_WHEN_UNLOCKED",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Item data can only be accessed while the device is unlocked. This is\nrecommended for items that only need be accesible while the application\nis in the foreground.  Items with this attribute will migrate to a new\ndevice when using encrypted backups.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "6.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "ACCESSIBLE_WHEN_UNLOCKED_THIS_DEVICE_ONLY",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Item data can only be accessed while the device is unlocked. This is\nrecommended for items that only need be accesible while the application\nis in the foreground. Items with this attribute will never migrate to a\nnew device, so after a backup is restored to a new device, these items\nwill be missing.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "6.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "AUTHENTICATION_POLICY_BIOMETRICS",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Device owner was authenticated using a biometric method.",
+      "description": "A biometric authentication is required. If there are no biometrics available or not\nenrolled, policy evaluation will fail. If Touch ID / Face ID is locked out, passcode\nis required as the first step to unlock with Touch ID.\n\nTouch ID authentication dialog contains a cancel button with default title\n\"Cancel\" which can be customized using `cancelTitle` property and a fallback\nbutton with default title \"Enter Password\" which can be customized using\n`fallbackTitle` property. Fallback button is initially hidden and shows up\nafter first unsuccessful Touch ID attempt. Tapping cancel button or fallback\nbutton causes evaluatePolicy call to fail, returning a distinct error code.\n\nBiometric authentication will get locked after 5 unsuccessful attempts.\nAfter that, users have to unlock it by entering passcode.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "AUTHENTICATION_POLICY_BIOMETRICS_OR_WATCH",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Device owner was authenticated using a biometric method or the Apple Watch.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "9.0.0",
+      "permission": "read-only",
+      "osver": {
+        "ios": {
+          "min": "13.0"
+        }
+      }
+    },
+    {
+      "name": "AUTHENTICATION_POLICY_PASSCODE",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Device owner was authenticated by Touch ID or device passcode.",
+      "description": "Touch ID or passcode authentication is required. If Touch ID is available,\nenrolled and not locked out, user is asked for it first, otherwise they are\nasked to enter device passcode. If passcode is not enabled, policy evaluation\nwill fail.\n\nTouch ID authentication dialog behaves similarly as the one used by\n`AUTHENTICATION_POLICY_BIOMETRICS`. However, instead of \"Enter Password\"\nbutton there is \"Enter Passcode\" button which, when tapped, switches the\nauthentication method and allows users to enter device passcode.\n\nPasscode authentication will get locked after 6 unsuccessful attempts with\nprogressively increased backoff delay.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "AUTHENTICATION_POLICY_WATCH",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Device owner was authenticated using the Apple Watch.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "9.0.0",
+      "permission": "read-only",
+      "osver": {
+        "ios": {
+          "min": "13.0"
+        }
+      }
+    },
+    {
+      "name": "authenticationPolicy",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Sets the global authentication policy used in this Touch ID / Face ID context.",
+      "description": "You should set this property before checking the availability or\nstarting the authentication. By default, `AUTHENTICATION_POLICY_BIOMETRICS`\nwill be used to authenticate using the Touch ID / Face ID sensor only. Using the\n`AUTHENTICATION_POLICY_PASSCODE` constant will still try to authenticate\nwith Touch ID / Face ID first and use the passcode as the fallback.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.1.0",
+      "default": "Modules.Identity.AUTHENTICATION_POLICY_BIOMETRICS",
+      "constants": [
+        "Modules.Identity.AUTHENTICATION_POLICY_BIOMETRICS",
+        "Modules.Identity.AUTHENTICATION_POLICY_BIOMETRICS_OR_WATCH",
+        "Modules.Identity.AUTHENTICATION_POLICY_PASSCODE",
+        "Modules.Identity.AUTHENTICATION_POLICY_WATCH"
+      ]
+    },
+    {
+      "name": "BIOMETRY_TYPE_FACE_ID",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "The device supports Face ID.",
+      "description": "Used as a return-value for [Modules.Identity.biometryType](api:Modules.Identity#biometryType).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.3.0",
+      "permission": "read-only",
+      "osver": {
+        "ios": {
+          "min": "11.0"
+        }
+      }
+    },
+    {
+      "name": "BIOMETRY_TYPE_NONE",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "The device does not support biometry.",
+      "description": "Used as a return-value for [Modules.Identity.biometryType](api:Modules.Identity#biometryType).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.3.0",
+      "permission": "read-only",
+      "osver": {
+        "ios": {
+          "min": "11.0"
+        }
+      }
+    },
+    {
+      "name": "BIOMETRY_TYPE_TOUCH_ID",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "The device supports Touch ID.",
+      "description": "Used as a return-value for [Modules.Identity.biometryType](api:Modules.Identity#biometryType).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.3.0",
+      "permission": "read-only",
+      "osver": {
+        "ios": {
+          "min": "11.0"
+        }
+      }
+    },
+    {
+      "name": "biometryType",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Indicates the type of the biometry supported by the device.",
+      "description": "This property is set only when [Modules.Identity.isSupported](api:Modules.Identity#isSupported) succeeds for a biometric policy.\nThe default value is [Modules.Identity.BIOMETRY_TYPE_NONE](api:Modules.Identity#BIOMETRY_TYPE_NONE).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.3.0",
+      "permission": "read-only",
+      "default": "Modules.Identity.BIOMETRY_TYPE_NONE",
+      "osver": {
+        "ios": {
+          "min": "11.0"
+        }
+      },
+      "constants": [
+        "Modules.Identity.BIOMETRY_TYPE_FACE_ID",
+        "Modules.Identity.BIOMETRY_TYPE_NONE",
+        "Modules.Identity.BIOMETRY_TYPE_TOUCH_ID"
+      ]
+    },
+    {
+      "name": "ERROR_APP_CANCELLED",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Constant indicating that the app cancelled authentication.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "ERROR_AUTHENTICATION_FAILED",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Constant indicating that the authentication was not successful.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "ERROR_BIOMETRY_LOCKOUT",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Authentication was not successful, because there were too many failed biometry\nattempts and biometry is now locked. Passcode is required to unlock biometry,\ne.g. evaluating [Modules.Identity.authenticate](api:Modules.Identity#authenticate) will ask for passcode as a prerequisite.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.3.0",
+      "permission": "read-only",
+      "osver": {
+        "ios": {
+          "min": "11.0"
+        }
+      }
+    },
+    {
+      "name": "ERROR_BIOMETRY_NOT_AVAILABLE",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Authentication could not start, because biometry is not available on the device.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.3.0",
+      "permission": "read-only",
+      "osver": {
+        "ios": {
+          "min": "11.0"
+        }
+      }
+    },
+    {
+      "name": "ERROR_BIOMETRY_NOT_ENROLLED",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Authentication could not start, because biometry has no enrolled identities.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.3.0",
+      "permission": "read-only",
+      "osver": {
+        "ios": {
+          "min": "11.0"
+        }
+      }
+    },
+    {
+      "name": "ERROR_INVALID_CONTEXT",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Constant indicating that there is an invalid context.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "ERROR_PASSCODE_NOT_SET",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Constant indicating that the passcode is not set for the device.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "ERROR_SYSTEM_CANCEL",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Constant indicating that iOS cancelled authentication, for example, if another\napplication enters the foreground.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "ERROR_TOUCH_ID_LOCKOUT",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Constant indicating that Touch ID has locked out.\nNote: This constant has been deprecated for iOS 11 and later. Use\n[Modules.Identity.ERROR_BIOMETRY_LOCKOUT](api:Modules.Identity#ERROR_BIOMETRY_LOCKOUT) for apps targeting iOS 11\nand later.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "deprecated": {
+        "since": "10.0.0",
+        "notes": "This constant has deprecated in iOS. Use <Modules.Identity.ERROR_BIOMETRY_LOCKOUT> instead."
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "ERROR_TOUCH_ID_NOT_AVAILABLE",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Constant indicating that Touch ID is not available on the device.\nNote: This constant has been deprecated for iOS 11 and later. Use\n[Modules.Identity.ERROR_BIOMETRY_NOT_AVAILABLE](api:Modules.Identity#ERROR_BIOMETRY_NOT_AVAILABLE) for apps targeting iOS 11\nand later.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "deprecated": {
+        "since": "10.0.0",
+        "notes": "Use <Modules.Identity.ERROR_BIOMETRY_NOT_AVAILABLE> instead."
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "ERROR_TOUCH_ID_NOT_ENROLLED",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Constant indicating that Touch ID does not have any enrolled fingerprints.\nNote: This constant has been deprecated for iOS 11 and later. Use\n<Modules.Identity.ERROR_BIOMETRY_NOT_ENROLLED for apps targeting iOS 11\nand later.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "deprecated": {
+        "since": "10.0.0",
+        "notes": "Use <Modules.Identity.ERROR_BIOMETRY_NOT_ENROLLED> instead."
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "ERROR_USER_CANCEL",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Constant indicating that the user canceled authentication.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "ERROR_USER_FALLBACK",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Constant indicating that the user tapped the fallback button to enter their passcode.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "hasFaceScanner",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Returns true if the has biometric hardware to perform face authentication",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "12.1.0"
+    },
+    {
+      "name": "hasFingerprintScanner",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Returns true if the device has biometric hardware to detect a fingerprint.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "12.1.0"
+    },
+    {
+      "name": "hasIrisScanner",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Returns true if the device has biometric hardware to perform iris authentication.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "12.1.0"
+    }
+  ],
+  "methods": [
+    {
+      "name": "authenticate",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Initiates the biometric authentication process.",
+      "description": "A special note for Android:\n\nWhen you call this method in Android, it will either authenticate the fingerprint or it will fallback\nto the device's password, pin or pattern which is the case when biometric means of identification is\nnot available. If you provide an incorrect fingerprint and receive an error message \"Unable to recognize\nfingerprint\", do not call authenticate. Instead, get the user to try again. If you call authenticate,\nit will end up in a bad state. This flow will be improved in the next update for Android.\n",
+      "parameters": [
+        {
+          "name": "params",
+          "summary": "Dictionary of arguments passed to the method, e.g. the reason to autheicate and the callback.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "IdentityAuthenticationType"
+            }
+          ],
+          "inlined": {
+            "name": "IdentityAuthenticationType",
+            "summary": "Dictionary passed to [Modules.Identity.authenticate](api:Modules.Identity#authenticate).",
+            "properties": [
+              {
+                "name": "allowableReuseDuration",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "Note: This property is iOS only!\n\nThe time interval (in seconds) for accepting a successful Touch ID / Face ID device\nunlock (on the lock screen) from the past.  If the device  was successfully\nunlocked by Touch ID / Face ID within this time interval, then the biometric authentication\non this context will succeed automatically and the reply block will be\ncalled without prompting user for authentication.\n\nThe default value is 0, meaning that no previous TouchID unlock can be reused.\n\nThis property is meant only for reusing biometric matches from the device\nlock screen. It does not allow reusing previous biometric matches in\napplication or between applications.\n\nThe maximum supported interval is 5 minutes and setting the value beyond\n5 minutes does not increase the accepted interval.\n",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ],
+                "since": "6.1.0",
+                "osver": {
+                  "ios": {
+                    "min": "9.0"
+                  }
+                }
+              },
+              {
+                "name": "callback",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "Callback function executed after the authentication completes.\nThe callback function is passed a dictionary with three properties:\n\n  * `success` (Boolean): Set to true if authentication succeeded.\n  * `error` (String): System error message.\n  * `code` (Number): Module `ERROR_*` constant indicating the reason for the failure.\n",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Callback"
+                  }
+                ]
+              },
+              {
+                "name": "cancelTitle",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "Allows cancel button title customization. A default localized title \"Cancel\"\nis used when this property is not defined or is set to empty string.\nAndroid: The default value will be \"Cancel\".\n",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  }
+                ],
+                "since": "6.1.0",
+                "osver": {
+                  "ios": {
+                    "min": "10.0"
+                  }
+                }
+              },
+              {
+                "name": "confirmationRequired",
+                "platforms": [
+                  "android"
+                ],
+                "summary": "Sets a hint to the system for whether to require user confirmation after\nauthentication. For example, implicit modalities like face and iris are passive,\nmeaning they don't require an explicit user action to complete authentication.\nSee https://developer.android.com/reference/android/hardware/biometrics/BiometricPrompt.Builder#setConfirmationRequired(boolean)\n",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  }
+                ],
+                "since": "12.7.0"
+              },
+              {
+                "name": "fallbackTitle",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "Note: This property is iOS only!\n\nAllows fallback button title customization. A default localized title\n\"Enter Password\" is used when this property is left nil. If set to empty\nstring, the button will be hidden.\n",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  }
+                ],
+                "since": "6.1.0",
+                "osver": {
+                  "ios": {
+                    "min": "10.0"
+                  }
+                }
+              },
+              {
+                "name": "keepAlive",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "Note: This property is iOS only!\n\nDetermines whether the auth-context should be kept alive after authorizing\nwith the TouchID-API and can be used to automatically terminate an auth-context\nafter authorizing.\n\nPlease note that calling `invalidate` will not be possible unless you\nhave a valid auth-context, so you would decide whether to use `invalidate`\nto invalidate the context and release the auth-instance or use the `keepAlive`\nproperty inside `authenticate` to only terminate the context.\n\nTerminated contexts cannot be recovered and will be recreated with a new auth-context\nonce `authenticate` is called again.\n",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Boolean"
+                  }
+                ],
+                "since": "7.0.0"
+              },
+              {
+                "name": "reason",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "Message displayed in the authentication dialog describing why the\napplication is requesting authentication. Android: The title of the dialog.\n",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  }
+                ]
+              },
+              {
+                "name": "reasonSubtitle",
+                "platforms": [
+                  "android"
+                ],
+                "summary": "Subtitle of the authentication dialog (2nd line).\n",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  }
+                ],
+                "optional": true
+              },
+              {
+                "name": "reasonText",
+                "platforms": [
+                  "android"
+                ],
+                "summary": "Text of the authentication dialog (3rd line).\n",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  }
+                ],
+                "optional": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "createKeychainItem",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Create KeychainItem.",
+      "parameters": [
+        {
+          "name": "params",
+          "summary": "Dictionary of arguments passed to the method.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "KeychainItemType"
+            }
+          ],
+          "inlined": {
+            "name": "KeychainItemType",
+            "summary": "Dictionary passed to the `createKeychainItem` method.",
+            "properties": [
+              {
+                "name": "accessControlMode",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "Optional constants used to determine the access control with the specified\nprotection type and flags. The constants can be concatenated by using the\nBit OR operator, e.g. `optionA | optionB | optionC`.\n",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ],
+                "constants": [
+                  "Modules.Identity.ACCESS_CONTROL_AND",
+                  "Modules.Identity.ACCESS_CONTROL_APPLICATION_PASSWORD",
+                  "Modules.Identity.ACCESS_CONTROL_DEVICE_PASSCODE",
+                  "Modules.Identity.ACCESS_CONTROL_OR",
+                  "Modules.Identity.ACCESS_CONTROL_PRIVATE_KEY_USAGE",
+                  "Modules.Identity.ACCESS_CONTROL_TOUCH_ID_ANY",
+                  "Modules.Identity.ACCESS_CONTROL_TOUCH_ID_CURRENT_SET",
+                  "Modules.Identity.ACCESS_CONTROL_USER_PRESENCE"
+                ]
+              },
+              {
+                "name": "accessGroup",
+                "platforms": [
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "Optional identifier used to define the access group the keychain item\nshould be valid. This can be used to share a keychain item across two\nor more apps that use the same organization group identifier.\nMore information about keychain access groups can be found in the\n[official iOS documentation](https://developer.apple.com/reference/security/ksecattraccessgroup).\n",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  }
+                ]
+              },
+              {
+                "name": "accessibilityMode",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "Optional constant used for determining when a keychain item should be\nreadable. Use this property with caution to enable advanced access control.\nMore information about this property and it's values can be found in the\n[official iOS documentation](https://developer.apple.com/reference/security/1658642-keychain_services/1663541-keychain_item_accessibility_cons).\n",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ],
+                "constants": [
+                  "Modules.Identity.ACCESSIBLE_AFTER_FIRST_UNLOCK",
+                  "Modules.Identity.ACCESSIBLE_AFTER_FIRST_UNLOCK_THIS_DEVICE_ONLY",
+                  "Modules.Identity.ACCESSIBLE_ALWAYS",
+                  "Modules.Identity.ACCESSIBLE_ALWAYS_THIS_DEVICE_ONLY",
+                  "Modules.Identity.ACCESSIBLE_WHEN_PASSCODE_SET_THIS_DEVICE_ONLY",
+                  "Modules.Identity.ACCESSIBLE_WHEN_UNLOCKED",
+                  "Modules.Identity.ACCESSIBLE_WHEN_UNLOCKED_THIS_DEVICE_ONLY"
+                ]
+              },
+              {
+                "name": "cipher",
+                "platforms": [
+                  "android"
+                ],
+                "summary": "Define the cipher used to encrypt keychain items.\n[Android supported ciphers](https://developer.android.com/training/articles/keystore.html#SupportedCiphers)\n",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  }
+                ],
+                "default": "AES/CBC/PKCS7Padding"
+              },
+              {
+                "name": "identifier",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "Required identifier to create or receive a keychain item. The identifier\ncannot contain alphanumeric characters or it might be rejected by the keychain.\n",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  }
+                ]
+              },
+              {
+                "name": "options",
+                "platforms": [
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "Optional parameter used to specify additional values to the keychain.\nExample: The raw-value of `kSecUseOperationPrompt` is `u_OpPrompt`, so\nyou could specify `options: {'u_OpPrompt': 'Please authenticate yourself!'}`.\n",
+                "type": [
+                  {
+                    "kind": "type",
+                    "name": "Dictionary"
+                  }
+                ]
+              },
+              {
+                "name": "service",
+                "platforms": [
+                  "iphone",
+                  "ipad"
+                ],
+                "summary": "A key whose value is a string indicating the item's service. Defaults\nto `ti.touchid` if not set for backwards compatibility with the deprecated\nTi.TouchID module. This property is required when using app extensions\nand should also include the app-prefix (aka team-ID).\n",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "deviceCanAuthenticate",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Checks to see if device is configured for biometric authentication.",
+      "description": "On Android this takes into account the `authenticationPolicy`.\n\nExample:\n\n``` javascript\nvar Identity = require(\"ti.identity\");\nvar result = Identity.deviceCanAuthenticate();\nif (!result.canAuthenticate) {\n    alert('Message: ' + result.error + '\\nCode: ' + result.code);\n} else {\n    alert('Device can authenticate');\n}\n```\n",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "DeviceCanAuthenticateResult"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "invalidate",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Invalidates the current biometric dialog.",
+      "description": "The context is invalidated automatically when it is (auto)released.\n\nThis method allows invalidating it manually while it is still in scope.\nInvalidation terminates any existing policy evaluation and the respective call will\nfail with [Modules.Identity.ERROR_APP_CANCELLED](api:Modules.Identity#ERROR_APP_CANCELLED). After the context has been invalidated, it can not be\nused for policy evaluation and an attempt to do so will fail with [Modules.Identity.ERROR_INVALID_CONTEXT](api:Modules.Identity#ERROR_INVALID_CONTEXT).\n\nSee the \"Lifetime Notes (iOS-only)\" paragraph in the module paragraph for more infos.\n",
+      "since": "6.1.0"
+    },
+    {
+      "name": "isSupported",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Determines if the current device supports Touch ID or Face ID.",
+      "description": "This module is only supported on Android 6.0 or newer. So, this method always returns\n`false` on older versions of Android.\n",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "events": [],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "references": [
+    "DeviceCanAuthenticateResult",
+    "IdentityAuthenticationType",
+    "KeychainItemType"
+  ],
+  "externalReferences": [
+    "Global.String",
+    "Modules",
+    "Titanium.Module"
+  ],
+  "source": "Identity.yml"
+}

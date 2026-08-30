@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "generator": "sha256:ac231061067ed51d0966e3953108bbd9c19cae952495be231d05241eb191edf3",
+  "external": {
+    "repo": "tidev/titanium-sdk",
+    "version": "main",
+    "hash": "sha256:0c8e94bd4e64c06147ad9ff63806ba4cc4617e8aca5fa7095f28472598bbf5a4"
+  },
+  "generatedAt": "2026-08-30T19:02:07.412Z",
+  "sources": {
+    "Facebook.yml": {
+      "hash": "sha256:1723071337619d986927b2c026fa9359e00b7de6b9e4be3e1f6ae87e17adee58",
+      "types": [
+        "Modules.Facebook",
+        "LimitedLoginAuthenticationToken",
+        "FacebookGraphResponse",
+        "FacebookPermissionResponse",
+        "SharePhotoContentParams",
+        "SharePhotoContentPhotoParams",
+        "ShareLinkContentParams",
+        "RequestDialogParams",
+        "ShareToMessengerParams",
+        "CurrentAccessTokenParams",
+        "FacebookDeferredAppLinkResponse"
+      ]
+    },
+    "LoginButton.yml": {
+      "hash": "sha256:2063b166a5c776ca2ac722713f0937852c892c7d5832c11c9f27ac0b1506984e",
+      "types": [
+        "Modules.Facebook.LoginButton"
+      ]
+    }
+  },
+  "types": {
+    "Modules.Facebook": {
+      "source": "Facebook.yml",
+      "extends": "Titanium.Module",
+      "outputHash": "sha256:b3bb53d97952df7b094c6c2dab6076dacaf334dc1f8cb23779045fe49a6e3103"
+    },
+    "RequestDialogParams": {
+      "source": "Facebook.yml",
+      "outputHash": "sha256:61296f3e690c866b48d8056ccab88f2ed7d48aa39ab89f58d23f119d8cb6a921"
+    },
+    "ShareToMessengerParams": {
+      "source": "Facebook.yml",
+      "outputHash": "sha256:55068dabfb1b7267b21cdd1128dbef5329e1500bae9bf34f0e4cbdaed28c8444"
+    },
+    "Modules.Facebook.LoginButton": {
+      "source": "LoginButton.yml",
+      "extends": "Titanium.UI.View",
+      "outputHash": "sha256:cbdf2771e218b4ffb4d9b473a5aee10ce489317433e680819c1b3a7a1aa6e335"
+    }
+  }
+}

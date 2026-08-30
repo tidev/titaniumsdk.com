@@ -1,0 +1,210 @@
+{
+  "schemaVersion": 1,
+  "name": "Modules.Nfc.MifareTagTechnology",
+  "kind": "proxy",
+  "extends": "Modules.Nfc.NativeTagTechnology",
+  "inheritanceChain": [
+    "Modules.Nfc.NativeTagTechnology",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "iphone"
+  ],
+  "since": "1.1.0",
+  "summary": "Provides access to MIFARE Ultralight properties and I/O operations on a [Modules.Nfc.NfcTag](api:Modules.Nfc.NfcTag).",
+  "description": "Use the [Modules.Nfc.createTagTechnologyMifareUltralight](api:Modules.Nfc#createTagTechnologyMifareUltralight) method to create this tag technology.\nSee also:\n[Mifare Ultralight](https://developer.apple.com/documentation/corenfc/nfcmifaretag?language=objc)\n",
+  "properties": [],
+  "methods": [
+    {
+      "name": "historicalBytes",
+      "platforms": [
+        "iphone"
+      ],
+      "summary": "The historical bytes extracted from an Answer To Select response."
+    },
+    {
+      "name": "identifier",
+      "platforms": [
+        "iphone"
+      ],
+      "summary": "The unique hardware identifier of the tag."
+    },
+    {
+      "name": "mifareFamily",
+      "platforms": [
+        "iphone"
+      ],
+      "summary": "The MIFARE product family identifier for the tag."
+    },
+    {
+      "name": "sendMiFareCommand",
+      "platforms": [
+        "iphone"
+      ],
+      "summary": "Sends a native MIFARE command to the tag.",
+      "parameters": [
+        {
+          "name": "data",
+          "summary": "hex command with length will be sent in form of data",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "primitive",
+                  "name": "Number"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "errorCode",
+          "summary": "The error code; only present if an error occurred.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "errorDomain",
+          "summary": "The error domain; only present if an error occurred.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "errorDescription",
+          "summary": "The error description; only peresent if an error occurred.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "sendMiFareISO7816Command",
+      "platforms": [
+        "iphone"
+      ],
+      "summary": "Sends a native MIFARE command to the tag along with other parameter.",
+      "parameters": [
+        {
+          "name": "data",
+          "summary": "hex command with length will be sent in form of data",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "primitive",
+                  "name": "Number"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "sw1",
+          "summary": "The SW1 command-processing status byte.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "sw2",
+          "summary": "The SW2 command-processing status byte.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "apdu",
+          "summary": "An ISO 7816-4 command APDU object.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Buffer"
+            }
+          ]
+        },
+        {
+          "name": "errorCode",
+          "summary": "The error code; only present if an error occurred.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "errorDomain",
+          "summary": "The error domain; only present if an error occurred.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "errorDescription",
+          "summary": "The error description; only peresent if an error occurred.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "events": [],
+  "inherited": {
+    "properties": [],
+    "methods": [
+      {
+        "name": "connect",
+        "from": "Modules.Nfc.NativeTagTechnology",
+        "platforms": [
+          "iphone"
+        ]
+      },
+      {
+        "name": "isConnected",
+        "from": "Modules.Nfc.NativeTagTechnology",
+        "platforms": [
+          "iphone"
+        ]
+      }
+    ],
+    "events": []
+  },
+  "references": [
+    "Modules.Nfc",
+    "Modules.Nfc.NativeTagTechnology",
+    "Modules.Nfc.NfcTag"
+  ],
+  "externalReferences": [
+    "Titanium.Buffer"
+  ],
+  "source": "NfcMiFareTagTechnology.yml"
+}

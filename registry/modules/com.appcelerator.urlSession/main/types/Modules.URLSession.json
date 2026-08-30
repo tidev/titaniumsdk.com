@@ -1,0 +1,147 @@
+{
+  "schemaVersion": 1,
+  "name": "Modules.URLSession",
+  "kind": "module",
+  "extends": "Titanium.Module",
+  "inheritanceChain": [
+    "Titanium.Module"
+  ],
+  "platforms": [
+    "iphone",
+    "ipad"
+  ],
+  "since": "3.2.0",
+  "summary": "Wrapper to support iOS's NSURLSession class for background downloads.",
+  "description": "These APIs are supported on iOS 7 and later.\n\nThe URL session module (`com.appcelerator.urlSession`) provides the application the ability to\ndownload large content via HTTP while the application is in the background. With this module, you can\n\n  1. Create a URL session and a background download task.\n  2. Monitor events to check the progress of the download and session.\n  3. Cancel downloads and invalidate sessions.\n\nURL session events are monitored through the following iOS application-level events:\n\n  * [Titanium.App.iOS.backgroundtransfer](api:Titanium.App.iOS#backgroundtransfer)\n  * [Titanium.App.iOS.downloadprogress](api:Titanium.App.iOS#downloadprogress)\n  * [Titanium.App.iOS.downloadcompleted](api:Titanium.App.iOS#downloadcompleted)\n  * [Titanium.App.iOS.sessioncompleted](api:Titanium.App.iOS#sessioncompleted)\n  * [Titanium.App.iOS.sessioneventscompleted](api:Titanium.App.iOS#sessioneventscompleted)\n\nThese events are monitored as application-level events by using the `addEventListener` method with the\nTitanium.App.iOS namespace.\n\nFor more information on getting started, refer to the\n[iOS Background Services guide](http://docs.appcelerator.com/platform/latest/#!/guide/iOS_Background_Services).\n",
+  "properties": [
+    {
+      "name": "configuration",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "The configuration used for this url session.",
+      "description": "Configuration options for an [Modules.URLSession.Session](api:Modules.URLSession.Session) object.  \nWhen a session is created, a copy of the configuration object is made.\nyou cannot modify the configuration of a session after it has been created.\n\nThe shared session uses the global singleton credential, cache\nand cookie storage objects.\n\nAn ephemeral session has no persistent disk storage for cookies,\ncache or credentials.\n\nA background session can be used to perform networking operations\non behalf of a suspended application, within certain constraints.\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Modules.URLSession.SessionConfiguration"
+        }
+      ],
+      "availability": "creation"
+    }
+  ],
+  "methods": [
+    {
+      "name": "backgroundDownloadTaskWithURL",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Creates a download task for the specified URL, within the provided session object and saves the\nresults to a file.\n",
+      "description": "Once this function is called, the download starts automatically. The progress of\nthe download can be monitored by listening to the `downloadprogress`, `downloadcompleted`,\n`sessioneventscompleted` and `sessioncompleted` events.\n",
+      "deprecated": {
+        "since": "6.1.0",
+        "notes": "Use [Modules.URLSession.Session.downloadTask](Modules.URLSession.Session.downloadTask) on the session directly."
+      },
+      "parameters": [
+        {
+          "name": "session",
+          "summary": "URL session object.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Object"
+            }
+          ]
+        },
+        {
+          "name": "url",
+          "summary": "URL to download content from.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ],
+          "summary": "Task's identifier number."
+        }
+      ]
+    },
+    {
+      "name": "finishTasksAndInvalidate",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Invalidates the given session object, allowing any outstanding tasks to finish.",
+      "description": "This method returns immediately without waiting for tasks to finish. Once a session is invalidated,\nnew tasks cannot be created in the session, but existing tasks continue until completion. Once\ninvalidated, references to the events and callback objects are broken. Session objects cannot be\nreused. To cancel all outstanding tasks, call `invalidateAndCancel` instead.\n",
+      "deprecated": {
+        "since": "6.1.0",
+        "notes": "Use [Modules.URLSession.Session.finishTasksAndInvalidate](Modules.URLSession.Session.finishTasksAndInvalidate) (on the session object) instead."
+      },
+      "parameters": [
+        {
+          "name": "session",
+          "summary": "URL session object.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Object"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "invalidateAndCancel",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Cancels all outstanding tasks and then invalidates the session object.",
+      "description": "Once invalidated, references to the events and callback objects are broken. Session objects cannot\nbe reused. To allow outstanding tasks to run until completion, call\n`finishTasksAndInvalidate` instead.\n",
+      "deprecated": {
+        "since": "6.1.0",
+        "notes": "Use [Modules.URLSession.Session.invalidateAndCancel](Modules.URLSession.Session.invalidateAndCancel) (on the session object) instead."
+      },
+      "parameters": [
+        {
+          "name": "session",
+          "summary": "URL session object.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Object"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "events": [],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "references": [
+    "Modules.URLSession.Session",
+    "Modules.URLSession.SessionConfiguration"
+  ],
+  "externalReferences": [
+    "Titanium.App.iOS",
+    "Titanium.Module"
+  ],
+  "source": "urlsession.yml"
+}
