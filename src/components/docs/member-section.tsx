@@ -145,7 +145,7 @@ function Member({
       )}
 
       {member.default !== undefined && (
-        <p className="mt-2 text-sm text-text-subtle">
+        <p className="mt-2 text-sm break-words text-text-subtle">
           Default: <code className="font-mono">{member.default}</code>
         </p>
       )}
@@ -182,7 +182,7 @@ function Constants({ refs, base }: { refs: string[]; base: string }) {
       {refs.map((ref) => {
         const parts = splitConstant(ref);
         return (
-          <li key={ref} className="font-mono text-xs">
+          <li key={ref} className="font-mono text-xs break-all">
             {parts ? (
               <a
                 href={`${base}/${parts.owner}#${anchorFor(parts.name)}`}

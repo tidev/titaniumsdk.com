@@ -344,6 +344,11 @@ body {
     color: var(--color-link);
     text-decoration: underline;
     text-underline-offset: 2px;
+    /* Cross-reference links are fully-qualified identifiers, and the longest --
+       Titanium.UI.Android.SOFT_KEYBOARD_DEFAULT_ON_FOCUS -- is wider than a
+       320px viewport on its own. Without this the whole page scrolls sideways
+       because of one link. */
+    overflow-wrap: anywhere;
   }
   .prose-docs a:hover {
     color: var(--color-link-hover);
