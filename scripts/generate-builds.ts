@@ -309,7 +309,13 @@ const skip = Object.keys(existingBranches).length ? LEGACY : new Set<string>();
 const active = all.filter((b) => !skip.has(b));
 console.log(`  ${all.length} branches, ${active.length} need refreshing`);
 
-const counts: Record<string, number> = { ...existingBranches };
+// Seeded from the previous run so the legacy branches we no longer poll keep
+// their counts, then filtered: the file we inherited from downloads-www carries
+// names like `backport-14489-13_3_X` that `BRANCH_NAME` would reject today, and
+// merging into it would otherwise keep them alive forever.
+const counts: Record<string, number> = Object.fromEntries(
+  Object.entries(existingBranches).filter(([name]) => BRANCH_NAME.test(name))
+);
 
 console.log('\nBranch builds...');
 for (const branch of active) {
