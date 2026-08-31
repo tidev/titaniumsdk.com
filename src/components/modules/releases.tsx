@@ -19,11 +19,10 @@ export function Releases({ index, className = '' }: { index: ModuleIndex; classN
 
   return (
     <section aria-labelledby="releases" className={className}>
-      <h2 id="releases" className="scroll-mt-24 text-2xl font-semibold tracking-tight">
-        Releases{' '}
-        <span className="font-mono text-base font-normal text-text-subtle">
-          {index.versions.length}
-        </span>
+      {/* The tab above already reads "80 Releases", so the count is not
+          repeated here. The heading stays for structure. */}
+      <h2 id="releases" className="sr-only">
+        Releases
       </h2>
 
       <ul className="mt-4 divide-y divide-border border-t border-border">

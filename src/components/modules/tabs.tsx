@@ -20,12 +20,17 @@ import Link from 'next/link';
  * still has an API Docs tab, which says so — navigation that changes shape from
  * module to module is harder to trust than a tab that admits it has nothing.
  *
- * Only Versions is counted, and it reads "80 Versions" the way npm's does. A
- * count against API Docs was a type total, which nobody could be expected to
- * guess from a bare number sitting next to the word "Docs".
+ * Only Releases is counted, and it reads "80 Releases" the way npm's version
+ * tab does. A count against API Docs was a type total, which nobody could be
+ * expected to guess from a bare number sitting next to the word "Docs".
+ *
+ * "Releases" rather than "Versions" because that is what the rest of the site
+ * calls them, and what they are: the masthead says latest release, the install
+ * page hands out release archives, and each row is a GitHub release with a
+ * date and its own assets. A version is the string you write in tiapp.xml.
  */
 
-export type ModuleTab = 'readme' | 'install' | 'api' | 'versions';
+export type ModuleTab = 'readme' | 'install' | 'api' | 'releases';
 
 export function ModuleMasthead({
   index,
@@ -44,9 +49,9 @@ export function ModuleMasthead({
     { id: 'install', href: `/modules/${moduleId}/install`, label: 'Install' },
     { id: 'api', href: `/modules/${moduleId}/api`, label: 'API Docs' },
     {
-      id: 'versions',
-      href: `/modules/${moduleId}/versions`,
-      label: `${index.versions.length} Versions`,
+      id: 'releases',
+      href: `/modules/${moduleId}/releases`,
+      label: `${index.versions.length} Releases`,
     },
   ];
 

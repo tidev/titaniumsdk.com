@@ -15,7 +15,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({
   params,
-}: PageProps<'/modules/[moduleId]/versions'>): Promise<Metadata> {
+}: PageProps<'/modules/[moduleId]/releases'>): Promise<Metadata> {
   const { moduleId } = await params;
   const index = moduleIndex(moduleId);
   if (!index) return {};
@@ -23,13 +23,13 @@ export async function generateMetadata({
   return {
     title: `${index.moduleId} releases — Titanium modules`,
     description: `Every published release of the ${index.moduleId} Titanium module.`,
-    alternates: { canonical: `${SITE_URL}/modules/${index.moduleId}/versions` },
+    alternates: { canonical: `${SITE_URL}/modules/${index.moduleId}/releases` },
   };
 }
 
-export default async function ModuleVersionsPage({
+export default async function ModuleReleasesPage({
   params,
-}: PageProps<'/modules/[moduleId]/versions'>) {
+}: PageProps<'/modules/[moduleId]/releases'>) {
   const { moduleId } = await params;
 
   const index = moduleIndex(moduleId);
@@ -37,8 +37,8 @@ export default async function ModuleVersionsPage({
 
   return (
     <article className="max-w-4xl py-10">
-      <ModuleMasthead index={index} active="versions">
-        <Releases index={index} className="mt-10" />
+      <ModuleMasthead index={index} active="releases">
+        <Releases index={index} className="mt-8" />
       </ModuleMasthead>
     </article>
   );
