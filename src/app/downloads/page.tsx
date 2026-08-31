@@ -1,6 +1,6 @@
 import { AssetLinks } from '@/components/downloads/asset-links';
 import { InstallCommand } from '@/components/downloads/install-command';
-import { formatDate } from '@/lib/downloads/format';
+import { formatDate, installCommand } from '@/lib/downloads/format';
 import { branchList, CHANNELS, latestRelease, releases } from '@/lib/downloads/registry';
 import { SITE_URL } from '@/lib/site';
 import type { Metadata } from 'next';
@@ -59,13 +59,10 @@ export default function DownloadsOverview() {
             </div>
           </li>
           <li>
-            <p className="text-sm font-medium">
-              2. Install the SDK
-              {latest && <span className="text-text-subtle"> and make it the default</span>}
-            </p>
+            <p className="text-sm font-medium">2. Install the SDK</p>
             <div className="mt-2">
               <InstallCommand
-                command={`ti sdk install ${latest ? latest.name : 'latest'} --default`}
+                command={installCommand(latest ? latest.name : 'latest')}
                 label="Copy the SDK install command"
               />
             </div>
