@@ -82,6 +82,19 @@ export type ModuleListing = ModuleSummary | CommunityListing;
 export type SortKey = 'default' | 'name' | 'updated';
 
 /**
+ * What a module is called, which is not what it is keyed on.
+ *
+ * A registry module's key is its id and that is also its name. A community
+ * module is keyed `owner/name`, because a repository slug is the only stable
+ * identity it has — but sorting on that key sorts by author, which puts
+ * `av.imageview` under A for AndreaVitale and `ti.animation` under M for m1ga.
+ * Nobody scanning an alphabetical list of modules is looking for the author.
+ */
+export function listingName(listing: ModuleListing): string {
+  return listing.source === 'community' ? listing.name : listing.id;
+}
+
+/**
  * When a listing last moved.
  *
  * A registry module's newest release date; a community repository's last push.
@@ -110,7 +123,14 @@ export function orderListings(
   sort: SortKey = 'default'
 ): ModuleListing[] {
   if (sort === 'name') {
-    return [...listings].sort((a, b) => a.id.localeCompare(b.id));
+    // Case-insensitive: the registry ids are lowercase by convention and the
+    // repository names are not, so a plain compare would sort every `Ti.Foo`
+    // ahead of every `appcelerator.bar`.
+    return [...listings].sort(
+      (a, b) =>
+        listingName(a).localeCompare(listingName(b), undefined, { sensitivity: 'base' }) ||
+        a.id.localeCompare(b.id)
+    );
   }
 
   if (sort === 'updated') {

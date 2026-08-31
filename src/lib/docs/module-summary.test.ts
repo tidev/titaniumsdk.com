@@ -1,5 +1,6 @@
 import {
   listingPlatforms,
+  listingName,
   listingUpdatedAt,
   orderListings,
   platformsAtVersion,
@@ -128,16 +129,41 @@ describe('orderListings, explicit sorts', () => {
     latest: [{ platform: 'android', version: '1.0.0', publishedAt }],
   });
 
-  test('by name, ignoring which kind an entry is', () => {
-    // The default buries a community module under every curated one; sorting
-    // by name is the escape hatch, so it must not re-apply that grouping.
+  test('by the module name, not the owner it happens to be keyed under', () => {
+    // A community module's key is `owner/name`, so sorting on the key sorts by
+    // author: `av.imageview` lands under A for AndreaVitale. The two fixtures
+    // here have owners in the opposite order to their names, so a regression
+    // reverses the result rather than merely reordering ties.
     const ordered = orderListings(
       [community('zz/aaa', 500), official('mm.module'), community('aa/zzz', 1)],
       'name'
     );
     assert.deepEqual(
       ordered.map((m) => m.id),
-      ['aa/zzz', 'mm.module', 'zz/aaa']
+      ['zz/aaa', 'mm.module', 'aa/zzz']
+    );
+  });
+
+  test('by name, ignoring which kind an entry is', () => {
+    // The default buries a community module under every curated one; sorting
+    // by name is the escape hatch, so it must not re-apply that grouping.
+    const ordered = orderListings([community('aa/zzz', 500), official('mm.module')], 'name');
+    assert.deepEqual(
+      ordered.map((m) => m.id),
+      ['mm.module', 'aa/zzz']
+    );
+  });
+
+  test('sorts names case-insensitively', () => {
+    // Registry ids are lowercase by convention and repository names are not, so
+    // a plain compare files every `Ti.Foo` ahead of every `appcelerator.bar`.
+    const ordered = orderListings(
+      [community('x/Zebra', 1), official('apple'), community('y/Mango', 1)],
+      'name'
+    );
+    assert.deepEqual(
+      ordered.map((m) => m.id),
+      ['apple', 'y/Mango', 'x/Zebra']
     );
   });
 
@@ -190,5 +216,15 @@ describe('listingUpdatedAt', () => {
 
   test('is undefined when a module has no dated release', () => {
     assert.equal(listingUpdatedAt(official('ti.map')), undefined);
+  });
+});
+
+describe('listingName', () => {
+  test('is the id for a registry module', () => {
+    assert.equal(listingName(official('ti.map')), 'ti.map');
+  });
+
+  test('strips the owner from a community module', () => {
+    assert.equal(listingName(community('AndreaVitale/av.imageview', 96)), 'av.imageview');
   });
 });
