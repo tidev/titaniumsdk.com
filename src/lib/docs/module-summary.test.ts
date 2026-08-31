@@ -1,5 +1,6 @@
 import {
   listingPlatforms,
+  listingUpdatedAt,
   orderListings,
   platformsAtVersion,
   type CommunityListing,
@@ -23,6 +24,7 @@ const official = (id: string, platforms: ('android' | 'ios')[] = ['android']): M
   curation: 'tidev',
   latest: platforms.map((platform) => ({ platform, version: '1.0.0' })),
   releases: 1,
+  licenses: [],
 });
 
 const community = (
@@ -117,5 +119,76 @@ describe('platformsAtVersion', () => {
 
   test('names nothing for a version that is no longer current', () => {
     assert.deepEqual(platformsAtVersion(index({ android: '5.7.0' }), '4.0.0'), []);
+  });
+});
+
+describe('orderListings, explicit sorts', () => {
+  const dated = (id: string, publishedAt: string): ModuleSummary => ({
+    ...official(id),
+    latest: [{ platform: 'android', version: '1.0.0', publishedAt }],
+  });
+
+  test('by name, ignoring which kind an entry is', () => {
+    // The default buries a community module under every curated one; sorting
+    // by name is the escape hatch, so it must not re-apply that grouping.
+    const ordered = orderListings(
+      [community('zz/aaa', 500), official('mm.module'), community('aa/zzz', 1)],
+      'name'
+    );
+    assert.deepEqual(
+      ordered.map((m) => m.id),
+      ['aa/zzz', 'mm.module', 'zz/aaa']
+    );
+  });
+
+  test('by most recently updated, across both kinds', () => {
+    const ordered = orderListings(
+      [
+        dated('old.module', '2020-01-01T00:00:00Z'),
+        community('fresh/repo', 0, false, ['android']),
+        dated('new.module', '2026-01-01T00:00:00Z'),
+      ],
+      'updated'
+    );
+    // The community fixture pushes 2026-01-01 too; ties break on id.
+    assert.equal(ordered.at(-1)?.id, 'old.module');
+  });
+
+  test('sorts an undated entry last rather than first', () => {
+    const ordered = orderListings(
+      [official('no.dates'), dated('has.date', '2020-01-01T00:00:00Z')],
+      'updated'
+    );
+    assert.deepEqual(
+      ordered.map((m) => m.id),
+      ['has.date', 'no.dates']
+    );
+  });
+
+  test('leaves the default ordering alone', () => {
+    const input = [community('a/one', 5), official('ti.map')];
+    assert.equal(orderListings(input, 'default')[0].id, 'ti.map');
+    assert.equal(orderListings(input)[0].id, 'ti.map');
+  });
+});
+
+describe('listingUpdatedAt', () => {
+  test("takes a module's newest release date, not its first", () => {
+    const m: ModuleSummary = {
+      ...official('ti.map'),
+      latest: [
+        { platform: 'android', version: '5.7.0', publishedAt: '2025-09-10T14:08:11Z' },
+        { platform: 'ios', version: '7.3.1', publishedAt: '2024-01-10T08:50:17Z' },
+      ],
+    };
+    assert.equal(listingUpdatedAt(m), '2025-09-10T14:08:11Z');
+  });
+
+  test("takes a repository's last push", () => {
+    assert.equal(listingUpdatedAt(community('a/one', 0)), '2026-01-01T00:00:00Z');
+  });
+
+  test('is undefined when a module has no dated release', () => {
+    assert.equal(listingUpdatedAt(official('ti.map')), undefined);
   });
 });

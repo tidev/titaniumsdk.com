@@ -160,11 +160,28 @@ export function externalSdkVersion(id: string, version: string): string | null {
 
 // ------------------------------------------------------------------- summaries
 
-/** Everything the browse page shows, and nothing it does not. */
+/**
+ * Everything the browse page shows, and nothing it does not.
+ *
+ * `minsdk` and the licence come from each platform's manifest, which means one
+ * release file read per platform per module. That is 30-odd reads at build
+ * time and none at request time, since the browse page is prerendered and the
+ * result travels to the client as props.
+ */
 export function moduleSummaries(): ModuleSummary[] {
   return moduleIds().flatMap((id) => {
     const index = moduleIndex(id);
     if (!index) return [];
+
+    const licenses = new Set<string>();
+    const latest = latestPerPlatform(index).map((entry) => {
+      const manifest = moduleRelease(id, entry.version)?.manifests.find(
+        (m) => m.platform === entry.platform
+      );
+      if (manifest?.license) licenses.add(manifest.license);
+      return manifest?.minsdk ? { ...entry, minsdk: manifest.minsdk } : entry;
+    });
+
     return [
       {
         source: 'registry' as const,
@@ -172,8 +189,9 @@ export function moduleSummaries(): ModuleSummary[] {
         description: index.description,
         curation: index.curation,
         repo: index.repo,
-        latest: latestPerPlatform(index),
+        latest,
         releases: index.versions.length,
+        licenses: [...licenses].sort(),
       },
     ];
   });

@@ -74,10 +74,10 @@ export function LatestPerPlatform({
 
   return (
     <ul className={`flex flex-wrap gap-x-4 gap-y-1 ${className}`}>
-      {latest.map(({ platform, version, publishedAt }) => {
+      {latest.map(({ platform, version, publishedAt, minsdk }) => {
         const date = formatDate(publishedAt);
         return (
-          <li key={platform} className="flex items-baseline gap-1.5 text-sm">
+          <li key={platform} className="flex flex-wrap items-baseline gap-1.5 text-sm">
             <span className="text-text-subtle">{PLATFORM_LABELS[platform]}</span>
             {href ? (
               <a href={href(version)} className="font-mono text-link hover:underline">
@@ -87,6 +87,17 @@ export function LatestPerPlatform({
               <span className="font-mono">{version}</span>
             )}
             {date && <span className="text-xs text-text-subtle">{date}</span>}
+            {/* Per platform, because it is: ti.map needs SDK 12.7.0 on Android
+                and 10.0.0 on iOS. Shown as the manifest wrote it — some say
+                `10.0.0.GA` — since normalising would be inventing precision. */}
+            {minsdk && (
+              <span
+                title={`Requires Titanium SDK ${minsdk} or newer`}
+                className="text-xs text-text-subtle"
+              >
+                · SDK {minsdk}+
+              </span>
+            )}
           </li>
         );
       })}

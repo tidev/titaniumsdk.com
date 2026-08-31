@@ -10,6 +10,7 @@ import {
   type CommunityListing,
   type ModuleListing,
   type ModuleSummary,
+  type SortKey,
 } from '@/lib/docs/module-summary';
 import type { Platform } from '@/lib/registry';
 import { useMemo, useState } from 'react';
@@ -44,12 +45,25 @@ const SOURCES: { value: SourceFilter; label: string }[] = [
   { value: 'community', label: 'Community' },
 ];
 
+/**
+ * Default is not a sort so much as an answer to "which should I use": official
+ * first, then community by stars. The other two are plain orderings, offered
+ * because that default buries a well-maintained community module under sixteen
+ * curated ones no matter how good it is.
+ */
+const SORTS: { value: SortKey; label: string }[] = [
+  { value: 'default', label: 'Default' },
+  { value: 'name', label: 'Name' },
+  { value: 'updated', label: 'Updated' },
+];
+
 export function Browse({ modules }: { modules: ModuleListing[] }) {
   const [query, setQuery] = useState('');
   const [platform, setPlatform] = useState<PlatformFilter>('all');
   const [source, setSource] = useState<SourceFilter>('all');
+  const [sort, setSort] = useState<SortKey>('default');
 
-  const ordered = useMemo(() => orderListings(modules), [modules]);
+  const ordered = useMemo(() => orderListings(modules, sort), [modules, sort]);
 
   const shown = useMemo(() => {
     const needle = query.trim().toLowerCase();
@@ -79,6 +93,7 @@ export function Browse({ modules }: { modules: ModuleListing[] }) {
 
         <FilterGroup label="Source" options={SOURCES} value={source} onChange={setSource} />
         <FilterGroup label="Platform" options={PLATFORMS} value={platform} onChange={setPlatform} />
+        <FilterGroup label="Sort" options={SORTS} value={sort} onChange={setSort} />
       </div>
 
       {/* Announced rather than only drawn: with the list filtered down to
@@ -190,8 +205,14 @@ function RegistryCard({ module: m }: { module: ModuleSummary }) {
 
       <LatestPerPlatform latest={m.latest} className="mt-3" />
 
-      <p className="mt-2 text-xs text-text-subtle">
-        {m.releases} release{m.releases === 1 ? '' : 's'}
+      <p className="mt-2 flex flex-wrap gap-x-3 text-xs text-text-subtle">
+        <span>
+          {m.releases} release{m.releases === 1 ? '' : 's'}
+        </span>
+        {/* Declared per platform, so more than one is possible. Joined rather
+            than picking a winner: which platform a licence applies to is
+            exactly what you would need to know if they ever disagreed. */}
+        {!!m.licenses.length && <span>{m.licenses.join(' · ')}</span>}
       </p>
     </Card>
   );
