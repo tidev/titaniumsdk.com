@@ -43,6 +43,39 @@ describe('apiTarget', () => {
   });
 });
 
+describe('pathLinker', () => {
+  test('links a type under the base path', () => {
+    assert.equal(
+      pathLinker('/docs/sdk/main')('Titanium.UI.View'),
+      '/docs/sdk/main/Titanium.UI.View'
+    );
+  });
+
+  test('anchors a member on its type page', () => {
+    assert.equal(
+      pathLinker('/docs/sdk/main')('Titanium.UI.View', 'backgroundColor'),
+      '/docs/sdk/main/Titanium.UI.View#backgroundColor'
+    );
+  });
+
+  test('refuses a type outside the index it was given', () => {
+    // The regression this exists for: docgen folds single-use pseudo-types
+    // into their referents, so `Titanium.Event` is named across the reference
+    // and rendered nowhere. Linked blindly it was 606 dead links on its own,
+    // out of 1,023 across the tree.
+    const link = pathLinker('/docs/sdk/main', new Set(['Titanium.UI.View']));
+    assert.equal(link('Titanium.UI.View'), '/docs/sdk/main/Titanium.UI.View');
+    assert.equal(link('Titanium.Event'), null);
+    assert.equal(link('Error'), null);
+  });
+
+  test('links everything when given no index', () => {
+    // Prose rendered from a bare base string has no index to check against,
+    // and must keep resolving the common case rather than dropping every link.
+    assert.equal(pathLinker('/docs/sdk/main')('Whatever'), '/docs/sdk/main/Whatever');
+  });
+});
+
 describe('renderMarkdown, module references', () => {
   test('resolves the module’s own types to anchors on the page', () => {
     const html = renderMarkdown('See [the view](api:Modules.Map.View#mapType).', { link });

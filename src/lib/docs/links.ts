@@ -36,9 +36,22 @@ export function memberAnchor(type: string, member: string): string {
  */
 export type ApiLinker = (type: string, member?: string) => string | null;
 
-/** One type per page under `base` — the SDK reference's own arrangement. */
-export function pathLinker(base: string): ApiLinker {
-  return (type, member) => `${base}/${type}${member ? `#${anchorFor(member)}` : ''}`;
+/**
+ * One type per page under `base` — the SDK reference's own arrangement.
+ *
+ * `known` is the set of types that actually have a page. Pass it and anything
+ * outside it resolves to null, which is what the callers need: docgen folds
+ * 136 single-use pseudo-types into their referents, so `Titanium.Event` and
+ * `MinMaxOptions` are named all over the reference and rendered nowhere. Linked
+ * blindly they were 1,023 links to pages that do not exist, `Titanium.Event`
+ * alone accounting for 606 of them.
+ *
+ * Optional rather than required so prose that has no index to hand — the
+ * markdown renderer given a bare base string — still resolves the common case.
+ */
+export function pathLinker(base: string, known?: ReadonlySet<string>): ApiLinker {
+  return (type, member) =>
+    known && !known.has(type) ? null : `${base}/${type}${member ? `#${anchorFor(member)}` : ''}`;
 }
 
 /** `api:Titanium.UI.View` and `api:Titanium.UI.View#backgroundColor`. */
