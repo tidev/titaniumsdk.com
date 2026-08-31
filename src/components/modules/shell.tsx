@@ -1,6 +1,7 @@
 import { ModuleHeader } from './header';
 import { formatDate } from '@/lib/docs/format';
-import { latestPerPlatform, PLATFORM_LABELS } from '@/lib/docs/module-summary';
+import { PLATFORM_LABELS } from '@/lib/docs/module-summary';
+import { latestReleases } from '@/lib/docs/modules';
 import type { ModuleIndex } from '@/lib/registry';
 import Link from 'next/link';
 
@@ -30,6 +31,10 @@ export type ModuleTab = 'readme' | 'install' | 'api' | 'releases';
  * are routinely years apart: ti.map's Android 5.7.0 shipped in 2025 and its iOS
  * 7.3.1 in 2024, so the higher number is the older build. Anything that folds
  * these into one "latest" is wrong about one of them.
+ *
+ * Each line carries the SDK that release requires, for the same reason: ti.map
+ * needs 12.7.0 on Android and 10.0.0 on iOS, and it is the first thing that
+ * decides whether the module is usable at all.
  */
 export function LatestRelease({
   index,
@@ -38,7 +43,7 @@ export function LatestRelease({
   index: ModuleIndex;
   className?: string;
 }) {
-  const latest = latestPerPlatform(index);
+  const latest = latestReleases(index);
   if (!latest.length) return null;
 
   return (
@@ -46,7 +51,7 @@ export function LatestRelease({
       <p className="text-sm font-medium">Latest release</p>
 
       <ul className="mt-3 space-y-3">
-        {latest.map(({ platform, version, publishedAt }) => {
+        {latest.map(({ platform, version, publishedAt, minsdk }) => {
           const date = formatDate(publishedAt);
           return (
             <li key={platform}>
@@ -60,6 +65,13 @@ export function LatestRelease({
                 </Link>
                 {date && <span className="text-xs text-text-subtle">{date}</span>}
               </p>
+              {/* Verbatim from the manifest, suffix and all — some say
+                  `10.0.0.GA`. Normalising would invent precision. */}
+              {minsdk && (
+                <p className="text-xs text-text-subtle">
+                  Requires SDK <span className="font-mono">{minsdk}</span>+
+                </p>
+              )}
             </li>
           );
         })}

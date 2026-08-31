@@ -1,5 +1,11 @@
 import { latestPerPlatform, PLATFORM_ORDER } from '../docs/module-summary.ts';
-import { communityListings, moduleIds, moduleIndex, moduleRelease } from '../docs/modules.ts';
+import {
+  communityListings,
+  moduleIds,
+  moduleIndex,
+  moduleRelease,
+  latestReleases,
+} from '../docs/modules.ts';
 import type { ModuleIndex, ModuleVersion, Platform } from '../registry/index.ts';
 
 /**
@@ -62,14 +68,11 @@ export const RESOLUTION_RULES = [
 ] as const;
 
 function minsdkPerPlatform(index: ModuleIndex): Partial<Record<Platform, string>> {
-  const out: Partial<Record<Platform, string>> = {};
-  for (const { platform, version } of latestPerPlatform(index)) {
-    const manifest = moduleRelease(index.moduleId, version)?.manifests.find(
-      (m) => m.platform === platform
-    );
-    if (manifest?.minsdk) out[platform] = manifest.minsdk;
-  }
-  return out;
+  return Object.fromEntries(
+    latestReleases(index)
+      .filter((l) => l.minsdk)
+      .map((l) => [l.platform, l.minsdk])
+  );
 }
 
 /** Every module of either kind, registry first, then community by popularity. */

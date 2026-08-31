@@ -7,7 +7,12 @@ import {
   type ModuleIndex,
   type ModuleVersion,
 } from '../registry/index.ts';
-import { latestPerPlatform, type CommunityListing, type ModuleSummary } from './module-summary.ts';
+import {
+  latestPerPlatform,
+  type CommunityListing,
+  type ModuleSummary,
+  type PlatformLatest,
+} from './module-summary.ts';
 import {
   apiIndexAt,
   apiTypeAt,
@@ -161,26 +166,45 @@ export function externalSdkVersion(id: string, version: string): string | null {
 // ------------------------------------------------------------------- summaries
 
 /**
- * Everything the browse page shows, and nothing it does not.
+ * The current release per platform, carrying the SDK each one needs.
  *
- * `minsdk` and the licence come from each platform's manifest, which means one
- * release file read per platform per module. That is 30-odd reads at build
- * time and none at request time, since the browse page is prerendered and the
- * result travels to the client as props.
+ * `latestPerPlatform` cannot do this itself: it lives in the fs-free half of
+ * the library so the browse page's client bundle can import it, and `minsdk` is
+ * in the release manifest. One file read per platform per module, at build time
+ * only — every caller is prerendered.
  */
+export function latestReleases(index: ModuleIndex): PlatformLatest[] {
+  return latestPerPlatform(index).map((entry) => {
+    const minsdk = moduleRelease(index.moduleId, entry.version)?.manifests.find(
+      (m) => m.platform === entry.platform
+    )?.minsdk;
+    return minsdk ? { ...entry, minsdk } : entry;
+  });
+}
+
+/**
+ * The licences a module's platform manifests declare, deduplicated.
+ *
+ * A list rather than a value because two modules disagree with themselves:
+ * ti.identity says `Apache 2` on one platform and the unfilled scaffolding
+ * default on the other. See TI-66.
+ */
+function moduleLicenses(index: ModuleIndex): string[] {
+  const licenses = new Set<string>();
+  for (const { platform, version } of latestPerPlatform(index)) {
+    const license = moduleRelease(index.moduleId, version)?.manifests.find(
+      (m) => m.platform === platform
+    )?.license;
+    if (license) licenses.add(license);
+  }
+  return [...licenses].sort();
+}
+
+/** Everything the browse page shows, and nothing it does not. */
 export function moduleSummaries(): ModuleSummary[] {
   return moduleIds().flatMap((id) => {
     const index = moduleIndex(id);
     if (!index) return [];
-
-    const licenses = new Set<string>();
-    const latest = latestPerPlatform(index).map((entry) => {
-      const manifest = moduleRelease(id, entry.version)?.manifests.find(
-        (m) => m.platform === entry.platform
-      );
-      if (manifest?.license) licenses.add(manifest.license);
-      return manifest?.minsdk ? { ...entry, minsdk: manifest.minsdk } : entry;
-    });
 
     return [
       {
@@ -189,9 +213,9 @@ export function moduleSummaries(): ModuleSummary[] {
         description: index.description,
         curation: index.curation,
         repo: index.repo,
-        latest,
+        latest: latestReleases(index),
         releases: index.versions.length,
-        licenses: [...licenses].sort(),
+        licenses: moduleLicenses(index),
       },
     ];
   });
