@@ -78,8 +78,33 @@ function legacyApiRedirects() {
   ];
 }
 
+/**
+ * The public registry API (TI-55).
+ *
+ * Open CORS because reads are the entire surface and the CLI is not the only
+ * client. Cached hard because every one of these is a build artifact: the
+ * content only changes when a deploy replaces it, so a stale copy is never
+ * wrong for long and `stale-while-revalidate` means nobody waits on a miss.
+ */
+function registryApiHeaders() {
+  return [
+    {
+      source: '/registry/v1/:path*',
+      headers: [
+        { key: 'Access-Control-Allow-Origin', value: '*' },
+        { key: 'Access-Control-Allow-Methods', value: 'GET, HEAD, OPTIONS' },
+        {
+          key: 'Cache-Control',
+          value: 'public, max-age=300, s-maxage=3600, stale-while-revalidate=86400',
+        },
+      ],
+    },
+  ];
+}
+
 const nextConfig: NextConfig = {
   reactCompiler: true,
+  headers: registryApiHeaders,
   redirects: async () => {
     const rules = [...latestRedirects(), ...legacyApiRedirects()];
 
