@@ -89,7 +89,10 @@ function legacyApiRedirects() {
 function registryApiHeaders() {
   return [
     {
-      source: '/registry/v1/:path*',
+      // Both the versioned API and the legacy files the CLI still reads. The
+      // legacy paths are `/registry/*.json`, one segment deep, which is why
+      // this matches the whole prefix rather than only `/v1`.
+      source: '/registry/:path*',
       headers: [
         { key: 'Access-Control-Allow-Origin', value: '*' },
         { key: 'Access-Control-Allow-Methods', value: 'GET, HEAD, OPTIONS' },
