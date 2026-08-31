@@ -61,14 +61,16 @@ export default async function TypePage({ params }: PageProps<'/docs/sdk/[version
   if (!view) notFound();
 
   const base = `/docs/sdk/${resolved}`;
-  // Every type in this tree has a page of its own under `base`, so a reference
-  // is always a path. A module has to decide per reference; see moduleLinker.
-  const link = pathLinker(base);
-  const { type: api } = view;
-  const since = formatSince(api.since);
 
   // Already parsed and cached by generateStaticParams, so this is a map lookup.
   const types = sdkIndex(resolved)?.types ?? [];
+
+  // Every type with a page in this tree lives under `base`, so a reference to
+  // one is always a path — but not every name in a signature has a page, and
+  // linking the ones that do not produced 1,023 dead links. See pathLinker.
+  const link = pathLinker(base, new Set(types.map((t) => t.name)));
+  const { type: api } = view;
+  const since = formatSince(api.since);
   const subtypes = subtypesOf(types, api.name);
 
   const groups: TocGroup[] = [
@@ -131,14 +133,24 @@ export default async function TypePage({ params }: PageProps<'/docs/sdk/[version
           {!!api.inheritanceChain?.length && (
             <p className="mt-3 text-sm text-text-subtle">
               Extends{' '}
-              {api.inheritanceChain.map((parent, i) => (
-                <span key={parent}>
-                  {i > 0 && <span aria-hidden> ← </span>}
-                  <a href={`${base}/${parent}`} className="font-mono text-link hover:underline">
-                    {parent}
-                  </a>
-                </span>
-              ))}
+              {api.inheritanceChain.map((parent, i) => {
+                // Through the linker, not `${base}/${parent}`: a chain can end
+                // at a host built-in — assert.AssertionError extends `Error` —
+                // which is a real ancestor with no page in this tree.
+                const href = link(parent);
+                return (
+                  <span key={parent}>
+                    {i > 0 && <span aria-hidden> ← </span>}
+                    {href ? (
+                      <a href={href} className="font-mono text-link hover:underline">
+                        {parent}
+                      </a>
+                    ) : (
+                      <span className="font-mono">{parent}</span>
+                    )}
+                  </span>
+                );
+              })}
             </p>
           )}
 
