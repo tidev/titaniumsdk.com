@@ -25,7 +25,7 @@ export function Releases({ index, className = '' }: { index: ModuleIndex; classN
         Releases
       </h2>
 
-      <ul className="mt-4 divide-y divide-border border-t border-border">
+      <ul className="mt-4 divide-y divide-border">
         {index.versions.map((release) => {
           const date = formatDate(release.publishedAt);
           // `versions` entries are open-ended in the schema, so anything beyond

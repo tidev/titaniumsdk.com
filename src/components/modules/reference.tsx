@@ -47,7 +47,7 @@ export function TypeSection({
   const relative = imageBase ? { images: imageBase } : undefined;
 
   return (
-    <section aria-labelledby={api.name} className="mt-16 border-t border-border pt-8">
+    <section aria-labelledby={api.name} className="mt-8 border-t border-border pt-8">
       <h2
         id={api.name}
         className="scroll-mt-24 font-mono text-2xl font-semibold tracking-tight break-words"

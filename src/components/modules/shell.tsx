@@ -128,7 +128,12 @@ export function ModuleLayout({
               are already more than fit at 320px. */}
           <ul className="-mb-px flex gap-1 overflow-x-auto">
             {tabs.map((tab) => (
-              <li key={tab.id}>
+              // The anchor carries the underline, so it has to be as tall as
+              // the row: a flex item stretches, an inline-flex child of a plain
+              // li does not. Without this the tallest tab sets the row height
+              // and every other underline floats above the rule — which is what
+              // the count capsule did until it was made small enough to hide it.
+              <li key={tab.id} className="flex">
                 <Link
                   href={tab.href}
                   aria-current={tab.id === active ? 'page' : undefined}
@@ -140,7 +145,7 @@ export function ModuleLayout({
                 >
                   {tab.label}
                   {tab.count !== undefined && (
-                    <span className="rounded-full bg-surface-raised px-1.5 py-0.5 font-mono text-xs text-text-subtle">
+                    <span className="rounded-full bg-surface-raised px-1.5 py-0.5 font-mono text-2xs text-text-subtle">
                       {tab.count}
                     </span>
                   )}
