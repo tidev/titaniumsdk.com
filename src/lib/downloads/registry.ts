@@ -174,7 +174,15 @@ export function allReleases(): Release[] {
   );
 }
 
-function branchCounts(): Branches {
+/**
+ * The committed counts map, every key including the branches at zero.
+ *
+ * Exported for the legacy `registry/branches.json` compatibility surface, which
+ * has to answer with the same shape it always has. Everything on the site goes
+ * through `branchList` instead, which recomputes counts and drops what is not
+ * publishable.
+ */
+export function branchCounts(): Branches {
   return readJson(join(BUILDS_DIR, 'branches.json'), (v) => BranchesSchema.parse(v)) ?? {};
 }
 

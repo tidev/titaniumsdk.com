@@ -44,6 +44,30 @@ const ENDPOINTS: { path: string; title: string; body: React.ReactNode }[] = [
     title: 'One release',
     body: 'The platform manifests, and the archive to download for each platform.',
   },
+  {
+    path: '/registry/v1/releases',
+    title: 'SDK releases',
+    body: 'Every published Titanium SDK release — GA, release candidates and betas — with the per-OS archives.',
+  },
+  {
+    path: '/registry/v1/branches',
+    title: 'CI branches',
+    body: 'The branches with builds worth offering. Counts are recomputed rather than read from the committed map, because CI artifacts expire 90 days after their run.',
+  },
+  {
+    path: '/registry/v1/branches/{branch}',
+    title: 'CI builds',
+    body: 'One branch\u2019s builds. A build whose artifacts have expired is never listed — its download URL would 404.',
+  },
+];
+
+/** The paths the shipped CLI reads, which cannot change. */
+const LEGACY = [
+  '/registry/branches.json',
+  '/registry/{branch}.json',
+  '/registry/ga.json',
+  '/registry/rc.json',
+  '/registry/beta.json',
 ];
 
 export default function RegistryApiPage() {
@@ -86,13 +110,36 @@ export default function RegistryApiPage() {
         </p>
       </section>
 
+      <section aria-labelledby="compat" className="mt-12">
+        <h2 id="compat" className="text-xl font-semibold tracking-tight">
+          Compatibility paths
+        </h2>
+        <p className="mt-2 text-text-muted">
+          The Titanium CLI reads these, and older copies of it stay in use for years, so they keep
+          answering in their original shape — a bare array, or a bare object for the branch counts.
+          They are served rather than redirected: the CLI does not follow redirects. Prefer the
+          versioned endpoints above for anything new.
+        </p>
+        <ul className="mt-4 flex flex-wrap gap-2">
+          {LEGACY.map((path) => (
+            <li
+              key={path}
+              className="rounded-md border border-border px-2.5 py-1.5 font-mono text-xs text-text-muted"
+            >
+              {path}
+            </li>
+          ))}
+        </ul>
+      </section>
+
       <section aria-labelledby="resolution" className="mt-12">
         <h2 id="resolution" className="text-xl font-semibold tracking-tight">
           Resolving a version
         </h2>
         <p className="mt-2 text-text-muted">
           A Titanium module is not an npm package. Releases are per platform, and picking the wrong
-          one fails quietly rather than loudly, so these rules are part of the contract.
+          one fails quietly rather than loudly, so these rules are part of the contract. They apply
+          to modules; an SDK release is one build per OS and needs none of this.
         </p>
         <ul className="mt-4 space-y-2">
           {RESOLUTION_RULES.map((rule) => (
