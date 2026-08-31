@@ -1,5 +1,5 @@
 import { Releases } from '@/components/modules/releases';
-import { ModuleMasthead } from '@/components/modules/tabs';
+import { ModuleLayout } from '@/components/modules/shell';
 import { moduleIds, moduleIndex } from '@/lib/docs/modules';
 import { SITE_URL } from '@/lib/site';
 import type { Metadata } from 'next';
@@ -36,10 +36,8 @@ export default async function ModuleReleasesPage({
   if (!index) notFound();
 
   return (
-    <article className="max-w-4xl py-10">
-      <ModuleMasthead index={index} active="releases">
-        <Releases index={index} className="mt-8" />
-      </ModuleMasthead>
-    </article>
+    <ModuleLayout index={index} active="releases">
+      <Releases index={index} className="mt-8" />
+    </ModuleLayout>
   );
 }

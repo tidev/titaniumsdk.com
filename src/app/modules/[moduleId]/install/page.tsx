@@ -1,5 +1,5 @@
 import { Install } from '@/components/modules/install';
-import { ModuleMasthead } from '@/components/modules/tabs';
+import { ModuleLayout } from '@/components/modules/shell';
 import type { InstallRelease } from '@/lib/docs/install';
 import { latestPerPlatform } from '@/lib/docs/module-summary';
 import { moduleIds, moduleIndex, moduleRelease } from '@/lib/docs/modules';
@@ -53,17 +53,15 @@ export default async function ModuleInstallPage({
   }));
 
   return (
-    <article className="max-w-4xl py-10">
-      <ModuleMasthead index={index} active="install">
-        {releases.length ? (
-          <Install moduleId={moduleId} releases={releases} className="mt-10" />
-        ) : (
-          <p className="mt-10 text-text-muted">
-            The registry has no published archive for this module, so there is nothing to unpack.
-            Its repository is the place to look.
-          </p>
-        )}
-      </ModuleMasthead>
-    </article>
+    <ModuleLayout index={index} active="install">
+      {releases.length ? (
+        <Install moduleId={moduleId} releases={releases} className="mt-10" />
+      ) : (
+        <p className="mt-10 text-text-muted">
+          The registry has no published archive for this module, so there is nothing to unpack. Its
+          repository is the place to look.
+        </p>
+      )}
+    </ModuleLayout>
   );
 }

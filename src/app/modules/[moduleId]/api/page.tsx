@@ -1,8 +1,9 @@
 import { LegacyAnchor } from '@/components/docs/legacy-anchor';
 import { OnThisPage } from '@/components/docs/toc';
+import { PlatformChips } from '@/components/modules/badges';
 import { referenceToc, TypeSection } from '@/components/modules/reference';
-import { ModuleMasthead } from '@/components/modules/tabs';
-import { PLATFORM_LABELS, platformsAtVersion } from '@/lib/docs/module-summary';
+import { ModuleLayout } from '@/components/modules/shell';
+import { platformsAtVersion } from '@/lib/docs/module-summary';
 import { buildModuleReference, moduleLinker } from '@/lib/docs/module-view';
 import { moduleIds, moduleIndex, referenceVersions } from '@/lib/docs/modules';
 import { MAIN } from '@/lib/docs/registry';
@@ -53,51 +54,44 @@ export default async function ModuleApiPage({ params }: PageProps<'/modules/[mod
   const groups = reference ? referenceToc(reference) : [];
 
   return (
-    // Explicit placement rather than source order: the rail has to come second
-    // on screen, and first in the DOM would put it above the title on a phone.
-    <div className="xl:grid xl:grid-cols-[minmax(0,1fr)_14rem] xl:gap-8">
-      <article className="min-w-0 max-w-4xl py-10 xl:col-start-1 xl:row-start-1">
-        <LegacyAnchor />
+    <ModuleLayout index={index} active="api" rail={<OnThisPage groups={groups} className="mt-6" />}>
+      <LegacyAnchor />
 
-        <ModuleMasthead index={index} active="api">
-          {reference ? (
-            <section aria-labelledby="reference" className="mt-10">
-              <h2 id="reference" className="sr-only">
-                API reference
-              </h2>
-              <ReferenceSources index={index} moduleId={moduleId} versions={reference.sources} />
+      {reference ? (
+        <section aria-labelledby="reference" className="mt-10">
+          <h2 id="reference" className="sr-only">
+            API reference
+          </h2>
+          <ReferenceSources index={index} moduleId={moduleId} versions={reference.sources} />
 
-              {reference.types.map((view) => (
-                <TypeSection
-                  key={view.type.name}
-                  view={view}
-                  link={link}
-                  imageBase={`/docs/modules/${moduleId}/${reference.sources[0].version}/images`}
-                />
-              ))}
-            </section>
-          ) : (
-            <p className="mt-10 text-text-muted">
-              No compiled reference for this module yet. Its releases carry manifests and a README,
-              which is what the registry has.
-            </p>
-          )}
-        </ModuleMasthead>
-      </article>
-
-      <OnThisPage groups={groups} className="hidden py-10 xl:col-start-2 xl:row-start-1 xl:block" />
-    </div>
+          {reference.types.map((view) => (
+            <TypeSection
+              key={view.type.name}
+              view={view}
+              link={link}
+              imageBase={`/docs/modules/${moduleId}/${reference.sources[0].version}/images`}
+            />
+          ))}
+        </section>
+      ) : (
+        <p className="mt-10 text-text-muted">
+          No compiled reference for this module yet. Its releases carry manifests and a README,
+          which is what the registry has.
+        </p>
+      )}
+    </ModuleLayout>
   );
 }
 
 /**
- * Which releases the reference above was assembled from.
+ * Which releases the reference was assembled from.
  *
- * Every version is named with its platform. A bare "compiled from 5.7.0 and
- * 7.3.1" left the reader to work out which number belonged to which — and for
- * ti.map the iOS release is both the higher version and the older one, so the
- * obvious guess is wrong. This is the same `Android 5.7.0` idiom the latest
- * release block above uses, for the same reason.
+ * A labelled list rather than a sentence. "Compiled from 5.7.0 and 7.3.1, the
+ * newest release on each platform" made the reader match numbers to platforms
+ * from word order, and for ti.map the obvious guess is wrong twice over: the
+ * iOS release is the higher version *and* the older build. Set out as rows it
+ * needs no explaining, and it is the shape the version pages already use —
+ * version, then the platforms it shipped for.
  */
 function ReferenceSources({
   index,
@@ -118,24 +112,21 @@ function ReferenceSources({
   }
 
   return (
-    <p className="text-sm text-text-subtle">
-      Compiled from{' '}
-      {versions.map((source, i) => {
-        const platforms = platformsAtVersion(index, source.version);
-        return (
-          <span key={source.version}>
-            {i > 0 && ' and '}
-            {!!platforms.length && <>{platforms.map((p) => PLATFORM_LABELS[p]).join(' and ')} </>}
+    <div>
+      <p className="text-sm font-medium">Compiled from</p>
+      <ul className="mt-2 space-y-1.5">
+        {versions.map((source) => (
+          <li key={source.version} className="flex flex-wrap items-center gap-x-3 gap-y-1">
             <a
               href={`/modules/${moduleId}/v/${source.version}`}
-              className="font-mono text-link hover:underline"
+              className="font-mono text-sm text-link hover:underline"
             >
               {source.version}
             </a>
-          </span>
-        );
-      })}
-      {versions.length > 1 ? ' — the newest release on each platform.' : ' — the newest release.'}
-    </p>
+            <PlatformChips platforms={platformsAtVersion(index, source.version)} />
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
