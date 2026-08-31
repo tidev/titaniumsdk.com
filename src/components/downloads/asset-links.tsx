@@ -1,3 +1,4 @@
+import { OsIcon } from './os-icon';
 import { formatSize, OS_LABELS, sortAssets } from '@/lib/downloads/format';
 import type { Asset } from '@/lib/registry';
 
@@ -14,9 +15,14 @@ export function AssetLinks({ assets }: { assets: Asset[] }) {
         <li key={asset.url}>
           <a
             href={asset.url}
-            className="inline-flex items-baseline gap-1.5 rounded-md border border-border px-2.5 py-1.5 text-sm transition-colors hover:border-border-strong hover:text-link focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
+            // items-center, not items-baseline: an svg has no baseline of its
+            // own, so baseline alignment would drop the mark to sit on the
+            // text's descender line.
+            className="inline-flex items-center gap-1.5 rounded-md border border-border px-2.5 py-1.5 text-sm transition-colors hover:border-border-strong hover:text-link focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
           >
-            {/* An OS the registry has not published before still gets a link. */}
+            {/* An OS the registry has not published before still gets a link,
+                just without a mark in front of it. */}
+            <OsIcon os={asset.os} className="size-4" />
             <span className="font-medium">{OS_LABELS[asset.os] ?? asset.os}</span>
             <span className="font-mono text-xs text-text-subtle">{formatSize(asset.size)}</span>
           </a>

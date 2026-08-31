@@ -1,5 +1,13 @@
 import type { Build } from '../registry/index.ts';
-import { byDateDesc, liveBuilds, orderBranches, type BranchSummary } from './registry.ts';
+import {
+  byDateDesc,
+  isPublishedBranch,
+  liveBuilds,
+  orderBranches,
+  orderReleases,
+  type BranchSummary,
+  type Release,
+} from './registry.ts';
 import assert from 'node:assert/strict';
 import { describe, test } from 'node:test';
 
@@ -110,5 +118,72 @@ describe('orderBranches', () => {
       ordered.map((b) => b.name),
       ['main', '13_4_X']
     );
+  });
+});
+
+describe('orderReleases', () => {
+  const release = (name: string, channel: Release['channel']): Release => ({
+    ...build(name, '2020-01-01T00:00:00Z'),
+    channel,
+    prerelease: channel !== 'ga',
+  });
+
+  test('sorts by version, then the release above what it superseded', () => {
+    const ordered = orderReleases([
+      release('12.8.0.GA', 'ga'),
+      release('13.0.0.RC', 'rc'),
+      release('13.0.0.GA', 'ga'),
+      release('13.0.0.Beta', 'beta'),
+    ]);
+    assert.deepEqual(
+      ordered.map((r) => r.name),
+      ['13.0.0.GA', '13.0.0.RC', '13.0.0.Beta', '12.8.0.GA']
+    );
+  });
+
+  test('orders candidates within a channel, highest first', () => {
+    const ordered = orderReleases([
+      release('12.3.0.RC', 'rc'),
+      release('12.3.0.RC2', 'rc'),
+      release('12.3.0.GA', 'ga'),
+    ]);
+    assert.deepEqual(
+      ordered.map((r) => r.name),
+      ['12.3.0.GA', '12.3.0.RC2', '12.3.0.RC']
+    );
+  });
+
+  test('compares version parts as numbers, not text', () => {
+    // The registry's own `version` field is a string, where 13.10.0 sorts
+    // under 13.9.0. This is the reason the name is re-parsed.
+    const ordered = orderReleases([release('13.9.0.GA', 'ga'), release('13.10.0.GA', 'ga')]);
+    assert.deepEqual(
+      ordered.map((r) => r.name),
+      ['13.10.0.GA', '13.9.0.GA']
+    );
+  });
+
+  test('puts an unparseable name last rather than throwing', () => {
+    const ordered = orderReleases([release('nonsense', 'ga'), release('12.0.0.GA', 'ga')]);
+    assert.deepEqual(
+      ordered.map((r) => r.name),
+      ['12.0.0.GA', 'nonsense']
+    );
+  });
+});
+
+describe('isPublishedBranch', () => {
+  test('accepts main and the release lines', () => {
+    for (const name of ['main', '13_4_X', '12_6_x', '13_3_1']) {
+      assert.equal(isPublishedBranch(name), true, name);
+    }
+  });
+
+  test('rejects the working branches branches.json has accumulated', () => {
+    // Both are real keys inherited from the downloads-www registry. They are
+    // somebody's in-progress fix, not something to offer as a download.
+    for (const name of ['backport-14489-13_3_X', 'android34_12_6_X', 'master', '']) {
+      assert.equal(isPublishedBranch(name), false, name);
+    }
   });
 });

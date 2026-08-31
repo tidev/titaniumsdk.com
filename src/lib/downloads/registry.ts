@@ -25,6 +25,22 @@ const BUILDS_DIR = join(REGISTRY, 'builds');
 export const MAIN_BRANCH = 'main';
 
 /**
+ * Branches worth publishing: `main` and the release lines.
+ *
+ * `branches.json` also carries names the SDK's CI produced in passing —
+ * `backport-14489-13_3_X`, `android34_12_6_X` — which are work in progress on
+ * somebody's fix, not something to offer as a download. They reach the file
+ * because the generator merges into the counts it inherited and never drops a
+ * key, so a name that once qualified stays forever.
+ *
+ * Filtering on read means a stale key cannot resurface a branch, whatever the
+ * committed data says.
+ */
+const PUBLISHED_BRANCH = /^(main|\d+_\d+_(\d+|[Xx]))$/;
+
+export const isPublishedBranch = (name: string): boolean => PUBLISHED_BRANCH.test(name);
+
+/**
  * Newest first, matching what downloads-www lists. Release channels are
  * generated in version order and CI branches in run order, which agree with
  * publication date often enough to look right and not always.
@@ -33,17 +49,16 @@ export const CHANNELS = ['ga', 'rc', 'beta'] as const;
 
 export type Channel = (typeof CHANNELS)[number];
 
-export const CHANNEL_LABELS: Record<Channel, string> = {
-  ga: 'General Availability',
-  rc: 'Release Candidates',
-  beta: 'Betas',
-};
+/**
+ * GA first within a version: `13.0.0.RC1` is what `13.0.0.GA` superseded, so
+ * listing the release above the candidates it replaced is the order a reader
+ * needs. Across versions this rank never applies — 12.8.0.GA sorts below
+ * 13.0.0.Beta1 because 13 is the newer line.
+ */
+const CHANNEL_RANK: Record<Channel, number> = { ga: 0, rc: 1, beta: 2 };
 
-export const CHANNEL_BLURBS: Record<Channel, string> = {
-  ga: 'Stable and supported. Use these unless you have a reason not to.',
-  rc: 'Feature-complete builds published ahead of a GA. Fine for testing, not for the App Store.',
-  beta: 'Early builds published during a release cycle.',
-};
+/** A release with the channel it came from, for a list that merges all three. */
+export type Release = Build & { channel: Channel; prerelease: boolean };
 
 export type BranchSummary = {
   name: string;
@@ -90,9 +105,9 @@ export function liveBuilds(builds: readonly Build[], now = Date.now()): Build[] 
  * main first, then the branches with the most recent activity.
  *
  * `branches.json` is written in the generator's own order, which is neither
- * chronological nor alphabetical — 13_4_X currently sits after a backport
- * branch that predates it. Ordering here on the data means the rail reads the
- * same way whatever the generator does next.
+ * chronological nor alphabetical — it appends whatever the last sweep saw.
+ * Ordering here on the data means the rail reads the same way whatever the
+ * generator does next.
  */
 export function orderBranches(summaries: readonly BranchSummary[]): BranchSummary[] {
   return [...summaries].sort((a, b) => {
@@ -117,6 +132,48 @@ export function latestRelease(channel: Channel = 'ga'): Build | null {
   return releases(channel)[0] ?? null;
 }
 
+/**
+ * `13.4.1` from `13.4.1.RC2`, as four numbers to compare on.
+ *
+ * The registry carries a `version` field, but it is a string, so `13.10.0`
+ * would sort under `13.9.0` — and it does not hold the candidate number, which
+ * is what separates RC2 from RC1. A name that does not parse sorts last rather
+ * than throwing: it is a generator bug, not a reason to blank the page.
+ */
+const RELEASE_NAME = /^(\d+)\.(\d+)\.(\d+)\.(?:GA|RC|Beta)(\d*)$/i;
+
+function versionKey(name: string): [number, number, number, number] {
+  const m = RELEASE_NAME.exec(name);
+  if (!m) return [-1, -1, -1, -1];
+  return [Number(m[1]), Number(m[2]), Number(m[3]), m[4] ? Number(m[4]) : 0];
+}
+
+/** Newest version first, and within a version GA before its RCs and betas. */
+export function orderReleases(list: readonly Release[]): Release[] {
+  return [...list].sort((a, b) => {
+    const x = versionKey(a.name);
+    const y = versionKey(b.name);
+    return (
+      y[0] - x[0] ||
+      y[1] - x[1] ||
+      y[2] - x[2] ||
+      CHANNEL_RANK[a.channel] - CHANNEL_RANK[b.channel] ||
+      // RC2 above RC1, matching the version ordering above it.
+      y[3] - x[3] ||
+      a.name.localeCompare(b.name)
+    );
+  });
+}
+
+/** Every published release in one list, newest first. */
+export function allReleases(): Release[] {
+  return orderReleases(
+    CHANNELS.flatMap((channel) =>
+      releases(channel).map((build) => ({ ...build, channel, prerelease: channel !== 'ga' }))
+    )
+  );
+}
+
 function branchCounts(): Branches {
   return readJson(join(BUILDS_DIR, 'branches.json'), (v) => BranchesSchema.parse(v)) ?? {};
 }
@@ -134,7 +191,15 @@ function branchCounts(): Branches {
  * registry contains is worth closing on its own.
  */
 function knownBranch(branch: string): boolean {
-  return /^[\w.-]+$/.test(branch) && !/^\.+$/.test(branch) && Object.hasOwn(branchCounts(), branch);
+  // The name shape check stays: it is what stops a URL segment escaping the
+  // builds directory, and it is stricter than the publish filter, not implied
+  // by it.
+  return (
+    /^[\w.-]+$/.test(branch) &&
+    !/^\.+$/.test(branch) &&
+    isPublishedBranch(branch) &&
+    Object.hasOwn(branchCounts(), branch)
+  );
 }
 
 /** Live CI builds for one branch, newest first. Null when the branch is unknown. */
@@ -155,6 +220,7 @@ export function branchBuilds(branch: string, now = Date.now()): Build[] | null {
 export function branchList(now = Date.now()): BranchSummary[] {
   const summaries: BranchSummary[] = [];
   for (const name of Object.keys(branchCounts())) {
+    if (!isPublishedBranch(name)) continue;
     const builds = branchBuilds(name, now) ?? [];
     if (!builds.length && name !== MAIN_BRANCH) continue;
     summaries.push({ name, count: builds.length, latest: builds[0]?.date ?? null });

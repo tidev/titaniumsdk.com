@@ -1,22 +1,19 @@
 import { BuildList } from '@/components/downloads/build-list';
-import {
-  CHANNELS,
-  CHANNEL_BLURBS,
-  CHANNEL_LABELS,
-  latestRelease,
-  releases,
-  type Channel,
-} from '@/lib/downloads/registry';
+import { allReleases, latestRelease } from '@/lib/downloads/registry';
 import { SITE_URL } from '@/lib/site';
 import type { Metadata } from 'next';
 
 /**
- * Every published release, grouped by channel.
+ * Every published release in one list, newest version first.
  *
- * downloads-www merges the three channels into one list sorted by date, which
- * interleaves 13.0.0.RC with 12.8.0.GA and leaves a reader to work out which is
- * which from the version suffix. Grouping states it instead, and it is the only
- * arrangement in which an empty channel can say it is empty.
+ * downloads-www sorts the merged list by date, which is not the same order:
+ * a patch on an old line ships after the newer line's first GA, so 12.8.0 lands
+ * above 13.0.0. Sorting on the version puts a line and the candidates it
+ * replaced together, which is how anyone reading this actually navigates it.
+ *
+ * Prereleases are folded away rather than dropped: they are twelve of the
+ * eighty-three rows and almost nobody wants them, but the ones who do arrive
+ * looking for a specific RC.
  */
 
 export const metadata: Metadata = {
@@ -26,10 +23,14 @@ export const metadata: Metadata = {
   alternates: { canonical: `${SITE_URL}/downloads/releases` },
 };
 
+/** Ties the toggle to its label, and to the rows it folds away. */
+const TOGGLE_ID = 'show-prereleases';
+
 export default function ReleasesPage() {
-  const channels = CHANNELS.map((channel) => ({ channel, builds: releases(channel) }));
-  // Asked for by name rather than taken from the first channel, so reordering
-  // CHANNELS cannot quietly badge the newest RC instead.
+  const all = allReleases();
+  const prereleases = all.filter((r) => r.prerelease).length;
+  // Asked for by name rather than taken off the top of the list, so a future
+  // RC published above the newest GA cannot inherit the badge.
   const latest = latestRelease('ga')?.name;
 
   return (
@@ -40,50 +41,28 @@ export default function ReleasesPage() {
         into your Titanium SDK directory.
       </p>
 
-      <nav aria-label="Channels" className="mt-5 flex flex-wrap gap-2">
-        {channels.map(({ channel, builds }) => (
-          <a
-            key={channel}
-            href={`#channel-${channel}`}
-            className="rounded-md border border-border px-2.5 py-1.5 text-sm text-text-muted transition-colors hover:border-border-strong hover:text-link focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
-          >
-            {CHANNEL_LABELS[channel]}{' '}
-            <span className="font-mono text-xs text-text-subtle">{builds.length}</span>
-          </a>
-        ))}
-      </nav>
+      {/* A checkbox rather than a client component: the rows are server
+          rendered, and this way they stay reachable with JavaScript off — on a
+          page whose whole purpose is handing out files, that matters more than
+          the markup being pretty. The input has to be a sibling of everything
+          it drives, which is why it sits out here on its own. */}
+      <input id={TOGGLE_ID} type="checkbox" className="peer sr-only" />
 
-      {channels.map(({ channel, builds }) => (
-        <section key={channel} aria-labelledby={`channel-${channel}`} className="mt-12">
-          <h2
-            id={`channel-${channel}`}
-            className="scroll-mt-20 text-xl font-semibold tracking-tight"
-          >
-            {CHANNEL_LABELS[channel]}{' '}
-            <span className="font-mono text-sm font-normal text-text-subtle">{builds.length}</span>
-          </h2>
-          <p className="mt-1 text-sm text-text-muted">{CHANNEL_BLURBS[channel]}</p>
+      <label
+        htmlFor={TOGGLE_ID}
+        className="mt-5 inline-flex cursor-pointer items-center gap-1.5 rounded-md border border-border px-2.5 py-1.5 text-sm text-text-muted transition-colors select-none hover:border-border-strong hover:text-link peer-checked:[&_[data-off]]:hidden peer-checked:[&_[data-on]]:inline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-focus"
+      >
+        <span data-off>Show</span>
+        <span data-on className="hidden">
+          Hide
+        </span>
+        <span className="font-mono text-xs text-text-subtle">{prereleases}</span>
+        <span>release candidates and betas</span>
+      </label>
 
-          {builds.length ? (
-            <BuildList builds={builds} latest={channel === 'ga' ? latest : undefined} />
-          ) : (
-            <Empty channel={channel} />
-          )}
-        </section>
-      ))}
+      <div className="[&_[data-prerelease]]:hidden peer-checked:[&_[data-prerelease]]:block">
+        <BuildList builds={all} latest={latest} />
+      </div>
     </div>
-  );
-}
-
-/**
- * beta.json is empty today and has been for some time, so this is the state
- * the page is normally in rather than an edge case worth hiding.
- */
-function Empty({ channel }: { channel: Channel }) {
-  return (
-    <p className="mt-4 rounded-lg border border-dashed border-border px-4 py-6 text-sm text-text-subtle">
-      Nothing published in this channel right now. {CHANNEL_LABELS[channel]} appear here during a
-      release cycle.
-    </p>
   );
 }

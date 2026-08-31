@@ -16,14 +16,23 @@ export function BuildList({
   branch,
   latest,
 }: {
-  builds: Build[];
+  /**
+   * `prerelease` marks a row the releases page can fold away. It is rendered as
+   * a `data-prerelease` attribute and nothing else — which rows are visible is
+   * the page's business, not this component's.
+   */
+  builds: readonly (Build & { prerelease?: boolean })[];
   /** Set for CI builds, which the CLI can only install with `--branch`. */
   branch?: string;
   /** Name of the build to mark as current, if any is. */
   latest?: string;
 }) {
   return (
-    <ul className="mt-4 divide-y divide-border border-t border-border">
+    // The rule is on each row rather than `divide-y` on the list: a folded-away
+    // prerelease still counts for `:first-child`, so the divider would land in
+    // the wrong place — or double up against the list's own top border —
+    // whenever the hidden row happens to be the first one.
+    <ul className="mt-4">
       {builds.map((build) => (
         <BuildRow key={build.name} build={build} branch={branch} latest={build.name === latest} />
       ))}
@@ -31,12 +40,31 @@ export function BuildList({
   );
 }
 
-function BuildRow({ build, branch, latest }: { build: Build; branch?: string; latest: boolean }) {
+function BuildRow({
+  build,
+  branch,
+  latest,
+}: {
+  build: Build & { prerelease?: boolean };
+  branch?: string;
+  latest: boolean;
+}) {
   const expiresAt = build.expires ? Date.parse(build.expires) : Number.NaN;
 
   const body = (
     <>
-      <div className="mt-3 grid gap-3 lg:grid-cols-[minmax(0,26rem)_minmax(0,1fr)] lg:items-center">
+      {/* The command column takes the width of the command and no more, rather
+          than a fixed track sized by hand: a branch build carries `--branch
+          <name>` and a timestamped version, so the width depends on a branch
+          name nobody here controls. A fixed track set for today's longest name
+          is what put a scrollbar under the command. The `minmax(0,` floor lets
+          it shrink anyway when the viewport is the tighter constraint, at which
+          point the box scrolls on its own as designed.
+
+          The single column below `lg` is spelled out for the same reason: an
+          implicit grid column is `auto`, which sizes to the command and pushes
+          the page sideways on a phone rather than letting the box scroll. */}
+      <div className="mt-3 grid grid-cols-[minmax(0,1fr)] gap-3 lg:grid-cols-[minmax(0,max-content)_minmax(0,1fr)] lg:items-center">
         <InstallCommand
           command={installCommand(build.name, branch)}
           label={`Copy the install command for ${build.name}`}
@@ -57,7 +85,7 @@ function BuildRow({ build, branch, latest }: { build: Build; branch?: string; la
   );
 
   return (
-    <li className="py-5">
+    <li className="border-t border-border py-5" data-prerelease={build.prerelease ? '' : undefined}>
       <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
         <h3 className="font-mono text-base font-semibold break-all">{build.name}</h3>
         {latest && (
