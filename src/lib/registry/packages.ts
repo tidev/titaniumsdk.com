@@ -136,8 +136,43 @@ export const ModuleIndexSchema = z
   })
   .loose();
 
+/**
+ * A community module, which is a GitHub repository and nothing more.
+ *
+ * Strict, unlike the hand-written shapes above: this file is machine-generated
+ * from the search API, so an unexpected key is a generator bug rather than
+ * something a person added on purpose.
+ *
+ * Deliberately not `ModuleIndexSchema`. There is no module id, no version list
+ * and no manifest here, because none of that can be known without cloning the
+ * repo — see `scripts/generate-community-modules.ts`. Giving these the same
+ * shape would only make the two look interchangeable at the call site.
+ */
+export const CommunityModuleSchema = z.strictObject({
+  /** `owner/name`. The repository slug is the only stable key these have. */
+  id: z.string().min(1),
+  name: z.string().min(1),
+  owner: z.string().min(1),
+  ownerUrl: z.url(),
+  url: z.url(),
+  description: z.string().optional(),
+  platforms: z.array(PlatformSchema).min(1),
+  stars: z.number().int().nonnegative(),
+  archived: z.boolean(),
+  pushedAt: z.string(),
+});
+
+export const CommunityIndexSchema = z.strictObject({
+  $comment: z.string(),
+  source: z.strictObject({ query: z.string(), repos: z.number().int().nonnegative() }),
+  /** Most starred first. */
+  modules: z.array(CommunityModuleSchema),
+});
+
 export type SdkVersion = z.infer<typeof SdkVersionSchema>;
 export type ModuleManifest = z.infer<typeof ModuleManifestSchema>;
 export type ModuleVersion = z.infer<typeof ModuleVersionSchema>;
 export type ModuleIndex = z.infer<typeof ModuleIndexSchema>;
 export type Curation = z.infer<typeof CurationSchema>;
+export type CommunityModule = z.infer<typeof CommunityModuleSchema>;
+export type CommunityIndex = z.infer<typeof CommunityIndexSchema>;

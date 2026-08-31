@@ -1,4 +1,5 @@
 import {
+  CommunityIndexSchema,
   ModuleIndexSchema,
   ModuleVersionSchema,
   type ApiIndex,
@@ -6,7 +7,7 @@ import {
   type ModuleIndex,
   type ModuleVersion,
 } from '../registry/index.ts';
-import { latestPerPlatform, type ModuleSummary } from './module-summary.ts';
+import { latestPerPlatform, type CommunityListing, type ModuleSummary } from './module-summary.ts';
 import {
   apiIndexAt,
   apiTypeAt,
@@ -166,6 +167,7 @@ export function moduleSummaries(): ModuleSummary[] {
     if (!index) return [];
     return [
       {
+        source: 'registry' as const,
         id,
         description: index.description,
         curation: index.curation,
@@ -175,6 +177,20 @@ export function moduleSummaries(): ModuleSummary[] {
       },
     ];
   });
+}
+
+/**
+ * The community index, or nothing if it has not been generated.
+ *
+ * Absence is not an error: `pnpm registry:community` needs a GitHub token, so a
+ * checkout that has never run it still builds — with the curated modules only.
+ */
+export function communityListings(): CommunityListing[] {
+  const path = join(MODULES_DIR, 'community.json');
+  if (!existsSync(path)) return [];
+
+  const parsed = CommunityIndexSchema.parse(JSON.parse(readFileSync(path, 'utf8')));
+  return parsed.modules.map((m) => ({ source: 'community' as const, ...m }));
 }
 
 /**
@@ -192,4 +208,25 @@ export function referenceVersions(id: string, index: ModuleIndex): string[] {
     .sort(compareVersions);
   if (released.length) return released;
   return moduleHasDocs(id, MAIN) ? [MAIN] : [];
+}
+
+/**
+ * Where a README's relative links and images resolve to.
+ *
+ * The README is third-party markdown written against a repository checkout, so
+ * its relative paths point at files this domain does not serve. `HEAD` rather
+ * than a branch name: the registry records which commit the docs were compiled
+ * from, but not which one the README was read at, and GitHub resolves HEAD to
+ * the default branch whatever it is called.
+ */
+export function readmeRelativeBase(
+  index: ModuleIndex
+): { images: string; links: string } | undefined {
+  const slug = index.repo?.replace(/^https:\/\/github\.com\//, '').replace(/\.git$/, '');
+  if (!slug) return undefined;
+
+  return {
+    images: `https://raw.githubusercontent.com/${slug}/HEAD`,
+    links: `https://github.com/${slug}/blob/HEAD`,
+  };
 }

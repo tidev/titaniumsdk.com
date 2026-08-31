@@ -3,28 +3,42 @@ import { PLATFORM_LABELS, type PlatformLatest } from '@/lib/docs/module-summary'
 import type { Curation } from '@/lib/registry';
 
 /**
- * Who stands behind a module.
+ * What backs a module, which is not the same as who owns it.
  *
- * Everything in the registry is `tidev` today, so this says almost nothing yet
- * — but the schema has three values and a community tree is the point of the
- * field, so the page reads it rather than assuming.
+ * The badge said "TiDev" and was read as a statement about the owner. It never
+ * was: `tidev` means the module is curated here, with verified releases and a
+ * compiled reference, and the giveaway is tidev/ti.worker — a TiDev repository
+ * that nothing on this site documents, so it lists as community. Naming the
+ * status rather than the org is what makes the two readable together.
  */
 const CURATION: Record<Curation, { label: string; className: string; title: string }> = {
   tidev: {
-    label: 'TiDev',
+    label: 'Official',
     className: 'border-success text-success',
-    title: 'Published and maintained by TiDev',
+    title: 'Maintained by TiDev: verified releases and a compiled API reference here',
   },
   community: {
     label: 'Community',
     className: 'border-border-strong text-text-subtle',
-    title: 'Published by the community',
+    title: 'Published on GitHub by its author; not documented here',
   },
   unverified: {
     label: 'Unverified',
     className: 'border-warning text-warning',
     title: 'Not reviewed by TiDev',
   },
+};
+
+/**
+ * The card stripe, keyed to the same three values as the badge.
+ *
+ * A background on a pseudo-element rather than `border-l-*`: the card's border
+ * changes colour on hover, and a left border would be overwritten by it.
+ */
+export const CURATION_STRIPE: Record<Curation, string> = {
+  tidev: 'before:bg-success',
+  community: 'before:bg-border-strong',
+  unverified: 'before:bg-warning',
 };
 
 export function CurationBadge({ curation }: { curation: Curation }) {

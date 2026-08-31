@@ -1,10 +1,15 @@
 import { Browse } from '@/components/modules/browse';
-import { moduleSummaries } from '@/lib/docs/modules';
+import { communityListings, moduleSummaries } from '@/lib/docs/modules';
 import { SITE_URL } from '@/lib/site';
 import type { Metadata } from 'next';
 
 /**
- * Every module in the registry.
+ * Every module anyone has published, of either kind.
+ *
+ * The curated ones have pages here. The community ones are GitHub repositories
+ * carrying the `titanium` topic, which is the closest thing Titanium has to a
+ * module registry — the list is what tidev/module-search-www served, taken over
+ * so there is one place to look rather than two.
  *
  * Read from `registry/modules/` on disk — no network at build time, which is
  * what keeps rebuilds fast and preview deploys reproducible.
@@ -18,19 +23,22 @@ export const metadata: Metadata = {
 };
 
 export default function ModulesIndex() {
-  const modules = moduleSummaries();
-  const releases = modules.reduce((n, m) => n + m.releases, 0);
+  const official = moduleSummaries();
+  const community = communityListings();
+  const releases = official.reduce((n, m) => n + m.releases, 0);
 
   return (
     <div className="max-w-5xl py-10">
       <h1 className="text-3xl font-semibold tracking-tight">Modules</h1>
       <p className="mt-3 max-w-2xl text-text-muted">
         Native functionality Titanium does not ship in the core SDK, packaged per platform.{' '}
-        {modules.length} modules, {releases.toLocaleString()} releases. Each one is listed under the
-        id you write in <code className="font-mono">tiapp.xml</code>.
+        <strong className="font-medium text-text">{official.length} official modules</strong> are
+        documented here, with {releases.toLocaleString()} releases between them and an API reference
+        for each. Another {community.length} are published by the community on GitHub and link
+        straight to their repositories.
       </p>
 
-      <Browse modules={modules} />
+      <Browse modules={[...official, ...community]} />
     </div>
   );
 }
