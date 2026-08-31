@@ -214,6 +214,33 @@
   --edge-bottom: rgb(0 0 0 / 0.35);
 }
 
+/* ------------------------------------------------------------ affordances
+
+   Tailwind's preflight resets buttons to `cursor: default`, following the
+   browser's own default for `<button>`. That is correct for a native form
+   control and wrong for everything this site uses a button for, so the pointer
+   is put back here rather than remembered as a class on every call site.
+
+   Everything a reader can click is listed: the `<label>` rule covers the
+   controls that wrap their own checkbox, and the WebKit pseudo-element is the
+   clear affordance a `type="search"` input draws for itself, which no class
+   can reach.
+*/
+@layer base {
+  button:not(:disabled),
+  [role='button']:not([aria-disabled='true']),
+  [role='radio']:not([aria-disabled='true']),
+  summary,
+  label:has(input:is([type='checkbox'], [type='radio'])),
+  input:is([type='checkbox'], [type='radio']):not(:disabled) {
+    cursor: pointer;
+  }
+
+  input[type='search']::-webkit-search-cancel-button {
+    cursor: pointer;
+  }
+}
+
 @utility surface-metal {
   background-color: var(--color-surface);
   background-image: var(--grain);
@@ -237,6 +264,11 @@
   /* Each size needs its paired --text-*--line-height. Tailwind's utilities
      reference it directly, so a size without one silently falls back to the
      inherited line-height and every text box ends up the wrong height. */
+  /* Below xs, for counts and other numerals riding alongside a label. Not a
+     size for prose — it exists so a badge can sit inside a line of text
+     without setting that line's height. */
+  --text-2xs: 0.6875rem;
+  --text-2xs--line-height: 1.4;
   --text-xs: 0.75rem;
   --text-xs--line-height: 1.5;
   --text-sm: 0.8125rem;

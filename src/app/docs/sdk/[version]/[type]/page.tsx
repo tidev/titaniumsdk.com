@@ -3,9 +3,17 @@ import { Breadcrumbs } from '@/components/docs/breadcrumbs';
 import { LegacyAnchor } from '@/components/docs/legacy-anchor';
 import { MemberSection } from '@/components/docs/member-section';
 import { Prose } from '@/components/docs/prose';
-import { OnThisPage, SectionJump, type TocGroup } from '@/components/docs/toc';
+import { OnThisPage, SectionJump, jumpLinks, type TocGroup } from '@/components/docs/toc';
 import { formatSince } from '@/lib/docs/format';
-import { sdkIndex, sdkVersions, resolveVersion, sourceUrl, MAIN } from '@/lib/docs/registry';
+import { anchorFor, pathLinker } from '@/lib/docs/links';
+import {
+  sdkIndex,
+  sdkType,
+  sdkVersions,
+  resolveVersion,
+  sourceUrl,
+  MAIN,
+} from '@/lib/docs/registry';
 import { crumbsFor, subtypesOf } from '@/lib/docs/tree';
 import { buildTypeView } from '@/lib/docs/type-view';
 import { SITE_URL } from '@/lib/site';
@@ -32,7 +40,7 @@ export async function generateMetadata({
 }: PageProps<'/docs/sdk/[version]/[type]'>): Promise<Metadata> {
   const { version, type } = await params;
   const resolved = resolveVersion(version);
-  const view = resolved && buildTypeView(resolved, type);
+  const view = resolved && buildTypeView((name) => sdkType(resolved, name), type);
   if (!view) return {};
 
   return {
@@ -49,10 +57,13 @@ export default async function TypePage({ params }: PageProps<'/docs/sdk/[version
   const resolved = resolveVersion(version);
   if (!resolved) notFound();
 
-  const view = buildTypeView(resolved, type);
+  const view = buildTypeView((name) => sdkType(resolved, name), type);
   if (!view) notFound();
 
   const base = `/docs/sdk/${resolved}`;
+  // Every type in this tree has a page of its own under `base`, so a reference
+  // is always a path. A module has to decide per reference; see moduleLinker.
+  const link = pathLinker(base);
   const { type: api } = view;
   const since = formatSince(api.since);
 
@@ -61,11 +72,16 @@ export default async function TypePage({ params }: PageProps<'/docs/sdk/[version
   const subtypes = subtypesOf(types, api.name);
 
   const groups: TocGroup[] = [
-    { id: 'properties', title: 'Properties', members: view.properties },
-    { id: 'methods', title: 'Methods', members: view.methods },
-    { id: 'events', title: 'Events', members: view.events },
+    { id: 'properties', title: 'Properties', members: view.properties, anchor: anchorFor },
+    { id: 'methods', title: 'Methods', members: view.methods, anchor: anchorFor },
+    { id: 'events', title: 'Events', members: view.events, anchor: anchorFor },
   ];
-  const hasExamples = !!api.examples?.length;
+  // Examples are a section of this page in their own right; the member groups
+  // come from the same list the rail renders.
+  const links = jumpLinks(
+    groups,
+    api.examples?.length ? [{ id: 'examples', title: 'Examples' }] : []
+  );
 
   // apidoc images sit beside the YAML, so relative references resolve against
   // the source file's own directory.
@@ -81,7 +97,16 @@ export default async function TypePage({ params }: PageProps<'/docs/sdk/[version
         {/* Legacy /api deep links slugged anchors to lowercase; see the component. */}
         <LegacyAnchor />
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-          <Breadcrumbs crumbs={crumbsFor(types, api.name)} base={base} />
+          <Breadcrumbs
+            crumbs={[
+              { label: 'SDK reference', href: base },
+              ...crumbsFor(types, api.name).map((crumb) => ({
+                label: crumb.label,
+                href: crumb.name && `${base}/${crumb.name}`,
+                mono: true,
+              })),
+            ]}
+          />
           {resolved === MAIN && (
             <span className="rounded border border-warning px-1.5 py-0.5 text-xs text-warning">
               unreleased
@@ -124,29 +149,30 @@ export default async function TypePage({ params }: PageProps<'/docs/sdk/[version
               <p className="text-sm font-medium text-danger">
                 Deprecated{api.deprecated.since ? ` since ${api.deprecated.since}` : ''}
               </p>
-              <Prose markdown={api.deprecated.notes} base={base} className="mt-1 text-sm" />
+              <Prose markdown={api.deprecated.notes} link={link} className="mt-1 text-sm" />
             </div>
           )}
 
           {/* Stands in for the rail below xl. Above the prose rather than after
               it: `Titanium.UI.View`'s description alone runs past ten screens,
               and a jump list you have to read the page to reach is not one. */}
-          <SectionJump
-            groups={groups}
-            hasExamples={hasExamples}
-            className="mt-4 border-y border-border py-3 xl:hidden"
-          />
+          <SectionJump links={links} className="mt-4 border-y border-border py-3 xl:hidden" />
 
           <Prose
             markdown={api.summary}
-            base={base}
-            imageBase={imageBase}
+            link={link}
+            relative={{ images: imageBase }}
             className="mt-4 text-lg"
           />
-          <Prose markdown={api.description} base={base} imageBase={imageBase} className="mt-4" />
+          <Prose
+            markdown={api.description}
+            link={link}
+            relative={{ images: imageBase }}
+            className="mt-4"
+          />
         </header>
 
-        {hasExamples && (
+        {!!api.examples?.length && (
           <section aria-labelledby="examples" className="mt-12">
             <h2 id="examples" className="scroll-mt-24 text-2xl font-semibold tracking-tight">
               Examples
@@ -154,7 +180,7 @@ export default async function TypePage({ params }: PageProps<'/docs/sdk/[version
             {api.examples?.map((ex, i) => (
               <div key={i} className="mt-4">
                 {ex.title && <h3 className="text-sm font-medium">{ex.title}</h3>}
-                <Prose markdown={ex.code} base={base} className="mt-2" />
+                <Prose markdown={ex.code} link={link} className="mt-2" />
               </div>
             ))}
           </section>
@@ -166,7 +192,8 @@ export default async function TypePage({ params }: PageProps<'/docs/sdk/[version
             id={group.id}
             title={group.title}
             members={group.members}
-            base={base}
+            link={link}
+            anchor={group.anchor}
             typePlatforms={api.platforms}
           />
         ))}
@@ -194,8 +221,8 @@ export default async function TypePage({ params }: PageProps<'/docs/sdk/[version
       </article>
 
       <OnThisPage
+        links={api.examples?.length ? [{ id: 'examples', title: 'Examples' }] : []}
         groups={groups}
-        hasExamples={hasExamples}
         className="hidden py-10 xl:col-start-2 xl:row-start-1 xl:block"
       />
     </div>

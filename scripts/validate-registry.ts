@@ -4,6 +4,7 @@ import {
   BranchesSchema,
   BuildListSchema,
   PrunedListSchema,
+  CommunityIndexSchema,
   ModuleIndexSchema,
   ModuleVersionSchema,
   SdkVersionSchema,
@@ -52,6 +53,10 @@ function schemaFor(rel: string): ZodType | null {
   }
 
   if (parts[0] === 'modules') {
+    // The community index sits beside the curated directories rather than in
+    // one of them: it describes repos this site does not host pages for.
+    if (parts.length === 2 && file === 'community.json') return CommunityIndexSchema;
+
     // modules/<id>/index.json describes the package: versions, platforms, repo.
     // modules/<id>/<version>/index.json is the compiled API reference for one
     // version. Same filename, different schema — distinguished by depth, since
