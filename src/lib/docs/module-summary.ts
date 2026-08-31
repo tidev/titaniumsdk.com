@@ -85,6 +85,17 @@ export function orderListings(listings: readonly ModuleListing[]): ModuleListing
 }
 
 /**
+ * The platforms a given version is the current release for.
+ *
+ * Usually one. A publisher who ships a single universal archive makes the same
+ * version current on both, and the docs page has to say "Android and iOS 5.7.0"
+ * rather than naming it twice.
+ */
+export function platformsAtVersion(index: ModuleIndex, version: string): Platform[] {
+  return PLATFORM_ORDER.filter((p) => index.latest[p] === version);
+}
+
+/**
  * The newest release per platform, in platform order.
  *
  * Never collapsed to one winner. ti.map's newest release is android 5.7.0 from

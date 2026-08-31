@@ -19,33 +19,34 @@ import Link from 'next/link';
  * A tab is never hidden for being empty. A module with no compiled reference
  * still has an API Docs tab, which says so — navigation that changes shape from
  * module to module is harder to trust than a tab that admits it has nothing.
+ *
+ * Only Versions is counted, and it reads "80 Versions" the way npm's does. A
+ * count against API Docs was a type total, which nobody could be expected to
+ * guess from a bare number sitting next to the word "Docs".
  */
 
-export type ModuleTab = 'readme' | 'api' | 'versions';
+export type ModuleTab = 'readme' | 'install' | 'api' | 'versions';
 
 export function ModuleMasthead({
   index,
   active,
-  types,
   children,
 }: {
   index: ModuleIndex;
   active: ModuleTab;
-  /** Compiled type count, shown against the API Docs tab. */
-  types?: number;
   children?: React.ReactNode;
 }) {
   const moduleId = index.moduleId;
   const latest = latestPerPlatform(index);
 
-  const tabs: { id: ModuleTab; href: string; label: string; count?: number }[] = [
+  const tabs: { id: ModuleTab; href: string; label: string }[] = [
     { id: 'readme', href: `/modules/${moduleId}`, label: 'Readme' },
-    { id: 'api', href: `/modules/${moduleId}/api`, label: 'API Docs', count: types },
+    { id: 'install', href: `/modules/${moduleId}/install`, label: 'Install' },
+    { id: 'api', href: `/modules/${moduleId}/api`, label: 'API Docs' },
     {
       id: 'versions',
       href: `/modules/${moduleId}/versions`,
-      label: 'Versions',
-      count: index.versions.length,
+      label: `${index.versions.length} Versions`,
     },
   ];
 
@@ -86,9 +87,6 @@ export function ModuleMasthead({
                 }`}
               >
                 {tab.label}
-                {!!tab.count && (
-                  <span className="ml-1.5 font-mono text-xs text-text-subtle">{tab.count}</span>
-                )}
               </Link>
             </li>
           ))}

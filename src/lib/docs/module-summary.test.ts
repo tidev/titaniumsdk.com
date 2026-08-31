@@ -1,6 +1,7 @@
 import {
   listingPlatforms,
   orderListings,
+  platformsAtVersion,
   type CommunityListing,
   type ModuleListing,
   type ModuleSummary,
@@ -90,5 +91,31 @@ describe('listingPlatforms', () => {
 
   test('reads a community module from its detected directories', () => {
     assert.deepEqual(listingPlatforms(community('a/one', 0, false, ['ios'])), ['ios']);
+  });
+});
+
+describe('platformsAtVersion', () => {
+  const index = (latest: Record<string, string>) =>
+    ({ latest }) as unknown as Parameters<typeof platformsAtVersion>[0];
+
+  test('names the one platform a version is current on', () => {
+    assert.deepEqual(platformsAtVersion(index({ android: '5.7.0', ios: '7.3.1' }), '7.3.1'), [
+      'ios',
+    ]);
+  });
+
+  test('names both when one archive is current on both', () => {
+    // No module in the registry ships this way today, but a publisher who
+    // releases a single universal zip makes the same version current on both,
+    // and the docs line has to read "Android and iOS 5.7.0" rather than
+    // repeating the number.
+    assert.deepEqual(platformsAtVersion(index({ android: '5.7.0', ios: '5.7.0' }), '5.7.0'), [
+      'android',
+      'ios',
+    ]);
+  });
+
+  test('names nothing for a version that is no longer current', () => {
+    assert.deepEqual(platformsAtVersion(index({ android: '5.7.0' }), '4.0.0'), []);
   });
 });

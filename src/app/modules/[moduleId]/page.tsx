@@ -1,28 +1,24 @@
 import { LegacyAnchor } from '@/components/docs/legacy-anchor';
 import { Prose } from '@/components/docs/prose';
-import { Install } from '@/components/modules/install';
 import { ModuleMasthead } from '@/components/modules/tabs';
-import type { InstallRelease } from '@/lib/docs/install';
-import { latestPerPlatform } from '@/lib/docs/module-summary';
 import { buildModuleReference, moduleLinker } from '@/lib/docs/module-view';
 import {
   moduleAliases,
   moduleIds,
   moduleIndex,
   moduleReadme,
-  moduleRelease,
+  readmeRelativeBase,
   referenceVersions,
 } from '@/lib/docs/modules';
-import { readmeRelativeBase } from '@/lib/docs/modules';
 import { SITE_URL } from '@/lib/site';
 import type { Metadata } from 'next';
 import { notFound, permanentRedirect } from 'next/navigation';
 
 /**
- * A module's front page: how to install it, and what its authors wrote about it.
+ * What a module's authors wrote about it, rendered as written.
  *
- * The reference and the release list are their own routes — see
- * `components/modules/tabs.tsx` for why.
+ * The install steps, the reference and the release list are each their own
+ * route — see `components/modules/tabs.tsx` for why.
  *
  * Everything is read from `registry/modules/` on disk — no network at build
  * time, which is what keeps rebuilds fast and preview deploys reproducible.
@@ -63,16 +59,6 @@ export default async function ModulePage({ params }: PageProps<'/modules/[module
   if (!index) notFound();
 
   const readme = moduleReadme(moduleId);
-  const latest = latestPerPlatform(index);
-
-  // The archives to unpack are the latest release on each platform, which is
-  // not one release: each platform's newest is downloaded separately unless the
-  // publisher shipped one universal zip.
-  const installReleases: InstallRelease[] = latest.map(({ platform, version }) => ({
-    platform,
-    version,
-    asset: moduleRelease(moduleId, version)?.assets.find((a) => a.platform === platform),
-  }));
 
   // Only so the readme's `api:` references resolve to the reference tab; the
   // types themselves are rendered there, not here.
@@ -85,11 +71,9 @@ export default async function ModulePage({ params }: PageProps<'/modules/[module
           slugged its anchors to lowercase. See the component. */}
       <LegacyAnchor />
 
-      <ModuleMasthead index={index} active="readme" types={reference?.types.length}>
-        <Install moduleId={moduleId} releases={installReleases} className="mt-10 scroll-mt-24" />
-
+      <ModuleMasthead index={index} active="readme">
         {readme ? (
-          <section aria-labelledby="readme" className="mt-16">
+          <section aria-labelledby="readme" className="mt-10">
             <h2 id="readme" className="scroll-mt-24 text-2xl font-semibold tracking-tight">
               Readme
             </h2>
@@ -104,7 +88,7 @@ export default async function ModulePage({ params }: PageProps<'/modules/[module
             />
           </section>
         ) : (
-          <section aria-labelledby="readme" className="mt-16">
+          <section aria-labelledby="readme" className="mt-10">
             <h2 id="readme" className="scroll-mt-24 text-2xl font-semibold tracking-tight">
               Readme
             </h2>

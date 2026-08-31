@@ -1,7 +1,6 @@
 import { Releases } from '@/components/modules/releases';
 import { ModuleMasthead } from '@/components/modules/tabs';
-import { buildModuleReference } from '@/lib/docs/module-view';
-import { moduleIds, moduleIndex, referenceVersions } from '@/lib/docs/modules';
+import { moduleIds, moduleIndex } from '@/lib/docs/modules';
 import { SITE_URL } from '@/lib/site';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
@@ -36,12 +35,9 @@ export default async function ModuleVersionsPage({
   const index = moduleIndex(moduleId);
   if (!index) notFound();
 
-  // Only for the tab's type count — the reference itself is a route away.
-  const reference = buildModuleReference(moduleId, referenceVersions(moduleId, index));
-
   return (
     <article className="max-w-4xl py-10">
-      <ModuleMasthead index={index} active="versions" types={reference?.types.length}>
+      <ModuleMasthead index={index} active="versions">
         <Releases index={index} className="mt-10" />
       </ModuleMasthead>
     </article>

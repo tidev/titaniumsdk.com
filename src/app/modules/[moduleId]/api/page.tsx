@@ -2,9 +2,11 @@ import { LegacyAnchor } from '@/components/docs/legacy-anchor';
 import { OnThisPage } from '@/components/docs/toc';
 import { referenceToc, TypeSection } from '@/components/modules/reference';
 import { ModuleMasthead } from '@/components/modules/tabs';
+import { PLATFORM_LABELS, platformsAtVersion } from '@/lib/docs/module-summary';
 import { buildModuleReference, moduleLinker } from '@/lib/docs/module-view';
 import { moduleIds, moduleIndex, referenceVersions } from '@/lib/docs/modules';
 import { MAIN } from '@/lib/docs/registry';
+import type { ModuleIndex } from '@/lib/registry';
 import { SITE_URL } from '@/lib/site';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
@@ -57,13 +59,13 @@ export default async function ModuleApiPage({ params }: PageProps<'/modules/[mod
       <article className="min-w-0 max-w-4xl py-10 xl:col-start-1 xl:row-start-1">
         <LegacyAnchor />
 
-        <ModuleMasthead index={index} active="api" types={reference?.types.length}>
+        <ModuleMasthead index={index} active="api">
           {reference ? (
             <section aria-labelledby="reference" className="mt-10">
               <h2 id="reference" className="sr-only">
                 API reference
               </h2>
-              <ReferenceSources moduleId={moduleId} versions={reference.sources} />
+              <ReferenceSources index={index} moduleId={moduleId} versions={reference.sources} />
 
               {reference.types.map((view) => (
                 <TypeSection
@@ -91,36 +93,49 @@ export default async function ModuleApiPage({ params }: PageProps<'/modules/[mod
 /**
  * Which releases the reference above was assembled from.
  *
- * Worth saying out loud: the two versions listed are usually months apart and
- * describe different platforms, and a reader who assumes one number covers both
- * will pick the wrong one.
+ * Every version is named with its platform. A bare "compiled from 5.7.0 and
+ * 7.3.1" left the reader to work out which number belonged to which — and for
+ * ti.map the iOS release is both the higher version and the older one, so the
+ * obvious guess is wrong. This is the same `Android 5.7.0` idiom the latest
+ * release block above uses, for the same reason.
  */
 function ReferenceSources({
+  index,
   moduleId,
   versions,
 }: {
+  index: ModuleIndex;
   moduleId: string;
   versions: { version: string }[];
 }) {
-  const development = versions.some((v) => v.version === MAIN);
+  if (versions.some((v) => v.version === MAIN)) {
+    return (
+      <p className="text-sm text-text-subtle">
+        Compiled from the development branch. No released version of this module has a compiled
+        reference yet.
+      </p>
+    );
+  }
 
   return (
     <p className="text-sm text-text-subtle">
-      {development ? 'Compiled from the development branch — ' : 'Compiled from '}
-      {versions.map((source, i) => (
-        <span key={source.version}>
-          {i > 0 && ' and '}
-          <a
-            href={`/modules/${moduleId}/v/${source.version}`}
-            className="font-mono text-link hover:underline"
-          >
-            {source.version}
-          </a>
-        </span>
-      ))}
-      {development
-        ? '. No released version of this module has a compiled reference yet.'
-        : ', the newest release on each platform.'}
+      Compiled from{' '}
+      {versions.map((source, i) => {
+        const platforms = platformsAtVersion(index, source.version);
+        return (
+          <span key={source.version}>
+            {i > 0 && ' and '}
+            {!!platforms.length && <>{platforms.map((p) => PLATFORM_LABELS[p]).join(' and ')} </>}
+            <a
+              href={`/modules/${moduleId}/v/${source.version}`}
+              className="font-mono text-link hover:underline"
+            >
+              {source.version}
+            </a>
+          </span>
+        );
+      })}
+      {versions.length > 1 ? ' — the newest release on each platform.' : ' — the newest release.'}
     </p>
   );
 }
