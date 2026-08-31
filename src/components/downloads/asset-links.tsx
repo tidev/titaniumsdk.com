@@ -18,7 +18,7 @@ export function AssetLinks({ assets }: { assets: Asset[] }) {
             // items-center, not items-baseline: an svg has no baseline of its
             // own, so baseline alignment would drop the mark to sit on the
             // text's descender line.
-            className="inline-flex items-center gap-1.5 rounded-md border border-border px-2.5 py-1.5 text-sm transition-colors hover:border-border-strong hover:text-link focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
+            className="inline-flex h-8.5 items-center gap-1.5 rounded-md border border-border px-2.5 text-sm transition-colors hover:border-border-strong hover:text-link focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
           >
             {/* An OS the registry has not published before still gets a link,
                 just without a mark in front of it. */}

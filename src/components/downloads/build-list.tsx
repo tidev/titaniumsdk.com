@@ -53,24 +53,25 @@ function BuildRow({
 
   const body = (
     <>
-      {/* The command column takes the width of the command and no more, rather
-          than a fixed track sized by hand: a branch build carries `--branch
-          <name>` and a timestamped version, so the width depends on a branch
-          name nobody here controls. A fixed track set for today's longest name
-          is what put a scrollbar under the command. The `minmax(0,` floor lets
-          it shrink anyway when the viewport is the tighter constraint, at which
-          point the box scrolls on its own as designed.
+      {/* Wrap, rather than two columns. A grid gives the archives whatever is
+          left over once the command has taken what it needs, and a CI build's
+          command is long enough that what is left is narrower than three chips
+          — so they stacked into a column. Here the chips are one item that
+          either fits beside the command or moves to its own line intact.
 
-          The single column below `lg` is spelled out for the same reason: an
-          implicit grid column is `auto`, which sizes to the command and pushes
-          the page sideways on a phone rather than letting the box scroll. */}
-      <div className="mt-3 grid grid-cols-[minmax(0,1fr)] gap-3 lg:grid-cols-[minmax(0,max-content)_minmax(0,1fr)] lg:items-center">
+          `min-w-max` is what forces that choice: it stops the group being
+          squeezed into a column instead of wrapping. Below `sm` there is no
+          width to fit them in anyway, so they take their own line and are
+          allowed to wrap within it. */}
+      <div className="mt-3 flex flex-wrap items-center gap-3">
         <InstallCommand
           command={installCommand(build.name, branch)}
           label={`Copy the install command for ${build.name}`}
         />
         {build.assets.length ? (
-          <AssetLinks assets={build.assets} />
+          <div className="min-w-full sm:min-w-max">
+            <AssetLinks assets={build.assets} />
+          </div>
         ) : (
           <p className="text-sm text-text-subtle">No archives were published for this build.</p>
         )}

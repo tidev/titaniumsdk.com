@@ -23,9 +23,6 @@ export const metadata: Metadata = {
   alternates: { canonical: `${SITE_URL}/downloads/releases` },
 };
 
-/** Ties the toggle to its label, and to the rows it folds away. */
-const TOGGLE_ID = 'show-prereleases';
-
 export default function ReleasesPage() {
   const all = allReleases();
   const prereleases = all.filter((r) => r.prerelease).length;
@@ -34,35 +31,36 @@ export default function ReleasesPage() {
   const latest = latestRelease('ga')?.name;
 
   return (
-    <div className="max-w-4xl py-8">
-      <p className="text-text-muted">
-        Release archives are hosted on GitHub and stay downloadable indefinitely. Install any of
-        them with <code className="font-mono text-sm">ti sdk install</code>, or unpack the archive
-        into your Titanium SDK directory.
-      </p>
+    // `has-checked` rather than a sibling selector, so the checkbox can sit
+    // where the design wants it instead of having to precede everything it
+    // drives. It matches any checked box inside, which is exact while this is
+    // the only one on the page — a second would need the selector narrowed to
+    // it by id. A plain checkbox and not a client component: the rows are
+    // server rendered, and this way they stay reachable with JavaScript off —
+    // on a page whose whole purpose is handing out files, that matters more
+    // than the markup being pretty.
+    <div className="max-w-4xl py-8 [&_[data-prerelease]]:hidden has-checked:[&_[data-prerelease]]:block">
+      <div className="flex flex-wrap items-start justify-between gap-x-6 gap-y-3">
+        <p className="max-w-2xl text-text-muted">
+          Release archives are hosted on GitHub and stay downloadable indefinitely. Install any of
+          them with <code className="font-mono text-sm">ti sdk install</code>, or unpack the archive
+          into your Titanium SDK directory.
+        </p>
 
-      {/* A checkbox rather than a client component: the rows are server
-          rendered, and this way they stay reachable with JavaScript off — on a
-          page whose whole purpose is handing out files, that matters more than
-          the markup being pretty. The input has to be a sibling of everything
-          it drives, which is why it sits out here on its own. */}
-      <input id={TOGGLE_ID} type="checkbox" className="peer sr-only" />
-
-      <label
-        htmlFor={TOGGLE_ID}
-        className="mt-5 inline-flex cursor-pointer items-center gap-1.5 rounded-md border border-border px-2.5 py-1.5 text-sm text-text-muted transition-colors select-none hover:border-border-strong hover:text-link peer-checked:[&_[data-off]]:hidden peer-checked:[&_[data-on]]:inline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-focus"
-      >
-        <span data-off>Show</span>
-        <span data-on className="hidden">
-          Hide
-        </span>
-        <span className="font-mono text-xs text-text-subtle">{prereleases}</span>
-        <span>release candidates and betas</span>
-      </label>
-
-      <div className="[&_[data-prerelease]]:hidden peer-checked:[&_[data-prerelease]]:block">
-        <BuildList builds={all} latest={latest} />
+        <label
+          title={`Show the ${prereleases} release candidates and betas`}
+          className="inline-flex h-8.5 shrink-0 cursor-pointer items-center gap-2 rounded-md border border-border px-2.5 text-sm text-text-muted transition-colors select-none hover:border-border-strong hover:text-text has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-focus"
+        >
+          <input
+            id="show-prereleases"
+            type="checkbox"
+            className="size-3.5 accent-link outline-none"
+          />
+          Prereleases
+        </label>
       </div>
+
+      <BuildList builds={all} latest={latest} />
     </div>
   );
 }
