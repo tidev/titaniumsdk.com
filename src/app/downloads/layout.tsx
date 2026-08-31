@@ -1,10 +1,13 @@
 import { DownloadsNav } from '@/components/downloads/downloads-nav';
+import { OsIconDefs } from '@/components/downloads/os-icon';
 
 /**
  * The shell shared by the overview, the release channels, and the CI branches.
  *
  * It owns the `h1`, so every page below it starts at `h2` and the three views
  * read as one section rather than three pages that happen to share a prefix.
+ * It also carries the platform-mark sprite, since all three views list
+ * downloads.
  */
 export default function DownloadsLayout({ children }: LayoutProps<'/downloads'>) {
   return (
@@ -14,6 +17,7 @@ export default function DownloadsLayout({ children }: LayoutProps<'/downloads'>)
         Every Titanium SDK release, plus the CI builds cut from each active branch.
       </p>
       <DownloadsNav />
+      <OsIconDefs />
       {children}
     </div>
   );
