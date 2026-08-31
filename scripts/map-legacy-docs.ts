@@ -1,0 +1,157 @@
+import {
+  CONTAINER_INDEXES,
+  isValidSlug,
+  MAX_DEPTH,
+  sectionForLegacy,
+  SECTIONS,
+  slugify,
+  trimRedundantPrefix,
+} from '../src/lib/docs/ia.ts';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+/**
+ * Maps every audited legacy guide onto the new IA, and refuses to finish if
+ * anything is unaccounted for.
+ *
+ * The audit (TI-30) said which pages survive; the IA (TI-31) says where they
+ * land. This is the join, and it is a script rather than a spreadsheet so that
+ * "every keep or rewrite page has a home" is a check that can fail rather than
+ * a claim someone made once.
+ *
+ * Output feeds the redirect map in TI-39.
+ *
+ *   node scripts/map-legacy-docs.ts [--check]
+ */
+
+const root = join(dirname(fileURLToPath(import.meta.url)), '..');
+const AUDIT = join(root, 'docs/legacy-guide-audit.json');
+const OUT = join(root, 'docs/legacy-docs-mapping.json');
+const checkOnly = process.argv.includes('--check');
+
+type Verdict = 'keep' | 'rewrite' | 'merge' | 'archive';
+type AuditPage = { path: string; verdict: Verdict; wrong: boolean; destination?: string };
+
+const audit = JSON.parse(readFileSync(AUDIT, 'utf8')) as AuditPage[] | { pages: AuditPage[] };
+const pages = Array.isArray(audit) ? audit : audit.pages;
+
+/** The legacy URL a path was served at, which is what a redirect must match. */
+const legacyUrl = (path: string) =>
+  `/guide/${path.replace(/\/README\.md$/, '').replace(/\.md$/, '')}`;
+
+/**
+ * A surviving page's new address.
+ *
+ * `README.md` is the section or topic index, so it collapses to the segment
+ * above it rather than becoming a page called "readme". Everything else is
+ * flattened to `<section>/<slug>`: the depth limit is the whole point of the
+ * redesign, so a page four levels deep in the wiki loses its middle segments
+ * and keeps its own name.
+ */
+function newPath(path: string): string | undefined {
+  const container = path.replace(/\/README\.md$/, '').replace(/\.md$/, '');
+  if (CONTAINER_INDEXES.includes(container)) return '/docs';
+
+  const section = sectionForLegacy(path);
+  if (!section) return undefined;
+
+  const parts = path.split('/');
+  const leaf = parts.at(-1)!;
+  if (leaf === 'README.md') {
+    // The section's own index, or a topic index folding into it.
+    const parent = parts.at(-2);
+    const isSectionRoot = section.legacy.some((p) => p === parts.slice(0, -1).join('/'));
+    if (isSectionRoot || !parent) return `/docs/${section.slug}`;
+    return `/docs/${section.slug}/${trimRedundantPrefix(slugify(parent), section.slug)}`;
+  }
+  return `/docs/${section.slug}/${trimRedundantPrefix(slugify(leaf), section.slug)}`;
+}
+
+const rows: { from: string; to: string; verdict: Verdict; wrong: boolean }[] = [];
+const orphans: string[] = [];
+const collisions = new Map<string, string[]>();
+
+for (const page of pages) {
+  // Archived pages get no destination of their own; TI-39 decides whether they
+  // 410 or land on their section index.
+  if (page.verdict === 'archive') continue;
+
+  const to = newPath(page.path);
+  if (!to) {
+    orphans.push(page.path);
+    continue;
+  }
+  rows.push({ from: legacyUrl(page.path), to, verdict: page.verdict, wrong: page.wrong });
+  collisions.set(to, [...(collisions.get(to) ?? []), page.path]);
+}
+
+rows.sort((a, b) => a.from.localeCompare(b.from));
+
+const survivors = pages.filter((p) => p.verdict !== 'archive').length;
+const merged = [...collisions.entries()].filter(([, from]) => from.length > 1);
+
+console.log(`${pages.length} audited, ${survivors} survive`);
+console.log(`  ${rows.length} mapped onto ${collisions.size} pages`);
+console.log(
+  `  ${rows.filter((r) => r.wrong).length} carry instructions the audit flagged as wrong`
+);
+
+for (const section of SECTIONS) {
+  const n = rows.filter((r) => r.to.startsWith(`/docs/${section.slug}`)).length;
+  console.log(`    ${section.slug.padEnd(12)} ${String(n).padStart(3)}  ${section.kind}`);
+}
+
+if (merged.length) {
+  console.log(`\n  ${merged.length} destinations absorb more than one page:`);
+  for (const [to, from] of merged.sort((a, b) => b[1].length - a[1].length).slice(0, 10)) {
+    console.log(`    ${to}  ← ${from.length}`);
+  }
+}
+
+// --------------------------------------------------------------- invariants
+
+const problems: string[] = [];
+
+if (orphans.length) {
+  problems.push(
+    `${orphans.length} surviving pages have no section:\n    ${orphans.join('\n    ')}`
+  );
+}
+
+for (const to of collisions.keys()) {
+  const segments = to
+    .replace(/^\/docs\/?/, '')
+    .split('/')
+    .filter(Boolean);
+  if (segments.length > MAX_DEPTH) problems.push(`deeper than ${MAX_DEPTH}: ${to}`);
+  for (const segment of segments) {
+    if (!isValidSlug(segment)) problems.push(`not a valid slug: ${to} (${segment})`);
+  }
+}
+
+if (problems.length) {
+  console.error(`\n${problems.length} problem(s):`);
+  for (const p of problems) console.error(`  ${p}`);
+  process.exit(1);
+}
+
+const payload = {
+  $comment: 'Generated by scripts/map-legacy-docs.ts — do not edit by hand.',
+  source: { audit: 'docs/legacy-guide-audit.json', audited: pages.length, survivors },
+  redirects: rows,
+};
+const json = `${JSON.stringify(payload, null, 2)}\n`;
+
+if (checkOnly) {
+  const current = existsSync(OUT) ? readFileSync(OUT, 'utf8') : '';
+  if (current === json) {
+    console.log('\nCommitted mapping is current.');
+  } else {
+    console.error('\nCommitted mapping is stale — rerun without --check.');
+    process.exit(1);
+  }
+} else {
+  writeFileSync(OUT, json);
+  console.log(`\nWrote docs/legacy-docs-mapping.json`);
+}

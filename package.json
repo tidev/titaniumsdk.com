@@ -23,7 +23,8 @@
     "assets": "node scripts/sync-doc-assets.ts",
     "audit:guides": "node scripts/audit-legacy-guides.ts",
     "registry:module-docs": "node scripts/backfill-module-docs.ts",
-    "registry:community": "node scripts/generate-community-modules.ts"
+    "registry:community": "node scripts/generate-community-modules.ts",
+    "docs:map": "node scripts/map-legacy-docs.ts"
   },
   "dependencies": {
     "@radix-ui/react-select": "^2.3.7",
