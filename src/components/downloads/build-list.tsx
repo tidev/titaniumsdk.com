@@ -94,6 +94,15 @@ function BuildRow({
             latest
           </span>
         )}
+        {/* Reads as the counterpart to `latest`, and names what the toggle above
+            the list folds away. Warning rather than success for the same reason
+            the docs badge an unreleased version that way: it is a build you can
+            have, not one you should ship. */}
+        {build.prerelease && (
+          <span className="rounded border border-warning px-1.5 py-0.5 font-mono text-xs text-warning">
+            prerelease
+          </span>
+        )}
         <a
           href={build.url}
           target="_blank"
