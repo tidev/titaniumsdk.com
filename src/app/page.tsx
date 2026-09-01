@@ -215,7 +215,7 @@ export default function Home() {
                 </Link>
               </p>
               {released && (
-                <p className="mt-1 text-xs text-text-subtle">
+                <p className="mt-1 text-2xs text-text-subtle">
                   <time dateTime={released.slice(0, 10)}>{formatDate(released.slice(0, 10))}</time>
                 </p>
               )}
@@ -228,9 +228,12 @@ export default function Home() {
         </div>
       </section>
 
+      {/* `border-b` as well as `border-t`: this band is tinted and the section
+          after it is not, so without a closing rule the shading just stops.
+          The community band needs none — the footer's own border closes it. */}
       <section
         aria-labelledby="what"
-        className="border-t border-border bg-surface/40 py-14 sm:py-16"
+        className="border-y border-border bg-surface/40 py-14 sm:py-16"
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <h2 id="what" className="sr-only">
