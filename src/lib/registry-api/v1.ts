@@ -26,10 +26,10 @@ export const API_VERSION = 1;
 
 export type ListedModule =
   | {
-      source: 'registry';
+      kind: 'registry';
       id: string;
       description?: string;
-      curation: string;
+      source: string;
       repo?: string;
       /** Platforms with at least one published release. */
       platforms: Platform[];
@@ -40,7 +40,7 @@ export type ListedModule =
       releases: number;
     }
   | {
-      source: 'community';
+      kind: 'community';
       /** `owner/name`: a community module has no manifest id to key on. */
       id: string;
       name: string;
@@ -64,7 +64,8 @@ export const RESOLUTION_RULES = [
   'Do not compare versions across platforms. ti.map is android 5.7.0 and ios 7.3.1 at once, and neither supersedes the other.',
   'A release may carry both platforms. When it does, the same version appears under each key.',
   '`minsdk` is the Titanium SDK a release requires, copied verbatim from that platform manifest. It is not normalised: expect both "12.7.0" and "10.0.0.GA", sometimes on the same module, so strip any suffix before comparing. Absent means the manifest did not declare one.',
-  'Entries with `"source": "community"` are repositories, not packages. They carry no version list and nothing to install.',
+  'Entries with `"kind": "community"` are repositories, not packages. They carry no version list and nothing to install.',
+  '`kind` is whether this site has a page for a module; `source` is who stands behind it. They agree for every module today, but they are not the same question — a repository owned by TiDev that nothing here documents is `"kind": "community"` with no `source` at all.',
 ] as const;
 
 function minsdkPerPlatform(index: ModuleIndex): Partial<Record<Platform, string>> {
@@ -83,10 +84,10 @@ export function listModules(): ListedModule[] {
     const latest = latestPerPlatform(index);
     return [
       {
-        source: 'registry' as const,
+        kind: 'registry' as const,
         id,
         ...(index.description ? { description: index.description } : {}),
-        curation: index.curation,
+        source: index.source,
         ...(index.repo ? { repo: index.repo } : {}),
         platforms: PLATFORM_ORDER.filter((p) => index.latest[p]),
         latest: Object.fromEntries(latest.map((l) => [l.platform, l.version])),
@@ -97,7 +98,7 @@ export function listModules(): ListedModule[] {
   });
 
   const community: ListedModule[] = communityListings().map((m) => ({
-    source: 'community' as const,
+    kind: 'community' as const,
     id: m.id,
     name: m.name,
     owner: m.owner,
@@ -117,11 +118,11 @@ export function listModules(): ListedModule[] {
 }
 
 export type ModuleDetail = {
-  source: 'registry';
+  kind: 'registry';
   id: string;
   description?: string;
   repo?: string;
-  curation: string;
+  source: string;
   /** Other spellings that redirect to this id on the site. */
   aliases: string[];
   latest: Partial<Record<Platform, string>>;
@@ -139,11 +140,11 @@ export function moduleDetail(id: string): ModuleDetail | null {
   if (!index) return null;
 
   return {
-    source: 'registry',
+    kind: 'registry',
     id: index.moduleId,
     ...(index.description ? { description: index.description } : {}),
     ...(index.repo ? { repo: index.repo } : {}),
-    curation: index.curation,
+    source: index.source,
     aliases: index.aliases,
     latest: Object.fromEntries(latestPerPlatform(index).map((l) => [l.platform, l.version])),
     minsdk: minsdkPerPlatform(index),

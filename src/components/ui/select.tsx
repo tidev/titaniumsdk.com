@@ -24,20 +24,31 @@ import * as RadixSelect from '@radix-ui/react-select';
  */
 export function Select<T extends string>({
   label,
+  hideLabel,
   options,
   value,
   onChange,
 }: {
+  /** Always required: it names the control, drawn or not. */
   label: string;
+  /**
+   * Drops the visible label while keeping the accessible one.
+   *
+   * For a menu whose options already say what it selects — "All modules",
+   * "Official", "Community" — where a word in front of it only costs width.
+   */
+  hideLabel?: boolean;
   options: readonly { value: T; label: string }[];
   value: T;
   onChange: (next: T) => void;
 }) {
   return (
     <span className="inline-flex items-center gap-2">
-      <span aria-hidden className="text-xs text-text-subtle">
-        {label}
-      </span>
+      {!hideLabel && (
+        <span aria-hidden className="text-xs text-text-subtle">
+          {label}
+        </span>
+      )}
 
       <RadixSelect.Root value={value} onValueChange={(next) => onChange(next as T)}>
         {/* Every option's label, stacked in one grid cell and hidden, with the

@@ -1,6 +1,6 @@
 import { formatDate } from '@/lib/docs/format';
 import { PLATFORM_LABELS, type PlatformLatest } from '@/lib/docs/module-summary';
-import type { Curation } from '@/lib/registry';
+import type { ModuleSource } from '@/lib/registry';
 
 /**
  * What backs a module, which is not the same as who owns it.
@@ -11,7 +11,7 @@ import type { Curation } from '@/lib/registry';
  * that nothing on this site documents, so it lists as community. Naming the
  * status rather than the org is what makes the two readable together.
  */
-const CURATION: Record<Curation, { label: string; className: string; title: string }> = {
+const SOURCE_STYLE: Record<ModuleSource, { label: string; className: string; title: string }> = {
   tidev: {
     label: 'Official',
     className: 'border-success text-success',
@@ -35,14 +35,14 @@ const CURATION: Record<Curation, { label: string; className: string; title: stri
  * A background on a pseudo-element rather than `border-l-*`: the card's border
  * changes colour on hover, and a left border would be overwritten by it.
  */
-export const CURATION_STRIPE: Record<Curation, string> = {
+export const SOURCE_STRIPE: Record<ModuleSource, string> = {
   tidev: 'before:bg-success',
   community: 'before:bg-border-strong',
   unverified: 'before:bg-warning',
 };
 
-export function CurationBadge({ curation }: { curation: Curation }) {
-  const style = CURATION[curation];
+export function SourceBadge({ source }: { source: ModuleSource }) {
+  const style = SOURCE_STYLE[source];
   return (
     <span
       title={style.title}

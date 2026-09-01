@@ -20,9 +20,9 @@ import { describe, test } from 'node:test';
  */
 
 const official = (id: string, platforms: ('android' | 'ios')[] = ['android']): ModuleSummary => ({
-  source: 'registry',
+  kind: 'registry',
   id,
-  curation: 'tidev',
+  source: 'tidev',
   latest: platforms.map((platform) => ({ platform, version: '1.0.0' })),
   releases: 1,
 });
@@ -33,7 +33,7 @@ const community = (
   archived = false,
   platforms: ('android' | 'ios')[] = ['android']
 ): CommunityListing => ({
-  source: 'community',
+  kind: 'community',
   id,
   name: id.split('/')[1],
   owner: id.split('/')[0],
