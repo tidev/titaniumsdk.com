@@ -5,6 +5,15 @@ date: '2023-04-24'
 author: 'Hans Knöchel'
 category: 'Releases'
 source: 'https://tidev.io/blog/sdk_12_1_0_ga'
+social: |-
+  Titanium SDK 12.1.0.GA is out!
+
+  Support for Node.js 19, enhanced Android 13 and macOS support, and more parity APIs between iOS and Android.
+
+  Blog: https://titaniumsdk.com/blog/sdk-12-1-0-ga
+  Install: ti sdk i 12.1.0.GA
+
+  #titaniumsdk #mobiledev #javascript
 ---
 
 The next stable version of the Titanium SDK is now is available: <b>12.1.0.GA</b>. Titanium SDK 12.1.0 is a minor release of the SDK,

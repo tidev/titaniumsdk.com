@@ -5,6 +5,15 @@ date: '2022-05-23'
 author: 'Sebastian Klaus'
 category: 'Releases'
 source: 'https://tidev.io/blog/release_sdk_11'
+social: |-
+  Titanium SDK 11.0.0.RC is out!
+
+  After months of work, the 11.0.0 release candidate arrives with a large batch of features and bug fixes.
+
+  Blog: https://titaniumsdk.com/blog/release-sdk-11
+  Install: ti sdk i 11.0.0.RC
+
+  #titaniumsdk #mobiledev #javascript
 ---
 
 After months of hard work, we are proud to announce that today we can introduce Titanium SDK 11.0.0.RC. A Release Candidate (RC for short) is a software build that is as good as complete.

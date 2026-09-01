@@ -6,6 +6,12 @@ author: 'Hans Knöchel'
 category: 'Releases'
 cover: '/blog/titanium-general.png'
 source: 'https://tidev.io/blog/sdk_13_1_0_ga'
+social: |-
+  Titanium SDK 13.1.0 GA is now available!
+
+  BIG release! Updated Gradle/Kotlin tooling, Android 7 min target, iOS Swift Package Manager (SPM) support and generated dSYM files, plus many more improvements. Read more: https://titaniumsdk.com/blog/sdk-13-1-0-ga
+
+  Install: ti sdk i 13.1.0.GA
 ---
 
 ![Titanium SDK 13.1.0.GA](/blog/titanium-general.png)

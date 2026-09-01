@@ -5,6 +5,15 @@ date: '2022-12-12'
 author: 'Michael Gangolf'
 category: 'Releases'
 source: 'https://tidev.io/blog/sdk_12_0_0_rc'
+social: |-
+  Titanium SDK 12.0.0.RC is out!
+
+  iOS gains Dynamic Island support and a new error page, while Android moves to targetSDK 33 with Material 3 themes.
+
+  Blog: https://titaniumsdk.com/blog/sdk-12-0-0-rc
+  Install: ti sdk i 12.0.0.RC
+
+  #titaniumsdk #mobiledev #javascript
 ---
 
 The first release candidate of the next Titanium SDK is available: <b>12.0.0.RC</b>. Titanium SDK 12.0.0 is a major release of the SDK, addressing high-priority issues from previous releases.

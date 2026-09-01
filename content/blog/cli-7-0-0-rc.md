@@ -5,6 +5,15 @@ date: '2024-03-06'
 author: 'Chris Barber'
 category: 'Releases'
 source: 'https://tidev.io/blog/cli_7_0_0_rc'
+social: |-
+  Titanium CLI 7.0.0.RC is out!
+
+  The first major CLI release in two years — an ESM refactor that unblocks dependency and SDK build updates.
+
+  Blog: https://titaniumsdk.com/blog/cli-7-0-0-rc
+  Install: npm i -g titanium@7.0.0-rc
+
+  #titaniumsdk #mobiledev #javascript
 ---
 
 ![Titanium CLI v7.0.0-rc](/blog/cli-7.0.0-rc.png)

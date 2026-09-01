@@ -5,6 +5,14 @@ date: '2022-10-01'
 author: 'Michael Gangolf'
 category: 'Community'
 source: 'https://tidev.io/blog/hacktoberfest2022'
+social: |-
+  Hacktoberfest 2022
+
+  Titanium is taking part again: the SDK and documentation repos are Hacktoberfest repos, so fix docs, add examples or write code.
+
+  Blog: https://titaniumsdk.com/blog/hacktoberfest2022
+
+  #titaniumsdk #mobiledev #javascript
 ---
 
 # Hacktoberfest

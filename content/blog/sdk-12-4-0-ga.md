@@ -6,6 +6,15 @@ author: 'Hans Knöchel'
 category: 'Releases'
 cover: '/blog/titanium-general.png'
 source: 'https://tidev.io/blog/sdk_12_4_0_ga'
+social: |-
+  Titanium SDK 12.4.0.GA is out!
+
+  Opt-in support for Android API level 34, which Google requires for all new apps and updates from August 2024.
+
+  Blog: https://titaniumsdk.com/blog/sdk-12-4-0-ga
+  Install: ti sdk i 12.4.0.GA
+
+  #titaniumsdk #mobiledev #javascript
 ---
 
 ![Titanium SDK 12.4.0.GA](/blog/titanium-general.png)

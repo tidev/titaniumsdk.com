@@ -6,6 +6,15 @@ author: 'Hans Knöchel'
 category: 'Releases'
 cover: '/blog/titanium-general.png'
 source: 'https://tidev.io/blog/sdk_12_6_4_ga'
+social: |-
+  Titanium SDK 12.6.4.GA is out!
+
+  Restores compatibility with Xcode 16.3 and later, required to build for iOS 18.4+.
+
+  Blog: https://titaniumsdk.com/blog/sdk-12-6-4-ga
+  Install: ti sdk i 12.6.4.GA
+
+  #titaniumsdk #mobiledev #javascript
 ---
 
 ![Titanium SDK 12.6.4.GA](/blog/titanium-general.png)

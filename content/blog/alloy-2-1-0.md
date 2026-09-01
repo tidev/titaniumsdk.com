@@ -5,6 +5,15 @@ date: '2024-01-15'
 author: 'Michael Gangolf'
 category: 'Releases'
 source: 'https://tidev.io/blog/alloy_2_1_0'
+social: |-
+  Alloy 2.1.0 is out!
+
+  Refreshed dependencies including underscore 1.13.6 and moment.js 2.29.4, an updated default template, and parser fixes.
+
+  Blog: https://titaniumsdk.com/blog/alloy-2-1-0
+  Install: npm i -g alloy@2.1.0
+
+  #titaniumsdk #mobiledev #javascript
 ---
 
 It's been a while since the last Alloy update so it was time to update some dependencies and included modules. This version of Alloy will ship with:

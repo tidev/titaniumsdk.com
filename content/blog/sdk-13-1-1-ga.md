@@ -6,6 +6,13 @@ author: 'Hans Knöchel'
 category: 'Releases'
 cover: '/blog/titanium-general.png'
 source: 'https://tidev.io/blog/sdk_13_1_1_ga'
+social: |-
+  Titanium SDK 13.1.1.GA is now available!
+
+  This release fixes Android env detection, Mac Catalyst build/App Store dist issues, Node.js 24 support for iOS device builds, and reverts tabBarItem regression.
+
+  Blog: https://titaniumsdk.com/blog/sdk-13-1-1-ga
+  Install: ti sdk i 13.1.1.GA
 ---
 
 ![Titanium SDK 13.1.1.GA](/blog/titanium-general.png)

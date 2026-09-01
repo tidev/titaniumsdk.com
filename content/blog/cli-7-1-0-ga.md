@@ -6,6 +6,15 @@ author: 'Chris Barber'
 category: 'Releases'
 cover: '/blog/cli-7.1.0.jpg'
 source: 'https://tidev.io/blog/cli_7_1_0_ga'
+social: |-
+  Titanium CLI 7.1.0 GA is out!
+
+  Async hook init() support, surfaced SDK install errors, and fixes for ti sdk rm, ti project and module reinstalls.
+
+  Blog: https://titaniumsdk.com/blog/cli-7-1-0-ga
+  Install: npm i -g titanium@7.1.0
+
+  #titaniumsdk #mobiledev #javascript
 ---
 
 ![Titanium CLI v7.1.0](/blog/cli-7.1.0.jpg)

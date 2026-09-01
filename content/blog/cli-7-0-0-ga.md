@@ -6,6 +6,15 @@ author: 'Chris Barber'
 category: 'Releases'
 cover: '/blog/cli-7.0.0.png'
 source: 'https://tidev.io/blog/cli_7_0_0_ga'
+social: |-
+  Titanium CLI 7.0.0 GA is out!
+
+  A complete refactor. The CLI is now ESM, which unlocks modern dependencies and updates to the SDK build code.
+
+  Blog: https://titaniumsdk.com/blog/cli-7-0-0-ga
+  Install: npm i -g titanium@7.0.0
+
+  #titaniumsdk #mobiledev #javascript
 ---
 
 ![Titanium CLI v7.0.0](/blog/cli-7.0.0.png)

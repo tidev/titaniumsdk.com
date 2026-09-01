@@ -6,6 +6,15 @@ author: 'Hans Knöchel'
 category: 'Releases'
 cover: '/blog/titanium-general.png'
 source: 'https://tidev.io/blog/sdk_12_5_1_ga'
+social: |-
+  Titanium SDK 12.5.1.GA is out!
+
+  CLI fixes for the Xcode 16 toolset, plus Android list view fixes for the performance work in 12.5.0.
+
+  Blog: https://titaniumsdk.com/blog/sdk-12-5-1-ga
+  Install: ti sdk i 12.5.1.GA
+
+  #titaniumsdk #mobiledev #javascript
 ---
 
 ![Titanium SDK 12.5.1.GA](/blog/titanium-general.png)

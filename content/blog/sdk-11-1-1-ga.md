@@ -5,6 +5,15 @@ date: '2022-09-26'
 author: 'Hans Knöchel'
 category: 'Releases'
 source: 'https://tidev.io/blog/sdk_11_1_1_ga'
+social: |-
+  Titanium SDK 11.1.1.GA is out!
+
+  Fixes an iOS crash from a deprecated API log, an Android crash with modules built on 11.1.0, and testing on Apple Silicon.
+
+  Blog: https://titaniumsdk.com/blog/sdk-11-1-1-ga
+  Install: ti sdk i 11.1.1.GA
+
+  #titaniumsdk #mobiledev #javascript
 ---
 
 The next stable version of the Titanium SDK is now available: <b>11.1.1.GA</b>. Titanium SDK 11.1.1 is a partch release of the SDK, addressing high-priority issues from the 11.1.0.GA release.

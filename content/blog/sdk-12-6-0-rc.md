@@ -6,6 +6,15 @@ author: 'Hans Knöchel'
 category: 'Releases'
 cover: '/blog/titanium-general.png'
 source: 'https://tidev.io/blog/sdk_12_6_0_rc'
+social: |-
+  Titanium SDK 12.6.0.RC is out!
+
+  Stable Gradle 8 support for Material 3 themes, list view performance improvements, and native iOS 18 dark mode app icons.
+
+  Blog: https://titaniumsdk.com/blog/sdk-12-6-0-rc
+  Install: ti sdk i 12.6.0.RC
+
+  #titaniumsdk #mobiledev #javascript
 ---
 
 ![Titanium SDK 12.6.0.RC](/blog/titanium-general.png)

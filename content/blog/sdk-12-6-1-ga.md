@@ -6,6 +6,15 @@ author: 'Michael Gangolf'
 category: 'Releases'
 cover: '/blog/titanium-general.png'
 source: 'https://tidev.io/blog/sdk_12_6_1_ga'
+social: |-
+  Titanium SDK 12.6.1.GA is out!
+
+  Fixes a click event regression on iOS introduced in 12.6.0.GA.
+
+  Blog: https://titaniumsdk.com/blog/sdk-12-6-1-ga
+  Install: ti sdk i 12.6.1.GA
+
+  #titaniumsdk #mobiledev #javascript
 ---
 
 ![Titanium SDK 12.6.1.GA](/blog/titanium-general.png)

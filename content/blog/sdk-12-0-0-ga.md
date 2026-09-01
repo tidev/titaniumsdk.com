@@ -5,6 +5,15 @@ date: '2022-12-30'
 author: 'Hans Knöchel'
 category: 'Releases'
 source: 'https://tidev.io/blog/sdk_12_0_0_ga'
+social: |-
+  Titanium SDK 12.0.0.GA is out!
+
+  iOS gains Dynamic Island support and a new error page, while Android moves to targetSDK 33 with Material 3 themes.
+
+  Blog: https://titaniumsdk.com/blog/sdk-12-0-0-ga
+  Install: ti sdk i 12.0.0.GA
+
+  #titaniumsdk #mobiledev #javascript
 ---
 
 The stable version (GA) of the Titanium SDK<b>12.0.0</b> is now available. Titanium SDK 12.0.0 is a major release of the SDK, addressing high-priority issues from previous releases.

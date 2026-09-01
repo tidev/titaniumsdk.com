@@ -6,6 +6,15 @@ author: 'Hans Knöchel'
 category: 'Releases'
 cover: '/blog/titanium-general.png'
 source: 'https://tidev.io/blog/sdk_13_3_0_ga'
+social: |-
+  Titanium SDK 13.3.0.GA is out!
+
+  iOS 27, Xcode 27 and Android UI Improvements
+
+  Blog: https://titaniumsdk.com/blog/sdk-13-3-0-ga
+  Install: ti sdk i 13.3.0.GA
+
+  #titaniumsdk #mobiledev #javascript
 ---
 
 ![Titanium SDK 13.3.0.GA](/blog/titanium-general.png)

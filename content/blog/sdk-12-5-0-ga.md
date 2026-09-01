@@ -6,6 +6,15 @@ author: 'Hans Knöchel'
 category: 'Releases'
 cover: '/blog/titanium-general.png'
 source: 'https://tidev.io/blog/sdk_12_5_0_ga'
+social: |-
+  Titanium SDK 12.5.0.GA is out!
+
+  Android API level 34 is now the default, plus official support for iOS 18, iPadOS 18, watchOS 18 and Xcode 16.
+
+  Blog: https://titaniumsdk.com/blog/sdk-12-5-0-ga
+  Install: ti sdk i 12.5.0.GA
+
+  #titaniumsdk #mobiledev #javascript
 ---
 
 ![Titanium SDK 12.5.0.GA](/blog/titanium-general.png)

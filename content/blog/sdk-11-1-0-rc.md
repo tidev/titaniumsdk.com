@@ -5,6 +5,15 @@ date: '2022-08-29'
 author: 'Michael Gangolf'
 category: 'Releases'
 source: 'https://tidev.io/blog/sdk_11_1_0_rc'
+social: |-
+  Titanium SDK 11.1.0.RC is out!
+
+  The first release candidate for 11.1.0, addressing high-priority issues from previous releases.
+
+  Blog: https://titaniumsdk.com/blog/sdk-11-1-0-rc
+  Install: ti sdk i 11.1.0.RC
+
+  #titaniumsdk #mobiledev #javascript
 ---
 
 The first release candidate of the next Titanium SDK is available: <b>11.1.0.RC</b>. Titanium SDK 11.1.0 is a minor release of the SDK, addressing high-priority issues from previous releases.

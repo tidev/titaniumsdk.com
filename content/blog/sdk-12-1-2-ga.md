@@ -5,6 +5,15 @@ date: '2023-06-02'
 author: 'Michael Gangolf'
 category: 'Releases'
 source: 'https://tidev.io/blog/sdk_12_1_2_ga'
+social: |-
+  Titanium SDK 12.1.2.GA is out!
+
+  Fixes issues from 12.1.1.GA and updates Hyperloop to 7.0.5.
+
+  Blog: https://titaniumsdk.com/blog/sdk-12-1-2-ga
+  Install: ti sdk i 12.1.2.GA
+
+  #titaniumsdk #mobiledev #javascript
 ---
 
 The next stable version of the Titanium SDK is now is available: <b>12.1.2.GA</b>. Titanium SDK 12.1.2 is a patch release of the SDK, addressing issues from 12.1.1.GA and updating Hyperloop to 7.0.5.

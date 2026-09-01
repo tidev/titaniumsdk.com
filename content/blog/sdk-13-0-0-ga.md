@@ -6,6 +6,15 @@ author: 'Hans Knöchel'
 category: 'Releases'
 cover: '/blog/titanium-general.png'
 source: 'https://tidev.io/blog/sdk_13_0_0_ga'
+social: |-
+  Titanium SDK 13.0.0.GA is out!
+
+  Full Support for iOS 26, Xcode 26 and Liquid Glass UI
+
+  Blog: https://titaniumsdk.com/blog/sdk-13-0-0-ga
+  Install: ti sdk i 13.0.0.GA
+
+  #titaniumsdk #mobiledev #javascript
 ---
 
 ![Titanium SDK 13.0.0.GA](/blog/13_0_x/13_0_0_0.png)

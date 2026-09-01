@@ -9,13 +9,13 @@ import { SITE_URL } from '@/lib/site';
  * `twitter.com/intent/tweet` only redirects to it. Bluesky's is
  * `bsky.app/intent/compose`.
  *
- * The text is the post's `social` frontmatter when it has one, and the title
- * otherwise, with the URL appended — so a share is useful even for the 50
- * imported posts, none of which carry `social` yet.
+ * The text is the post's `social` frontmatter when it has one. That already
+ * carries its own `Blog:` line, so the URL is only appended to the title
+ * fallback — appending it to both would post the link twice.
  */
 export function Share({ post }: { post: Post }) {
   const url = `${SITE_URL}/blog/${post.slug}`;
-  const text = encodeURIComponent(`${post.social ?? post.title}\n\n${url}`);
+  const text = encodeURIComponent(post.social ?? `${post.title}\n\n${url}`);
 
   const targets = [
     {

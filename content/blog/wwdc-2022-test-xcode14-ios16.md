@@ -5,6 +5,14 @@ date: '2022-06-28'
 author: 'Hans Knöchel'
 category: 'Community'
 source: 'https://tidev.io/blog/wwdc_2022_test_xcode14_ios16'
+social: |-
+  Test iOS 16 & Xcode 14 support in Titanium
+
+  Soon after the WWDC 2022 and the first Beta version of iOS 16, Titanium apps already able to build for iOS 16 and Xcode 14 (Beta).
+
+  Blog: https://titaniumsdk.com/blog/wwdc-2022-test-xcode14-ios16
+
+  #titaniumsdk #mobiledev #javascript
 ---
 
 We are happy to announce that Titanium apps are already able to build for iOS 16 and Xcode 14 (Beta), soon after the WWDC 2022 and the first Beta version of iOS 16.

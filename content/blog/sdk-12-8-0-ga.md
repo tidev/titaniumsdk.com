@@ -6,6 +6,15 @@ author: 'Hans Knöchel'
 category: 'Releases'
 cover: '/blog/titanium-general.png'
 source: 'https://tidev.io/blog/sdk_12_8_0_ga'
+social: |-
+  Titanium SDK 12.8.0.GA is out!
+
+  Compatibility with Android target SDK 35, plus bug fixes and improvements across iOS and Android.
+
+  Blog: https://titaniumsdk.com/blog/sdk-12-8-0-ga
+  Install: ti sdk i 12.8.0.GA
+
+  #titaniumsdk #mobiledev #javascript
 ---
 
 ![Titanium SDK 12.8.0.GA](/blog/titanium-general.png)

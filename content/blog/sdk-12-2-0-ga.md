@@ -5,6 +5,15 @@ date: '2023-09-15'
 author: 'Hans Knöchel'
 category: 'Releases'
 source: 'https://tidev.io/blog/sdk_12_2_0_ga'
+social: |-
+  Titanium SDK 12.2.0.GA is out!
+
+  Full support for iOS 17 and Xcode 15, new Android APIs, and iOS stability improvements.
+
+  Blog: https://titaniumsdk.com/blog/sdk-12-2-0-ga
+  Install: ti sdk i 12.2.0.GA
+
+  #titaniumsdk #mobiledev #javascript
 ---
 
 The final version of the next Titanium SDK is available: <b>12.2.0.GA</b>. Titanium SDK 12.2.0 is a minor release of the SDK, adding new features as well as

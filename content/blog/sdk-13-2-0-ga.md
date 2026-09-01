@@ -6,6 +6,13 @@ author: 'Hans Knöchel'
 category: 'Releases'
 cover: '/blog/titanium-general.png'
 source: 'https://tidev.io/blog/sdk_13_2_0_ga'
+social: |-
+  Titanium SDK 13.2.0.GA is now available!
+
+  This release adds support for Node.js 24, improved Mac Catalyst support, new iOS WebView API, tons of Android improvements, and more!
+
+  Blog: https://titaniumsdk.com/blog/sdk-13-2-0-ga
+  Install: ti sdk i 13.2.0.GA
 ---
 
 ![Titanium SDK 13.2.0.GA](/blog/titanium-general.png)

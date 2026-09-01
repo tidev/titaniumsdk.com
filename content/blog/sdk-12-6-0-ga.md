@@ -6,6 +6,15 @@ author: 'Hans Knöchel'
 category: 'Releases'
 cover: '/blog/titanium-general.png'
 source: 'https://tidev.io/blog/sdk_12_6_0_ga'
+social: |-
+  Titanium SDK 12.6.0.GA is out!
+
+  Stable Gradle 8 support for Material 3, faster list views, native iOS 18 dark mode app icons, and Ti.Calendar APIs up to 150x faster.
+
+  Blog: https://titaniumsdk.com/blog/sdk-12-6-0-ga
+  Install: ti sdk i 12.6.0.GA
+
+  #titaniumsdk #mobiledev #javascript
 ---
 
 ![Titanium SDK 12.6.0.GA](/blog/titanium-general.png)

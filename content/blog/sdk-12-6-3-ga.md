@@ -6,6 +6,15 @@ author: 'Hans Knöchel'
 category: 'Releases'
 cover: '/blog/titanium-general.png'
 source: 'https://tidev.io/blog/sdk_12_6_3_ga'
+social: |-
+  Titanium SDK 12.6.3.GA is out!
+
+  Fixes several high-priority Gradle issues and ANR (application not responding) errors on Android.
+
+  Blog: https://titaniumsdk.com/blog/sdk-12-6-3-ga
+  Install: ti sdk i 12.6.3.GA
+
+  #titaniumsdk #mobiledev #javascript
 ---
 
 ![Titanium SDK 12.6.3.GA](/blog/titanium-general.png)

@@ -5,6 +5,15 @@ date: '2022-09-08'
 author: 'Hans Knöchel'
 category: 'Releases'
 source: 'https://tidev.io/blog/sdk_11_1_0_ga'
+social: |-
+  Titanium SDK 11.1.0.GA is out!
+
+  Early support for iOS 16 and Xcode 14, plus parity and stability improvements across the board.
+
+  Blog: https://titaniumsdk.com/blog/sdk-11-1-0-ga
+  Install: ti sdk i 11.1.0.GA
+
+  #titaniumsdk #mobiledev #javascript
 ---
 
 The next stable version of the Titanium SDK is now available: <b>11.1.0.GA</b>. Titanium SDK 11.1.0 is a minor release of the SDK, addressing high-priority issues from previous releases.

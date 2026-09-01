@@ -55,10 +55,11 @@ const FrontmatterSchema = z
     cover: z.string().optional(),
     /**
      * The text to pre-fill a share with, if the title is not what you would
-     * post. Capped well under both networks' limits — X allows 280 and Bluesky
-     * 300, and the post URL is appended to whatever this says.
+     * post. This carries its own link, so it is capped at Bluesky's 300
+     * character limit; X allows 280 but counts any URL as 23, so anything that
+     * fits Bluesky fits X. Written by `scripts/generate-social-posts.ts`.
      */
-    social: z.string().max(200).optional(),
+    social: z.string().max(300).optional(),
     /** Where this post was published before the migration, if it was. */
     source: z.url().optional(),
   })

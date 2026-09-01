@@ -6,6 +6,15 @@ author: 'Hans Knöchel'
 category: 'Releases'
 cover: '/blog/titanium-general.png'
 source: 'https://tidev.io/blog/sdk_13_4_1_ga'
+social: |-
+  Titanium SDK 13.4.1.GA is out!
+
+  Fixed BottomNavigation keyboard and the androidback event handling on Android and a deadlock opening windows on iOS.
+
+  Blog: https://titaniumsdk.com/blog/sdk-13-4-1-ga
+  Install: ti sdk i 13.4.1.GA
+
+  #titaniumsdk #mobiledev #javascript
 ---
 
 ![Titanium SDK 13.4.1.GA](/blog/titanium-general.png)

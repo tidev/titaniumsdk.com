@@ -6,6 +6,14 @@ author: 'Josh Lambert'
 category: 'Releases'
 cover: '/blog/sdk11.png'
 source: 'https://tidev.io/blog/sdk_11_ga'
+social: |-
+  TiDev, Inc. Releases Titanium SDK 11 GA, Titanium CLI 6.1.0
+
+  The first GA release under TiDev, with 62+ features and fixes from TiDev staff and the Titanium community.
+
+  Blog: https://titaniumsdk.com/blog/sdk-11-ga
+
+  #titaniumsdk #mobiledev #javascript
 ---
 
 ## Overview

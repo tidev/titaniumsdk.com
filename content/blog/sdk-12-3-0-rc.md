@@ -5,6 +5,15 @@ date: '2024-01-12'
 author: 'Hans Knöchel'
 category: 'Releases'
 source: 'https://tidev.io/blog/sdk_12_3_0_rc'
+social: |-
+  Titanium SDK 12.3.0.RC is out!
+
+  Support for Node.js 20, Apple Vision Pro and new Android camera handling
+
+  Blog: https://titaniumsdk.com/blog/sdk-12-3-0-rc
+  Install: ti sdk i 12.3.0.RC
+
+  #titaniumsdk #mobiledev #javascript
 ---
 
 The next stable version of the Titanium SDK is now is available: <b>12.3.0.RC</b>. Titanium SDK 12.3.0 is a minor release of the SDK, adding new features and fixing existing bugs:

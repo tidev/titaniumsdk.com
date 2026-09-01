@@ -6,6 +6,15 @@ author: 'Hans Knöchel'
 category: 'Releases'
 cover: '/blog/titanium-general.png'
 source: 'https://tidev.io/blog/sdk_12_6_2_ga'
+social: |-
+  Titanium SDK 12.6.2.GA is out!
+
+  Fixes bugs across all platforms and improves general stability.
+
+  Blog: https://titaniumsdk.com/blog/sdk-12-6-2-ga
+  Install: ti sdk i 12.6.2.GA
+
+  #titaniumsdk #mobiledev #javascript
 ---
 
 ![Titanium SDK 12.6.2.GA](/blog/titanium-general.png)

@@ -6,6 +6,12 @@ author: 'Hans Knöchel'
 category: 'Releases'
 cover: '/blog/titanium-general.png'
 source: 'https://tidev.io/blog/sdk_13_0_1_ga'
+social: |-
+  Titanium SDK 13.0.1 is now available!
+
+  This release fixes an "Application Not Responding" error on Android, TabBar appearance bug, and a few other issues. Read more: https://titaniumsdk.com/blog/sdk-13-0-1-ga
+
+  Install: ti sdk i 13.0.1.GA
 ---
 
 ![Titanium SDK 13.0.1.GA](/blog/titanium-general.png)
