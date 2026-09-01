@@ -91,7 +91,7 @@ export function Select<T extends string>({
               the native control was — the name comes from `aria-label` instead. */}
           <RadixSelect.Trigger
             aria-label={label}
-            className="col-start-1 row-start-1 inline-flex w-full items-center gap-2 rounded-md border border-border bg-surface-raised py-2 pr-2 pl-2.5 text-sm text-text transition-colors hover:border-border-strong focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
+            className="col-start-1 row-start-1 inline-flex w-full items-center gap-2 rounded-md border border-border bg-field py-2 pr-2 pl-2.5 text-sm text-text transition-colors hover:border-border-strong focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
           >
             {/* The current label is passed in rather than left to Radix to look
               up from its items. Radix resolves it on the client, so the trigger
@@ -118,7 +118,10 @@ export function Select<T extends string>({
             sideOffset={4}
             // Never narrower than the trigger it belongs to, so the menu reads
             // as attached to it rather than as a floating panel.
-            className="z-50 min-w-[var(--radix-select-trigger-width)] overflow-hidden rounded-md border border-border bg-surface-raised shadow-lg"
+            // The menu is raised, not recessed — it sits above the page rather than
+            // being typed into — but on `surface` rather than `surface-raised`,
+            // which is light enough to glare against the page in dark mode.
+            className="z-50 min-w-[var(--radix-select-trigger-width)] overflow-hidden rounded-md border border-border bg-surface shadow-lg"
           >
             <RadixSelect.Viewport className="p-1">
               {options.map((option) => (

@@ -41,6 +41,9 @@ const PAIRS: [string, string, number][] = [
   ['text', 'bg', 4.5],
   ['text', 'surface', 4.5],
   ['text', 'surface-raised', 4.5],
+  // Form fields: the value someone typed, and the placeholder before they did.
+  ['text', 'field', 4.5],
+  ['text-subtle', 'field', 4.5],
   ['text-muted', 'bg', 4.5],
   ['text-muted', 'surface', 4.5],
   ['text-subtle', 'bg', 4.5],
