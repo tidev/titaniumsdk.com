@@ -153,17 +153,7 @@ export default function Home() {
             block's long lines widen the track instead of scrolling inside it,
             and the whole page picks up a horizontal scrollbar at 320px. */}
         <div className="min-w-0">
-          {version && (
-            <Link
-              href="/downloads"
-              className="inline-flex flex-wrap items-center gap-x-2 rounded-full border border-border px-3 py-1 text-xs text-text-muted transition-colors hover:border-border-strong hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
-            >
-              <span className="font-medium text-text">{version}</span>
-              {released && <span>released {formatDate(released.slice(0, 10))}</span>}
-            </Link>
-          )}
-
-          <h1 className="mt-5 text-4xl font-semibold leading-tight tracking-tighter text-balance sm:text-5xl">
+          <h1 className="text-4xl font-semibold leading-tight tracking-tighter text-balance sm:text-5xl">
             Native iOS and Android apps,
             <span className="text-text-muted"> written in JavaScript</span>
           </h1>
@@ -266,11 +256,24 @@ export default function Home() {
 
       <section aria-labelledby="install" className="border-t border-border py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
-          <h2 id="install" className="text-2xl font-semibold tracking-tight text-balance">
+          {/* The release sits here rather than in the hero: next to the
+              commands it says what `ti sdk install` is about to fetch, which is
+              a fact someone can act on. Above the fold it was just a number. */}
+          {version && (
+            <Link
+              href="/downloads"
+              className="inline-flex flex-wrap items-center gap-x-2 rounded-full border border-border px-3 py-1 text-xs text-text-muted transition-colors hover:border-border-strong hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
+            >
+              <span className="font-medium text-text">{version}</span>
+              {released && <span>released {formatDate(released.slice(0, 10))}</span>}
+            </Link>
+          )}
+
+          <h2 id="install" className="mt-5 text-2xl font-semibold tracking-tight text-balance">
             Try it
           </h2>
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-text-muted">
-            Two commands: install the CLI and Alloy from npm, then scaffold an app. The generated
+            Install the CLI and Alloy from npm, install the SDK, then scaffold an app. The generated
             project builds and runs on both platforms without anything else added to it.
           </p>
 
@@ -281,6 +284,7 @@ export default function Home() {
               command="npm install --global titanium alloy"
               label="Copy install command"
             />
+            <InstallCommand command="ti sdk install" label="Copy SDK install command" />
             <InstallCommand command="ti create" label="Copy create command" />
           </div>
 
