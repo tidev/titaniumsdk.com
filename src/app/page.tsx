@@ -1,4 +1,5 @@
 import { Terminal } from '@/components/ui/terminal';
+import { publishedPosts } from '@/lib/blog/posts';
 import { formatDate } from '@/lib/docs/format';
 import { communityListings, moduleSummaries } from '@/lib/docs/modules';
 import { latestRelease } from '@/lib/downloads/registry';
@@ -16,12 +17,29 @@ import Link from 'next/link';
  * are text at a fixed size.
  */
 
+/**
+ * Where this release is written up on this site.
+ *
+ * There are no release-note pages here: the legacy `/guide/...Release_Note`
+ * URLs the SDK still links to are gone, which is TI-67. The announcement post
+ * is the real article — highlights, upgrade notes, credits — so the version
+ * links there, matched on the release name appearing in the post title rather
+ * than by rebuilding the slug. Older releases predate the blog, hence the
+ * fallback to the release list.
+ */
+function releaseNotesHref(name: string | undefined): string {
+  if (!name) return '/downloads/releases';
+  const post = publishedPosts().find((p) => p.title.includes(name));
+  return post ? `/blog/${post.slug}` : '/downloads/releases';
+}
+
 /** Every number on this page comes from the registry on disk, never a literal. */
 function facts() {
   const release = latestRelease();
   return {
     version: release?.version,
     released: release?.date,
+    notes: releaseNotesHref(release?.name),
     registryModules: moduleSummaries().length,
     communityModules: communityListings().length,
   };
@@ -144,7 +162,7 @@ function Pillar({
 }
 
 export default function Home() {
-  const { version, released, registryModules, communityModules } = facts();
+  const { version, released, notes, registryModules, communityModules } = facts();
 
   return (
     <div className="w-full">
@@ -186,13 +204,22 @@ export default function Home() {
           {/* Under the buttons rather than above the headline: it is a footnote
               to "install this", not the first thing to read. */}
           {version && (
-            <Link
-              href="/downloads"
-              className="mt-6 inline-flex flex-wrap items-center gap-x-2 rounded-full border border-border px-3 py-1 text-xs text-text-muted transition-colors hover:border-border-strong hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
-            >
-              <span className="font-medium text-text">{version}</span>
-              {released && <span>released {formatDate(released.slice(0, 10))}</span>}
-            </Link>
+            <div className="mt-8">
+              <p className="text-sm text-text-muted">
+                Latest Release:{' '}
+                <Link
+                  href={notes}
+                  className="font-medium text-link hover:text-link-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
+                >
+                  {version}
+                </Link>
+              </p>
+              {released && (
+                <p className="mt-1 text-xs text-text-subtle">
+                  <time dateTime={released.slice(0, 10)}>{formatDate(released.slice(0, 10))}</time>
+                </p>
+              )}
+            </div>
           )}
         </div>
 
