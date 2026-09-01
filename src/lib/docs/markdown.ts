@@ -54,8 +54,12 @@ export type RenderOptions = {
    * one-type-per-page arrangement; a module passes a function, because half of
    * its references are anchors on the page being rendered and the other half
    * are pages in the SDK tree.
+   *
+   * Optional, for prose that has no API references to resolve — a blog post is
+   * written for people rather than against a type tree. Omitted, an `api:` URI
+   * resolves to nothing and the text is left as written.
    */
-  link: string | ApiLinker;
+  link?: string | ApiLinker;
   /**
    * Where relative references resolve.
    *
@@ -79,7 +83,12 @@ const resolveRelative = (base: string, ref: string) => `${base}/${ref.replace(/^
 export function renderMarkdown(source: string | undefined, options: RenderOptions): string {
   if (!source) return '';
 
-  const link = typeof options.link === 'string' ? pathLinker(options.link) : options.link;
+  const link =
+    options.link === undefined
+      ? () => null
+      : typeof options.link === 'string'
+        ? pathLinker(options.link)
+        : options.link;
   const relative = options.relative;
 
   const html = md.render(source);
