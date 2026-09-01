@@ -182,6 +182,18 @@ export default function Home() {
               API reference
             </Link>
           </div>
+
+          {/* Under the buttons rather than above the headline: it is a footnote
+              to "install this", not the first thing to read. */}
+          {version && (
+            <Link
+              href="/downloads"
+              className="mt-6 inline-flex flex-wrap items-center gap-x-2 rounded-full border border-border px-3 py-1 text-xs text-text-muted transition-colors hover:border-border-strong hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
+            >
+              <span className="font-medium text-text">{version}</span>
+              {released && <span>released {formatDate(released.slice(0, 10))}</span>}
+            </Link>
+          )}
         </div>
 
         <div className="min-w-0 lg:pl-4">
@@ -255,29 +267,19 @@ export default function Home() {
       </section>
 
       <section aria-labelledby="install" className="border-t border-border py-16 sm:py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6">
-          {/* The release sits here rather than in the hero: next to the
-              commands it says what `ti sdk install` is about to fetch, which is
-              a fact someone can act on. Above the fold it was just a number. */}
-          {version && (
-            <Link
-              href="/downloads"
-              className="inline-flex flex-wrap items-center gap-x-2 rounded-full border border-border px-3 py-1 text-xs text-text-muted transition-colors hover:border-border-strong hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
-            >
-              <span className="font-medium text-text">{version}</span>
-              {released && <span>released {formatDate(released.slice(0, 10))}</span>}
-            </Link>
-          )}
+        <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[1fr_1.05fr] lg:items-center lg:gap-16">
+          <div className="min-w-0">
+            <h2 id="install" className="text-2xl font-semibold tracking-tight text-balance">
+              Try it
+            </h2>
+            <p className="mt-4 text-base leading-relaxed text-text-muted">
+              Install the CLI and Alloy from npm, add the SDK, then scaffold a project and build it.
+              What comes out runs on both platforms without anything else added to it.
+            </p>
+            <p className="mt-4 text-sm text-text-subtle">Requires Node.js 22.19.0 or newer.</p>
+          </div>
 
-          <h2 id="install" className="mt-5 text-2xl font-semibold tracking-tight text-balance">
-            Try it
-          </h2>
-          <p className="mt-4 max-w-2xl text-base leading-relaxed text-text-muted">
-            Install the CLI and Alloy from npm, add the SDK, then scaffold a project and build it.
-            What comes out runs on both platforms without anything else added to it.
-          </p>
-
-          <div className="mt-6 max-w-xl">
+          <div className="min-w-0">
             <Terminal
               commands={[
                 'npm install --global titanium alloy',
@@ -288,8 +290,6 @@ export default function Home() {
               ]}
             />
           </div>
-
-          <p className="mt-4 text-sm text-text-muted">Requires Node.js 22.19.0 or newer.</p>
         </div>
       </section>
 

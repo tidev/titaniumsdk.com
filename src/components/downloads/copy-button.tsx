@@ -10,7 +10,19 @@ import { useEffect, useState } from 'react';
  * select and copy them, and the page costs one small component per row rather
  * than a client-rendered list.
  */
-export function CopyButton({ text, label = 'Copy command' }: { text: string; label?: string }) {
+export function CopyButton({
+  text,
+  label = 'Copy command',
+  tone = 'default',
+}: {
+  text: string;
+  label?: string;
+  /**
+   * `terminal` for the always-dark block, where the page's semantic colours are
+   * wrong in light mode — `surface-raised` is white and `text` is near-black.
+   */
+  tone?: 'default' | 'terminal';
+}) {
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
@@ -36,7 +48,11 @@ export function CopyButton({ text, label = 'Copy command' }: { text: string; lab
       onClick={copy}
       aria-label={label}
       title={copied ? 'Copied' : label}
-      className="grid size-6 shrink-0 place-items-center rounded-md text-text-subtle transition-colors hover:bg-surface-raised hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
+      className={`grid size-6 shrink-0 place-items-center rounded-md transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus ${
+        tone === 'terminal'
+          ? 'text-terminal-text/60 hover:bg-terminal-text/10 hover:text-terminal-text'
+          : 'text-text-subtle hover:bg-surface-raised hover:text-text'
+      }`}
     >
       <svg
         viewBox="0 0 24 24"
@@ -45,7 +61,7 @@ export function CopyButton({ text, label = 'Copy command' }: { text: string; lab
         strokeWidth="1.75"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className={`size-3.5 ${copied ? 'text-success' : ''}`}
+        className={`size-3.5 ${copied ? (tone === 'terminal' ? 'text-terminal-prompt' : 'text-success') : ''}`}
         aria-hidden="true"
       >
         {copied ? (

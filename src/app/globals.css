@@ -110,6 +110,18 @@
   --info: #005aa3;
   --logo-outer: #1a1f23;
   --logo-inner: #51575e;
+  /**
+   * A terminal is dark in both themes, so these do not flip.
+   *
+   * The block is a picture of a shell rather than a surface of the page: a
+   * light-mode terminal reads as a code sample, which is what it is not. Same
+   * values in all three blocks, listed rather than hoisted so the contrast
+   * check — which parses the light and dark blocks — sees them in both.
+   */
+  --terminal-bg: #15191c;
+  --terminal-row: #22282d;
+  --terminal-text: #f9fafb;
+  --terminal-prompt: #93d7a1;
   color-scheme: light;
 }
 
@@ -133,6 +145,11 @@
     --info: #87ccff;
     --logo-outer: #b4e4ff;
     --logo-inner: #5db1f4;
+    /* Same in every theme — see the light block. */
+    --terminal-bg: #15191c;
+    --terminal-row: #22282d;
+    --terminal-text: #f9fafb;
+    --terminal-prompt: #93d7a1;
     color-scheme: dark;
   }
 }
@@ -156,6 +173,11 @@
   --info: #87ccff;
   --logo-outer: #b4e4ff;
   --logo-inner: #5db1f4;
+  /* Same in every theme — see the light block. */
+  --terminal-bg: #15191c;
+  --terminal-row: #22282d;
+  --terminal-text: #f9fafb;
+  --terminal-prompt: #93d7a1;
   color-scheme: dark;
 }
 
@@ -163,6 +185,10 @@
   --color-bg: var(--bg);
   --color-surface: var(--surface);
   --color-surface-raised: var(--surface-raised);
+  --color-terminal-bg: var(--terminal-bg);
+  --color-terminal-row: var(--terminal-row);
+  --color-terminal-text: var(--terminal-text);
+  --color-terminal-prompt: var(--terminal-prompt);
   --color-field: var(--field);
   --color-border: var(--border);
   --color-border-strong: var(--border-strong);
