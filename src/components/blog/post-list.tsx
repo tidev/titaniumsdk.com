@@ -11,19 +11,22 @@ import { formatDate } from '@/lib/docs/format';
 export function PostCard({ post }: { post: Post }) {
   return (
     <li className="relative flex flex-col rounded-lg border border-border p-4 transition-colors hover:border-border-strong">
-      <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-text-subtle">
-        {SHOW_CATEGORIES && (
-          <span className="rounded border border-border px-1.5 py-0.5">{post.category}</span>
-        )}
-        <time dateTime={post.date}>{formatDate(post.date)}</time>
-        {post.draft && (
-          <span className="rounded border border-warning px-1.5 py-0.5 font-mono text-warning">
-            draft
-          </span>
-        )}
-      </div>
+      {/* With the date down in the byline this row is empty for almost every
+          post, so it is only rendered when it has something to show. */}
+      {(SHOW_CATEGORIES || post.draft) && (
+        <div className="mb-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-text-subtle">
+          {SHOW_CATEGORIES && (
+            <span className="rounded border border-border px-1.5 py-0.5">{post.category}</span>
+          )}
+          {post.draft && (
+            <span className="rounded border border-warning px-1.5 py-0.5 font-mono text-warning">
+              draft
+            </span>
+          )}
+        </div>
+      )}
 
-      <h2 className="mt-3 text-lg font-semibold tracking-tight text-balance">
+      <h2 className="text-lg font-semibold tracking-tight text-balance">
         {/* Stretched over the whole card, so the target is the card rather than
             the few words of the title. */}
         <a
@@ -38,7 +41,11 @@ export function PostCard({ post }: { post: Post }) {
 
       {/* `mt-auto` drops the byline to the bottom, so the stretched cards in a
           row share a baseline instead of trailing empty space. */}
-      <p className="mt-auto pt-3 text-xs text-text-subtle">{post.authors.join(', ')}</p>
+      <p className="mt-auto pt-3 text-xs text-text-subtle">
+        {post.authors.join(', ')}
+        {' · '}
+        <time dateTime={post.date}>{formatDate(post.date)}</time>
+      </p>
     </li>
   );
 }
