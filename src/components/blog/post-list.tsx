@@ -36,7 +36,9 @@ export function PostCard({ post }: { post: Post }) {
 
       {post.description && <p className="mt-2 text-sm text-text-muted">{post.description}</p>}
 
-      <p className="mt-3 text-xs text-text-subtle">{post.authors.join(', ')}</p>
+      {/* `mt-auto` drops the byline to the bottom, so the stretched cards in a
+          row share a baseline instead of trailing empty space. */}
+      <p className="mt-auto pt-3 text-xs text-text-subtle">{post.authors.join(', ')}</p>
     </li>
   );
 }
@@ -46,7 +48,12 @@ export function PostList({ posts }: { posts: Post[] }) {
     return <p className="mt-8 text-text-muted">Nothing published here yet.</p>;
   }
   return (
-    <ul className="mt-8 grid items-start gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    // `auto-rows-fr` equalises every row to the tallest card on the page, not
+    // just within its own row, so the grid reads as a grid. Cards stretch by
+    // default; `items-start` would collapse each to its own content height.
+    // Only from `sm:` up — in a single column there is nothing to line up with,
+    // and padding every short card out to the tallest is just dead space.
+    <ul className="mt-8 grid gap-4 sm:auto-rows-fr sm:grid-cols-2 lg:grid-cols-3">
       {posts.map((post) => (
         <PostCard key={post.slug} post={post} />
       ))}
