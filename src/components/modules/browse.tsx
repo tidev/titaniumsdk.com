@@ -32,15 +32,23 @@ import { useMemo, useState } from 'react';
  */
 
 type PlatformFilter = Platform | 'all';
-type SourceFilter = 'all' | 'registry' | 'community';
+type CurationFilter = 'all' | 'registry' | 'community';
 
 const PLATFORMS: { value: PlatformFilter; label: string }[] = [
   { value: 'all', label: 'All' },
   ...PLATFORM_ORDER.map((p) => ({ value: p as PlatformFilter, label: PLATFORM_LABELS[p] })),
 ];
 
-const SOURCES: { value: SourceFilter; label: string }[] = [
-  { value: 'all', label: 'All' },
+/**
+ * "Curation", not "Source".
+ *
+ * The axis is whether this site documents and verifies a module, which is not
+ * the same as who wrote it: tidev/ti.worker is a TiDev repository that lists as
+ * Community because nothing here documents it. `curation` is also what the
+ * registry schema calls the field, so the control and the data agree.
+ */
+const CURATIONS: { value: CurationFilter; label: string }[] = [
+  { value: 'all', label: 'All modules' },
   { value: 'registry', label: 'Official' },
   { value: 'community', label: 'Community' },
 ];
@@ -60,7 +68,7 @@ const SORTS: { value: SortKey; label: string }[] = [
 export function Browse({ modules }: { modules: ModuleListing[] }) {
   const [query, setQuery] = useState('');
   const [platform, setPlatform] = useState<PlatformFilter>('all');
-  const [source, setSource] = useState<SourceFilter>('all');
+  const [curation, setCuration] = useState<CurationFilter>('all');
   const [sort, setSort] = useState<SortKey>('default');
 
   const ordered = useMemo(() => orderListings(modules, sort), [modules, sort]);
@@ -68,14 +76,14 @@ export function Browse({ modules }: { modules: ModuleListing[] }) {
   const shown = useMemo(() => {
     const needle = query.trim().toLowerCase();
     return ordered.filter((m) => {
-      if (source !== 'all' && m.source !== source) return false;
+      if (curation !== 'all' && m.source !== curation) return false;
       if (platform !== 'all' && !listingPlatforms(m).includes(platform)) return false;
       if (!needle) return true;
       // The owner is searchable for community entries: several authors publish
       // a dozen modules each, and "everything by hansemannn" is a real query.
       return `${m.id} ${m.description ?? ''}`.toLowerCase().includes(needle);
     });
-  }, [ordered, query, platform, source]);
+  }, [ordered, query, platform, curation]);
 
   return (
     <>
@@ -91,9 +99,9 @@ export function Browse({ modules }: { modules: ModuleListing[] }) {
           />
         </label>
 
-        <FilterGroup label="Source" options={SOURCES} value={source} onChange={setSource} />
-        <FilterGroup label="Platform" options={PLATFORMS} value={platform} onChange={setPlatform} />
-        <FilterGroup label="Sort" options={SORTS} value={sort} onChange={setSort} />
+        <Select label="Curation" options={CURATIONS} value={curation} onChange={setCuration} />
+        <Select label="Platform" options={PLATFORMS} value={platform} onChange={setPlatform} />
+        <Select label="Sort" options={SORTS} value={sort} onChange={setSort} />
       </div>
 
       {/* Announced rather than only drawn: with the list filtered down to
@@ -124,11 +132,17 @@ export function Browse({ modules }: { modules: ModuleListing[] }) {
 }
 
 /**
- * The label is drawn, not just announced: the two groups both start with "All",
- * and side by side with nothing between them the pair reads as one six-button
- * control where the second "All" appears to undo the first.
+ * One filter, as a menu.
+ *
+ * These were three rows of buttons — eleven of them — which cost more width
+ * than the list they were filtering. A native `<select>` collapses each to its
+ * current value, and gets keyboard handling, mobile pickers and the platform's
+ * own long-list behaviour for free.
+ *
+ * The `<label>` wraps the control rather than pointing at it with `htmlFor`, so
+ * there is no id to keep unique across three instances.
  */
-function FilterGroup<T extends string>({
+function Select<T extends string>({
   label,
   options,
   value,
@@ -140,32 +154,31 @@ function FilterGroup<T extends string>({
   onChange: (next: T) => void;
 }) {
   return (
-    <div className="flex items-center gap-2">
-      <span aria-hidden className="text-xs text-text-subtle">
-        {label}
+    <label className="inline-flex items-center gap-2">
+      <span className="text-xs text-text-subtle">{label}</span>
+      <span className="relative inline-flex">
+        <select
+          value={value}
+          onChange={(e) => onChange(e.target.value as T)}
+          // `appearance-none` so the control matches the search field beside
+          // it; the chevron below replaces the one that removes.
+          className="appearance-none rounded-md border border-border bg-surface-raised py-2 pr-8 pl-2.5 text-sm text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
+        >
+          {options.map((o) => (
+            <option key={o.value} value={o.value}>
+              {o.label}
+            </option>
+          ))}
+        </select>
+        <svg
+          viewBox="0 0 16 16"
+          aria-hidden
+          className="pointer-events-none absolute top-1/2 right-2.5 size-3 -translate-y-1/2 fill-none stroke-current stroke-2 text-text-subtle"
+        >
+          <path d="m4 6 4 4 4-4" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
       </span>
-      <div
-        className="flex items-center gap-1"
-        role="group"
-        aria-label={`Filter by ${label.toLowerCase()}`}
-      >
-        {options.map((o) => (
-          <button
-            key={o.value}
-            type="button"
-            aria-pressed={value === o.value}
-            onClick={() => onChange(o.value)}
-            className={`rounded-md border px-3 py-2 text-sm transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus ${
-              value === o.value
-                ? 'border-border-strong bg-surface text-text'
-                : 'border-border text-text-muted hover:text-text'
-            }`}
-          >
-            {o.label}
-          </button>
-        ))}
-      </div>
-    </div>
+    </label>
   );
 }
 
