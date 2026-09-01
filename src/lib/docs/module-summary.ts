@@ -45,13 +45,6 @@ export type ModuleSummary = {
   repo?: string;
   latest: PlatformLatest[];
   releases: number;
-  /**
-   * Distinct licences across the module's platform manifests.
-   *
-   * A list because it is declared per platform and the two can disagree —
-   * usually they do not, and one entry is the normal case.
-   */
-  licenses: string[];
 };
 
 /**

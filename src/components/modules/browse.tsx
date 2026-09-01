@@ -189,6 +189,9 @@ function Card({ stripe, children }: { stripe: string; children: React.ReactNode 
 function RegistryCard({ module: m }: { module: ModuleSummary }) {
   return (
     <Card stripe={CURATION_STRIPE[m.curation]}>
+      {/* `ml-auto` on the badge rather than `justify-between` on the row: with
+          a long id the two wrap onto separate lines, and justify-between then
+          leaves one item per line and stops aligning anything. */}
       <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
         <h2 className="font-mono text-base font-semibold break-all">
           <a
@@ -198,22 +201,14 @@ function RegistryCard({ module: m }: { module: ModuleSummary }) {
             {m.id}
           </a>
         </h2>
-        <CurationBadge curation={m.curation} />
+        <span className="ml-auto">
+          <CurationBadge curation={m.curation} />
+        </span>
       </div>
 
       {m.description && <p className="mt-2 text-sm text-text-muted">{m.description}</p>}
 
       <LatestPerPlatform latest={m.latest} className="mt-3" />
-
-      <p className="mt-2 flex flex-wrap gap-x-3 text-xs text-text-subtle">
-        <span>
-          {m.releases} release{m.releases === 1 ? '' : 's'}
-        </span>
-        {/* Declared per platform, so more than one is possible. Joined rather
-            than picking a winner: which platform a licence applies to is
-            exactly what you would need to know if they ever disagreed. */}
-        {!!m.licenses.length && <span>{m.licenses.join(' · ')}</span>}
-      </p>
     </Card>
   );
 }
@@ -247,15 +242,17 @@ function CommunityCard({ module: m }: { module: CommunityListing }) {
             </svg>
           </a>
         </h2>
-        <CurationBadge curation="community" />
-        {m.archived && (
-          <span
-            title="The author archived this repository"
-            className="rounded border border-warning px-1.5 py-0.5 font-mono text-xs text-warning"
-          >
-            archived
-          </span>
-        )}
+        <span className="ml-auto flex flex-wrap items-center gap-2">
+          <CurationBadge curation="community" />
+          {m.archived && (
+            <span
+              title="The author archived this repository"
+              className="rounded border border-warning px-1.5 py-0.5 font-mono text-xs text-warning"
+            >
+              archived
+            </span>
+          )}
+        </span>
       </div>
 
       <p className="mt-1 text-xs text-text-subtle">

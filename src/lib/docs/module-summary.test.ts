@@ -25,7 +25,6 @@ const official = (id: string, platforms: ('android' | 'ios')[] = ['android']): M
   curation: 'tidev',
   latest: platforms.map((platform) => ({ platform, version: '1.0.0' })),
   releases: 1,
-  licenses: [],
 });
 
 const community = (

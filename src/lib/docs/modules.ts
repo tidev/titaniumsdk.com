@@ -182,24 +182,6 @@ export function latestReleases(index: ModuleIndex): PlatformLatest[] {
   });
 }
 
-/**
- * The licences a module's platform manifests declare, deduplicated.
- *
- * A list rather than a value because two modules disagree with themselves:
- * ti.identity says `Apache 2` on one platform and the unfilled scaffolding
- * default on the other. See TI-66.
- */
-function moduleLicenses(index: ModuleIndex): string[] {
-  const licenses = new Set<string>();
-  for (const { platform, version } of latestPerPlatform(index)) {
-    const license = moduleRelease(index.moduleId, version)?.manifests.find(
-      (m) => m.platform === platform
-    )?.license;
-    if (license) licenses.add(license);
-  }
-  return [...licenses].sort();
-}
-
 /** Everything the browse page shows, and nothing it does not. */
 export function moduleSummaries(): ModuleSummary[] {
   return moduleIds().flatMap((id) => {
@@ -215,7 +197,6 @@ export function moduleSummaries(): ModuleSummary[] {
         repo: index.repo,
         latest: latestReleases(index),
         releases: index.versions.length,
-        licenses: moduleLicenses(index),
       },
     ];
   });
