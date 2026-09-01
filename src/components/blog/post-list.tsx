@@ -31,13 +31,15 @@ export function PostCard({ post }: { post: Post }) {
             the few words of the title. */}
         <a
           href={`/blog/${post.slug}`}
-          className="after:absolute after:inset-0 hover:text-link focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
+          className="text-link after:absolute after:inset-0 hover:text-link-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
         >
           {post.title}
         </a>
       </h2>
 
-      {post.description && <p className="mt-2 text-sm text-text-muted">{post.description}</p>}
+      {/* Full-strength text, not muted: the description is the card's prose, and
+          the byline below it is the only part that should read as metadata. */}
+      {post.description && <p className="mt-2 text-sm text-text">{post.description}</p>}
 
       {/* `mt-auto` drops the byline to the bottom, so the stretched cards in a
           row share a baseline instead of trailing empty space. */}
