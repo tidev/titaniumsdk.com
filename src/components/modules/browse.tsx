@@ -99,9 +99,16 @@ export function Browse({ modules }: { modules: ModuleListing[] }) {
           />
         </label>
 
-        <Select label="Curation" options={CURATIONS} value={curation} onChange={setCuration} />
-        <Select label="Platform" options={PLATFORMS} value={platform} onChange={setPlatform} />
-        <Select label="Sort" options={SORTS} value={sort} onChange={setSort} />
+        {/* One group, so the three move together. `min-w-max` is what makes
+            them wrap as a unit rather than one at a time: it stops the group
+            being squeezed, so when it no longer fits beside the search field it
+            takes the next line intact. Below `sm` there is no width for that
+            either way, so it gets its own line and wraps within itself. */}
+        <div className="flex min-w-full flex-wrap items-center gap-3 sm:min-w-max">
+          <Select label="Curation" options={CURATIONS} value={curation} onChange={setCuration} />
+          <Select label="Platform" options={PLATFORMS} value={platform} onChange={setPlatform} />
+          <Select label="Sort" options={SORTS} value={sort} onChange={setSort} />
+        </div>
       </div>
 
       {/* Announced rather than only drawn: with the list filtered down to
