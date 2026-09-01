@@ -1,4 +1,4 @@
-import { CurationBadge } from './badges';
+import { SourceBadge } from './badges';
 import { Breadcrumbs, type Crumb } from '@/components/docs/breadcrumbs';
 import type { ModuleIndex } from '@/lib/registry';
 
@@ -18,7 +18,7 @@ export function ModuleHeader({
 }: {
   index: ModuleIndex;
   crumbs: Crumb[];
-  /** Version badges and the like, shown beside the curation badge. */
+  /** Version badges and the like, shown beside the source badge. */
   children?: React.ReactNode;
 }) {
   return (
@@ -30,7 +30,7 @@ export function ModuleHeader({
       </h1>
 
       <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-2">
-        <CurationBadge curation={index.curation} />
+        <SourceBadge source={index.source} />
         {children}
         {index.repo && (
           <a

@@ -29,7 +29,7 @@ const ENDPOINTS: { path: string; title: string; body: React.ReactNode }[] = [
     body: (
       <>
         One file, official and community together, each tagged with a{' '}
-        <code className="font-mono">source</code>. There are no query parameters — the whole list
+        <code className="font-mono">kind</code>. There are no query parameters — the whole list
         is small enough to fetch and filter locally, which is why it can be cached whole.
       </>
     ),
@@ -165,7 +165,7 @@ export default function RegistryApiPage() {
           <li className="border-l-2 border-warning pl-3">
             <strong className="font-medium text-text">Community entries are repositories.</strong>{' '}
             They are listed so a search can find them, but they carry no version list and nothing to
-            install. Only <code className="font-mono">&quot;source&quot;: &quot;registry&quot;</code>{' '}
+            install. Only <code className="font-mono">&quot;kind&quot;: &quot;registry&quot;</code>{' '}
             entries are installable.
           </li>
         </ul>

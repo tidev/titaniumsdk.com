@@ -97,7 +97,7 @@ export const ModuleVersionSchema = z
   })
   .loose();
 
-export const CurationSchema = z.enum(['tidev', 'community', 'unverified']);
+export const ModuleSourceSchema = z.enum(['tidev', 'community', 'unverified']);
 
 export const ModuleIndexSchema = z
   .object({
@@ -116,7 +116,7 @@ export const ModuleIndexSchema = z
     repo: z.url().optional(),
     /** Repo name and other spellings that should redirect here. */
     aliases: z.array(z.string()).default([]),
-    curation: CurationSchema.default('community'),
+    source: ModuleSourceSchema.default('community'),
     /**
      * Latest per platform. Never a single value: ti.map's newest by date is
      * android 5.7.0 while its highest semver is iOS 7.3.1, and neither is
@@ -173,6 +173,6 @@ export type SdkVersion = z.infer<typeof SdkVersionSchema>;
 export type ModuleManifest = z.infer<typeof ModuleManifestSchema>;
 export type ModuleVersion = z.infer<typeof ModuleVersionSchema>;
 export type ModuleIndex = z.infer<typeof ModuleIndexSchema>;
-export type Curation = z.infer<typeof CurationSchema>;
+export type ModuleSource = z.infer<typeof ModuleSourceSchema>;
 export type CommunityModule = z.infer<typeof CommunityModuleSchema>;
 export type CommunityIndex = z.infer<typeof CommunityIndexSchema>;

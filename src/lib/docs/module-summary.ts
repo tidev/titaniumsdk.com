@@ -1,4 +1,4 @@
-import type { Curation, ModuleIndex, Platform } from '../registry/index.ts';
+import type { ModuleSource, ModuleIndex, Platform } from '../registry/index.ts';
 
 /**
  * The module shapes derived from `index.json` alone.
@@ -38,10 +38,10 @@ export type PlatformLatest = {
 
 /** A module with a page on this site: versions, manifests, usually a reference. */
 export type ModuleSummary = {
-  source: 'registry';
+  kind: 'registry';
   id: string;
   description?: string;
-  curation: Curation;
+  source: ModuleSource;
   repo?: string;
   latest: PlatformLatest[];
   releases: number;
@@ -56,7 +56,7 @@ export type ModuleSummary = {
  * `scripts/generate-community-modules.ts` for what is and is not knowable here.
  */
 export type CommunityListing = {
-  source: 'community';
+  kind: 'community';
   /** `owner/name` — a community module has no manifest id to key on. */
   id: string;
   name: string;
@@ -84,7 +84,7 @@ export type SortKey = 'default' | 'name' | 'updated';
  * Nobody scanning an alphabetical list of modules is looking for the author.
  */
 export function listingName(listing: ModuleListing): string {
-  return listing.source === 'community' ? listing.name : listing.id;
+  return listing.kind === 'community' ? listing.name : listing.id;
 }
 
 /**
@@ -94,14 +94,14 @@ export function listingName(listing: ModuleListing): string {
  * Different events, but the same question — is anyone still working on this.
  */
 export function listingUpdatedAt(listing: ModuleListing): string | undefined {
-  if (listing.source === 'community') return listing.pushedAt;
+  if (listing.kind === 'community') return listing.pushedAt;
   const dates = listing.latest.map((l) => l.publishedAt).filter((d) => d !== undefined);
   return dates.sort().at(-1);
 }
 
 /** The platforms a listing ships for, whichever kind it is. */
 export function listingPlatforms(listing: ModuleListing): Platform[] {
-  return listing.source === 'registry' ? listing.latest.map((l) => l.platform) : listing.platforms;
+  return listing.kind === 'registry' ? listing.latest.map((l) => l.platform) : listing.platforms;
 }
 
 /**
@@ -137,9 +137,9 @@ export function orderListings(
   }
 
   return [...listings].sort((a, b) => {
-    if (a.source !== b.source) return a.source === 'registry' ? -1 : 1;
-    if (a.source === 'registry' && b.source === 'registry') return a.id.localeCompare(b.id);
-    if (a.source === 'community' && b.source === 'community') {
+    if (a.kind !== b.kind) return a.kind === 'registry' ? -1 : 1;
+    if (a.kind === 'registry' && b.kind === 'registry') return a.id.localeCompare(b.id);
+    if (a.kind === 'community' && b.kind === 'community') {
       // Archived last whatever its star count: it is not a live option.
       if (a.archived !== b.archived) return a.archived ? 1 : -1;
       return b.stars - a.stars || a.id.localeCompare(b.id);

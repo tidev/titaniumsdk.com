@@ -1,6 +1,6 @@
 'use client';
 
-import { CurationBadge, CURATION_STRIPE, LatestPerPlatform, PlatformChips } from './badges';
+import { SourceBadge, SOURCE_STRIPE, LatestPerPlatform, PlatformChips } from './badges';
 import { Select } from '@/components/ui/select';
 import { formatDate } from '@/lib/docs/format';
 import {
@@ -33,22 +33,26 @@ import { useMemo, useState } from 'react';
  */
 
 type PlatformFilter = Platform | 'all';
-type CurationFilter = 'all' | 'registry' | 'community';
+type KindFilter = 'all' | 'registry' | 'community';
 
 const PLATFORMS: { value: PlatformFilter; label: string }[] = [
-  { value: 'all', label: 'All' },
+  { value: 'all', label: 'All platforms' },
   ...PLATFORM_ORDER.map((p) => ({ value: p as PlatformFilter, label: PLATFORM_LABELS[p] })),
 ];
 
 /**
- * "Curation", not "Source".
+ * What this menu selects, which is not quite the module `source` field.
  *
- * The axis is whether this site documents and verifies a module, which is not
- * the same as who wrote it: tidev/ti.worker is a TiDev repository that lists as
- * Community because nothing here documents it. `curation` is also what the
- * registry schema calls the field, so the control and the data agree.
+ * It filters on `kind` — whether an entry has a page on this site or is a
+ * repository we merely list. `source` is the registry's own field, and it says
+ * who stands behind a module: tidev/ti.worker is a TiDev repository that shows
+ * as Community here because nothing on this site documents it.
+ *
+ * The two agree for every module today, which is why one menu can serve both
+ * readings. If a curated module ever ships with `source: community`, they part
+ * company and this needs splitting.
  */
-const CURATIONS: { value: CurationFilter; label: string }[] = [
+const KINDS: { value: KindFilter; label: string }[] = [
   { value: 'all', label: 'All modules' },
   { value: 'registry', label: 'Official' },
   { value: 'community', label: 'Community' },
@@ -69,7 +73,7 @@ const SORTS: { value: SortKey; label: string }[] = [
 export function Browse({ modules }: { modules: ModuleListing[] }) {
   const [query, setQuery] = useState('');
   const [platform, setPlatform] = useState<PlatformFilter>('all');
-  const [curation, setCuration] = useState<CurationFilter>('all');
+  const [source, setSource] = useState<KindFilter>('all');
   const [sort, setSort] = useState<SortKey>('default');
 
   const ordered = useMemo(() => orderListings(modules, sort), [modules, sort]);
@@ -77,14 +81,14 @@ export function Browse({ modules }: { modules: ModuleListing[] }) {
   const shown = useMemo(() => {
     const needle = query.trim().toLowerCase();
     return ordered.filter((m) => {
-      if (curation !== 'all' && m.source !== curation) return false;
+      if (source !== 'all' && m.kind !== source) return false;
       if (platform !== 'all' && !listingPlatforms(m).includes(platform)) return false;
       if (!needle) return true;
       // The owner is searchable for community entries: several authors publish
       // a dozen modules each, and "everything by hansemannn" is a real query.
       return `${m.id} ${m.description ?? ''}`.toLowerCase().includes(needle);
     });
-  }, [ordered, query, platform, curation]);
+  }, [ordered, query, platform, source]);
 
   return (
     <>
@@ -96,7 +100,7 @@ export function Browse({ modules }: { modules: ModuleListing[] }) {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Filter by name, owner, or description"
-            className="w-full rounded-md border border-border bg-surface-raised px-3 py-2 text-sm placeholder:text-text-subtle focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
+            className="w-full rounded-md border border-border bg-field px-3 py-2 text-sm placeholder:text-text-subtle focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
           />
         </label>
 
@@ -106,9 +110,34 @@ export function Browse({ modules }: { modules: ModuleListing[] }) {
             takes the next line intact. Below `sm` there is no width for that
             either way, so it gets its own line and wraps within itself. */}
         <div className="flex min-w-full flex-wrap items-center gap-3 sm:min-w-max">
-          <Select label="Curation" options={CURATIONS} value={curation} onChange={setCuration} />
-          <Select label="Platform" options={PLATFORMS} value={platform} onChange={setPlatform} />
-          <Select label="Sort" options={SORTS} value={sort} onChange={setSort} />
+          {/* No visible label: its options already say what it selects, and the
+              row is tighter without a word that adds nothing. The accessible
+              name is still there for anyone not reading it visually. */}
+          <Select
+            label="Module source"
+            hideLabel
+            options={KINDS}
+            value={source}
+            onChange={setSource}
+          />
+          {/* Unlabelled for the same reason as the menu before it: "All
+              platforms" says what it is. */}
+          <Select
+            label="Platform"
+            hideLabel
+            options={PLATFORMS}
+            value={platform}
+            onChange={setPlatform}
+          />
+          {/* Sort has no self-describing option — "Default" could mean
+              anything on its own — so it keeps a marker, just not a word. */}
+          <Select
+            label="Sort"
+            icon={<SortIcon />}
+            options={SORTS}
+            value={sort}
+            onChange={setSort}
+          />
         </div>
       </div>
 
@@ -121,7 +150,7 @@ export function Browse({ modules }: { modules: ModuleListing[] }) {
 
       <ul className="mt-4 grid gap-4 sm:grid-cols-2">
         {shown.map((m) =>
-          m.source === 'registry' ? (
+          m.kind === 'registry' ? (
             <RegistryCard key={m.id} module={m} />
           ) : (
             <CommunityCard key={m.id} module={m} />
@@ -136,6 +165,19 @@ export function Browse({ modules }: { modules: ModuleListing[] }) {
         </p>
       )}
     </>
+  );
+}
+
+/** Two arrows, up and down: the settled glyph for "this list has an order". */
+function SortIcon() {
+  return (
+    <svg viewBox="0 0 16 16" aria-hidden className="size-4 fill-none stroke-current stroke-[1.75]">
+      <path
+        d="M5 3v10M3 10l2 3 2-3M11 13V3M9 6l2-3 2 3"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
   );
 }
 
@@ -158,7 +200,7 @@ function Card({ stripe, children }: { stripe: string; children: React.ReactNode 
 
 function RegistryCard({ module: m }: { module: ModuleSummary }) {
   return (
-    <Card stripe={CURATION_STRIPE[m.curation]}>
+    <Card stripe={SOURCE_STRIPE[m.source]}>
       {/* `ml-auto` on the badge rather than `justify-between` on the row: with
           a long id the two wrap onto separate lines, and justify-between then
           leaves one item per line and stops aligning anything. */}
@@ -172,7 +214,7 @@ function RegistryCard({ module: m }: { module: ModuleSummary }) {
           </a>
         </h2>
         <span className="ml-auto">
-          <CurationBadge curation={m.curation} />
+          <SourceBadge source={m.source} />
         </span>
       </div>
 
@@ -194,7 +236,7 @@ function CommunityCard({ module: m }: { module: CommunityListing }) {
   const pushed = formatDate(m.pushedAt);
 
   return (
-    <Card stripe={CURATION_STRIPE.community}>
+    <Card stripe={SOURCE_STRIPE.community}>
       <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
         <h2 className="font-mono text-base font-semibold break-all">
           <a
@@ -213,7 +255,7 @@ function CommunityCard({ module: m }: { module: CommunityListing }) {
           </a>
         </h2>
         <span className="ml-auto flex flex-wrap items-center gap-2">
-          <CurationBadge curation="community" />
+          <SourceBadge source="community" />
           {m.archived && (
             <span
               title="The author archived this repository"

@@ -63,7 +63,7 @@ import { fileURLToPath } from 'node:url';
 const MUTABLE = 'main';
 
 /** Everything here lives under tidev, so nothing in this tree is third-party. */
-const CURATION = 'tidev';
+const SOURCE_STYLE = 'tidev';
 
 const PLATFORMS: Platform[] = ['android', 'ios'];
 
@@ -504,7 +504,7 @@ for (const m of collected) {
     // The repository name is not the module id for 5 of 16, and it is what
     // inbound links and old documentation use.
     aliases: [m.name],
-    curation: CURATION,
+    source: SOURCE_STYLE,
     latest: latestPerPlatform(versions),
     versions: versions.map((v) => ({
       version: v.version,

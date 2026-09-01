@@ -15,19 +15,19 @@ describe('listModules', () => {
   const modules = listModules();
 
   test('carries both kinds, discriminated', () => {
-    const kinds = new Set(modules.map((m) => m.source));
+    const kinds = new Set(modules.map((m) => m.kind));
     assert.deepEqual([...kinds].sort(), ['community', 'registry']);
   });
 
   test('lists every registry module before any community one', () => {
-    const firstCommunity = modules.findIndex((m) => m.source === 'community');
-    const lastRegistry = modules.findLastIndex((m) => m.source === 'registry');
+    const firstCommunity = modules.findIndex((m) => m.kind === 'community');
+    const lastRegistry = modules.findLastIndex((m) => m.kind === 'registry');
     assert.ok(lastRegistry < firstCommunity, 'registry modules must come first');
   });
 
   test('gives every registry module a per-platform latest, never a single value', () => {
     for (const m of modules) {
-      if (m.source !== 'registry') continue;
+      if (m.kind !== 'registry') continue;
       assert.ok(m.platforms.length, `${m.id} has no platforms`);
       for (const platform of m.platforms) {
         assert.ok(m.latest[platform], `${m.id} has no latest for ${platform}`);

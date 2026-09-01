@@ -24,20 +24,45 @@ import * as RadixSelect from '@radix-ui/react-select';
  */
 export function Select<T extends string>({
   label,
+  hideLabel,
+  icon,
   options,
   value,
   onChange,
 }: {
+  /** Always required: it names the control, drawn or not. */
   label: string;
+  /**
+   * Drops the visible label while keeping the accessible one.
+   *
+   * For a menu whose options already say what it selects — "All modules",
+   * "Official", "Community" — where a word in front of it only costs width.
+   */
+  hideLabel?: boolean;
+  /**
+   * Drawn in place of the label text, for a dimension with a settled glyph.
+   *
+   * The accessible name still comes from `label`, so this is decoration and
+   * the icon itself is hidden from assistive tech.
+   */
+  icon?: React.ReactNode;
   options: readonly { value: T; label: string }[];
   value: T;
   onChange: (next: T) => void;
 }) {
   return (
     <span className="inline-flex items-center gap-2">
-      <span aria-hidden className="text-xs text-text-subtle">
-        {label}
-      </span>
+      {icon ? (
+        <span aria-hidden className="text-text-subtle">
+          {icon}
+        </span>
+      ) : (
+        !hideLabel && (
+          <span aria-hidden className="text-xs text-text-subtle">
+            {label}
+          </span>
+        )
+      )}
 
       <RadixSelect.Root value={value} onValueChange={(next) => onChange(next as T)}>
         {/* Every option's label, stacked in one grid cell and hidden, with the
@@ -66,7 +91,7 @@ export function Select<T extends string>({
               the native control was — the name comes from `aria-label` instead. */}
           <RadixSelect.Trigger
             aria-label={label}
-            className="col-start-1 row-start-1 inline-flex w-full items-center gap-2 rounded-md border border-border bg-surface-raised py-2 pr-2 pl-2.5 text-sm text-text transition-colors hover:border-border-strong focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
+            className="col-start-1 row-start-1 inline-flex w-full items-center gap-2 rounded-md border border-border bg-field py-2 pr-2 pl-2.5 text-sm text-text transition-colors hover:border-border-strong focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
           >
             {/* The current label is passed in rather than left to Radix to look
               up from its items. Radix resolves it on the client, so the trigger
@@ -93,7 +118,10 @@ export function Select<T extends string>({
             sideOffset={4}
             // Never narrower than the trigger it belongs to, so the menu reads
             // as attached to it rather than as a floating panel.
-            className="z-50 min-w-[var(--radix-select-trigger-width)] overflow-hidden rounded-md border border-border bg-surface-raised shadow-lg"
+            // The menu is raised, not recessed — it sits above the page rather than
+            // being typed into — but on `surface` rather than `surface-raised`,
+            // which is light enough to glare against the page in dark mode.
+            className="z-50 min-w-[var(--radix-select-trigger-width)] overflow-hidden rounded-md border border-border bg-surface shadow-lg"
           >
             <RadixSelect.Viewport className="p-1">
               {options.map((option) => (

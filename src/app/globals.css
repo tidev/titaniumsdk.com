@@ -88,6 +88,14 @@
   --bg: #ffffff;
   --surface: #f9fafb;
   --surface-raised: #ffffff;
+  /**
+   * Form fields, which are their own role rather than a borrowed surface.
+   *
+   * Slightly recessed from the page: an input is something you type into, and
+   * the inset reads as that. It used to be `surface-raised`, which in dark mode
+   * is the same value as `--border` — a light slab with an invisible edge.
+   */
+  --field: #f4f6f8;
   --border: #dadee3;
   --border-strong: #868d94;
   --text: #1a1f23;
@@ -110,6 +118,7 @@
     --bg: #1a1f23;
     --surface: #2a3035;
     --surface-raised: #3c4248;
+    --field: #15191c;
     --border: #3c4248;
     --border-strong: #696f77;
     --text: #f9fafb;
@@ -132,6 +141,7 @@
   --bg: #1a1f23;
   --surface: #2a3035;
   --surface-raised: #3c4248;
+  --field: #15191c;
   --border: #3c4248;
   --border-strong: #696f77;
   --text: #f9fafb;
@@ -153,6 +163,7 @@
   --color-bg: var(--bg);
   --color-surface: var(--surface);
   --color-surface-raised: var(--surface-raised);
+  --color-field: var(--field);
   --color-border: var(--border);
   --color-border-strong: var(--border-strong);
   --color-text: var(--text);

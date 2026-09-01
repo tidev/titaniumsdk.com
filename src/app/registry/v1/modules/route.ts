@@ -19,8 +19,8 @@ export function GET() {
     apiVersion: API_VERSION,
     count: modules.length,
     counts: {
-      registry: modules.filter((m) => m.source === 'registry').length,
-      community: modules.filter((m) => m.source === 'community').length,
+      registry: modules.filter((m) => m.kind === 'registry').length,
+      community: modules.filter((m) => m.kind === 'community').length,
     },
     modules,
   });

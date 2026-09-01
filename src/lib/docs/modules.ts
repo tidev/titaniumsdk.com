@@ -190,10 +190,10 @@ export function moduleSummaries(): ModuleSummary[] {
 
     return [
       {
-        source: 'registry' as const,
+        kind: 'registry' as const,
         id,
         description: index.description,
-        curation: index.curation,
+        source: index.source,
         repo: index.repo,
         latest: latestReleases(index),
         releases: index.versions.length,
@@ -213,7 +213,7 @@ export function communityListings(): CommunityListing[] {
   if (!existsSync(path)) return [];
 
   const parsed = CommunityIndexSchema.parse(JSON.parse(readFileSync(path, 'utf8')));
-  return parsed.modules.map((m) => ({ source: 'community' as const, ...m }));
+  return parsed.modules.map((m) => ({ kind: 'community' as const, ...m }));
 }
 
 /**
