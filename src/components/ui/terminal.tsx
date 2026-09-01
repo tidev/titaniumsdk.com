@@ -15,7 +15,12 @@ import { CopyButton } from '@/components/downloads/copy-button';
  */
 export function Terminal({ commands }: { commands: string[] }) {
   return (
-    <div className="overflow-hidden rounded-lg border border-terminal-row bg-terminal-bg py-2">
+    // No ground of its own: the section behind it is already the terminal, so a
+    // border and a second background would draw a box around part of it. The
+    // negative insets cancel the first row's padding, so the commands line up
+    // with the top and left edge of the text beside them rather than sitting
+    // 6px low and 16px in.
+    <div className="-mx-4 -mt-1.5">
       {commands.map((command) => (
         <div
           key={command}

@@ -296,17 +296,25 @@ export default function Home() {
         </div>
       </section>
 
-      <section aria-labelledby="install" className="border-t border-border py-16 sm:py-20">
-        <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[1fr_1.05fr] lg:items-center lg:gap-16">
+      {/* The whole band is the terminal, so the prose here uses the terminal's
+          own text roles. The page's roles flip with the theme, and in light
+          mode `text-muted` would be near-black on this ground. */}
+      <section
+        aria-labelledby="install"
+        className="bg-terminal-bg py-16 text-terminal-text sm:py-20"
+      >
+        <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[1fr_1.05fr] lg:items-start lg:gap-16">
           <div className="min-w-0">
             <h2 id="install" className="text-2xl font-semibold tracking-tight text-balance">
               Try it
             </h2>
-            <p className="mt-4 text-base leading-relaxed text-text-muted">
+            <p className="mt-4 text-base leading-relaxed text-terminal-text-muted">
               Install the CLI and Alloy from npm, add the SDK, then scaffold a project and build it.
               What comes out runs on both platforms without anything else added to it.
             </p>
-            <p className="mt-4 text-sm text-text-subtle">Requires Node.js 22.19.0 or newer.</p>
+            <p className="mt-4 text-sm text-terminal-text-subtle">
+              Requires Node.js 22.19.0 or newer.
+            </p>
           </div>
 
           <div className="min-w-0">
