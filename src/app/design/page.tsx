@@ -66,7 +66,7 @@ export default function DesignPage() {
   const roles = Object.keys(light);
 
   return (
-    <div className="mx-auto w-full max-w-7xl px-4 py-14 sm:px-6">
+    <div className="mx-auto w-full max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
       <h1 className="text-3xl font-semibold tracking-tight">Design tokens</h1>
       <p className="mt-3 max-w-2xl text-text-muted">
         Generated in OKLCH at a fixed hue with chroma tapering toward both ends. Contrast ratios are

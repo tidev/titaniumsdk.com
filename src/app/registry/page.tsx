@@ -77,7 +77,7 @@ export default function RegistryApiPage() {
   return (
     // Gutters, the same as the modules and downloads trees get from their own
     // layouts. This route has no layout of its own — it is one page.
-    <div className="mx-auto w-full max-w-7xl px-4 sm:px-6">
+    <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl py-10">
       <h1 className="text-3xl font-semibold tracking-tight">Registry API</h1>
       <p className="mt-3 text-text-muted">

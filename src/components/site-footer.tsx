@@ -51,7 +51,7 @@ function LinkColumn({ title, items }: { title: string; items: NavItem[] }) {
 export function SiteFooter() {
   return (
     <footer className="mt-auto border-t border-border bg-surface">
-      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6">
+      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <LinkColumn title="Documentation" items={primaryNav} />
           <LinkColumn title="Community" items={communityNav} />

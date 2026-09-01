@@ -74,6 +74,12 @@ const C = ({ children }: { children: React.ReactNode }) => (
  * real app rather than a syntax demo. `Ti.UI.createWindow` returns an Android
  * Activity or a UIWindow, which is the whole point and is worth showing rather
  * than asserting.
+ *
+ * The object literals are broken across lines to keep the sample inside its
+ * column. Written inline the widest line was 63 characters, which overflowed
+ * the hero at 1024px and put a scrollbar under it; split, the widest is the
+ * 40-character `addEventListener` line. It is also how anyone would actually
+ * write it, so nothing is distorted to fit.
  */
 function HeroSample() {
   return (
@@ -82,15 +88,15 @@ function HeroSample() {
       <K>const</K>
       {' win = '}
       <K>Ti</K>
-      {'.UI.createWindow({ backgroundColor: '}
+      {'.UI.createWindow({\n  backgroundColor: '}
       <S>{"'#15191c'"}</S>
-      {' });\n\n'}
+      {'\n});\n\n'}
       <K>const</K>
       {' button = '}
       <K>Ti</K>
-      {'.UI.createButton({ title: '}
+      {'.UI.createButton({\n  title: '}
       <S>{"'Say hello'"}</S>
-      {' });\n'}
+      {'\n});\n\n'}
       {'button.addEventListener('}
       <S>{"'click'"}</S>
       {', () => {\n  '}
@@ -166,7 +172,7 @@ export default function Home() {
 
   return (
     <div className="w-full">
-      <section className="mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[1.05fr_1fr] lg:items-center lg:gap-16 lg:py-24">
+      <section className="mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 lg:px-8 lg:grid-cols-[1.05fr_1fr] lg:items-center lg:gap-16 lg:py-24">
         {/* `min-w-0`: a grid item defaults to `min-width: auto`, so the code
             block's long lines widen the track instead of scrolling inside it,
             and the whole page picks up a horizontal scrollbar at 320px. */}
@@ -235,7 +241,7 @@ export default function Home() {
         aria-labelledby="what"
         className="border-y border-border bg-surface/40 py-14 sm:py-16"
       >
-        <div className="mx-auto max-w-7xl px-4 sm:px-6">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 id="what" className="sr-only">
             What Titanium is
           </h2>
@@ -273,7 +279,7 @@ export default function Home() {
 
       <section
         aria-labelledby="alloy"
-        className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[1fr_1.05fr] lg:items-center lg:gap-16 lg:py-20"
+        className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 lg:px-8 lg:grid-cols-[1fr_1.05fr] lg:items-center lg:gap-16 lg:py-20"
       >
         <div className="min-w-0 lg:order-2">
           <h2 id="alloy" className="text-2xl font-semibold tracking-tight text-balance">
@@ -303,7 +309,7 @@ export default function Home() {
         aria-labelledby="install"
         className="bg-terminal-bg py-16 text-terminal-text sm:py-20"
       >
-        <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[1fr_1.05fr] lg:items-start lg:gap-16">
+        <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:px-8 lg:grid-cols-[1fr_1.05fr] lg:items-start lg:gap-16">
           <div className="min-w-0">
             <h2 id="install" className="text-2xl font-semibold tracking-tight text-balance">
               Try it
@@ -332,7 +338,7 @@ export default function Home() {
       </section>
 
       <section aria-labelledby="explore" className="border-t border-border py-16 sm:py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 id="explore" className="text-2xl font-semibold tracking-tight">
             Where to go next
           </h2>
@@ -359,7 +365,7 @@ export default function Home() {
         aria-labelledby="community"
         className="border-t border-border bg-surface/40 py-14 sm:py-16"
       >
-        <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 sm:px-6 md:flex-row md:items-center md:justify-between">
+        <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 sm:px-6 lg:px-8 md:flex-row md:items-center md:justify-between">
           <div>
             <h2 id="community" className="text-2xl font-semibold tracking-tight">
               Built by the people who use it
