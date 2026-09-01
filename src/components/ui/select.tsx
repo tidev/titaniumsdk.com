@@ -25,6 +25,7 @@ import * as RadixSelect from '@radix-ui/react-select';
 export function Select<T extends string>({
   label,
   hideLabel,
+  icon,
   options,
   value,
   onChange,
@@ -38,16 +39,29 @@ export function Select<T extends string>({
    * "Official", "Community" — where a word in front of it only costs width.
    */
   hideLabel?: boolean;
+  /**
+   * Drawn in place of the label text, for a dimension with a settled glyph.
+   *
+   * The accessible name still comes from `label`, so this is decoration and
+   * the icon itself is hidden from assistive tech.
+   */
+  icon?: React.ReactNode;
   options: readonly { value: T; label: string }[];
   value: T;
   onChange: (next: T) => void;
 }) {
   return (
     <span className="inline-flex items-center gap-2">
-      {!hideLabel && (
-        <span aria-hidden className="text-xs text-text-subtle">
-          {label}
+      {icon ? (
+        <span aria-hidden className="text-text-subtle">
+          {icon}
         </span>
+      ) : (
+        !hideLabel && (
+          <span aria-hidden className="text-xs text-text-subtle">
+            {label}
+          </span>
+        )
       )}
 
       <RadixSelect.Root value={value} onValueChange={(next) => onChange(next as T)}>

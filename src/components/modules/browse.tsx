@@ -36,7 +36,7 @@ type PlatformFilter = Platform | 'all';
 type KindFilter = 'all' | 'registry' | 'community';
 
 const PLATFORMS: { value: PlatformFilter; label: string }[] = [
-  { value: 'all', label: 'All' },
+  { value: 'all', label: 'All platforms' },
   ...PLATFORM_ORDER.map((p) => ({ value: p as PlatformFilter, label: PLATFORM_LABELS[p] })),
 ];
 
@@ -120,8 +120,24 @@ export function Browse({ modules }: { modules: ModuleListing[] }) {
             value={source}
             onChange={setSource}
           />
-          <Select label="Platform" options={PLATFORMS} value={platform} onChange={setPlatform} />
-          <Select label="Sort" options={SORTS} value={sort} onChange={setSort} />
+          {/* Unlabelled for the same reason as the menu before it: "All
+              platforms" says what it is. */}
+          <Select
+            label="Platform"
+            hideLabel
+            options={PLATFORMS}
+            value={platform}
+            onChange={setPlatform}
+          />
+          {/* Sort has no self-describing option — "Default" could mean
+              anything on its own — so it keeps a marker, just not a word. */}
+          <Select
+            label="Sort"
+            icon={<SortIcon />}
+            options={SORTS}
+            value={sort}
+            onChange={setSort}
+          />
         </div>
       </div>
 
@@ -149,6 +165,19 @@ export function Browse({ modules }: { modules: ModuleListing[] }) {
         </p>
       )}
     </>
+  );
+}
+
+/** Two arrows, up and down: the settled glyph for "this list has an order". */
+function SortIcon() {
+  return (
+    <svg viewBox="0 0 16 16" aria-hidden className="size-4 fill-none stroke-current stroke-[1.75]">
+      <path
+        d="M5 3v10M3 10l2 3 2-3M11 13V3M9 6l2-3 2 3"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
   );
 }
 
