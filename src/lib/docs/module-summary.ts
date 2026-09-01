@@ -22,7 +22,19 @@ export const PLATFORM_LABELS: Record<Platform, string> = {
   ios: 'iOS',
 };
 
-export type PlatformLatest = { platform: Platform; version: string; publishedAt?: string };
+export type PlatformLatest = {
+  platform: Platform;
+  version: string;
+  publishedAt?: string;
+  /**
+   * The Titanium SDK that release requires, from its platform manifest.
+   *
+   * Per platform, and not normalised: ti.map is android `12.7.0` and ios
+   * `10.0.0.GA` at once. Shown as written rather than tidied, because the
+   * manifest is the source of truth and rewriting it here would be a guess.
+   */
+  minsdk?: string;
+};
 
 /** A module with a page on this site: versions, manifests, usually a reference. */
 export type ModuleSummary = {
@@ -59,6 +71,34 @@ export type CommunityListing = {
 
 export type ModuleListing = ModuleSummary | CommunityListing;
 
+/** How the browse list is ordered. */
+export type SortKey = 'default' | 'name' | 'updated';
+
+/**
+ * What a module is called, which is not what it is keyed on.
+ *
+ * A registry module's key is its id and that is also its name. A community
+ * module is keyed `owner/name`, because a repository slug is the only stable
+ * identity it has — but sorting on that key sorts by author, which puts
+ * `av.imageview` under A for AndreaVitale and `ti.animation` under M for m1ga.
+ * Nobody scanning an alphabetical list of modules is looking for the author.
+ */
+export function listingName(listing: ModuleListing): string {
+  return listing.source === 'community' ? listing.name : listing.id;
+}
+
+/**
+ * When a listing last moved.
+ *
+ * A registry module's newest release date; a community repository's last push.
+ * Different events, but the same question — is anyone still working on this.
+ */
+export function listingUpdatedAt(listing: ModuleListing): string | undefined {
+  if (listing.source === 'community') return listing.pushedAt;
+  const dates = listing.latest.map((l) => l.publishedAt).filter((d) => d !== undefined);
+  return dates.sort().at(-1);
+}
+
 /** The platforms a listing ships for, whichever kind it is. */
 export function listingPlatforms(listing: ModuleListing): Platform[] {
   return listing.source === 'registry' ? listing.latest.map((l) => l.platform) : listing.platforms;
@@ -71,7 +111,31 @@ export function listingPlatforms(listing: ModuleListing): Platform[] {
  * verified release history behind it, and burying it under a community repo
  * with more stars would be the wrong answer to "which of these should I use".
  */
-export function orderListings(listings: readonly ModuleListing[]): ModuleListing[] {
+export function orderListings(
+  listings: readonly ModuleListing[],
+  sort: SortKey = 'default'
+): ModuleListing[] {
+  if (sort === 'name') {
+    // Case-insensitive: the registry ids are lowercase by convention and the
+    // repository names are not, so a plain compare would sort every `Ti.Foo`
+    // ahead of every `appcelerator.bar`.
+    return [...listings].sort(
+      (a, b) =>
+        listingName(a).localeCompare(listingName(b), undefined, { sensitivity: 'base' }) ||
+        a.id.localeCompare(b.id)
+    );
+  }
+
+  if (sort === 'updated') {
+    // Undated last rather than first: an entry we know nothing about is not
+    // evidence of recent work.
+    return [...listings].sort((a, b) => {
+      const x = listingUpdatedAt(a) ?? '';
+      const y = listingUpdatedAt(b) ?? '';
+      return y.localeCompare(x) || a.id.localeCompare(b.id);
+    });
+  }
+
   return [...listings].sort((a, b) => {
     if (a.source !== b.source) return a.source === 'registry' ? -1 : 1;
     if (a.source === 'registry' && b.source === 'registry') return a.id.localeCompare(b.id);

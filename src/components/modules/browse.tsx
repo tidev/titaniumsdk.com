@@ -1,6 +1,7 @@
 'use client';
 
 import { CurationBadge, CURATION_STRIPE, LatestPerPlatform, PlatformChips } from './badges';
+import { Select } from '@/components/ui/select';
 import { formatDate } from '@/lib/docs/format';
 import {
   listingPlatforms,
@@ -10,6 +11,7 @@ import {
   type CommunityListing,
   type ModuleListing,
   type ModuleSummary,
+  type SortKey,
 } from '@/lib/docs/module-summary';
 import type { Platform } from '@/lib/registry';
 import { useMemo, useState } from 'react';
@@ -31,37 +33,58 @@ import { useMemo, useState } from 'react';
  */
 
 type PlatformFilter = Platform | 'all';
-type SourceFilter = 'all' | 'registry' | 'community';
+type CurationFilter = 'all' | 'registry' | 'community';
 
 const PLATFORMS: { value: PlatformFilter; label: string }[] = [
   { value: 'all', label: 'All' },
   ...PLATFORM_ORDER.map((p) => ({ value: p as PlatformFilter, label: PLATFORM_LABELS[p] })),
 ];
 
-const SOURCES: { value: SourceFilter; label: string }[] = [
-  { value: 'all', label: 'All' },
+/**
+ * "Curation", not "Source".
+ *
+ * The axis is whether this site documents and verifies a module, which is not
+ * the same as who wrote it: tidev/ti.worker is a TiDev repository that lists as
+ * Community because nothing here documents it. `curation` is also what the
+ * registry schema calls the field, so the control and the data agree.
+ */
+const CURATIONS: { value: CurationFilter; label: string }[] = [
+  { value: 'all', label: 'All modules' },
   { value: 'registry', label: 'Official' },
   { value: 'community', label: 'Community' },
+];
+
+/**
+ * Default is not a sort so much as an answer to "which should I use": official
+ * first, then community by stars. The other two are plain orderings, offered
+ * because that default buries a well-maintained community module under sixteen
+ * curated ones no matter how good it is.
+ */
+const SORTS: { value: SortKey; label: string }[] = [
+  { value: 'default', label: 'Default' },
+  { value: 'name', label: 'Name' },
+  { value: 'updated', label: 'Updated' },
 ];
 
 export function Browse({ modules }: { modules: ModuleListing[] }) {
   const [query, setQuery] = useState('');
   const [platform, setPlatform] = useState<PlatformFilter>('all');
-  const [source, setSource] = useState<SourceFilter>('all');
+  const [curation, setCuration] = useState<CurationFilter>('all');
+  const [sort, setSort] = useState<SortKey>('default');
 
-  const ordered = useMemo(() => orderListings(modules), [modules]);
+  const ordered = useMemo(() => orderListings(modules, sort), [modules, sort]);
 
   const shown = useMemo(() => {
     const needle = query.trim().toLowerCase();
     return ordered.filter((m) => {
-      if (source !== 'all' && m.source !== source) return false;
+      if (curation !== 'all' && m.source !== curation) return false;
       if (platform !== 'all' && !listingPlatforms(m).includes(platform)) return false;
       if (!needle) return true;
       // The owner is searchable for community entries: several authors publish
       // a dozen modules each, and "everything by hansemannn" is a real query.
       return `${m.id} ${m.description ?? ''}`.toLowerCase().includes(needle);
     });
-  }, [ordered, query, platform, source]);
+  }, [ordered, query, platform, curation]);
 
   return (
     <>
@@ -77,8 +100,16 @@ export function Browse({ modules }: { modules: ModuleListing[] }) {
           />
         </label>
 
-        <FilterGroup label="Source" options={SOURCES} value={source} onChange={setSource} />
-        <FilterGroup label="Platform" options={PLATFORMS} value={platform} onChange={setPlatform} />
+        {/* One group, so the three move together. `min-w-max` is what makes
+            them wrap as a unit rather than one at a time: it stops the group
+            being squeezed, so when it no longer fits beside the search field it
+            takes the next line intact. Below `sm` there is no width for that
+            either way, so it gets its own line and wraps within itself. */}
+        <div className="flex min-w-full flex-wrap items-center gap-3 sm:min-w-max">
+          <Select label="Curation" options={CURATIONS} value={curation} onChange={setCuration} />
+          <Select label="Platform" options={PLATFORMS} value={platform} onChange={setPlatform} />
+          <Select label="Sort" options={SORTS} value={sort} onChange={setSort} />
+        </div>
       </div>
 
       {/* Announced rather than only drawn: with the list filtered down to
@@ -109,52 +140,6 @@ export function Browse({ modules }: { modules: ModuleListing[] }) {
 }
 
 /**
- * The label is drawn, not just announced: the two groups both start with "All",
- * and side by side with nothing between them the pair reads as one six-button
- * control where the second "All" appears to undo the first.
- */
-function FilterGroup<T extends string>({
-  label,
-  options,
-  value,
-  onChange,
-}: {
-  label: string;
-  options: { value: T; label: string }[];
-  value: T;
-  onChange: (next: T) => void;
-}) {
-  return (
-    <div className="flex items-center gap-2">
-      <span aria-hidden className="text-xs text-text-subtle">
-        {label}
-      </span>
-      <div
-        className="flex items-center gap-1"
-        role="group"
-        aria-label={`Filter by ${label.toLowerCase()}`}
-      >
-        {options.map((o) => (
-          <button
-            key={o.value}
-            type="button"
-            aria-pressed={value === o.value}
-            onClick={() => onChange(o.value)}
-            className={`rounded-md border px-3 py-2 text-sm transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus ${
-              value === o.value
-                ? 'border-border-strong bg-surface text-text'
-                : 'border-border text-text-muted hover:text-text'
-            }`}
-          >
-            {o.label}
-          </button>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-/**
  * The card shell both kinds share.
  *
  * Flat: the background is the page's own, so the grid reads as a set of ruled
@@ -174,6 +159,9 @@ function Card({ stripe, children }: { stripe: string; children: React.ReactNode 
 function RegistryCard({ module: m }: { module: ModuleSummary }) {
   return (
     <Card stripe={CURATION_STRIPE[m.curation]}>
+      {/* `ml-auto` on the badge rather than `justify-between` on the row: with
+          a long id the two wrap onto separate lines, and justify-between then
+          leaves one item per line and stops aligning anything. */}
       <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
         <h2 className="font-mono text-base font-semibold break-all">
           <a
@@ -183,16 +171,14 @@ function RegistryCard({ module: m }: { module: ModuleSummary }) {
             {m.id}
           </a>
         </h2>
-        <CurationBadge curation={m.curation} />
+        <span className="ml-auto">
+          <CurationBadge curation={m.curation} />
+        </span>
       </div>
 
       {m.description && <p className="mt-2 text-sm text-text-muted">{m.description}</p>}
 
       <LatestPerPlatform latest={m.latest} className="mt-3" />
-
-      <p className="mt-2 text-xs text-text-subtle">
-        {m.releases} release{m.releases === 1 ? '' : 's'}
-      </p>
     </Card>
   );
 }
@@ -226,15 +212,17 @@ function CommunityCard({ module: m }: { module: CommunityListing }) {
             </svg>
           </a>
         </h2>
-        <CurationBadge curation="community" />
-        {m.archived && (
-          <span
-            title="The author archived this repository"
-            className="rounded border border-warning px-1.5 py-0.5 font-mono text-xs text-warning"
-          >
-            archived
-          </span>
-        )}
+        <span className="ml-auto flex flex-wrap items-center gap-2">
+          <CurationBadge curation="community" />
+          {m.archived && (
+            <span
+              title="The author archived this repository"
+              className="rounded border border-warning px-1.5 py-0.5 font-mono text-xs text-warning"
+            >
+              archived
+            </span>
+          )}
+        </span>
       </div>
 
       <p className="mt-1 text-xs text-text-subtle">

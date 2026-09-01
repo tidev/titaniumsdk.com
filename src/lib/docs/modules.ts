@@ -7,7 +7,12 @@ import {
   type ModuleIndex,
   type ModuleVersion,
 } from '../registry/index.ts';
-import { latestPerPlatform, type CommunityListing, type ModuleSummary } from './module-summary.ts';
+import {
+  latestPerPlatform,
+  type CommunityListing,
+  type ModuleSummary,
+  type PlatformLatest,
+} from './module-summary.ts';
 import {
   apiIndexAt,
   apiTypeAt,
@@ -160,11 +165,29 @@ export function externalSdkVersion(id: string, version: string): string | null {
 
 // ------------------------------------------------------------------- summaries
 
+/**
+ * The current release per platform, carrying the SDK each one needs.
+ *
+ * `latestPerPlatform` cannot do this itself: it lives in the fs-free half of
+ * the library so the browse page's client bundle can import it, and `minsdk` is
+ * in the release manifest. One file read per platform per module, at build time
+ * only — every caller is prerendered.
+ */
+export function latestReleases(index: ModuleIndex): PlatformLatest[] {
+  return latestPerPlatform(index).map((entry) => {
+    const minsdk = moduleRelease(index.moduleId, entry.version)?.manifests.find(
+      (m) => m.platform === entry.platform
+    )?.minsdk;
+    return minsdk ? { ...entry, minsdk } : entry;
+  });
+}
+
 /** Everything the browse page shows, and nothing it does not. */
 export function moduleSummaries(): ModuleSummary[] {
   return moduleIds().flatMap((id) => {
     const index = moduleIndex(id);
     if (!index) return [];
+
     return [
       {
         source: 'registry' as const,
@@ -172,7 +195,7 @@ export function moduleSummaries(): ModuleSummary[] {
         description: index.description,
         curation: index.curation,
         repo: index.repo,
-        latest: latestPerPlatform(index),
+        latest: latestReleases(index),
         releases: index.versions.length,
       },
     ];

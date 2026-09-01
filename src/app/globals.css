@@ -228,6 +228,7 @@
 */
 @layer base {
   button:not(:disabled),
+  select:not(:disabled),
   [role='button']:not([aria-disabled='true']),
   [role='radio']:not([aria-disabled='true']),
   summary,
