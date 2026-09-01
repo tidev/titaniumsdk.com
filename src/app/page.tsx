@@ -283,6 +283,8 @@ export default function Home() {
             />
             <InstallCommand command="ti create" label="Copy create command" />
           </div>
+
+          <p className="mt-4 text-sm text-text-muted">Requires Node.js 22.19.0 or newer.</p>
         </div>
       </section>
 
