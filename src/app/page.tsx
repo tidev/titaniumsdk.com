@@ -1,3 +1,4 @@
+import { InstallCommand } from '@/components/downloads/install-command';
 import { formatDate } from '@/lib/docs/format';
 import { communityListings, moduleSummaries } from '@/lib/docs/modules';
 import { latestRelease } from '@/lib/downloads/registry';
@@ -191,10 +192,6 @@ export default function Home() {
               API reference
             </Link>
           </div>
-
-          <p className="mt-6 font-mono text-xs text-text-subtle">
-            {'npm i -g titanium && ti sdk install --default'}
-          </p>
         </div>
 
         <div className="min-w-0 lg:pl-4">
@@ -264,6 +261,28 @@ export default function Home() {
         </div>
         <div className="min-w-0 lg:order-1">
           <AlloySample />
+        </div>
+      </section>
+
+      <section aria-labelledby="install" className="border-t border-border py-16 sm:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
+          <h2 id="install" className="text-2xl font-semibold tracking-tight text-balance">
+            Try it
+          </h2>
+          <p className="mt-4 max-w-2xl text-base leading-relaxed text-text-muted">
+            Two commands: install the CLI and Alloy from npm, then scaffold an app. The generated
+            project builds and runs on both platforms without anything else added to it.
+          </p>
+
+          {/* Two boxes rather than one block so each command copies on its own —
+              the second is useless without having run the first. */}
+          <div className="mt-6 flex max-w-xl flex-col gap-2">
+            <InstallCommand
+              command="npm install --global titanium alloy"
+              label="Copy install command"
+            />
+            <InstallCommand command="ti create" label="Copy create command" />
+          </div>
         </div>
       </section>
 
