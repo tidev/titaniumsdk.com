@@ -1,3 +1,4 @@
+import { Share } from '@/components/blog/share';
 import { Prose } from '@/components/docs/prose';
 import { allPosts, postBySlug } from '@/lib/blog/posts';
 import { formatDate } from '@/lib/docs/format';
@@ -46,7 +47,9 @@ export default async function BlogPost({ params }: PageProps<'/blog/[slug]'>) {
   if (!post) notFound();
 
   return (
-    <article className="max-w-3xl py-10">
+    // `mx-auto` centres the column inside the layout's 7xl gutters; without it
+    // a 3xl article hugs the left edge on a wide screen.
+    <article className="mx-auto max-w-3xl py-10">
       <p className="text-sm">
         <a href="/blog" className="text-link hover:underline">
           Blog
@@ -62,7 +65,6 @@ export default async function BlogPost({ params }: PageProps<'/blog/[slug]'>) {
             {post.category}
           </a>
           <time dateTime={post.date}>{formatDate(post.date)}</time>
-          <span>{post.readingMinutes} min read</span>
         </div>
 
         <h1 className="mt-3 text-3xl font-semibold tracking-tight text-balance">{post.title}</h1>
@@ -93,17 +95,7 @@ export default async function BlogPost({ params }: PageProps<'/blog/[slug]'>) {
         </ul>
       )}
 
-      {post.source && (
-        // These 50 posts were published on tidev.io first. Saying so is both
-        // honest and useful to anyone who finds the other copy in search.
-        <p className="mt-10 border-t border-border pt-4 text-xs text-text-subtle">
-          Originally published on{' '}
-          <a href={post.source} rel="noopener noreferrer" className="text-link hover:underline">
-            tidev.io
-          </a>
-          .
-        </p>
-      )}
+      <Share post={post} />
     </article>
   );
 }

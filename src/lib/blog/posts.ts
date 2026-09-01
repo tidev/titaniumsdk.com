@@ -38,6 +38,12 @@ const FrontmatterSchema = z
     /** Kept out of the index, the feed and the sitemap; still reachable by URL. */
     draft: z.boolean().default(false),
     cover: z.string().optional(),
+    /**
+     * The text to pre-fill a share with, if the title is not what you would
+     * post. Capped well under both networks' limits — X allows 280 and Bluesky
+     * 300, and the post URL is appended to whatever this says.
+     */
+    social: z.string().max(200).optional(),
     /** Where this post was published before the migration, if it was. */
     source: z.url().optional(),
   })
@@ -54,20 +60,10 @@ export type Post = {
   draft: boolean;
   cover?: string;
   source?: string;
+  /** Pre-filled share text; falls back to the title. */
+  social?: string;
   body: string;
-  /** Whole minutes, floored at one. */
-  readingMinutes: number;
 };
-
-/** Words per minute, the conventional figure for technical prose. */
-const WPM = 200;
-
-function readingMinutes(body: string): number {
-  // Code blocks are skimmed rather than read, and counting them makes a release
-  // post full of changelog entries look like an essay.
-  const prose = body.replace(/```[\s\S]*?```/g, ' ').replace(/`[^`]*`/g, ' ');
-  return Math.max(1, Math.round(prose.split(/\s+/).filter(Boolean).length / WPM));
-}
 
 function parse(slug: string, text: string): Post {
   const m = /^---\r?\n([\s\S]*?)\r?\n---\r?\n?/.exec(text);
@@ -87,8 +83,8 @@ function parse(slug: string, text: string): Post {
     draft: front.draft,
     ...(front.cover ? { cover: front.cover } : {}),
     ...(front.source ? { source: front.source } : {}),
+    ...(front.social ? { social: front.social } : {}),
     body,
-    readingMinutes: readingMinutes(body),
   };
 }
 

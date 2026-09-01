@@ -41,7 +41,7 @@ export default async function CategoryArchive({ params }: PageProps<'/blog/categ
   const posts = postsInCategory(name);
 
   return (
-    <div className="max-w-3xl py-10">
+    <div className="py-10">
       <p className="text-sm">
         <a href="/blog" className="text-link hover:underline">
           Blog

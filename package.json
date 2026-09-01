@@ -8,7 +8,7 @@
     "check": "next typegen && tsc --noEmit",
     "check:contrast": "node scripts/check-contrast.ts",
     "check:registry": "node scripts/validate-registry.ts",
-    "dev": "next dev",
+    "dev": "next dev --port 3002",
     "docgen": "node scripts/docgen/index.ts",
     "fmt": "oxfmt",
     "fmt:check": "oxfmt --check",

@@ -35,7 +35,7 @@ export default async function BlogPage({ params }: PageProps<'/blog/page/[page]'
   if (!Number.isInteger(n) || n < 1 || n > pageCount()) notFound();
 
   return (
-    <div className="max-w-3xl py-10">
+    <div className="py-10">
       <h1 className="text-3xl font-semibold tracking-tight">Blog</h1>
       <p className="mt-3 text-text-muted">
         Page {n} of {pageCount()}.

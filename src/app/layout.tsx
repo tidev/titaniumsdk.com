@@ -51,6 +51,16 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT }} />
       </head>
       <body className="min-h-full flex flex-col">
+        {/* Rendered here rather than through page metadata: a page that sets
+            its own `alternates` replaces the parent's wholesale, so a metadata
+            declaration would quietly vanish from most of the site. React
+            hoists this into <head> from wherever it is rendered. */}
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title="Titanium SDK blog"
+          href={`${SITE_URL}/blog/feed.xml`}
+        />
         <a
           href="#main"
           className="sr-only rounded-md bg-surface-raised px-4 py-2 text-sm font-medium text-text outline-2 outline-offset-2 outline-focus focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50"

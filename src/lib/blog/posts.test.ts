@@ -52,10 +52,6 @@ describe('posts', () => {
       assert.ok(!RESERVED_SLUGS.includes(post.slug as never), `${post.slug} is a reserved route`);
     }
   });
-
-  test('report a reading time of at least a minute', () => {
-    for (const post of posts) assert.ok(post.readingMinutes >= 1, post.slug);
-  });
 });
 
 describe('drafts', () => {

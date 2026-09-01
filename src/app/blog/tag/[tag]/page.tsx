@@ -36,7 +36,7 @@ export default async function TagArchive({ params }: PageProps<'/blog/tag/[tag]'
   if (!posts.length) notFound();
 
   return (
-    <div className="max-w-3xl py-10">
+    <div className="py-10">
       <p className="text-sm">
         <a href="/blog" className="text-link hover:underline">
           Blog
