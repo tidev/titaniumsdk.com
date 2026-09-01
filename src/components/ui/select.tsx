@@ -40,27 +40,52 @@ export function Select<T extends string>({
       </span>
 
       <RadixSelect.Root value={value} onValueChange={(next) => onChange(next as T)}>
-        {/* The trigger is a button, so it cannot be wrapped in a label the way
-            the native control was — the name comes from `aria-label` instead. */}
-        <RadixSelect.Trigger
-          aria-label={label}
-          className="inline-flex items-center gap-2 rounded-md border border-border bg-surface-raised py-2 pr-2 pl-2.5 text-sm text-text transition-colors hover:border-border-strong focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
-        >
-          {/* The current label is passed in rather than left to Radix to look
+        {/* Every option's label, stacked in one grid cell and hidden, with the
+            trigger in the same cell. The cell is as wide as the widest label,
+            so choosing a shorter one cannot shrink the control — which it did,
+            and the filter row reflowed onto two lines when you picked Android.
+
+            Rendering the labels rather than measuring them in `ch` keeps this
+            right for any font: the browser does the measuring. */}
+        <span className="inline-grid">
+          <span aria-hidden className="invisible col-start-1 row-start-1 grid">
+            {options.map((option) => (
+              <span
+                key={option.value}
+                // Mirrors the trigger's box exactly, transparent border
+                // included, so the reserved width is the real width.
+                className="col-start-1 row-start-1 inline-flex items-center gap-2 border border-transparent py-2 pr-2 pl-2.5 text-sm whitespace-nowrap"
+              >
+                {option.label}
+                <span className="size-3 shrink-0" />
+              </span>
+            ))}
+          </span>
+
+          {/* The trigger is a button, so it cannot be wrapped in a label the way
+              the native control was — the name comes from `aria-label` instead. */}
+          <RadixSelect.Trigger
+            aria-label={label}
+            className="col-start-1 row-start-1 inline-flex w-full items-center gap-2 rounded-md border border-border bg-surface-raised py-2 pr-2 pl-2.5 text-sm text-text transition-colors hover:border-border-strong focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
+          >
+            {/* The current label is passed in rather than left to Radix to look
               up from its items. Radix resolves it on the client, so the trigger
               renders empty on the server and the three menus are blank boxes
               until hydration — which the native control it replaced never was. */}
-          <RadixSelect.Value>{options.find((o) => o.value === value)?.label}</RadixSelect.Value>
-          <RadixSelect.Icon asChild>
-            <svg
-              viewBox="0 0 16 16"
-              aria-hidden
-              className="size-3 shrink-0 fill-none stroke-current stroke-2 text-text-subtle"
-            >
-              <path d="m4 6 4 4 4-4" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </RadixSelect.Icon>
-        </RadixSelect.Trigger>
+            <RadixSelect.Value>{options.find((o) => o.value === value)?.label}</RadixSelect.Value>
+            {/* `ml-auto` so the chevron sits at the right edge whatever the
+                selected label's length, now that the box no longer hugs it. */}
+            <RadixSelect.Icon asChild>
+              <svg
+                viewBox="0 0 16 16"
+                aria-hidden
+                className="ml-auto size-3 shrink-0 fill-none stroke-current stroke-2 text-text-subtle"
+              >
+                <path d="m4 6 4 4 4-4" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </RadixSelect.Icon>
+          </RadixSelect.Trigger>
+        </span>
 
         <RadixSelect.Portal>
           <RadixSelect.Content
