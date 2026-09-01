@@ -13,6 +13,20 @@ function latestRedirects() {
   const latest = latestSdkVersion();
   if (!latest) return [];
   return [
+    // `/docs` and `/docs/sdk` are both bare prefixes with no page of their own,
+    // and `/docs` is in the primary nav — it 404'd. Reference is all that lives
+    // under `/docs` today; when the prose guides land (TI-32) `/docs` becomes a
+    // real index and these two go away.
+    {
+      source: '/docs',
+      destination: '/docs/sdk/latest',
+      permanent: false,
+    },
+    {
+      source: '/docs/sdk',
+      destination: `/docs/sdk/${latest}`,
+      permanent: false,
+    },
     {
       source: '/docs/sdk/latest',
       destination: `/docs/sdk/${latest}`,
