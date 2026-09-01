@@ -1,4 +1,14 @@
-export type NavItem = { href: string; label: string };
+export type NavItem = {
+  href: string;
+  label: string;
+  /**
+   * A second link shown beside the first, as `Label / Also`.
+   *
+   * For a destination with a machine-readable twin — the blog and its feed —
+   * where a separate row would imply they are separate places.
+   */
+  also?: { href: string; label: string };
+};
 
 /**
  * Main sections. "Docs" is the umbrella over both guides and the API
@@ -9,6 +19,7 @@ export const primaryNav: NavItem[] = [
   { href: '/docs', label: 'Docs' },
   { href: '/downloads', label: 'Downloads' },
   { href: '/modules', label: 'Modules' },
+  { href: '/blog', label: 'Blog', also: { href: '/blog/feed.xml', label: 'RSS' } },
 ];
 
 /**

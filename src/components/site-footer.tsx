@@ -18,7 +18,7 @@ function LinkColumn({ title, items }: { title: string; items: NavItem[] }) {
           const className =
             'text-sm text-text-muted transition-colors hover:text-link focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus rounded';
           return (
-            <li key={item.href}>
+            <li key={item.href} className="flex items-center gap-1.5">
               {isExternal(item.href) ? (
                 <a href={item.href} target="_blank" rel="noreferrer" className={className}>
                   {item.label}
@@ -27,6 +27,18 @@ function LinkColumn({ title, items }: { title: string; items: NavItem[] }) {
                 <Link href={item.href} className={className}>
                   {item.label}
                 </Link>
+              )}
+              {item.also && (
+                <>
+                  <span aria-hidden className="text-sm text-text-subtle">
+                    /
+                  </span>
+                  {/* Not a Link: the feed is a route handler, so client-side
+                      navigation would try to render XML as a page. */}
+                  <a href={item.also.href} className={className}>
+                    {item.also.label}
+                  </a>
+                </>
               )}
             </li>
           );
