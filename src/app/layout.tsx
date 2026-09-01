@@ -2,7 +2,7 @@ import { SiteFooter } from '@/components/site-footer';
 import { SiteHeader } from '@/components/site-header';
 import { SITE_URL } from '@/lib/site';
 import type { Metadata } from 'next';
-import { IBM_Plex_Mono, IBM_Plex_Sans } from 'next/font/google';
+import localFont from 'next/font/local';
 import './globals.css';
 
 /**
@@ -12,16 +12,31 @@ import './globals.css';
  * drawn for a hardware company and its mono sibling shares the same skeleton,
  * so prose and code read as one system rather than two.
  */
-const plexSans = IBM_Plex_Sans({
+/*
+ * Served from `src/fonts` rather than `next/font/google`. The Google loader
+ * downloads the woff2 files during the build, so a build could not run without
+ * reaching fonts.googleapis.com — behind a dead proxy it fails outright with
+ * zero fonts emitted. TI-25 requires the build to read nothing but the local
+ * filesystem. `scripts/fetch-fonts.ts` vendors them; `--check` re-verifies
+ * them against upstream.
+ */
+const plexSans = localFont({
+  src: '../fonts/ibm-plex-sans-latin.woff2',
   variable: '--font-plex-sans',
-  subsets: ['latin'],
+  display: 'swap',
+  // One variable file covers the range the Google loader was asked for.
+  weight: '100 700',
 });
 
-// Plex Mono is not a variable font, so weights are explicit.
-const plexMono = IBM_Plex_Mono({
+// Plex Mono is not a variable font, so weights are separate files.
+const plexMono = localFont({
+  src: [
+    { path: '../fonts/ibm-plex-mono-latin-400.woff2', weight: '400', style: 'normal' },
+    { path: '../fonts/ibm-plex-mono-latin-500.woff2', weight: '500', style: 'normal' },
+    { path: '../fonts/ibm-plex-mono-latin-600.woff2', weight: '600', style: 'normal' },
+  ],
   variable: '--font-plex-mono',
-  subsets: ['latin'],
-  weight: ['400', '500', '600'],
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
