@@ -1,6 +1,7 @@
 'use client';
 
 import { CurationBadge, CURATION_STRIPE, LatestPerPlatform, PlatformChips } from './badges';
+import { Select } from '@/components/ui/select';
 import { formatDate } from '@/lib/docs/format';
 import {
   listingPlatforms,
@@ -135,57 +136,6 @@ export function Browse({ modules }: { modules: ModuleListing[] }) {
         </p>
       )}
     </>
-  );
-}
-
-/**
- * One filter, as a menu.
- *
- * These were three rows of buttons — eleven of them — which cost more width
- * than the list they were filtering. A native `<select>` collapses each to its
- * current value, and gets keyboard handling, mobile pickers and the platform's
- * own long-list behaviour for free.
- *
- * The `<label>` wraps the control rather than pointing at it with `htmlFor`, so
- * there is no id to keep unique across three instances.
- */
-function Select<T extends string>({
-  label,
-  options,
-  value,
-  onChange,
-}: {
-  label: string;
-  options: { value: T; label: string }[];
-  value: T;
-  onChange: (next: T) => void;
-}) {
-  return (
-    <label className="inline-flex items-center gap-2">
-      <span className="text-xs text-text-subtle">{label}</span>
-      <span className="relative inline-flex">
-        <select
-          value={value}
-          onChange={(e) => onChange(e.target.value as T)}
-          // `appearance-none` so the control matches the search field beside
-          // it; the chevron below replaces the one that removes.
-          className="appearance-none rounded-md border border-border bg-surface-raised py-2 pr-8 pl-2.5 text-sm text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
-        >
-          {options.map((o) => (
-            <option key={o.value} value={o.value}>
-              {o.label}
-            </option>
-          ))}
-        </select>
-        <svg
-          viewBox="0 0 16 16"
-          aria-hidden
-          className="pointer-events-none absolute top-1/2 right-2.5 size-3 -translate-y-1/2 fill-none stroke-current stroke-2 text-text-subtle"
-        >
-          <path d="m4 6 4 4 4-4" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-      </span>
-    </label>
   );
 }
 
