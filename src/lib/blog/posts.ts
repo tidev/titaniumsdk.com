@@ -23,6 +23,21 @@ const CONTENT = join(process.cwd(), 'content/blog');
  * revisited in four years. See `scripts/import-tidev-blog.ts` for the remapping.
  */
 export const CATEGORIES = ['Releases', 'Tutorials', 'Community'] as const;
+
+/**
+ * Whether the blog surfaces categories at all.
+ *
+ * Off while the archive is 48 release announcements and two community posts —
+ * a filter that reads "Releases" on nearly every card tells a reader nothing,
+ * and a nav with one real option is worse than none. Flip this on once there
+ * are categories worth choosing between.
+ *
+ * A flag rather than commented-out markup, so the code stays compiled and
+ * type-checked and cannot rot while it is switched off. The routes under
+ * `/blog/category/…` keep working either way; they are simply not linked from
+ * the index.
+ */
+export const SHOW_CATEGORIES = false;
 export type Category = (typeof CATEGORIES)[number];
 
 const FrontmatterSchema = z

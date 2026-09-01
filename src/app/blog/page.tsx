@@ -1,5 +1,5 @@
 import { Pagination, PostList } from '@/components/blog/post-list';
-import { activeCategories, pageCount, postsOnPage } from '@/lib/blog/posts';
+import { activeCategories, pageCount, postsOnPage, SHOW_CATEGORIES } from '@/lib/blog/posts';
 import { SITE_URL } from '@/lib/site';
 import type { Metadata } from 'next';
 
@@ -22,17 +22,19 @@ export default function BlogIndex() {
         Release announcements and news from the Titanium SDK project.
       </p>
 
-      <nav aria-label="Categories" className="mt-6 flex flex-wrap gap-2">
-        {activeCategories().map(({ category }) => (
-          <a
-            key={category}
-            href={`/blog/category/${category.toLowerCase()}`}
-            className="rounded-md border border-border px-2.5 py-1.5 text-sm text-text-muted transition-colors hover:border-border-strong hover:text-text"
-          >
-            {category}
-          </a>
-        ))}
-      </nav>
+      {SHOW_CATEGORIES && (
+        <nav aria-label="Categories" className="mt-6 flex flex-wrap gap-2">
+          {activeCategories().map(({ category }) => (
+            <a
+              key={category}
+              href={`/blog/category/${category.toLowerCase()}`}
+              className="rounded-md border border-border px-2.5 py-1.5 text-sm text-text-muted transition-colors hover:border-border-strong hover:text-text"
+            >
+              {category}
+            </a>
+          ))}
+        </nav>
+      )}
 
       <PostList posts={postsOnPage(1)} />
       <Pagination page={1} pages={pageCount()} />

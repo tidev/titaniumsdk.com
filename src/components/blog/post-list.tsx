@@ -1,4 +1,4 @@
-import type { Post } from '@/lib/blog/posts';
+import { SHOW_CATEGORIES, type Post } from '@/lib/blog/posts';
 import { formatDate } from '@/lib/docs/format';
 
 /**
@@ -12,7 +12,9 @@ export function PostCard({ post }: { post: Post }) {
   return (
     <li className="relative flex flex-col rounded-lg border border-border p-4 transition-colors hover:border-border-strong">
       <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-text-subtle">
-        <span className="rounded border border-border px-1.5 py-0.5">{post.category}</span>
+        {SHOW_CATEGORIES && (
+          <span className="rounded border border-border px-1.5 py-0.5">{post.category}</span>
+        )}
         <time dateTime={post.date}>{formatDate(post.date)}</time>
         {post.draft && (
           <span className="rounded border border-warning px-1.5 py-0.5 font-mono text-warning">
