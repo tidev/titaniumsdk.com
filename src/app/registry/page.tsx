@@ -155,12 +155,18 @@ export default function RegistryApiPage() {
           Known gaps
         </h2>
         <ul className="mt-4 space-y-3 text-sm text-text-muted">
-          <li className="border-l-2 border-warning pl-3">
-            <strong className="font-medium text-text">Checksums are mostly absent.</strong> An
-            asset carries <code className="font-mono">checksum</code> only where GitHub recorded a
-            digest, which it began doing recently — nearly every archive published before then has
-            none. Treat a missing checksum as &ldquo;cannot verify&rdquo;, never as
-            &ldquo;verified&rdquo;.
+          <li className="border-l-2 border-border pl-3">
+            <strong className="font-medium text-text">
+              Checksums are not upstream attestations.
+            </strong>{' '}
+            Every asset carries <code className="font-mono">checksum</code> as{' '}
+            <code className="font-mono">sha256:&lt;hex&gt;</code>. 16 of them are the digest GitHub
+            recorded at upload; the other 363 were computed by downloading the archive, because
+            GitHub only began recording digests in September 2025 and does not backfill. Both
+            record what GitHub served, not an independent signature, so a checksum detects
+            corruption in transit and any later change to an archive — it does not prove the
+            archive was untampered before it was recorded. Still treat a missing checksum as
+            &ldquo;cannot verify&rdquo;, never as &ldquo;verified&rdquo;.
           </li>
           <li className="border-l-2 border-warning pl-3">
             <strong className="font-medium text-text">Community entries are repositories.</strong>{' '}
