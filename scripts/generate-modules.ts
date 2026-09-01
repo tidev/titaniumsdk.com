@@ -6,6 +6,7 @@ import {
   type Platform,
 } from '../src/lib/registry/index.ts';
 import { sources } from './docgen/sources.ts';
+import { checksums } from './lib/checksums.ts';
 import { file, get, paginate, rcompare } from './lib/github.ts';
 import {
   AssetNameError,
@@ -67,7 +68,17 @@ const SOURCE_STYLE = 'tidev';
 
 const PLATFORMS: Platform[] = ['android', 'ios'];
 
-type GhAsset = { name: string; size: number; browser_download_url: string };
+type GhAsset = {
+  name: string;
+  size: number;
+  browser_download_url: string;
+  /**
+   * `sha256:<hex>`, computed by GitHub on upload. Only present on assets
+   * uploaded since the feature shipped — GitHub does not backfill — so most of
+   * this archive has none (TI-65).
+   */
+  digest?: string | null;
+};
 
 type GhRelease = {
   tag_name: string;
@@ -261,6 +272,18 @@ async function manifestFor(m: Collected, c: Candidate): Promise<ModuleManifest |
 }
 
 /**
+ * A digest for one asset, if anything has one.
+ *
+ * GitHub only computes one for assets uploaded since the feature shipped, so
+ * most of the archive falls back to `registry/modules/checksums.json`, keyed by
+ * download URL because 18 filenames occur twice with different content (TI-65).
+ */
+function checksumFor(asset: GhAsset): { checksum?: string } {
+  const recorded = asset.digest ?? checksums().get(asset.browser_download_url);
+  return recorded ? { checksum: recorded } : {};
+}
+
+/**
  * Every key this script decides. Anything else in an existing metadata.json is
  * someone else's — docgen adds a `source` block once it has compiled the
  * version's API reference — and is carried through untouched.
@@ -297,7 +320,7 @@ function writeVersion(dir: string, version: ModuleVersion): boolean {
 async function buildVersions(m: Collected): Promise<ModuleVersion[]> {
   const chosen = new Map<string, Candidate>();
   for (const candidate of await candidatesFor(m)) {
-    const key = `${candidate.version} ${candidate.platform}`;
+    const key = `${candidate.version}\0${candidate.platform}`;
     const held = chosen.get(key);
     if (!held || beats(candidate, held)) chosen.set(key, candidate);
   }
@@ -344,6 +367,10 @@ async function buildVersions(m: Collected): Promise<ModuleVersion[]> {
         filename: c.asset.name,
         url: c.asset.browser_download_url,
         size: c.asset.size,
+        // GitHub's digest where it has one, otherwise the hash the backfill
+        // computed. Carried verbatim, prefix included, so a client knows which
+        // algorithm it is rather than having to assume one.
+        ...checksumFor(c.asset),
         tag: c.release.tag_name,
         ...(c.universal ? { universal: true } : {}),
       })),
