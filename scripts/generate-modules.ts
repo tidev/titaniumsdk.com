@@ -297,7 +297,7 @@ function writeVersion(dir: string, version: ModuleVersion): boolean {
 async function buildVersions(m: Collected): Promise<ModuleVersion[]> {
   const chosen = new Map<string, Candidate>();
   for (const candidate of await candidatesFor(m)) {
-    const key = `${candidate.version} ${candidate.platform}`;
+    const key = `${candidate.version}\0${candidate.platform}`;
     const held = chosen.get(key);
     if (!held || beats(candidate, held)) chosen.set(key, candidate);
   }
