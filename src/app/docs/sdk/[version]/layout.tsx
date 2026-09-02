@@ -20,7 +20,7 @@ export default async function SdkLayout({ children, params }: LayoutProps<'/docs
   if (!resolved || !index) return children;
 
   return (
-    <div className="mx-auto grid w-full max-w-7xl grid-cols-1 gap-x-8 px-4 sm:px-6 lg:grid-cols-[15rem_minmax(0,1fr)]">
+    <div className="mx-auto grid w-full max-w-7xl grid-cols-1 gap-x-8 px-4 sm:px-6 lg:px-8 lg:grid-cols-[15rem_minmax(0,1fr)]">
       <ApiNav
         types={navTypes(index.types)}
         base={`/docs/sdk/${resolved}`}

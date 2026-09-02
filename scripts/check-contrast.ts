@@ -55,6 +55,21 @@ const PAIRS: [string, string, number][] = [
   ['warning', 'bg', 4.5],
   ['danger', 'bg', 4.5],
   ['info', 'bg', 4.5],
+  // The terminal block, which is dark in both themes and so has its own roles.
+  ['terminal-text', 'terminal-bg', 4.5],
+  ['terminal-window-text', 'terminal-window', 4.5],
+  /**
+   * The `$` is `aria-hidden` ornament — it marks the block as a shell and
+   * carries nothing a reader needs — so it is held to the 3:1 non-text
+   * threshold (WCAG 1.4.11) rather than the 4.5:1 for text. Deliberately dim:
+   * it should sit behind the commands, not compete with them.
+   */
+  ['terminal-prompt', 'terminal-window', 3],
+  ['terminal-success', 'terminal-window', 4.5],
+  ['terminal-text-muted', 'terminal-bg', 4.5],
+  ['terminal-text-subtle', 'terminal-bg', 4.5],
+  ['terminal-text-muted', 'terminal-bg', 4.5],
+  ['terminal-text-subtle', 'terminal-bg', 4.5],
   // Non-text UI needs 3:1 (WCAG 1.4.11).
   ['focus', 'bg', 3],
   ['border-strong', 'bg', 3],

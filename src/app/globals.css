@@ -110,6 +110,26 @@
   --info: #005aa3;
   --logo-outer: #1a1f23;
   --logo-inner: #51575e;
+  /**
+   * The "Try it" band and the terminal window inside it.
+   *
+   * Two groups, because they are two different things. The band is a section
+   * of the page and follows the theme like any other surface — a near-black
+   * slab dropped into a light page was the wrong answer. The window is a
+   * picture of a shell, so it stays dark in both themes; a light-mode terminal
+   * reads as another code sample, which is what it is not.
+   *
+   * The window group is listed in every theme block rather than hoisted, so
+   * check-contrast — which parses the light and dark blocks — sees it in both.
+   */
+  --terminal-bg: #f8f8f8;
+  --terminal-text: #1a1f23;
+  --terminal-text-muted: #3c4248;
+  --terminal-text-subtle: #4a5058;
+  --terminal-window: #0d1013;
+  --terminal-window-text: #f9fafb;
+  --terminal-prompt: #62666b;
+  --terminal-success: #93d7a1;
   color-scheme: light;
 }
 
@@ -133,6 +153,15 @@
     --info: #87ccff;
     --logo-outer: #b4e4ff;
     --logo-inner: #5db1f4;
+    /* Band follows the theme; window group is the same everywhere. */
+    --terminal-bg: #15191c;
+    --terminal-text: #f9fafb;
+    --terminal-text-muted: #bfc5ca;
+    --terminal-text-subtle: #a4aab1;
+    --terminal-window: #0d1013;
+    --terminal-window-text: #f9fafb;
+    --terminal-prompt: #62666b;
+    --terminal-success: #93d7a1;
     color-scheme: dark;
   }
 }
@@ -156,6 +185,15 @@
   --info: #87ccff;
   --logo-outer: #b4e4ff;
   --logo-inner: #5db1f4;
+  /* Band follows the theme; window group is the same everywhere. */
+  --terminal-bg: #15191c;
+  --terminal-text: #f9fafb;
+  --terminal-text-muted: #bfc5ca;
+  --terminal-text-subtle: #a4aab1;
+  --terminal-window: #0d1013;
+  --terminal-window-text: #f9fafb;
+  --terminal-prompt: #62666b;
+  --terminal-success: #93d7a1;
   color-scheme: dark;
 }
 
@@ -163,6 +201,14 @@
   --color-bg: var(--bg);
   --color-surface: var(--surface);
   --color-surface-raised: var(--surface-raised);
+  --color-terminal-bg: var(--terminal-bg);
+  --color-terminal-window: var(--terminal-window);
+  --color-terminal-window-text: var(--terminal-window-text);
+  --color-terminal-text: var(--terminal-text);
+  --color-terminal-text-muted: var(--terminal-text-muted);
+  --color-terminal-text-subtle: var(--terminal-text-subtle);
+  --color-terminal-prompt: var(--terminal-prompt);
+  --color-terminal-success: var(--terminal-success);
   --color-field: var(--field);
   --color-border: var(--border);
   --color-border-strong: var(--border-strong);
