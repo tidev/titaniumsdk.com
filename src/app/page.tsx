@@ -302,12 +302,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* The whole band is the terminal, so the prose here uses the terminal's
-          own text roles. The page's roles flip with the theme, and in light
-          mode `text-muted` would be near-black on this ground. */}
+      {/* The band has its own roles rather than borrowing `surface`: in light
+          mode it lands near it, but in dark it is deliberately darker than a
+          normal surface so the window inside it still reads as cut into the
+          page. They follow the theme; only the window group stays dark. */}
       <section
         aria-labelledby="install"
-        className="bg-terminal-bg py-16 text-terminal-text sm:py-20"
+        className="border-t border-border bg-terminal-bg py-16 text-terminal-text sm:py-20"
       >
         <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:px-8 lg:grid-cols-[1fr_1.05fr] lg:items-start lg:gap-16">
           <div className="min-w-0">
