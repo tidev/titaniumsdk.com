@@ -20,14 +20,13 @@ export function Terminal({ commands }: { commands: string[] }) {
   return (
     // A window inside the band, cut out of it by being darker rather than by a
     // border — the section is already `--terminal-bg`, so an outline on top of
-    // that would be a second edge doing the same job. The row hover is a step
-    // up from the window, not from the band behind it.
+    // that would be a second edge doing the same job.
     <div className="overflow-hidden rounded-lg bg-terminal-window py-2">
       {commands.map((command) => (
-        <div
-          key={command}
-          className="group flex items-center gap-2.5 px-4 py-1.5 transition-colors hover:bg-terminal-row"
-        >
+        // Hovering a row shows its copy button and nothing else. A background
+        // change as well was two signals for one event, and it lit up the row
+        // you were only passing over on the way to another.
+        <div key={command} className="group flex items-center gap-2.5 px-4 py-1">
           <span aria-hidden className="select-none font-mono text-sm text-terminal-prompt">
             $
           </span>
