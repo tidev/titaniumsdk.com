@@ -2,9 +2,15 @@
 
 TI-46. Measured against the real registry on 2026-09-02, not estimated.
 
-**Recommendation: Orama behind a cached search endpoint, with an exact-name lookup in front of it.**
+**Recommendation: a client-side symbol lookup for the API, Pagefind for prose. No search engine, no runtime.**
 
-An earlier draft of this document recommended a prebuilt symbol index plus Pagefind, and dismissed Orama on the strength of its client-side index size. That was wrong in a way worth recording, because the reasoning error is easy to repeat: it measured Orama only in the one configuration where it looks worst, and it treated "the build touches no network" as if it also meant "nothing may run at request time". Those are different guarantees. TI-25 constrains the build; it says nothing about a runtime function.
+This document was revised twice, and the reasoning is recorded because the wrong turns are instructive.
+
+**Draft 1** recommended a symbol index plus Pagefind, and dismissed Orama on its client-side index size. The conclusion was right, but two of the reasons were not: it never measured Orama's _relevance_ — which this ticket explicitly asks for, misspellings included — and it claimed a runtime function "contradicts the architecture", conflating TI-25's build-time guarantee with what may run at request time. Those are different guarantees.
+
+**Draft 2** measured Orama server-side, found it excellent, and swung to recommending it. That over-corrected: it measured "Orama plus an exact-name lookup" as one thing and credited the combination's 8/8 to Orama, without ever isolating the lookup.
+
+**This draft** isolates it. The lookup alone scores 8/8, including both misspellings, in about 1ms on 27 KB of data. Orama was being paid for work the lookup was already doing; the one query it uniquely answered was prose, which is Pagefind's job.
 
 ## The corpus, as it actually is
 
@@ -128,11 +134,11 @@ This is the configuration the first draft measured, and it is genuinely bad here
 
 841 KB before the first keystroke, against 70 KB for all four vendored IBM Plex faces. The source documents are 159 KB brotli, so the index inflates them about 5x. Shipping this to a browser is not an option; running it in a function is a different question with a different answer.
 
-### Pagefind — the alternative that needs no runtime
+### Pagefind
 
 Pagefind 1.5.2 over the 755 prerendered pages, 0.6s to index. Measured with a logging server across seven queries: **116 KB to boot** (`pagefind.js` 44.5 KB + `wasm.en.pagefind` 71 KB), then ~28 KB per index chunk and ~6 KB per result fragment. Cost is set by the query rather than the corpus, so it does not degrade as the guides land. It indexes built HTML, so it cannot drift from what is deployed.
 
-### A prebuilt symbol index — if the lookup half runs client-side
+### The symbol lookup payload
 
 | shape                                   | raw      | gzip   | **brotli** |
 | --------------------------------------- | -------- | ------ | ---------- |
@@ -146,7 +152,7 @@ All 5,292 symbols in 27 KB brotli, which is a third of one font file.
 
 Same fixed query set, top three results. Expected answer in **bold** when it is not first.
 
-| query                        | Pagefind                      | Orama + lookup                      |
+| query                        | Pagefind (scoped)             | lookup only                         |
 | ---------------------------- | ----------------------------- | ----------------------------------- |
 | `Titanium.UI.View`           | correct first                 | correct first                       |
 | `createHTTPClient`           | `Titanium.Network`            | `Titanium.Network.createHTTPClient` |
@@ -157,11 +163,15 @@ Same fixed query set, top three results. Expected answer in **bold** when it is 
 | `ui view`                    | not tested                    | `Titanium.UI.View`                  |
 | `creatWindow` (misspelt)     | 253 hits, **none relevant**   | `Titanium.UI.createWindow`          |
 | `addEventLisener` (misspelt) | not tested                    | `Titanium.Proxy.addEventListener`   |
-|                              | **3/7 usable**                | **8/8 correct first**               |
+|                              | **3/7 usable**                | **8/8 correct first, ~1ms**         |
 
 Pagefind ranks _pages_. A member that appears on hundreds of pages cannot be ranked that way — `addEventListener` is on nearly every proxy, so page-level scoring is noise. It also has no typo tolerance, and both misspellings return hundreds of irrelevant results. The two ranking failures are structural rather than tuning.
 
-The Orama column needs one caveat: naive Orama scored 5/8, and the three failures were all multi-token (`Titanium.UI.View`, `ui view`, `http client`), because tokenising a dotted name turns a key into a bag of words. Adding the exact-name lookup in front takes it to 8/8. So the good number belongs to the _combination_, not to Orama alone — which is the point of the section above.
+Two caveats, both measured.
+
+Naive Orama scores 5/8, and all three failures are multi-token (`Titanium.UI.View`, `ui view`, `http client`) — tokenising a dotted name turns a key into a bag of words. The lookup fixes those, which is why draft 2's "Orama + lookup" reached 8/8; isolating the lookup shows it reaches 8/8 on its own.
+
+The Pagefind column is the _scoped_ index — `data-pagefind-body` on the main content, nav and header and footer excluded. That was the obvious suspicion, since every API page's sidebar lists hundreds of type names. It moved `createWindow` from third to second and narrowed `http client` from 41 hits to 19; it did not touch the two real failures.
 
 ## Offline and preview builds
 
@@ -183,23 +193,39 @@ Both work in preview builds. Neither needs a crawler, which is the main operatio
 
 ## The recommendation
 
-**A search endpoint that tries a lookup first and falls back to Orama.**
+**Two mechanisms, no engine and no runtime.**
 
-1. **Exact-name lookup.** Qualified name, then last segment, then all-tokens-in-a-name, ranked types above members. Answers 6 of 9 measured queries with no engine involved, and it is a `Map` and an array filter over 5,342 entries.
-2. **Orama for the rest** — typos and prose, where a lookup has nothing to offer. `tolerance: 1` turns `creatWindow` and `addEventLisener` into the right answer; Pagefind returns hundreds of irrelevant results for both.
-3. **Cache the endpoint at the edge.** Query distributions on docs sites are head-heavy, so most traffic should never reach the function.
+1. **Symbols — a lookup over a 27 KB payload, in the browser.** Exact qualified name, then exact last segment, then all-tokens-in-a-name, then bounded edit distance over last segments. 8/8 on the fixed query set, median 1.0ms, max 2.4ms, and no network after the payload is cached.
 
-The index is generated during `next build` from `registry/`, scoped to the latest version of everything, and never committed. Freshness is then a property of the pipeline rather than a step anyone has to remember: a release commits to `registry/`, which deploys, which rebuilds the index from that same commit.
+2. **Prose — Pagefind over the built HTML.** 116 KB to boot, ~28 KB per query. It indexes what was rendered, so it cannot describe pages that do not exist, and its cost is set by the query rather than the corpus — which matters when the guides quadruple the prose.
 
-### Why not Pagefind, given it needs no runtime
+Generated during `next build` from `registry/`, never committed, scoped to the latest version of everything.
 
-Because it cannot do the half of the job that matters most here. 3 of 7 usable results, no typo tolerance, and `addEventListener` — one of the most likely queries on this site — is unanswerable by page-level ranking. Adding a symbol index in front of it would fix the name queries, but the misspellings would remain broken, and that combination is no simpler than the one recommended above.
+### Why the lookup beats a search engine here
 
-Pagefind stays the right answer for a site that must have no runtime at all. This site can afford one function.
+Because most of what people type at an API reference is a **name**, and a name is a key. Tokenising `Titanium.UI.View` turns a key into a bag of words and makes it _harder_ to find — measurably so: naive Orama scored 5/8, and all three failures were multi-token.
 
-### An alternative worth keeping in mind
+Typos, which looked like the engine's one irreplaceable contribution, turn out not to be. There are 5,358 symbols; comparing a query against last segments of similar length is a few hundred edit-distance calculations, and it resolves `creatWindow` and `addEventLisener` correctly in about a millisecond.
 
-If the runtime function turns out to be unwanted, the lookup half runs perfectly well in the browser on the 27 KB symbol index, answering those 6 of 9 queries with no network at all, and the endpoint is only consulted when the local pass comes up short. That is strictly more moving parts, so it is not the recommendation, but it is the fallback if invocation cost or cold starts disappoint.
+### Why not Pagefind for symbols too
+
+Tested, including with `data-pagefind-body` scoping and the nav and chrome excluded, which was the obvious suspicion — every API page's sidebar lists hundreds of type names.
+
+Scoping barely moved it. `createWindow` went from third to second; `addEventListener` still returns 205 results with nothing relevant in the top three; both misspellings still return hundreds of irrelevant results.
+
+That is structural rather than untuned. `addEventListener` genuinely is on ~200 pages, because every proxy inherits it — that is real content, not chrome noise. Page-level ranking cannot answer "which of 200 pages that all legitimately document this member did you mean?" The answer is `Titanium.Proxy`, where it is defined, and only a symbol index knows that.
+
+### Why not Orama, having measured it properly
+
+Server-side it is genuinely good — 55ms restore, 0.7ms median query, a few hundred bytes to the client — and if the corpus were prose-shaped it would be a reasonable choice. Here it earns nothing the other two mechanisms do not already provide, and it costs a runtime function, a deployed 10.3 MB index, and cold starts.
+
+Client-side it is not an option at all: 841 KB brotli before the first keystroke, against 27 KB for the lookup.
+
+### On Pagefind's attribution
+
+There is none in 1.5.2. Rendering the bundled UI and inspecting the DOM finds no "Search by Pagefind" — earlier versions had one, this one does not, and the package is MIT regardless.
+
+It is moot anyway: TI-47 wants cmd+K, results grouped by kind, focus management and screen-reader announcements, none of which the bundled UI does. The low-level `pagefind.js` API returns data and we render it, so there is no attribution element by construction, and no 117 KB of `pagefind-ui.js` either.
 
 ### What this does not settle
 
