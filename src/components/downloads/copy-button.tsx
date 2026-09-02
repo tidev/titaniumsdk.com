@@ -61,7 +61,7 @@ export function CopyButton({
         strokeWidth="1.75"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className={`size-3.5 ${copied ? (tone === 'terminal' ? 'text-terminal-prompt' : 'text-success') : ''}`}
+        className={`size-3.5 ${copied ? (tone === 'terminal' ? 'text-terminal-success' : 'text-success') : ''}`}
         aria-hidden="true"
       >
         {copied ? (

@@ -124,7 +124,8 @@
   --terminal-text: #f9fafb;
   --terminal-text-muted: #bfc5ca;
   --terminal-text-subtle: #a4aab1;
-  --terminal-prompt: #93d7a1;
+  --terminal-prompt: #a4aab1;
+  --terminal-success: #93d7a1;
   color-scheme: light;
 }
 
@@ -155,7 +156,8 @@
     --terminal-text: #f9fafb;
     --terminal-text-muted: #bfc5ca;
     --terminal-text-subtle: #a4aab1;
-    --terminal-prompt: #93d7a1;
+    --terminal-prompt: #a4aab1;
+    --terminal-success: #93d7a1;
     color-scheme: dark;
   }
 }
@@ -186,7 +188,8 @@
   --terminal-text: #f9fafb;
   --terminal-text-muted: #bfc5ca;
   --terminal-text-subtle: #a4aab1;
-  --terminal-prompt: #93d7a1;
+  --terminal-prompt: #a4aab1;
+  --terminal-success: #93d7a1;
   color-scheme: dark;
 }
 
@@ -201,6 +204,7 @@
   --color-terminal-text-muted: var(--terminal-text-muted);
   --color-terminal-text-subtle: var(--terminal-text-subtle);
   --color-terminal-prompt: var(--terminal-prompt);
+  --color-terminal-success: var(--terminal-success);
   --color-field: var(--field);
   --color-border: var(--border);
   --color-border-strong: var(--border-strong);
