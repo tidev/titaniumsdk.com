@@ -920,6 +920,24 @@
       "default": "false (search field visible)"
     },
     {
+      "name": "searchText",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The string to use as the search parameter.",
+      "description": "Provides a generic search API for the TableView without a search bar. Only rows whose\n[filterAttribute](api:Titanium.UI.TableView#filterAttribute) (the\n[title](api:Titanium.UI.TableViewRow#title) by default) contains the given text are shown.\nThe [filterCaseInsensitive](api:Titanium.UI.TableView#filterCaseInsensitive),\n[filterAnchored](api:Titanium.UI.TableView#filterAnchored) and\n[filterAlwaysInclude](api:Titanium.UI.TableViewRow#filterAlwaysInclude) properties are honored.\nSet it to an empty string or `null` to show all rows again.\n\nThis property can not be used when the [search](api:Titanium.UI.TableView#search) property is set.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "14.0.0"
+    },
+    {
       "name": "sectionCount",
       "platforms": [
         "android",
