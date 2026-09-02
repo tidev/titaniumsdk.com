@@ -35,7 +35,7 @@ export function Terminal({ commands }: { commands: string[] }) {
               way to reach the end of a command wider than the row (WCAG 2.1.1). */}
           <code
             tabIndex={0}
-            className="min-w-0 flex-1 overflow-x-auto whitespace-pre rounded-sm py-0.5 font-mono text-sm text-terminal-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
+            className="min-w-0 flex-1 overflow-x-auto whitespace-pre rounded-sm py-0.5 font-mono text-sm text-terminal-window-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
           >
             {command}
           </code>

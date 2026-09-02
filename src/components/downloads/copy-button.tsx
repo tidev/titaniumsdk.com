@@ -50,7 +50,7 @@ export function CopyButton({
       title={copied ? 'Copied' : label}
       className={`grid size-6 shrink-0 place-items-center rounded-md transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus ${
         tone === 'terminal'
-          ? 'text-terminal-text/60 hover:bg-terminal-text/10 hover:text-terminal-text'
+          ? 'text-terminal-window-text/60 hover:bg-terminal-window-text/10 hover:text-terminal-window-text'
           : 'text-text-subtle hover:bg-surface-raised hover:text-text'
       }`}
     >

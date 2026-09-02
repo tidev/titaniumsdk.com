@@ -57,7 +57,7 @@ const PAIRS: [string, string, number][] = [
   ['info', 'bg', 4.5],
   // The terminal block, which is dark in both themes and so has its own roles.
   ['terminal-text', 'terminal-bg', 4.5],
-  ['terminal-text', 'terminal-window', 4.5],
+  ['terminal-window-text', 'terminal-window', 4.5],
   /**
    * The `$` is `aria-hidden` ornament — it marks the block as a shell and
    * carries nothing a reader needs — so it is held to the 3:1 non-text
@@ -68,7 +68,8 @@ const PAIRS: [string, string, number][] = [
   ['terminal-success', 'terminal-window', 4.5],
   ['terminal-text-muted', 'terminal-bg', 4.5],
   ['terminal-text-subtle', 'terminal-bg', 4.5],
-  ['terminal-prompt', 'terminal-bg', 3],
+  ['terminal-text-muted', 'terminal-bg', 4.5],
+  ['terminal-text-subtle', 'terminal-bg', 4.5],
   // Non-text UI needs 3:1 (WCAG 1.4.11).
   ['focus', 'bg', 3],
   ['border-strong', 'bg', 3],

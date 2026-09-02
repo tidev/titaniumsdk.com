@@ -111,18 +111,23 @@
   --logo-outer: #1a1f23;
   --logo-inner: #51575e;
   /**
-   * A terminal is dark in both themes, so these do not flip.
+   * The "Try it" band and the terminal window inside it.
    *
-   * The block is a picture of a shell rather than a surface of the page: a
-   * light-mode terminal reads as a code sample, which is what it is not. Same
-   * values in all three blocks, listed rather than hoisted so the contrast
-   * check — which parses the light and dark blocks — sees them in both.
+   * Two groups, because they are two different things. The band is a section
+   * of the page and follows the theme like any other surface — a near-black
+   * slab dropped into a light page was the wrong answer. The window is a
+   * picture of a shell, so it stays dark in both themes; a light-mode terminal
+   * reads as another code sample, which is what it is not.
+   *
+   * The window group is listed in every theme block rather than hoisted, so
+   * check-contrast — which parses the light and dark blocks — sees it in both.
    */
-  --terminal-bg: #15191c;
+  --terminal-bg: #b5cddf;
+  --terminal-text: #1a1f23;
+  --terminal-text-muted: #3c4248;
+  --terminal-text-subtle: #4a5058;
   --terminal-window: #0d1013;
-  --terminal-text: #f9fafb;
-  --terminal-text-muted: #bfc5ca;
-  --terminal-text-subtle: #a4aab1;
+  --terminal-window-text: #f9fafb;
   --terminal-prompt: #62666b;
   --terminal-success: #93d7a1;
   color-scheme: light;
@@ -148,12 +153,13 @@
     --info: #87ccff;
     --logo-outer: #b4e4ff;
     --logo-inner: #5db1f4;
-    /* Same in every theme — see the light block. */
+    /* Band follows the theme; window group is the same everywhere. */
     --terminal-bg: #15191c;
-    --terminal-window: #0d1013;
     --terminal-text: #f9fafb;
     --terminal-text-muted: #bfc5ca;
     --terminal-text-subtle: #a4aab1;
+    --terminal-window: #0d1013;
+    --terminal-window-text: #f9fafb;
     --terminal-prompt: #62666b;
     --terminal-success: #93d7a1;
     color-scheme: dark;
@@ -179,12 +185,13 @@
   --info: #87ccff;
   --logo-outer: #b4e4ff;
   --logo-inner: #5db1f4;
-  /* Same in every theme — see the light block. */
+  /* Band follows the theme; window group is the same everywhere. */
   --terminal-bg: #15191c;
-  --terminal-window: #0d1013;
   --terminal-text: #f9fafb;
   --terminal-text-muted: #bfc5ca;
   --terminal-text-subtle: #a4aab1;
+  --terminal-window: #0d1013;
+  --terminal-window-text: #f9fafb;
   --terminal-prompt: #62666b;
   --terminal-success: #93d7a1;
   color-scheme: dark;
@@ -196,6 +203,7 @@
   --color-surface-raised: var(--surface-raised);
   --color-terminal-bg: var(--terminal-bg);
   --color-terminal-window: var(--terminal-window);
+  --color-terminal-window-text: var(--terminal-window-text);
   --color-terminal-text: var(--terminal-text);
   --color-terminal-text-muted: var(--terminal-text-muted);
   --color-terminal-text-subtle: var(--terminal-text-subtle);
