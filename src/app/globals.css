@@ -119,7 +119,8 @@
    * check — which parses the light and dark blocks — sees them in both.
    */
   --terminal-bg: #15191c;
-  --terminal-row: #22282d;
+  --terminal-window: #0d1013;
+  --terminal-row: #1b2126;
   --terminal-text: #f9fafb;
   --terminal-text-muted: #bfc5ca;
   --terminal-text-subtle: #a4aab1;
@@ -149,7 +150,8 @@
     --logo-inner: #5db1f4;
     /* Same in every theme — see the light block. */
     --terminal-bg: #15191c;
-    --terminal-row: #22282d;
+    --terminal-window: #0d1013;
+    --terminal-row: #1b2126;
     --terminal-text: #f9fafb;
     --terminal-text-muted: #bfc5ca;
     --terminal-text-subtle: #a4aab1;
@@ -179,7 +181,8 @@
   --logo-inner: #5db1f4;
   /* Same in every theme — see the light block. */
   --terminal-bg: #15191c;
-  --terminal-row: #22282d;
+  --terminal-window: #0d1013;
+  --terminal-row: #1b2126;
   --terminal-text: #f9fafb;
   --terminal-text-muted: #bfc5ca;
   --terminal-text-subtle: #a4aab1;
@@ -192,6 +195,7 @@
   --color-surface: var(--surface);
   --color-surface-raised: var(--surface-raised);
   --color-terminal-bg: var(--terminal-bg);
+  --color-terminal-window: var(--terminal-window);
   --color-terminal-row: var(--terminal-row);
   --color-terminal-text: var(--terminal-text);
   --color-terminal-text-muted: var(--terminal-text-muted);

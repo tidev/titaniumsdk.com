@@ -57,7 +57,9 @@ const PAIRS: [string, string, number][] = [
   ['info', 'bg', 4.5],
   // The terminal block, which is dark in both themes and so has its own roles.
   ['terminal-text', 'terminal-bg', 4.5],
+  ['terminal-text', 'terminal-window', 4.5],
   ['terminal-text', 'terminal-row', 4.5],
+  ['terminal-prompt', 'terminal-window', 4.5],
   ['terminal-text-muted', 'terminal-bg', 4.5],
   ['terminal-text-subtle', 'terminal-bg', 4.5],
   ['terminal-prompt', 'terminal-bg', 4.5],

@@ -9,18 +9,20 @@ import { CopyButton } from '@/components/downloads/copy-button';
  * a shell is also what lets the block go without a title bar, since nothing
  * needs to announce what it is.
  *
+ * It sits on `--terminal-window`, a step darker than the `--terminal-bg` band
+ * around it, so the window has an edge without needing a border drawn on it.
+ *
  * Each row copies on its own. The commands are a sequence, not alternatives —
  * `ti build` is useless without the three before it — so copying all five at
  * once would produce a paste that half-fails.
  */
 export function Terminal({ commands }: { commands: string[] }) {
   return (
-    // No ground of its own: the section behind it is already the terminal, so a
-    // border and a second background would draw a box around part of it. The
-    // negative insets cancel the first row's padding, so the commands line up
-    // with the top and left edge of the text beside them rather than sitting
-    // 6px low and 16px in.
-    <div className="-mx-4 -mt-1.5">
+    // A window inside the band, cut out of it by being darker rather than by a
+    // border — the section is already `--terminal-bg`, so an outline on top of
+    // that would be a second edge doing the same job. The row hover is a step
+    // up from the window, not from the band behind it.
+    <div className="overflow-hidden rounded-lg bg-terminal-window py-2">
       {commands.map((command) => (
         <div
           key={command}
