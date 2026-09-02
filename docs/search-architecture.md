@@ -8,13 +8,14 @@ An earlier draft of this document recommended a prebuilt symbol index plus Pagef
 
 ## The corpus, as it actually is
 
-| kind                | documents |                                              |
-| ------------------- | --------- | -------------------------------------------- |
-| SDK reference types | 348       | one page each                                |
-| SDK members         | 4,954     | methods, properties, events                  |
-| Modules             | 16        | plus 343 module API types across 47 versions |
-| Blog posts          | 50        | the only prose that exists                   |
-| **Total indexable** | **5,342** | after deduping 26 repeated member ids        |
+| kind                | documents |                                    |
+| ------------------- | --------- | ---------------------------------- |
+| SDK reference types | 283       | one page each                      |
+| SDK member symbols  | 4,928     | methods, properties, events        |
+| Module API types    | 131       | latest released version per module |
+| Modules             | 16        | the packages themselves            |
+| Blog posts          | 50        | the only prose that exists         |
+| **Total indexable** | **5,408** | after deduping repeated member ids |
 
 Two things surfaced before any tool was considered.
 
@@ -40,16 +41,73 @@ Measured over the fixed query set, **6 of 9 queries are answered by a lookup and
 
 That last row is the whole job for the engine: **typos and prose**. Which is exactly what a lookup cannot do and what Orama does well.
 
+## Index scope: latest only
+
+Only the newest version of anything is indexed. Someone searching for
+`Titanium.UI.View` wants the current one, and returning the same symbol once
+per historical version would be worse than useless — it would bury the answer
+under its own history.
+
+|                                              | types   |
+| -------------------------------------------- | ------- |
+| module API types, every version              | 343     |
+| module API types, latest released per module | **131** |
+| unreleased `main` trees, excluded            | 103     |
+
+That is a 62% cut of the module types, but it is worth being honest about the
+scale: **the SDK is 96% of the corpus** (5,211 of 5,408 documents) and modules
+are 147. Scoping modules to latest is correct, and it is close to free either
+way.
+
+The number that would matter is the SDK's. There is exactly one SDK doc tree
+today, `registry/sdk/main`, so the SDK half is already single-version — not by
+choice but because versioned reference docs do not exist yet. **TI-59 changes
+that.** Versioning the reference across three major lines triples the dominant
+96%: roughly 15,600 documents, a ~31 MB index, ~165 ms to restore, ~117 MB of
+heap. All still fine in a function on a 1 GB runtime.
+
+It would be fatal to a client-side index. 841 KB becomes ~2.5 MB brotli, which
+settles the question that TI-59 would otherwise reopen: the server-side shape
+is the one that survives versioned docs.
+
+## Keeping the index fresh
+
+The index must not be a committed artifact. Generate it during `next build`,
+from `registry/` on disk, and freshness follows from the deploy pipeline that
+already exists:
+
+```
+SDK or module release
+  -> repository_dispatch to regen-api-docs.yml (or the schedule in regen-builds.yml)
+  -> the workflow writes registry/ and commits via git-auto-commit-action
+  -> push to main
+  -> Vercel builds
+  -> the index is rebuilt from the registry in that same commit
+```
+
+Both regen workflows already commit back — `Regen API docs for ${SOURCE_REPO}@${TARGET_VERSION}`
+and `Regen SDK releases and builds` — and skip committing when nothing changed,
+so there is no empty-deploy churn.
+
+The consequence worth stating: **there is no "regenerate the search index" step
+to remember, and no way for the index to be older than the registry it
+describes**, because the two are produced by the same build from the same
+commit. That is TI-47's "can never drift from what is deployed", satisfied
+structurally rather than by discipline.
+
+The rule that keeps it true: if the index is ever checked in — for build speed,
+or to skip a step — this property is lost and staleness becomes possible again.
+
 ## Measurements
 
 ### Orama, server-side
 
-`@orama/orama` 3.1.18, index built at build time and restored in the function.
+`@orama/orama` 3.1.18, index built during `next build` and restored in the function.
 
 |                                   |                     |
 | --------------------------------- | ------------------- |
-| index on disk                     | 10.2 MB             |
-| `restore()` — the cold-start cost | **63 ms**           |
+| index on disk                     | 10.3 MB             |
+| `restore()` — the cold-start cost | **55 ms**           |
 | heap after restore                | 39 MB               |
 | warm query, median / max          | **0.7 ms / 2.8 ms** |
 | response to the client            | **93–474 bytes**    |
@@ -131,7 +189,7 @@ Both work in preview builds. Neither needs a crawler, which is the main operatio
 2. **Orama for the rest** — typos and prose, where a lookup has nothing to offer. `tolerance: 1` turns `creatWindow` and `addEventLisener` into the right answer; Pagefind returns hundreds of irrelevant results for both.
 3. **Cache the endpoint at the edge.** Query distributions on docs sites are head-heavy, so most traffic should never reach the function.
 
-The index is generated at build time from `registry/`, so it cannot drift from the pages it points at — TI-47 asks for exactly that.
+The index is generated during `next build` from `registry/`, scoped to the latest version of everything, and never committed. Freshness is then a property of the pipeline rather than a step anyone has to remember: a release commits to `registry/`, which deploys, which rebuilds the index from that same commit.
 
 ### Why not Pagefind, given it needs no runtime
 
