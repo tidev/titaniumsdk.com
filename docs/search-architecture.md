@@ -2,7 +2,9 @@
 
 TI-46. Measured against the real registry on 2026-09-02, not estimated.
 
-**Recommendation: a prebuilt symbol index for the API, Pagefind for prose. Not Orama.**
+**Recommendation: Orama behind a cached search endpoint, with an exact-name lookup in front of it.**
+
+An earlier draft of this document recommended a prebuilt symbol index plus Pagefind, and dismissed Orama on the strength of its client-side index size. That was wrong in a way worth recording, because the reasoning error is easy to repeat: it measured Orama only in the one configuration where it looks worst, and it treated "the build touches no network" as if it also meant "nothing may run at request time". Those are different guarantees. TI-25 constrains the build; it says nothing about a runtime function.
 
 ## The corpus, as it actually is
 
@@ -14,19 +16,51 @@ TI-46. Measured against the real registry on 2026-09-02, not estimated.
 | Blog posts          | 50        | the only prose that exists                   |
 | **Total indexable** | **5,342** | after deduping 26 repeated member ids        |
 
-Two findings before any tool is considered.
+Two things surfaced before any tool was considered.
 
-**The guides do not exist yet.** This ticket assumed a corpus of "~640 API reference pages and the rewritten guides". The guides are TI-32 and after; today the entire prose corpus is 50 blog posts, about 104 KB of markdown. Any measurement of prose search right now is a measurement of a corpus that is going to grow by roughly 4x when the audited legacy guides land as ~140 pages.
+**The guides do not exist yet.** This ticket assumed "~640 API reference pages and the rewritten guides". The guides are TI-32 and after; today the whole prose corpus is 50 blog posts, about 104 KB of markdown, and it roughly quadruples when the audited legacy pages land as ~140 guides.
 
-**26 member ids repeat**, where a type declares the same member name twice — `Titanium.UI.ImageView` has three. Any index keyed on `type#member` has to dedupe or it will throw. Orama does throw, which is how this surfaced.
+**26 member ids repeat**, where a type declares the same member name twice — `Titanium.UI.ImageView` has three. Any index keyed on `type#member` must dedupe or it throws. Orama throws, which is how this surfaced.
 
-## The measurements
+## Two questions, not one
 
-Sizes are what a browser downloads. Brotli, because Vercel serves it.
+The thing that decides the architecture is that a docs search gets two unrelated kinds of query:
 
-### Orama, as a shipped client-side index
+- **A name.** `Titanium.UI.View`, `createWindow`, `addEventListener`. There is exactly one right answer and the user knows what it is called. This is a lookup wearing a search box.
+- **A description.** `hyperloop`, `http client`, or a misspelling of a name. There is no exact key; this is actual search.
 
-`@orama/orama` 3.1.18 with `@orama/plugin-data-persistence`.
+Measured over the fixed query set, **6 of 9 queries are answered by a lookup and never need a search engine at all**:
+
+| pass                                  | queries                                                |
+| ------------------------------------- | ------------------------------------------------------ |
+| exact qualified name                  | `Titanium.UI.View`                                     |
+| exact last segment                    | `createWindow`, `addEventListener`, `createHTTPClient` |
+| all tokens appear in a qualified name | `ui view`, `http client`                               |
+| **search engine**                     | `creatWindow`, `addEventLisener`, `hyperloop`          |
+
+That last row is the whole job for the engine: **typos and prose**. Which is exactly what a lookup cannot do and what Orama does well.
+
+## Measurements
+
+### Orama, server-side
+
+`@orama/orama` 3.1.18, index built at build time and restored in the function.
+
+|                                   |                     |
+| --------------------------------- | ------------------- |
+| index on disk                     | 10.2 MB             |
+| `restore()` — the cold-start cost | **63 ms**           |
+| heap after restore                | 39 MB               |
+| warm query, median / max          | **0.7 ms / 2.8 ms** |
+| response to the client            | **93–474 bytes**    |
+
+The client downloads a few hundred bytes per query. Cold start is 63ms of restore on top of the function's own, and the index is a bundled file rather than a fetch, so it does not reintroduce a network dependency.
+
+Search queries are also unusually cacheable — a docs corpus has a very head-heavy query distribution, and `s-maxage` on the endpoint means the popular terms are served from the edge without invoking anything. That is reasoning, not a measurement; there is no traffic to measure yet.
+
+### Orama, client-side — for contrast
+
+This is the configuration the first draft measured, and it is genuinely bad here:
 
 | index                             | raw     | gzip   | **brotli** |
 | --------------------------------- | ------- | ------ | ---------- |
@@ -34,95 +68,84 @@ Sizes are what a browser downloads. Brotli, because Vercel serves it.
 | symbols only, names, no summaries | 7.1 MB  | 1.2 MB | **450 KB** |
 | prose only, 50 posts              | 518 KB  | 78 KB  | **48 KB**  |
 
-Build cost is not the problem — 104ms to insert 5,342 documents, 56ms to serialise. The problem is that all of it must be in the browser before the first keystroke returns anything. **841 KB is more than the entire rest of the page**; the four vendored IBM Plex faces together are 70 KB.
+841 KB before the first keystroke, against 70 KB for all four vendored IBM Plex faces. The source documents are 159 KB brotli, so the index inflates them about 5x. Shipping this to a browser is not an option; running it in a function is a different question with a different answer.
 
-Note the ratio: the source documents are 159 KB brotli, and Orama's index of them is 841 KB. The engine inflates the corpus about 5x, and that is inherent to shipping an inverted index rather than a technique that can be tuned away.
+### Pagefind — the alternative that needs no runtime
 
-### Pagefind
+Pagefind 1.5.2 over the 755 prerendered pages, 0.6s to index. Measured with a logging server across seven queries: **116 KB to boot** (`pagefind.js` 44.5 KB + `wasm.en.pagefind` 71 KB), then ~28 KB per index chunk and ~6 KB per result fragment. Cost is set by the query rather than the corpus, so it does not degrade as the guides land. It indexes built HTML, so it cannot drift from what is deployed.
 
-Pagefind 1.5.2 over the 755 prerendered HTML pages. Indexing takes 0.6s.
-
-Total index on disk is 6.3 MB, but it is chunked and almost none of it is fetched. Measured with a logging server across seven queries:
-
-|                                                                        | bytes      |
-| ---------------------------------------------------------------------- | ---------- |
-| boot — `pagefind.js` 44.5 KB + `wasm.en.pagefind` 71 KB + entry 0.2 KB | **116 KB** |
-| 5 index chunks, across 7 queries                                       | 139 KB     |
-| 19 result fragments                                                    | 111 KB     |
-
-A first query costs roughly **116 KB + one ~28 KB chunk**. Subsequent queries reuse what is cached and cost a chunk or nothing. This is the property that matters: cost is set by the query, not by the size of the corpus, so it does not degrade as the guides land.
-
-### A prebuilt symbol index
-
-Just the symbols, generated from the registry, matched client-side.
+### A prebuilt symbol index — if the lookup half runs client-side
 
 | shape                                   | raw      | gzip   | **brotli** |
 | --------------------------------------- | -------- | ------ | ---------- |
 | objects with summaries                  | 1,444 KB | 193 KB | 148 KB     |
 | objects, no summaries                   | 1,010 KB | 91 KB  | 73 KB      |
 | `[kind, qualified]` pairs, href derived | 211 KB   | 33 KB  | **27 KB**  |
-| newline-joined columns                  | 185 KB   | 33 KB  | **27 KB**  |
 
-**All 5,292 symbols fit in 27 KB brotli** if the href is derived from the qualified name rather than stored. That is a third of one font file.
+All 5,292 symbols in 27 KB brotli, which is a third of one font file.
 
-## Relevance, on real queries
+## Relevance
 
-Pagefind, against the real index. Top three results:
+Same fixed query set, top three results. Expected answer in **bold** when it is not first.
 
-| query                    |     |                                                                                                        |
-| ------------------------ | --- | ------------------------------------------------------------------------------------------------------ |
-| `Titanium.UI.View`       | ✅  | correct page first                                                                                     |
-| `createHTTPClient`       | ✅  | `Titanium.Network`, where the method lives                                                             |
-| `http client`            | ✅  | `Titanium.Network.HTTPClient` first                                                                    |
-| `hyperloop`              | ✅  | blog posts first, which is right                                                                       |
-| `createWindow`           | ⚠️  | 3 results; `Titanium.UI.Window` ranks **third**, below `Dictionary`                                    |
-| `addEventListener`       | ❌  | 206 results; top three are `ProgressBarStyle`, `WebViewDecisionHandler`, `TableViewCellSelectionStyle` |
-| `creatWindow` (misspelt) | ❌  | 253 results, nothing relevant                                                                          |
+| query                        | Pagefind                      | Orama + lookup                      |
+| ---------------------------- | ----------------------------- | ----------------------------------- |
+| `Titanium.UI.View`           | correct first                 | correct first                       |
+| `createHTTPClient`           | `Titanium.Network`            | `Titanium.Network.createHTTPClient` |
+| `http client`                | correct first                 | correct first                       |
+| `hyperloop`                  | blog posts                    | blog posts                          |
+| `createWindow`               | **third**, below `Dictionary` | `Titanium.UI.createWindow`          |
+| `addEventListener`           | 206 hits, **none relevant**   | `Titanium.Proxy.addEventListener`   |
+| `ui view`                    | not tested                    | `Titanium.UI.View`                  |
+| `creatWindow` (misspelt)     | 253 hits, **none relevant**   | `Titanium.UI.createWindow`          |
+| `addEventLisener` (misspelt) | not tested                    | `Titanium.Proxy.addEventListener`   |
+|                              | **3/7 usable**                | **8/8 correct first**               |
 
-The pattern is exactly what this ticket predicted. Pagefind ranks **pages**, and a member that appears on hundreds of pages cannot be ranked usefully that way — `addEventListener` is on nearly every proxy, so page-level scoring is noise. Prose queries are good; symbol queries are not.
+Pagefind ranks _pages_. A member that appears on hundreds of pages cannot be ranked that way — `addEventListener` is on nearly every proxy, so page-level scoring is noise. It also has no typo tolerance, and both misspellings return hundreds of irrelevant results. The two ranking failures are structural rather than tuning.
 
-A symbol index does not have this problem, because a symbol is the unit rather than the page: `addEventListener` is one entry per type that declares it, ranked by prefix and qualified-name match, and the answer is a jump rather than a search result.
-
-## Why not Orama
-
-Not because it is bad — the API is pleasant and it is fast to build. It is the wrong shape for this site:
-
-1. **841 KB before the first result.** Against 116 KB for Pagefind and 27 KB for a symbol index. On a mobile connection this is the whole interaction budget, spent before anyone types.
-2. **It does not get better as the corpus grows.** The guides will roughly quadruple the prose. Orama's cost is the corpus; Pagefind's is the query.
-3. **The hosted answer trades the problem for a different one.** Orama Cloud removes the download but adds an external service, a sync step, and a bill — which is the objection this ticket already raises against Algolia, and Algolia is at least free for open source.
-4. **The server-side answer contradicts the architecture.** Running Orama in a route handler means a runtime function on a site where every route is `force-static` with `dynamicParams = false`, and TI-25 just finished proving the build touches nothing but the filesystem.
-
-Where Orama would genuinely fit is as the engine for the prose half — 48 KB today is cheaper than Pagefind's 116 KB boot. That inverts once the guides land, and taking it now would mean adopting a dependency we would then replace.
+The Orama column needs one caveat: naive Orama scored 5/8, and the three failures were all multi-token (`Titanium.UI.View`, `ui view`, `http client`), because tokenising a dotted name turns a key into a bag of words. Adding the exact-name lookup in front takes it to 8/8. So the good number belongs to the _combination_, not to Orama alone — which is the point of the section above.
 
 ## Offline and preview builds
 
-Pagefind indexes with no network: verified by running it behind a dead proxy, exit 0, same 755 pages. The binary is a platform-specific optional dependency (`@pagefind/darwin-arm64` locally, `@pagefind/linux-x64` on Vercel), resolved at install rather than build, so it does not violate the TI-25 guarantee.
+Pagefind indexes with no network, verified behind a dead proxy: exit 0, same 755 pages. Its binary is a platform-specific optional dependency resolved at install rather than build, and pnpm plus optional platform deps is a known "works locally, missing in CI" trap.
 
-One thing to watch: pnpm and platform-specific optional dependencies are a known source of "works locally, missing in CI". The lockfile must carry the Linux binary, and the first CI build is where that shows up.
+Orama has no such issue — it is plain JavaScript, and building the index is a script beside the other generators, reading the same registry the pages read.
 
-Both options work in preview builds, because both index what was just built. Neither needs a crawler, which is the main operational argument against DocSearch: a crawler indexes what is deployed and public, so preview branches get stale or empty results.
+Both work in preview builds. Neither needs a crawler, which is the main operational argument against DocSearch: a crawler indexes what is deployed and public, so preview branches get stale or empty results.
 
 ## Cost and maintenance
 
-|                   | cost         | maintenance                                                         |
-| ----------------- | ------------ | ------------------------------------------------------------------- |
-| symbol index      | none         | a generator script beside the others; regenerates with the registry |
-| Pagefind          | none         | a build step and a dependency with a native binary                  |
-| Algolia DocSearch | free for OSS | crawler config, an external account, no preview results             |
-| Orama Cloud       | paid         | sync pipeline, external account                                     |
+|                     | cost                                                | maintenance                                          |
+| ------------------- | --------------------------------------------------- | ---------------------------------------------------- |
+| exact-name lookup   | none                                                | a generator beside the others                        |
+| Orama in a function | Vercel invocations, mostly absorbed by edge caching | a dependency and one route                           |
+| Pagefind            | none                                                | a build step, and a native binary in the lockfile    |
+| Algolia DocSearch   | free for OSS                                        | crawler config, external account, no preview results |
+| Orama Cloud         | paid                                                | sync pipeline, external account                      |
 
 ## The recommendation
 
-**Two indexes, because there are two questions.**
+**A search endpoint that tries a lookup first and falls back to Orama.**
 
-1. **Symbols — a prebuilt index generated from the registry.** 27 KB brotli, exact and prefix matching on qualified names, grouped by kind. This is the case Pagefind is worst at and it is also the most common thing anyone types on an API reference. Generated from `registry/` at build time, so it cannot drift from the pages it points at — TI-47 asks for exactly that.
+1. **Exact-name lookup.** Qualified name, then last segment, then all-tokens-in-a-name, ranked types above members. Answers 6 of 9 measured queries with no engine involved, and it is a `Map` and an array filter over 5,342 entries.
+2. **Orama for the rest** — typos and prose, where a lookup has nothing to offer. `tolerance: 1` turns `creatWindow` and `addEventLisener` into the right answer; Pagefind returns hundreds of irrelevant results for both.
+3. **Cache the endpoint at the edge.** Query distributions on docs sites are head-heavy, so most traffic should never reach the function.
 
-2. **Prose — Pagefind over the built HTML.** 116 KB boot, ~28 KB per query, no service, no cost, works in previews, and indexes what was actually rendered rather than a parallel description of it. Right now it covers 50 blog posts; it is chosen for the 190 pages it will cover once the guides land.
+The index is generated at build time from `registry/`, so it cannot drift from the pages it points at — TI-47 asks for exactly that.
 
-The union is smaller on first use than Orama's index alone, and each half is good at what the other is bad at.
+### Why not Pagefind, given it needs no runtime
+
+Because it cannot do the half of the job that matters most here. 3 of 7 usable results, no typo tolerance, and `addEventListener` — one of the most likely queries on this site — is unanswerable by page-level ranking. Adding a symbol index in front of it would fix the name queries, but the misspellings would remain broken, and that combination is no simpler than the one recommended above.
+
+Pagefind stays the right answer for a site that must have no runtime at all. This site can afford one function.
+
+### An alternative worth keeping in mind
+
+If the runtime function turns out to be unwanted, the lookup half runs perfectly well in the browser on the 27 KB symbol index, answering those 6 of 9 queries with no network at all, and the endpoint is only consulted when the local pass comes up short. That is strictly more moving parts, so it is not the recommendation, but it is the fallback if invocation cost or cold starts disappoint.
 
 ### What this does not settle
 
-- **Module API symbols across versions.** 343 types across 47 versions; indexing every version multiplies the symbol index for little gain. The measurement above indexes the latest version per module only. Whether an older version's symbols need to be searchable is a product question, not a measurement.
-- **Ranking between the two indexes.** When a query matches both a symbol and a page, TI-47 groups results by kind, which sidesteps having to score them against each other. If that grouping ever collapses into one list, this needs revisiting.
-- **Pagefind reported 20,599 words across 755 pages**, which is lower than expected for this much reference content. Worth a look during TI-47 — if the API pages are being shallowly indexed, the prose case is unaffected but the numbers above are conservative rather than wrong.
+- **Module API symbols across versions.** 343 types across 47 versions; the measurements index the latest version per module only. Whether older versions need to be searchable is a product question.
+- **Ranking between kinds** when a query matches both a symbol and a page. TI-47 groups results by kind, which sidesteps scoring them against each other.
+- **The tokenizer.** Measurements used `stemming: false`; stemming helps prose and hurts symbols, and the two-index-in-one-engine question was not explored.
+- **Pagefind reported 20,599 words across 755 pages**, lower than expected for this much reference content. It does not affect the recommendation, but it means the Pagefind numbers here are conservative rather than wrong.
