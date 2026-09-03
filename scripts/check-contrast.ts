@@ -3,8 +3,12 @@
  * in both themes. Parses the shipped CSS rather than a duplicate table, so it
  * cannot drift from what is actually deployed.
  *
+ * The second pass covers the syntax highlighting palette, which is borrowed
+ * rather than authored — see below.
+ *
  *   node scripts/check-contrast.ts
  */
+import { CODE_SURFACE, highlightCodeBlocks } from '../src/lib/docs/highlight.ts';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
@@ -100,6 +104,72 @@ for (const [theme, tokens] of themes) {
     const label = `${fg} on ${bg}`.padEnd(30);
     console.log(`  ${ok ? 'pass' : 'FAIL'}  ${label} ${ratio.toFixed(2)}:1  (min ${min})`);
   }
+}
+
+/**
+ * The syntax highlighting palette (TI-10).
+ *
+ * Shiki's token colours come from GitHub's themes, which were designed against
+ * GitHub's own backgrounds. We render them on `--color-surface` instead, so
+ * every borrowed colour has to be re-checked against the surface it actually
+ * lands on — the pairing GitHub verified is not the pairing we ship.
+ *
+ * Colours are collected by highlighting real samples rather than by reading the
+ * theme files, so this measures what the corpus actually produces. A theme
+ * carries hundreds of scopes; these pages use a few dozen.
+ */
+const SAMPLES: [string, string][] = [
+  [
+    'js',
+    "var win = Ti.UI.createWindow({ backgroundColor: '#fff', top: 10 });\n// comment\nwin.open();",
+  ],
+  [
+    'xml',
+    '<Alloy>\n  <Window class="container" title="Hello">\n    <Label id="label">Hi</Label>\n  </Window>\n</Alloy>',
+  ],
+  ['json', '{ "name": "ti.map", "version": "5.7.0", "enabled": true, "count": 3 }'],
+  ['sh', '$ npm install --global titanium alloy\n# then\nti create'],
+];
+
+const shikiColors = { light: new Set<string>(), dark: new Set<string>() };
+for (const [lang, code] of SAMPLES) {
+  const html = highlightCodeBlocks(
+    `<pre><code class="language-${lang}">${code
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')}</code></pre>`
+  );
+  for (const [, which, hex] of html.matchAll(/--shiki-(light|dark):(#[0-9A-Fa-f]{6})/g)) {
+    shikiColors[which as 'light' | 'dark'].add(hex.toUpperCase());
+  }
+}
+
+for (const [theme, tokens] of themes) {
+  const surface = tokens.surface;
+  // highlight.ts cannot read globals.css — it runs inside the serverless
+  // function, where the stylesheet is not. So it carries its own copy of the
+  // surface, and this is what stops the two drifting apart.
+  const declared = CODE_SURFACE[theme as 'light' | 'dark'].toUpperCase();
+  if (declared !== surface) {
+    failed++;
+    console.log(
+      `\n  FAIL  CODE_SURFACE.${theme} is ${declared} but --color-surface is ${surface}` +
+        '\n        Update CODE_SURFACE in src/lib/docs/highlight.ts.'
+    );
+  }
+  const colors = [...shikiColors[theme as 'light' | 'dark']].sort();
+  console.log(`\n${theme} — syntax tokens on surface (${colors.length} distinct)`);
+  let worst = { hex: '', ratio: Infinity };
+  for (const hex of colors) {
+    const ratio = contrast(hex, surface);
+    if (ratio < worst.ratio) worst = { hex, ratio };
+    if (ratio < 4.5) {
+      failed++;
+      console.log(`  FAIL  ${hex} on surface ${surface}  ${ratio.toFixed(2)}:1  (min 4.5)`);
+    }
+  }
+  console.log(`  worst ${worst.hex} at ${worst.ratio.toFixed(2)}:1`);
 }
 
 console.log(
