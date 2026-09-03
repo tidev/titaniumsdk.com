@@ -1,5 +1,7 @@
 import { publishedPosts } from '../src/lib/blog/posts.ts';
+import { anchorAllocator } from '../src/lib/docs/links.ts';
 import { apiIndexAt, apiTypeAt, latestSdkVersion } from '../src/lib/docs/registry.ts';
+import { viewOf } from '../src/lib/docs/type-view.ts';
 import { existsSync, readFileSync, readdirSync, rmSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import * as pagefind from 'pagefind';
@@ -93,12 +95,28 @@ for (const entry of sdkIndex.types) {
     summary: plain(entry.summary ?? type.summary),
   });
 
-  for (const group of ['methods', 'properties', 'events'] as const) {
-    for (const member of type[group] ?? []) {
+  // The same view the page renders, and the same anchors allocated from it.
+  // A member's id is not simply its name: Window has a method `open()` and an
+  // event `open`, so one of the two is suffixed (TI-26). Recomputing that here
+  // from declared members in a different group order would produce links to
+  // anchors that do not exist, for the 41 types where the names collide.
+  const view = viewOf(
+    (name) => apiTypeAt(join(process.cwd(), 'registry/sdk', version), name),
+    type
+  );
+  const groups = [view.properties, view.methods, view.events];
+  const anchor = anchorAllocator(groups, ['property', 'method', 'event']);
+
+  for (const members of groups) {
+    // Declared members only, as before: every proxy inherits addEventListener,
+    // and indexing the inherited copies is precisely the "205 results, none
+    // relevant" failure TI-46 measured. Taken from the view rather than from
+    // the type because the view rebuilds each member as a new object — an
+    // identity the allocator needs, and which a declared-member loop would not
+    // have, falling back silently to an anchor the page does not render.
+    for (const member of members.filter((m) => !m.inheritedFrom)) {
       records.push({
-        // The page renders `id="<member>"` for each, verified against the
-        // built HTML rather than assumed.
-        url: `/docs/sdk/${version}/${entry.name}#${member.name}`,
+        url: `/docs/sdk/${version}/${entry.name}#${anchor(member)}`,
         title: `${entry.name}.${member.name}`,
         kind: 'api',
         // The bare name as well as the qualified one, and it is load-bearing:
