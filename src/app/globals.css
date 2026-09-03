@@ -382,6 +382,16 @@ body {
    defensive rules the rest of the site does not.
 */
 @layer components {
+  /* The namespace tree's chevron turns with its own <details> and nothing
+     else. Tailwind's `group-open:` cannot say that: it compiles to
+     `:is(:where(.group):is([open]) *)`, a descendant match, and this tree nests
+     groups — so every chevron under an open branch was rotated by that
+     ancestor rather than by its own state, and all 283 of them pointed down.
+     The child combinator is the whole point of the rule. */
+  .api-nav details[open] > summary > svg {
+    rotate: 90deg;
+  }
+
   /* Long unbreakable strings are the normal case in this prose, not the
      exception: fully-qualified identifiers, and bare URLs the source never
      made into links — ti.map has a 74-character Google Maps URL sitting in a
