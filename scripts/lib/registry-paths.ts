@@ -55,7 +55,7 @@ export type PrunedRun = { id: number; html_url: string };
  *
  * Sits beside the release channel files rather than in a tree of its own, so an
  * SDK version directory has the same shape as a module version directory:
- * metadata.json, index.json, types/.
+ * metadata.json plus a contents.json naming what it carries.
  */
 export const API_DOCS_DIR = 'registry/sdk';
 export const apiDocsDir = (version: string) => `${API_DOCS_DIR}/${version}`;

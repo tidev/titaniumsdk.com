@@ -1,5 +1,7 @@
+import { CONTENTS, type Contents, indexPath } from '../../src/lib/docs/pool.ts';
+import { POOL_DIR, POOL_SCHEMA_VERSION } from '../lib/pool.ts';
 import { API_DOCS_DIR } from '../lib/registry-paths.ts';
-import { copyImages } from './assets.ts';
+import { poolImages } from './assets.ts';
 import { compile, CompileError } from './compile.ts';
 import type { ExternalSource } from './external.ts';
 import { moduleIdFrom, resolveSource, sdkSource, type Source } from './sources.ts';
@@ -21,8 +23,8 @@ import { moduleIdFrom, resolveSource, sdkSource, type Source } from './sources.t
  * its links point at a property of when CI happened to run.
  */
 import { execFileSync } from 'node:child_process';
-import { existsSync, readFileSync, writeFileSync } from 'node:fs';
-import { join, resolve } from 'node:path';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { join, relative, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 /** The only tree that may be rewritten. Everything else is a published release. */
@@ -83,10 +85,12 @@ if (source.kind === 'module') {
     );
     process.exit(1);
   }
-  const index = join(root, API_DOCS_DIR, sdkVersion, 'index.json');
-  if (!existsSync(index)) {
+  // The SDK's index lives in the pool, so its path comes from that version's
+  // manifest rather than from a fixed filename.
+  const index = indexPath(join(root, API_DOCS_DIR, sdkVersion));
+  if (!index || !existsSync(index)) {
     console.error(
-      `\nnothing compiled at ${API_DOCS_DIR}/${sdkVersion}/index.json.\n` +
+      `\nnothing compiled at ${API_DOCS_DIR}/${sdkVersion}.\n` +
         `Compile the SDK at ${sdkVersion} before the modules that resolve against it.`
     );
     process.exit(1);
@@ -101,8 +105,11 @@ if (source.kind === 'module') {
 
 /** Where this source's compiled docs live, relative to the repo root. */
 let outRel: string;
+/** The registry root that owns the pool these documents go into. */
+let registryRoot: string;
 if (source.kind === 'sdk') {
   outRel = join(API_DOCS_DIR, version);
+  registryRoot = API_DOCS_DIR;
 } else {
   let moduleId: string;
   try {
@@ -111,10 +118,12 @@ if (source.kind === 'sdk') {
     console.error(`\n${(err as Error).message}`);
     process.exit(1);
   }
-  // Same shape as an SDK version directory: metadata.json, index.json, types/.
+  // Same shape as an SDK version directory: metadata.json and contents.json.
   outRel = join('registry/modules', moduleId, version);
+  registryRoot = 'registry/modules';
 }
 const outDir = join(root, outRel);
+const poolDir = join(root, registryRoot, POOL_DIR);
 
 console.log(`${repo} (${source.kind}) @ ${version}`);
 console.log(`  ${apidoc}\n  -> ${outRel}\n`);
@@ -127,7 +136,7 @@ console.log(`  ${apidoc}\n  -> ${outRel}\n`);
  * fails loudly instead of overwriting.
  */
 if (version !== MUTABLE && !force) {
-  const published = existsSync(join(outDir, 'index.json'));
+  const published = existsSync(join(outDir, CONTENTS));
   const metadata = join(
     root,
     'registry/modules',
@@ -221,6 +230,7 @@ try {
   const result = compile({
     apidoc,
     outDir,
+    pool: poolDir,
     sourceRepo: repo,
     external,
     log: (m) => console.log(m),
@@ -228,11 +238,26 @@ try {
 
   // apidoc prose references images sitting beside the YAML, so they travel with
   // the compiled types rather than being resolved against the source repo.
-  const assets = copyImages(apidoc, outDir);
-  if (assets.copied || assets.removed) {
-    console.log(
-      `${assets.copied} image(s) copied, ${assets.removed} removed, ${assets.unchanged} unchanged`
-    );
+  const assets = poolImages(apidoc, poolDir);
+  const imageCount = Object.keys(assets.images).length;
+  console.log(`${imageCount} image(s) referenced, ${assets.stored} new to the pool`);
+
+  // Written last: it is the marker that says this version is compiled, so it
+  // must not exist until everything it names is in the pool.
+  const contents: Contents = {
+    schemaVersion: POOL_SCHEMA_VERSION,
+    pool: relative(outDir, poolDir).split(sep).join('/'),
+    index: result.contents?.index ?? '',
+    types: result.contents?.types ?? {},
+    images: assets.images,
+  };
+  const contentsBody = `${JSON.stringify(contents, null, 2)}\n`;
+  const contentsPath = join(outDir, CONTENTS);
+  const contentsChanged =
+    !existsSync(contentsPath) || readFileSync(contentsPath, 'utf8') !== contentsBody;
+  if (contentsChanged) {
+    mkdirSync(outDir, { recursive: true });
+    writeFileSync(contentsPath, contentsBody);
   }
 
   const metadataChanged = writeMetadata(outDir, sourceCommit(checkout));
@@ -241,8 +266,8 @@ try {
   const changed =
     result.written.length +
     result.removed.length +
-    assets.copied +
-    assets.removed +
+    assets.stored +
+    (contentsChanged ? 1 : 0) +
     (metadataChanged ? 1 : 0);
   console.log(`\n::notice::${repo}@${version}: ${changed} file(s) changed`);
   if (process.env.GITHUB_OUTPUT) {

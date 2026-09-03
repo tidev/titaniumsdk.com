@@ -1,4 +1,4 @@
-import { emit } from './emit.ts';
+import { emit, type EmitResult } from './emit.ts';
 import {
   externalLabel,
   loadExternalCorpus,
@@ -33,6 +33,14 @@ export type CompileOptions = {
   /** Directory holding the apidoc YAML tree. */
   apidoc: string;
   outDir: string;
+  /**
+   * The registry root's content-addressed pool.
+   *
+   * Passed in rather than derived from `outDir`, because only the caller knows
+   * how deep the version sits: `registry/sdk/<version>` and
+   * `registry/modules/<id>/<version>` share one pool per registry root.
+   */
+  pool: string;
   /** Report what would be regenerated and write nothing. */
   planOnly?: boolean;
   /** Ignore known-broken-refs.json, to see what it is still hiding. */
@@ -73,6 +81,13 @@ export type CompileResult = {
   crossRepo: number;
   /** Allowlist entries that no longer occur — upstream fixed them. */
   staleAllowlist: string[];
+  /**
+   * What this version carries, for `contents.json`.
+   *
+   * Absent from a plan-only run, which writes nothing and so has nothing to
+   * declare.
+   */
+  contents?: EmitResult['contents'];
 };
 
 const refOf = (reason: string) => /<(.+)>/.exec(reason)?.[1] ?? reason;
@@ -109,7 +124,7 @@ function allowlist(
 }
 
 export function compile(options: CompileOptions): CompileResult {
-  const { apidoc, outDir, planOnly = false, strict = false, sourceRepo } = options;
+  const { apidoc, outDir, pool, planOnly = false, strict = false, sourceRepo } = options;
   const log = options.log ?? (() => {});
 
   if (!existsSync(apidoc)) throw new CompileError(`no such directory: ${apidoc}`);
@@ -209,7 +224,7 @@ export function compile(options: CompileOptions): CompileResult {
   }
 
   const out = emit(
-    outDir,
+    pool,
     resolved,
     work.dirty,
     work.removedTypes,
@@ -258,5 +273,6 @@ export function compile(options: CompileOptions): CompileResult {
     knownBroken: resolved.problems.length,
     crossRepo: crossRepo.size,
     staleAllowlist: stale,
+    contents: out.contents,
   };
 }

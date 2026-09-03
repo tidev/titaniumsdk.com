@@ -6,6 +6,7 @@ import {
   type ApiType,
   type SdkVersion,
 } from '../registry/index.ts';
+import { CONTENTS, contentsOf, poolPath } from './pool.ts';
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
@@ -18,9 +19,12 @@ import { join } from 'node:path';
  *
  * A compiled version directory has the same shape wherever it sits — the SDK's
  * `registry/sdk/<version>/` and a module's `registry/modules/<id>/<version>/`
- * both hold `index.json`, `metadata.json`, and `types/`. The readers below take
- * that directory; the SDK wrappers at the bottom and `./modules.ts` are the two
- * things that know where to find one.
+ * both hold `metadata.json` and a `contents.json` naming what they carry. The
+ * readers below take that directory; the SDK wrappers at the bottom and
+ * `./modules.ts` are the two things that know where to find one.
+ *
+ * The documents themselves live in a shared content-addressed pool rather than
+ * in the version directory — see `./pool.ts` for why.
  */
 
 export const REGISTRY = join(process.cwd(), 'registry');
@@ -54,18 +58,24 @@ function readJson<T>(path: string, parse: (v: unknown) => T): T | null {
 // ------------------------------------------------------- one version directory
 
 /** True when the directory carries a compiled reference rather than only metadata. */
-export const hasApiIndex = (dir: string): boolean => existsSync(join(dir, 'index.json'));
+export const hasApiIndex = (dir: string): boolean => existsSync(join(dir, CONTENTS));
 
 export function apiIndexAt(dir: string): ApiIndex | null {
-  return readJson(join(dir, 'index.json'), (v) => ApiIndexSchema.parse(v));
+  const contents = contentsOf(dir);
+  const path = contents && poolPath(dir, contents, contents.index);
+  return path ? readJson(path, (v) => ApiIndexSchema.parse(v)) : null;
 }
 
 export function apiTypeAt(dir: string, name: string): ApiType | null {
   // The name reaches this from a cross-reference or a URL segment, so it must
-  // not be able to escape the types directory. Type names are dotted
-  // identifiers and nothing else.
-  if (!/^[A-Za-z_][\w.]*$/.test(name)) return null;
-  return readJson(join(dir, 'types', `${name}.json`), (v) => ApiTypeSchema.parse(v));
+  // not be able to escape the pool. It no longer needs a pattern check to be
+  // safe: the manifest is an allowlist of names this version actually compiled,
+  // which is strictly narrower than any regex, and `poolPath` validates the
+  // filename it maps to.
+  const contents = contentsOf(dir);
+  const entry = contents?.types[name];
+  const path = entry ? poolPath(dir, contents!, entry) : null;
+  return path ? readJson(path, (v) => ApiTypeSchema.parse(v)) : null;
 }
 
 /** What a compiled directory records about the checkout it was built from. */

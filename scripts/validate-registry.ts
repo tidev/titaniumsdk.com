@@ -1,3 +1,13 @@
+/**
+ * Validates everything under registry/ against the Zod schemas, plus the
+ * build-data shapes inherited from tidev/downloads-www.
+ *
+ * The schemas are a public contract — the Titanium CLI reads them through the
+ * registry API — so a malformed entry has to fail CI rather than ship.
+ *
+ *   node scripts/validate-registry.ts [dir]
+ */
+import { CONTENTS, ContentsSchema, poolPath } from '../src/lib/docs/pool.ts';
 import {
   ApiIndexSchema,
   ApiTypeSchema,
@@ -9,16 +19,8 @@ import {
   ModuleVersionSchema,
   SdkVersionSchema,
 } from '../src/lib/registry/index.ts';
-/**
- * Validates everything under registry/ against the Zod schemas, plus the
- * build-data shapes inherited from tidev/downloads-www.
- *
- * The schemas are a public contract — the Titanium CLI reads them through the
- * registry API — so a malformed entry has to fail CI rather than ship.
- *
- *   node scripts/validate-registry.ts [dir]
- */
-import { readdirSync, readFileSync, statSync } from 'node:fs';
+import { POOL_DIR } from './lib/pool.ts';
+import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import type { ZodType } from 'zod';
@@ -47,8 +49,7 @@ function schemaFor(rel: string): ZodType | null {
     // sdk/{ga,rc,beta}.json are release lists; sdk/<version>/ is one compiled
     // version, shaped like a module version directory.
     if (parts.length === 2) return BuildListSchema;
-    if (parts.includes('types')) return ApiTypeSchema;
-    if (file === 'index.json') return ApiIndexSchema;
+    if (file === CONTENTS) return ContentsSchema;
     if (file === 'metadata.json') return SdkVersionSchema;
   }
 
@@ -58,22 +59,22 @@ function schemaFor(rel: string): ZodType | null {
     if (parts.length === 2 && file === 'community.json') return CommunityIndexSchema;
 
     // modules/<id>/index.json describes the package: versions, platforms, repo.
-    // modules/<id>/<version>/index.json is the compiled API reference for one
-    // version. Same filename, different schema — distinguished by depth, since
-    // routing them together is exactly the mistake that shipped a module's API
-    // index into the package-index schema.
+    // The compiled API reference for a version no longer collides with it —
+    // that lives in the pool and is validated below, by the role its manifest
+    // gives it rather than by where it sits.
     if (parts.length === 3 && file === 'index.json') return ModuleIndexSchema;
-    if (parts.includes('types')) return ApiTypeSchema;
-    if (file === 'index.json') return ApiIndexSchema;
+    if (file === CONTENTS) return ContentsSchema;
     if (file === 'metadata.json') return ModuleVersionSchema;
   }
 
   return null;
 }
 
+/** Every `.json` outside a pool: the pool is validated by role, not by path. */
 function walk(dir: string): string[] {
   const out: string[] = [];
   for (const name of readdirSync(dir)) {
+    if (name === POOL_DIR) continue;
     const full = join(dir, name);
     if (statSync(full).isDirectory()) out.push(...walk(full));
     else if (name.endsWith('.json')) out.push(full);
@@ -81,9 +82,44 @@ function walk(dir: string): string[] {
   return out;
 }
 
+/** Directories carrying a version manifest, wherever they sit. */
+function versionDirs(dir: string, depth = 4): string[] {
+  if (depth < 0) return [];
+  const found: string[] = [];
+  for (const name of readdirSync(dir, { withFileTypes: true })) {
+    if (!name.isDirectory() || name.name === POOL_DIR) continue;
+    const full = join(dir, name.name);
+    if (existsSync(join(full, CONTENTS))) found.push(full);
+    else found.push(...versionDirs(full, depth - 1));
+  }
+  return found;
+}
+
 let ok = 0;
 let failed = 0;
 let skipped = 0;
+
+function check(file: string, rel: string, schema: ZodType) {
+  let data: unknown;
+  try {
+    data = JSON.parse(readFileSync(file, 'utf8'));
+  } catch (err) {
+    console.log(`  FAIL  ${rel}  not valid JSON: ${(err as Error).message}`);
+    failed++;
+    return;
+  }
+
+  const result = schema.safeParse(data);
+  if (result.success) {
+    ok++;
+    return;
+  }
+  failed++;
+  console.log(`  FAIL  ${rel}`);
+  for (const issue of result.error.issues.slice(0, 4)) {
+    console.log(`          ${issue.path.join('.') || '<root>'}: ${issue.message}`);
+  }
+}
 
 for (const file of walk(root).sort()) {
   const rel = relative(root, file);
@@ -93,25 +129,34 @@ for (const file of walk(root).sort()) {
     skipped++;
     continue;
   }
+  check(file, rel, schema);
+}
 
-  let data: unknown;
-  try {
-    data = JSON.parse(readFileSync(file, 'utf8'));
-  } catch (err) {
-    console.log(`  FAIL  ${rel}  not valid JSON: ${(err as Error).message}`);
-    failed++;
-    continue;
-  }
+/**
+ * Pooled documents, under the schema the manifest that names them implies.
+ *
+ * A blob's path says nothing about what it holds — that is the point of content
+ * addressing — so the role has to come from the manifest. This is stronger than
+ * the depth rule it replaces: a document is checked as whatever a reader will
+ * actually load it as, and a manifest naming the wrong kind of file fails here
+ * rather than at render time. Each distinct blob is checked once however many
+ * versions share it.
+ */
+const seen = new Set<string>();
+for (const dir of versionDirs(root)) {
+  const parsed = ContentsSchema.safeParse(JSON.parse(readFileSync(join(dir, CONTENTS), 'utf8')));
+  // The manifest itself already failed in the walk above; do not report twice.
+  if (!parsed.success) continue;
+  const contents = parsed.data;
 
-  const result = schema.safeParse(data);
-  if (result.success) {
-    ok++;
-  } else {
-    failed++;
-    console.log(`  FAIL  ${rel}`);
-    for (const issue of result.error.issues.slice(0, 4)) {
-      console.log(`          ${issue.path.join('.') || '<root>'}: ${issue.message}`);
-    }
+  for (const [entry, schema] of [
+    [contents.index, ApiIndexSchema] as const,
+    ...Object.values(contents.types).map((e) => [e, ApiTypeSchema] as const),
+  ]) {
+    const path = poolPath(dir, contents, entry);
+    if (!path || seen.has(path)) continue;
+    seen.add(path);
+    check(path, `${relative(root, dir)} -> ${entry}`, schema);
   }
 }
 

@@ -24,6 +24,7 @@
     "registry:community": "node scripts/generate-community-modules.ts",
     "registry:module-docs": "node scripts/backfill-module-docs.ts",
     "registry:modules": "node scripts/generate-modules.ts",
+    "registry:pack": "node scripts/pack-registry.ts",
     "registry:prune": "node scripts/prune-builds.ts",
     "search:index": "node scripts/generate-search-index.ts",
     "start": "next start",
