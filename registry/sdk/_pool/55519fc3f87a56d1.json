@@ -1,0 +1,1731 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.UI.ScrollView",
+  "kind": "view",
+  "extends": "Titanium.UI.View",
+  "inheritanceChain": [
+    "Titanium.UI.View",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
+  "since": "0.9",
+  "summary": "A view that contains a horizontally and/or vertically-scrollable region of content.",
+  "description": "Use the [Titanium.UI.createScrollView](api:Titanium.UI#createScrollView) method or **`<ScrollView>`** Alloy element to create a scroll view.\n\nViews added to the scroll view will be scrolled based on the size of the scrollable region of\ncontent. If a scrollable region fits within the size of its scroll view, the view will not\nscroll.\n\n#### Android Platform Notes\n\nOn Android, a scroll view can only scroll in one direction, either vertically or horizontally,\nand not both at the same time. The [Titanium.UI.ScrollView.scrollType](api:Titanium.UI.ScrollView#scrollType) property sets the scroll\ndirection explicitly. If the `scrollType` property is not assigned a value, the scroll view\nattempts to determine the scroll direction based on some the following rules:\n\n* If [Titanium.UI.ScrollView.contentWidth](api:Titanium.UI.ScrollView#contentWidth) and [Titanium.UI.ScrollView.width](api:Titanium.UI.ScrollView#width) are both\nset and are equal to each other, or if they are both set\n*and* `showVerticalScrollIndicator` is set to `true`, then the scroll direction is set to\n\"vertical\".\n\n* If [Titanium.UI.ScrollView.contentHeight](api:Titanium.UI.ScrollView#contentHeight) and [Titanium.UI.ScrollView.height](api:Titanium.UI.ScrollView#height) are\nboth set and are equal, or if they are both set and [Titanium.UI.ScrollView.showHorizontalScrollIndicator](api:Titanium.UI.ScrollView#showHorizontalScrollIndicator) is set to\n`true`, then the scroll direction is set to \"horizontal\".\n\nPinching a `ScrollableView` to zoom in and out of content is not supported on Android. On iOS, this action\nis natively supported by the UIScrollView class, but on Android, the native ScrollView class does\nnot support this action.\n",
+  "examples": [
+    {
+      "title": "Simple Scroll View",
+      "code": "Create a scroll view with content.\n\n``` js\nvar win = Ti.UI.createWindow({\n  exitOnClose: true,\n  fullscreen: false,\n  title: 'ScrollView Demo'\n});\n\nvar scrollView = Ti.UI.createScrollView({\n  showVerticalScrollIndicator: true,\n  showHorizontalScrollIndicator: true,\n  height: '80%',\n  width: '80%'\n});\nvar view = Ti.UI.createView({\n  backgroundColor:'#336699',\n  borderRadius: 10,\n  top: 10,\n  height: 2000,\n  width: 1000\n});\nscrollView.add(view);\nwin.add(scrollView);\nwin.open();\n```\n"
+    },
+    {
+      "title": "Scroll View as a Table View",
+      "code": "Create a scroll view that contains a set of views in a layout to resemble a table view with\nrows. This approach can mitigate the native Android issue described in the \"TextFields in\nTables with SOFT_INPUT_ADJUST_PAN\" section of <Titanium.UI.TableView>.\n\n``` js\nvar win = Ti.UI.createWindow();\n\nif (Ti.UI.Android){\n  win.windowSoftInputMode = Ti.UI.Android.SOFT_INPUT_ADJUST_PAN;\n}\n\nfunction createRow(i) {\n  var row = Ti.UI.createView({\n    backgroundColor: 'white',\n    borderColor: '#bbb',\n    borderWidth: 1,\n    width:'100%', height: 70,\n    top: 0, left: 0\n  });\n  var inputTextField = Ti.UI.createTextField({\n    hintText: 'Enter value ' + i,\n    keyboardType: Ti.UI.KEYBOARD_NUMBERS_PUNCTUATION,\n    top: 10, left: '10%',\n    width: '80%', height: 60\n  });\n  row.add(inputTextField);\n  return row;\n}\n\nvar scrollView = Ti.UI.createScrollView({\n  bottom:120,\n  layout: 'vertical'\n});\n\nfor(var i = 0; i <= 20; i++){\nvar row = createRow(i);\n  scrollView.add(row);\n}\nwin.add(scrollView);\n\nvar label = Ti.UI.createLabel({\n  backgroundColor:'darkgray',\n  text: 'Your advert here',\n  textAlign: 'center',\n  bottom:0,\n  width: Titanium.UI.FILL,\n  height:100\n});\nwin.add(label);\nwin.open();\n```\n"
+    },
+    {
+      "title": "Alloy XML Markup",
+      "code": "Previous simple scroll view example as an Alloy view.\n\n ``` xml\n <Alloy>\n     <Window id=\"win\" backgroundColor=\"white\" exitOnClose=\"true\" fullscreen=\"false\" title=\"ScrollView Demo\">\n         <ScrollView id=\"scrollView\" showVerticalScrollIndicator=\"true\" showHorizontalScrollIndicator=\"true\" height=\"80%\" width=\"80%\">\n             <View id=\"view\" backgroundColor=\"#336699\" borderRadius=\"10\" top=\"10\" height=\"2000\" width=\"1000\" />\n         </ScrollView>\n     </Window>\n </Alloy>\n ```\n"
+    }
+  ],
+  "properties": [
+    {
+      "name": "canCancelEvents",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Determines whether this scroll view can cancel subview touches in order to scroll instead.",
+      "description": "On iOS, this property maps to the native `canCancelContentTouches` property which controls\nwhether touches in the content view always lead to tracking. See [UIScrollView](https://developer.apple.com/documentation/uikit/uiscrollview) for more details.\n\nOn Android, setting this property to false prevents the scroll view from intercepting\nany touch events from its subviews. Note that this behavior may be slightly different from iOS.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "default": "true"
+    },
+    {
+      "name": "contentHeight",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Height of the scrollable region.",
+      "description": "While absolute dimensions are supported, relative values, such as those provided\nin percentages, are not. The minimum value for contentHeight is the height of the scroll view.\nMeasured in platform-specific units; pixels on Android, effective pixels on Windows and density-independent pixels (dip) on iOS.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        },
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "contentOffset",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "X and Y coordinates to which to reposition the top-left point of the scrollable region.",
+      "description": "On iOS, a new value causes the scroll view to perform an animated scroll to the new offset.\nThe [Titanium.UI.ScrollView.setContentOffset](api:Titanium.UI.ScrollView#setContentOffset) method can be used to prevent this animation.\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Point"
+        }
+      ]
+    },
+    {
+      "name": "contentWidth",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Width of the scrollable region.",
+      "description": "While absolute dimensions are supported, relative values, such as those provided\nin percentages, are not. The minimum value for contentWidth is the width of the scroll view.\nMeasured in platform-specific units; pixels on Android, effective pixels on Windows and density-independent pixels (dip) on iOS.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        },
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "decelerationRate",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The deceleration rate of the ScrollView.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "3.2.3",
+      "default": "Undefined.",
+      "constants": [
+        "Titanium.UI.iOS.SCROLL_DECELERATION_RATE_FAST",
+        "Titanium.UI.iOS.SCROLL_DECELERATION_RATE_NORMAL"
+      ]
+    },
+    {
+      "name": "disableBounce",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Determines whether scroll bounce of the scrollable region is enabled.",
+      "description": "Set to `true` to disable horizontal and vertical bounce.\n\nThis property takes precedence over the `horizontalBounce` and `verticalBounce` properties.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "default": "false"
+    },
+    {
+      "name": "horizontalBounce",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Determines whether horizontal scroll bounce of the scrollable region is enabled.",
+      "description": "With the default value of `true`, dragging in the horizontal direction is always allowed and\nalso bounces.\n\nSet to `false` to disable horizontal scroll bounce if the horizontal content is smaller than\nthe scroll view bounds. However, larger content will still bounce when scrolled.\n\nNote that the `disableBounce` property takes precedence over the `horizontalBounce` and\n`verticalBounce` properties.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "default": "true"
+    },
+    {
+      "name": "keyboardDismissMode",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The manner in which the keyboard is dismissed when a drag begins in the scroll view.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.0.0",
+      "default": "Undefined (behaves like Titanium.UI.iOS.KEYBOARD_DISMISS_MODE_NONE)",
+      "constants": [
+        "Titanium.UI.iOS.KEYBOARD_DISMISS_MODE_INTERACTIVE",
+        "Titanium.UI.iOS.KEYBOARD_DISMISS_MODE_NONE",
+        "Titanium.UI.iOS.KEYBOARD_DISMISS_MODE_ON_DRAG"
+      ]
+    },
+    {
+      "name": "maxZoomScale",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Maximum scaling factor of the scrollable region and its content.",
+      "description": "This value determines how large the content can be scaled.\nIt must be greater than the [minimum zoom scale](api:Titanium.UI.ScrollView#minZoomScale) for zooming to be enabled.\nThe default value is 1.0 unless otherwise specified.\n\nNote that specifying a value less than or equal to 0 will hide all contents of the scroll view.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "default": "1"
+    },
+    {
+      "name": "minZoomScale",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Minimum scaling factor of the scrollable region and its content.",
+      "description": "This value determines how small the content can be scaled.\nIt must be less than the [maximum zoom scale](api:Titanium.UI.ScrollView#maxZoomScale) for zooming to be enabled.\nThe default value is 1.0 unless otherwise specified.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "default": "1"
+    },
+    {
+      "name": "overScrollMode",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Determines the behavior when the user overscolls the view.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "3.1.0",
+      "default": "Titanium.UI.Android.OVER_SCROLL_ALWAYS",
+      "constants": [
+        "Titanium.UI.Android.OVER_SCROLL_ALWAYS",
+        "Titanium.UI.Android.OVER_SCROLL_IF_CONTENT_SCROLLS",
+        "Titanium.UI.Android.OVER_SCROLL_NEVER"
+      ]
+    },
+    {
+      "name": "refreshControl",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "View positioned above the first row that is only revealed when the user drags the scroll view contents down.",
+      "description": "An alternate to the pullView property. See [Titanium.UI.RefreshControl](api:Titanium.UI.RefreshControl) for usage and examples. Since Titanium\nSDK 7.5.0, the RefreshControl API is also available on iOS < 10.\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.UI.RefreshControl"
+        }
+      ],
+      "since": {
+        "android": "6.3.0",
+        "iphone": "6.0.0",
+        "ipad": "6.0.0"
+      }
+    },
+    {
+      "name": "scrollIndicatorStyle",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Style of the scrollbar.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "default": "Titanium.UI.iOS.ScrollIndicatorStyle.DEFAULT",
+      "constants": [
+        "Titanium.UI.iOS.ScrollIndicatorStyle.BLACK",
+        "Titanium.UI.iOS.ScrollIndicatorStyle.DEFAULT",
+        "Titanium.UI.iOS.ScrollIndicatorStyle.WHITE"
+      ]
+    },
+    {
+      "name": "scrollingEnabled",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Determines whether scrolling is enabled for the view.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": {
+        "iphone": "3.0.0",
+        "ipad": "3.0.0",
+        "android": "3.0.0"
+      },
+      "default": "true"
+    },
+    {
+      "name": "scrollsToTop",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Controls whether the scroll-to-top gesture is effective.",
+      "description": "The scroll-to-top gesture is a tap on the status bar; The default value of this property is true.\nThis gesture works when you have a single visible scroll view.\nIf there are multiple table views, web views, text areas, and/or scroll views visible,\nyou will need to disable (set to false) on the above views that you don't want this\nbehaviour on. The remaining view will then respond to scroll-to-top gesture.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "2.0.0",
+      "default": "true"
+    },
+    {
+      "name": "scrollType",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Limits the direction of the scrollable region, overriding the deduced setting. Set to\n`horizontal` or `vertical`.\n",
+      "description": "See the [scrollView](api:Titanium.UI.ScrollView) description for more details about how the\nscroll direction is deduced when this property is not defined.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "availability": "creation"
+    },
+    {
+      "name": "showHorizontalScrollIndicator",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Determines whether the horizontal scroll indicator is visible.",
+      "description": "Set to `true` to show the horizontal scroll indicator.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "default": "false"
+    },
+    {
+      "name": "showVerticalScrollIndicator",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Determines whether the vertical scroll indicator is visible.",
+      "description": "Set to `true` to show the vertical scroll indicator.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "default": "false"
+    },
+    {
+      "name": "verticalBounce",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Determines whether vertical scroll bounce of the scrollable region is enabled.",
+      "description": "With the default value of `true`, dragging in the vertical direction is always allowed and\nalso bounces.\n\nSet to `false` to disable vertical scroll bounce if the vertical content is smaller than\nthe scroll view bounds. However, larger content will still bounce when scrolled.\n\nNote that the `disableBounce` property takes precedence over the `horizontalBounce` and\n`verticalBounce` properties.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "default": "true"
+    },
+    {
+      "name": "zoomScale",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Scaling factor of the scroll view's content.",
+      "description": "This value is bound by the [minZoomScale](api:Titanium.UI.ScrollView#minZoomScale) and [maxZoomScale](api:Titanium.UI.ScrollView#maxZoomScale) properties.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "default": "1"
+    }
+  ],
+  "methods": [
+    {
+      "name": "scrollTo",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Moves the specified coordinate of the scrollable region into the viewable area.",
+      "parameters": [
+        {
+          "name": "x",
+          "summary": "X coordinate from the scrollable region's coordinate system.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "y",
+          "summary": "Y coordinate from the scrollable region's coordinate system.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "options",
+          "summary": "A simple object for specifying the animation properties when scrolling the view (since SDK 6.1.0).\nWhen set to `{ animated: true }` it will scroll smoothly to the destination.\n\nNote that the default here is equivalent to passing in `{ animated: true }`\n",
+          "type": [
+            {
+              "kind": "type",
+              "name": "AnimatedOptions"
+            }
+          ],
+          "optional": true,
+          "default": "{ animated: true }"
+        }
+      ]
+    },
+    {
+      "name": "scrollToBottom",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Moves the end of the scrollable region into the viewable area.",
+      "description": "On Android the behavior of `scrollToBottom` depends on whether this scroll view scrolls\nhorizontally or vertically. For vertical scroll views, `scrollToBottom` moves the bottom\nof the scrollable region into the viewable area. For horizontal scroll views,\n`scrollToBottom` moves the rightmost edge of of the scrollable region into the viewable area.\n\nOn iOS, `scrollToBottom` moves the bottom-right corner of the scrollable region into the\nviewable area.\n",
+      "since": {
+        "iphone": "2.1.0",
+        "ipad": "2.1.0"
+      }
+    },
+    {
+      "name": "scrollToTop",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Moves the top of the scrollable region into the viewable area.",
+      "description": "On Android the behavior of `scrollToTop` depends on whether this scroll view scrolls\nhorizontally or vertically. For vertical scroll views, `scrollToTop` moves the top\nof the scrollable region into the viewable area. For horizontal scroll views,\n`scrollToTop` moves the leftmost edge of of the scrollable region into the viewable area.\n\nOn iOS, `scrollToTop` moves the top-left corner of the scrollable region into the\nviewable area.\n",
+      "since": "7.0.0"
+    },
+    {
+      "name": "setContentOffset",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Sets the value of the [contentOffset](api:Titanium.UI.ScrollView#contentOffset) property.",
+      "parameters": [
+        {
+          "name": "contentOffsetXY",
+          "summary": "X and Y coordinates to which to reposition the top-left point of the scrollable region.\n",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Point"
+            }
+          ]
+        },
+        {
+          "name": "animated",
+          "summary": "A JS object with an `animated` property which determines whether the scrollable region reposition should be animated.\n\nNote that the default here is equivalent to passing in `{ animated: true }`\n",
+          "type": [
+            {
+              "kind": "type",
+              "name": "AnimatedOptions"
+            }
+          ],
+          "optional": true,
+          "default": "{ animated: true }"
+        }
+      ]
+    },
+    {
+      "name": "setZoomScale",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Sets the value of the [zoomScale](api:Titanium.UI.ScrollView#zoomScale) property.",
+      "parameters": [
+        {
+          "name": "zoomScale",
+          "summary": "Scaling factor of the scroll view's content.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "options",
+          "summary": "A JS object with an `animated` property which determines whether the scrollable region reposition should be animated\n\nNote that the default here is equivalent to passing in `{ animated: false }`\n",
+          "type": [
+            {
+              "kind": "type",
+              "name": "AnimatedOptions"
+            }
+          ],
+          "optional": true,
+          "default": "{ animated: false }"
+        }
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "dragend",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when the scrollable region stops being dragged.",
+      "description": "A dragging gesture is when a touch remains in contact with the display to physically drag\nthe view, as opposed to it being the result of scrolling momentum.\n",
+      "since": {
+        "iphone": "3.0.0",
+        "ipad": "3.0.0",
+        "android": "6.2.0"
+      },
+      "properties": [
+        {
+          "name": "decelerate",
+          "summary": "Indicates whether scrolling will continue but decelerate, now that the drag gesture has\nbeen released by the touch. If `false`, scrolling will stop immediately.\nIs always `true` on Android.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "x",
+          "summary": "X coordinate from the scrollable touch position.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "y",
+          "summary": "Y coordinate from the scrollable touch position.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "dragEnd",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when the scrollable region stops being dragged.",
+      "description": "This event has been deprecated and renamed dragend (lower case).\n\nA dragging gesture is when a touch remains in contact with the display to physically drag\nthe view, as opposed to it being the result of scrolling momentum.\n",
+      "properties": [
+        {
+          "name": "decelerate",
+          "summary": "Indicates whether scrolling will continue but decelerate, now that the drag gesture has\nbeen released by the touch. If `false`, scrolling will stop immediately.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "dragstart",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when the scrollable region starts being dragged.",
+      "description": "A dragging gesture is when a touch remains in contact with the display to physically drag\nthe view, as opposed to it being the result of scrolling momentum.\n",
+      "since": {
+        "iphone": "3.0.0",
+        "ipad": "3.0.0",
+        "android": "6.2.0"
+      },
+      "properties": [
+        {
+          "name": "x",
+          "summary": "X coordinate from the scrollable touch position.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "y",
+          "summary": "Y coordinate from the scrollable touch position.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "dragStart",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when the scrollable region starts being dragged.",
+      "description": "This event has been deprecated and renamed dragstart (lower case).\n\nA dragging gesture is when a touch remains in contact with the display to physically drag\nthe view, as opposed to it being the result of scrolling momentum.\n"
+    },
+    {
+      "name": "scale",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when the zoom scale factor changes.",
+      "properties": [
+        {
+          "name": "scale",
+          "summary": "New scaling factor as a float.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "scroll",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when the scrollable region is scrolled.",
+      "properties": [
+        {
+          "name": "contentSize",
+          "summary": "The current content size of the scroll view defined by its `width` and `height` properties.\n",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Size"
+            }
+          ]
+        },
+        {
+          "name": "decelerating",
+          "summary": "Indicates whether the scroll is decelerating.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "dragging",
+          "summary": "Indicates whether the event was fired during a dragging gesture, where the touch\nremained in contact with the display to physically drag the view, as opposed to it being\nthe result of scrolling momentum.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "zooming",
+          "summary": "Indicates whether the event was fired during a zooming operation. This is only available\nfrom Release 3.2.3 of the Titanium Mobile SDK.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "curZoomScale",
+          "summary": "The current scaling factor of the scroll view content. This might not be equal to\nthe `zoomScale` property or be within the range specified by `minZoomScale` and `maxZoomScale`.\nThis is only available from Release 3.2.3 of the Titanium Mobile SDK.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "x",
+          "summary": "X coordinate of the event from the `source` view's coordinate system.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "y",
+          "summary": "Y coordinate of the event from the `source` view's coordinate system.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "inherited": {
+    "properties": [
+      {
+        "name": "accessibilityDisableLongPress",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "accessibilityHidden",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "accessibilityHint",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "accessibilityLabel",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "accessibilityValue",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "anchorPoint",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "animatedCenter",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundDisabledColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "backgroundDisabledImage",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "backgroundFocusedColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "backgroundFocusedImage",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "backgroundGradient",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundImage",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundLeftCap",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundRepeat",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundSelectedColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "backgroundSelectedImage",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "backgroundTopCap",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "borderColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "borderRadius",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "borderWidth",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "bottom",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "center",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "children",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "clipMode",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "elevation",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "filterTouchesWhenObscured",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "focusable",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "height",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "hiddenBehavior",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "horizontalMotionEffect",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "horizontalWrap",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "id",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "keepScreenOn",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "layout",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "left",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "lifecycleContainer",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "opacity",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "overrideCurrentAnimation",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "previewContext",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone"
+        ]
+      },
+      {
+        "name": "pullBackgroundColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "rect",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "right",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "rotation",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad"
+        ]
+      },
+      {
+        "name": "rotationX",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "rotationY",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "scaleX",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "scaleY",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "size",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "softKeyboardOnFocus",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "tintColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "tooltip",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "top",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "touchEnabled",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "touchFeedback",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "touchFeedbackColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "transform",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "transitionName",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "translationX",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "translationY",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "translationZ",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "verticalMotionEffect",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "viewShadowColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "viewShadowOffset",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "viewShadowRadius",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "visible",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "width",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "zIndex",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      }
+    ],
+    "methods": [
+      {
+        "name": "add",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "animate",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "clearMotionEffects",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "convertPointToView",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "getViewById",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "hide",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "insertAt",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "remove",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "removeAllChildren",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "replaceAt",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "show",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "stopAnimation",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "toImage",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      }
+    ],
+    "events": [
+      {
+        "name": "click",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "dblclick",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "doubletap",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "focus",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "keypressed",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "longclick",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "longpress",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "pinch",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "postlayout",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "singletap",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "swipe",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "touchcancel",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "touchend",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "touchmove",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "touchstart",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "twofingertap",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      }
+    ]
+  },
+  "references": [
+    "AnimatedOptions",
+    "Point",
+    "Size",
+    "Titanium.UI",
+    "Titanium.UI.RefreshControl",
+    "Titanium.UI.View"
+  ],
+  "source": "Titanium/UI/ScrollView.yml"
+}

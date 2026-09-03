@@ -1,0 +1,1484 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.UI.Button",
+  "kind": "view",
+  "extends": "Titanium.UI.View",
+  "inheritanceChain": [
+    "Titanium.UI.View",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
+  "since": "0.8",
+  "summary": "A button widget that has four states: normal, disabled, focused and selected.\n",
+  "description": "| Android | iOS |\n| ------- | --- |\n| ![Android](./button_android.png) | ![iOS](./button_ios.png) |\n\nA button displays its  selected state while it is being pressed. The focused state is\nonly used on Android devices that have navigation keys or a keyboard, to indicate\nwhich button has input focus.\n\nYou can specify background images for each state, as well as button text and a button\nicon. On iOS, there are button styles which define appearance for each state, even if\nno button images are set.\n\nUse the [Titanium.UI.createButton](api:Titanium.UI#createButton) method or a **`<Button>`** Alloy element to create a button\n(see [Examples](#!/api/Titanium.UI.Button-examples)) .\n\n#### Android Platform Notes\n\nAndroid uses default button images for the normal, focused, selected and disabled\nstates. If you use a custom button image, you should specify versions for the focused\nand selected states (and the disabled state, if the button is ever disabled).\n\nAndroid also supports setting the background color for each of the states. These are not\nsupported on iOS.\n\nThe Material style introduced in Titanium SDK 10.0.0 will change the default look of the buttons.\nYou can change button styles with a custom theme as follows:\n``` xml\n<!-- Assign this custom theme to \"tiapp.xml\" file's android manifest application element. -->\n<style name=\"Theme.MyTheme\" parent=\"Theme.Titanium.Light\">\n    <item name=\"textAppearanceButton\">@style/TextAppearance.MyButton</item>\n    <item name=\"android:buttonStyle\">@style/Widget.MyButton</item>\n    <item name=\"buttonStyle\">@style/Widget.MyButton</item>\n</style>\n\n<!-- Affects the appearance of text in all material buttons. -->\n<style name=\"TextAppearance.MyButton\" parent=\"TextAppearance.MaterialComponents.Button\">\n    <!-- Do not display button text in all-caps. -->\n    <item name=\"android:textAllCaps\">false</item>\n    <!-- Remove extra spacing between characters. -->\n    <item name=\"android:letterSpacing\">0</item>\n</style>\n\n<!-- Affects the appearance of all non-material system buttons. -->\n<style name=\"Widget.MyButton\" parent=\"Widget.AppCompat.Button\">\n    <!-- Do not display button text in all-caps. -->\n    <item name=\"android:textAllCaps\">false</item>\n    <!-- Remove extra spacing between characters. -->\n    <item name=\"android:letterSpacing\">0</item>\n</style>\n```\n\n#### iOS Platform Notes\n\n* When assigning a custom image to the `backgroundImage` property, the image must be\npartially or wholly transparent for the background color or background gradient to be visible.\n* Similarly, for an assigned background gradient to show through, the `backgroundColor` may need to be\nset to 'transparent'.\n\nUnlike Android, iOS doesn't supply any default background images for buttons--\nsystem button styles serve this purpose.\n\nThe `systemButton` property lets you create a predefined system-defined button,\nsuch as the **Camera** or **Add** buttons, for use in toolbars and nav bars.\nSpecifically, system buttons may be used in the following locations:\n\n* [Titanium.UI.iOS.Toolbar](api:Titanium.UI.iOS.Toolbar). The `items` array can contain system buttons.\n* [Titanium.UI.iPad.Popover](api:Titanium.UI.iPad.Popover). The `leftNavButton` and `rightNavButton` properties can\n  refer to system buttons\n* [Titanium.UI.iOS.SplitWindow](api:Titanium.UI.iOS.SplitWindow). The `toolbar` array can contain system buttons.\n* [Titanium.UI.TextField](api:Titanium.UI.TextField). The `keyboardToolbar` array can contain system buttons.\n* [Titanium.UI.TextArea](api:Titanium.UI.TextArea). The `keyboardToolbar` array can contain system buttons.\n* [Titanium.UI.Window](api:Titanium.UI.Window). The `leftNavButton` and `rightNavButton` properties can refer to\n  system buttons and the `toolbar` array can contain system buttons.\n\nUse the constants in [Titanium.UI.iOS.SystemButton](api:Titanium.UI.iOS.SystemButton)\nto specify a button type. The size, style and decoration of system buttons is set\nautomatically, so you can create a button by setting only the `systemButton` property.\n\nFor example:\n\n``` js\nvar cancelButton = Ti.UI.createButton({ systemButton: Ti.UI.iOS.SystemButton.CANCEL });\n```\n\nIn Alloy, you can omit the namespace when setting the `systemButton` property:\n\n``` xml\n<Button id=\"cancelbtn\" systemButton=\"CANCEL\"></Button>\n```\n\nNote that the `systemButton` property specifies *appearance*, not behavior. For\nexample, to bring up the camera when the user presses the **Camera** button, you must\nadd an event listener to the button and call [Titanium.Media.showCamera](api:Titanium.Media#showCamera) when the\nbutton is clicked.\n\n##### iOS Pressed Button Effects\n\nIf you do not supply separate background images for the normal and selected states,\niOS supplies a built-in effect for pressed buttons. For most iOS buttons, the effect\ndims the entire button (except for the text) while the button is being pressed.\n\nFor toolbar buttons that use the [PLAIN](api:Titanium.UI#BUTTON_STYLE_OPTION_NEUTRAL) style\nor use system icons such as [CAMERA](api:Titanium.UI.iOS.SystemButton#CAMERA), a glow effect is\nused. The glow effect shows as a white circular glow or highlight at the center of the button\nwhen the button is pressed.\n",
+  "examples": [
+    {
+      "title": "Simple Button Example",
+      "code": "``` js\nvar win = Ti.UI.createWindow();\nvar button = Titanium.UI.createButton({\n    title: 'Hello',\n    top: 10,\n    width: 100,\n    height: 50\n});\nbutton.addEventListener('click',function(e)\n{\n    Titanium.API.info(\"You clicked the button\");\n});\nwin.add(button);\nwin.open();\n```\n"
+    },
+    {
+      "title": "Alloy XML Markup",
+      "code": "Previous example as an Alloy view.\n\nbutton.xml:\n``` xml\n<Alloy>\n    <Window id=\"win\" backgroundColor=\"white\">\n        <!-- The title property can also be defined as node text. -->\n        <Button id=\"button\" onClick=\"doClick\" title=\"Hello\"\n            top=\"10\" width=\"100\" height=\"50\" />\n    </Window>\n</Alloy>\n```\n\nbutton.js:\n``` js\nfunction doClick(e){\n    Titanium.API.info(\"You clicked the button\");\n};\n```\n"
+    }
+  ],
+  "properties": [
+    {
+      "name": "attributedString",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Specify an attributed string for the label.",
+      "description": "The underlying attributed string drawn by the label. If set, avoid setting common attributes\nin the label, such as `color` and `font`, as unexpected behaviors may result.\n\niOS Note: This property can also be used to supress the underline style when accessibility\nis enabled. To do so, set the `type` to [Titanium.UI.ATTRIBUTE_UNDERLINES_STYLE](api:Titanium.UI#ATTRIBUTE_UNDERLINES_STYLE) and the\n`value` to [Titanium.UI.ATTRIBUTE_UNDERLINE_STYLE_NONE](api:Titanium.UI#ATTRIBUTE_UNDERLINE_STYLE_NONE).\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.UI.AttributedString"
+        }
+      ],
+      "since": {
+        "android": "7.5.0",
+        "iphone": "7.5.0",
+        "ipad": "7.5.0"
+      }
+    },
+    {
+      "name": "backgroundDisabledImage",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Background image for the button in its disabled state, specified as a local file path\nor URL.\n",
+      "description": "Also sets the background image for the other button states (normal, focused, selected),\nunless they've been specified explicitly, except for iOS, which requires a backgroundImage.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "backgroundFocusedImage",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Background image for the button in its focused state, specified as a local file path\nor URL.\n",
+      "description": "Focusable must be true for normal views. Sets the background image for the focused\nstate only. For iOS, since there is not a trackball, this does nothing.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "backgroundImage",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Background image for the button in its normal state, specified as a local file path or URL.\n",
+      "description": "Also sets the background image for the other button states (disabled, focused, selected),\nunless they've been specified explicitly. On iOS, if backgroundDisabledImage is unset, the\nimage will appear faded to indicate being disabled. Also on iOS, if `backgroundSelectedImage`\nis unset, the image will be darkened to indicate being selected.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "backgroundSelectedColor",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Selected background color of the view, as a color name or hex triplet.",
+      "description": "For information about color values, see the \"Colors\" section of [Titanium.UI](api:Titanium.UI).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        },
+        {
+          "kind": "type",
+          "name": "Titanium.UI.Color"
+        }
+      ],
+      "since": {
+        "iphone": "6.1.0",
+        "ipad": "6.1.0",
+        "android": "0.9.0"
+      },
+      "default": "Background color of this view."
+    },
+    {
+      "name": "backgroundSelectedImage",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Background image for the button in its selected state, specified as a local file\npath or URL.\n",
+      "description": "On Android, Focusable must be true in order to be selected. Sets the background image for the selected\nstate only.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "color",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Default button text color, as a color name or hex triplet.",
+      "description": "For information about color values, see the \"Colors\" section of [Titanium.UI](api:Titanium.UI).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        },
+        {
+          "kind": "type",
+          "name": "Titanium.UI.Color"
+        }
+      ]
+    },
+    {
+      "name": "configuration",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Button configuration for modern button styling.",
+      "description": "A [Titanium.UI.iOS.ButtonConfiguration](api:Titanium.UI.iOS.ButtonConfiguration) object that defines the appearance and behavior \nof the button. This provides a modern way to configure buttons with support for titles, \nsubtitles, images, and various styling options.\n\nWhen using a button configuration, it takes precedence over individual styling properties\nlike `title`, `color`, and `backgroundColor`.\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.UI.iOS.ButtonConfiguration"
+        }
+      ],
+      "since": "13.0.0",
+      "osver": {
+        "ios": {
+          "min": "15.0"
+        }
+      }
+    },
+    {
+      "name": "disabledColor",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Text color of the button in its disabled state, as a color name or hex triplet.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        },
+        {
+          "kind": "type",
+          "name": "Titanium.UI.Color"
+        }
+      ],
+      "since": "3.2.0"
+    },
+    {
+      "name": "enabled",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Set to `true` to enable the button, `false` to disable the button.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "default": "true"
+    },
+    {
+      "name": "font",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Font to use for the button text.",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Font"
+        }
+      ]
+    },
+    {
+      "name": "image",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Image to display next to the button title.",
+      "description": "As of Titanium 11.0.0, the [imageIsMask](api:Titanium.UI.Button#imageIsMask) property determines how\nthis image is displayed. If set `true`, this image will be tinted using the color assigned to the\n[tintColor](api:Titanium.UI.Button#tintColor) property. If set `false`, the image is displayed as-is.\n\nOn Android, you can set this to a numeric resource drawable ID via `Ti.App.Android.R.drawable.*`\nwhich lets you use native vector drawbles that are commonly used as icons.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        },
+        {
+          "kind": "primitive",
+          "name": "Number"
+        },
+        {
+          "kind": "type",
+          "name": "Titanium.Blob"
+        }
+      ]
+    },
+    {
+      "name": "imageIsMask",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Set true to tint the button image. Set false to show the image as-is.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "11.0.0",
+      "default": "true"
+    },
+    {
+      "name": "selectedColor",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Button text color used to indicate the selected state, as a color name or hex triplet.",
+      "description": "For information about color values, see the \"Colors\" section of [Titanium.UI](api:Titanium.UI).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        },
+        {
+          "kind": "type",
+          "name": "Titanium.UI.Color"
+        }
+      ]
+    },
+    {
+      "name": "shadowColor",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Shadow color of the [title](api:Titanium.UI.Button#title), as a color name or hex triplet.",
+      "description": "Use in conjunction with [shadowOffset](api:Titanium.UI.Button#shadowOffset) and [shadowRadius](api:Titanium.UI.Button#shadowRadius).\nFor information about color values, see the \"Colors\" section of [Titanium.UI](api:Titanium.UI).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        },
+        {
+          "kind": "type",
+          "name": "Titanium.UI.Color"
+        }
+      ],
+      "since": "3.2.0"
+    },
+    {
+      "name": "shadowOffset",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Shadow offset of the [title](api:Titanium.UI.Button#title), as a dictionary with the properties `x` and `y`.",
+      "description": "Use in conjunction with [shadowColor](api:Titanium.UI.Button#shadowColor) and [shadowRadius](api:Titanium.UI.Button#shadowRadius).\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Point"
+        }
+      ],
+      "since": "3.2.0"
+    },
+    {
+      "name": "shadowRadius",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Shadow radius of the [title](api:Titanium.UI.Button#title).",
+      "description": "Use in conjunction with [shadowColor](api:Titanium.UI.Button#shadowColor) and [shadowOffset](api:Titanium.UI.Button#shadowOffset).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "3.2.0"
+    },
+    {
+      "name": "style",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The border and fill style the button will use.",
+      "description": "On Android, this is a creation-only property and cannot be changed dynamically.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": {
+        "android": "10.0.0",
+        "iphone": "0.8.0",
+        "ipad": "0.8.0",
+        "macos": "9.2.0"
+      },
+      "default": "<Titanium.UI.BUTTON_STYLE_TEXT> (on iOS),\n<Titanium.UI.BUTTON_STYLE_FILLED> (on Android)\n",
+      "constants": [
+        "Titanium.UI.BUTTON_STYLE_FILLED",
+        "Titanium.UI.BUTTON_STYLE_OPTION_NEGATIVE",
+        "Titanium.UI.BUTTON_STYLE_OPTION_NEUTRAL",
+        "Titanium.UI.BUTTON_STYLE_OPTION_POSITIVE",
+        "Titanium.UI.BUTTON_STYLE_OUTLINED",
+        "Titanium.UI.BUTTON_STYLE_TEXT"
+      ]
+    },
+    {
+      "name": "systemButton",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Specifies an iOS system button appearance, as defined in [Titanium.UI.iOS.SystemButton](api:Titanium.UI.iOS.SystemButton).",
+      "description": "In JavaScript:\n\n``` js\nvar cancelButton = Ti.UI.createButton({\n    systemButton: Ti.UI.iOS.SystemButton.CANCEL\n});\n```\n\nIn Alloy, you can omit the namespace when setting the `systemButton` property on a `<Button>`\nelement:\n``` xml\n<Button systemButton=\"CAMERA\"/>\n```\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "constants": [
+        "Titanium.UI.iOS.SystemButton.ACTION",
+        "Titanium.UI.iOS.SystemButton.ACTIVITY",
+        "Titanium.UI.iOS.SystemButton.ADD",
+        "Titanium.UI.iOS.SystemButton.BOOKMARKS",
+        "Titanium.UI.iOS.SystemButton.CAMERA",
+        "Titanium.UI.iOS.SystemButton.CANCEL",
+        "Titanium.UI.iOS.SystemButton.COMPOSE",
+        "Titanium.UI.iOS.SystemButton.CONTACT_ADD",
+        "Titanium.UI.iOS.SystemButton.DISCLOSURE",
+        "Titanium.UI.iOS.SystemButton.DONE",
+        "Titanium.UI.iOS.SystemButton.EDIT",
+        "Titanium.UI.iOS.SystemButton.FAST_FORWARD",
+        "Titanium.UI.iOS.SystemButton.FIXED_SPACE",
+        "Titanium.UI.iOS.SystemButton.FLEXIBLE_SPACE",
+        "Titanium.UI.iOS.SystemButton.INFO_DARK",
+        "Titanium.UI.iOS.SystemButton.INFO_LIGHT",
+        "Titanium.UI.iOS.SystemButton.ORGANIZE",
+        "Titanium.UI.iOS.SystemButton.PAUSE",
+        "Titanium.UI.iOS.SystemButton.PLAY",
+        "Titanium.UI.iOS.SystemButton.REFRESH",
+        "Titanium.UI.iOS.SystemButton.REPLY",
+        "Titanium.UI.iOS.SystemButton.REWIND",
+        "Titanium.UI.iOS.SystemButton.SAVE",
+        "Titanium.UI.iOS.SystemButton.SPINNER",
+        "Titanium.UI.iOS.SystemButton.STOP",
+        "Titanium.UI.iOS.SystemButton.TRASH"
+      ]
+    },
+    {
+      "name": "textAlign",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Text alignment, specified using one of the [Titanium.UI](api:Titanium.UI) text alignment constants.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        },
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "default": "<Titanium.UI.TEXT_ALIGNMENT_CENTER>",
+      "constants": [
+        "Titanium.UI.TEXT_ALIGNMENT_CENTER",
+        "Titanium.UI.TEXT_ALIGNMENT_JUSTIFY",
+        "Titanium.UI.TEXT_ALIGNMENT_LEFT",
+        "Titanium.UI.TEXT_ALIGNMENT_RIGHT"
+      ]
+    },
+    {
+      "name": "tintColor",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Color applied to button's image and title.",
+      "description": "Color to be applied to the button's [image](api:Titanium.UI.Button#image), but only if the\n[imageIsMask](api:Titanium.UI.Button#imageIsMask) property is set `true`.\n\nThis tint color is also applied to the button's [title](api:Titanium.UI.Button#title)\nunless the [color](api:Titanium.UI.Button#color) property is set.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": {
+        "android": "5.4.0",
+        "iphone": "3.1.3",
+        "ipad": "3.1.3"
+      }
+    },
+    {
+      "name": "title",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Button title.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "titleid",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Key identifying a string from the locale file to use for the button title.",
+      "description": "Only one of `title` or `titleid` should be specified.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "1.5"
+    },
+    {
+      "name": "tooltip",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The default text to display in the control's tooltip.",
+      "description": "Assigning a value to this property causes the tool tip to be displayed for the view.\nSetting the property to `null` cancels the display of the tool tip for the view.\nNote: This property is only used for apps targeting macOS Catalyst.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "12.1.0",
+      "osver": {
+        "ios": {
+          "min": "15.0"
+        }
+      }
+    },
+    {
+      "name": "verticalAlign",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Vertical alignment for the text field, specified using one of the\nvertical alignment constants from [Titanium.UI](api:Titanium.UI).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        },
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "default": "Titanium.UI.TEXT_VERTICAL_ALIGNMENT_CENTER",
+      "constants": [
+        "Titanium.UI.TEXT_VERTICAL_ALIGNMENT_BOTTOM",
+        "Titanium.UI.TEXT_VERTICAL_ALIGNMENT_CENTER",
+        "Titanium.UI.TEXT_VERTICAL_ALIGNMENT_TOP"
+      ]
+    }
+  ],
+  "methods": [],
+  "events": [
+    {
+      "name": "touchfiltered",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Fired when the device detects a swipe gesture against the view.",
+      "description": "If the button's [filterTouchesWhenObscured](api:Titanium.UI.View#filterTouchesWhenObscured) property\nis set `true`, then this event will be fired if the touch event was discarded because another app's\noverlapping window obscured it.\n\nThis is a security feature to protect an app from \"tapjacking\", where a malicious app can use a\nsystem overlay to intercept touch events in your app or to trick the end-user to tap on UI\nin your app intended for the overlay.\n\nYou can use this event to display an alert dialog explaining why the button's action has been disabled.\nEspecially if the overlapping window is completely invisible.\n",
+      "since": "9.3.0",
+      "properties": [
+        {
+          "name": "x",
+          "summary": "X coordinate of the event from the `source` view's coordinate system.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "y",
+          "summary": "Y coordinate of the event from the `source` view's coordinate system.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "obscured",
+          "summary": "Always `true` since the touch event passed through another app's overlapping window.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "inherited": {
+    "properties": [
+      {
+        "name": "accessibilityDisableLongPress",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "accessibilityHidden",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "accessibilityHint",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "accessibilityLabel",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "accessibilityValue",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "anchorPoint",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "animatedCenter",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundDisabledColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "backgroundFocusedColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "backgroundGradient",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundLeftCap",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundRepeat",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundTopCap",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "borderColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "borderRadius",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "borderWidth",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "bottom",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "center",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "clipMode",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "elevation",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "filterTouchesWhenObscured",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "focusable",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "height",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "hiddenBehavior",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "horizontalMotionEffect",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "horizontalWrap",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "id",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "keepScreenOn",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "layout",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "left",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "lifecycleContainer",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "opacity",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "overrideCurrentAnimation",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "previewContext",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone"
+        ]
+      },
+      {
+        "name": "pullBackgroundColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "rect",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "right",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "rotation",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad"
+        ]
+      },
+      {
+        "name": "rotationX",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "rotationY",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "scaleX",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "scaleY",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "size",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "softKeyboardOnFocus",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "top",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "touchEnabled",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "touchFeedback",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "touchFeedbackColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "transform",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "transitionName",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "translationX",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "translationY",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "translationZ",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "verticalMotionEffect",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "viewShadowColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "viewShadowOffset",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "viewShadowRadius",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "visible",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "width",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "zIndex",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "animate",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "clearMotionEffects",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "convertPointToView",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "getViewById",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "hide",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "insertAt",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "show",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "stopAnimation",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "toImage",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      }
+    ],
+    "events": [
+      {
+        "name": "click",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "dblclick",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "doubletap",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "focus",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "keypressed",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "longclick",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "longpress",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "pinch",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "postlayout",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "rotate",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "singletap",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "swipe",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "touchcancel",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "touchend",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "touchmove",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "touchstart",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "twofingertap",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      }
+    ]
+  },
+  "references": [
+    "Font",
+    "Point",
+    "Titanium.Blob",
+    "Titanium.Media",
+    "Titanium.UI",
+    "Titanium.UI.AttributedString",
+    "Titanium.UI.Color",
+    "Titanium.UI.TextArea",
+    "Titanium.UI.TextField",
+    "Titanium.UI.View",
+    "Titanium.UI.Window",
+    "Titanium.UI.iOS.ButtonConfiguration",
+    "Titanium.UI.iOS.SplitWindow",
+    "Titanium.UI.iOS.SystemButton",
+    "Titanium.UI.iOS.Toolbar",
+    "Titanium.UI.iPad.Popover"
+  ],
+  "source": "Titanium/UI/Button.yml"
+}

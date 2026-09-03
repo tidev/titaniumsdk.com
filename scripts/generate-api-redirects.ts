@@ -1,4 +1,4 @@
-import { ApiIndexSchema, ApiTypeSchema } from '../src/lib/registry/index.ts';
+import { apiIndexAt, apiTypeAt } from '../src/lib/docs/registry.ts';
 import {
   assertAttributed,
   buildRedirects,
@@ -88,10 +88,11 @@ if (nameless.length) {
  * version a reader lands on.
  */
 const sdkDir = join(root, API_DOCS_DIR, 'main');
-const index = ApiIndexSchema.parse(JSON.parse(readFileSync(join(sdkDir, 'index.json'), 'utf8')));
-const types = readdirSync(join(sdkDir, 'types'))
-  .filter((f) => f.endsWith('.json'))
-  .map((f) => ApiTypeSchema.parse(JSON.parse(readFileSync(join(sdkDir, 'types', f), 'utf8'))));
+const index = apiIndexAt(sdkDir);
+if (!index) throw new Error(`nothing compiled at ${API_DOCS_DIR}/main`);
+const types = index.types
+  .map((t) => apiTypeAt(sdkDir, t.name))
+  .filter((t): t is NonNullable<typeof t> => t !== null);
 
 const corpus: Corpus = {
   types: new Set(index.types.map((t) => t.name)),

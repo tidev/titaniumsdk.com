@@ -1,3 +1,4 @@
+import { CONTENTS } from '../src/lib/docs/pool.ts';
 import {
   SCHEMA_VERSION,
   type ModuleIndex,
@@ -374,7 +375,7 @@ async function buildVersions(m: Collected): Promise<ModuleVersion[]> {
         tag: c.release.tag_name,
         ...(c.universal ? { universal: true } : {}),
       })),
-      hasApiDocs: existsSync(join(root, moduleVersionDir(m.moduleId, version), 'index.json')),
+      hasApiDocs: existsSync(join(root, moduleVersionDir(m.moduleId, version), CONTENTS)),
     });
   }
 
@@ -416,7 +417,7 @@ function latestPerPlatform(versions: ModuleVersion[]): Partial<Record<Platform, 
  */
 async function writeMain(m: Collected, defaultBranch: string): Promise<boolean> {
   const dir = join(root, moduleVersionDir(m.moduleId, MUTABLE));
-  if (!existsSync(join(dir, 'index.json'))) return false;
+  if (!existsSync(join(dir, CONTENTS))) return false;
 
   const built: ModuleManifest[] = [];
   for (const platform of PLATFORMS) {
@@ -455,7 +456,7 @@ function prune(moduleId: string, keep: Set<string>): string[] {
   for (const name of readdirSync(dir)) {
     const full = join(dir, name);
     if (name === MUTABLE || keep.has(name) || !statSync(full).isDirectory()) continue;
-    if (existsSync(join(full, 'index.json'))) {
+    if (existsSync(join(full, CONTENTS))) {
       notes.push(`${moduleId}@${name}: no release, but it has compiled docs — left in place`);
       continue;
     }

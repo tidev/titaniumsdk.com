@@ -1,4 +1,4 @@
-import { emit } from './emit.ts';
+import { emit, type EmitResult } from './emit.ts';
 import {
   externalLabel,
   loadExternalCorpus,
@@ -33,6 +33,14 @@ export type CompileOptions = {
   /** Directory holding the apidoc YAML tree. */
   apidoc: string;
   outDir: string;
+  /**
+   * The registry root's content-addressed pool.
+   *
+   * Passed in rather than derived from `outDir`, because only the caller knows
+   * how deep the version sits: `registry/sdk/<version>` and
+   * `registry/modules/<id>/<version>` share one pool per registry root.
+   */
+  pool: string;
   /** Report what would be regenerated and write nothing. */
   planOnly?: boolean;
   /** Ignore known-broken-refs.json, to see what it is still hiding. */
@@ -73,21 +81,50 @@ export type CompileResult = {
   crossRepo: number;
   /** Allowlist entries that no longer occur — upstream fixed them. */
   staleAllowlist: string[];
+  /**
+   * What this version carries, for `contents.json`.
+   *
+   * Absent from a plan-only run, which writes nothing and so has nothing to
+   * declare.
+   */
+  contents?: EmitResult['contents'];
 };
 
 const refOf = (reason: string) => /<(.+)>/.exec(reason)?.[1] ?? reason;
 
-function allowlist(strict: boolean, sourceRepo?: string): Record<string, string> {
-  if (strict) return {};
+/**
+ * The references a compile is allowed to leave unlinked.
+ *
+ * Two groups. `refs` is the live list: things broken in the source *now*, which
+ * upstream can still fix, and which are reported stale the moment they stop
+ * occurring so the list shrinks instead of rotting.
+ *
+ * `historical` is for references broken only in published releases. A tag is
+ * immutable, so "fix the source" is not available and the entry can never
+ * legitimately be removed — reporting it stale on every `main` compile would
+ * train people to ignore the staleness message, which is the one thing keeping
+ * the live list honest. So these are allowed and never reported.
+ */
+function allowlist(
+  strict: boolean,
+  sourceRepo?: string
+): { allowed: Record<string, string>; live: Record<string, string> } {
+  if (strict) return { allowed: {}, live: {} };
   const file = new URL('./known-broken-refs.json', import.meta.url);
-  const byRepo: Record<string, Record<string, string>> = JSON.parse(readFileSync(file, 'utf8'))
-    .refs ?? {};
-  if (sourceRepo) return byRepo[sourceRepo] ?? {};
-  return Object.assign({}, ...Object.values(byRepo));
+  const parsed = JSON.parse(readFileSync(file, 'utf8')) as {
+    refs?: Record<string, Record<string, string>>;
+    historical?: Record<string, Record<string, string>>;
+  };
+  const byRepo = parsed.refs ?? {};
+  const historical = parsed.historical ?? {};
+  const pick = (table: Record<string, Record<string, string>>) =>
+    sourceRepo ? (table[sourceRepo] ?? {}) : Object.assign({}, ...Object.values(table));
+  const live = pick(byRepo);
+  return { allowed: { ...live, ...pick(historical) }, live };
 }
 
 export function compile(options: CompileOptions): CompileResult {
-  const { apidoc, outDir, planOnly = false, strict = false, sourceRepo } = options;
+  const { apidoc, outDir, pool, planOnly = false, strict = false, sourceRepo } = options;
   const log = options.log ?? (() => {});
 
   if (!existsSync(apidoc)) throw new CompileError(`no such directory: ${apidoc}`);
@@ -151,7 +188,7 @@ export function compile(options: CompileOptions): CompileResult {
   // Broken cross-references fail the compile rather than shipping a dead link.
   // The ones already in the source are listed in known-broken-refs.json so that
   // new breakage still fails; see that file for why each is there.
-  const allowed = allowlist(strict, sourceRepo);
+  const { allowed, live } = allowlist(strict, sourceRepo);
   const unexpected = resolved.problems.filter((p) => !(refOf(p.reason) in allowed));
 
   if (unexpected.length) {
@@ -167,7 +204,8 @@ export function compile(options: CompileOptions): CompileResult {
 
   const hit = new Set(resolved.problems.map((p) => refOf(p.reason)));
   // Only meaningful when the compile knows whose corpus it holds; see above.
-  const stale = sourceRepo ? Object.keys(allowed).filter((r) => !hit.has(r)) : [];
+  // Only the live list can go stale; see `allowlist`.
+  const stale = sourceRepo ? Object.keys(live).filter((r) => !hit.has(r)) : [];
   if (stale.length) {
     // Upstream fixed something. Say so, so the allowlist shrinks instead of rotting.
     log(`\n${stale.length} entr(ies) in known-broken-refs.json no longer occur — remove them:`);
@@ -186,7 +224,7 @@ export function compile(options: CompileOptions): CompileResult {
   }
 
   const out = emit(
-    outDir,
+    pool,
     resolved,
     work.dirty,
     work.removedTypes,
@@ -235,5 +273,6 @@ export function compile(options: CompileOptions): CompileResult {
     knownBroken: resolved.problems.length,
     crossRepo: crossRepo.size,
     staleAllowlist: stale,
+    contents: out.contents,
   };
 }

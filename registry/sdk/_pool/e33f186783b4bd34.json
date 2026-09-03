@@ -1,0 +1,249 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.Android.Service",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android"
+  ],
+  "since": "1.5",
+  "summary": "Android application component that executes in the background.",
+  "description": "A service is a component started by an application that runs in the background. The service\ndoes not have any application UI associated with it, so the user does not directly interact\nwith it, only your application.\n\nThe Titanium SDK gives you the ability to write your own Android Services using JavaScript.\nThe service executes your JavaScript code at intervals you specify.  Note that the service\nmay stop running if the application is killed.\n\nTo create a service:\n\n  1. Write the JavaScript code you want the service to execute in a separate file.\n     The service can execute any Titanium APIs but you should only use non-UI APIs.\n  2. Register the service in your `tiapp.xml` file. Refer to the example below.\n  3. Create a service intent by passing the JavaScript file to\n     the [Titanium.Android.createServiceIntent](api:Titanium.Android#createServiceIntent) method and set the interval to run the\n     code using the intent's `putExtra()` method.\n  4. Pass the Intent object to either the [Titanium.Android.createService](api:Titanium.Android#createService) method\n     to create a `Service` object (*bound service*), where the application can\n     manage the service by invoking methods and binding callbacks on the object,\n     or to the [Titanium.Android.startService](api:Titanium.Android#startService) method to start the service (*started service*)\n     and the service manages itself.\n\nUse the `Titanium.Android.Service` API to manage the service.\n\nTo get a reference to the `Service` inside the JavaScript service code, use the\n[Titanium.Android.currentService](api:Titanium.Android#currentService) property to retrieve a reference to the service,\nthen invoke the `Titanium.Android.Service` APIs on the `Service` object.\n\nFurther Reading:\n\n  * [Android Services guide](https://titaniumsdk.com/guide/Titanium_SDK/Titanium_SDK_How-tos/Platform_API_Deep_Dives/Android_API_Deep_Dives/Android_Services.html)\n  * [Android Developer: Service](https://developer.android.com/reference/android/app/Service.html)\n\n### Background Location Service Example\nIn order to obtain location events while the application is backgrounded a foreground service must be used.\nBelow is an example of a simple background location service.\n\ntiapp.xml:\n``` xml\n<android>\n    <manifest>\n    <uses-permission android:name=\"android.permission.ACCESS_BACKGROUND_LOCATION\"/>\n    <uses-permission android:name=\"android.permission.FOREGROUND_SERVICE\"/>\n    </manifest>\n    <services>\n    <service url=\"locationService.js\"/>\n    </services>\n</android>\n```\n\nlocationService.js:\n``` js\nconsole.log(`Background location service started.`);\n\n// Create foreground service.\nTi.Android.currentService.foregroundNotify(\n    123,\n    Ti.Android.createNotification({\n    contentTitle: \"Background Location Service\",\n    contentText: \"Obtaining location data...\",\n    contentIntent: Ti.Android.createPendingIntent({\n        intent: Ti.App.Android.launchIntent || Ti.Android.createIntent(),\n    })\n    }),\n    Ti.Android.FOREGROUND_SERVICE_TYPE_LOCATION\n);\n```\n\napp.js:\n``` js\nconst win = Ti.UI.createWindow({ backgroundColor: 'gray', layout: 'vertical' });\nconst backgroundServiceBtn = Ti.UI.createButton({ title: 'START BACKGROUND SERVICE' });\nconst listView = Ti.UI.createListView();\n\nlet count = 1;\nlet service = null;\n\n// Set accuracy to high\nTi.Geolocation.accuracy = Ti.Geolocation.ACCURACY_HIGH;\n\n// Enable manual configuration via location providers.\nTi.Geolocation.Android.manualMode = true;\n\n// Define a location provider.\nTi.Geolocation.Android.addLocationProvider(\n    Ti.Geolocation.Android.createLocationProvider({\n        name: Ti.Geolocation.Android.PROVIDER_GPS,\n        minUpdateDistance: 0,\n        minUpdateTime: 5000\n    })\n);\n\nfunction getLocation () {\n\n    // Create location event listener.\n    Ti.Geolocation.addEventListener('location', e => {\n\n        // Create new section for location data.\n        let section = Ti.UI.createListSection({ headerTitle: `#${count++} - ${new Date().toTimeString()}` });\n        if (e.success) {\n            if (e.coords) {\n                e = e.coords;\n            }\n\n            // Insert location data.\n            section.items = [\n                { properties: { title: 'LOCATION:\\n' + e.latitude + ', ' + e.longitude, color: 'green' } },\n                { properties: { title: 'ALTITUDE:\\n' + e.altitude, color: 'green' } },\n                { properties: { title: 'ACCURACY:\\n' + e.accuracy, color: 'green' } }\n            ])\n\n        } else {\n\n            // Oops! Something bad happened.\n            section.items = [\n                { properties: { title: 'ERROR:\\n' + e.error, color: 'red' } }\n            ];\n        }\n\n        // Add section to listView\n        listView.appendSection(section);\n    });\n}\n\nfunction startBackgroundLocationService() {\n    if (service) {\n        console.log('Starting background location service...');\n        service.start();\n        backgroundServiceBtn.title = 'STOP BACKGROUND SERVICE';\n    }\n}\n\nfunction stopBackgroundLocationService() {\n    if (service) {\n        console.log('Stopping background location service...');\n        service.stop();\n        backgroundServiceBtn.title = 'START BACKGROUND SERVICE';\n    }\n}\n\nwin.addEventListener('open', () => {\n\n    // Request location permissions.\n    Ti.Geolocation.requestLocationPermissions(Ti.Geolocation.AUTHORIZATION_ALWAYS, e => {\n        if (e.success) {\n            getLocation();\n        } else {\n            alert('Could not obtain location permissions.');\n        }\n    });\n});\n\nbackgroundServiceBtn.addEventListener('click', () => {\n    if (!service) {\n\n        // Create background location service.\n        const intent = Ti.Android.createServiceIntent({ url: 'locationService.js' });\n        service = Ti.Android.createService(intent);\n\n        // Android 10+ request background location permissions.\n        if (parseInt(Ti.Platform.version.split('.')[0]) >= 10) {\n            Ti.Android.requestPermissions([ 'android.permission.ACCESS_BACKGROUND_LOCATION' ], e => {\n                if (e.success) {\n                    startBackgroundLocationService();\n                } else {\n                    alert('Could not obtain background location permissions.');\n                }\n            });\n        } else {\n            startBackgroundLocationService();\n        }\n\n    } else {\n        stopBackgroundLocationService();\n    }\n});\n\nwin.add([backgroundServiceBtn, listView]);\nwin.open();\n```\n",
+  "examples": [
+    {
+      "title": "Hello World Service",
+      "code": "This example shows how to create a service in JavaScript.\nYour service code is included in its own JavaScript file.\n\nIn this example, the service reads data from the <Titanium.Android.Intent> which created it,\nto see what it should say besides \"Hello World\".\n\nFile: myservice.js:\n``` js\nvar service = Titanium.Android.currentService;\nvar intent = service.intent;\nvar message = intent.getStringExtra(\"message_to_echo\");\nTitanium.API.info(\"Hello World!  I am a Service.  I have this to say: \" + message);\n```\n\nRegister the service in tiapp.xml:\n``` xml\n<ti:app>\n    <android xmlns:android=\"http://schemas.android.com/apk/res/android\">\n        <services>\n            <service url=\"myservice.js\" type=\"interval\"/>\n        </services>\n    </android>\n</ti:app>\n```\n\nCode in \"regular\" Titanium file to launch the service and listen for pause/resume events.\nCode also stops the service after its code runs 3 times.\n\n``` js\nvar intent = Titanium.Android.createServiceIntent( { url: 'myservice.js' } );\n// Service should run its code every 2 seconds.\nintent.putExtra('interval', 2000);\n// A message that the service should 'echo'\nintent.putExtra('message_to_echo', 'Titanium rocks!');\n\nvar service = Titanium.Android.createService(intent);\nservice.addEventListener('resume', function(e) {\n    Titanium.API.info('Service code resumes, iteration ' + e.iteration);\n});\nservice.addEventListener('pause', function(e) {\n    Titanium.API.info('Service code pauses, iteration ' + e.iteration);\n    if (e.iteration === 3) {\n        Titanium.API.info('Service code has run 3 times, will now stop it.');\n        service.stop();\n    }\n});\nservice.start();\n```\n\nConsole Output:\n```\n[INFO] [29,1942] Service code resumes, iteration 1\n[INFO] [70,2029] Hello World! I am a Service. I have this to say: Titanium rocks!\n[INFO] [3,2070] Service code pauses, iteration 1\n[INFO] [2,3915] Service code resumes, iteration 2\n[INFO] [31,3961] Hello World! I am a Service. I have this to say: Titanium rocks!\n[INFO] [5,3968] Service code pauses, iteration 2\n[INFO] [2,5917] Service code resumes, iteration 3\n[INFO] [27,5961] Hello World! I am a Service. I have this to say: Titanium rocks!\n[INFO] [16,5980] Service code pauses, iteration 3\n[INFO] [1,5981] Service code has run 3 times, will now stop it.\n```\n"
+    }
+  ],
+  "properties": [
+    {
+      "name": "intent",
+      "platforms": [
+        "android"
+      ],
+      "summary": "The intent used to start or bind to the Service.",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.Android.Intent"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "serviceInstanceId",
+      "platforms": [
+        "android"
+      ],
+      "summary": "A service can be started more than once -- this number (based on an incrementing integer)\nindicates which \"start number\" in the sequence the current service instance is.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    }
+  ],
+  "methods": [
+    {
+      "name": "foregroundCancel",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Puts the service into the \"background\" state and removes its foreground notification.",
+      "description": "If you call the [foregroundNotify()](api:Titanium.Android.Service#foregroundNotify) method to\nput the service into the \"foreground\" state, then you call this method to put the service\nback into the \"background\" state. This will also automatically remove the foreground service's\nnotification that was put into the status bar.\n\nNote that stopping a foreground service will remove its foreground notification from\nthe status bar as well. So, you do not have to call this method to remove it. This method\nis only intended to be used by services that need to dynamically change states.\n",
+      "since": "7.3.0"
+    },
+    {
+      "name": "foregroundNotify",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Puts the service into the \"foreground\" state and displays a notification.",
+      "description": "Calling this method will change the service from the \"background\" state (the default)\nto the \"foreground\" state. It will also post a notification to the status bar to notify the\nend-user that the app is doing work, even while backgrounded. This feature is typically\nused by apps that play music, monitor current location, or perform large downloads while\nthe app is in the background.\n\nNote that a foreground service is far less likely to be terminated by the operating system\nwhile the app is in the background. A foreground service is also needed if the app\nneeds to acquire location data since Android 8.0 and higher throttles location acquisition\nwhile the app is in the background.\n\nSee Android 8.0 \"Background Execution Limits\":\n\n  * https://developer.android.com/about/versions/oreo/background\n\nYou can call this method before or after the service has been started. If you need to\nchange the displayed notification, then you can call this method again with the same\nnotification ID and with an updated [notification][Titanium.Android.Notification](api:Titanium.Android.Notification) object.\n\nThe notification will be automatically removed from the status bar when the service has\nbeen stopped or if you call the [foregroundCancel()](api:Titanium.Android.Service#foregroundCancel)\nmethod.\n\nThis method will fail on Android 9.0 and above unless you set the following Android manifest\npermission in your \"tiapp.xml\" file.\n\n``` xml\n<ti:app>\n    <android xmlns:android=\"http://schemas.android.com/apk/res/android\">\n        <manifest>\n            <uses-permission android:name=\"android.permission.FOREGROUND_SERVICE\"/>\n        </manifest>\n    </android>\n</ti:app>\n```\n",
+      "since": "7.3.0",
+      "parameters": [
+        {
+          "name": "id",
+          "summary": "Unique integer ID to be assigned to the notification. Cannot be zero.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "notification",
+          "summary": "Notification to display in the status bar. Cannot be null.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Android.Notification"
+            }
+          ]
+        },
+        {
+          "name": "foregroundServiceType",
+          "summary": "Notification service type specified by <Titanium.Android.FOREGROUND_SERVICE_TYPE_*>.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "optional": true,
+          "default": "Titanium.Android.FOREGROUND_SERVICE_TYPE_NONE"
+        }
+      ]
+    },
+    {
+      "name": "start",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Starts the Service.",
+      "description": "Effective only if this instance of [Titanium.Android.Service](api:Titanium.Android.Service) was created\nwith [Titanium.Android.createService](api:Titanium.Android#createService).\n"
+    },
+    {
+      "name": "stop",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Stops this running instance of the Service."
+    }
+  ],
+  "events": [
+    {
+      "name": "pause",
+      "platforms": [
+        "android"
+      ],
+      "summary": "For Javascript-based services that you create, `pause` fires after each time the JavaScript\ncode executes.\n",
+      "description": "The `resume` and `pause` events occur in pairs, with `resume` firing just before your\nJavaScript service code executes, and `pause` just after.\n",
+      "properties": [
+        {
+          "name": "iteration",
+          "summary": "Incrementing integer indicating which iteration of an interval-based Service is pausing.\nFor example, if you have an interval-based Service running every 10 seconds, iteration\n3 would occur at about 30 seconds after you start the instance (assuming your service\ncode runs quickly).\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "resume",
+      "platforms": [
+        "android"
+      ],
+      "summary": "For JavaScript-based Services which you create, `resume` fires each time the JavaScript\ncode executes.\n",
+      "description": "For example, if your Service runs on an interval of 10000 (10 seconds), you would expect\nto see `resume` fired every 10 seconds, just as the JavaScript service code you wrote is\nabout to execute.\n",
+      "properties": [
+        {
+          "name": "iteration",
+          "summary": "Incrementing integer indicating which iteration of an interval-based Service is pausing.\nFor example, if you have an interval-based Service running every 10 seconds, iteration\n3 would occur at about 30 seconds after you start the instance (assuming your service\ncode runs quickly).\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "start",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Fired when the bound service instance starts.",
+      "description": "Bound service instances are created via [Titanium.Android.createService](api:Titanium.Android#createService).\n"
+    },
+    {
+      "name": "stop",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Fired when the bound service instance stops.",
+      "description": "The service stops when [Titanium.Android.Service.stop](api:Titanium.Android.Service#stop) or\n[Titanium.Android.stopService](api:Titanium.Android#stopService) is called and there are no more bound,\nun-stopped clients.\n"
+    },
+    {
+      "name": "taskremoved",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Fired when the task that comes from the service's application has been removed.",
+      "description": "This event is fired if the service is currently running and the user has removed a task\nthat comes from the service's application, eg. the user swipes the application away from\nthe recent applications list. It only works for unbound service which is\nstarted using [Titanium.Android.startService](api:Titanium.Android#startService).\n"
+    }
+  ],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "lifecycleContainer",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      }
+    ],
+    "events": []
+  },
+  "references": [
+    "Titanium.Android",
+    "Titanium.Android.Intent",
+    "Titanium.Android.Notification",
+    "Titanium.Proxy"
+  ],
+  "source": "Titanium/Android/Service.yml"
+}

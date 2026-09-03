@@ -39,7 +39,7 @@
       "fs.rmDirSync": "method referenced but never declared"
     },
     "tidev/ti.map": {
-      "Titanium.Map.ANNOTATION_DRAG_STATE_CANCEL": "the built-in Titanium.Map went away when mapping moved into this module, and this constant did not come with it — only START and END are declared, on Modules.Map",
+      "Titanium.Map.ANNOTATION_DRAG_STATE_CANCEL": "the built-in Titanium.Map went away when mapping moved into this module, and this constant did not come with it \u2014 only START and END are declared, on Modules.Map",
       "Titanium.Map.ANNOTATION_DRAG_STATE_DRAG": "as above",
       "Titanium.Map.ANNOTATION_DRAG_STATE_END": "the built-in Titanium.Map went away when mapping moved into this module; the constant is now Modules.Map.ANNOTATION_DRAG_STATE_END",
       "Titanium.Map.ANNOTATION_DRAG_STATE_NONE": "as ANNOTATION_DRAG_STATE_CANCEL: never declared on Modules.Map either",
@@ -49,6 +49,18 @@
       "Titanium.Map.Annotation.rightButton": "as above",
       "Titanium.Map.Annotation.rightView": "as above",
       "Titanium.UI.iPhone.SystemButton": "Titanium.UI.iPhone was removed from the SDK; the type is Titanium.UI.iOS.SystemButton"
+    }
+  },
+  "historical": {
+    "$comment": [
+      "References broken only in published releases, which are immutable and",
+      "therefore cannot be fixed upstream. Allowed like `refs`, but never",
+      "reported stale: an entry here describes a frozen past and will stop",
+      "occurring the moment the affected releases age out of what we compile,",
+      "which is not the same as upstream having fixed anything."
+    ],
+    "tidev/titanium-sdk": {
+      "Titanium.UI.iOS.AttributedString": "the type is Titanium.UI.AttributedString; Label, TextArea and TextField kept the pre-move iOS. name until it was corrected between 12.8.0 and 13.2.0. Blocks every GA from 12.5.0 to 13.1.1."
     }
   }
 }

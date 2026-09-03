@@ -1,6 +1,7 @@
+import { putBlob } from '../lib/pool.ts';
 import { sha256 } from './manifest.ts';
 import type { ResolvedType, ResolveResult } from './resolve.ts';
-import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
+import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 
 /**
@@ -10,7 +11,23 @@ import { join } from 'node:path';
  * commit by diffing these files, so a reordered key would look like a content
  * change and trigger a pointless deploy. Every array is sorted upstream in
  * resolve.ts and keys are written in a fixed order here.
+ *
+ * Documents go into the shared content-addressed pool rather than into the
+ * version directory — see `src/lib/docs/pool.ts`. Byte-stability is what makes
+ * that work: an untouched type hashes to the blob twenty releases already
+ * share, which is where 103MB of type files becomes 15MB.
  */
+
+/**
+ * The pooled filename for a document whose body hashed to `outputHash`.
+ *
+ * The manifest's hash and the pool's address are the same SHA-256 over the same
+ * bytes, so one can be read off the other. That is a coupling, and it is
+ * checked rather than assumed: the caller confirms the blob is really in the
+ * pool and re-serialises when it is not, so a change to either hashing rule
+ * costs a rebuild instead of producing a dangling reference.
+ */
+const poolEntry = (outputHash: string) => `${outputHash.replace(/^sha256:/, '').slice(0, 16)}.json`;
 
 export const SCHEMA_VERSION = 1;
 
@@ -72,10 +89,12 @@ const serialise = (v: unknown) => `${JSON.stringify(v, null, 2)}\n`;
 
 export type EmitResult = {
   written: string[];
-  /** Regenerated but byte-identical to what was on disk. */
+  /** Regenerated but byte-identical to a blob the pool already holds. */
   unchanged: string[];
   removed: string[];
   outputHashes: Record<string, string>;
+  /** What `contents.json` should say this version carries. */
+  contents: { index: string; types: Record<string, string> };
 };
 
 /**
@@ -83,18 +102,16 @@ export type EmitResult = {
  * @param removedTypes  types that vanished from the source
  */
 export function emit(
-  outDir: string,
+  pool: string,
   result: ResolveResult,
   dirty: string[],
   removedTypes: string[],
   previousHashes: Record<string, string>
 ): EmitResult {
-  const typesDir = join(outDir, 'types');
-  mkdirSync(typesDir, { recursive: true });
-
   const written: string[] = [];
   const unchanged: string[] = [];
   const outputHashes: Record<string, string> = {};
+  const types: Record<string, string> = {};
 
   // Types folded into a referent get no file of their own.
   const emitted = [...result.types.values()].filter((t) => !result.inlined.has(t.name));
@@ -102,10 +119,12 @@ export function emit(
   const dirtySet = new Set(dirty);
 
   for (const t of emitted) {
-    const file = join(typesDir, `${t.name}.json`);
-    const needsWrite = dirtySet.has(t.name) || !existsSync(file);
-    if (!needsWrite && previousHashes[t.name]) {
-      outputHashes[t.name] = previousHashes[t.name];
+    // A clean type can be carried over from the manifest without re-resolving
+    // its document, but only while the blob it names is genuinely in the pool.
+    const prior = previousHashes[t.name];
+    if (!dirtySet.has(t.name) && prior && existsSync(join(pool, poolEntry(prior)))) {
+      outputHashes[t.name] = prior;
+      types[t.name] = poolEntry(prior);
       unchanged.push(t.name);
       continue;
     }
@@ -113,33 +132,18 @@ export function emit(
     const body = serialise(typeDocument(t));
     const hash = sha256(body);
     outputHashes[t.name] = hash;
-
-    // Skip the write when the bytes match — keeps mtimes stable so the commit
-    // step in TI-18 sees a genuinely empty diff rather than 419 touched files.
-    if (existsSync(file) && readFileSync(file, 'utf8') === body) {
-      unchanged.push(t.name);
-      continue;
-    }
-    writeFileSync(file, body);
-    written.push(t.name);
+    // Storing is a no-op when some other version already holds these bytes,
+    // which is the ordinary case: the pool is why a point release costs
+    // kilobytes rather than 15MB.
+    const { entry, written: stored } = putBlob(pool, body, '.json');
+    types[t.name] = entry;
+    (stored ? written : unchanged).push(t.name);
   }
 
-  const removed: string[] = [];
-  for (const name of removedTypes) {
-    const file = join(typesDir, `${name}.json`);
-    if (existsSync(file)) {
-      rmSync(file);
-      removed.push(name);
-    }
-  }
-  // A type that became inlined, or was renamed, leaves an orphan behind.
-  for (const entry of readdirSync(typesDir)) {
-    if (!entry.endsWith('.json')) continue;
-    const name = entry.slice(0, -5);
-    if (emittedNames.has(name) || removed.includes(name)) continue;
-    rmSync(join(typesDir, entry));
-    removed.push(name);
-  }
+  // A type that vanished, became inlined, or was renamed simply stops being
+  // named. Nothing is deleted here: the blob may still belong to another
+  // version, so reclaiming it is the pool sweep's job, not this one's.
+  const removed = removedTypes.filter((name) => !emittedNames.has(name));
 
   const index = {
     schemaVersion: SCHEMA_VERSION,
@@ -184,12 +188,17 @@ export function emit(
     inlined: [...result.inlined].sort(),
   };
 
-  const indexBody = serialise(index);
-  const indexFile = join(outDir, 'index.json');
-  if (!existsSync(indexFile) || readFileSync(indexFile, 'utf8') !== indexBody) {
-    writeFileSync(indexFile, indexBody);
-    written.push('index.json');
-  }
+  const { entry: indexEntry, written: indexStored } = putBlob(pool, serialise(index), '.json');
+  if (indexStored) written.push('index.json');
 
-  return { written, unchanged, removed, outputHashes };
+  return {
+    written,
+    unchanged,
+    removed,
+    outputHashes,
+    contents: {
+      index: indexEntry,
+      types: Object.fromEntries(Object.entries(types).sort(([a], [b]) => a.localeCompare(b))),
+    },
+  };
 }

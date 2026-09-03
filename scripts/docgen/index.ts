@@ -1,3 +1,5 @@
+import { indexPath } from '../../src/lib/docs/pool.ts';
+import { POOL_DIR } from '../lib/pool.ts';
 import { compile, CompileError } from './compile.ts';
 import type { ExternalSource } from './external.ts';
 import { sdkSource } from './sources.ts';
@@ -20,7 +22,7 @@ import { sdkSource } from './sources.ts';
  * version guard.
  */
 import { existsSync } from 'node:fs';
-import { resolve } from 'node:path';
+import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const argv = process.argv.slice(2);
@@ -54,11 +56,11 @@ if (!outDir && !planOnly) {
 
 let external: ExternalSource | undefined;
 if (sdkVersion) {
-  const index = fileURLToPath(
-    new URL(`../../registry/sdk/${sdkVersion}/index.json`, import.meta.url)
+  const index = indexPath(
+    fileURLToPath(new URL(`../../registry/sdk/${sdkVersion}`, import.meta.url))
   );
-  if (!existsSync(index)) {
-    console.error(`nothing compiled at registry/sdk/${sdkVersion}/index.json`);
+  if (!index || !existsSync(index)) {
+    console.error(`nothing compiled at registry/sdk/${sdkVersion}`);
     process.exit(1);
   }
   external = { repo: sdkSource().repo, version: sdkVersion, index };
@@ -69,6 +71,9 @@ try {
     apidoc: resolve(source),
     // --plan writes nothing, so the directory is only a manifest lookup path.
     outDir: outDir ?? resolve(source),
+    // Alongside the output, so the developer CLI never writes into the repo's
+    // own pool when pointed at a scratch directory.
+    pool: join(outDir ?? resolve(source), POOL_DIR),
     planOnly,
     strict,
     external,

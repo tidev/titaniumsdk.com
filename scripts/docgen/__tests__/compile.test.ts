@@ -1,16 +1,9 @@
-import { compile, CompileError } from '../compile.ts';
+import { POOL_DIR } from '../../lib/pool.ts';
+import { compile, CompileError, type CompileOptions, type CompileResult } from '../compile.ts';
 import { resolveSource } from '../sources.ts';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
-import {
-  mkdirSync,
-  mkdtempSync,
-  readFileSync,
-  readdirSync,
-  renameSync,
-  rmSync,
-  writeFileSync,
-} from 'node:fs';
+import { mkdirSync, mkdtempSync, readFileSync, renameSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { after, before, describe, test } from 'node:test';
@@ -54,16 +47,50 @@ let dir: string;
 let apidoc: string;
 let out: string;
 
+/**
+ * `compile()` with a pool of its own beside the output.
+ *
+ * Documents are content-addressed now, so a run's manifest is the only way back
+ * to what it wrote; this keeps the latest one per output directory so the
+ * assertions below can still ask for a type by name.
+ */
+const manifests = new Map<string, NonNullable<CompileResult['contents']>>();
+function run(options: Omit<CompileOptions, 'pool'>): CompileResult {
+  const result = compile({ ...options, pool: join(options.outDir, POOL_DIR) });
+  if (result.contents) manifests.set(options.outDir, result.contents);
+  return result;
+}
+
+const manifestFor = (d: string) => {
+  const contents = manifests.get(d);
+  if (!contents) throw new Error(`nothing compiled into ${d}`);
+  return contents;
+};
+
+const pooled = (d: string, entry: string) =>
+  JSON.parse(readFileSync(join(d, POOL_DIR, entry), 'utf8'));
+
+const doc = (d: string, name: string) => pooled(d, manifestFor(d).types[name] ?? '');
+const indexIn = (d: string) => pooled(d, manifestFor(d).index);
+
+/**
+ * Every document this version names, in manifest order.
+ *
+ * Hashing the pool directory would be wrong: it is shared, so a blob another
+ * version put there would change the answer without this version changing at
+ * all.
+ */
 const hashTree = (d: string) => {
   const h = createHash('sha256');
-  for (const f of readdirSync(join(d, 'types')).sort()) {
-    h.update(f).update(readFileSync(join(d, 'types', f)));
+  const contents = manifestFor(d);
+  for (const [name, entry] of Object.entries(contents.types)) {
+    h.update(name).update(readFileSync(join(d, POOL_DIR, entry)));
   }
-  h.update(readFileSync(join(d, 'index.json')));
+  h.update(readFileSync(join(d, POOL_DIR, contents.index)));
   return h.digest('hex');
 };
 
-const read = (name: string) => JSON.parse(readFileSync(join(out, 'types', `${name}.json`), 'utf8'));
+const read = (name: string) => doc(out, name);
 
 before(() => {
   dir = mkdtempSync(join(tmpdir(), 'docgen-test-'));
@@ -79,10 +106,10 @@ after(() => rmSync(dir, { recursive: true, force: true }));
 
 describe('compile', () => {
   test('two runs over identical input produce identical bytes', () => {
-    compile({ apidoc, outDir: out });
+    run({ apidoc, outDir: out });
     const first = hashTree(out);
 
-    const second = compile({ apidoc, outDir: out });
+    const second = run({ apidoc, outDir: out });
     assert.equal(hashTree(out), first, 'output changed on an unchanged re-run');
     assert.equal(second.written.length, 0, 'rewrote files despite no source change');
   });
@@ -90,7 +117,7 @@ describe('compile', () => {
   test('an unchanged run leaves generatedAt alone', () => {
     const manifestPath = join(out, 'docgen-manifest.json');
     const before = JSON.parse(readFileSync(manifestPath, 'utf8')).generatedAt;
-    compile({ apidoc, outDir: out });
+    run({ apidoc, outDir: out });
     const after = JSON.parse(readFileSync(manifestPath, 'utf8')).generatedAt;
     assert.equal(after, before, 'a no-op run moved the timestamp, which would commit a diff');
   });
@@ -131,7 +158,7 @@ describe('compile', () => {
       join(apidoc, 'fixture.yml'),
       APIDOC.replace('A base type.', 'An edited base type.')
     );
-    const result = compile({ apidoc, outDir: out });
+    const result = run({ apidoc, outDir: out });
     // Type names, plus index.json which is regenerated whenever anything is.
     assert.deepEqual(result.written, ['Fixture.Base', 'index.json']);
     assert.equal(result.unchanged.length, 2, 'Fixture.Leaf and Titanium.Proxy should be untouched');
@@ -186,7 +213,7 @@ describe('cross-repo references', () => {
 
   /** What a module compile is handed: the SDK's compiled index, at a stated version. */
   const external = () => ({ repo: 'tidev/titanium-sdk', version: 'main', index: sdkIndex() });
-  const sdkIndex = () => join(sdkOut, 'index.json');
+  const sdkIndex = () => join(sdkOut, POOL_DIR, manifestFor(sdkOut).index);
 
   const write = (dir: string, body: string) => {
     mkdirSync(dir, { recursive: true });
@@ -199,21 +226,21 @@ describe('cross-repo references', () => {
     moduleApidoc = join(root, 'module-apidoc');
     write(join(root, 'sdk-apidoc'), SDK_APIDOC);
     write(moduleApidoc, MODULE_APIDOC);
-    compile({ apidoc: join(root, 'sdk-apidoc'), outDir: sdkOut });
+    run({ apidoc: join(root, 'sdk-apidoc'), outDir: sdkOut });
   });
 
   after(() => rmSync(root, { recursive: true, force: true }));
 
   test('the index carries every member name, including inherited ones', () => {
-    const index = JSON.parse(readFileSync(sdkIndex(), 'utf8'));
+    const index = indexIn(sdkOut);
     const view = index.types.find((t: { name: string }) => t.name === 'Titanium.UI.View');
     assert.deepEqual(view.members, ['apiName', 'backgroundColor']);
   });
 
   test('a reference into the SDK resolves to an api: link', () => {
     const out = join(root, 'module');
-    compile({ apidoc: moduleApidoc, outDir: out, external: external() });
-    const type = JSON.parse(readFileSync(join(out, 'types', 'Modules.Fixture.View.json'), 'utf8'));
+    run({ apidoc: moduleApidoc, outDir: out, external: external() });
+    const type = doc(out, 'Modules.Fixture.View');
 
     assert.match(type.summary, /\[Titanium\.UI\.View\]\(api:Titanium\.UI\.View\)/);
     // A member anchor, which is only checkable because the index lists names.
@@ -233,7 +260,7 @@ describe('cross-repo references', () => {
       const apidoc = join(root, `bad-${n}-apidoc`);
       write(apidoc, MODULE_APIDOC.replace('<Titanium.UI.View>', bad));
       assert.throws(
-        () => compile({ apidoc, outDir: join(root, `bad-${n}`), external: external() }),
+        () => run({ apidoc, outDir: join(root, `bad-${n}`), external: external() }),
         (err: Error) =>
           err instanceof CompileError && err.message.includes(`unresolved reference ${bad}`),
         `${bad} should have failed the compile`
@@ -247,8 +274,8 @@ describe('cross-repo references', () => {
     const apidoc = join(root, 'alone-apidoc');
     write(apidoc, MODULE_APIDOC.replace('<Titanium.UI.View>', '<Titanium.UI.Nope>'));
     const out = join(root, 'alone');
-    compile({ apidoc, outDir: out });
-    const type = JSON.parse(readFileSync(join(out, 'types', 'Modules.Fixture.View.json'), 'utf8'));
+    run({ apidoc, outDir: out });
+    const type = doc(out, 'Modules.Fixture.View');
     assert.match(type.summary, /<Titanium\.UI\.Nope>/, 'left as literal text, as before TI-61');
   });
 
@@ -256,17 +283,17 @@ describe('cross-repo references', () => {
     const apidoc = join(root, 'moving-sdk-apidoc');
     const sdk = join(root, 'moving-sdk');
     write(apidoc, SDK_APIDOC);
-    compile({ apidoc, outDir: sdk });
+    run({ apidoc, outDir: sdk });
     const at = () => ({
       repo: 'tidev/titanium-sdk',
       version: 'main',
-      index: join(sdk, 'index.json'),
+      index: join(sdk, POOL_DIR, manifestFor(sdk).index),
     });
 
     const out = join(root, 'invalidation');
-    compile({ apidoc: moduleApidoc, outDir: out, external: at() });
+    run({ apidoc: moduleApidoc, outDir: out, external: at() });
     assert.equal(
-      compile({ apidoc: moduleApidoc, outDir: out, external: at() }).plan.reason,
+      run({ apidoc: moduleApidoc, outDir: out, external: at() }).plan.reason,
       'incremental',
       'an unchanged corpus should not force a rebuild'
     );
@@ -274,9 +301,9 @@ describe('cross-repo references', () => {
     // This module links to none of it, but the corpus its links were checked
     // against is a different one now, and only a rebuild re-runs that check.
     write(apidoc, `${SDK_APIDOC}---\nname: Titanium.UI.Label\nsummary: Added later.\n`);
-    compile({ apidoc, outDir: sdk });
+    run({ apidoc, outDir: sdk });
     assert.equal(
-      compile({ apidoc: moduleApidoc, outDir: out, external: at() }).plan.reason,
+      run({ apidoc: moduleApidoc, outDir: out, external: at() }).plan.reason,
       'external-changed'
     );
   });

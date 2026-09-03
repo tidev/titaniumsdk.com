@@ -1,0 +1,157 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.App.iOS.SearchableItem",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "iphone",
+    "ipad",
+    "macos"
+  ],
+  "since": "5.0.0",
+  "summary": "Used to create a unique object containing all of the search information that will appear in the device search index.",
+  "description": "To effectively add and remove information from the iOS search index you will need to use the below listed modules:\n\n* [Titanium.App.iOS.SearchableItemAttributeSet](api:Titanium.App.iOS.SearchableItemAttributeSet) - Used to create metadata related to the `Ti.App.iOS.SearchableItem`\n* [Titanium.App.iOS.SearchableItem](api:Titanium.App.iOS.SearchableItem) - Used to assemble metadata into a unique object package to be used by `Ti.App.iOS.SearchableIndex`\n* [Titanium.App.iOS.SearchableIndex](api:Titanium.App.iOS.SearchableIndex) - Used to add and remove `Ti.App.iOS.SearchableItem` objects to the device search index\n\nTo use this feature make sure you have a compatible device running iOS 9 or later.\n\nTo create a SearchableItem object, use the Titanium.App.iOS.createSearchableItem method.\nPass a dictionary of properties to the method that will help identify the item.\nAt minimum, you must set the [attributeSet](api:Titanium.App.iOS.SearchableItem#attributeSet) property, which associates\nthe metadata with the SearchableItem object.\n\nThen, pass the SearchableItem object to a SearchableIndex object's\n[addToDefaultSearchableIndex()](api:Titanium.App.iOS.SearchableIndex#addToDefaultSearchableIndex) method to add the item\nto the device's search index.\n",
+  "examples": [
+    {
+      "title": "Add Searchable Content to the On-Device Index",
+      "code": "The following example demonstrates how to create a new Ti.App.iOS.SearchableItem and\nadd a Ti.App.iOS.SearchableItemAttributeSet. The Ti.App.iOS.SearchableItem is then passed to the\nTi.App.iOS.SearchableIndex object to add it to the on-device search index.\n\n#### app.js\n``` js\nvar searchItems = [];\nvar itemAttr = Ti.App.iOS.createSearchableItemAttributeSet({\n    itemContentType: Ti.App.iOS.UTTYPE_IMAGE,\n    title:\"Titanium Core Spotlight Tutorial\",\n    contentDescription:\"Tech Example \\nOn: \" + String.formatDate(new Date(),\"short\"),\n    keywords:[\"Mobile\",\"Appcelerator\",\"Titanium\"]\n});\n\nvar item = Ti.App.iOS.createSearchableItem({\n    uniqueIndentifier:\"my-id\",\n    domainIdentifier:\"com.mydomain\",\n    attributeSet:itemAttr\n});\nsearchItems.push(item);\n\nvar indexer = Ti.App.iOS.createSearchableIndex();\n\nindexer.addToDefaultSearchableIndex(searchItems,function(e){\n    if(e.success){\n        alert(\"Press the home button and now search for your keywords\");\n    }else{\n        alert(\"Errored: \" + JSON.stringify(e.error));\n    }\n});\n```\n"
+    }
+  ],
+  "properties": [
+    {
+      "name": "attributeSet",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Set of metadata properties to display for the item.",
+      "description": "Must be set to create a SearchableItem object.",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.App.iOS.SearchableItemAttributeSet"
+        }
+      ],
+      "availability": "creation"
+    },
+    {
+      "name": "domainIdentifier",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Identifier that represents the \"domain\" or owner of this item.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "expirationDate",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Searchable items have an expiration date or time to live.  By default it is set to one month.",
+      "description": "Absolute date after which the activity is no longer eligible to be indexed or handed off.\n\nThe date will be a string in the following format: \"yyyy-MM-dd'T'HH:mm:ss.SSS'+0000'\"\nFor example, `2015-12-25T23:30:55.978+0000`\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "uniqueIdentifier",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Unique identifier to your application group.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    }
+  ],
+  "methods": [],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      }
+    ],
+    "events": []
+  },
+  "references": [
+    "Titanium.App.iOS.SearchableIndex",
+    "Titanium.App.iOS.SearchableItemAttributeSet",
+    "Titanium.Proxy"
+  ],
+  "source": "Titanium/App/iOS/SearchableItem.yml"
+}

@@ -1,3 +1,4 @@
+import { assetUrl } from './assets.ts';
 import { apiTarget, pathLinker, type ApiLinker } from './links.ts';
 import MarkdownIt from 'markdown-it';
 import sanitizeHtml from 'sanitize-html';
@@ -101,7 +102,13 @@ export function renderMarkdown(source: string | undefined, options: RenderOption
         if (!relative || !src || isAbsolute(src)) return { tagName, attribs };
         return {
           tagName,
-          attribs: { ...attribs, src: resolveRelative(relative.images, src), loading: 'lazy' },
+          attribs: {
+            ...attribs,
+            // Through the asset manifest: the same image is shared by every
+            // compiled version rather than copied into each one.
+            src: assetUrl(resolveRelative(relative.images, src)),
+            loading: 'lazy',
+          },
         };
       },
       a: (tagName, attribs) => {

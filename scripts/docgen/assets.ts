@@ -1,21 +1,26 @@
-import { copyFileSync, existsSync, mkdirSync, readdirSync, rmSync, statSync } from 'node:fs';
-import { dirname, extname, join, relative, sep } from 'node:path';
+import { putBlob } from '../lib/pool.ts';
+import { readFileSync, readdirSync, statSync } from 'node:fs';
+import { extname, join, relative, sep } from 'node:path';
 
 /**
- * Copies the images that apidoc prose references.
+ * Pools the images that apidoc prose references.
  *
  * They sit beside the YAML — `Titanium/UI/Button.yml` refers to
  * `./button_android.png`, meaning `Titanium/UI/button_android.png` — so the
- * tree structure has to be preserved for those relative links to resolve.
+ * path a description writes has to keep resolving. It is recorded as the key of
+ * the returned map rather than reproduced as a directory: the file itself goes
+ * into the registry's content-addressed pool under its own hash.
+ *
+ * That indirection is the whole point. Every release ships the same 54
+ * screenshots; storing them per version cost 178MB to hold 8.9MB of distinct
+ * pictures, and all 178MB was traced into the serverless bundle for a route
+ * that never opens them.
  *
  * Only images. The tree also holds 43 `.mdoc` changelog files that nothing in
  * the type descriptions points at.
  */
 
 const IMAGE_EXTENSIONS = new Set(['.png', '.jpg', '.jpeg', '.gif', '.svg', '.webp']);
-
-/** Where a version's images live, relative to that version's output directory. */
-export const IMAGES_DIR = 'images';
 
 function walk(dir: string, out: string[] = []): string[] {
   for (const entry of readdirSync(dir)) {
@@ -26,39 +31,23 @@ function walk(dir: string, out: string[] = []): string[] {
   return out;
 }
 
-export type AssetResult = { copied: number; removed: number; unchanged: number };
+export type AssetResult = {
+  /** Path as prose refers to it -> pooled filename. */
+  images: Record<string, string>;
+  /** Images whose bytes were not already in the pool. */
+  stored: number;
+};
 
-export function copyImages(apidoc: string, outDir: string): AssetResult {
-  const target = join(outDir, IMAGES_DIR);
-  const found = walk(apidoc).map((f) => relative(apidoc, f).split(sep).join('/'));
-  const wanted = new Set(found);
+export function poolImages(apidoc: string, pool: string): AssetResult {
+  const images: Record<string, string> = {};
+  let stored = 0;
 
-  let copied = 0;
-  let unchanged = 0;
-  for (const rel of found) {
-    const from = join(apidoc, rel);
-    const to = join(target, rel);
-    // Size and mtime are not reliable across a fresh CI checkout, so compare
-    // size only and re-copy when it differs. Images here are immutable in
-    // practice; this is about not rewriting 54 files every run.
-    if (existsSync(to) && statSync(to).size === statSync(from).size) {
-      unchanged++;
-      continue;
-    }
-    mkdirSync(dirname(to), { recursive: true });
-    copyFileSync(from, to);
-    copied++;
+  for (const file of walk(apidoc).sort()) {
+    const rel = relative(apidoc, file).split(sep).join('/');
+    const { entry, written } = putBlob(pool, readFileSync(file), extname(file).toLowerCase());
+    images[rel] = entry;
+    if (written) stored++;
   }
 
-  let removed = 0;
-  if (existsSync(target)) {
-    for (const f of walk(target)) {
-      const rel = relative(target, f).split(sep).join('/');
-      if (wanted.has(rel)) continue;
-      rmSync(f);
-      removed++;
-    }
-  }
-
-  return { copied, removed, unchanged };
+  return { images, stored };
 }

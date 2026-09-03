@@ -1,3 +1,4 @@
+import { CONTENTS } from '../src/lib/docs/pool.ts';
 import { ModuleIndexSchema, ModuleVersionSchema } from '../src/lib/registry/index.ts';
 import { execFileSync } from 'node:child_process';
 import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
@@ -110,7 +111,7 @@ const failed: string[] = [];
 
 for (const t of targets) {
   const outRel = `registry/modules/${t.moduleId}/${t.version}`;
-  if (existsSync(join(root, outRel, 'index.json'))) {
+  if (existsSync(join(root, outRel, CONTENTS))) {
     console.log(`  =    ${t.moduleId}@${t.version} already compiled`);
     continue;
   }
