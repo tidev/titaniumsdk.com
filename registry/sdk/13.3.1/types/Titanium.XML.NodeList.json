@@ -1,0 +1,156 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.XML.NodeList",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
+  "since": {
+    "android": "0.9",
+    "iphone": "0.9",
+    "ipad": "0.9",
+    "macos": "9.2.0"
+  },
+  "summary": "A list of [Titanium.XML.Node](api:Titanium.XML.Node) objects. Implements the [DOM Level 2 API](https://www.w3.org/TR/DOM-Level-2-Core/core.html#ID-536297177) on Android and iOS.",
+  "properties": [
+    {
+      "name": "length",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The length of the node list.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    }
+  ],
+  "methods": [
+    {
+      "name": "item",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Returns the [Titanium.XML.Node](api:Titanium.XML.Node) object at the specified index.",
+      "parameters": [
+        {
+          "name": "index",
+          "summary": "The index of the node to retrieve. Indexing starts at 0.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.XML.Node"
+            }
+          ],
+          "summary": "The node at the index, or `null` if the index is out of bounds."
+        }
+      ]
+    }
+  ],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "lifecycleContainer",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      }
+    ],
+    "events": []
+  },
+  "references": [
+    "Titanium.Proxy",
+    "Titanium.XML.Node"
+  ],
+  "source": "Titanium/XML/NodeList.yml"
+}

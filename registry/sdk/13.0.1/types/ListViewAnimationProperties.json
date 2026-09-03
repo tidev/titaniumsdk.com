@@ -1,0 +1,98 @@
+{
+  "schemaVersion": 1,
+  "name": "ListViewAnimationProperties",
+  "kind": "pseudo",
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
+  "since": {
+    "android": "10.1.0",
+    "iphone": "3.1.0",
+    "ipad": "3.1.0",
+    "macos": "9.2.0"
+  },
+  "summary": "A simple object for specifying the animation properties to use when inserting or deleting\nsections or cells, or scrolling the list.\n",
+  "description": "Not all properties apply to all methods.\n`animationStyle` does not apply to the `scrollToItem` method.\n`positon` only applies to the `scrollToItem` method.\nSince Release 3.3.0 of the Titanium SDK, Android supports the `animated` property and is applicable only to `scrollToItem`\n",
+  "properties": [
+    {
+      "name": "animated",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Whether this list change should be animated. Ignored if any `animationStyle` value is specified.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "default": "true"
+    },
+    {
+      "name": "animationStyle",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Type of animation to use for cell insertions and deletions.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "default": "If `animated` is `true` but no `animationStyle` is specified, the style defaults to\n[FADE](Titanium.UI.iOS.RowAnimationStyle.FADE).\n",
+      "constants": [
+        "Titanium.UI.iOS.RowAnimationStyle.BOTTOM",
+        "Titanium.UI.iOS.RowAnimationStyle.FADE",
+        "Titanium.UI.iOS.RowAnimationStyle.LEFT",
+        "Titanium.UI.iOS.RowAnimationStyle.NONE",
+        "Titanium.UI.iOS.RowAnimationStyle.RIGHT",
+        "Titanium.UI.iOS.RowAnimationStyle.TOP"
+      ]
+    },
+    {
+      "name": "position",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Specifies what position to scroll the selected cell to.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "default": "Titanium.UI.iOS.ListViewScrollPosition.NONE",
+      "constants": [
+        "Titanium.UI.ListViewScrollPosition.BOTTOM",
+        "Titanium.UI.ListViewScrollPosition.MIDDLE",
+        "Titanium.UI.ListViewScrollPosition.NONE",
+        "Titanium.UI.ListViewScrollPosition.TOP",
+        "Titanium.UI.iOS.ListViewScrollPosition.BOTTOM",
+        "Titanium.UI.iOS.ListViewScrollPosition.MIDDLE",
+        "Titanium.UI.iOS.ListViewScrollPosition.NONE",
+        "Titanium.UI.iOS.ListViewScrollPosition.TOP"
+      ]
+    }
+  ],
+  "methods": [],
+  "events": [],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "source": "Titanium/UI/ListView.yml"
+}

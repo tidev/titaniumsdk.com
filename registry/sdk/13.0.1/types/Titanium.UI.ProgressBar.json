@@ -1,0 +1,1128 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.UI.ProgressBar",
+  "kind": "view",
+  "extends": "Titanium.UI.View",
+  "inheritanceChain": [
+    "Titanium.UI.View",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
+  "since": "0.8",
+  "summary": "A progress bar.",
+  "description": "| Android | iOS |\n| ------- | --- |\n| ![Android](./progressbar_android.png) | ![iOS](./progressbar_ios.png) |\n\nA progress bar is used for displaying an ongoing activity with a defined progression.\nFor an activity without a defined progression, you can use [Titanium.UI.ActivityIndicator](api:Titanium.UI.ActivityIndicator).\n\nUnlike most views, progress bars are hidden by default, so you must explicitly\nshow the progress bar.\n\nUse the [Titanium.UI.createProgressBar](api:Titanium.UI#createProgressBar) method or **`<ProgressBar>`** Alloy element to create a progress bar.\n\n#### Android Platform Notes\n\nIn SDK 3.0, use [Titanium.UI.Android.ProgressIndicator](api:Titanium.UI.Android.ProgressIndicator) to display a progress indicator\nin a modal dialog or window title bar. Use `ProgressBar` to display the progress bar inside\nanother view.\n\n#### iOS Platform Notes\n\nOn iOS, to display the progress bar in the window title bar, assign the progress bar object\nto the window's [titleControl](api:Titanium.UI.Window#titleControl) property.\nMake sure the window is modal and not full screen, and that the navigation bar is not hidden.\n",
+  "examples": [
+    {
+      "title": "Simple Progress Bar",
+      "code": "In this example we create a progress bar with the min value of `0` and the max value\nof `10` and the current value of `0`. Changing the `value` property causes the\ndisplayed progress bar to update.\n\n``` js\nvar pb = Ti.UI.createProgressBar({\n    top: 25,\n    width: 250,\n    min: 0,\n    max: 10,\n    value: 0,\n    color: 'blue',\n    message: 'Downloading 0 of 10',\n    font: {fontSize: 14, fontWeight: 'bold'},\n    style: Ti.UI.iOS.ProgressBarStyle.PLAIN,\n});\nvar win = Ti.UI.createWindow({backgroundColor: 'white'});\nwin.addEventListener('click', function(){\n    if (pb.value < pb.max) {\n        pb.message = 'Downloading '+ ++pb.value + ' of 10';\n    }\n});\nwin.add(pb);\nwin.open();\n```\n"
+    },
+    {
+      "title": "Alloy XML Markup",
+      "code": "Previous example as an Alloy view.\n\nindex.xml:\n``` xml\n<Alloy>\n    <Window id=\"win\" backgroundColor=\"white\" onClick=\"incPB\">\n        <ProgressBar id=\"pb\" />\n    </Window>\n</Alloy>\n```\n\nindex.js:\n``` js\nfunction incPB() {\n    if ($.pb.value < $.pb.max) {\n        $.pb.message = 'Downloading '+ ++$.pb.value + ' of 10';\n    }\n}\n$.win.open();\n```\n\nindex.tss:\n``` js\n\"#pb\": {\n    top: 25,\n    width: 250,\n    min: 0,\n    max: 10,\n    value: 0,\n    color: 'blue',\n    message: 'Downloading 0 of 10',\n    font: {fontSize:14, fontWeight:'bold'},\n    style: Titanium.UI.iOS.ProgressBarStyle.PLAIN\n}\n```\n"
+    }
+  ],
+  "properties": [
+    {
+      "name": "animated",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Enables smooth progress change animation when changing the value.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "10.0.1",
+      "default": "true"
+    },
+    {
+      "name": "color",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Color of the progress bar message, as a color name or hex triplet.",
+      "description": "For information about color values, see the \"Colors\" section of [Titanium.UI](api:Titanium.UI).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        },
+        {
+          "kind": "type",
+          "name": "Titanium.UI.Color"
+        }
+      ]
+    },
+    {
+      "name": "font",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Font for the progress bar text.",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Font"
+        }
+      ]
+    },
+    {
+      "name": "max",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Maximum value of the progress bar.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ]
+    },
+    {
+      "name": "message",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Progress bar text.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "min",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Minimum value of the progress bar.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ]
+    },
+    {
+      "name": "style",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Style of the progress bar.",
+      "description": "For iOS, progress bar styles are constants defined in [ProgressBarStyle](api:Titanium.UI.iOS.ProgressBarStyle).",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ]
+    },
+    {
+      "name": "tintColor",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The color shown for the portion of the progress bar that is filled.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        },
+        {
+          "kind": "type",
+          "name": "Titanium.UI.Color"
+        }
+      ],
+      "since": {
+        "iphone": "3.1.3",
+        "ipad": "3.1.3",
+        "android": "8.0.0"
+      }
+    },
+    {
+      "name": "trackTintColor",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The color shown for the portion of the progress bar that is not filled.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        },
+        {
+          "kind": "type",
+          "name": "Titanium.UI.Color"
+        }
+      ],
+      "since": {
+        "iphone": "5.2.0",
+        "ipad": "5.2.0",
+        "android": "8.0.0"
+      }
+    },
+    {
+      "name": "value",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Current value of the progress bar.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ]
+    }
+  ],
+  "methods": [],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "accessibilityDisableLongPress",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "accessibilityHidden",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "accessibilityHint",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "accessibilityLabel",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "accessibilityValue",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "anchorPoint",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "animatedCenter",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundDisabledColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "backgroundDisabledImage",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "backgroundFocusedColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "backgroundFocusedImage",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "backgroundGradient",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundImage",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundLeftCap",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundRepeat",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundSelectedColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "backgroundSelectedImage",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "backgroundTopCap",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "borderColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "borderRadius",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "borderWidth",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "bottom",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "center",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "clipMode",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "elevation",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "filterTouchesWhenObscured",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "focusable",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "height",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "hiddenBehavior",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "horizontalMotionEffect",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "horizontalWrap",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "id",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "keepScreenOn",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "layout",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "left",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "lifecycleContainer",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "opacity",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "overrideCurrentAnimation",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "previewContext",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone"
+        ]
+      },
+      {
+        "name": "pullBackgroundColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "rect",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "right",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "rotation",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad"
+        ]
+      },
+      {
+        "name": "rotationX",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "rotationY",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "scaleX",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "scaleY",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "size",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "softKeyboardOnFocus",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "tooltip",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "top",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "touchEnabled",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "touchFeedback",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "touchFeedbackColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "transform",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "transitionName",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "translationX",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "translationY",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "translationZ",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "verticalMotionEffect",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "viewShadowColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "viewShadowOffset",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "viewShadowRadius",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "visible",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "width",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "zIndex",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "animate",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "clearMotionEffects",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "convertPointToView",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "getViewById",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "hide",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "insertAt",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "show",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "stopAnimation",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "toImage",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      }
+    ],
+    "events": [
+      {
+        "name": "click",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "dblclick",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "doubletap",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "focus",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "keypressed",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "longclick",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "longpress",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "pinch",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "postlayout",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "rotate",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "singletap",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "swipe",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "touchcancel",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "touchend",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "touchmove",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "touchstart",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "twofingertap",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      }
+    ]
+  },
+  "references": [
+    "Font",
+    "Titanium.UI",
+    "Titanium.UI.ActivityIndicator",
+    "Titanium.UI.Android.ProgressIndicator",
+    "Titanium.UI.Color",
+    "Titanium.UI.View",
+    "Titanium.UI.Window",
+    "Titanium.UI.iOS.ProgressBarStyle"
+  ],
+  "source": "Titanium/UI/ProgressBar.yml"
+}

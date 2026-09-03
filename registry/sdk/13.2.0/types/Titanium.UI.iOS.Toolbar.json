@@ -1,0 +1,734 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.UI.iOS.Toolbar",
+  "kind": "view",
+  "extends": "Titanium.UI.View",
+  "inheritanceChain": [
+    "Titanium.UI.View",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "iphone",
+    "ipad",
+    "macos"
+  ],
+  "since": {
+    "iphone": "0.8",
+    "ipad": "0.8",
+    "macos": "9.2.0"
+  },
+  "deprecated": {
+    "since": "6.2.0",
+    "removed": "10.0.0",
+    "notes": "Use the cross-platform [Titanium.UI.Toolbar](Titanium.UI.Toolbar) instead."
+  },
+  "summary": "An iOS toolbar, which can contain buttons and certain other controls.",
+  "description": "A `Toolbar` is created by the [Titanium.UI.iOS.createToolbar](api:Titanium.UI.iOS#createToolbar) factory method or **`<Toolbar>`** Alloy element.\n\nA `Toolbar` can contain buttons, as well as certain other widgets, including text fields and\nlabels.\n\nTo provide spacing between items in the toolbar, you can use the special iOS system button types,\n[FIXED_SPACE](api:Titanium.UI.iOS.SystemButton#FIXED_SPACE) and\n[FLEXIBLE_SPACE](api:Titanium.UI.iOS.SystemButton#FLEXIBLE_SPACE).\n\nNote that toolbars are positioned like other views (using the `top` and `bottom` properties,\nfor example), but the [iOS Human Interface Guidelines](https://developer.apple.com/ios/human-interface-guidelines/overview/themes/#//apple_ref/doc/uid/TP40006556-CH12-SW4)\nhave specific requirements for placing toolbars, specifically:\n\n* On iPhone, a toolbar should be at the bottom of the window.\n* On the iPad, a toolbar should appear at the top or bottom of a window.\n\nDue to an iOS limitation, the buttons in the toolbar only support the `click` event.\nThe native object underlying a toolbar button does not generate standard view events,\nsuch as `touchstart` and `touchend`.\n\n**Note**:\nThis API has been deprecated in Titanium SDK 6.2.0 in favor of the cross-platform\nUI component [Titanium.UI.Toolbar](api:Titanium.UI.Toolbar) that can also be used on Android. The API itself\ndid not change, so it is a drop-in replacement for existing usages. This deprecated\nAPI will be removed in Titanium SDK 8.0.0 and later.\n\nSee also:\n\n*  [Toolbar in the iOS Human Interface Guidelines.](https://developer.apple.com/ios/human-interface-guidelines/overview/themes/#//apple_ref/doc/uid/TP40006556-CH12-SW4)\n",
+  "examples": [
+    {
+      "title": "Simple Toolbar",
+      "code": "The following code excerpt creates a simple toolbar, placed at the bottom of the window.\n\n``` js\nvar win = Ti.UI.createWindow({\n    backgroundColor: 'white'\n});\n\nvar send = Ti.UI.createButton({\n    title: 'Send',\n    style: Ti.UI.BUTTON_STYLE_OPTION_POSITIVE,\n});\n\nvar camera = Ti.UI.createButton({\n    systemButton: Ti.UI.iOS.SystemButton.CAMERA,\n});\n\nvar cancel = Ti.UI.createButton({\n    systemButton: Ti.UI.iOS.SystemButton.CANCEL\n});\n\nvar flexSpace = Ti.UI.createButton({\n    systemButton: Ti.UI.iOS.SystemButton.FLEXIBLE_SPACE\n});\n\nvar toolbar = Titanium.UI.iOS.createToolbar({\n    items: [send, flexSpace, camera, flexSpace, cancel],\n    bottom: 0\n});\n\nwin.add(toolbar);\nwin.open();\n```\n\nNote the use of the flexible space for positioning the toolbar buttons -- the\n`FLEXIBLE_SPACE` button doesn't appear as a button, but a variable space between the\ncontrols on either side of it. Available space in the toolbar is divided between all of the\nflexible space buttons in the toolbar. Without the flexible spaces in this example,\nthe toolbar buttons would be grouped tightly together on the left side of the toolbar.\n"
+    },
+    {
+      "title": "Toolbar with extended background",
+      "code": "The following code excerpt creates a simple toolbar, placed at the top of the window which extends its background under the status bar. \n\n``` js\nvar win = Ti.UI.createWindow({\n    backgroundColor: 'white'\n});\n\nvar send = Ti.UI.createButton({\n    title: 'Send',\n    style: Ti.UI.BUTTON_STYLE_OPTION_POSITIVE,\n});\n\nvar camera = Ti.UI.createButton({\n    systemButton: Ti.UI.iOS.SystemButton.CAMERA,\n});\n\nvar cancel = Ti.UI.createButton({\n    systemButton: Ti.UI.iOS.SystemButton.CANCEL\n});\n\nflexSpace = Ti.UI.createButton({\n    systemButton: Ti.UI.iOS.SystemButton.FLEXIBLE_SPACE\n});\n\nvar toolbar = Ti.UI.iOS.createToolbar({\n    items: [send, flexSpace, camera, flexSpace, cancel],\n    top: 20,\n    extendBackground: true\n});\n\nwin.add(toolbar);\nwin.open();\n```\n"
+    },
+    {
+      "title": "Alloy XML Markup",
+      "code": "Simple Toolbar example as an Alloy view.\n\n``` js\n<Alloy>\n    <Window id=\"win\">\n        <Toolbar platform=\"ios\" bottom=\"0\">\n\n            <!-- The Items tag sets the Toolbar.items property. -->\n            <Items>\n                <Button id=\"send\" title=\"Send\" style=\"DONE\" />\n                <FlexSpace/>\n                <Button id=\"camera\" systemButton=\"CAMERA\" />\n                <FlexSpace/>\n                <Button id=\"cancel\" systemButton=\"CANCEL\" />\n            </Items>\n\n            <!-- Place additional views for the Toolbar here -->\n\n        </Toolbar>\n    </Window>\n</Alloy>\n```\n"
+    }
+  ],
+  "properties": [
+    {
+      "name": "barColor",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Background color for the toolbar, as a color name or hex triplet.",
+      "description": "To use a background image on the toolbar, either `barColor` must be a fully or\npartially transparent color,\nor the [translucent](api:Titanium.UI.iOS.Toolbar#translucent) property must be `true`.\n\nTo use a background gradient on a toolbar, `barColor` must be `'transparent'`\n*and* the the [translucent](api:Titanium.UI.iOS.Toolbar#translucent) property must be `true`.\n\nFor information about color values, see the \"Colors\" section of [Titanium.UI](api:Titanium.UI).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        },
+        {
+          "kind": "type",
+          "name": "Titanium.UI.Color"
+        }
+      ]
+    },
+    {
+      "name": "extendBackground",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "If `true`, the background of the toolbar extends upwards.",
+      "description": "This property allows the user to specify that the toolbar's background show through the status bar. This property is \nonly intended to be used with toolbars hosted in windows with **no navigation controllers**. The toolbar must be placed at the\ntop of the screen just below the status bar for this property to work as expected. This **must** be specified at creation.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": {
+        "iphone": "3.3.0",
+        "ipad": "3.3.0",
+        "macos": "9.2.0"
+      },
+      "availability": "creation",
+      "default": "Undefined. Behaves as if set to false."
+    },
+    {
+      "name": "items",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "An array of buttons (or other widgets) contained in the toolbar.",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Array",
+          "args": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.View"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "translucent",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "If `true`, a translucent background color is used for the toolbar.",
+      "description": "Note that if `translucent` is `false`, views under the toolbar are hidden, even\nif [barColor](api:Titanium.UI.iOS.Toolbar#barColor) is set to a semi-transparent or\ntransparent color.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "default": "true"
+    }
+  ],
+  "methods": [],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "accessibilityHidden",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "accessibilityHint",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "accessibilityLabel",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "accessibilityValue",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "anchorPoint",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "animatedCenter",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundGradient",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundImage",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "borderColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "borderRadius",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "borderWidth",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "bottom",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "center",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "clipMode",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "height",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "horizontalMotionEffect",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "horizontalWrap",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "id",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "left",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "opacity",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "previewContext",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone"
+        ]
+      },
+      {
+        "name": "pullBackgroundColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "rect",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "right",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "rotation",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad"
+        ]
+      },
+      {
+        "name": "size",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "tintColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "tooltip",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "top",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "touchEnabled",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "transform",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "verticalMotionEffect",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "viewShadowColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "viewShadowOffset",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "viewShadowRadius",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "visible",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "width",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "zIndex",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "animate",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "clearMotionEffects",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "convertPointToView",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "getViewById",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "hide",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "insertAt",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "show",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "toImage",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      }
+    ],
+    "events": [
+      {
+        "name": "click",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "dblclick",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "doubletap",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "keypressed",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "longpress",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "pinch",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "postlayout",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "rotate",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "singletap",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "swipe",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "touchcancel",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "touchend",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "touchmove",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "touchstart",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      }
+    ]
+  },
+  "references": [
+    "Titanium.UI",
+    "Titanium.UI.Color",
+    "Titanium.UI.Toolbar",
+    "Titanium.UI.View",
+    "Titanium.UI.iOS",
+    "Titanium.UI.iOS.SystemButton"
+  ],
+  "source": "Titanium/UI/iOS/Toolbar.yml"
+}

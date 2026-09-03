@@ -1,0 +1,860 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.UI.iOS.BlurView",
+  "kind": "view",
+  "extends": "Titanium.UI.View",
+  "inheritanceChain": [
+    "Titanium.UI.View",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "iphone",
+    "ipad",
+    "macos"
+  ],
+  "since": {
+    "iphone": "5.4.0",
+    "ipad": "5.4.0",
+    "macos": "9.2.0"
+  },
+  "summary": "A [Titanium.UI.iOS.BlurView](api:Titanium.UI.iOS.BlurView) object gives you an easy way implement some complex visual effects. \nThe blur effect is applied to every view the blur view is added to by default. You can also place the \nblur view above other views and all visible views layered under the blur view are blurred as well.\n\nFor more information on BlurView, please refer to the official [Apple documentation](https://developer.apple.com/documentation/uikit/uivisualeffectview).\n\nNote: In iOS 26, Apple introduced the `UIGlassEffectView`, an alternative to classic blur views. See the [Titanium.UI.iOS.BlurView.glassEffect](api:Titanium.UI.iOS.BlurView#glassEffect) property for more details.\n",
+  "examples": [
+    {
+      "title": "Basic Blur View",
+      "code": "The following example shows how to create a simple blur view:\n\n``` js\nconst win = Ti.UI.createWindow({\n    backgroundColor: \"#fff\"\n});\n\n// Reference image (or view)\nconst img = Ti.UI.createImageView({\n    image: \"/default_app_logo.png\",\n    top: 100,\n    width: 300,\n    height: 300\n});\n\n// Blur view\nconst blur = Ti.UI.iOS.createBlurView({\n    width: Ti.UI.FILL,\n    height: Ti.UI.FILL\n});\n\nimg.add(blur);\n\n// Effect controls\nconst tabs = Ti.UI.iOS.createTabbedBar({\n    labels: [\"Extra light\", \"Light\", \"Dark\"],\n    bottom: 100\n});\n\n// Available blur effects\nconst effects = [\n    Ti.UI.iOS.BLUR_EFFECT_STYLE_EXTRA_LIGHT,\n    Ti.UI.iOS.BLUR_EFFECT_STYLE_LIGHT,\n    Ti.UI.iOS.BLUR_EFFECT_STYLE_DARK,\n];\n\ntabs.addEventListener(\"click\", function(e) {\n    blur.effect = effects[e.index];\n});\n\nwin.add(tabs);\nwin.add(img);\nwin.open();\n```\n"
+    },
+    {
+      "title": "Glass Effect View (iOS 26+)",
+      "code": "The following example shows how to create a blur view with the new glass effect:\n\n``` js\nconst win = Ti.UI.createWindow({\n    backgroundColor: \"#fff\"\n});\n\nconst backgroundView = Ti.UI.createImageView({\n    image: 'https://s1.directupload.eu/images/250817/ufgix5hy.jpg',\n    width: Ti.UI.FILL,\n    height: Ti.UI.FILL,\n    scalingMode: Ti.Media.IMAGE_SCALING_ASPECT_FILL\n});\n\nconst effectView = Ti.UI.iOS.createBlurView({\n    width: 250,\n    height: 250,\n    glassEffect: {\n        style: Ti.UI.iOS.GLASS_EFFECT_STYLE_CLEAR,\n        interactive: true\n    }\n});\n\nbackgroundView.add(effectView);\n\nconst toggleButton = Ti.UI.createButton({\n    title: \"Toggle Glass Effect\",\n    bottom: 50\n});\n\nlet isEnabled = true;\ntoggleButton.addEventListener(\"click\", () => {\n    isEnabled = !isEnabled;\n    if (isEnabled) {\n        backgroundView.add(effectView)\n    } else {\n        backgroundView.remove(effectView)\n    }\n});\n\nwin.add(backgroundView);\nwin.add(toggleButton);\nwin.open();\n```\n"
+    }
+  ],
+  "properties": [
+    {
+      "name": "effect",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The blur effect to apply to the effect view.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "default": "undefined (no effect is applied)",
+      "constants": [
+        "Titanium.UI.iOS.BLUR_EFFECT_STYLE_DARK",
+        "Titanium.UI.iOS.BLUR_EFFECT_STYLE_EXTRA_LIGHT",
+        "Titanium.UI.iOS.BLUR_EFFECT_STYLE_LIGHT",
+        "Titanium.UI.iOS.BLUR_EFFECT_STYLE_PROMINENT",
+        "Titanium.UI.iOS.BLUR_EFFECT_STYLE_REGULAR",
+        "Titanium.UI.iOS.BLUR_EFFECT_STYLE_SYSTEM_CHROME_MATERIAL",
+        "Titanium.UI.iOS.BLUR_EFFECT_STYLE_SYSTEM_CHROME_MATERIAL_DARK",
+        "Titanium.UI.iOS.BLUR_EFFECT_STYLE_SYSTEM_CHROME_MATERIAL_LIGHT",
+        "Titanium.UI.iOS.BLUR_EFFECT_STYLE_SYSTEM_MATERIAL",
+        "Titanium.UI.iOS.BLUR_EFFECT_STYLE_SYSTEM_MATERIAL_DARK",
+        "Titanium.UI.iOS.BLUR_EFFECT_STYLE_SYSTEM_MATERIAL_LIGHT",
+        "Titanium.UI.iOS.BLUR_EFFECT_STYLE_SYSTEM_THICK_MATERIAL",
+        "Titanium.UI.iOS.BLUR_EFFECT_STYLE_SYSTEM_THICK_MATERIAL_DARK",
+        "Titanium.UI.iOS.BLUR_EFFECT_STYLE_SYSTEM_THICK_MATERIAL_LIGHT",
+        "Titanium.UI.iOS.BLUR_EFFECT_STYLE_SYSTEM_THIN_MATERIAL",
+        "Titanium.UI.iOS.BLUR_EFFECT_STYLE_SYSTEM_THIN_MATERIAL_DARK",
+        "Titanium.UI.iOS.BLUR_EFFECT_STYLE_SYSTEM_THIN_MATERIAL_LIGHT",
+        "Titanium.UI.iOS.BLUR_EFFECT_STYLE_SYSTEM_ULTRA_THIN_MATERIAL",
+        "Titanium.UI.iOS.BLUR_EFFECT_STYLE_SYSTEM_ULTRA_THIN_MATERIAL_DARK",
+        "Titanium.UI.iOS.BLUR_EFFECT_STYLE_SYSTEM_ULTRA_THIN_MATERIAL_LIGHT"
+      ]
+    },
+    {
+      "name": "glassEffect",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "The glass effect configuration to apply to the effect view.",
+      "description": "Glass effects are an alternative to classic blur views introduced in iOS 26, providing\na more modern and visually appealing blur effect with additional customization options.\n\nWhen the glass effect is enabled, it will override any value set to the `effect` property.\nSee [GlassEffectConfiguration](api:GlassEffectConfiguration) for the available configuration options.\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "GlassEffectConfiguration"
+        }
+      ],
+      "since": {
+        "iphone": "13.0.0",
+        "ipad": "13.0.0"
+      },
+      "osver": {
+        "ios": {
+          "min": "26.0"
+        }
+      },
+      "inlined": {
+        "name": "GlassEffectConfiguration",
+        "summary": "Object of options for configuring the glass effect on a [Titanium.UI.iOS.BlurView](api:Titanium.UI.iOS.BlurView).",
+        "description": "The parameters used when configuring a glass effect for a blur view. Glass effects are\nan alternative to classic blur views introduced in iOS 26, providing a more modern and\nvisually appealing blur effect with additional customization options.\n\nThe glass effect requires at least the `style` property to be set. On iOS versions prior\nto 26, setting this property will have no effect.\n",
+        "properties": [
+          {
+            "name": "interactive",
+            "platforms": [
+              "iphone",
+              "ipad"
+            ],
+            "summary": "Whether the glass effect responds to user interaction.",
+            "description": "When set to `true`, the glass effect will respond to touch and other user\ninteractions, providing visual feedback. This can create a more dynamic\nand engaging user experience.\n",
+            "type": [
+              {
+                "kind": "primitive",
+                "name": "Boolean"
+              }
+            ],
+            "default": "false",
+            "optional": true
+          },
+          {
+            "name": "style",
+            "platforms": [
+              "iphone",
+              "ipad"
+            ],
+            "summary": "The style of the glass effect.",
+            "description": "Specifies the visual style of the glass effect. Different styles provide\ndifferent levels of translucency and blur intensity.\n",
+            "type": [
+              {
+                "kind": "primitive",
+                "name": "Number"
+              }
+            ],
+            "default": "<Titanium.UI.iOS.GLASS_EFFECT_STYLE_REGULAR>",
+            "constants": [
+              "Titanium.UI.iOS.GLASS_EFFECT_STYLE_CLEAR",
+              "Titanium.UI.iOS.GLASS_EFFECT_STYLE_REGULAR"
+            ]
+          },
+          {
+            "name": "tintColor",
+            "platforms": [
+              "iphone",
+              "ipad"
+            ],
+            "summary": "The tint color to apply to the glass effect.",
+            "description": "The tint color modifies the appearance of the glass effect. You can specify\nthe color as a color name (e.g., \"red\"), a hex string (e.g., \"#FF0000\"),\nor an RGBA string (e.g., \"rgba(255, 0, 0, 0.5)\").\n\nIf not specified, the glass effect will use the default system appearance.\n",
+            "type": [
+              {
+                "kind": "primitive",
+                "name": "String"
+              }
+            ],
+            "optional": true
+          }
+        ]
+      }
+    }
+  ],
+  "methods": [],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "accessibilityHidden",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "accessibilityHint",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "accessibilityLabel",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "accessibilityValue",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "anchorPoint",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "animatedCenter",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundGradient",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundImage",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundLeftCap",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundRepeat",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundTopCap",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "borderColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "borderRadius",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "borderWidth",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "bottom",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "center",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "children",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "clipMode",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "height",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "horizontalMotionEffect",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "horizontalWrap",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "id",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "layout",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "left",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "opacity",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "previewContext",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone"
+        ]
+      },
+      {
+        "name": "pullBackgroundColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "rect",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "right",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "rotation",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad"
+        ]
+      },
+      {
+        "name": "size",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "tintColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "tooltip",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "top",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "touchEnabled",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "transform",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "verticalMotionEffect",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "viewShadowColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "viewShadowOffset",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "viewShadowRadius",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "visible",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "width",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "zIndex",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      }
+    ],
+    "methods": [
+      {
+        "name": "add",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "animate",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "clearMotionEffects",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "convertPointToView",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "getViewById",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "hide",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "insertAt",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "remove",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "removeAllChildren",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "replaceAt",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "show",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "toImage",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      }
+    ],
+    "events": [
+      {
+        "name": "click",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "dblclick",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "doubletap",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "keypressed",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "longpress",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "pinch",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "postlayout",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "rotate",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "singletap",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "swipe",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "touchcancel",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "touchend",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "touchmove",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "touchstart",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "twofingertap",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      }
+    ]
+  },
+  "references": [
+    "GlassEffectConfiguration",
+    "Titanium.UI.View"
+  ],
+  "source": "Titanium/UI/iOS/BlurView.yml"
+}

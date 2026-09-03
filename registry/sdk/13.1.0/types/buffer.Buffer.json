@@ -1,0 +1,2404 @@
+{
+  "schemaVersion": 1,
+  "name": "buffer.Buffer",
+  "kind": "pseudo",
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
+  "since": "8.2.0",
+  "summary": "The `Buffer` class is a global type for dealing with binary data directly. It can be constructed in a variety of ways.",
+  "description": "Note that this `Buffer` class is highly related to the [Titanium.Buffer](api:Titanium.Buffer) type. Both are wrappers around an underlying array of bytes and can be accessed in an array-like manner:\n\n``` javascript\nconst value = buffer[index];\nbuffer[index] = 1;\n```\n\nIn fact, this Node.js shim has been written to allow wrapping a [Titanium.Buffer](api:Titanium.Buffer) into a Node.js compatible instance:\n\n``` javascript\nconst wrapped = Buffer.from(tiBuffer);\n```\n\nNote that this will result in a **slow** `Buffer` instance (because reads/writes pass-through to the underlying\n`Ti.Buffer` which in turn goes through the JS/native binding layer). If you only intend to *read* the data\n(or do not need to write back to the original [Titanium.Buffer](api:Titanium.Buffer)) you can perform a one-time copy\nof the underlying bytes to a faster JS-only `Uint8Array`:\n\n```javascript\nconst fastBuffer = Buffer.from(tiBuffer.toBlob().toArrayBuffer()); // here we're converting from Blob to Ti.Buffer to ArrayBuffer and the shim wraps that copy\n```\n",
+  "properties": [
+    {
+      "name": "buffer",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The underlying `ArrayBuffer` object based on which this `Buffer` object is created.",
+      "description": "This `ArrayBuffer` is not guaranteed to correspond exactly to the original `Buffer`. See the notes on [buffer.Buffer.byteOffset](api:buffer.Buffer#byteOffset) for details.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "ArrayBuffer"
+        }
+      ]
+    },
+    {
+      "name": "byteOffset",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The `byteOffset` of the `Buffer`s underlying `ArrayBuffer` object.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ]
+    },
+    {
+      "name": "length",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Returns the number of bytes in buf.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "compare",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Compares `buf` with `target` and returns a number indicating whether buf comes before, after, or is the same as target in sort order. Comparison is based on the actual sequence of bytes in each `Buffer`.",
+      "description": "`0` is returned if target is the same as buf\n`1` is returned if target should come before buf when sorted.\n`-1` is returned if target should come after buf when sorted.\n",
+      "parameters": [
+        {
+          "name": "target",
+          "summary": "A `Buffer` or `Uint8Array` with which to compare buf.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "buffer.Buffer"
+            },
+            {
+              "kind": "primitive",
+              "name": "Uint8Array"
+            }
+          ]
+        },
+        {
+          "name": "targetStart",
+          "summary": "The offset within target at which to begin comparison.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "optional": true,
+          "default": "0"
+        },
+        {
+          "name": "targetEnd",
+          "summary": "The offset within target at which to end comparison (not inclusive).",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "optional": true,
+          "default": "`target.length`"
+        },
+        {
+          "name": "sourceStart",
+          "summary": "The offset within buf at which to begin comparison.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "optional": true,
+          "default": "0"
+        },
+        {
+          "name": "sourceEnd",
+          "summary": "The offset within buf at which to end comparison (not inclusive).",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "optional": true,
+          "default": "`buf.length`"
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "copy",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Copies data from a region of `buf` to a region in `target`, even if the target memory region overlaps with `buf`.",
+      "parameters": [
+        {
+          "name": "target",
+          "summary": "A `Buffer` or `Uint8Array` with which to compare buf.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "buffer.Buffer"
+            },
+            {
+              "kind": "primitive",
+              "name": "Uint8Array"
+            }
+          ]
+        },
+        {
+          "name": "targetStart",
+          "summary": "The offset within target at which to begin writing.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "optional": true,
+          "default": "0"
+        },
+        {
+          "name": "sourceStart",
+          "summary": "The offset within buf at which to begin copying.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "optional": true,
+          "default": "0"
+        },
+        {
+          "name": "sourceEnd",
+          "summary": "The offset within buf at which to stop copying (not inclusive).",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "optional": true,
+          "default": "`buf.length`"
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "summary": "The number of bytes copied."
+        }
+      ]
+    },
+    {
+      "name": "entries",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Creates and returns an [iterator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterator_protocol) of `[index, byte]` pairs from the contents of `buf`.",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Object"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "equals",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Returns `true` if both `buf` and `otherBuffer` have exactly the same bytes, false otherwise. Equivalent to `buf.compare(otherBuffer) === 0`.",
+      "parameters": [
+        {
+          "name": "otherBuffer",
+          "summary": "A `Buffer` or `Uint8Array` with which to compare buf.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "buffer.Buffer"
+            },
+            {
+              "kind": "primitive",
+              "name": "Uint8Array"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "fill",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fills `buf` with the specified value. If the `offset` and `end` are not given, the entire `buf` will be filled.",
+      "parameters": [
+        {
+          "name": "value",
+          "summary": "The value with which to fill `buf`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            },
+            {
+              "kind": "primitive",
+              "name": "Number"
+            },
+            {
+              "kind": "type",
+              "name": "buffer.Buffer"
+            },
+            {
+              "kind": "primitive",
+              "name": "Uint8Array"
+            }
+          ]
+        },
+        {
+          "name": "offset",
+          "summary": "Number of bytes to skip before starting to fill `buf`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "optional": true,
+          "default": "0"
+        },
+        {
+          "name": "end",
+          "summary": "Where to stop filling `buf` (not inclusive).",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "optional": true,
+          "default": "`buf.length`"
+        },
+        {
+          "name": "encoding",
+          "summary": "The encoding for `value` if `value` is a string.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ],
+          "optional": true,
+          "default": "`'utf8'`"
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "buffer.Buffer"
+            }
+          ],
+          "summary": "A reference to `buf`."
+        }
+      ]
+    },
+    {
+      "name": "includes",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Equivalent to `buf.indexOf() !== -1`.",
+      "parameters": [
+        {
+          "name": "value",
+          "summary": "What to search for.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            },
+            {
+              "kind": "primitive",
+              "name": "Number"
+            },
+            {
+              "kind": "type",
+              "name": "buffer.Buffer"
+            },
+            {
+              "kind": "primitive",
+              "name": "Uint8Array"
+            }
+          ]
+        },
+        {
+          "name": "byteOffset",
+          "summary": "Where to begin searching in `buf`. If negative, then offset is calculated from the end of `buf`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "optional": true,
+          "default": "0"
+        },
+        {
+          "name": "encoding",
+          "summary": "If `value` is a string, this is its encoding.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ],
+          "optional": true,
+          "default": "`'utf8'`"
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ],
+          "summary": "`true` if `value` was found in buf, `false` otherwise."
+        }
+      ]
+    },
+    {
+      "name": "indexOf",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "If value is:\n\n- a string, `value` is interpreted according to the character encoding in `encoding`.\n- a `Buffer` or `Uint8Array`, value will be used in its entirety. To compare a partial `Buffer`, use [buf.slice()](api:buffer.Buffer#slice).\n- a number, `value` will be interpreted as an unsigned 8-bit integer value between `0` and `255`.\n",
+      "parameters": [
+        {
+          "name": "value",
+          "summary": "What to search for.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            },
+            {
+              "kind": "primitive",
+              "name": "Number"
+            },
+            {
+              "kind": "type",
+              "name": "buffer.Buffer"
+            },
+            {
+              "kind": "primitive",
+              "name": "Uint8Array"
+            }
+          ]
+        },
+        {
+          "name": "byteOffset",
+          "summary": "Where to begin searching in `buf`. If negative, then offset is calculated from the end of `buf`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "optional": true,
+          "default": "0"
+        },
+        {
+          "name": "encoding",
+          "summary": "If `value` is a string, this is the encoding used to determine the binary representation of the string that will be searched for in `buf`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ],
+          "optional": true,
+          "default": "`'utf8'`"
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "summary": "The index of the first occurrence of `value` in `buf`, or `-1` if `buf` does not contain `value`."
+        }
+      ]
+    },
+    {
+      "name": "keys",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Creates and returns an [iterator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterator_protocol) of `buf` keys (indices).",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Object"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "lastIndexOf",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Identical to `buf.indexOf()`, except the last occurrence of `value` is found rather than the first occurrence.",
+      "parameters": [
+        {
+          "name": "value",
+          "summary": "What to search for.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            },
+            {
+              "kind": "primitive",
+              "name": "Number"
+            },
+            {
+              "kind": "type",
+              "name": "buffer.Buffer"
+            },
+            {
+              "kind": "primitive",
+              "name": "Uint8Array"
+            }
+          ]
+        },
+        {
+          "name": "byteOffset",
+          "summary": "Where to begin searching in `buf`. If negative, then offset is calculated from the end of `buf`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "optional": true,
+          "default": "`buf.length - 1`."
+        },
+        {
+          "name": "encoding",
+          "summary": "If `value` is a string, this is the encoding used to determine the binary representation of the string that will be searched for in `buf`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ],
+          "optional": true,
+          "default": "`'utf8'`"
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "summary": "The index of the last occurrence of `value` in `buf`, or `-1` if `buf` does not contain `value`."
+        }
+      ]
+    },
+    {
+      "name": "readDoubleBE",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Reads a 64-bit, big-endian double from `buf` at the specified `offset`.",
+      "parameters": [
+        {
+          "name": "offset",
+          "summary": "Number of bytes to skip before starting to read. Must satisfy `0 <= offset <= buf.length - 8`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "optional": true,
+          "default": "0"
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "readDoubleLE",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Reads a 64-bit, little-endian double from `buf` at the specified `offset`.",
+      "parameters": [
+        {
+          "name": "offset",
+          "summary": "Number of bytes to skip before starting to read. Must satisfy `0 <= offset <= buf.length - 8`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "optional": true,
+          "default": "0"
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "readFloatBE",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Reads a 32-bit, big-endian float from `buf` at the specified `offset`.",
+      "parameters": [
+        {
+          "name": "offset",
+          "summary": "Number of bytes to skip before starting to read. Must satisfy `0 <= offset <= buf.length - 4`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "optional": true,
+          "default": "0"
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "readFloatLE",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Reads a 32-bit, little-endian float from `buf` at the specified `offset`.",
+      "parameters": [
+        {
+          "name": "offset",
+          "summary": "Number of bytes to skip before starting to read. Must satisfy `0 <= offset <= buf.length - 4`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "optional": true,
+          "default": "0"
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "readInt16BE",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Reads a signed 16-bit, big-endian integer from `buf` at the specified `offset`.",
+      "parameters": [
+        {
+          "name": "offset",
+          "summary": "Number of bytes to skip before starting to read. Must satisfy `0 <= offset <= buf.length - 2`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "optional": true,
+          "default": "0"
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "readInt16LE",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Reads a signed 16-bit, little-endian integer from `buf` at the specified `offset`.",
+      "parameters": [
+        {
+          "name": "offset",
+          "summary": "Number of bytes to skip before starting to read. Must satisfy `0 <= offset <= buf.length - 2`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "optional": true,
+          "default": "0"
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "readInt32BE",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Reads a signed 32-bit, big-endian integer from `buf` at the specified `offset`.",
+      "parameters": [
+        {
+          "name": "offset",
+          "summary": "Number of bytes to skip before starting to read. Must satisfy `0 <= offset <= buf.length - 4`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "optional": true,
+          "default": "0"
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "readInt32LE",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Reads a signed 32-bit, little-endian integer from `buf` at the specified `offset`.",
+      "parameters": [
+        {
+          "name": "offset",
+          "summary": "Number of bytes to skip before starting to read. Must satisfy `0 <= offset <= buf.length - 4`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "optional": true,
+          "default": "0"
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "readInt8",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Reads a signed 8-bit integer from `buf` at the specified `offset`.\n\nIntegers read from a Buffer are interpreted as two's complement signed values.\n",
+      "parameters": [
+        {
+          "name": "offset",
+          "summary": "Number of bytes to skip before starting to read. Must satisfy `0 <= offset <= buf.length - 1`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "optional": true,
+          "default": "0"
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "readIntBE",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Reads `byteLength` number of bytes from `buf` at the specified `offset` and interprets the result as a big-endian, two's complement signed value supporting up to 48 bits of accuracy.",
+      "parameters": [
+        {
+          "name": "offset",
+          "summary": "Number of bytes to skip before starting to read. Must satisfy `0 <= offset <= buf.length - byteLength`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "byteLength",
+          "summary": "Number of bytes to read. Must satisfy `0 < byteLength <= 6`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "readIntLE",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Reads `byteLength` number of bytes from `buf` at the specified `offset` and interprets the result as a little-endian, two's complement signed value supporting up to 48 bits of accuracy.",
+      "parameters": [
+        {
+          "name": "offset",
+          "summary": "Number of bytes to skip before starting to read. Must satisfy `0 <= offset <= buf.length - byteLength`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "byteLength",
+          "summary": "Number of bytes to read. Must satisfy `0 < byteLength <= 6`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "readUInt16BE",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Reads an unsigned 16-bit, big-endian integer from `buf` at the specified `offset`.",
+      "parameters": [
+        {
+          "name": "offset",
+          "summary": "Number of bytes to skip before starting to read. Must satisfy `0 <= offset <= buf.length - 2`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "optional": true,
+          "default": "0"
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "readUInt16LE",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Reads an unsigned 16-bit, little-endian integer from `buf` at the specified `offset`.",
+      "parameters": [
+        {
+          "name": "offset",
+          "summary": "Number of bytes to skip before starting to read. Must satisfy `0 <= offset <= buf.length - 2`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "optional": true,
+          "default": "0"
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "readUInt32BE",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Reads an unsigned 32-bit, big-endian integer from `buf` at the specified `offset`.",
+      "parameters": [
+        {
+          "name": "offset",
+          "summary": "Number of bytes to skip before starting to read. Must satisfy `0 <= offset <= buf.length - 4`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "optional": true,
+          "default": "0"
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "readUInt32LE",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Reads an unsigned 32-bit, little-endian integer from `buf` at the specified `offset`.",
+      "parameters": [
+        {
+          "name": "offset",
+          "summary": "Number of bytes to skip before starting to read. Must satisfy `0 <= offset <= buf.length - 4`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "optional": true,
+          "default": "0"
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "readUInt8",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Reads an unsigned 8-bit integer from `buf` at the specified `offset`.",
+      "parameters": [
+        {
+          "name": "offset",
+          "summary": "Number of bytes to skip before starting to read. Must satisfy `0 <= offset <= buf.length - 1`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "optional": true,
+          "default": "0"
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "readUIntBE",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Reads `byteLength` number of bytes from `buf` at the specified `offset` and interprets the result as an unsigned big-endian value supporting up to 48 bits of accuracy.",
+      "parameters": [
+        {
+          "name": "offset",
+          "summary": "Number of bytes to skip before starting to read. Must satisfy `0 <= offset <= buf.length - byteLength`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "byteLength",
+          "summary": "Number of bytes to read. Must satisfy `0 < byteLength <= 6`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "readUIntLE",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Reads `byteLength` number of bytes from `buf` at the specified `offset` and interprets the result as an unsigned little-endian value supporting up to 48 bits of accuracy.",
+      "parameters": [
+        {
+          "name": "offset",
+          "summary": "Number of bytes to skip before starting to read. Must satisfy `0 <= offset <= buf.length - byteLength`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "byteLength",
+          "summary": "Number of bytes to read. Must satisfy `0 < byteLength <= 6`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "slice",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Returns a new `Buffer` that references the same memory as the original, but offset and cropped by the `start` and `end` indices.",
+      "parameters": [
+        {
+          "name": "start",
+          "summary": "here the new Buffer will start.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "optional": true,
+          "default": "0"
+        },
+        {
+          "name": "end",
+          "summary": "Where the new Buffer will end (not inclusive).",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "optional": true,
+          "default": "`buf.length`"
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "buffer.Buffer"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "subarray",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Returns a new `Buffer` that references the same memory as the original, but offset and cropped by the `start` and `end` indices.",
+      "parameters": [
+        {
+          "name": "start",
+          "summary": "here the new Buffer will start.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "optional": true,
+          "default": "0"
+        },
+        {
+          "name": "end",
+          "summary": "Where the new Buffer will end (not inclusive).",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "optional": true,
+          "default": "`buf.length`"
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "buffer.Buffer"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "swap16",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Interprets `buf` as an array of unsigned 16-bit integers and swaps the byte order *in-place*.",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "buffer.Buffer"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "swap32",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Interprets `buf` as an array of unsigned 32-bit integers and swaps the byte order *in-place*.",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "buffer.Buffer"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "swap64",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Interprets `buf` as an array of unsigned 64-bit integers and swaps the byte order *in-place*.",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "buffer.Buffer"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "toJSON",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Returns a JSON representation of `buf`. `JSON.stringify()` implicitly calls this function when stringifying a `Buffer` instance.",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Object"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "toString",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Decodes `buf` to a string according to the specified character encoding in `encoding`. `start` and `end` may be passed to decode only a subset of `buf`.",
+      "parameters": [
+        {
+          "name": "encoding",
+          "summary": "The character encoding to use.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ],
+          "optional": true,
+          "default": "`'utf8'`"
+        },
+        {
+          "name": "start",
+          "summary": "The byte offset to start decoding at.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "optional": true,
+          "default": "0"
+        },
+        {
+          "name": "end",
+          "summary": "The byte offset to stop decoding at (not inclusive).",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "optional": true,
+          "default": "`buf.length`"
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "values",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Creates and returns an [iterator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterator_protocol) for `buf` values (bytes). This function is called automatically when a `Buffer` is used in a `for..of` statement.",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Object"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "write",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Writes `string` to `buf` at `offset` according to the character encoding in `encoding`. The `length` parameter is the number of bytes to write. If `buf` did not contain enough space to fit the entire string, only part of `string` will be written. However, partially encoded characters will not be written.",
+      "parameters": [
+        {
+          "name": "string",
+          "summary": "String to write to `buf`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "offset",
+          "summary": "Number of bytes to skip before starting to write string.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "optional": true,
+          "default": "0"
+        },
+        {
+          "name": "length",
+          "summary": "Maximum number of bytes to write (written bytes will not exceed buf.length - offset).",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "optional": true,
+          "default": "`buf.length - offset`."
+        },
+        {
+          "name": "encoding",
+          "summary": "The character encoding of string.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ],
+          "optional": true,
+          "default": "utf8"
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "summary": "Number of bytes written."
+        }
+      ]
+    },
+    {
+      "name": "writeDoubleBE",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Writes `value` to `buf` at the specified `offset` as big-endian. The `value` must be a JavaScript number. Behavior is undefined when `value` is anything other than a JavaScript number.",
+      "parameters": [
+        {
+          "name": "value",
+          "summary": "Number to be written to `buf`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "offset",
+          "summary": "Number of bytes to skip before starting to write. Must satisfy `0 <= offset <= buf.length - 8`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "optional": true,
+          "default": "0"
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "summary": "`offset` plus the number of bytes written."
+        }
+      ]
+    },
+    {
+      "name": "writeDoubleLE",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Writes `value` to `buf` at the specified `offset` as little-endian. The `value` must be a JavaScript number. Behavior is undefined when `value` is anything other than a JavaScript number.",
+      "parameters": [
+        {
+          "name": "value",
+          "summary": "Number to be written to `buf`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "offset",
+          "summary": "Number of bytes to skip before starting to write. Must satisfy `0 <= offset <= buf.length - 8`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "optional": true,
+          "default": "0"
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "summary": "`offset` plus the number of bytes written."
+        }
+      ]
+    },
+    {
+      "name": "writeFloatBE",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Writes `value` to `buf` at the specified `offset` as big-endian. The `value` must be a JavaScript number. Behavior is undefined when `value` is anything other than a JavaScript number.",
+      "parameters": [
+        {
+          "name": "value",
+          "summary": "Number to be written to `buf`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "offset",
+          "summary": "Number of bytes to skip before starting to write. Must satisfy `0 <= offset <= buf.length - 4`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "optional": true,
+          "default": "0"
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "summary": "`offset` plus the number of bytes written."
+        }
+      ]
+    },
+    {
+      "name": "writeFloatLE",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Writes `value` to `buf` at the specified `offset` as little-endian. The `value` must be a JavaScript number. Behavior is undefined when `value` is anything other than a JavaScript number.",
+      "parameters": [
+        {
+          "name": "value",
+          "summary": "Number to be written to `buf`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "offset",
+          "summary": "Number of bytes to skip before starting to write. Must satisfy `0 <= offset <= buf.length - 4`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "optional": true,
+          "default": "0"
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "summary": "`offset` plus the number of bytes written."
+        }
+      ]
+    },
+    {
+      "name": "writeInt16BE",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Writes `value` to `buf` at the specified `offset`. `value` must be a valid signed 16-bit integer. Behavior is undefined when `value` is anything other than a signed 16-bit integer.\n\n`value` is interpreted and written as a two's complement signed integer.\n",
+      "parameters": [
+        {
+          "name": "value",
+          "summary": "Number to be written to `buf`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "offset",
+          "summary": "Number of bytes to skip before starting to write. Must satisfy `0 <= offset <= buf.length - 2`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "optional": true,
+          "default": "0"
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "summary": "`offset` plus the number of bytes written."
+        }
+      ]
+    },
+    {
+      "name": "writeInt16LE",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Writes `value` to `buf` at the specified `offset`. `value` must be a valid signed 16-bit integer. Behavior is undefined when `value` is anything other than a signed 16-bit integer.\n\n`value` is interpreted and written as a two's complement signed integer.\n",
+      "parameters": [
+        {
+          "name": "value",
+          "summary": "Number to be written to `buf`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "offset",
+          "summary": "Number of bytes to skip before starting to write. Must satisfy `0 <= offset <= buf.length - 2`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "optional": true,
+          "default": "0"
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "summary": "`offset` plus the number of bytes written."
+        }
+      ]
+    },
+    {
+      "name": "writeInt32BE",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Writes `value` to `buf` at the specified `offset`. `value` must be a valid signed 32-bit integer. Behavior is undefined when `value` is anything other than a signed 32-bit integer.\n\n`value` is interpreted and written as a two's complement signed integer.\n",
+      "parameters": [
+        {
+          "name": "value",
+          "summary": "Number to be written to `buf`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "offset",
+          "summary": "Number of bytes to skip before starting to write. Must satisfy `0 <= offset <= buf.length - 4`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "optional": true,
+          "default": "0"
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "summary": "`offset` plus the number of bytes written."
+        }
+      ]
+    },
+    {
+      "name": "writeInt32LE",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Writes `value` to `buf` at the specified `offset`. `value` must be a valid signed 32-bit integer. Behavior is undefined when `value` is anything other than a signed 32-bit integer.\n\n`value` is interpreted and written as a two's complement signed integer.\n",
+      "parameters": [
+        {
+          "name": "value",
+          "summary": "Number to be written to `buf`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "offset",
+          "summary": "Number of bytes to skip before starting to write. Must satisfy `0 <= offset <= buf.length - 4`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "optional": true,
+          "default": "0"
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "summary": "`offset` plus the number of bytes written."
+        }
+      ]
+    },
+    {
+      "name": "writeInt8",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Writes `value` to `buf` at the specified `offset`. `value` must be a valid signed 8-bit integer. Behavior is undefined when `value` is anything other than a signed 8-bit integer.\n\n`value` is interpreted and written as a two's complement signed integer.\n",
+      "parameters": [
+        {
+          "name": "value",
+          "summary": "Number to be written to `buf`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "offset",
+          "summary": "Number of bytes to skip before starting to write. Must satisfy `0 <= offset <= buf.length - 1`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "optional": true,
+          "default": "0"
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "summary": "`offset` plus the number of bytes written."
+        }
+      ]
+    },
+    {
+      "name": "writeIntBE",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Writes `byteLength` bytes of `value` to `buf` at the specified `offset` as big-endian. Supports up to 48 bits of accuracy. Behavior is undefined when `value` is anything other than a signed integer.",
+      "parameters": [
+        {
+          "name": "value",
+          "summary": "Number to be written to `buf`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "offset",
+          "summary": "Number of bytes to skip before starting to write. Must satisfy `0 <= offset <= buf.length - byteLength`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "byteLength",
+          "summary": "Number of bytes to write. Must satisfy `0 < byteLength <= 6`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "summary": "`offset` plus the number of bytes written."
+        }
+      ]
+    },
+    {
+      "name": "writeIntLE",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Writes `byteLength` bytes of `value` to `buf` at the specified `offset` as little-endian. Supports up to 48 bits of accuracy. Behavior is undefined when `value` is anything other than a signed integer.",
+      "parameters": [
+        {
+          "name": "value",
+          "summary": "Number to be written to `buf`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "offset",
+          "summary": "Number of bytes to skip before starting to write. Must satisfy `0 <= offset <= buf.length - byteLength`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "byteLength",
+          "summary": "Number of bytes to write. Must satisfy `0 < byteLength <= 6`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "summary": "`offset` plus the number of bytes written."
+        }
+      ]
+    },
+    {
+      "name": "writeUInt16BE",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Writes `value` to `buf` at the specified `offset`. `value` must be a valid unsigned 16-bit integer. Behavior is undefined when `value` is anything other than an unsigned 16-bit integer.",
+      "parameters": [
+        {
+          "name": "value",
+          "summary": "Number to be written to `buf`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "offset",
+          "summary": "Number of bytes to skip before starting to write. Must satisfy `0 <= offset <= buf.length - 2`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "optional": true,
+          "default": "0"
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "summary": "`offset` plus the number of bytes written."
+        }
+      ]
+    },
+    {
+      "name": "writeUInt16LE",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Writes `value` to `buf` at the specified `offset`. `value` must be a valid unsigned 16-bit integer. Behavior is undefined when `value` is anything other than an unsigned 16-bit integer.",
+      "parameters": [
+        {
+          "name": "value",
+          "summary": "Number to be written to `buf`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "offset",
+          "summary": "Number of bytes to skip before starting to write. Must satisfy `0 <= offset <= buf.length - 2`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "optional": true,
+          "default": "0"
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "summary": "`offset` plus the number of bytes written."
+        }
+      ]
+    },
+    {
+      "name": "writeUInt32BE",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Writes `value` to `buf` at the specified `offset`. `value` must be a valid unsigned 32-bit integer. Behavior is undefined when `value` is anything other than an unsigned 32-bit integer.",
+      "parameters": [
+        {
+          "name": "value",
+          "summary": "Number to be written to `buf`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "offset",
+          "summary": "Number of bytes to skip before starting to write. Must satisfy `0 <= offset <= buf.length - 4`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "optional": true,
+          "default": "0"
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "summary": "`offset` plus the number of bytes written."
+        }
+      ]
+    },
+    {
+      "name": "writeUInt32LE",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Writes `value` to `buf` at the specified `offset`. `value` must be a valid unsigned 32-bit integer. Behavior is undefined when `value` is anything other than an unsigned 32-bit integer.",
+      "parameters": [
+        {
+          "name": "value",
+          "summary": "Number to be written to `buf`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "offset",
+          "summary": "Number of bytes to skip before starting to write. Must satisfy `0 <= offset <= buf.length - 4`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "optional": true,
+          "default": "0"
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "summary": "`offset` plus the number of bytes written."
+        }
+      ]
+    },
+    {
+      "name": "writeUInt8",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Writes `value` to `buf` at the specified `offset`. `value` must be a valid unsigned 8-bit integer. Behavior is undefined when `value` is anything other than an unsigned 8-bit integer.",
+      "parameters": [
+        {
+          "name": "value",
+          "summary": "Number to be written to `buf`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "offset",
+          "summary": "Number of bytes to skip before starting to write. Must satisfy `0 <= offset <= buf.length - 1`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "optional": true,
+          "default": "0"
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "summary": "`offset` plus the number of bytes written."
+        }
+      ]
+    },
+    {
+      "name": "writeUIntBE",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Writes `byteLength` bytes of `value` to `buf` at the specified `offset` as big-endian. Supports up to 48 bits of accuracy. Behavior is undefined when `value` is anything other than an unsigned integer.",
+      "parameters": [
+        {
+          "name": "value",
+          "summary": "Number to be written to `buf`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "offset",
+          "summary": "Number of bytes to skip before starting to write. Must satisfy `0 <= offset <= buf.length - byteLength`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "byteLength",
+          "summary": "Number of bytes to write. Must satisfy `0 < byteLength <= 6`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "summary": "`offset` plus the number of bytes written."
+        }
+      ]
+    },
+    {
+      "name": "writeUIntLE",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Writes `byteLength` bytes of `value` to `buf` at the specified `offset` as little-endian. Supports up to 48 bits of accuracy. Behavior is undefined when `value` is anything other than an unsigned integer.",
+      "parameters": [
+        {
+          "name": "value",
+          "summary": "Number to be written to `buf`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "offset",
+          "summary": "Number of bytes to skip before starting to write. Must satisfy `0 <= offset <= buf.length - byteLength`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "byteLength",
+          "summary": "Number of bytes to write. Must satisfy `0 < byteLength <= 6`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "summary": "`offset` plus the number of bytes written."
+        }
+      ]
+    }
+  ],
+  "events": [],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "references": [
+    "Titanium.Buffer"
+  ],
+  "source": "NodeJS/buffer.yml"
+}

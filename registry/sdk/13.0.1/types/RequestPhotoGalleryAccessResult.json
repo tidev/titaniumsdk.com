@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "name": "RequestPhotoGalleryAccessResult",
+  "kind": "pseudo",
+  "extends": "ErrorResponse",
+  "inheritanceChain": [
+    "ErrorResponse"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
+  "summary": "Argument passed to the callback when a request finishes successfully or erroneously.",
+  "properties": [],
+  "methods": [],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "code",
+        "from": "ErrorResponse",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "error",
+        "from": "ErrorResponse",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "success",
+        "from": "ErrorResponse",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      }
+    ],
+    "methods": [],
+    "events": []
+  },
+  "references": [
+    "ErrorResponse"
+  ],
+  "source": "Titanium/Media/Media.yml"
+}

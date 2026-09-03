@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "name": "Padding",
+  "kind": "pseudo",
+  "extends": "HorizontalInsets",
+  "inheritanceChain": [
+    "HorizontalInsets"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
+  "summary": "Dictionary object of parameters for the padding/insets applied to all kinds of views.",
+  "properties": [
+    {
+      "name": "bottom",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Bottom padding/inset",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "default": "0"
+    },
+    {
+      "name": "top",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Top padding/inset",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "default": "0"
+    }
+  ],
+  "methods": [],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "left",
+        "from": "HorizontalInsets",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "right",
+        "from": "HorizontalInsets",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      }
+    ],
+    "methods": [],
+    "events": []
+  },
+  "references": [
+    "HorizontalInsets"
+  ],
+  "source": "Titanium/UI/Padding.yml"
+}

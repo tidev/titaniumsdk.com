@@ -1,0 +1,1116 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.WatchSession",
+  "kind": "module",
+  "extends": "Titanium.Module",
+  "inheritanceChain": [
+    "Titanium.Module",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "iphone"
+  ],
+  "since": "5.0.0",
+  "summary": "Used to enable data and file transfers between a watchOS and iOS application.",
+  "description": "WatchSession enables data and file transfers between a WatchKit application and a Titanium application\nusing the iOS Watch Connectivity framework introduced in iOS 9 and watchOS 2.\n",
+  "properties": [
+    {
+      "name": "ACTIVATION_STATE_ACTIVATED",
+      "platforms": [
+        "iphone"
+      ],
+      "summary": "The watch is currently activated.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.4.0",
+      "permission": "read-only",
+      "osver": {
+        "ios": {
+          "min": "9.3"
+        }
+      }
+    },
+    {
+      "name": "ACTIVATION_STATE_INACTIVE",
+      "platforms": [
+        "iphone"
+      ],
+      "summary": "The watch is currently inactive.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.4.0",
+      "permission": "read-only",
+      "osver": {
+        "ios": {
+          "min": "9.3"
+        }
+      }
+    },
+    {
+      "name": "ACTIVATION_STATE_NOT_ACTIVATED",
+      "platforms": [
+        "iphone"
+      ],
+      "summary": "The watch is currently not activated.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.4.0",
+      "permission": "read-only",
+      "osver": {
+        "ios": {
+          "min": "9.3"
+        }
+      }
+    },
+    {
+      "name": "activationState",
+      "platforms": [
+        "iphone"
+      ],
+      "summary": "Returns the current activation state of the watch.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.4.0",
+      "permission": "read-only",
+      "osver": {
+        "ios": {
+          "min": "9.3"
+        }
+      },
+      "constants": [
+        "Titanium.WatchSession.ACTIVATION_STATE_ACTIVATED",
+        "Titanium.WatchSession.ACTIVATION_STATE_INACTIVE",
+        "Titanium.WatchSession.ACTIVATION_STATE_NOT_ACTIVATED"
+      ]
+    },
+    {
+      "name": "hasContentPending",
+      "platforms": [
+        "iphone"
+      ],
+      "summary": "Returns `true` if there is more content for the session to deliver.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "6.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "isActivated",
+      "platforms": [
+        "iphone"
+      ],
+      "summary": "Returns `true` if the watch is currently activated.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "5.4.0",
+      "permission": "read-only",
+      "osver": {
+        "ios": {
+          "min": "9.3"
+        }
+      }
+    },
+    {
+      "name": "isComplicationEnabled",
+      "platforms": [
+        "iphone"
+      ],
+      "summary": "Returns `true` if complication is enabled on the installed watch app.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "isPaired",
+      "platforms": [
+        "iphone"
+      ],
+      "summary": "Returns `true` if the device is paired with a watch.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "isReachable",
+      "platforms": [
+        "iphone"
+      ],
+      "summary": "Returns `true` if the watch is currently reachable.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "isSupported",
+      "platforms": [
+        "iphone"
+      ],
+      "summary": "Returns `true` if the device supports watch connectivity.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "isWatchAppInstalled",
+      "platforms": [
+        "iphone"
+      ],
+      "summary": "Returns `true` if the accompanying watch app is installed.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "recentApplicationContext",
+      "platforms": [
+        "iphone"
+      ],
+      "summary": "The most recent application context sent to the watch app.",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Dictionary"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "remainingComplicationUserInfoTransfers",
+      "platforms": [
+        "iphone"
+      ],
+      "summary": "The number of calls remaining to `transferCurrentComplication` before the system starts \ntransferring the complicationUserInfo as regular userInfos.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.0.0",
+      "permission": "read-only",
+      "default": "0"
+    }
+  ],
+  "methods": [
+    {
+      "name": "activateSession",
+      "platforms": [
+        "iphone"
+      ],
+      "summary": "Activates the watch session\n",
+      "description": "Activates the watch session to make the app ready to receive messages from the watch app.\n"
+    },
+    {
+      "name": "cancelAllFileTransfers",
+      "platforms": [
+        "iphone"
+      ],
+      "summary": "Cancels all incomplete file transfers to the Apple Watch.\n",
+      "description": "Cancels all incomplete file transfers to the Apple Watch.\n"
+    },
+    {
+      "name": "cancelAllTransfers",
+      "platforms": [
+        "iphone"
+      ],
+      "summary": "Cancels all incomplete transfers to the Apple Watch.\n",
+      "description": "Cancels all incomplete transfers to the Apple Watch, including user info, complication and file.\n"
+    },
+    {
+      "name": "cancelAllUserInfoTransfers",
+      "platforms": [
+        "iphone"
+      ],
+      "summary": "Cancels all incomplete user info and complication transfers to the Apple Watch.\n",
+      "description": "Cancels all incomplete user info and complication transfers to the Apple Watch.\n"
+    },
+    {
+      "name": "sendMessage",
+      "platforms": [
+        "iphone"
+      ],
+      "summary": "Sends a message to the Apple Watch.\n",
+      "description": "Sends a message to the installed watch app on the Apple Watch in the foreground. \n",
+      "parameters": [
+        {
+          "name": "message",
+          "summary": "Message to send to the Apple Watch. This property is required and the key of the dictionary \nneeds to be a String.\n",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Dictionary"
+            }
+          ]
+        },
+        {
+          "name": "reply",
+          "summary": "Function to be called upon receiving a reply from the watch app.\n\n**Since Release 5.1.0**\n\nThis function is used to process the direct reply from the watch app after sending one.\n",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Callback",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "MessageReply"
+                }
+              ]
+            }
+          ],
+          "optional": true,
+          "inlined": {
+            "name": "MessageReply",
+            "summary": "Reply message received from watch app.",
+            "properties": [
+              {
+                "name": "code",
+                "platforms": [
+                  "iphone"
+                ],
+                "summary": "Error code. Returns 0 if `success` is `true`.",
+                "description": "Error code will be 0 if `success` is `true`, nonzero otherwise. If the error\nwas generated by the operating system, that system's error value is used.\nOtherwise, this value will be -1.\n",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ]
+              },
+              {
+                "name": "error",
+                "platforms": [
+                  "iphone"
+                ],
+                "summary": "Error message, if any returned.",
+                "description": "Will be undefined if `success` is `true`.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  }
+                ]
+              },
+              {
+                "name": "message",
+                "platforms": [
+                  "iphone"
+                ],
+                "summary": "Reply message from watch app.",
+                "description": "Will be undefined if `success` is `false`.",
+                "type": [
+                  {
+                    "kind": "type",
+                    "name": "Dictionary"
+                  }
+                ]
+              },
+              {
+                "name": "success",
+                "platforms": [
+                  "iphone"
+                ],
+                "summary": "Indicates if the operation succeeded.",
+                "description": "Returns `true` if request succeeded, `false` otherwise.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Boolean"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "transferCurrentComplication",
+      "platforms": [
+        "iphone"
+      ],
+      "summary": "Transfers complication data to the watch application.\n",
+      "description": "Transfers complication data to the installed watch app. This is only for\nwatch apps with complications enabled.\n",
+      "parameters": [
+        {
+          "name": "params",
+          "summary": "Complication to be transferred to watch app.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Dictionary"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "transferFile",
+      "platforms": [
+        "iphone"
+      ],
+      "summary": "Transfers a file to the Apple Watch.\n",
+      "description": "Transfers a file to the installed watch app on the Apple Watch in the background. Subsequent\ntransfers are queued. \n",
+      "parameters": [
+        {
+          "name": "params",
+          "summary": "Pass an object with the following key-value pairs:\n\n  * `fileURL` (String) (required): Local filesystem path of file to send to the watch app.\n  * `metaData` (Dictionary) (optional): Additional information about the file to send to the watch app.\n",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Dictionary"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "transferUserInfo",
+      "platforms": [
+        "iphone"
+      ],
+      "summary": "Transfers an user info to the Apple Watch.\n",
+      "description": "Transfers an user info object to the installed watch app on the Apple Watch in the background.\nSubsequent transfers are queued. \n",
+      "parameters": [
+        {
+          "name": "params",
+          "summary": "userInfo to be transferred to the Apple Watch.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Dictionary"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "updateApplicationContext",
+      "platforms": [
+        "iphone"
+      ],
+      "summary": "Sends an app context update to the Apple Watch.\n",
+      "description": "Sends an app context update to the Apple Watch. If watch app is in background during transfer,\nwatch app will fire the [Titanium.WatchSession.receiveapplicationcontext](api:Titanium.WatchSession#receiveapplicationcontext) event immediately when \nit becomes active. Only one app context is stored at any one time. Subsequent updates will simply \nreplace the earlier one sent.\n",
+      "parameters": [
+        {
+          "name": "params",
+          "summary": "App context to be updated in the Apple Watch.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Dictionary"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "activationCompleted",
+      "platforms": [
+        "iphone"
+      ],
+      "summary": "Called when the session has completed activation. If session state is \n[Titanium.WatchSession.ACTIVATION_STATE_NOT_ACTIVATED](api:Titanium.WatchSession#ACTIVATION_STATE_NOT_ACTIVATED) there will be an error \nwith more details. \n",
+      "since": "5.4.0",
+      "osver": {
+        "ios": {
+          "min": "9.3"
+        }
+      },
+      "properties": [
+        {
+          "name": "isPaired",
+          "summary": "If the device is paired with the Apple Watch.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "isReachable",
+          "summary": "If the Apple Watch is currently reachable.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "isWatchAppInstalled",
+          "summary": "If the watch app is installed in the Apple Watch.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "isComplicationEnabled",
+          "summary": "If the complication is enabled in the Apple Watch.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "isActivated",
+          "summary": "If the Apple Watch is currently activated. Only available on iOS 9.3\nand later. See [Titanium.WatchSession.isActivated](api:Titanium.WatchSession#isActivated) for more infos.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "activationState",
+          "summary": "Returns the current activation state of the watch.  Only available on iOS 9.3\nand later. See [Titanium.WatchSession.activationState](api:Titanium.WatchSession#activationState) for more infos.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "deactivate",
+      "platforms": [
+        "iphone"
+      ],
+      "summary": "Called when all events for the previously selected watch has occurred. \nThe session can be re-activated for the now selected watch using activateSession.\n",
+      "since": "5.4.0",
+      "osver": {
+        "ios": {
+          "min": "9.3"
+        }
+      },
+      "properties": [
+        {
+          "name": "isPaired",
+          "summary": "If the device is paired with the Apple Watch.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "isReachable",
+          "summary": "If the Apple Watch is currently reachable.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "isWatchAppInstalled",
+          "summary": "If the watch app is installed in the Apple Watch.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "isComplicationEnabled",
+          "summary": "If the complication is enabled in the Apple Watch.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "isActivated",
+          "summary": "If the Apple Watch is currently activated. Only available on iOS 9.3\nand later. See [Titanium.WatchSession.isActivated](api:Titanium.WatchSession#isActivated) for more infos.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "hasContentPending",
+          "summary": "If the Apple Watch has currently content pending. Only available on iOS 10.0\nand later. See [Titanium.WatchSession.hasContentPending](api:Titanium.WatchSession#hasContentPending) for more infos.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "remainingComplicationUserInfoTransfers",
+          "summary": "If the Apple Watch has complication userInfo transfers left. Only available on iOS 10.0\nand later. See [Titanium.WatchSession.remainingComplicationUserInfoTransfers](api:Titanium.WatchSession#remainingComplicationUserInfoTransfers) for more infos.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "activationState",
+          "summary": "Returns the current activation state of the watch.  Only available on iOS 9.3\nand later. See [Titanium.WatchSession.activationState](api:Titanium.WatchSession#activationState) for more infos.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "finishfiletransfer",
+      "platforms": [
+        "iphone"
+      ],
+      "summary": "App completed file transfer to watch app.\n",
+      "properties": [
+        {
+          "name": "fileURL",
+          "summary": "URL of the file transferred.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "metaData",
+          "summary": "meta data of the file transferred.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Dictionary"
+            }
+          ]
+        },
+        {
+          "name": "success",
+          "summary": "If the transfer was successful.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "errorCode",
+          "summary": "Error code if transfer failed.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "message",
+          "summary": "Error message if any.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "finishuserinfotransfer",
+      "platforms": [
+        "iphone"
+      ],
+      "summary": "Fired when the application completed user info transfer to the watch app.\n",
+      "properties": [
+        {
+          "name": "userInfo",
+          "summary": "The downloaded data as a Titanium.Blob object.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Dictionary"
+            }
+          ]
+        },
+        {
+          "name": "success",
+          "summary": "If the transfer was successful.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "errorCode",
+          "summary": "Error code if transfer failed.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "message",
+          "summary": "Error message if any.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "inactive",
+      "platforms": [
+        "iphone"
+      ],
+      "summary": "Called when the session can no longer be used to modify or add any new transfers and, \nall interactive messages will be cancelled, but events for background transfers can still fire. \nThis will happen when the selected watch is being changed. \n",
+      "since": "5.4.0",
+      "osver": {
+        "ios": {
+          "min": "9.3"
+        }
+      },
+      "properties": [
+        {
+          "name": "isPaired",
+          "summary": "If the device is paired with the Apple Watch.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "isReachable",
+          "summary": "If the Apple Watch is currently reachable.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "isWatchAppInstalled",
+          "summary": "If the watch app is installed in the Apple Watch.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "isComplicationEnabled",
+          "summary": "If the complication is enabled in the Apple Watch.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "isActivated",
+          "summary": "If the Apple Watch is currently activated. Only available on iOS 9.3\nand later. See [Titanium.WatchSession.isActivated](api:Titanium.WatchSession#isActivated) for more infos.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "activationState",
+          "summary": "Returns the current activation state of the watch.  Only available on iOS 9.3\nand later. See [Titanium.WatchSession.activationState](api:Titanium.WatchSession#activationState) for more infos.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "reachabilitychanged",
+      "platforms": [
+        "iphone"
+      ],
+      "summary": "The watch reachability state has changed.\n",
+      "properties": [
+        {
+          "name": "isPaired",
+          "summary": "If the device is paired with the Apple Watch.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "isReachable",
+          "summary": "If the Apple Watch is currently reachable.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "isWatchAppInstalled",
+          "summary": "If the watch app is installed in the Apple Watch.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "isComplicationEnabled",
+          "summary": "If the complication is enabled in the Apple Watch.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "isActivated",
+          "summary": "If the Apple Watch is currently activated. Only available on iOS 9.3\nand later. See [Titanium.WatchSession.isActivated](api:Titanium.WatchSession#isActivated) for more infos.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "activationState",
+          "summary": "Returns the current activation state of the watch.  Only available on iOS 9.3\nand later. See [Titanium.WatchSession.activationState](api:Titanium.WatchSession#activationState) for more infos.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "receiveapplicationcontext",
+      "platforms": [
+        "iphone"
+      ],
+      "summary": "App received app context from Apple Watch. Will be called on startup if an applicationContext is available.\n",
+      "properties": [
+        {
+          "name": "applicationContext",
+          "summary": "The application Context",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Dictionary"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "receivefile",
+      "platforms": [
+        "iphone"
+      ],
+      "summary": "App received file from Apple Watch in background.\n",
+      "properties": [
+        {
+          "name": "data",
+          "summary": "The downloaded data as a Titanium.Blob object.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Blob"
+            }
+          ]
+        },
+        {
+          "name": "metaData",
+          "summary": "Information about the file.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Dictionary"
+            }
+          ]
+        },
+        {
+          "name": "success",
+          "summary": "If the transfer was successful.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "errorCode",
+          "summary": "Error code if transfer failed.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "message",
+          "summary": "Error message if any.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "receivemessage",
+      "platforms": [
+        "iphone"
+      ],
+      "summary": "App received message from Apple Watch in foreground. Will be called on startup if the \nincoming message caused the receiver to launch.\n",
+      "properties": [
+        {
+          "name": "message",
+          "summary": "The message content",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Dictionary"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "receiveuserinfo",
+      "platforms": [
+        "iphone"
+      ],
+      "summary": "App received user info from Apple Watch in background. Will be called on startup if the user info finished \ntransferring when the receiver was not running.\n",
+      "properties": [
+        {
+          "name": "userInfo",
+          "summary": "The user info content",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Dictionary"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "watchstatechanged",
+      "platforms": [
+        "iphone"
+      ],
+      "summary": "The watch state has changed.\n",
+      "properties": [
+        {
+          "name": "isPaired",
+          "summary": "If the device is paired with the Apple Watch.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "isReachable",
+          "summary": "If the Apple Watch is currently reachable.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "isWatchAppInstalled",
+          "summary": "If the watch app is installed in the Apple Watch.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "isComplicationEnabled",
+          "summary": "If the complication is enabled in the Apple Watch.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "isActivated",
+          "summary": "If the Apple Watch is currently activated. Only available on iOS 9.3\nand later. See [Titanium.WatchSession.isActivated](api:Titanium.WatchSession#isActivated) for more infos.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "activationState",
+          "summary": "Returns the current activation state of the watch.  Only available on iOS 9.3\nand later. See [Titanium.WatchSession.activationState](api:Titanium.WatchSession#activationState) for more infos.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone"
+        ]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone"
+        ]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone"
+        ]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone"
+        ]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone"
+        ]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone"
+        ]
+      }
+    ],
+    "events": []
+  },
+  "references": [
+    "Dictionary",
+    "MessageReply",
+    "Titanium.Blob",
+    "Titanium.Module"
+  ],
+  "source": "Titanium/WatchSession/WatchSession.yml"
+}

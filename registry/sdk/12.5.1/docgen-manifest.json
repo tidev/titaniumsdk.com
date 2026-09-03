@@ -1,0 +1,2981 @@
+{
+  "schemaVersion": 1,
+  "generator": "sha256:f73b817119547c471ad96e3567cda13cb6554eff1d5bdedfd9b7b60a79c24efd",
+  "generatedAt": "2026-09-03T05:58:25.797Z",
+  "sources": {
+    "Global/Console/Console.yml": {
+      "hash": "sha256:c8bfb6635f3164485285b18d9dd11c2a55a16a3013f8f9e6ee641515378f9ff2",
+      "types": [
+        "Global.Console"
+      ]
+    },
+    "Global/Global.yml": {
+      "hash": "sha256:7c40b15a6575c14a48c1ba679e47d07015e8439f443113c3efeeedf09dafe800",
+      "types": [
+        "Global"
+      ]
+    },
+    "Global/Intl/Collator.yml": {
+      "hash": "sha256:0568cb177a17dabfca8c4d2ea0e570bbde2a6e26cce2625032614eee9640b66e",
+      "types": [
+        "Global.Intl.Collator",
+        "CollatorOptions"
+      ]
+    },
+    "Global/Intl/DateTimeFormat.yml": {
+      "hash": "sha256:42dd442440867fa0a99a3236d09a3e05926efd929388f9b2c3d6c27ad660d591",
+      "types": [
+        "Global.Intl.DateTimeFormat",
+        "DateTimeFormatOptions",
+        "DateTimeFormattedPart"
+      ]
+    },
+    "Global/Intl/Intl.yml": {
+      "hash": "sha256:48d6f0a860c321d6b131b79a4d75781b5abfc138039625954db91fb94ad2bcfc",
+      "types": [
+        "Global.Intl"
+      ]
+    },
+    "Global/Intl/NumberFormat.yml": {
+      "hash": "sha256:230b1d5ba017784160b7a0d9263aafbd503cef76533647beb922942ca938998c",
+      "types": [
+        "Global.Intl.NumberFormat",
+        "NumberFormatOptions",
+        "NumberFormattedPart"
+      ]
+    },
+    "Global/String/String.yml": {
+      "hash": "sha256:5396592ec222068d0d0716260fd361156ec1defdf1efe24e45ad298e897aa68c",
+      "types": [
+        "Global.String"
+      ]
+    },
+    "Modules/Modules.yml": {
+      "hash": "sha256:adc1b0f1bda61091421e06f5ef1b422b504d9fca77a5c3439112fc16dbe55096",
+      "types": [
+        "Modules"
+      ]
+    },
+    "NodeJS/assert.yml": {
+      "hash": "sha256:dc308fcd025039f777ca8c7d961b4d071200f0b176f964a222091a70b2b8851f",
+      "types": [
+        "assert",
+        "assert.strict",
+        "assert.AssertionError",
+        "assert.AssertionError.options"
+      ]
+    },
+    "NodeJS/buffer.yml": {
+      "hash": "sha256:08afc06488cbeb4e92f475e78662f637d1b2eafe31279bb5e1da5b7abf8962b4",
+      "types": [
+        "buffer",
+        "buffer.Buffer"
+      ]
+    },
+    "NodeJS/events.yml": {
+      "hash": "sha256:bc8693a84e9848a8763a251a9e39b8831926796459666a5d5d30c7510c050abc",
+      "types": [
+        "events",
+        "EventEmitter"
+      ]
+    },
+    "NodeJS/fs.yml": {
+      "hash": "sha256:1eb02449c2161ab39c8b8344c28689bf5f677d241140a2c9d11f6d92828557a9",
+      "types": [
+        "fs",
+        "fs.constants",
+        "fs.Stats",
+        "fs.Dirent",
+        "fs.appendFile.options",
+        "fs.mkdir.options",
+        "fs.mkdtemp.options",
+        "fs.readdir.options",
+        "fs.readFile.options",
+        "fs.rm.options",
+        "fs.rmDir.options",
+        "fs.stat.options",
+        "fs.writeFile.options",
+        "fs.WriteStream",
+        "fs.ReadStream"
+      ]
+    },
+    "NodeJS/os.yml": {
+      "hash": "sha256:8d9abe5281a86bf0c33173378dc1090c4b8b68d99cd0506442b550c88cb31b44",
+      "types": [
+        "os",
+        "os.constants",
+        "os.constants.priority",
+        "CPUInfo",
+        "CPUInfoTimes",
+        "OSUserInfo",
+        "EncodingOptions"
+      ]
+    },
+    "NodeJS/path.yml": {
+      "hash": "sha256:a7fb9b7ba3d317879130e2ea8050f26a2231c8ca314f77b417e4a78aec9774b5",
+      "types": [
+        "path",
+        "PathObject"
+      ]
+    },
+    "NodeJS/process.yml": {
+      "hash": "sha256:9586aec62c79cc5e58fb55821b294282693d58d05acdd6917a7ea7bfa539e45b",
+      "types": [
+        "process",
+        "EmitWarningOptions"
+      ]
+    },
+    "NodeJS/string_decoder.yml": {
+      "hash": "sha256:33492866b3da889be936acc6400161be9a50d308cec3a9e52e23cd489c00cc28",
+      "types": [
+        "string_decoder",
+        "StringDecoder"
+      ]
+    },
+    "NodeJS/util.yml": {
+      "hash": "sha256:1f04fb9011959869cba9e106b99a5dd66029ef42d251cdd59d32f0593c7348e9",
+      "types": [
+        "util",
+        "UtilInspectOptions",
+        "util.types"
+      ]
+    },
+    "Titanium/API/API.yml": {
+      "hash": "sha256:848220451549442b958f97ba02342de6d49387f0ba05ef44f85411f2e3895ddc",
+      "types": [
+        "Titanium.API"
+      ]
+    },
+    "Titanium/Accelerometer/Accelerometer.yml": {
+      "hash": "sha256:1d87fca3f3bb2beb66fcc310a0c7023a66481a1fdaa1f34709d85674eba59ad2",
+      "types": [
+        "Titanium.Accelerometer"
+      ]
+    },
+    "Titanium/Android/ActionBar.yml": {
+      "hash": "sha256:14c69aece8475ef33918095daf938c0b5309316d09a66779eca696134df698fa",
+      "types": [
+        "Titanium.Android.ActionBar"
+      ]
+    },
+    "Titanium/Android/Activity.yml": {
+      "hash": "sha256:27c603ebf583d4efce22589f5a9b8df34714b9cf68c763d309648919bd00010b",
+      "types": [
+        "Titanium.Android.Activity",
+        "ActivityResult",
+        "ActivityLifecycleCallbackObject",
+        "OptionsMenuCallbackObject"
+      ]
+    },
+    "Titanium/Android/Android.yml": {
+      "hash": "sha256:9383ce827e15ae328c563cad946490507f79c37786bbafb53eb9cb3941e0c66f",
+      "types": [
+        "Titanium.Android",
+        "ServiceIntentOptions",
+        "RequestPermissionAccessResult"
+      ]
+    },
+    "Titanium/Android/BigPictureStyle.yml": {
+      "hash": "sha256:f518e693b2347544ce585dacf5e364a854a9250d865c9e92c3c31e41f1524f68",
+      "types": [
+        "Titanium.Android.BigPictureStyle"
+      ]
+    },
+    "Titanium/Android/BigTextStyle.yml": {
+      "hash": "sha256:85f5c3ca3a5c03dbce8b4a88290977089643fcb5944ee7beb91b6f9bd2806669",
+      "types": [
+        "Titanium.Android.BigTextStyle"
+      ]
+    },
+    "Titanium/Android/BroadcastReceiver.yml": {
+      "hash": "sha256:052b9544cc89b730563f5687f7af8624305043dc908cfa86db1216d34ebd4b55",
+      "types": [
+        "Titanium.Android.BroadcastReceiver"
+      ]
+    },
+    "Titanium/Android/Intent.yml": {
+      "hash": "sha256:b71c731885059adee4aa4e17787b00a0f284fce0aadfe06229afc5cd0366da0d",
+      "types": [
+        "Titanium.Android.Intent"
+      ]
+    },
+    "Titanium/Android/Menu.yml": {
+      "hash": "sha256:9ffe5254e9fe2a2a6d387dec6c8aa36e70475b7147b0b80825f39a4771854a05",
+      "types": [
+        "Titanium.Android.Menu"
+      ]
+    },
+    "Titanium/Android/MenuItem.yml": {
+      "hash": "sha256:bd285f36c48ca36df2016ae5d97dade896adfc41d9ec47fb0be6d71442f5a877",
+      "types": [
+        "Titanium.Android.MenuItem"
+      ]
+    },
+    "Titanium/Android/Notification.yml": {
+      "hash": "sha256:f6552287173ce5d38bf89b482ec9344d817ed6f56f3cb5a76eb5d8cb2ee8491d",
+      "types": [
+        "Titanium.Android.Notification",
+        "wakeLockOptions"
+      ]
+    },
+    "Titanium/Android/NotificationChannel.yml": {
+      "hash": "sha256:8c4b4dec11061549ab718a48bd600cf03251a8b2b0ce6fb2d8cbc304ec0d7bb0",
+      "types": [
+        "Titanium.Android.NotificationChannel"
+      ]
+    },
+    "Titanium/Android/NotificationManager/NotificationManager.yml": {
+      "hash": "sha256:9393ff59b359b172bd7d8f2263f80b0d477bb5bd1eca038d7fa64c7c73aef0bd",
+      "types": [
+        "Titanium.Android.NotificationManager",
+        "NotificationChannels"
+      ]
+    },
+    "Titanium/Android/PendingIntent.yml": {
+      "hash": "sha256:b0d2ab9461cc277a8450a2c5827f675be94232e5f8c9710452792b36f0438933",
+      "types": [
+        "Titanium.Android.PendingIntent"
+      ]
+    },
+    "Titanium/Android/QuickSettingsService.yml": {
+      "hash": "sha256:c97ac9ca95f1a59f60690a6ceaa5a0715c412fc7548470ffbd1e1af31bd63c6b",
+      "types": [
+        "Titanium.Android.QuickSettingsService",
+        "showParams"
+      ]
+    },
+    "Titanium/Android/R.yml": {
+      "hash": "sha256:19ca17f41e268c540fe73e9bc3fe95c519dd6115fba4822d0fdbddacfdd71df1",
+      "types": [
+        "Titanium.Android.R"
+      ]
+    },
+    "Titanium/Android/RemoteViews.yml": {
+      "hash": "sha256:bf297931120a6277b6a779992bc9d0b95bdd09bf7c71d85ddaa6c8fc04955fdd",
+      "types": [
+        "Titanium.Android.RemoteViews"
+      ]
+    },
+    "Titanium/Android/Service.yml": {
+      "hash": "sha256:b0c071299ecd3e600a91efd7a98140a02444cd1d799847432dd76ece4751b00c",
+      "types": [
+        "Titanium.Android.Service"
+      ]
+    },
+    "Titanium/App/Android/Android.yml": {
+      "hash": "sha256:1f49e421d9297d2c61fdaaf4c2c0d5d8243fcf65c1513e5fa11c14681195d71f",
+      "types": [
+        "Titanium.App.Android"
+      ]
+    },
+    "Titanium/App/App.yml": {
+      "hash": "sha256:1191977c36ebea8cce25b7d3d7447aaf308110b8461188e9a4e3785d560ca8ed",
+      "types": [
+        "Titanium.App",
+        "launchOptions"
+      ]
+    },
+    "Titanium/App/Properties/Properties.yml": {
+      "hash": "sha256:cbc11c4d58a9f94742efb9ece692b15c583d83903efb733e29b26646c0528df1",
+      "types": [
+        "Titanium.App.Properties"
+      ]
+    },
+    "Titanium/App/iOS/ActivityAttributes.yml": {
+      "hash": "sha256:2ffffd25e0baa4d9b1d6030a5c5c3a02f58ca3b08586ad634184977ea4f45ff6",
+      "types": [
+        "Titanium.App.iOS.ActivityAttributes"
+      ]
+    },
+    "Titanium/App/iOS/BackgroundService.yml": {
+      "hash": "sha256:e97ed6d08a37ffadf1f9ab23eb41a0b3a95a030f2c94447b5e83d1a69e98ae51",
+      "types": [
+        "Titanium.App.iOS.BackgroundService"
+      ]
+    },
+    "Titanium/App/iOS/LocalNotification.yml": {
+      "hash": "sha256:a40738bc0372162fcb22f4a7a285d9708a55d49ac0cd70a234cf4978e5c0a504",
+      "types": [
+        "Titanium.App.iOS.LocalNotification"
+      ]
+    },
+    "Titanium/App/iOS/SearchQuery.yml": {
+      "hash": "sha256:f0c28961c839f11b4d746e6ba9c2afc1353e36410152ad1f47e5b4d705977c8b",
+      "types": [
+        "Titanium.App.iOS.SearchQuery"
+      ]
+    },
+    "Titanium/App/iOS/SearchableIndex.yml": {
+      "hash": "sha256:5c1aafbbbed43afe5eab71c8dacbcec1ceb917a5742e804306d1acbc00f1032d",
+      "types": [
+        "Titanium.App.iOS.SearchableIndex"
+      ]
+    },
+    "Titanium/App/iOS/SearchableItem.yml": {
+      "hash": "sha256:3ef6062ad5cfdc07b5c2724ca99096fb30fc24453e978a9511b3a48d1135951f",
+      "types": [
+        "Titanium.App.iOS.SearchableItem"
+      ]
+    },
+    "Titanium/App/iOS/SearchableItemAttributeSet.yml": {
+      "hash": "sha256:6f599b98a7a2113ea2f8db9a5d72140aa0ac387376eca748cbe8b0f7fded9297",
+      "types": [
+        "Titanium.App.iOS.SearchableItemAttributeSet"
+      ]
+    },
+    "Titanium/App/iOS/UserActivity.yml": {
+      "hash": "sha256:4657f4fc5a6b684e06f908cce38f8409155cf64d3c2ef160cd885f08cb97522f",
+      "types": [
+        "Titanium.App.iOS.UserActivity"
+      ]
+    },
+    "Titanium/App/iOS/UserDefaults.yml": {
+      "hash": "sha256:1b9c1d6c604c2bc238c37665f344aa6dd7bd1f81d17cd3b2b3fbdd2d74fdb892",
+      "types": [
+        "Titanium.App.iOS.UserDefaults"
+      ]
+    },
+    "Titanium/App/iOS/UserNotificationAction.yml": {
+      "hash": "sha256:d72a3e20e4fa476e5ec321e2c121eaeb95ad5eec09ab14a6719d9b28f85cdee7",
+      "types": [
+        "Titanium.App.iOS.UserNotificationAction"
+      ]
+    },
+    "Titanium/App/iOS/UserNotificationCategory.yml": {
+      "hash": "sha256:00adece5746b182e639a0f544f3a695369b5b25742b75486314f6cc02527fe9f",
+      "types": [
+        "Titanium.App.iOS.UserNotificationCategory"
+      ]
+    },
+    "Titanium/App/iOS/UserNotificationCenter.yml": {
+      "hash": "sha256:ec149854f163a14b67faea89b177294b3451d0035b546eea865dfb6cf6b6c84c",
+      "types": [
+        "Titanium.App.iOS.UserNotificationCenter",
+        "UserNotificationCallbackResponse",
+        "UserNotificationDictionary",
+        "UserInfoDictionary",
+        "GetUserNotificationSettings"
+      ]
+    },
+    "Titanium/App/iOS/iOS.yml": {
+      "hash": "sha256:43a83510964b5b1d277c45ec1bede0295e446aecc88cb935f89eb4a064a779dd",
+      "types": [
+        "Titanium.App.iOS",
+        "NotificationParams",
+        "UserNotificationAttachment",
+        "LaunchOptionsType",
+        "UserNotificationSettings"
+      ]
+    },
+    "Titanium/Blob.yml": {
+      "hash": "sha256:cdcde70712297a47ffd8c5c7b58330c65147be999983ce966c4ab565ea11eff6",
+      "types": [
+        "Titanium.Blob"
+      ]
+    },
+    "Titanium/BlobStream.yml": {
+      "hash": "sha256:c4290688549dbb104238950e0ac15173f687ad358dbd4ff5e12dfefe3b8054cb",
+      "types": [
+        "Titanium.BlobStream"
+      ]
+    },
+    "Titanium/Buffer.yml": {
+      "hash": "sha256:24eed3927f24c58910c0c35a497b2cd8fc76bfd318ae5b3b6bd8bfb3d7e5b737",
+      "types": [
+        "Titanium.Buffer"
+      ]
+    },
+    "Titanium/BufferStream.yml": {
+      "hash": "sha256:3ee347de46143aaf541cd24430dc59a76e6da78f3dbbb270cd2b2b4dfbf48e66",
+      "types": [
+        "Titanium.BufferStream"
+      ]
+    },
+    "Titanium/Calendar/Alert.yml": {
+      "hash": "sha256:07cf5374801d5fb6115133c7be2520bba88b70b9911502c098453f17d6c61c99",
+      "types": [
+        "Titanium.Calendar.Alert"
+      ]
+    },
+    "Titanium/Calendar/Attendee.yml": {
+      "hash": "sha256:1f0812d58389329fb843632e6ac5592d570d25de2ea120e4c8ad1773a506c898",
+      "types": [
+        "Titanium.Calendar.Attendee"
+      ]
+    },
+    "Titanium/Calendar/Calendar.yml": {
+      "hash": "sha256:3032a70a11674db2db6bcabc44f0e8b1e38b70c9f5c19e832353850c39124f84",
+      "types": [
+        "Titanium.Calendar",
+        "EventsAuthorizationResponse"
+      ]
+    },
+    "Titanium/Calendar/CalendarProxy.yml": {
+      "hash": "sha256:b80e311d39e540beca2a68c036ae7a5dd11627f709337472c53b4082cceb774e",
+      "types": [
+        "Titanium.Calendar.Calendar"
+      ]
+    },
+    "Titanium/Calendar/Event.yml": {
+      "hash": "sha256:d56316ebe64275a0c2f1e81f8652983c62873d7fcce7d12a4b92faeac10858d7",
+      "types": [
+        "Titanium.Calendar.Event"
+      ]
+    },
+    "Titanium/Calendar/RecurrenceRule.yml": {
+      "hash": "sha256:e06b0d520b9a3135eb4bc676512cdcfc2fa07571e4f5c45f428bcf7f40c4135f",
+      "types": [
+        "Titanium.Calendar.RecurrenceRule",
+        "daysOfTheWeekDictionary",
+        "recurrenceEndDictionary"
+      ]
+    },
+    "Titanium/Calendar/Reminder.yml": {
+      "hash": "sha256:975531892695e229aa94f0798b1463e08fe327fe1213bc92cf34fa903e36051b",
+      "types": [
+        "Titanium.Calendar.Reminder"
+      ]
+    },
+    "Titanium/Codec/Codec.yml": {
+      "hash": "sha256:4523edf15fccc8d3c94efc84ff93edbbeb10898db71b39d4a445fab3fd06fafc",
+      "types": [
+        "Titanium.Codec",
+        "EncodeNumberDict",
+        "DecodeNumberDict",
+        "EncodeStringDict",
+        "DecodeStringDict"
+      ]
+    },
+    "Titanium/Contacts/Contacts.yml": {
+      "hash": "sha256:5cc058f7fe47d4baa072584c17dc3eeef4f4fe0bdd60dc0a4cf05314c728bc8c",
+      "types": [
+        "Titanium.Contacts",
+        "showContactsParams",
+        "ContactsAuthorizationResponse"
+      ]
+    },
+    "Titanium/Contacts/Group.yml": {
+      "hash": "sha256:ee0409a7022c5325bab31eee78aa3e925ff53333db3acbb2400e7f067f73b3d2",
+      "types": [
+        "Titanium.Contacts.Group"
+      ]
+    },
+    "Titanium/Contacts/Person.yml": {
+      "hash": "sha256:3879c29e902a8fc1c8935c3a7719dca74dd99e6be33e03cac50bccd3a5fa3bc7",
+      "types": [
+        "Titanium.Contacts.Person"
+      ]
+    },
+    "Titanium/Database/DB.yml": {
+      "hash": "sha256:4d407a25f0778b121fa00d2ab9b9c95c22c394f0caaee1b122651a48b010f2c8",
+      "types": [
+        "Titanium.Database.DB",
+        "BatchQueryError",
+        "PossibleBatchQueryError"
+      ]
+    },
+    "Titanium/Database/Database.yml": {
+      "hash": "sha256:3a2453c8e8ee45c47814352f0819cf4602a77fe57c7d857e647d5b16ef325267",
+      "types": [
+        "Titanium.Database"
+      ]
+    },
+    "Titanium/Database/ResultSet.yml": {
+      "hash": "sha256:35a0a7f05d3a72d3513a912c4493e03ec1c442480a564340395ae353f7887bbd",
+      "types": [
+        "Titanium.Database.ResultSet"
+      ]
+    },
+    "Titanium/ErrorResponse.yml": {
+      "hash": "sha256:0d8248742b90d321e951d50748e51aab7022b220c9fd0e94f6af44f9c109cb27",
+      "types": [
+        "ErrorResponse",
+        "SuccessResponse",
+        "FailureResponse"
+      ]
+    },
+    "Titanium/Event.yml": {
+      "hash": "sha256:a835f54fc611b60d14a7e23262b8742e5478f733dffc3d46a8ea2daa23f0e648",
+      "types": [
+        "Titanium.Event"
+      ]
+    },
+    "Titanium/Filesystem/File.yml": {
+      "hash": "sha256:7166d6f3db83d3bd56b737ca18afcaab200b083ffbf7361f763bac3fbe9d3762",
+      "types": [
+        "Titanium.Filesystem.File"
+      ]
+    },
+    "Titanium/Filesystem/FileStream.yml": {
+      "hash": "sha256:908d15c975c5a695bee4cc96949f79e5ae5b36bb70facfbbaaaeb0da251995d6",
+      "types": [
+        "Titanium.Filesystem.FileStream"
+      ]
+    },
+    "Titanium/Filesystem/Filesystem.yml": {
+      "hash": "sha256:6147fb822df3264c9ef9ddd0adc0b0eeb984dc05c1e76f0a2482d9b7630e85ac",
+      "types": [
+        "Titanium.Filesystem",
+        "RequestStorageAccessResult"
+      ]
+    },
+    "Titanium/Geolocation/Android/Android.yml": {
+      "hash": "sha256:2f4f0ae5decd902834b4eb701f4ffbfaa563c46a00656839dc04926be36a003f",
+      "types": [
+        "Titanium.Geolocation.Android"
+      ]
+    },
+    "Titanium/Geolocation/Android/LocationProvider.yml": {
+      "hash": "sha256:e739bd6797bcea73b128dd6dc9c545c52642e8ff559c248e733362258223f825",
+      "types": [
+        "Titanium.Geolocation.Android.LocationProvider"
+      ]
+    },
+    "Titanium/Geolocation/Android/LocationRule.yml": {
+      "hash": "sha256:5aa1a4688d53f5a64c4adaaa924e7ba9758a8ffe1195d7359f6b8e2f621b6d34",
+      "types": [
+        "Titanium.Geolocation.Android.LocationRule"
+      ]
+    },
+    "Titanium/Geolocation/Geolocation.yml": {
+      "hash": "sha256:3ef6c657663705daedf974c290b7e94d8bc809c3b4bba22c9c07d28a18f78a32",
+      "types": [
+        "Titanium.Geolocation",
+        "LocationResults",
+        "LocationCoordinates",
+        "LocationCoordinatesFloor",
+        "ForwardGeocodeResponse",
+        "HeadingResponse",
+        "HeadingData",
+        "LocationProviderDict",
+        "ReverseGeocodeResponse",
+        "GeocodedAddress",
+        "LocationAuthorizationResponse",
+        "LocationAccuracyAuthorizationResponse"
+      ]
+    },
+    "Titanium/Gesture/Gesture.yml": {
+      "hash": "sha256:b9c878a0aa0c776157878883ec71f124e3644166cb2e99aa5e256f91f3ef1fe5",
+      "types": [
+        "Titanium.Gesture"
+      ]
+    },
+    "Titanium/IOStream.yml": {
+      "hash": "sha256:105486bcaec66b85c898f50aa82ff6122767dc9f27426c35cf84bb6a0ab57201",
+      "types": [
+        "Titanium.IOStream"
+      ]
+    },
+    "Titanium/Locale/Locale.yml": {
+      "hash": "sha256:c472ef4295614424196c612bd2c607a445b6737fcc77c9a75055afdff42a04b3",
+      "types": [
+        "Titanium.Locale"
+      ]
+    },
+    "Titanium/Media/Android/Android.yml": {
+      "hash": "sha256:2c8a8b97fd64818330e93b758b643fbe82f750b0cb4cfe55e22b220711af2503",
+      "types": [
+        "Titanium.Media.Android",
+        "MediaScannerResponse"
+      ]
+    },
+    "Titanium/Media/AudioPlayer.yml": {
+      "hash": "sha256:2997c6087b494bf45789a84797d40218bed2f7f5a102bf8d133d64a4a57df7c4",
+      "types": [
+        "Titanium.Media.AudioPlayer",
+        "TiMetadataItemType"
+      ]
+    },
+    "Titanium/Media/AudioRecorder.yml": {
+      "hash": "sha256:b7cb7347c95bb6ea0b04638e93669be12830633776a7b79d7bbdbd83a8e3a6fd",
+      "types": [
+        "Titanium.Media.AudioRecorder"
+      ]
+    },
+    "Titanium/Media/Item.yml": {
+      "hash": "sha256:12d891e62178ce2a65f65408a79fb9afbed5bc1946d688e15a59e2e924328e98",
+      "types": [
+        "Titanium.Media.Item"
+      ]
+    },
+    "Titanium/Media/Media.yml": {
+      "hash": "sha256:57ea0cd131493f8c5e2077825d42dca4a9a4908936dd21022f9f8a7f918d6063",
+      "types": [
+        "Titanium.Media",
+        "MusicLibraryOptionsType",
+        "MusicLibraryResponseType",
+        "MediaQueryType",
+        "MediaQueryInfoType",
+        "CameraOptionsType",
+        "PhotoGalleryOptionsType",
+        "CameraMediaMultipleItemsType",
+        "CameraMediaItemType",
+        "CameraOpen",
+        "PreviewImageOptions",
+        "PreviewImageError",
+        "ScreenshotResult",
+        "MediaAuthorizationResponse",
+        "RequestCameraAccessResult",
+        "RequestMusicLibraryAccessResult",
+        "RequestPhotoGalleryAccessResult",
+        "RouteDescription",
+        "CameraRecordingCallback"
+      ]
+    },
+    "Titanium/Media/MusicPlayer.yml": {
+      "hash": "sha256:0940550bfde8a40cff2ea6e160bffd84ee53c0fe4719ae66c8354b7e6064dd15",
+      "types": [
+        "Titanium.Media.MusicPlayer"
+      ]
+    },
+    "Titanium/Media/Sound.yml": {
+      "hash": "sha256:ceb49327c93e2c8a8857fadccbc3e65dfbec68448e7bc827598f4b8125801f5e",
+      "types": [
+        "Titanium.Media.Sound"
+      ]
+    },
+    "Titanium/Media/SystemAlert.yml": {
+      "hash": "sha256:9743e4144794f3fb6e4cdc50f218cc5472d3a8ef5ea6389da7d7b38227bef038",
+      "types": [
+        "Titanium.Media.SystemAlert"
+      ]
+    },
+    "Titanium/Media/VideoPlayer.yml": {
+      "hash": "sha256:1059a02c3bbbf68a3a92cc9ef57a005adf5e39a014b6b20cced19c1d03143da2",
+      "types": [
+        "Titanium.Media.VideoPlayer",
+        "ThumbnailResponse",
+        "MovieSize",
+        "FairPlayConfiguration"
+      ]
+    },
+    "Titanium/Module.yml": {
+      "hash": "sha256:27e07cddbabc1bfbe04329f2974db4c9913456f944dca73ccffba7ea998094d0",
+      "types": [
+        "Titanium.Module"
+      ]
+    },
+    "Titanium/Network/BonjourBrowser.yml": {
+      "hash": "sha256:ea7d1cfbc9f6f042a45c930503c8a19e175d7b3d650ef7790f6f059ac679eab1",
+      "types": [
+        "Titanium.Network.BonjourBrowser"
+      ]
+    },
+    "Titanium/Network/BonjourService.yml": {
+      "hash": "sha256:98fcfe4026b8f7c5de16fb2cb9fb55dc6ee534dcd405c654f9108f7e7b394d3a",
+      "types": [
+        "Titanium.Network.BonjourService"
+      ]
+    },
+    "Titanium/Network/Cookie.yml": {
+      "hash": "sha256:72c65961f5932e4ec27b5d664229a66cac81558166b35eff1e402c0788d75b1f",
+      "types": [
+        "Titanium.Network.Cookie"
+      ]
+    },
+    "Titanium/Network/HTTPClient.yml": {
+      "hash": "sha256:eeae07a267740fcbc6dfcbff7e06668ec41f394771aa5877da83ccb0cf7298fc",
+      "types": [
+        "Titanium.Network.HTTPClient",
+        "SecurityManagerProtocol",
+        "APSConnectionDelegate",
+        "ReadyStatePayload"
+      ]
+    },
+    "Titanium/Network/Network.yml": {
+      "hash": "sha256:89ffa258ef3ba17c5b4160b485c2e070041c19407c8e4db7f5a63fe8ee30ae94",
+      "types": [
+        "Titanium.Network",
+        "PushNotificationConfig",
+        "PushNotificationSuccessArg",
+        "PushNotificationErrorArg",
+        "PushNotificationData"
+      ]
+    },
+    "Titanium/Network/Socket/Socket.yml": {
+      "hash": "sha256:69704a50b9ef255dd5357774a57d29e06284fcb9e930e0311fed828b11447498",
+      "types": [
+        "Titanium.Network.Socket"
+      ]
+    },
+    "Titanium/Network/Socket/TCP.yml": {
+      "hash": "sha256:8278c497b1b5d1fc4e2ecd1493290010c65ea4e8193354df287476eef610a5de",
+      "types": [
+        "Titanium.Network.Socket.TCP",
+        "ConnectedCallbackArgs",
+        "ErrorCallbackArgs",
+        "AcceptedCallbackArgs",
+        "AcceptDict"
+      ]
+    },
+    "Titanium/Network/TCPSocket.yml": {
+      "hash": "sha256:bdb63ec3ab85e399de58d4508358026f99185ef232dda2147c23c34692a92577",
+      "types": [
+        "Titanium.Network.TCPSocket"
+      ]
+    },
+    "Titanium/Platform/Android/Android.yml": {
+      "hash": "sha256:9cb5480c3913fd5add234a4bb5bc5b3c28fe5895ce1175b8f72efdf3a1648b5a",
+      "types": [
+        "Titanium.Platform.Android"
+      ]
+    },
+    "Titanium/Platform/DisplayCaps.yml": {
+      "hash": "sha256:ee232bf2ea57af57701201e1dfa00ccd94255bf357e6d1640de6cecea27670f7",
+      "types": [
+        "Titanium.Platform.DisplayCaps"
+      ]
+    },
+    "Titanium/Platform/Platform.yml": {
+      "hash": "sha256:85eb177728a33355984faee6b4d115dec8c9f1cd008554108194d87ec8dfb54b",
+      "types": [
+        "Titanium.Platform",
+        "CPU",
+        "CPUTimes",
+        "OpenURLOptions"
+      ]
+    },
+    "Titanium/Proxy.yml": {
+      "hash": "sha256:118a61456a44dea06815579577260d299db7c2a2f0346c36925b88edbdf80c59",
+      "types": [
+        "Titanium.Proxy"
+      ]
+    },
+    "Titanium/Stream/Stream.yml": {
+      "hash": "sha256:880ed9b3beb8b1aa4b2339aa3aa5eb2b2aafbad1cf8df7110e218eb7bbfd6624",
+      "types": [
+        "Titanium.Stream",
+        "CreateStreamArgs",
+        "ReadCallbackArgs",
+        "WriteCallbackArgs",
+        "WriteStreamCallbackArgs",
+        "PumpCallbackArgs"
+      ]
+    },
+    "Titanium/Titanium.yml": {
+      "hash": "sha256:b491b2c5202dfbf9df12dccdf3325b4aa2fc542c96734338e94551ac0ab666dd",
+      "types": [
+        "Titanium",
+        "CreateBufferArgs"
+      ]
+    },
+    "Titanium/UI/ActivityIndicator.yml": {
+      "hash": "sha256:5073afc31eb8ff544de9584b302a39d23ea7558e6ea9ffc642d5ecd0d2da5283",
+      "types": [
+        "Titanium.UI.ActivityIndicator"
+      ]
+    },
+    "Titanium/UI/ActivityIndicatorStyle.yml": {
+      "hash": "sha256:5f949c17cdfae7132fe47496bfdbe4c1514defec96322388ba1e016060e9c639",
+      "types": [
+        "Titanium.UI.ActivityIndicatorStyle"
+      ]
+    },
+    "Titanium/UI/AlertDialog.yml": {
+      "hash": "sha256:56ae9544bcea34e6923da182f40f5805c4b51a88bef36dcacc1efde411d2f634",
+      "types": [
+        "Titanium.UI.AlertDialog"
+      ]
+    },
+    "Titanium/UI/Android/Android.yml": {
+      "hash": "sha256:6490324367f97dc752f57e5a411be21bf2f9f03060466209bfb97daff65f87b9",
+      "types": [
+        "Titanium.UI.Android"
+      ]
+    },
+    "Titanium/UI/Android/CardView.yml": {
+      "hash": "sha256:e1dca238866559f64fb9227eef2db27145955239afe6bec65bd4f29f97015f9b",
+      "types": [
+        "Titanium.UI.Android.CardView"
+      ]
+    },
+    "Titanium/UI/Android/CollapseToolbar.yml": {
+      "hash": "sha256:1475fca09d2bc60a50d5fcb0954da2bc50ba641dbf2503af9703bb4371f48621",
+      "types": [
+        "Titanium.UI.Android.CollapseToolbar"
+      ]
+    },
+    "Titanium/UI/Android/DrawerLayout.yml": {
+      "hash": "sha256:f84a387ee4130ec9e908d9bee51cef3215c76dc0172a7edfb6eb04dcf7a43b32",
+      "types": [
+        "Titanium.UI.Android.DrawerLayout"
+      ]
+    },
+    "Titanium/UI/Android/FloatingActionButton.yml": {
+      "hash": "sha256:733f4c1176a708cd677c50c5b18f1b478175ae15c67c82774f6764e0adc6a9fb",
+      "types": [
+        "Titanium.UI.Android.FloatingActionButton"
+      ]
+    },
+    "Titanium/UI/Android/ProgressIndicator.yml": {
+      "hash": "sha256:e1ab47395a39f3239ecc58cd7434a87ae2563b8933a2067de281a5ec44f6dd40",
+      "types": [
+        "Titanium.UI.Android.ProgressIndicator"
+      ]
+    },
+    "Titanium/UI/Android/SearchView.yml": {
+      "hash": "sha256:854e6f1ab81705f94dcdc99ff2710401d5bb14edeeb89accd51542e401b5816d",
+      "types": [
+        "Titanium.UI.Android.SearchView"
+      ]
+    },
+    "Titanium/UI/Android/Snackbar.yml": {
+      "hash": "sha256:5875038cc52b9d6e005406fc120ed90cec4023b0f0f7a5381433853e2e29b277",
+      "types": [
+        "Titanium.UI.Android.Snackbar"
+      ]
+    },
+    "Titanium/UI/AnimatedOptions.yml": {
+      "hash": "sha256:890a97d523846870660f6cda77baba081294aeefb52203d703c8e015e890105b",
+      "types": [
+        "AnimatedOptions",
+        "AnimatedWithDurationOptions"
+      ]
+    },
+    "Titanium/UI/Animation.yml": {
+      "hash": "sha256:e2b07697b36b2e0021a36e390912b91ca13b4996a31679ed239db857ba331054",
+      "types": [
+        "Titanium.UI.Animation"
+      ]
+    },
+    "Titanium/UI/Attribute.yml": {
+      "hash": "sha256:05db3c18bc0fcb5fb0f07068fb977b254e2bcfa475648b0ed56647e6502d5228",
+      "types": [
+        "Attribute",
+        "ParagraphAttribute"
+      ]
+    },
+    "Titanium/UI/AttributedString.yml": {
+      "hash": "sha256:628333fd016b28c68345213b33351f07b1bb790123279bb99e26f4f9f2bda528",
+      "types": [
+        "Titanium.UI.AttributedString"
+      ]
+    },
+    "Titanium/UI/Button.yml": {
+      "hash": "sha256:605bb8a1082840eb965fb26e051312487820c6709882cff87fee64e5be3f1b6e",
+      "types": [
+        "Titanium.UI.Button"
+      ]
+    },
+    "Titanium/UI/ButtonBar.yml": {
+      "hash": "sha256:6a621a8f2e643237d3559b289f105bf1bfa4224ff0e29ce0ee3e21b92ea66a75",
+      "types": [
+        "Titanium.UI.ButtonBar"
+      ]
+    },
+    "Titanium/UI/Clipboard/Clipboard.yml": {
+      "hash": "sha256:5d6d1693e474e6e30d094356c820f1e02a75af55dd3c4ab96f5935e4d768fd52",
+      "types": [
+        "Titanium.UI.Clipboard",
+        "ClipboardItemsType"
+      ]
+    },
+    "Titanium/UI/Color.yml": {
+      "hash": "sha256:a9193851a4e378bedb18479e0d867ca93c80fdc94f984a29f07d9030a85abf88",
+      "types": [
+        "Titanium.UI.Color"
+      ]
+    },
+    "Titanium/UI/DashboardItem.yml": {
+      "hash": "sha256:4077c56e6893ca0072834648fe892af9714d56c7540d01cc6e6212ba119bf9b1",
+      "types": [
+        "Titanium.UI.DashboardItem"
+      ]
+    },
+    "Titanium/UI/DashboardView.yml": {
+      "hash": "sha256:1267f2221409bae08ab7f9f77f1844268edbfddeee9ade8bdbbcf734677eac0e",
+      "types": [
+        "Titanium.UI.DashboardView"
+      ]
+    },
+    "Titanium/UI/Dimension.yml": {
+      "hash": "sha256:de2d4c996e598c61ec036d3b44ff5fa1847ff24b7140a2f6c3c1bbfdd0fa6713",
+      "types": [
+        "Dimension",
+        "DimensionWithAbsolutes"
+      ]
+    },
+    "Titanium/UI/EmailDialog.yml": {
+      "hash": "sha256:990c2b98d67f11a1b60d612674242b078edf7b264a2347525eb22b35ab6ad273",
+      "types": [
+        "Titanium.UI.EmailDialog"
+      ]
+    },
+    "Titanium/UI/Font.yml": {
+      "hash": "sha256:a59691f0a491f21fdd9584b7be623c8df2ee95b799dda2ead9cf5eb901a36778",
+      "types": [
+        "Font"
+      ]
+    },
+    "Titanium/UI/ImageView.yml": {
+      "hash": "sha256:18e31577e6ba84efdf138753adcb1444693c5387ea93d60220733df143ed8ff2",
+      "types": [
+        "Titanium.UI.ImageView"
+      ]
+    },
+    "Titanium/UI/Label.yml": {
+      "hash": "sha256:a6caff6c44b049bb8c4ee61b3de7fb5a41455daaed20ed894e671fafeca3728e",
+      "types": [
+        "Titanium.UI.Label",
+        "LabelLineSpacing"
+      ]
+    },
+    "Titanium/UI/ListItem.yml": {
+      "hash": "sha256:baa18392029c068dabdb92f833c2d6be444effcac972df563d9a28680a09b336",
+      "types": [
+        "Titanium.UI.ListItem",
+        "ItemTemplate",
+        "ViewTemplate",
+        "ListDataItem",
+        "RowActionType"
+      ]
+    },
+    "Titanium/UI/ListSection.yml": {
+      "hash": "sha256:600d7dbf0da9e245849f3581e0240324f1bbcf26cf2813324ad759c44eb62ed1",
+      "types": [
+        "Titanium.UI.ListSection"
+      ]
+    },
+    "Titanium/UI/ListView.yml": {
+      "hash": "sha256:5000895e7c823fbe8d4a75a15614947b01e76de8971be45aef7a60864f788e07",
+      "types": [
+        "Titanium.UI.ListView",
+        "ListViewAnimationProperties",
+        "ListViewIndexEntry",
+        "ListViewMarkerProps",
+        "ListItemEventType",
+        "SelectedItem"
+      ]
+    },
+    "Titanium/UI/ListViewScrollPosition.yml": {
+      "hash": "sha256:3ff44d43ee91af63ad8260cf76e16271a7e4c6e5ee0eeb1bfa1a879262eab0f2",
+      "types": [
+        "Titanium.UI.ListViewScrollPosition"
+      ]
+    },
+    "Titanium/UI/MaskedImage.yml": {
+      "hash": "sha256:83cfda12304d17bc9e4886ffc626da12a72989a77ce4e8596176fbcde3e55936",
+      "types": [
+        "Titanium.UI.MaskedImage"
+      ]
+    },
+    "Titanium/UI/Matrix2D.yml": {
+      "hash": "sha256:1cac95c2f584b92008bb91bc7fb3484000d9d7a9b07e05c5b0ea35b530884deb",
+      "types": [
+        "Titanium.UI.Matrix2D",
+        "Matrix2DCreationDict"
+      ]
+    },
+    "Titanium/UI/Matrix3D.yml": {
+      "hash": "sha256:5fec4e8547f2aadb860dd3446e2e6b8b79ee5a891b48a55112428cb977ebd5ef",
+      "types": [
+        "Titanium.UI.Matrix3D",
+        "Matrix3DCreationDict"
+      ]
+    },
+    "Titanium/UI/NavigationWindow.yml": {
+      "hash": "sha256:6af9cb0025cfd4b5f3349c34c5808c6db68be9fad92d13a8bbff8821f585a253",
+      "types": [
+        "Titanium.UI.NavigationWindow"
+      ]
+    },
+    "Titanium/UI/Notification.yml": {
+      "hash": "sha256:7a88f8e6d7005827b63a90ee3a1b2d29f6019aee108d4a814a857b5d0c082884",
+      "types": [
+        "Titanium.UI.Notification"
+      ]
+    },
+    "Titanium/UI/OptionBar.yml": {
+      "hash": "sha256:cc108d55416dd2d7a2f07523edfb7bd79b0537d56c4f1529942b3edb783294fc",
+      "types": [
+        "Titanium.UI.OptionBar"
+      ]
+    },
+    "Titanium/UI/OptionDialog.yml": {
+      "hash": "sha256:b1490025b7a1155a118595d99d6bce80154e345d59c2115693296e167ba9d7d8",
+      "types": [
+        "Titanium.UI.OptionDialog",
+        "hideParams"
+      ]
+    },
+    "Titanium/UI/Padding.yml": {
+      "hash": "sha256:a6293e6dd93bad85ef0b990667160b335b20d82cb15931db40c4283d24cee8b6",
+      "types": [
+        "HorizontalInsets",
+        "Padding"
+      ]
+    },
+    "Titanium/UI/Picker.yml": {
+      "hash": "sha256:78f9d190a485b0b814c128eded19af6439a2ce4e659fe79d9c75a43bcdff256b",
+      "types": [
+        "Titanium.UI.Picker"
+      ]
+    },
+    "Titanium/UI/PickerColumn.yml": {
+      "hash": "sha256:98d9913a74a22f0897693c0c8ad5459456bc5fc0d2c07863516ea797cfd77cec",
+      "types": [
+        "Titanium.UI.PickerColumn"
+      ]
+    },
+    "Titanium/UI/PickerRow.yml": {
+      "hash": "sha256:bbb8cf3962dbff294791434de9c0cebeb8d74be0a962c6dbbaee85fb31cf8d59",
+      "types": [
+        "Titanium.UI.PickerRow"
+      ]
+    },
+    "Titanium/UI/ProgressBar.yml": {
+      "hash": "sha256:fef07bcad99873b4cfa1e23b3875f1dc2ee5c8c365d85268b8639deed7ddba23",
+      "types": [
+        "Titanium.UI.ProgressBar"
+      ]
+    },
+    "Titanium/UI/RefreshControl.yml": {
+      "hash": "sha256:48194d15d7066ca126a0dcbc2be8eee6aa02d60c2d70a7d0ced1b891f2e0f79d",
+      "types": [
+        "Titanium.UI.RefreshControl"
+      ]
+    },
+    "Titanium/UI/ScrollView.yml": {
+      "hash": "sha256:f23533d6d7996edf272440e5cafdf711eb488f4a3c60df8802b4a2fba4921fe0",
+      "types": [
+        "Titanium.UI.ScrollView"
+      ]
+    },
+    "Titanium/UI/ScrollableView.yml": {
+      "hash": "sha256:44aa3b620975eb67208d18b783b04bc1bff9c18dfaca185476ac8c975388bf68",
+      "types": [
+        "Titanium.UI.ScrollableView"
+      ]
+    },
+    "Titanium/UI/SearchBar.yml": {
+      "hash": "sha256:f9de3695dfc7cc24c60fb6678307173e59d3f88fd810d42f52e408f2ea6f8aad",
+      "types": [
+        "Titanium.UI.SearchBar",
+        "SearchBarToken"
+      ]
+    },
+    "Titanium/UI/Shortcut/Shortcut.yml": {
+      "hash": "sha256:2ee5cfb8cfc9507483f4f06d7547c1c5c3ea5a8f8f2bf2eb9f4367abd2b94b5d",
+      "types": [
+        "Titanium.UI.Shortcut"
+      ]
+    },
+    "Titanium/UI/ShortcutItem.yml": {
+      "hash": "sha256:a8c073e7066c1177ed21a661da54779da088eb9c8c48cee618eb2654729f21cd",
+      "types": [
+        "Titanium.UI.ShortcutItem"
+      ]
+    },
+    "Titanium/UI/Size.yml": {
+      "hash": "sha256:e5bcdeb2c9c769b5c01efe54dfa0cea01c1f08f4a8e741fc715bc3f1d00d5aa5",
+      "types": [
+        "Size"
+      ]
+    },
+    "Titanium/UI/Slider.yml": {
+      "hash": "sha256:d578969ef6557ac0e340bff86cd1a2521cf3a0430f24b8d59e93719fd5d18f28",
+      "types": [
+        "Titanium.UI.Slider"
+      ]
+    },
+    "Titanium/UI/Switch.yml": {
+      "hash": "sha256:9f9a8730e35540256643968048ed60356b246ccfa84af5d0e8bf6cdc29a99978",
+      "types": [
+        "Titanium.UI.Switch"
+      ]
+    },
+    "Titanium/UI/Tab.yml": {
+      "hash": "sha256:2fcfb3c92e8eb5d5326ee00469225a0433fa68e398ab82cb876dc7228e49b23f",
+      "types": [
+        "Titanium.UI.Tab",
+        "TabIconInsets"
+      ]
+    },
+    "Titanium/UI/TabGroup.yml": {
+      "hash": "sha256:2615d0f32763ec91a0242d21e9e66c246e180bb7613f67095f1c858812eadb93",
+      "types": [
+        "Titanium.UI.TabGroup",
+        "disableTabOptions"
+      ]
+    },
+    "Titanium/UI/TabbedBar.yml": {
+      "hash": "sha256:545f076b9553ead3026bf8462d88f66d4384bf05baf9b0147d9eb10b5917a04e",
+      "types": [
+        "Titanium.UI.TabbedBar"
+      ]
+    },
+    "Titanium/UI/TableView.yml": {
+      "hash": "sha256:1db3e2efec8c94742bb7a4e9797fd2a6ffe96e1f95fd3a16a6e5377bf580789d",
+      "types": [
+        "Titanium.UI.TableView",
+        "TableViewAnimationProperties",
+        "TableViewIndexEntry",
+        "SelectedRowObject"
+      ]
+    },
+    "Titanium/UI/TableViewRow.yml": {
+      "hash": "sha256:d095428ce833f73da33565c76345037eca6828b629cf0ca3fc9ff71362c5cc2d",
+      "types": [
+        "Titanium.UI.TableViewRow"
+      ]
+    },
+    "Titanium/UI/TableViewScrollPosition.yml": {
+      "hash": "sha256:e17c28500d0bee239b3e3eea45fda41483cc66c1398a488747028da53afd2b65",
+      "types": [
+        "Titanium.UI.TableViewScrollPosition"
+      ]
+    },
+    "Titanium/UI/TableViewSection.yml": {
+      "hash": "sha256:c74d1bbf13d79412700e23de894a4ca1c6cadda9cc90df66b2074d7fe12e5352",
+      "types": [
+        "Titanium.UI.TableViewSection"
+      ]
+    },
+    "Titanium/UI/TextArea.yml": {
+      "hash": "sha256:c28430d20c5cf78512b67c3001b976e4a9a794f440ad5261accaa7de48f6f3a6",
+      "types": [
+        "Titanium.UI.TextArea",
+        "textAreaSelectedParams"
+      ]
+    },
+    "Titanium/UI/TextField.yml": {
+      "hash": "sha256:6d9ad69a9c4e7549ba45074283f6655db6431b0dc42da9501260600787b72bbd",
+      "types": [
+        "Titanium.UI.TextField",
+        "textFieldSelectedParams",
+        "TextFieldPadding"
+      ]
+    },
+    "Titanium/UI/Toolbar.yml": {
+      "hash": "sha256:2cd9fcea8850f06fc7b7be25ce358557b7eb865b0fc3cc8a7fd1a4b5ce266591",
+      "types": [
+        "Titanium.UI.Toolbar"
+      ]
+    },
+    "Titanium/UI/UI.yml": {
+      "hash": "sha256:9ced3768ca0a6f7dda304792c3603dbaf6d479f5c44eafcd677b42df74ec7f74",
+      "types": [
+        "Titanium.UI",
+        "CutoutSize"
+      ]
+    },
+    "Titanium/UI/View.yml": {
+      "hash": "sha256:68e93ad89a0a137e66e984ccc055f5c984436fd4bf7a5ff8f6dd9d7b6b4cf410",
+      "types": [
+        "Titanium.UI.View",
+        "Point",
+        "Gradient",
+        "GradientColorRef",
+        "MinMaxOptions",
+        "ViewPositionOptions"
+      ]
+    },
+    "Titanium/UI/WebView.yml": {
+      "hash": "sha256:ca42c728d5e1ea1305ab5c9274dbef42bec7a893a795e7f0ce902b17d6c5c3a6",
+      "types": [
+        "Titanium.UI.WebView",
+        "SnapshotResult",
+        "DataCreationResult",
+        "DataCreationResultAndroid",
+        "SearchResult",
+        "StringSearchOptions",
+        "BackForwardList",
+        "BackForwardListItem",
+        "OnLinkURLResponse",
+        "UserScriptParams",
+        "setHtmlOptions"
+      ]
+    },
+    "Titanium/UI/Window.yml": {
+      "hash": "sha256:d87c7fb8997462c65fd05327c848749cb80c98325ebde08028f858c73ce68508",
+      "types": [
+        "Titanium.UI.Window",
+        "openWindowParams",
+        "windowToolbarParam",
+        "closeWindowParams",
+        "titleAttributesParams",
+        "shadowDict"
+      ]
+    },
+    "Titanium/UI/iOS/AlertDialogStyle.yml": {
+      "hash": "sha256:0dcb3d18933439e16170ef3e4d7903e985f66df7ae54cc7b910c81f1760eb15b",
+      "types": [
+        "Titanium.UI.iOS.AlertDialogStyle"
+      ]
+    },
+    "Titanium/UI/iOS/AnchorAttachmentBehavior.yml": {
+      "hash": "sha256:341cdea55a711a9795ce80f682c6d8eda151be148ae73ed12fcd348e8c1fe3ff",
+      "types": [
+        "Titanium.UI.iOS.AnchorAttachmentBehavior"
+      ]
+    },
+    "Titanium/UI/iOS/AnimationStyle.yml": {
+      "hash": "sha256:d468a706eabcbd23d6cdeb26c5a001ffef9936f8b23db977ad931f201ee4c76a",
+      "types": [
+        "Titanium.UI.iOS.AnimationStyle"
+      ]
+    },
+    "Titanium/UI/iOS/Animator.yml": {
+      "hash": "sha256:4b20c9a0ddb90c0dee9dece74e056233a16b97cad1e592d2a0d3b8acde880951",
+      "types": [
+        "Titanium.UI.iOS.Animator"
+      ]
+    },
+    "Titanium/UI/iOS/ApplicationShortcuts.yml": {
+      "hash": "sha256:95a2ec3161a159f8a24319833a628d988fbce84eedd2ad1776343397f8e6c3c9",
+      "types": [
+        "Titanium.UI.iOS.ApplicationShortcuts",
+        "ShortcutParams"
+      ]
+    },
+    "Titanium/UI/iOS/BlurView.yml": {
+      "hash": "sha256:9776c933678d84d6123293296f6beb02e897779c0f8460a5a0dc06ae92b02c8d",
+      "types": [
+        "Titanium.UI.iOS.BlurView"
+      ]
+    },
+    "Titanium/UI/iOS/CollisionBehavior.yml": {
+      "hash": "sha256:e7267d2b994f52abffd81aea303b7cd9638b280214bac5148d67758a40024093",
+      "types": [
+        "Titanium.UI.iOS.CollisionBehavior",
+        "BoundaryIdentifier"
+      ]
+    },
+    "Titanium/UI/iOS/CoverFlowView.yml": {
+      "hash": "sha256:ceb111ee6806ac6bed5453851561a02b09215e79666be2c5b04a3d9d9ef7438d",
+      "types": [
+        "Titanium.UI.iOS.CoverFlowView",
+        "CoverFlowImageType"
+      ]
+    },
+    "Titanium/UI/iOS/DocumentViewer.yml": {
+      "hash": "sha256:fed6beae9efe69f46fa7685d70e6b51204d1a9d54eb09cebbe6069051b80fa2d",
+      "types": [
+        "Titanium.UI.iOS.DocumentViewer",
+        "DocumentViewerOptions"
+      ]
+    },
+    "Titanium/UI/iOS/DynamicItemBehavior.yml": {
+      "hash": "sha256:81240290a7b0421847e11a166dcc0e2b3948883f93a325e23f7e5a8a42808296",
+      "types": [
+        "Titanium.UI.iOS.DynamicItemBehavior"
+      ]
+    },
+    "Titanium/UI/iOS/FeedbackGenerator.yml": {
+      "hash": "sha256:5759ec00c2918ba7b849eb49dabbe9fd6294afd3e8aee53dc936f71fd03623b6",
+      "types": [
+        "Titanium.UI.iOS.FeedbackGenerator"
+      ]
+    },
+    "Titanium/UI/iOS/GravityBehavior.yml": {
+      "hash": "sha256:e546090ed135edfdc2f8d62066ffd4bf3ba0e38a7ddc91e817f630f2a6baf959",
+      "types": [
+        "Titanium.UI.iOS.GravityBehavior"
+      ]
+    },
+    "Titanium/UI/iOS/ListViewCellSelectionStyle.yml": {
+      "hash": "sha256:284c2546bdb168c6c7edd8debe473e239584fce3219e7e9c69c08174a58eeaf9",
+      "types": [
+        "Titanium.UI.iOS.ListViewCellSelectionStyle"
+      ]
+    },
+    "Titanium/UI/iOS/ListViewScrollPosition.yml": {
+      "hash": "sha256:69923e6ee2c0dea7d90632ce6c21a7866b1ae1058bd7e39c7c53748ee37c5dec",
+      "types": [
+        "Titanium.UI.iOS.ListViewScrollPosition"
+      ]
+    },
+    "Titanium/UI/iOS/ListViewStyle.yml": {
+      "hash": "sha256:ab4c25a31412615ed00f2ffa674652790cca9f50a2fbd144ed8e7daa9919f8e9",
+      "types": [
+        "Titanium.UI.iOS.ListViewStyle"
+      ]
+    },
+    "Titanium/UI/iOS/LivePhoto.yml": {
+      "hash": "sha256:405faf70c0d82c36bcda0ffc9a5b57f0d2b377fb018da2923d2209755a23c81b",
+      "types": [
+        "Titanium.UI.iOS.LivePhoto"
+      ]
+    },
+    "Titanium/UI/iOS/LivePhotoView.yml": {
+      "hash": "sha256:8b4a55feaeec1edd267ab379d43dd0ef16eb30d17295969a265b469d6abeb838",
+      "types": [
+        "Titanium.UI.iOS.LivePhotoView"
+      ]
+    },
+    "Titanium/UI/iOS/MenuPopup.yml": {
+      "hash": "sha256:62452e92107e7bbdee4723163778c3918248f17b7f7afce46441df890d3e8b2c",
+      "types": [
+        "Titanium.UI.iOS.MenuPopup",
+        "MenuPopupShowParams"
+      ]
+    },
+    "Titanium/UI/iOS/NavigationWindow.yml": {
+      "hash": "sha256:a107d560c1ee336efd3d1a921b0e7fec65354a35ef1743110d762a6570527804",
+      "types": [
+        "Titanium.UI.iOS.NavigationWindow"
+      ]
+    },
+    "Titanium/UI/iOS/PreviewAction.yml": {
+      "hash": "sha256:555165389bf5977f2a615b205c8896aff5de37bc51406e5de8c99c13e0193998",
+      "types": [
+        "Titanium.UI.iOS.PreviewAction"
+      ]
+    },
+    "Titanium/UI/iOS/PreviewActionGroup.yml": {
+      "hash": "sha256:6eb0305884e9f0a2d9f903fbc1c0f570cc6dc513e38c907aff9c3b9d2a4b9df8",
+      "types": [
+        "Titanium.UI.iOS.PreviewActionGroup"
+      ]
+    },
+    "Titanium/UI/iOS/PreviewContext.yml": {
+      "hash": "sha256:1e6ddbce19f97ba8a21f5c2538dd408809f15ddd3681749d95ba559e7cb50f4e",
+      "types": [
+        "Titanium.UI.iOS.PreviewContext"
+      ]
+    },
+    "Titanium/UI/iOS/ProgressBarStyle.yml": {
+      "hash": "sha256:4cb48c0d1872847659ec803fc160586f98a9ba411f45fd2216afc3eb510ae0a2",
+      "types": [
+        "Titanium.UI.iOS.ProgressBarStyle"
+      ]
+    },
+    "Titanium/UI/iOS/PushBehavior.yml": {
+      "hash": "sha256:35937ec0cfe5f93048008c64a17597b11979913ee88b6c30b9c86a523b8bc480",
+      "types": [
+        "Titanium.UI.iOS.PushBehavior"
+      ]
+    },
+    "Titanium/UI/iOS/RowAnimationStyle.yml": {
+      "hash": "sha256:e372efbe377e5494c5fd2a14f7590424c5ec28e11da0cfecc32aa338ce694056",
+      "types": [
+        "Titanium.UI.iOS.RowAnimationStyle"
+      ]
+    },
+    "Titanium/UI/iOS/ScrollIndicatorStyle.yml": {
+      "hash": "sha256:ae020b9a5bfba9b7cfac301bcce091500fd466f90db5fba57eec2de0c6e6340d",
+      "types": [
+        "Titanium.UI.iOS.ScrollIndicatorStyle"
+      ]
+    },
+    "Titanium/UI/iOS/SnapBehavior.yml": {
+      "hash": "sha256:8aa86b6fab70dd2e42123f31999700deb820e4ada30c09eae7c6e790d8866cc8",
+      "types": [
+        "Titanium.UI.iOS.SnapBehavior"
+      ]
+    },
+    "Titanium/UI/iOS/SplitWindow.yml": {
+      "hash": "sha256:62600f0cdfb5214126fa231a42daeb1b665b5fae2063ba664280ebbb91665cfe",
+      "types": [
+        "Titanium.UI.iOS.SplitWindow"
+      ]
+    },
+    "Titanium/UI/iOS/StatusBar.yml": {
+      "hash": "sha256:8f2bf3788b0f76d7415de07544cb5bd8f0135f76c2f410c9257bce254c58a780",
+      "types": [
+        "Titanium.UI.iOS.StatusBar"
+      ]
+    },
+    "Titanium/UI/iOS/Stepper.yml": {
+      "hash": "sha256:4aba840cb1130a7e9cba45051ee49179dcec31931dfb5f2138c4c8dc587581ba",
+      "types": [
+        "Titanium.UI.iOS.Stepper"
+      ]
+    },
+    "Titanium/UI/iOS/SystemButton.yml": {
+      "hash": "sha256:22e3e9d80100d818757c1d2e05396e8c00056f92fc794de6c481a028bfe91d16",
+      "types": [
+        "Titanium.UI.iOS.SystemButton"
+      ]
+    },
+    "Titanium/UI/iOS/SystemButtonStyle.yml": {
+      "hash": "sha256:5da78ec5ca4ac9492ea651baed229147d7e63920a0bfe9ff7236008fe414d380",
+      "types": [
+        "Titanium.UI.iOS.SystemButtonStyle"
+      ]
+    },
+    "Titanium/UI/iOS/SystemIcon.yml": {
+      "hash": "sha256:0c8f55a80f42fade3ff08d0b535815489740ef577082330c828f75eb98b54cc4",
+      "types": [
+        "Titanium.UI.iOS.SystemIcon"
+      ]
+    },
+    "Titanium/UI/iOS/TabbedBar.yml": {
+      "hash": "sha256:9f02f0545bf990bbcc1d9310d91e05ff09af14cc5ec14b575bb3d9a74d7211d8",
+      "types": [
+        "Titanium.UI.iOS.TabbedBar",
+        "BarItemType"
+      ]
+    },
+    "Titanium/UI/iOS/TableViewCellSelectionStyle.yml": {
+      "hash": "sha256:f73c5408fde3057dd90134ab35f35bf54d49770812d5acde0d5da0b9b5456930",
+      "types": [
+        "Titanium.UI.iOS.TableViewCellSelectionStyle"
+      ]
+    },
+    "Titanium/UI/iOS/TableViewScrollPosition.yml": {
+      "hash": "sha256:a5c8b5b4bbb9b319a636379a177f7b008848ef657d5b79409b6b617a9d09a9f8",
+      "types": [
+        "Titanium.UI.iOS.TableViewScrollPosition"
+      ]
+    },
+    "Titanium/UI/iOS/TableViewStyle.yml": {
+      "hash": "sha256:8a8d7fb6cdc47ef889500b7f968796f8a62a3d7664b3464ac1b2226bbc7ddfbb",
+      "types": [
+        "Titanium.UI.iOS.TableViewStyle"
+      ]
+    },
+    "Titanium/UI/iOS/Toolbar.yml": {
+      "hash": "sha256:a3a7ce3f031852ce4ae2afaaeff983a2456bc73d424e974426b399f212544d58",
+      "types": [
+        "Titanium.UI.iOS.Toolbar"
+      ]
+    },
+    "Titanium/UI/iOS/TransitionAnimation.yml": {
+      "hash": "sha256:33d776bd2e9b04ca48b8fbce6bab2fac188ce551b075e47674178e05fb675957",
+      "types": [
+        "Titanium.UI.iOS.TransitionAnimation"
+      ]
+    },
+    "Titanium/UI/iOS/ViewAttachmentBehavior.yml": {
+      "hash": "sha256:f27fbf57c4f8edb05cce17eb5c075267a7cec2252297edfbccbd01fd92284b6b",
+      "types": [
+        "Titanium.UI.iOS.ViewAttachmentBehavior"
+      ]
+    },
+    "Titanium/UI/iOS/WebViewConfiguration.yml": {
+      "hash": "sha256:2c44b7ffd1fd8a8d4b46c7cc2064ca8a373423cd64acbda4c864aa327c01b37c",
+      "types": [
+        "Titanium.UI.iOS.WebViewConfiguration",
+        "WebViewPreferencesObject"
+      ]
+    },
+    "Titanium/UI/iOS/WebViewDecisionHandler.yml": {
+      "hash": "sha256:b175adba921aae6fae73ca12b9aea8dda42d30aede1009a8ff8fa0bdc6f77cea",
+      "types": [
+        "Titanium.UI.iOS.WebViewDecisionHandler"
+      ]
+    },
+    "Titanium/UI/iOS/WebViewProcessPool.yml": {
+      "hash": "sha256:020a0468362bf7aa292a1b9656079673fb5910c46c04526a8675cf464cbe65c8",
+      "types": [
+        "Titanium.UI.iOS.WebViewProcessPool"
+      ]
+    },
+    "Titanium/UI/iOS/iOS.yml": {
+      "hash": "sha256:3e775ecfa821be3b8f05150e46fecd85dd62e1641280b44a5f5f3e37e05a39a5",
+      "types": [
+        "Titanium.UI.iOS",
+        "SystemImageParameters"
+      ]
+    },
+    "Titanium/UI/iPad/Popover.yml": {
+      "hash": "sha256:91746baff012f08506c4f60c72a24746459bd324ccc9ff205538c7ae3ac69c3e",
+      "types": [
+        "Titanium.UI.iPad.Popover",
+        "ShowPopoverParams"
+      ]
+    },
+    "Titanium/UI/iPad/iPad.yml": {
+      "hash": "sha256:541efbfc47b1d214fba83a0f35cc1d6cf130a47429151ea8161881a778ee3ca4",
+      "types": [
+        "Titanium.UI.iPad"
+      ]
+    },
+    "Titanium/Utils/Utils.yml": {
+      "hash": "sha256:104a816fc730d69a05beb539f65c3693df350e9aa7fafcf58d4c3a33825e6207",
+      "types": [
+        "Titanium.Utils"
+      ]
+    },
+    "Titanium/WatchSession/WatchSession.yml": {
+      "hash": "sha256:2de8b70dd13661be3fa6465b64ca0761d3dda0ec537c24538567beea44167d4b",
+      "types": [
+        "Titanium.WatchSession",
+        "MessageReply"
+      ]
+    },
+    "Titanium/XML/Attr.yml": {
+      "hash": "sha256:3438ec0dbeac7890fef8f1b892fae0c0fc03f6520dc1df2042ca83106a769ea4",
+      "types": [
+        "Titanium.XML.Attr"
+      ]
+    },
+    "Titanium/XML/CDATASection.yml": {
+      "hash": "sha256:722b4eb29fe63a29f448313cf1cda7d8881e888ad9988c21c9d1f23d09aa14f0",
+      "types": [
+        "Titanium.XML.CDATASection"
+      ]
+    },
+    "Titanium/XML/CharacterData.yml": {
+      "hash": "sha256:124c180d8cf6747ac8fd0fa85a87c75c4256ee473542a540db9b2de4f9e0b97c",
+      "types": [
+        "Titanium.XML.CharacterData"
+      ]
+    },
+    "Titanium/XML/Comment.yml": {
+      "hash": "sha256:76721f72d15f1afaff63cb4ffc7d74bef36ab16c59c8ef6eeece8d2a0928c0e3",
+      "types": [
+        "Titanium.XML.Comment"
+      ]
+    },
+    "Titanium/XML/DOMImplementation.yml": {
+      "hash": "sha256:66c92f214abba60e4ee6b5aeb94643de8f704825d8883fb3d2be214beee41aae",
+      "types": [
+        "Titanium.XML.DOMImplementation"
+      ]
+    },
+    "Titanium/XML/Document.yml": {
+      "hash": "sha256:b9dabd1c6e8ad641d42efef713195b32b9194f6c2f105568a6b4ac494458da1a",
+      "types": [
+        "Titanium.XML.Document"
+      ]
+    },
+    "Titanium/XML/DocumentFragment.yml": {
+      "hash": "sha256:538be6e9855da1ca5444fb591a6200e33b9dc4328697cffd85b019910ab249d3",
+      "types": [
+        "Titanium.XML.DocumentFragment"
+      ]
+    },
+    "Titanium/XML/DocumentType.yml": {
+      "hash": "sha256:ab7edaf178263f4ed85075365d30b5c6a836cfd1ca154fb75592e901008440f9",
+      "types": [
+        "Titanium.XML.DocumentType"
+      ]
+    },
+    "Titanium/XML/Element.yml": {
+      "hash": "sha256:692a73c2681aeb790f9d7642e1a2100c37ec2e846be17197440a98f6d0bfe46a",
+      "types": [
+        "Titanium.XML.Element"
+      ]
+    },
+    "Titanium/XML/Entity.yml": {
+      "hash": "sha256:a9f9f5997bef0cc8bd68b8333e34fee3f306ee9fb26c2cbc9290ef6a21f728ab",
+      "types": [
+        "Titanium.XML.Entity"
+      ]
+    },
+    "Titanium/XML/EntityReference.yml": {
+      "hash": "sha256:2bc24aa5e40ff682553ba5eb7692f3287c91248bc3c4430e58a67ce421a091b0",
+      "types": [
+        "Titanium.XML.EntityReference"
+      ]
+    },
+    "Titanium/XML/NamedNodeMap.yml": {
+      "hash": "sha256:1b87f5da225dda6ec1abcb2982f55c1af2c2e06ef0d410b48a9efd902ee074be",
+      "types": [
+        "Titanium.XML.NamedNodeMap"
+      ]
+    },
+    "Titanium/XML/Node.yml": {
+      "hash": "sha256:0cac94909a265418b3b7cdc95607a73f6441523fd253690f35954584ad63ac6f",
+      "types": [
+        "Titanium.XML.Node"
+      ]
+    },
+    "Titanium/XML/NodeList.yml": {
+      "hash": "sha256:30201173641844f6bb2654ab7dffc2bce852cd5746862df2645aef8d80e3f21f",
+      "types": [
+        "Titanium.XML.NodeList"
+      ]
+    },
+    "Titanium/XML/Notation.yml": {
+      "hash": "sha256:b65ebb131f5e7b77961b19ad99f969a288b89bc9b431a361d1a8ccc4c3306965",
+      "types": [
+        "Titanium.XML.Notation"
+      ]
+    },
+    "Titanium/XML/ProcessingInstruction.yml": {
+      "hash": "sha256:959bcbfe26db727d81ee3acf6421db86856aace45d97d4344428ca1fc4fa3d6d",
+      "types": [
+        "Titanium.XML.ProcessingInstruction"
+      ]
+    },
+    "Titanium/XML/Text.yml": {
+      "hash": "sha256:efc020c0ea907d32d02965478a1271557d28afe93a75b50b5e7b7104c541e446",
+      "types": [
+        "Titanium.XML.Text"
+      ]
+    },
+    "Titanium/XML/XML.yml": {
+      "hash": "sha256:757b2a0723251d448cefa1393bcf634c47f718b155deee45c70c170724e20cf2",
+      "types": [
+        "Titanium.XML"
+      ]
+    },
+    "common/Dictionary.yml": {
+      "hash": "sha256:decd552c42ccf8aff2d585320c875435494919cc1ff63f0f25644ca30f40daa3",
+      "types": [
+        "Dictionary"
+      ]
+    }
+  },
+  "types": {
+    "Global.Console": {
+      "source": "Global/Console/Console.yml",
+      "outputHash": "sha256:2c7bef895c328b0f3d0ccd9b9df57dd187af238a142cf597eb23b0423362aaa6"
+    },
+    "Global": {
+      "source": "Global/Global.yml",
+      "outputHash": "sha256:2ba39a9bae1693095d2153a1948443695a11becce3432e214ca6579a56614ee6"
+    },
+    "Global.Intl.Collator": {
+      "source": "Global/Intl/Collator.yml",
+      "outputHash": "sha256:1fbcab8ef6b7c1f5495262e90db472bdfded208f74d525ad1d3a427ec6d7b1df"
+    },
+    "Global.Intl.DateTimeFormat": {
+      "source": "Global/Intl/DateTimeFormat.yml",
+      "outputHash": "sha256:33bcc3640fc2a095ff5f2f07cbb1d70ec270857e2ebb6f3c7c6974a046b3c8a5"
+    },
+    "Global.Intl": {
+      "source": "Global/Intl/Intl.yml",
+      "outputHash": "sha256:3fec389a569849b00767ade8907ece53df4684ee5d6c375f5cd389e0c1d03a25"
+    },
+    "Global.Intl.NumberFormat": {
+      "source": "Global/Intl/NumberFormat.yml",
+      "outputHash": "sha256:fcca25c031c2219b228e02780081f1e599b67a13676dd2b913d4b69446a26c41"
+    },
+    "Global.String": {
+      "source": "Global/String/String.yml",
+      "outputHash": "sha256:a2315a4d32217d49c52aa8fd51863f00fcce538eb4979b8f6355f043de83b335"
+    },
+    "Modules": {
+      "source": "Modules/Modules.yml",
+      "outputHash": "sha256:4c5c733c14324bbf012a0ad3b3d4d641e5ae71256f38f8babd0f78685e6b461e"
+    },
+    "assert": {
+      "source": "NodeJS/assert.yml",
+      "outputHash": "sha256:c47af49dfca1dc2d9d4a03166b15f5dcb263c1bd0cecaaaa807db24ae3f74633"
+    },
+    "assert.strict": {
+      "source": "NodeJS/assert.yml",
+      "extends": "assert",
+      "outputHash": "sha256:74e2e0525e10bb09c3ae5ad3f4d969bb4a5b8d7a15e24c712c04636b59ca44b4"
+    },
+    "assert.AssertionError": {
+      "source": "NodeJS/assert.yml",
+      "extends": "Error",
+      "outputHash": "sha256:3bc9e7732cc4ec292a024b53e42838643b0cbe9820e8020cf578b6f7ded7d2ac"
+    },
+    "buffer": {
+      "source": "NodeJS/buffer.yml",
+      "outputHash": "sha256:e20210b2910a731a1dba1eecd38dfd4d356517e41215c1a20d55550cb029021c"
+    },
+    "buffer.Buffer": {
+      "source": "NodeJS/buffer.yml",
+      "outputHash": "sha256:92babae818ec6e3b2bd80946225c51f0e042087c67fcc9ea27b1411e720bebe2"
+    },
+    "events": {
+      "source": "NodeJS/events.yml",
+      "outputHash": "sha256:20b12d954c4b1c5a4061902a97500cdd1adddaa7f9893816af07e34d58c0f865"
+    },
+    "EventEmitter": {
+      "source": "NodeJS/events.yml",
+      "outputHash": "sha256:f01e0f7af95d38fc03183e0b1226ea0c3654f5908bd1cde5694fb21ebaf46668"
+    },
+    "fs": {
+      "source": "NodeJS/fs.yml",
+      "outputHash": "sha256:01a7e847dd6d5c71eb210eddff3d070a70cc31b4fed48242e63713f9be5298cc"
+    },
+    "fs.Stats": {
+      "source": "NodeJS/fs.yml",
+      "outputHash": "sha256:e51530ada910a85205319f2191b3d7c067bd2e3d2e09735f64c301372d1876ee"
+    },
+    "fs.Dirent": {
+      "source": "NodeJS/fs.yml",
+      "outputHash": "sha256:58ec93006b8cc6ce0a8d6bd456a6c8c76efab56d3d9642ec045db0ed7505b017"
+    },
+    "fs.WriteStream": {
+      "source": "NodeJS/fs.yml",
+      "outputHash": "sha256:cbe946e17283e5cb213b9e21bc2d0717221471294824a009035d5b36e3e33079"
+    },
+    "fs.ReadStream": {
+      "source": "NodeJS/fs.yml",
+      "outputHash": "sha256:3cf1ba22ceb58188649dbf3c335baa91131b30081bd454dc311b24c8bcbc4578"
+    },
+    "os": {
+      "source": "NodeJS/os.yml",
+      "outputHash": "sha256:6b117999f8f857fe8633516154696e6cf0192ff36c7a3bb0988a0d1c5d0348c6"
+    },
+    "path": {
+      "source": "NodeJS/path.yml",
+      "outputHash": "sha256:6aaf42ad27c02c0e13a57c5d7497dde09441430d8ba3168088935a73796c5e1d"
+    },
+    "process": {
+      "source": "NodeJS/process.yml",
+      "extends": "EventEmitter",
+      "outputHash": "sha256:315d9da98e149d90f6dc5e1bbd13d0e7e7b0b51c8b006e4f5934fa93ef574486"
+    },
+    "StringDecoder": {
+      "source": "NodeJS/string_decoder.yml",
+      "outputHash": "sha256:71e4856303227d59c4edd85d904aec4dbc6df490a336878f3e50705674146c4e"
+    },
+    "util": {
+      "source": "NodeJS/util.yml",
+      "outputHash": "sha256:2c7c26ab1265c521cfead56fdea64135ee1c1e2bcae3068fb8f6bcb709c60592"
+    },
+    "util.types": {
+      "source": "NodeJS/util.yml",
+      "outputHash": "sha256:8a717ec8d10dd15e733c74738d5e1c25750c0e8367272ab70c5e5cc8583e3d03"
+    },
+    "Titanium.API": {
+      "source": "Titanium/API/API.yml",
+      "extends": "Titanium.Module",
+      "outputHash": "sha256:c5dfbba45a9fa935112c16c3fc9e18674419b29269b4f4c916fc7671a6e32501"
+    },
+    "Titanium.Accelerometer": {
+      "source": "Titanium/Accelerometer/Accelerometer.yml",
+      "extends": "Titanium.Module",
+      "outputHash": "sha256:bb69724981e1ec62c45582b8b14a2eac1f7a977bb938e1bd797d6ae6f069031b"
+    },
+    "Titanium.Android.ActionBar": {
+      "source": "Titanium/Android/ActionBar.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:7cf310f011a8ac9255d8741333d370118b1c6dbe8b99bf0071d22584215b006e"
+    },
+    "Titanium.Android.Activity": {
+      "source": "Titanium/Android/Activity.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:ccf462e61aa194dbf35da953f7ca80b4ef0dea7da7f699c5239459ff44519d12"
+    },
+    "Titanium.Android": {
+      "source": "Titanium/Android/Android.yml",
+      "extends": "Titanium.Module",
+      "outputHash": "sha256:63c1efac5a855934d5f95a10a8f6de23ad711f0dce79d35bcf5f84bfd60a2680"
+    },
+    "RequestPermissionAccessResult": {
+      "source": "Titanium/Android/Android.yml",
+      "extends": "ErrorResponse",
+      "outputHash": "sha256:a7efab4deb5525847b63ffa767a97a9d4d18ca39370569c2755ff66930ef4cf9"
+    },
+    "Titanium.Android.BigPictureStyle": {
+      "source": "Titanium/Android/BigPictureStyle.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:bd7d39e3ecdbade03b0e63f08cd2a4b0470af4b980da141429e381c81c0a7e0f"
+    },
+    "Titanium.Android.BigTextStyle": {
+      "source": "Titanium/Android/BigTextStyle.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:fa464f69fc29c2f55497adc116b3c0d608c9deca58d3ae24717456c15c32ee6a"
+    },
+    "Titanium.Android.BroadcastReceiver": {
+      "source": "Titanium/Android/BroadcastReceiver.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:d4a1b9414726e0d49fb97244f0ba5131874ea051ad465f2fede7ebf9b26e46e0"
+    },
+    "Titanium.Android.Intent": {
+      "source": "Titanium/Android/Intent.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:abcddcee7804546c3cc17bfe6092a859b23f8233a92eebbe2bd376d9594aeb3a"
+    },
+    "Titanium.Android.Menu": {
+      "source": "Titanium/Android/Menu.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:050540fa014c4340e957e89023a7cdd05aacf595448cf9836c97c978eb9c46eb"
+    },
+    "Titanium.Android.MenuItem": {
+      "source": "Titanium/Android/MenuItem.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:21883eca8583067c0528624a62aa7529e287d02adcb67fd184ee66d5a5e93732"
+    },
+    "Titanium.Android.Notification": {
+      "source": "Titanium/Android/Notification.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:4ff71235a147f19feb71a9a8302e5d9a8f4ce9b2c9f5970b664f272f8df17a51"
+    },
+    "Titanium.Android.NotificationChannel": {
+      "source": "Titanium/Android/NotificationChannel.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:e367e527142106af6474a4249ad9296f6ef2c4725756147511631647402a70a0"
+    },
+    "Titanium.Android.NotificationManager": {
+      "source": "Titanium/Android/NotificationManager/NotificationManager.yml",
+      "extends": "Titanium.Module",
+      "outputHash": "sha256:1f81b6a51b0a95cf3931fe2978c67bce1aeaaa2a1ba4b46054747191b9f13023"
+    },
+    "Titanium.Android.PendingIntent": {
+      "source": "Titanium/Android/PendingIntent.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:66a66f023f67940d1e6e0bcd8c3c1f797066a81986bb848ec34c346a3175c9aa"
+    },
+    "Titanium.Android.QuickSettingsService": {
+      "source": "Titanium/Android/QuickSettingsService.yml",
+      "extends": "Titanium.Android.Service",
+      "outputHash": "sha256:7eeffe4f3ae5196502438b56cc1a8c5d6347bc45bc18dbbea2eef1de30968a9a"
+    },
+    "showParams": {
+      "source": "Titanium/Android/QuickSettingsService.yml",
+      "outputHash": "sha256:e0cdb7ee2cd187c12c8f3cf520ac3c08f49248fda9d9545ab61075c9ef33e7ae"
+    },
+    "Titanium.Android.R": {
+      "source": "Titanium/Android/R.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:368f29b10aaf0d833f2435efefe9648d02521f5ebaa9d0bce16362519f487ab5"
+    },
+    "Titanium.Android.RemoteViews": {
+      "source": "Titanium/Android/RemoteViews.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:bba77286061fc9554c4b9afc3cbd321d7f12af834d2b4d193ae0b5e5a3195ee5"
+    },
+    "Titanium.Android.Service": {
+      "source": "Titanium/Android/Service.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:e33f186783b4bd34841a12362cb0dae1958fdd5bcff2fc46e18e002cc34fb383"
+    },
+    "Titanium.App.Android": {
+      "source": "Titanium/App/Android/Android.yml",
+      "extends": "Titanium.Module",
+      "outputHash": "sha256:5befb83c7bcd419fcb7b27d0278c58aa92002e3d77f43755b0a4acf0a1e42a2d"
+    },
+    "Titanium.App": {
+      "source": "Titanium/App/App.yml",
+      "extends": "Titanium.Module",
+      "outputHash": "sha256:e54611e25c3ed75b83b249bb274578d915c99ab93fcf3397f6763f2472ac19fe"
+    },
+    "Titanium.App.Properties": {
+      "source": "Titanium/App/Properties/Properties.yml",
+      "extends": "Titanium.Module",
+      "outputHash": "sha256:8b72efd8b44199bef11891fe51e4b26844be5c653650af7616a858664f5ee48f"
+    },
+    "Titanium.App.iOS.ActivityAttributes": {
+      "source": "Titanium/App/iOS/ActivityAttributes.yml",
+      "outputHash": "sha256:0d727d67ec11db2b678db7fd7b0cf015d60051102687a6792e157ea48a54d3b0"
+    },
+    "Titanium.App.iOS.BackgroundService": {
+      "source": "Titanium/App/iOS/BackgroundService.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:764ad2ce3b4c8a7d5e87c1a0db728524c388120a353f09aae49528c9cf108235"
+    },
+    "Titanium.App.iOS.LocalNotification": {
+      "source": "Titanium/App/iOS/LocalNotification.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:101313ef77d3366d5c47cac7966e3ffb6ad54b2c59df514f9c22cb387f0bbf7b"
+    },
+    "Titanium.App.iOS.SearchQuery": {
+      "source": "Titanium/App/iOS/SearchQuery.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:ea6abf68650db444e17fff9c6e5a832e9508ec97bff1c31f7da37970300c862f"
+    },
+    "Titanium.App.iOS.SearchableIndex": {
+      "source": "Titanium/App/iOS/SearchableIndex.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:042957351be783b11d1b764a5306a4b6eb3118639a76811ece7598792c7a6d93"
+    },
+    "Titanium.App.iOS.SearchableItem": {
+      "source": "Titanium/App/iOS/SearchableItem.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:28d397b6c2e5fa5ea98da1b13f638e607b8a58d1c4ab0db3f491e221c5291829"
+    },
+    "Titanium.App.iOS.SearchableItemAttributeSet": {
+      "source": "Titanium/App/iOS/SearchableItemAttributeSet.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:fa549bfed00f75226cdeb33ea7592ffd99cc1b4f3a8db83cda4d9c39d8356a68"
+    },
+    "Titanium.App.iOS.UserActivity": {
+      "source": "Titanium/App/iOS/UserActivity.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:44717746274a5cd36dc8af3c171b7cad80ff86478319deb78a56f31d4b6b8804"
+    },
+    "Titanium.App.iOS.UserDefaults": {
+      "source": "Titanium/App/iOS/UserDefaults.yml",
+      "extends": "Titanium.App.Properties",
+      "outputHash": "sha256:52755dd46d8c9aed5498224a124605ae554d62c459c1a54417d71e02c08bfeae"
+    },
+    "Titanium.App.iOS.UserNotificationAction": {
+      "source": "Titanium/App/iOS/UserNotificationAction.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:5a0f2a996205fb9077aa139e0b3df7639a950452a57eb53ab4e61e5302d9673a"
+    },
+    "Titanium.App.iOS.UserNotificationCategory": {
+      "source": "Titanium/App/iOS/UserNotificationCategory.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:418d6d170d276c33c288d51ddac8cff3972842c40e036873f8f5a4b018bc69c2"
+    },
+    "Titanium.App.iOS.UserNotificationCenter": {
+      "source": "Titanium/App/iOS/UserNotificationCenter.yml",
+      "extends": "Titanium.Module",
+      "outputHash": "sha256:b21548df8f972d0138a7929be6364a521a36393c310999c22bf3cd2b83bf6c62"
+    },
+    "UserNotificationDictionary": {
+      "source": "Titanium/App/iOS/UserNotificationCenter.yml",
+      "outputHash": "sha256:513b13f4d0134814f085b0829d432260027a9af5bb5c537f60f57ab094a2b6eb"
+    },
+    "Titanium.App.iOS": {
+      "source": "Titanium/App/iOS/iOS.yml",
+      "extends": "Titanium.Module",
+      "outputHash": "sha256:69285aef924e01f32e55f056a5886ad77397ffca0cd23ce11d3707e4bb369f81"
+    },
+    "Titanium.Blob": {
+      "source": "Titanium/Blob.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:c1a50107ceac5edd5963e107c9c7c35f93986ef440a56fa81107ec03ba17f9d0"
+    },
+    "Titanium.BlobStream": {
+      "source": "Titanium/BlobStream.yml",
+      "extends": "Titanium.IOStream",
+      "outputHash": "sha256:76546ce650277567ef481eb38d201bdf9eec7535169953aaeeb59b6e3fde7a37"
+    },
+    "Titanium.Buffer": {
+      "source": "Titanium/Buffer.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:b4a8f33e73467a1ec1e6bdf2fca2f70bca51db4bf975c76ed61ebe3da0f1f211"
+    },
+    "Titanium.BufferStream": {
+      "source": "Titanium/BufferStream.yml",
+      "extends": "Titanium.IOStream",
+      "outputHash": "sha256:8b51f18d62dbfbe42629dd4eb92817698dc3e1eab9a3ac1fca09f2e17214c59f"
+    },
+    "Titanium.Calendar.Alert": {
+      "source": "Titanium/Calendar/Alert.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:7924b94f9fd70f0340ee52c8b0dd77cf09cb9884b4e2a364349bae827ed5dd5b"
+    },
+    "Titanium.Calendar.Attendee": {
+      "source": "Titanium/Calendar/Attendee.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:931319246573a5bc64bcb09106ca7129b8ea4a25aac053fe7e80a0a9bcfd6154"
+    },
+    "Titanium.Calendar": {
+      "source": "Titanium/Calendar/Calendar.yml",
+      "extends": "Titanium.Module",
+      "outputHash": "sha256:9742abb6f4d1a61c5055bd99add8d551bb3cd45e99fd681269061f433a682f51"
+    },
+    "Titanium.Calendar.Calendar": {
+      "source": "Titanium/Calendar/CalendarProxy.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:40ffb434f2cafb6c24a9680d963cb08a311939b2bc047a58fcd506867050ade1"
+    },
+    "Titanium.Calendar.Event": {
+      "source": "Titanium/Calendar/Event.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:1825f234812038ea76fa4a87926470486d2732d21d1c57fae5ffb8c4025b32dd"
+    },
+    "Titanium.Calendar.RecurrenceRule": {
+      "source": "Titanium/Calendar/RecurrenceRule.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:2de09eca01a5bd484d3d50bd9a8263a8361b8abca87eedc2e185db42a3f51f5f"
+    },
+    "Titanium.Calendar.Reminder": {
+      "source": "Titanium/Calendar/Reminder.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:069ff2f5444361934aef4f49e07e351a9e514ce59e8b92d8ad60a6f4882e5a0a"
+    },
+    "Titanium.Codec": {
+      "source": "Titanium/Codec/Codec.yml",
+      "extends": "Titanium.Module",
+      "outputHash": "sha256:2cde8bab60c473a2bb985b1cd36b4bdd916d8416302d06803a55de0007ad93bc"
+    },
+    "Titanium.Contacts": {
+      "source": "Titanium/Contacts/Contacts.yml",
+      "extends": "Titanium.Module",
+      "outputHash": "sha256:e5d8a6734b929e573270d3cc42f5013dd9cb142abce8a67d6e5e8b923bf1f139"
+    },
+    "ContactsAuthorizationResponse": {
+      "source": "Titanium/Contacts/Contacts.yml",
+      "extends": "ErrorResponse",
+      "outputHash": "sha256:6ab281042404def5835e430ca3d2e6ba8c2b9178227a4d1e2250d0e8e6ac921c"
+    },
+    "Titanium.Contacts.Group": {
+      "source": "Titanium/Contacts/Group.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:ccd4a7253da0a13687b8ff48d2e12339d931893a1afceead90765a574e23faa9"
+    },
+    "Titanium.Contacts.Person": {
+      "source": "Titanium/Contacts/Person.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:197f7f01db984a2a515b72fa4efe1909d04e469f7e0ab1c419f7921d22caae23"
+    },
+    "Titanium.Database.DB": {
+      "source": "Titanium/Database/DB.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:bf4bc748e83453f3ad277c25484a449a926333c0c7f771a58c07b2cd8010a681"
+    },
+    "Titanium.Database": {
+      "source": "Titanium/Database/Database.yml",
+      "extends": "Titanium.Module",
+      "outputHash": "sha256:8eab008d19e978155dc47419e13266fa9429a4045525543abebdd12e6e25b8b9"
+    },
+    "Titanium.Database.ResultSet": {
+      "source": "Titanium/Database/ResultSet.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:97f884aa5870cf1a2350e349fbccc333d344c71cc196b5e5643c6d898e3544d2"
+    },
+    "ErrorResponse": {
+      "source": "Titanium/ErrorResponse.yml",
+      "outputHash": "sha256:6198c292ca0f81c5115b5f49d38c52df813a68309d9b48e75eed721d07093bb0"
+    },
+    "SuccessResponse": {
+      "source": "Titanium/ErrorResponse.yml",
+      "extends": "ErrorResponse",
+      "outputHash": "sha256:da617c1529b112abc9b123a17976e8064e6e4fd432d5e4df597ef6eea5d2ea3a"
+    },
+    "FailureResponse": {
+      "source": "Titanium/ErrorResponse.yml",
+      "extends": "ErrorResponse",
+      "outputHash": "sha256:c003a8dc197f1cdc7ead9d491417751630f96ef23d6f58c9030f4be91ca3d4a0"
+    },
+    "Titanium.Filesystem.File": {
+      "source": "Titanium/Filesystem/File.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:8eff79732174f703bd90b4f32e5d62821c990a23ca9aef3a2688273227d65970"
+    },
+    "Titanium.Filesystem.FileStream": {
+      "source": "Titanium/Filesystem/FileStream.yml",
+      "extends": "Titanium.IOStream",
+      "outputHash": "sha256:4f69c7fac9b50f3ea08116ced5695826c0adba3d862ccd730f188c5828598b68"
+    },
+    "Titanium.Filesystem": {
+      "source": "Titanium/Filesystem/Filesystem.yml",
+      "extends": "Titanium.Module",
+      "outputHash": "sha256:b3e6899d715077f3675468d128c84e8df5d6772e62ed5895dcf60ad06cbcc21f"
+    },
+    "RequestStorageAccessResult": {
+      "source": "Titanium/Filesystem/Filesystem.yml",
+      "extends": "ErrorResponse",
+      "outputHash": "sha256:0faa20d658276c3dabc351ad2816a4af33c72e5687434d38a943754a05cf6198"
+    },
+    "Titanium.Geolocation.Android": {
+      "source": "Titanium/Geolocation/Android/Android.yml",
+      "extends": "Titanium.Module",
+      "outputHash": "sha256:aa3d61f77593c8187537d6c527d28af018cb3e44726521aaa2d2e98465c361b8"
+    },
+    "Titanium.Geolocation.Android.LocationProvider": {
+      "source": "Titanium/Geolocation/Android/LocationProvider.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:df62e94e8326293b8f79b0d4af359a5452a4c84345326abfb5a0eb67344e9b35"
+    },
+    "Titanium.Geolocation.Android.LocationRule": {
+      "source": "Titanium/Geolocation/Android/LocationRule.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:f0d08bfffd6df9c4f1369185359025b7c33ce3e4882741ff847a2e6e451cc489"
+    },
+    "Titanium.Geolocation": {
+      "source": "Titanium/Geolocation/Geolocation.yml",
+      "extends": "Titanium.Module",
+      "outputHash": "sha256:44e10444b799c9539d044f236e16dc403dd71393bfe9709ee878f798e921a5e2"
+    },
+    "LocationCoordinates": {
+      "source": "Titanium/Geolocation/Geolocation.yml",
+      "outputHash": "sha256:6c192d396d377b901759deae0778b78a2106d844bad13013ad563c3e2c97e474"
+    },
+    "HeadingData": {
+      "source": "Titanium/Geolocation/Geolocation.yml",
+      "outputHash": "sha256:4273d3e9b66f67961b8df45b043eff1c296b49a252e1624b3b0941db9fcc8ef3"
+    },
+    "LocationProviderDict": {
+      "source": "Titanium/Geolocation/Geolocation.yml",
+      "outputHash": "sha256:8d53f52cc662b9f9670e2513cd58c19a738c43747dc083571878ed1bea35c4df"
+    },
+    "LocationAuthorizationResponse": {
+      "source": "Titanium/Geolocation/Geolocation.yml",
+      "extends": "ErrorResponse",
+      "outputHash": "sha256:7aec12163d4bea1f9ae4982a9a317737f894a42b130c401d670b7931dc81b124"
+    },
+    "Titanium.Gesture": {
+      "source": "Titanium/Gesture/Gesture.yml",
+      "extends": "Titanium.Module",
+      "outputHash": "sha256:de346890f4c015eb94352693eb92489467127edee6fa41ad3ab2ee5e7d2e148c"
+    },
+    "Titanium.IOStream": {
+      "source": "Titanium/IOStream.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:41eaa72343ec4aac345e54f77243b5978be9410b12d2fdf5efc5ed713dcddbdf"
+    },
+    "Titanium.Locale": {
+      "source": "Titanium/Locale/Locale.yml",
+      "extends": "Titanium.Module",
+      "outputHash": "sha256:8cec3e1471b9907d6a97db86dd410b389952b8ea10d0c2171149da4b7c35266b"
+    },
+    "Titanium.Media.Android": {
+      "source": "Titanium/Media/Android/Android.yml",
+      "extends": "Titanium.Module",
+      "outputHash": "sha256:0942ad37f0565e56b02ae483a72f17a3d943055c6382238146554152d3fa7714"
+    },
+    "Titanium.Media.AudioPlayer": {
+      "source": "Titanium/Media/AudioPlayer.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:602e4ca01d335f8a7f83b0e0872b776e241fabbf11191605e39ac31294727f97"
+    },
+    "Titanium.Media.AudioRecorder": {
+      "source": "Titanium/Media/AudioRecorder.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:af6701b74b1b30f2a8abd305d9ba48bb1d3bfe9af8bf0e770bcefac21271fc2e"
+    },
+    "Titanium.Media.Item": {
+      "source": "Titanium/Media/Item.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:c29b72eeaf90b5523c9fddd4d45478c1e45916a3d84434377964887503f01eeb"
+    },
+    "Titanium.Media": {
+      "source": "Titanium/Media/Media.yml",
+      "extends": "Titanium.Module",
+      "outputHash": "sha256:bcfe9118aaa6637537752f8256eb571e99d0f64b37e4fc7d705ec83fa909ee1d"
+    },
+    "MediaQueryType": {
+      "source": "Titanium/Media/Media.yml",
+      "outputHash": "sha256:c1b6651409ae72f3d6aef1ffc321fd0d0bfe588375939d5cbb6cee08716f0b9a"
+    },
+    "CameraMediaItemType": {
+      "source": "Titanium/Media/Media.yml",
+      "extends": "SuccessResponse",
+      "outputHash": "sha256:7c7dd0a91b219ae4c7b3546bd31454af158c5876b0bd3a7d268ecc297a6cc3fc"
+    },
+    "PreviewImageOptions": {
+      "source": "Titanium/Media/Media.yml",
+      "outputHash": "sha256:05d40ac4e554eda04734591fd8af2b6fcebd9e0e7f80c5a8c617c66d9a14c17b"
+    },
+    "MediaAuthorizationResponse": {
+      "source": "Titanium/Media/Media.yml",
+      "extends": "ErrorResponse",
+      "outputHash": "sha256:9234110297e8369e88b13e1e019b892720f178a0e34dec498d95371ee5a878c1"
+    },
+    "RequestCameraAccessResult": {
+      "source": "Titanium/Media/Media.yml",
+      "extends": "ErrorResponse",
+      "outputHash": "sha256:16895c6d01f745a32b76fb89cc5e87529f19291d6902008d3dec62d1833728de"
+    },
+    "RequestMusicLibraryAccessResult": {
+      "source": "Titanium/Media/Media.yml",
+      "extends": "ErrorResponse",
+      "outputHash": "sha256:80f059eb0d169fdb3bdff0e8fbd9bc0b7de1a688e7c9e3877bcd24313109f0ab"
+    },
+    "RequestPhotoGalleryAccessResult": {
+      "source": "Titanium/Media/Media.yml",
+      "extends": "ErrorResponse",
+      "outputHash": "sha256:21d0539cd95486f82cebbf78ffc31699e1c2d708997ffee64104e872d2bd0ae0"
+    },
+    "Titanium.Media.MusicPlayer": {
+      "source": "Titanium/Media/MusicPlayer.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:f3f292651bfc9b894c1b795a3a48a12d2a12a70c2d20f092a280adae5d80cad8"
+    },
+    "Titanium.Media.Sound": {
+      "source": "Titanium/Media/Sound.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:8f4c261db31ec0c41dddf1dcf4fa72da7b11199fe03508add9b9fa75dda38705"
+    },
+    "Titanium.Media.SystemAlert": {
+      "source": "Titanium/Media/SystemAlert.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:b89c3fb310eec48e3ac9b584e2b543227cf89d344122661d23b65c07bb624a59"
+    },
+    "Titanium.Media.VideoPlayer": {
+      "source": "Titanium/Media/VideoPlayer.yml",
+      "extends": "Titanium.UI.View",
+      "outputHash": "sha256:9b9a98f6e25cf9e272bcb91bbb9e897f397addc70cb18768b84d5fedeca812d8"
+    },
+    "Titanium.Module": {
+      "source": "Titanium/Module.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:b237656e7f0e7dec0e3e4ff36e26518fa2126e1cd820b7d87ffedbb0a02a4c9c"
+    },
+    "Titanium.Network.BonjourBrowser": {
+      "source": "Titanium/Network/BonjourBrowser.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:4df66bb3c32d7956417f348e6d7892ec7a303ce79e3eecf1fab4bd1b4fa2468b"
+    },
+    "Titanium.Network.BonjourService": {
+      "source": "Titanium/Network/BonjourService.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:3bcbd48201c67227c40a9d8827690286c1c67bf63d02d912647504d969f15acd"
+    },
+    "Titanium.Network.Cookie": {
+      "source": "Titanium/Network/Cookie.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:cca38566f5c9e2831a690fa087c600a62993b8f40db09ca4d61be881785df7d8"
+    },
+    "Titanium.Network.HTTPClient": {
+      "source": "Titanium/Network/HTTPClient.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:9cd7a81c9bd985eafbd5737af6e2b6e0d755d2241b709950c26287b8435e0db8"
+    },
+    "SecurityManagerProtocol": {
+      "source": "Titanium/Network/HTTPClient.yml",
+      "outputHash": "sha256:4be12a9c199240797c9060616f55d96711d1979955e5610cbdf011ed37ce6235"
+    },
+    "APSConnectionDelegate": {
+      "source": "Titanium/Network/HTTPClient.yml",
+      "outputHash": "sha256:b77dac3258f56a565949f21b4d734ac623a5c09b191a43828c9624b5f45fab0d"
+    },
+    "Titanium.Network": {
+      "source": "Titanium/Network/Network.yml",
+      "extends": "Titanium.Module",
+      "outputHash": "sha256:fa3dc7a09911855c518f83ee599676fc2818530e3d11d8f7457e674cbc73412e"
+    },
+    "Titanium.Network.Socket": {
+      "source": "Titanium/Network/Socket/Socket.yml",
+      "extends": "Titanium.Module",
+      "outputHash": "sha256:86cccf16e11cf828cadf2876baf8257dd888d4eec1a01f72da16023102c4dda0"
+    },
+    "Titanium.Network.Socket.TCP": {
+      "source": "Titanium/Network/Socket/TCP.yml",
+      "extends": "Titanium.IOStream",
+      "outputHash": "sha256:069193aad64c60418420f24566bf0a3367b5212bf78085d93e3410e021f45683"
+    },
+    "ErrorCallbackArgs": {
+      "source": "Titanium/Network/Socket/TCP.yml",
+      "extends": "FailureResponse",
+      "outputHash": "sha256:cf3aa5e24d332909bd81d327c98f46ad3a892f3cbe20c357d0810f626a6f88e9"
+    },
+    "Titanium.Network.TCPSocket": {
+      "source": "Titanium/Network/TCPSocket.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:a8e91ce911d2421dfe62b28972c9ab6ce6ef62154afc0135cce3a02c56499f83"
+    },
+    "Titanium.Platform.Android": {
+      "source": "Titanium/Platform/Android/Android.yml",
+      "extends": "Titanium.Module",
+      "outputHash": "sha256:af7dc18644a7ccda42fa66d07c2e590f0492434186b371bb8aed75713bd49577"
+    },
+    "Titanium.Platform.DisplayCaps": {
+      "source": "Titanium/Platform/DisplayCaps.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:2c15d672d640b0caf362ffb261d8b1678ede411604e911ae7046177546d8cc90"
+    },
+    "Titanium.Platform": {
+      "source": "Titanium/Platform/Platform.yml",
+      "extends": "Titanium.Module",
+      "outputHash": "sha256:938e2c15b1cea4c523b5080114e170102752b2bb3df8113487ba51f71a6343e9"
+    },
+    "Titanium.Proxy": {
+      "source": "Titanium/Proxy.yml",
+      "outputHash": "sha256:650c587ead06e8985be04e4193f6e5d1284a5aec69dfc61ae7b810c14dc2dccf"
+    },
+    "Titanium.Stream": {
+      "source": "Titanium/Stream/Stream.yml",
+      "extends": "Titanium.Module",
+      "outputHash": "sha256:ffebacd9f634a2d568e80b6af455262d2f256624466ae9812d6c6c9a5621eab1"
+    },
+    "ReadCallbackArgs": {
+      "source": "Titanium/Stream/Stream.yml",
+      "extends": "ErrorResponse",
+      "outputHash": "sha256:739915efc29a16d60af108ccb656e531b5f9ddd9146518a59d5d7a6eb0be943a"
+    },
+    "WriteCallbackArgs": {
+      "source": "Titanium/Stream/Stream.yml",
+      "extends": "ErrorResponse",
+      "outputHash": "sha256:3dd504c7bd7d06d1d0f03f6f17c3b10d554dfa7b83ce557337bbed162b4b553b"
+    },
+    "Titanium": {
+      "source": "Titanium/Titanium.yml",
+      "extends": "Titanium.Module",
+      "outputHash": "sha256:5a47f48f9beed62928708cbc103ba01397926a75f27879aa1d3af70378d3f7f0"
+    },
+    "Titanium.UI.ActivityIndicator": {
+      "source": "Titanium/UI/ActivityIndicator.yml",
+      "extends": "Titanium.UI.View",
+      "outputHash": "sha256:31546079c821fc520539b061d6e7acd14a3e6e232400d2476f233758aa9dd204"
+    },
+    "Titanium.UI.ActivityIndicatorStyle": {
+      "source": "Titanium/UI/ActivityIndicatorStyle.yml",
+      "extends": "Titanium.Module",
+      "outputHash": "sha256:dae2bfc5c8fc0782e73ba4aa60afd31889b36c3b3d8f3950c42d7d6a61ed0cdc"
+    },
+    "Titanium.UI.AlertDialog": {
+      "source": "Titanium/UI/AlertDialog.yml",
+      "extends": "Titanium.UI.View",
+      "outputHash": "sha256:dd8d2ba4634d7f02d8b6116ea3b45e0b18c565e8bb1783c4d8018fa6e4ba77f0"
+    },
+    "Titanium.UI.Android": {
+      "source": "Titanium/UI/Android/Android.yml",
+      "extends": "Titanium.Module",
+      "outputHash": "sha256:52c8e0067a31b2aff415cb077a11c450f41f780f329c2fd3c144c65a5ebeead7"
+    },
+    "Titanium.UI.Android.CardView": {
+      "source": "Titanium/UI/Android/CardView.yml",
+      "extends": "Titanium.UI.View",
+      "outputHash": "sha256:c2d8063b8c6ae69710f8f21253706c7f02ccbb717eb5cd9e7fd7a1be5e8b85e2"
+    },
+    "Titanium.UI.Android.CollapseToolbar": {
+      "source": "Titanium/UI/Android/CollapseToolbar.yml",
+      "extends": "Titanium.UI.View",
+      "outputHash": "sha256:60d4dd890d563d4a6a608168344a1d1f08707e680e1da71e4714f5b2fe0852f3"
+    },
+    "Titanium.UI.Android.DrawerLayout": {
+      "source": "Titanium/UI/Android/DrawerLayout.yml",
+      "extends": "Titanium.UI.View",
+      "outputHash": "sha256:910caa0f90c620f50cddbe5c7655f467836ee6e610372e56bf2c100db4469417"
+    },
+    "Titanium.UI.Android.FloatingActionButton": {
+      "source": "Titanium/UI/Android/FloatingActionButton.yml",
+      "extends": "Titanium.UI.View",
+      "outputHash": "sha256:2db14262fce97ef3b7f777711808d8d5d5c72f1a163ec61d25a7d934f70543ae"
+    },
+    "Titanium.UI.Android.ProgressIndicator": {
+      "source": "Titanium/UI/Android/ProgressIndicator.yml",
+      "extends": "Titanium.UI.View",
+      "outputHash": "sha256:e2e1765f942f7485416b66a97d075d0f6d4af6ce979be5834c285abac18f2ac0"
+    },
+    "Titanium.UI.Android.SearchView": {
+      "source": "Titanium/UI/Android/SearchView.yml",
+      "extends": "Titanium.UI.View",
+      "outputHash": "sha256:395e0d93d7e6116bbc9fe0836a2869bf3bc8e2a64068e012963cb6dfbfe855a0"
+    },
+    "Titanium.UI.Android.Snackbar": {
+      "source": "Titanium/UI/Android/Snackbar.yml",
+      "extends": "Titanium.UI.View",
+      "outputHash": "sha256:14472f9b68421867bfaba856db990e5d7afe18ea35b192735439cd569978fec6"
+    },
+    "AnimatedOptions": {
+      "source": "Titanium/UI/AnimatedOptions.yml",
+      "outputHash": "sha256:535535292a0ba5613a189982749a60b2da6b31c972c53031f4a904db6a6a1b77"
+    },
+    "AnimatedWithDurationOptions": {
+      "source": "Titanium/UI/AnimatedOptions.yml",
+      "extends": "AnimatedOptions",
+      "outputHash": "sha256:09828e45cfa2146cb7e5b32998d51dbe4f2ff48800604b236e9731bb53752bcd"
+    },
+    "Titanium.UI.Animation": {
+      "source": "Titanium/UI/Animation.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:565475e846aa42e7d26cf04d4faac743fab8b391f427de52e05c5f78ae8e1456"
+    },
+    "Attribute": {
+      "source": "Titanium/UI/Attribute.yml",
+      "outputHash": "sha256:c7dd6bfdd4a9ab38310f0a28c774524045990938fc4e62801f65aa32658449a0"
+    },
+    "ParagraphAttribute": {
+      "source": "Titanium/UI/Attribute.yml",
+      "outputHash": "sha256:a95409925718d99120696d2d8237708d6f8d1dcaa12be159564b3cee6aeb3339"
+    },
+    "Titanium.UI.AttributedString": {
+      "source": "Titanium/UI/AttributedString.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:5922cedc012fd6d8707fbb5a87cfc80077a33f817c773318e95beefcfce6deba"
+    },
+    "Titanium.UI.Button": {
+      "source": "Titanium/UI/Button.yml",
+      "extends": "Titanium.UI.View",
+      "outputHash": "sha256:3066ba89e2f31a6a6cfa0b52087aa261b9da8ee70bcd92c9f19f3cc3d88a9efd"
+    },
+    "Titanium.UI.ButtonBar": {
+      "source": "Titanium/UI/ButtonBar.yml",
+      "extends": "Titanium.UI.View",
+      "outputHash": "sha256:78c0cf030093e999f39ce1410c9fa7bbb5315855db0b7b83a08eab9eb61acdc8"
+    },
+    "Titanium.UI.Clipboard": {
+      "source": "Titanium/UI/Clipboard/Clipboard.yml",
+      "extends": "Titanium.Module",
+      "outputHash": "sha256:3b5116a57a5b9c53a3970ecbbd24576c06536559e9d613ad28857223dcb57e29"
+    },
+    "Titanium.UI.Color": {
+      "source": "Titanium/UI/Color.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:746f22f60c559dbd20a6f480184cce0d14831c19f587de03211229281af701d4"
+    },
+    "Titanium.UI.DashboardItem": {
+      "source": "Titanium/UI/DashboardItem.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:ab8fce517e6d7fb405f68db20e6874ff749e59a55c666f5191035c72eefacf64"
+    },
+    "Titanium.UI.DashboardView": {
+      "source": "Titanium/UI/DashboardView.yml",
+      "extends": "Titanium.UI.View",
+      "outputHash": "sha256:6079c93bb00fd0ca11cb27675faf5a7ca245a73590a85dc73b5b8e7bb3b0fd12"
+    },
+    "Dimension": {
+      "source": "Titanium/UI/Dimension.yml",
+      "extends": "Size",
+      "outputHash": "sha256:0ca73372c4ccb3b4bdc27da510a53436fa890ab5c5d853590ac3d2dad4df6da0"
+    },
+    "Titanium.UI.EmailDialog": {
+      "source": "Titanium/UI/EmailDialog.yml",
+      "extends": "Titanium.UI.View",
+      "outputHash": "sha256:0662fc380aa56d5d1a1010db8c63b90f64ce56df66affa9a592dca5f043dc926"
+    },
+    "Font": {
+      "source": "Titanium/UI/Font.yml",
+      "outputHash": "sha256:1696e8befc042aea0b9709d1bacb2da1614b117c76a1b60df21830c20a7090ac"
+    },
+    "Titanium.UI.ImageView": {
+      "source": "Titanium/UI/ImageView.yml",
+      "extends": "Titanium.UI.View",
+      "outputHash": "sha256:0d00ee2f5c15889c0f2a25fb8c462c690c9726ddc972c06d2497431b2e0a891e"
+    },
+    "Titanium.UI.Label": {
+      "source": "Titanium/UI/Label.yml",
+      "extends": "Titanium.UI.View",
+      "outputHash": "sha256:9c7f7f9d1e975239c34e36d193cd2955337b5832dcd7bcc7a808561c1793ada4"
+    },
+    "Titanium.UI.ListItem": {
+      "source": "Titanium/UI/ListItem.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:a0e6e2c18c42c5dec9b25c27e5d0aeb1679158497e36fd5404b3e2357c481de6"
+    },
+    "ItemTemplate": {
+      "source": "Titanium/UI/ListItem.yml",
+      "outputHash": "sha256:4935334ebdf7c45cd0deb924d9dd3a0e9095fbff68f01a23d3c6a8eb2dc8c616"
+    },
+    "ViewTemplate": {
+      "source": "Titanium/UI/ListItem.yml",
+      "outputHash": "sha256:d558216aae98ff4194f764db2439bf2031b67839b713f5d6bbcfa3f00312f8d8"
+    },
+    "ListDataItem": {
+      "source": "Titanium/UI/ListItem.yml",
+      "outputHash": "sha256:1b69f456feaa9c38463b76b3866bef9ddcf37c58fa7cab780c1bea20f8de8d8e"
+    },
+    "RowActionType": {
+      "source": "Titanium/UI/ListItem.yml",
+      "outputHash": "sha256:ddead917c2c15ef2b3a4b4b9fa1707abcf76fc8d5a186bb31ea357793a014188"
+    },
+    "Titanium.UI.ListSection": {
+      "source": "Titanium/UI/ListSection.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:4851647efa255dfd0eb9f74cf6ea8c51beae6b759177144aee958c9425b0e3e8"
+    },
+    "Titanium.UI.ListView": {
+      "source": "Titanium/UI/ListView.yml",
+      "extends": "Titanium.UI.View",
+      "outputHash": "sha256:0e5956b564e86b4e00f9260d1c4331c953931ad3b4e9e77e5eaeff79588317ca"
+    },
+    "ListViewAnimationProperties": {
+      "source": "Titanium/UI/ListView.yml",
+      "outputHash": "sha256:2bb47ccd95d76bec90a9d0e5de231a4565835d435ce9b58b4e936f73b8e0156f"
+    },
+    "Titanium.UI.ListViewScrollPosition": {
+      "source": "Titanium/UI/ListViewScrollPosition.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:a1304b1d0f75a29fbf39075cc11f762cc2155a940e6f7e11587df127291bd582"
+    },
+    "Titanium.UI.MaskedImage": {
+      "source": "Titanium/UI/MaskedImage.yml",
+      "extends": "Titanium.UI.View",
+      "outputHash": "sha256:022c4331da029abb2990d5111a9faf96cd5b70b9af1e1db9ddf54a57ab4cb886"
+    },
+    "Titanium.UI.Matrix2D": {
+      "source": "Titanium/UI/Matrix2D.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:ab152ac4e8a9fd0d0bc81582c78cb82a6efb29bf12e5de1926b634ac12f723f2"
+    },
+    "Matrix2DCreationDict": {
+      "source": "Titanium/UI/Matrix2D.yml",
+      "outputHash": "sha256:40dbc4d79dc550a057a6656d0c4517893687cd0e132d69f6cf4cc1b3fc375e7d"
+    },
+    "Titanium.UI.Matrix3D": {
+      "source": "Titanium/UI/Matrix3D.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:7095e72d2ec33194a47f3dc91f37557f4a206a98c8ca321ff43ba30bfcf82d0f"
+    },
+    "Titanium.UI.NavigationWindow": {
+      "source": "Titanium/UI/NavigationWindow.yml",
+      "extends": "Titanium.UI.Window",
+      "outputHash": "sha256:ae20844f17d313d216055e4e830e2abe018b4d05b13ccb5aa00849323df70eb9"
+    },
+    "Titanium.UI.Notification": {
+      "source": "Titanium/UI/Notification.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:da3e4dba7eedbd801eb51b614c3e3d8a0bf9845700b66a9e911bf3fd16097c03"
+    },
+    "Titanium.UI.OptionBar": {
+      "source": "Titanium/UI/OptionBar.yml",
+      "extends": "Titanium.UI.View",
+      "outputHash": "sha256:d44fd0039f05a8a002770252639ca4710e08b9801085f445d9efab86f3015fc3"
+    },
+    "Titanium.UI.OptionDialog": {
+      "source": "Titanium/UI/OptionDialog.yml",
+      "extends": "Titanium.UI.View",
+      "outputHash": "sha256:fe990f3215c58c8445b925f6cb27d74b8e77b748ad41462fcd2e5fc15cfcb46a"
+    },
+    "HorizontalInsets": {
+      "source": "Titanium/UI/Padding.yml",
+      "outputHash": "sha256:6beb7b5316c0f42d04fa71991de7f65ae7dfd21fce509615ccd3158b7f80a3fb"
+    },
+    "Padding": {
+      "source": "Titanium/UI/Padding.yml",
+      "extends": "HorizontalInsets",
+      "outputHash": "sha256:2f872789cbd1cfc02891ffabd01572abe12186d8f373394eb738a93e766fdf5a"
+    },
+    "Titanium.UI.Picker": {
+      "source": "Titanium/UI/Picker.yml",
+      "extends": "Titanium.UI.View",
+      "outputHash": "sha256:396d8d4c4d28f276085d60ac33cfe19d755b80bee9f2b3c7a90e7d3ad149d146"
+    },
+    "Titanium.UI.PickerColumn": {
+      "source": "Titanium/UI/PickerColumn.yml",
+      "extends": "Titanium.UI.View",
+      "outputHash": "sha256:d9a81419df17318a9f692e069f53ac4bad0080c929ea7da57678458a36b92f30"
+    },
+    "Titanium.UI.PickerRow": {
+      "source": "Titanium/UI/PickerRow.yml",
+      "extends": "Titanium.UI.View",
+      "outputHash": "sha256:b949a91bc69da779669b7e0ccb30bead9cfe3fb260873516ddf71c48ae9498dc"
+    },
+    "Titanium.UI.ProgressBar": {
+      "source": "Titanium/UI/ProgressBar.yml",
+      "extends": "Titanium.UI.View",
+      "outputHash": "sha256:309c6393f69ca5f5220589e0202112d97bf6bfa329f72e22fea6e765205a6827"
+    },
+    "Titanium.UI.RefreshControl": {
+      "source": "Titanium/UI/RefreshControl.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:78dacdfd17e06c85a37e46c2f888f11d54669217c12f4448dd9290cb7733bbc7"
+    },
+    "Titanium.UI.ScrollView": {
+      "source": "Titanium/UI/ScrollView.yml",
+      "extends": "Titanium.UI.View",
+      "outputHash": "sha256:5de5542c075b9759170fc4a328faf765561292882281696aa94d2c01453f606f"
+    },
+    "Titanium.UI.ScrollableView": {
+      "source": "Titanium/UI/ScrollableView.yml",
+      "extends": "Titanium.UI.View",
+      "outputHash": "sha256:666cba1afccd175300bc42c07587bea0336bad301ef7ee4cb7a45463720536a6"
+    },
+    "Titanium.UI.SearchBar": {
+      "source": "Titanium/UI/SearchBar.yml",
+      "extends": "Titanium.UI.View",
+      "outputHash": "sha256:111db05bc8e948e0156320eca5c6a973feae65571388526ceb1108687b9f217f"
+    },
+    "Titanium.UI.Shortcut": {
+      "source": "Titanium/UI/Shortcut/Shortcut.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:7938aafd42f318ff4c73112f7f666a90535e29712d89ad26ae4203b05b9f374a"
+    },
+    "Titanium.UI.ShortcutItem": {
+      "source": "Titanium/UI/ShortcutItem.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:f19550b898f4052095ecaadd6acbbb6f7db538a05f7c137fd6ab38963af83b13"
+    },
+    "Size": {
+      "source": "Titanium/UI/Size.yml",
+      "outputHash": "sha256:7520b40c8780d2d104b06d74bce2b9757aacc9997ffd603c07b3e3e6e5e9c0ea"
+    },
+    "Titanium.UI.Slider": {
+      "source": "Titanium/UI/Slider.yml",
+      "extends": "Titanium.UI.View",
+      "outputHash": "sha256:b0b69c6449cefbfdb1022c340c0a04d97791c7710dda5a5588dac9bcf048f7ed"
+    },
+    "Titanium.UI.Switch": {
+      "source": "Titanium/UI/Switch.yml",
+      "extends": "Titanium.UI.View",
+      "outputHash": "sha256:81e59f7234468000077ef50e6244f76a9ef41d456ce380a362458d9bfbae33a7"
+    },
+    "Titanium.UI.Tab": {
+      "source": "Titanium/UI/Tab.yml",
+      "extends": "Titanium.UI.View",
+      "outputHash": "sha256:ad945e09920933ef5202503e4eb9390f01da0ffc10746c379b7f39c75c542fb4"
+    },
+    "Titanium.UI.TabGroup": {
+      "source": "Titanium/UI/TabGroup.yml",
+      "extends": "Titanium.UI.Window",
+      "outputHash": "sha256:430e50f4252cfe623ab509b4de5d95bc84c3028e8ceb354c62ad546600067413"
+    },
+    "Titanium.UI.TabbedBar": {
+      "source": "Titanium/UI/TabbedBar.yml",
+      "extends": "Titanium.UI.View",
+      "outputHash": "sha256:0abe737f15813f871c818b0a2ce20bc503a6a4eff1cc3a7961756fd087c097dd"
+    },
+    "Titanium.UI.TableView": {
+      "source": "Titanium/UI/TableView.yml",
+      "extends": "Titanium.UI.View",
+      "outputHash": "sha256:acb89c6b19df55d0e527d838e715a58c4f4a4d27eae419c98e2dbe2c3cba6a93"
+    },
+    "Titanium.UI.TableViewRow": {
+      "source": "Titanium/UI/TableViewRow.yml",
+      "extends": "Titanium.UI.View",
+      "outputHash": "sha256:7306c58175e5738df29a8a95c9a520590fd87131baf3baa938dbc089ecd177d2"
+    },
+    "Titanium.UI.TableViewScrollPosition": {
+      "source": "Titanium/UI/TableViewScrollPosition.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:994ef48564603f112b78267065a7a64a9ed5ead7926b47686c35a5218e73bbd7"
+    },
+    "Titanium.UI.TableViewSection": {
+      "source": "Titanium/UI/TableViewSection.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:b5133c53bbbcde8b69ab7fdfaea6bda943a4bdd8f27dcb6ebf357455296225b4"
+    },
+    "Titanium.UI.TextArea": {
+      "source": "Titanium/UI/TextArea.yml",
+      "extends": "Titanium.UI.View",
+      "outputHash": "sha256:5f1480389d19c272cbc00378b0d9dcf51e12cd1336ca197e1b6f4da67deda19a"
+    },
+    "Titanium.UI.TextField": {
+      "source": "Titanium/UI/TextField.yml",
+      "extends": "Titanium.UI.View",
+      "outputHash": "sha256:01fb7237fce94f91ab58f7abbdd3ca61a93696b992387ef08d3cf70e5c9312c6"
+    },
+    "Titanium.UI.Toolbar": {
+      "source": "Titanium/UI/Toolbar.yml",
+      "extends": "Titanium.UI.View",
+      "outputHash": "sha256:fac2b55ca82f4e1e42bc87c3e381a4c4fd4d1a62f46ce5fc7626b75cc8ee4c68"
+    },
+    "Titanium.UI": {
+      "source": "Titanium/UI/UI.yml",
+      "extends": "Titanium.Module",
+      "outputHash": "sha256:98db7de29eb435a23d2a958d48134fa97aefc242f1cd858429ab8feafcc0a5ac"
+    },
+    "Titanium.UI.View": {
+      "source": "Titanium/UI/View.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:43e2fb656db89580775a7322bebae26d3b6dd40748be4dd1ad3186942f86668d"
+    },
+    "Point": {
+      "source": "Titanium/UI/View.yml",
+      "outputHash": "sha256:964a968f53bdccd5b1aa5d371b37ba8ecde5bcdf8c7d7f64b721680cb4fa3b3c"
+    },
+    "Gradient": {
+      "source": "Titanium/UI/View.yml",
+      "outputHash": "sha256:ef839bed9b54af4c0fde6f3615e31316f86f857abc89db1117e19f1a88efe8f1"
+    },
+    "Titanium.UI.WebView": {
+      "source": "Titanium/UI/WebView.yml",
+      "extends": "Titanium.UI.View",
+      "outputHash": "sha256:2ff1f7c34fb7cb8d84ea9da64fb2a1b623d22f0c46bc2dfc919e577b965053be"
+    },
+    "Titanium.UI.Window": {
+      "source": "Titanium/UI/Window.yml",
+      "extends": "Titanium.UI.View",
+      "outputHash": "sha256:827aace824b22291a40203b0b8e9e832fe88ce3f30154b7a27e759f8c4e7eb41"
+    },
+    "openWindowParams": {
+      "source": "Titanium/UI/Window.yml",
+      "outputHash": "sha256:3093402296454144a597c0c141d130c83856d39e67ad505e83255384bcc1085b"
+    },
+    "titleAttributesParams": {
+      "source": "Titanium/UI/Window.yml",
+      "outputHash": "sha256:d1a77f851d45e5d221146f712a86bab28eed742ab55d78e3eb2f58588635704b"
+    },
+    "shadowDict": {
+      "source": "Titanium/UI/Window.yml",
+      "outputHash": "sha256:5584b7b52016e5d79bee17f5302df1dd9a55b2556a7ed2e0010652ba8eb1ac08"
+    },
+    "Titanium.UI.iOS.AlertDialogStyle": {
+      "source": "Titanium/UI/iOS/AlertDialogStyle.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:65807ce89df1f7754b86dabac38e746fe097b8e30e1e404296cbc5839738b864"
+    },
+    "Titanium.UI.iOS.AnchorAttachmentBehavior": {
+      "source": "Titanium/UI/iOS/AnchorAttachmentBehavior.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:c78dc2647722a65919cc59d350c24dba1772a31a84511984d8b4b55ebc442d46"
+    },
+    "Titanium.UI.iOS.AnimationStyle": {
+      "source": "Titanium/UI/iOS/AnimationStyle.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:9a60df1f1955a25bb7f790d0d0429aaf6b4c7312139c3ea51331d417158af937"
+    },
+    "Titanium.UI.iOS.Animator": {
+      "source": "Titanium/UI/iOS/Animator.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:ba8b24f68160e042d8d4a0565ac2ebf9b21de460fb833962ef9757e0287c8eff"
+    },
+    "Titanium.UI.iOS.ApplicationShortcuts": {
+      "source": "Titanium/UI/iOS/ApplicationShortcuts.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:f117478b1583f9d72bb2b8e108dc8d9d64edff92700181ecfec5ccb7296c374b"
+    },
+    "Titanium.UI.iOS.BlurView": {
+      "source": "Titanium/UI/iOS/BlurView.yml",
+      "extends": "Titanium.UI.View",
+      "outputHash": "sha256:fdb4d89bf6b632abd77e66caeb8fd9975096194b7e27eeea03823a3101d80be9"
+    },
+    "Titanium.UI.iOS.CollisionBehavior": {
+      "source": "Titanium/UI/iOS/CollisionBehavior.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:5437d674ace954ebdc9e01feaedf4462b619f7bb791cc889618285f025854e49"
+    },
+    "Titanium.UI.iOS.CoverFlowView": {
+      "source": "Titanium/UI/iOS/CoverFlowView.yml",
+      "extends": "Titanium.UI.View",
+      "outputHash": "sha256:aa162f7ad0538f9cbdd926715cc7ed11951f60a65bc9591b50e3cb40e7aef509"
+    },
+    "Titanium.UI.iOS.DocumentViewer": {
+      "source": "Titanium/UI/iOS/DocumentViewer.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:d1edbac3bd40ace3f46fe48a70482cdc2d3b7ff3972bf3efa893b46aca6081ab"
+    },
+    "Titanium.UI.iOS.DynamicItemBehavior": {
+      "source": "Titanium/UI/iOS/DynamicItemBehavior.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:744d115aa7acd704acc52f9e9bdef12c7690778c6da403dd2cc3a15237b499b6"
+    },
+    "Titanium.UI.iOS.FeedbackGenerator": {
+      "source": "Titanium/UI/iOS/FeedbackGenerator.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:e5baad7f63ae873f4bc0e74103638818e8cf6d44b476a495b0d232da29b5c5a5"
+    },
+    "Titanium.UI.iOS.GravityBehavior": {
+      "source": "Titanium/UI/iOS/GravityBehavior.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:7f16505310a7f3c9019856723c7d70983505e3919b4bd58e76d4cce458204769"
+    },
+    "Titanium.UI.iOS.ListViewCellSelectionStyle": {
+      "source": "Titanium/UI/iOS/ListViewCellSelectionStyle.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:a3d3f5af438ee4cd0af6b6ce53ffbd97ebaece83f0ff54e5990e70d7f05da931"
+    },
+    "Titanium.UI.iOS.ListViewScrollPosition": {
+      "source": "Titanium/UI/iOS/ListViewScrollPosition.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:d031db6b23094a9051e3ad387e586b130e5bb6e0e56d64e260603ae78a0ffa2d"
+    },
+    "Titanium.UI.iOS.ListViewStyle": {
+      "source": "Titanium/UI/iOS/ListViewStyle.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:714ac64a78bb24057dbb3f2a9ac35c74f99d45c97c467f7f996dc43b0586c6aa"
+    },
+    "Titanium.UI.iOS.LivePhoto": {
+      "source": "Titanium/UI/iOS/LivePhoto.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:01203e36ab928019a8c41c41fed2b857c1b838baafe96a200156926911416f4e"
+    },
+    "Titanium.UI.iOS.LivePhotoView": {
+      "source": "Titanium/UI/iOS/LivePhotoView.yml",
+      "extends": "Titanium.UI.View",
+      "outputHash": "sha256:42eb6e42ee2f4cf6e6607ccc32343ca369af0d961ea99d7189e79e6ca5ddcd2e"
+    },
+    "Titanium.UI.iOS.MenuPopup": {
+      "source": "Titanium/UI/iOS/MenuPopup.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:43bf59cb9b7b8d99761bd5f7de7b4e4ad8a5f1d1e9e6fe2609e12c677b9f1e67"
+    },
+    "Titanium.UI.iOS.NavigationWindow": {
+      "source": "Titanium/UI/iOS/NavigationWindow.yml",
+      "extends": "Titanium.UI.Window",
+      "outputHash": "sha256:84d80e1d6b8bf0b2ca4d3fe964164553bdc2da066df1d952d72e0b306b05b1b7"
+    },
+    "Titanium.UI.iOS.PreviewAction": {
+      "source": "Titanium/UI/iOS/PreviewAction.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:dc74f12158824a266ededc67f108279550fa89c8b985e9d0313c7ad3f507ec69"
+    },
+    "Titanium.UI.iOS.PreviewActionGroup": {
+      "source": "Titanium/UI/iOS/PreviewActionGroup.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:89ad47aa77686ac6f715bd3a24521bc7dfff60a03f3d106b32a6802c94b08f21"
+    },
+    "Titanium.UI.iOS.PreviewContext": {
+      "source": "Titanium/UI/iOS/PreviewContext.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:9a2774f9d558e0d9f7623cc1c11c3c45e0be80d1f5fb2d4bd3d3e1fb831c2c01"
+    },
+    "Titanium.UI.iOS.ProgressBarStyle": {
+      "source": "Titanium/UI/iOS/ProgressBarStyle.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:3dbea9fa9a3d4156e816d9b0acdde02ff28770af29c47dac3352e2fa7fab9359"
+    },
+    "Titanium.UI.iOS.PushBehavior": {
+      "source": "Titanium/UI/iOS/PushBehavior.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:a8b3150d1d3b73e2534ede3198a6804ec0e7b6d06b520cc963e2abf74a19a332"
+    },
+    "Titanium.UI.iOS.RowAnimationStyle": {
+      "source": "Titanium/UI/iOS/RowAnimationStyle.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:619419837741be70bd3050969eec85d7f2effa7fa2ff11fdbf58bc23497131e4"
+    },
+    "Titanium.UI.iOS.ScrollIndicatorStyle": {
+      "source": "Titanium/UI/iOS/ScrollIndicatorStyle.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:30e5d4f685ee914730ba7e36f0eb7517a746daa0fef6eacfa0b43a2a41c5395e"
+    },
+    "Titanium.UI.iOS.SnapBehavior": {
+      "source": "Titanium/UI/iOS/SnapBehavior.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:154ac8974165aaafc5decfb8e5d679f5a109225a4096975e62a76779276da758"
+    },
+    "Titanium.UI.iOS.SplitWindow": {
+      "source": "Titanium/UI/iOS/SplitWindow.yml",
+      "extends": "Titanium.UI.Window",
+      "outputHash": "sha256:4b1d3b2813b93273ffd0ca2578422422e76f13eb7cbfe34061a0e8f329d91d51"
+    },
+    "Titanium.UI.iOS.StatusBar": {
+      "source": "Titanium/UI/iOS/StatusBar.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:45b5207614a907e9b816484b1d57668bf6d8828281cdcf2a2d64385311768e4c"
+    },
+    "Titanium.UI.iOS.Stepper": {
+      "source": "Titanium/UI/iOS/Stepper.yml",
+      "extends": "Titanium.UI.View",
+      "outputHash": "sha256:3f8090649889ec7d1e7497e97c51ad9149a192747c58bae25fdc256d075e76b7"
+    },
+    "Titanium.UI.iOS.SystemButton": {
+      "source": "Titanium/UI/iOS/SystemButton.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:5d07b7ab66ecee4ca3130eb305ec2fde7cdd99328df7ffaeba2fd936fbb4c987"
+    },
+    "Titanium.UI.iOS.SystemButtonStyle": {
+      "source": "Titanium/UI/iOS/SystemButtonStyle.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:28b9838557aaa197987cde454831f5d9269f7858f90b89323b3a3c91d497e2b7"
+    },
+    "Titanium.UI.iOS.SystemIcon": {
+      "source": "Titanium/UI/iOS/SystemIcon.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:0ce77cb909f49d2de3a0c8445a1e6267eca96c9711701ee71d18424bc7f8a499"
+    },
+    "Titanium.UI.iOS.TabbedBar": {
+      "source": "Titanium/UI/iOS/TabbedBar.yml",
+      "extends": "Titanium.UI.View",
+      "outputHash": "sha256:5ac079294bd23920f2614a35633be59c53dba2eec956621ba0729e2ccfea071e"
+    },
+    "BarItemType": {
+      "source": "Titanium/UI/iOS/TabbedBar.yml",
+      "outputHash": "sha256:e0e8cf8a3674c095870f25587d7eb7fd98550ebb343d5ef4aafbd209216a80ae"
+    },
+    "Titanium.UI.iOS.TableViewCellSelectionStyle": {
+      "source": "Titanium/UI/iOS/TableViewCellSelectionStyle.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:b6d81813d545f17963b463e2173a988720058466834d2a4bd9efb02aaaad8c94"
+    },
+    "Titanium.UI.iOS.TableViewScrollPosition": {
+      "source": "Titanium/UI/iOS/TableViewScrollPosition.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:b6d3034983f39264daf112830229300e6b17498b9bb2698c5abf4bdac8dfd61e"
+    },
+    "Titanium.UI.iOS.TableViewStyle": {
+      "source": "Titanium/UI/iOS/TableViewStyle.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:174ef007b65049eab46fbf99c8888af916228525884c1d348e6ee159ca3bd452"
+    },
+    "Titanium.UI.iOS.Toolbar": {
+      "source": "Titanium/UI/iOS/Toolbar.yml",
+      "extends": "Titanium.UI.View",
+      "outputHash": "sha256:127a89625cb96f156c19854639c413b6c193e33f64e2e586c95b81d4ffb391d8"
+    },
+    "Titanium.UI.iOS.TransitionAnimation": {
+      "source": "Titanium/UI/iOS/TransitionAnimation.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:878de28e107eecd942cf8986efe2ef54c4e704657824c0dfa9281ec0be5d87b8"
+    },
+    "Titanium.UI.iOS.ViewAttachmentBehavior": {
+      "source": "Titanium/UI/iOS/ViewAttachmentBehavior.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:88ce5ffd210ff8851e6d1c3ebb4ca790a2c89c42a79eebeccaeb6a33764bb242"
+    },
+    "Titanium.UI.iOS.WebViewConfiguration": {
+      "source": "Titanium/UI/iOS/WebViewConfiguration.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:11bd2c37eca0b3ec2b85f06e56be54db6a8a1e6af11ea5a1abfcff1839a4c767"
+    },
+    "Titanium.UI.iOS.WebViewDecisionHandler": {
+      "source": "Titanium/UI/iOS/WebViewDecisionHandler.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:8bac2b4ce12401dc0e1b8dd8625fd661881a4757a84665ce04186238c639441d"
+    },
+    "Titanium.UI.iOS.WebViewProcessPool": {
+      "source": "Titanium/UI/iOS/WebViewProcessPool.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:a789b300d536a9b7d7a5ac0b16d3c35ed320f6fd27ec93f990665f0869f45679"
+    },
+    "Titanium.UI.iOS": {
+      "source": "Titanium/UI/iOS/iOS.yml",
+      "extends": "Titanium.Module",
+      "outputHash": "sha256:a943995d15c50d60fa8f59122143eb90ca2ca92a18f60f134cfe152ecc771674"
+    },
+    "Titanium.UI.iPad.Popover": {
+      "source": "Titanium/UI/iPad/Popover.yml",
+      "extends": "Titanium.UI.View",
+      "outputHash": "sha256:362a5413781633c6c3aaa32a0d6da732fa8d97a5647610f2196a90246be928cc"
+    },
+    "Titanium.UI.iPad": {
+      "source": "Titanium/UI/iPad/iPad.yml",
+      "extends": "Titanium.Module",
+      "outputHash": "sha256:e02116e88cd7519bc54039323457bad8fa65c9ba97995ee0fd2830a123945dfe"
+    },
+    "Titanium.Utils": {
+      "source": "Titanium/Utils/Utils.yml",
+      "extends": "Titanium.Module",
+      "outputHash": "sha256:683866df236598e6c54712c14ee5c22b8b659d5d11273491ad7f7ba178458097"
+    },
+    "Titanium.WatchSession": {
+      "source": "Titanium/WatchSession/WatchSession.yml",
+      "extends": "Titanium.Module",
+      "outputHash": "sha256:1c6d952f4006b959c0bd4c0e706b9736f2fa4e396d48217f70b85d5806dde16c"
+    },
+    "Titanium.XML.Attr": {
+      "source": "Titanium/XML/Attr.yml",
+      "extends": "Titanium.XML.Node",
+      "outputHash": "sha256:aab3a6df457973dc55c8b2038b0ba2e3fb30a3b510f403d9495b00ff103b3cdc"
+    },
+    "Titanium.XML.CDATASection": {
+      "source": "Titanium/XML/CDATASection.yml",
+      "extends": "Titanium.XML.Text",
+      "outputHash": "sha256:adfb33f375814e3a90ec1af704ac21c29e103a67e756eaa2d3bb511b61f3999d"
+    },
+    "Titanium.XML.CharacterData": {
+      "source": "Titanium/XML/CharacterData.yml",
+      "extends": "Titanium.XML.Node",
+      "outputHash": "sha256:3d381b64bc5f651487f8315b51b6df98206ee2c9a8eb83269e40a9881baa0d53"
+    },
+    "Titanium.XML.Comment": {
+      "source": "Titanium/XML/Comment.yml",
+      "extends": "Titanium.XML.CharacterData",
+      "outputHash": "sha256:fc6d9157f18847964886d1eab2981f639b619339c8cab3fd8955b4c460aba238"
+    },
+    "Titanium.XML.DOMImplementation": {
+      "source": "Titanium/XML/DOMImplementation.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:46cc2bd879717cdd0a1908d85e26cd3e019cb178284de17277f9aed956785f14"
+    },
+    "Titanium.XML.Document": {
+      "source": "Titanium/XML/Document.yml",
+      "extends": "Titanium.XML.Node",
+      "outputHash": "sha256:c84861a239f343352a075b9dfba77ac5eedad9a9ab712b779de6cb1d45ae7ef8"
+    },
+    "Titanium.XML.DocumentFragment": {
+      "source": "Titanium/XML/DocumentFragment.yml",
+      "extends": "Titanium.XML.Node",
+      "outputHash": "sha256:655ea172aa2f1de7a18853cc5d19cb6acc3dd08cd63d71b841a1ed56b812ba93"
+    },
+    "Titanium.XML.DocumentType": {
+      "source": "Titanium/XML/DocumentType.yml",
+      "extends": "Titanium.XML.Node",
+      "outputHash": "sha256:f74f0ce41352d155cebf8bf0f337e7d1d6dfc1c80b2981d3b5913102ff05e1da"
+    },
+    "Titanium.XML.Element": {
+      "source": "Titanium/XML/Element.yml",
+      "extends": "Titanium.XML.Node",
+      "outputHash": "sha256:44ce9992316090df05e74cb8f69623314bb232a48fa75489a269fe4c8296569e"
+    },
+    "Titanium.XML.Entity": {
+      "source": "Titanium/XML/Entity.yml",
+      "extends": "Titanium.XML.Node",
+      "outputHash": "sha256:4c363a0aa526a617fe89473bcf3b0b2c7ac4a3b8468de10795feb1a77bd17da3"
+    },
+    "Titanium.XML.EntityReference": {
+      "source": "Titanium/XML/EntityReference.yml",
+      "extends": "Titanium.XML.Node",
+      "outputHash": "sha256:55080707a05f7b3876943bcedaf2949e260a54527ae7c16aee75ee8d2c263545"
+    },
+    "Titanium.XML.NamedNodeMap": {
+      "source": "Titanium/XML/NamedNodeMap.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:fd6e9a47209aa73deb3d19cde86e914032a57c4382ee4b9e006b5b55572e1c64"
+    },
+    "Titanium.XML.Node": {
+      "source": "Titanium/XML/Node.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:1dfefd24290f61ec128d99e9946fd5bca8c29f8eae9b8abbc84f16b2ba5665fc"
+    },
+    "Titanium.XML.NodeList": {
+      "source": "Titanium/XML/NodeList.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:0fc540a9373d2d9a9a7c59eeef8ec417d5138bfde0871119822e186d0b568a06"
+    },
+    "Titanium.XML.Notation": {
+      "source": "Titanium/XML/Notation.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:e6fb6e9f87879fb50285198169f9229f26f4f00646bddb121463856c8622b376"
+    },
+    "Titanium.XML.ProcessingInstruction": {
+      "source": "Titanium/XML/ProcessingInstruction.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:ec40eb12316d9cc0ff73258e3a1a7a25213affee2e6734193b54144884b360d1"
+    },
+    "Titanium.XML.Text": {
+      "source": "Titanium/XML/Text.yml",
+      "extends": "Titanium.XML.CharacterData",
+      "outputHash": "sha256:59ac1d4f557c7be1c0d0ef79e7cf378e54853e1b5b8a641717f9f1ea9619a093"
+    },
+    "Titanium.XML": {
+      "source": "Titanium/XML/XML.yml",
+      "extends": "Titanium.Module",
+      "outputHash": "sha256:b5d50dcbc9380fe0b24ad918e460555e8ef36e827e37b73ab5bad43759c3abe9"
+    },
+    "Dictionary": {
+      "source": "common/Dictionary.yml",
+      "outputHash": "sha256:b141dbf531b826afaa8474f76bb0cd473dab8de542a5d8e3eebb3c87a70a8b39"
+    }
+  }
+}

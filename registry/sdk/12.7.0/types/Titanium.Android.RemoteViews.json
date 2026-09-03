@@ -1,0 +1,597 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.Android.RemoteViews",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android"
+  ],
+  "since": "1.6",
+  "summary": "The Titanium binding of [Android RemoteViews](https://developer.android.com/reference/android/widget/RemoteViews.html). \n",
+  "description": "`RemoteViews` is an API for referencing and updating a remote view hierarchy that\nlives in another process, for example, in a [Notification](api:Titanium.Android.Notification).\n\nTo create a remote view hierarchy, you must define an Android XML layout for the views\nyou want to display, and place the XML file in the `platform/android/res/layout` inside your\nproject folder. See the examples for a sample XML layout and sample code for creating a\nremote view.\n\nTo use a remote view hierarchy in a notification, see\n[Notification.contentView](api:Titanium.Android.Notification#contentView).\n\nBecause the remote view hierarchy belongs to another process, you cannot call methods on it\ndirectly, but you can call methods on the `RemoteViews` object to update views in the\nheirarchy by ID. To reference a view inside the layout, use the\n[Titanium.App.Android.R](api:Titanium.App.Android#R) object to reference the view's ID. For example, if you have a \nview with the ID `notify_imageview`, you can refer to it using:\n    \n``` js\nTi.App.Android.R.id.notify_imageview\n```\n\nSee also: \n\n*   [RemoteViews](https://developer.android.com/reference/android/widget/RemoteViews.html)\n    in the Android Developer Reference.\n\n*   [XML Layouts](https://developer.android.com/guide/topics/ui/declaring-layout.html)\n    in the Android Developer Guide.\n",
+  "examples": [
+    {
+      "title": "Create a Remote View",
+      "code": "\nThe following code excerpt creates a `RemoteViews` object based on a custom layout \ncalled `custom_layout.xml`, and set a label's text.\n\n``` js\nvar AppR = Ti.App.Android.R;\nvar customLayout = Ti.Android.createRemoteViews({ layoutId: AppR.layout.custom_layout });\ncustomLayout.setTextViewText(AppR.id.custom_text, \"Click Me!\");\n```\n\nThis example uses a simple custom layout:\n\n``` xml\n<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\n        android:layout_width=\"fill_parent\" \n        android:layout_height=\"fill_parent\" \n        android:orientation=\"vertical\" >\n    <TextView android:id=\"@+id/custom_text\"\n            android:layout_width=\"fill_parent\"\n            android:layout_height=\"fill_parent\"\n            android:background=\"#ffffff\"\n            android:textColor=\"#aaff0000\"\n            android:textStyle=\"italic\"\n            android:gravity=\"center\"\n            android:text=\"Hello, I am a TextView\" />\n</LinearLayout>\n```\n\nThe layout file for this example must be placed in\n`platform/android/res/layout/custom_layout.xml`. \n"
+    }
+  ],
+  "properties": [
+    {
+      "name": "layoutId",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Android layout resource ID for the view to display. Required.",
+      "description": "To define a custom layout resource in your application, the XML layout file \nshould be placed in `platform/android/res/layout` folder inside your project folder.\n\nUse [Titanium.App.Android.R](api:Titanium.App.Android#R) to reference the ID of the layout.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "availability": "creation"
+    },
+    {
+      "name": "packageName",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Package name that the resource ID lives in. Optional.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "availability": "creation"
+    }
+  ],
+  "methods": [
+    {
+      "name": "setBoolean",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Calls a method taking a single `boolean` argument on a view in the remote view\nhierarchy.  See Android's documentation for\n[setBoolean](https://developer.android.com/reference/android/widget/RemoteViews.html#setBoolean(int, java.lang.String, boolean)).\n",
+      "parameters": [
+        {
+          "name": "viewId",
+          "summary": "Resource ID of the view to invoke the method on.\nApplication-specific resource IDs can be specified using [Titanium.App.Android.R](api:Titanium.App.Android#R).\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "methodName",
+          "summary": "Name of the method to call.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "value",
+          "summary": "Value to pass to the method.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "setChronometer",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Sets the base time, format string, and started flag for a chronometer\nin the remote view hierarchy.\n",
+      "description": "See Android's documentation for \n[setChronometer](https://developer.android.com/reference/android/widget/RemoteViews.html#setChronometer(int, long, java.lang.String, boolean)).\n",
+      "parameters": [
+        {
+          "name": "viewId",
+          "summary": "Resource ID of the Chronometer to update.\nApplication-specific resource IDs can be specified using [Titanium.App.Android.R](api:Titanium.App.Android#R).\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "base",
+          "summary": "Time at which the timer would have read 0:00.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Date"
+            }
+          ]
+        },
+        {
+          "name": "format",
+          "summary": "Chronometer format string, or `null` to simply display the timer value.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "started",
+          "summary": "True if you want the clock to be started, false if not.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "setDouble",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Calls a method taking a single `double` argument on a view in the remote view\nhierarchy.\n",
+      "description": "See Android's documentation for \n[setDouble](https://developer.android.com/reference/android/widget/RemoteViews.html#setDouble(int, java.lang.String, double)).\n",
+      "parameters": [
+        {
+          "name": "viewId",
+          "summary": "Resource ID of the view to update.\nApplication-specific resource IDs can be specified using [Titanium.App.Android.R](api:Titanium.App.Android#R).\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "methodName",
+          "summary": "Name of the method to call.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "value",
+          "summary": "Value to pass to the method.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "setImageViewResource",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Sets the image for an image view in the remote view hierarchy using an Android drawable resource.",
+      "description": "See Android's documentation for \n[setImageViewResource](https://developer.android.com/reference/android/widget/RemoteViews.html#setImageViewResource(int, int)).\n",
+      "parameters": [
+        {
+          "name": "viewId",
+          "summary": "Resource ID of the `ImageView` to update.\nApplication-specific resource IDs can be specified using [Titanium.App.Android.R](api:Titanium.App.Android#R).\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "srcId",
+          "summary": "Resource ID of the new image.\nApplication-specific resource IDs can be specified using [Titanium.App.Android.R](api:Titanium.App.Android#R).\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "setImageViewUri",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Sets the image for an image view in the remote view hierarchy using a URI.\n",
+      "description": "This method supports supports both Android and Titanium URLs. \n\nSee Android's documentation for\n[setImageViewUri](https://developer.android.com/reference/android/widget/RemoteViews.html#setImageViewUri(int, android.net.Uri)).\n",
+      "parameters": [
+        {
+          "name": "viewId",
+          "summary": "Resource ID of the `ImageView` to update.\nApplication-specific resource IDs can be specified using [Titanium.App.Android.R](api:Titanium.App.Android#R).\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "uri",
+          "summary": "URI of the image (both Android and Titanium URLs are supported).",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "setInt",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Calls a method taking a single `int` argument on a view in the remote view hierarchy.\n",
+      "description": "See Android's documentation for [setInt](https://developer.android.com/reference/android/widget/RemoteViews.html#setInt(int, java.lang.String, int))\n",
+      "parameters": [
+        {
+          "name": "viewId",
+          "summary": "Resource ID of the view to update.\nApplication-specific resource IDs can be specified using [Titanium.App.Android.R](api:Titanium.App.Android#R).\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "methodName",
+          "summary": "Name of the method to call.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "value",
+          "summary": "Value to pass to the method.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "setOnClickPendingIntent",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Launches a [Titanium.Android.PendingIntent](api:Titanium.Android.PendingIntent) when the specified view is clicked.",
+      "description": "See Android's documentation for\n[setOnClickPendingIntent](https://developer.android.com/reference/android/widget/RemoteViews.html#setOnClickPendingIntent(int, android.app.PendingIntent)).\n",
+      "parameters": [
+        {
+          "name": "viewId",
+          "summary": "Resource ID of the view to add a click listener to.\nApplication-specific resource IDs can be specified using [Titanium.App.Android.R](api:Titanium.App.Android#R).\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "pendingIntent",
+          "summary": "The `PendingIntent` to execute when this view is clicked.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Android.PendingIntent"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "setProgressBar",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Sets the progress, max value, and indeterminate flag of a progress bar in the\nremote view hierarchy.\n",
+      "description": "See Android's documentation for\n[setProgressBar](https://developer.android.com/reference/android/widget/RemoteViews.html#setProgressBar(int, int, int, boolean)).\n",
+      "parameters": [
+        {
+          "name": "viewId",
+          "summary": "Resource ID of the progress bar to update.\nApplication-specific resource IDs can be specified using [Titanium.App.Android.R](api:Titanium.App.Android#R).\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "max",
+          "summary": "The new maximum value of the progress bar.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "progress",
+          "summary": "The new progress value of the progress bar (from 0..`max`).",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "indeterminate",
+          "summary": "Determines whether the progress bar is indeterminate.\nIf `true`, the progress bar displays an infinite looping animation.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "setString",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Calls a method taking a single String argument on a view in the remote view\nhierarchy.\n",
+      "description": "See Android's documentation for\n[setString](https://developer.android.com/reference/android/widget/RemoteViews.html#setString(int, java.lang.String, java.lang.String)).\n",
+      "parameters": [
+        {
+          "name": "viewId",
+          "summary": "Resource ID of the view to update.\nApplication-specific resource IDs can be specified using [Titanium.App.Android.R](api:Titanium.App.Android#R).\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "methodName",
+          "summary": "Name of the method to call.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "value",
+          "summary": "String to pass to the method.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "setTextColor",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Sets the text color of a view in the remote view hierarchy.",
+      "description": "See Android's documentation for\n[setTextColor](https://developer.android.com/reference/android/widget/RemoteViews.html#setTextColor(int, int)).\n",
+      "parameters": [
+        {
+          "name": "viewId",
+          "summary": "Resource ID of the view to update.\nApplication-specific resource IDs can be specified using [Titanium.App.Android.R](api:Titanium.App.Android#R).\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "color",
+          "summary": "Color as an integer.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "setTextViewText",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Sets the text of a text view in the remote view hierarchy.",
+      "description": "See Android's documentation for\n[setTextViewText](https://developer.android.com/reference/android/widget/RemoteViews.html#setTextViewText(int, java.lang.CharSequence)).\n",
+      "parameters": [
+        {
+          "name": "viewId",
+          "summary": "Resource ID of the text view to update.\nApplication-specific resource IDs can be specified using [Titanium.App.Android.R](api:Titanium.App.Android#R).\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "text",
+          "summary": "New text for the text view.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "setUri",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Calls a method taking one URI on a view in the remote view hierarchy.",
+      "description": "See Android's documentation for\n[setUri](https://developer.android.com/reference/android/widget/RemoteViews.html#setUri(int, java.lang.String, android.net.Uri)).\n",
+      "parameters": [
+        {
+          "name": "viewId",
+          "summary": "Resource ID of the view to update.\nApplication-specific resource IDs can be specified using [Titanium.App.Android.R](api:Titanium.App.Android#R).\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "methodName",
+          "summary": "Name of the method to call.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "value",
+          "summary": "URI (as a string) to pass to the method.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "setViewVisibility",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Sets the visibility of a view in the remote view hierarchy.",
+      "description": "See Android's documentation for [setViewVisibility](https://developer.android.com/reference/android/widget/RemoteViews.html#setViewVisibility(int, int))\n",
+      "parameters": [
+        {
+          "name": "viewId",
+          "summary": "Resource ID of the view to show or hide.\nApplication-specific resource IDs can be specified using [Titanium.App.Android.R](api:Titanium.App.Android#R).\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "visibility",
+          "summary": "The visibility. Either `0` (VISIBLE), `4` (INVISIBLE) or `8` (GONE).",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "lifecycleContainer",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      }
+    ],
+    "events": []
+  },
+  "references": [
+    "Titanium.Android.Notification",
+    "Titanium.Android.PendingIntent",
+    "Titanium.App.Android",
+    "Titanium.Proxy"
+  ],
+  "source": "Titanium/Android/RemoteViews.yml"
+}

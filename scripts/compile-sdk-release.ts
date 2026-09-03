@@ -55,20 +55,13 @@ const PATCHES: Patch[] = [
   },
 ];
 
-const version = process.argv[2];
-if (!version) {
-  console.error('usage: node scripts/compile-sdk-release.ts <version>   e.g. 13.4.1');
+const versions = process.argv.slice(2);
+if (!versions.length) {
+  console.error('usage: node scripts/compile-sdk-release.ts <version>...   e.g. 13.4.1 13.4.0');
   process.exit(1);
 }
 
 const root = join(import.meta.dirname, '..');
-
-if (existsSync(join(root, 'registry/sdk', version))) {
-  console.error(
-    `registry/sdk/${version} already exists. Published versions are frozen; delete it first if you mean to recompile.`
-  );
-  process.exit(1);
-}
 
 /** The tag is whatever the release registry says it is, never reconstructed. */
 const releases = JSON.parse(readFileSync(join(root, 'registry/sdk/ga.json'), 'utf8')) as {
@@ -76,85 +69,108 @@ const releases = JSON.parse(readFileSync(join(root, 'registry/sdk/ga.json'), 'ut
   name: string;
   url: string;
 }[];
-const release = releases.find((r) => r.version === version);
-if (!release) {
-  console.error(`${version} is not in registry/sdk/ga.json`);
-  process.exit(1);
-}
-const tag = release.url.split('/').pop();
-if (!tag) {
-  console.error(`cannot read a tag out of ${release.url}`);
-  process.exit(1);
-}
 
-const checkout = mkdtempSync(join(tmpdir(), 'sdk-release-'));
 const run = (cmd: string, args: string[], cwd?: string) =>
   execFileSync(cmd, args, { cwd, stdio: 'inherit' });
 
-try {
-  console.log(`${release.name} -> tag ${tag}`);
-
-  // Same shape as the CI checkout: blobless, shallow, and only the paths the
-  // compile reads. The SDK is far too large to clone whole for 238 YAML files.
-  run('git', [
-    '-c',
-    'advice.detachedHead=false',
-    'clone',
-    '--quiet',
-    '--depth',
-    '1',
-    '--branch',
-    tag,
-    '--filter=blob:none',
-    '--sparse',
-    'https://github.com/tidev/titanium-sdk.git',
-    checkout,
-  ]);
-  run(
-    'git',
-    [
-      'sparse-checkout',
-      'set',
-      '--no-cone',
-      'apidoc',
-      'android/manifest',
-      'ios/manifest',
-      'manifest',
-    ],
-    checkout
-  );
-
-  for (const patch of PATCHES) {
-    const path = join(checkout, patch.file);
-    if (!existsSync(path)) {
-      console.error(`patch target missing: ${patch.file}`);
-      process.exit(1);
-    }
-    const before = readFileSync(path, 'utf8');
-    if (before.includes(patch.replace)) {
-      console.log(`  ${patch.file}: already fixed upstream at this tag, skipped`);
-      continue;
-    }
-    if (!before.includes(patch.find)) {
-      console.error(
-        `  ${patch.file}: neither the broken nor the fixed form is present.\n` +
-          '  The source changed shape; re-check the patch rather than compiling something unverified.'
-      );
-      process.exit(1);
-    }
-    writeFileSync(path, before.replace(patch.find, patch.replace));
-    console.log(`  patched ${patch.file} (${patch.upstream}) — ${patch.why}`);
+function compile(version: string): 'compiled' | 'skipped' {
+  if (existsSync(join(root, 'registry/sdk', version))) {
+    console.log(`${version}: already compiled, skipped — published versions are frozen`);
+    return 'skipped';
   }
 
-  run('node', [
-    join(root, 'scripts/docgen/regen.ts'),
-    '--repo',
-    'tidev/titanium-sdk',
-    '--checkout',
-    checkout,
-    '--version',
-    version,
-  ]);
-} finally {
-  rmSync(checkout, { recursive: true, force: true });
+  const release = releases.find((r) => r.version === version);
+  if (!release) throw new Error(`${version} is not in registry/sdk/ga.json`);
+  const tag = release.url.split('/').pop();
+  if (!tag) throw new Error(`cannot read a tag out of ${release.url}`);
+
+  const checkout = mkdtempSync(join(tmpdir(), 'sdk-release-'));
+  try {
+    console.log(`${release.name} -> tag ${tag}`);
+
+    // Same shape as the CI checkout: blobless, shallow, and only the paths the
+    // compile reads. The SDK is far too large to clone whole for 238 YAML files.
+    run('git', [
+      '-c',
+      'advice.detachedHead=false',
+      'clone',
+      '--quiet',
+      '--depth',
+      '1',
+      '--branch',
+      tag,
+      '--filter=blob:none',
+      '--sparse',
+      'https://github.com/tidev/titanium-sdk.git',
+      checkout,
+    ]);
+    run(
+      'git',
+      [
+        'sparse-checkout',
+        'set',
+        '--no-cone',
+        'apidoc',
+        'android/manifest',
+        'ios/manifest',
+        'manifest',
+      ],
+      checkout
+    );
+
+    for (const patch of PATCHES) {
+      const path = join(checkout, patch.file);
+      if (!existsSync(path)) {
+        console.error(`patch target missing: ${patch.file}`);
+        process.exit(1);
+      }
+      const before = readFileSync(path, 'utf8');
+      if (before.includes(patch.replace)) {
+        console.log(`  ${patch.file}: already fixed upstream at this tag, skipped`);
+        continue;
+      }
+      if (!before.includes(patch.find)) {
+        console.error(
+          `  ${patch.file}: neither the broken nor the fixed form is present.\n` +
+            '  The source changed shape; re-check the patch rather than compiling something unverified.'
+        );
+        process.exit(1);
+      }
+      writeFileSync(path, before.replace(patch.find, patch.replace));
+      console.log(`  patched ${patch.file} (${patch.upstream}) — ${patch.why}`);
+    }
+
+    run('node', [
+      join(root, 'scripts/docgen/regen.ts'),
+      '--repo',
+      'tidev/titanium-sdk',
+      '--checkout',
+      checkout,
+      '--version',
+      version,
+    ]);
+    return 'compiled';
+  } finally {
+    rmSync(checkout, { recursive: true, force: true });
+  }
 }
+
+const failed: { version: string; why: string }[] = [];
+let compiled = 0;
+let skipped = 0;
+
+for (const version of versions) {
+  try {
+    if (compile(version) === 'compiled') compiled++;
+    else skipped++;
+  } catch (err) {
+    // One bad release must not abandon the rest — the summary says which.
+    const why = (err as Error).message.split('\n')[0];
+    console.error(`\n${version}: FAILED — ${why}\n`);
+    failed.push({ version, why });
+  }
+}
+
+console.log(`\n${compiled} compiled, ${skipped} already present, ${failed.length} failed`);
+for (const f of failed) console.log(`  ${f.version}: ${f.why}`);
+if (failed.length) process.exit(1);

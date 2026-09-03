@@ -1,0 +1,1535 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.UI.ImageView",
+  "kind": "view",
+  "extends": "Titanium.UI.View",
+  "inheritanceChain": [
+    "Titanium.UI.View",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
+  "since": "0.9",
+  "summary": "A view to display a single image or series of animated images.\n",
+  "description": "\nUse the [Titanium.UI.createImageView](api:Titanium.UI#createImageView) method or **`<ImageView>`** Alloy element to create an `ImageView`.\n\nSpecifying either a `width` or `height` property for this view will scale its image(s) with\nthe aspect ratio maintained, up to a maximum size that does not exceed its parent view.\n\n#### Remote Images\n\nYou can display both local and remote images in an ImageView. When loading remote images, you should \nset the defaultImage property to a local image, which will be displayed while the remote image is being \ndownloaded. Remote images are cached automatically on the iOS-, Android- and Windows platform.\n\nAndroid Note: Android 6 and later uses runtime permissions to secure the user's privacy. \nTherefore, you should call [Titanium.Filesystem.requestStoragePermissions](api:Titanium.Filesystem#requestStoragePermissions) before attempting to load remote images.\n\nRead more about remote images and general best practices in the [Image Best Practices Guide](https://titaniumsdk.com/guide/Titanium_SDK/Titanium_SDK_Guide/Best_Practices_and_Recommendations/Image_Best_Practices.html#caching-remote-images).\n\n#### Android 9-Patch Scaled Images\n\nA nine-patch (9-patch) image is simply a standard `png` image with a transparent border of a\nsingle pixel, containing \"guides\" defined by solid black (`#000`) color fills. Guides added to the\ntop and left edges determine that the image may be stretched in horizontal and vertical planes\nrespectively. Optionally, the content area may be defined by guides added to the bottom and\nright edges.\n\nAlthough any image editor may be used to create the guides, certain settings can cause the edges\nof the graphic to \"bleed\" into the transparent border, consequently making it non-transparent.\nThus, the `draw9patch` utility provided in the Android SDK tools directory is recommended for\nthis purpose.\n\nFor further information about nine-patch images and the Android utility, see the\n[Nine-patch](https://developer.android.com/guide/topics/graphics/drawables#nine-patch)\nand [Draw 9-patch](https://developer.android.com/studio/write/draw9patch) sections\nof the Android Developer website.\n\nThe nine-patch technique may be used with any of Titanium's static image properties. See the\n\"Button with Nine-patch Background Image\" example for a demonstration.\n",
+  "examples": [
+    {
+      "title": "Basic Image View",
+      "code": "In this example, we create a simple image view:\n\n``` js\nTi.UI.backgroundColor = 'white';\nvar win = Ti.UI.createWindow();\nvar image = Ti.UI.createImageView({\n  image:'/images/myimage.png'\n});\nwin.add(image);\nwin.open();\n```\n"
+    },
+    {
+      "title": "Button with Nine-patch Background Image",
+      "code": "Create a button with a nine-patch image background, that swaps with another image when\nselected, and generates a message in the console when clicked.\n\nNote that images are referenced in the code without the `.9` part of the filename, and that\nthe project should be cleaned to ensure that the files are correctly copied to the project.\n\n``` js\nvar win = Ti.UI.createWindow({\n    backgroundColor: 'white',\n    exitOnClose: true,\n    fullscreen: false,\n    title: 'Click button to test'\n});\n\nvar button = Ti.UI.createButton({\n    backgroundImage: '/images/custom-slider-right.png',\n    backgroundSelectedImage:'/images/custom-slider-left.png',\n    title: 'Click me!',\n    top: 10,\n    width: 300,\n    height: 200\n});\nbutton.addEventListener('click',function(e){\n    Ti.API.info(\"You clicked the button\");\n});\nwin.add(button);\nwin.open();\n```\n"
+    },
+    {
+      "title": "Alloy XML Markup",
+      "code": "Previous basic image view example as an Alloy view.\n\n``` xml\n<Alloy>\n    <Window id=\"win\" backgroundColor=\"white\">\n        <ImageView id=\"image\" image=\"/images/myimage.png\" />\n    </Window>\n</Alloy>\n```\n"
+    }
+  ],
+  "properties": [
+    {
+      "name": "animating",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Indicates whether animation is running.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "permission": "read-only",
+      "default": "false on creation, true on load (Android), false (iPhone, iPad)"
+    },
+    {
+      "name": "autorotate",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Indicates whether the image should be rotated based on EXIF orientation data.\n\nBefore Titanium 10.1.0, this defaulted to `false` on Android.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "3.0.0",
+      "availability": "creation",
+      "default": "true"
+    },
+    {
+      "name": "decodeRetries",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Number of times to retry decoding the bitmap at a URL.",
+      "description": "Defaults to 2 on Titanium 10.1.0 and higher. Defaults to 5 on older SDK versions.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.7.0",
+      "default": "2"
+    },
+    {
+      "name": "defaultImage",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Local path to the default image to display while loading a remote image.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "duration",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Amount of time in milliseconds to animate one cycle.",
+      "description": "Starting with release 2.1.1, the minimum duration is 30 ms and the default duration is 200 ms.\n\nOn Android, prior to release 2.1.1, if any images are assigned to the `images` property when the animation is\nstarted, duration will be set to the number of images multiplied by 33 ms. If no images\nare assigned, duration will be set to 100 ms.\n\nOn iOS, prior to release 2.1.1, the default is 30 ms.\n\nOn Android, if the value of duration is changed, [stop](api:Titanium.UI.ImageView#stop)\nand [start](api:Titanium.UI.ImageView#start) need to be called for the new value to take effect.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "default": "200 ms in Release 2.1.1 and later. Platform-specific default in earlier releases."
+    },
+    {
+      "name": "enableZoomControls",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Show zoom controls when the user touches the image view.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "1.3.0",
+      "default": "false"
+    },
+    {
+      "name": "hires",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Set to `true` to prevent scaling of 2x/3x-resolution remote images for retina\ndisplays.\n",
+      "description": "Causes images to display at 50%, where one pixel of the graphic maps to one physical pixel\non-screen. This functionality is automatically determined for local images via their\nfilenames, and thus this property is only applicable to remote images.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "default": "false"
+    },
+    {
+      "name": "image",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Image to display.",
+      "description": "Image to display, defined using a local filesystem path, a `File` object, a remote URL,\nor a `Blob` object containing image data.\n\nFor Android, if there is a redirect and change in protocol, it will not follow. For example,\nfrom http to https and vice versa. See [Java Bug Database](http://bugs.java.com/bugdatabase/view_bug.do?bug_id=4620571)\nfor more information.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        },
+        {
+          "kind": "type",
+          "name": "Titanium.Blob"
+        },
+        {
+          "kind": "type",
+          "name": "Titanium.Filesystem.File"
+        }
+      ]
+    },
+    {
+      "name": "images",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Array of images to animate, defined using local filesystem paths, `File` objects,\nremote URLs (Android only), or `Blob` objects containing image data.\n\nWhen using this property, an initial `start()` needs to be called upon the ImageView before any image will show in this imageview.\n\nRelated properties/methods to look at: `start`, `stop`, `pause`, `reverse`, `resume` and `repeatCount`\n",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Array",
+          "args": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "kind": "generic",
+          "name": "Array",
+          "args": [
+            {
+              "kind": "type",
+              "name": "Titanium.Blob"
+            }
+          ]
+        },
+        {
+          "kind": "generic",
+          "name": "Array",
+          "args": [
+            {
+              "kind": "type",
+              "name": "Titanium.Filesystem.File"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "imageTouchFeedback",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Enables a ripple effect when the foreground image is touched.",
+      "description": "Note that the [touchFeedback](api:Titanium.UI.View#touchFeedback) property applies a ripple effect to the\nview's background. If the image is opaque and completely covers the view (such as a photo),\nthen the background's ripple won't be visible. In this case, you should use this `imageTouchFeedback`\nproperty to apply a ripple effect to the foreground image assigned via the `image` property.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "10.1.0",
+      "default": "false"
+    },
+    {
+      "name": "imageTouchFeedbackColor",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Optional touch feedback ripple color. This has no effect unless `imageTouchFeedback` is true.",
+      "description": "Defaults to provided theme color.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "10.1.0"
+    },
+    {
+      "name": "paused",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Indicates whether the animation is paused.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "permission": "read-only",
+      "default": "false"
+    },
+    {
+      "name": "preventDefaultImage",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Prevent the default image from being displayed while loading a remote image. This property\nis ignored when the `defaultImage` property is set.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "default": "false"
+    },
+    {
+      "name": "repeatCount",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Number of times to repeat the image animation.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "default": "0 (infinite)"
+    },
+    {
+      "name": "reverse",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Run the animation in reverse.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "default": "false"
+    },
+    {
+      "name": "scalingMode",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Determines how the image is scaled within the view.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "10.1.0",
+      "default": "<Titanium.Media.IMAGE_SCALING_AUTO>",
+      "constants": [
+        "Titanium.Media.IMAGE_SCALING_ASPECT_FILL",
+        "Titanium.Media.IMAGE_SCALING_ASPECT_FIT",
+        "Titanium.Media.IMAGE_SCALING_AUTO",
+        "Titanium.Media.IMAGE_SCALING_FILL",
+        "Titanium.Media.IMAGE_SCALING_NONE"
+      ]
+    },
+    {
+      "name": "tintColor",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The view's tintColor. Android does not support setting instances of [Titanium.UI.Color](api:Titanium.UI.Color)",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        },
+        {
+          "kind": "type",
+          "name": "Titanium.UI.Color"
+        }
+      ],
+      "since": {
+        "android": "5.4.0",
+        "iphone": "5.4.0",
+        "ipad": "5.4.0"
+      },
+      "default": "null"
+    }
+  ],
+  "methods": [
+    {
+      "name": "addSymbolEffect",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Adds a symbol effect to the image view with specified options, animation, and callback.",
+      "since": "12.4.0",
+      "osver": {
+        "ios": {
+          "min": "17.0"
+        }
+      },
+      "parameters": [
+        {
+          "name": "symbolEffect",
+          "summary": "The symbol effect to add. One of `pulse`, `bounce`, `appear`, `disappear`, `variableColor` or `scale`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "options",
+          "summary": "The options for the symbol effect. One of `repeating`, `nonRepeating`, `repeatCount` or `speed`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "animated",
+          "summary": "A Boolean value that indicates whether to animate the addition of a `scale`, `appear`, or `disappear` effect.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ],
+          "default": "false"
+        },
+        {
+          "name": "callback",
+          "summary": "A callback the system calls after the effect’s addition is complete.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Callback"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "pause",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Pauses a running animation. Use `resume` method to continue.",
+      "description": "This method only works if multiple images are specified."
+    },
+    {
+      "name": "resume",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Resumes an animation from a `pause` state.",
+      "description": "This method only works if multiple images are specified."
+    },
+    {
+      "name": "start",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Starts the image animation. On Android, also resets `index` to the first image.\n",
+      "description": "This method only works if multiple images are specified."
+    },
+    {
+      "name": "stop",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Stops a running animation. On iOS, also resets `index` to the first image.",
+      "description": "This method only works if multiple images are specified."
+    },
+    {
+      "name": "toBlob",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Returns the image as a Blob object.",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Blob"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "change",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired for each frame change during an animation.",
+      "properties": [
+        {
+          "name": "index",
+          "summary": "Index of the image frame being displayed.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "error",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when an image fails to load.",
+      "properties": [
+        {
+          "name": "success",
+          "summary": "Indicates a successful operation. Returns `false`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "error",
+          "summary": "Error message, if any returned. May be undefined.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "code",
+          "summary": "Error code.\nIf the error was generated by the operating system, that system's error value\nis used. Otherwise, this value will be -1.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "image",
+          "summary": "URL of the image that failed to load.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "load",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when either the initial image and/or all of the images in an animation are loaded.\n",
+      "properties": [
+        {
+          "name": "state",
+          "summary": "Set to `image` when the image defined in the [image](api:Titanium.UI.ImageView#image)\nproperty is loaded. Set to `images`, when the series of images defined in the\n[images](api:Titanium.UI.ImageView#images) property are loaded.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "pause",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when the animation pauses.",
+      "since": {
+        "android": "2.1.1"
+      }
+    },
+    {
+      "name": "start",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when the animation starts."
+    },
+    {
+      "name": "stop",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when the animation stops."
+    }
+  ],
+  "inherited": {
+    "properties": [
+      {
+        "name": "accessibilityDisableLongPress",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "accessibilityHidden",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "accessibilityHint",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "accessibilityLabel",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "accessibilityValue",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "anchorPoint",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "animatedCenter",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundDisabledColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "backgroundDisabledImage",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "backgroundFocusedColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "backgroundFocusedImage",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "backgroundGradient",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundImage",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundLeftCap",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundRepeat",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundSelectedColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "backgroundSelectedImage",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "backgroundTopCap",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "borderColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "borderRadius",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "borderWidth",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "bottom",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "center",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "clipMode",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "elevation",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "filterTouchesWhenObscured",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "focusable",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "height",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "hiddenBehavior",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "horizontalMotionEffect",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "horizontalWrap",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "id",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "keepScreenOn",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "layout",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "left",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "lifecycleContainer",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "opacity",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "overrideCurrentAnimation",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "previewContext",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone"
+        ]
+      },
+      {
+        "name": "pullBackgroundColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "rect",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "right",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "rotation",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad"
+        ]
+      },
+      {
+        "name": "rotationX",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "rotationY",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "scaleX",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "scaleY",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "size",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "softKeyboardOnFocus",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "tooltip",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "top",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "touchEnabled",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "touchFeedback",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "touchFeedbackColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "transform",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "transitionName",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "translationX",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "translationY",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "translationZ",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "verticalMotionEffect",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "viewShadowColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "viewShadowOffset",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "viewShadowRadius",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "visible",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "width",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "zIndex",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "animate",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "clearMotionEffects",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "convertPointToView",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "getViewById",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "hide",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "insertAt",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "show",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "stopAnimation",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "toImage",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      }
+    ],
+    "events": [
+      {
+        "name": "click",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "dblclick",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "doubletap",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "focus",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "keypressed",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "longclick",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "longpress",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "pinch",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "postlayout",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "rotate",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "singletap",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "swipe",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "touchcancel",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "touchend",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "touchmove",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "touchstart",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "twofingertap",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      }
+    ]
+  },
+  "references": [
+    "Titanium.Blob",
+    "Titanium.Filesystem",
+    "Titanium.Filesystem.File",
+    "Titanium.UI",
+    "Titanium.UI.Color",
+    "Titanium.UI.View"
+  ],
+  "source": "Titanium/UI/ImageView.yml"
+}

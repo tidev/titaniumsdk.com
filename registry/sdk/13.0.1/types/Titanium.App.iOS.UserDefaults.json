@@ -1,0 +1,265 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.App.iOS.UserDefaults",
+  "kind": "module",
+  "extends": "Titanium.App.Properties",
+  "inheritanceChain": [
+    "Titanium.App.Properties",
+    "Titanium.Module",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "iphone",
+    "ipad",
+    "macos"
+  ],
+  "since": "4.0.0",
+  "summary": "The UserDefaults module is used for storing application-related data in property/value pairs \nthat persist beyond application sessions and device power cycles. UserDefaults allows the suiteName\nof the UserDefaults to be specified at creation time.\n\n**Important**: Using this API requires the `NSPrivacyAccessedAPICategoryUserDefaults` property set in the\nprivacy manifest that was introduced in iOS 17. You can learn more about it [here](https://developer.apple.com/documentation/bundleresources/privacy_manifest_files/describing_use_of_required_reason_api).\n",
+  "description": "Unlike Titanium.App.Properties, Titanium.App.iOS.UserDefaults does not pull properties defined in the `tiapp.xml` file.\n\nTo create a UserDefaults object, use the [Titanium.App.iOS.createUserDefaults](api:Titanium.App.iOS#createUserDefaults) method.\n",
+  "examples": [
+    {
+      "title": "Create a UserDefaults object",
+      "code": "Creating a UserDefaults object\n\n``` js\nvar props = Ti.App.iOS.createUserDefaults({\n    suiteName: 'group.mySuite'\n});\n```\n"
+    }
+  ],
+  "properties": [
+    {
+      "name": "suiteName",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Sets the name of the suite to be used to access UserDefaults.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "availability": "creation"
+    }
+  ],
+  "methods": [],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "getBool",
+        "from": "Titanium.App.Properties",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "getDouble",
+        "from": "Titanium.App.Properties",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "getInt",
+        "from": "Titanium.App.Properties",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "getList",
+        "from": "Titanium.App.Properties",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "getObject",
+        "from": "Titanium.App.Properties",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "getString",
+        "from": "Titanium.App.Properties",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "hasProperty",
+        "from": "Titanium.App.Properties",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "listProperties",
+        "from": "Titanium.App.Properties",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "removeAllProperties",
+        "from": "Titanium.App.Properties",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "removeProperty",
+        "from": "Titanium.App.Properties",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "setBool",
+        "from": "Titanium.App.Properties",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "setDouble",
+        "from": "Titanium.App.Properties",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "setInt",
+        "from": "Titanium.App.Properties",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "setList",
+        "from": "Titanium.App.Properties",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "setObject",
+        "from": "Titanium.App.Properties",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "setString",
+        "from": "Titanium.App.Properties",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      }
+    ],
+    "events": [
+      {
+        "name": "change",
+        "from": "Titanium.App.Properties",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      }
+    ]
+  },
+  "references": [
+    "Titanium.App.Properties",
+    "Titanium.App.iOS"
+  ],
+  "source": "Titanium/App/iOS/UserDefaults.yml"
+}

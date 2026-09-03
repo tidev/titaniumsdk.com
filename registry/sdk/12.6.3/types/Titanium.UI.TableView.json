@@ -1,0 +1,5090 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.UI.TableView",
+  "kind": "view",
+  "extends": "Titanium.UI.View",
+  "inheritanceChain": [
+    "Titanium.UI.View",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
+  "since": "0.8",
+  "summary": "A table view is used to present information, organized in sections and rows, in a\nvertically-scrolling view.\n",
+  "description": "| Android | iOS |\n| ------- | --- |\n| ![Android](./tableview_android.png) | ![iOS](./tableview_ios.png) |\n\nA `TableView` object is a container for [TableViewSection](api:Titanium.UI.TableViewSection)\nobjects that are, in turn, containers for [TableViewRow](api:Titanium.UI.TableViewRow) objects.\n\nUse the [Titanium.UI.createTableView](api:Titanium.UI#createTableView) method or **`<TableView>`** Alloy element to create a `TableView`.\n\nAlso see the [TableViews guide](https://titaniumsdk.com/guide/Titanium_SDK/Titanium_SDK_How-tos/User_Interface_Deep_Dives/TableViews.html).\n\n#### Creating Tables\n\nThere are few approaches to creating and using `TableView` object.\n\nThe simplest approach is to pass dictionaries of `TableViewRow` properties, such as\n[backgroundColor](api:Titanium.UI.TableViewRow#backgroundColor),\n[color](api:Titanium.UI.TableViewRow#color), and [title](api:Titanium.UI.TableViewRow#title), to the\n[createTableView](api:Titanium.UI#createTableView) method, which causes the rows to be implictly\ncreated, added to a single [TableViewSection](api:Titanium.UI.TableViewSection), and then added to\nthe `TableView`. Refer to the \"Simple Table View with Basic Rows\" example.\n\nFor more control over the layout of each row, however, [TableViewRow](api:Titanium.UI.TableViewRow)\nobjects can be created explicitly using the [Titanium.UI.createTableViewRow](api:Titanium.UI#createTableViewRow) method. Child views,\nsuch as [labels](api:Titanium.UI.Label), [images](api:Titanium.UI.ImageView), and\n[buttons](api:Titanium.UI.Button), may be added to each row. When one or more\n[rows](api:Titanium.UI.TableViewRow) are added to the table view,\na single [TableViewSection](api:Titanium.UI.TableViewSection) is automatically created to hold the\nrows. See the \"Table View with Composite Layout\" example.\n\nLastly, sets of rows may be explicitly created and added to a their own\n[TableViewSection](api:Titanium.UI.TableViewSection) objects, which are then added to a `TableView`,\nto enable the rows to be organized. Headers and footers titles or views must be configured\nin order for the sections to be visible.\n\n#### Tables and Scroll Views\n\nAs a table view inherently scrolls, it creates a very poor user experience when one contains\nother scrolling views, such as a [ScrollableView](api:Titanium.UI.ScrollableView) or\n[TextArea](api:Titanium.UI.TextArea). Thus, this layout is strongly discouraged.\n\n#### TextFields in Tables with SOFT_INPUT_ADJUST_PAN (Android)\n\nWhen a [TextField](api:Titanium.UI.TextField) is placed in a row near the bottom of a `TableView`,\nin a window that is configured with\n[SOFT_INPUT_ADJUST_PAN](api:Titanium.UI.Android#SOFT_INPUT_ADJUST_PAN), it is expected for the\ntext field to automatically move to a visible position after it is focused and the software\nkeyboard displayed. However, due to a known problem caused by native Android's ListView behavior,\nthe keyboard is likely to completely obscure the text field.\n\nTo mitigate this, a `ScrollView` may be used instead of a table view, as demonstrated in the\n[ScrollView](api:Titanium.UI.ScrollView), \"Scroll View as a Table View\", example.\n\n#### Row Editing and Moving Modes\n\nTable views have an `editing` and a `moving` mode that may be activated to using their\nrespective [editing](api:Titanium.UI.TableView#editing) and [moving](api:Titanium.UI.TableView#moving)\nproperties. These allow rows to be deleted or re-ordered by the user, depending on each row's\n[editable](api:Titanium.UI.TableViewRow#editable) and [moveable](api:Titanium.UI.TableViewRow#moveable)\nproperty that are either explicitly set or inherited from the table.\n\nThere are two UI controls available for deleting table view rows, depending on the combination\nof editing and moving modes enabled:\n\n* \"red icon delete\" - a circular red icon is displayed on the left-hand side of a row, which\nreveals a delete button on the right-hand side of that row when clicked.\n* \"swipe delete\" - without either of the table editing or moving modes enabled, a left or right\nswipe gesture on a row reveals a delete button on the right-hand side of the row.\n\nNote that because the operating system handles the functionality of the swipe delete, the OS will\ncapture swipe events and not bubble the event to Titanium listeners. As such, if you rely on\nswipe events, you must not set editing to true on such rows, and simulate the functionality you\nneed.\n\nWhen `editable` and `moveable` properties are set on the table view, they are known as `inherited`,\nwhereas when set on a row, they are known as `explicit`. As their resulting behavior may not\nfollow their literal meaning, depending on the combination of `editing` and `moving` modes that\nare enabled, a detailed description of the behavior follows.\n\nWith `editing:false` and `moving:true`:\n\n* For red icon delete and swipe delete, inherited and explicit `editable` properties may be set.\n* Inherited `moveable` property is always `true`. Explicit `moveable` property may be set.\n\nWith `editing:true` and `moving:false`:\n\n* For red icon delete and swipe delete, inherited `editable` property is always `true`. Explicit\n`editable` property may be set.\n* Inherited and explicit `moveable` properties may be set.\n\nWith `editing:false` and `moving: false`:\n\n* For red icon delete, inherited and explicit `editable` properties always `false`. For\nswipe delete, inherited and explicit `editable` properties may be set.\n* Inherited `moveable` property is always `false`.\n\nWith `editing:true` and `moving:true`:\n\n* For red icon delete and swipe delete, inherited and explicit `editable` properties may be set.\n* Inherited `moveable` property is always `true`. Explicit `moveable` property may be set.\n",
+  "examples": [
+    {
+      "title": "Simple Table View",
+      "code": "Create a basic table view.\n\n``` js\nTi.UI.backgroundColor = 'white';\nvar win = Ti.UI.createWindow();\n\nvar tableData = [ {title: 'Apples'}, {title: 'Bananas'}, {title: 'Carrots'}, {title: 'Potatoes'} ];\n\nvar table = Ti.UI.createTableView({\n  data: tableData\n});\nwin.add(table);\nwin.open();\n```\n"
+    },
+    {
+      "title": "Table View Sections",
+      "code": "Create a table with three sections, each with two rows. Add two sections to the table\nbefore and one after it is rendered. This sample only works on Release 3.0 and later.\n\n``` js\nTi.UI.backgroundColor = 'white';\nvar win = Ti.UI.createWindow();\n\nvar sectionFruit = Ti.UI.createTableViewSection({ headerTitle: 'Fruit' });\nsectionFruit.add(Ti.UI.createTableViewRow({ title: 'Apples' }));\nsectionFruit.add(Ti.UI.createTableViewRow({ title: 'Bananas' }));\n\nvar sectionVeg = Ti.UI.createTableViewSection({ headerTitle: 'Vegetables' });\nsectionVeg.add(Ti.UI.createTableViewRow({ title: 'Carrots' }));\nsectionVeg.add(Ti.UI.createTableViewRow({ title: 'Potatoes' }));\n\nvar table = Ti.UI.createTableView({\n  data: [sectionFruit, sectionVeg]\n});\n\nwin.add(table);\nwin.open();\n\nvar sectionFish = Ti.UI.createTableViewSection({ headerTitle: 'Fish' });\nsectionFish.add(Ti.UI.createTableViewRow({ title: 'Cod' }));\nsectionFish.add(Ti.UI.createTableViewRow({ title: 'Haddock' }));\n\ntable.insertSectionBefore(0, sectionFish);\n```\n"
+    },
+    {
+      "title": "Table View with Composite Layout",
+      "code": "Create a table of rows that contain a custom child-view layout.\n\n``` js\nvar win = Ti.UI.createWindow({\n  backgroundColor: 'black',\n  title: 'TableView Demo'\n});\n\n// generate random number, used to make each row appear distinct for this example\nfunction randomInt(max){\n  return Math.floor(Math.random() * max) + 1;\n}\n\nvar IMG_BASE = 'images/';\nvar defaultFontSize = Ti.Platform.name === 'android' ? 16 : 14;\n\nvar tableData = [];\n\nfor (var i=1; i<=20; i++){\n  var row = Ti.UI.createTableViewRow({\n    className: 'forumEvent', // used to improve table performance\n    backgroundSelectedColor: 'white',\n    rowIndex: i, // custom property, useful for determining the row during events\n    height: 110\n  });\n\n  var imageAvatar = Ti.UI.createImageView({\n    image: IMG_BASE + 'custom_tableview/user.png',\n    left: 10, top: 5,\n    width: 50, height: 50\n  });\n  row.add(imageAvatar);\n\n  var labelUserName = Ti.UI.createLabel({\n    color: '#576996',\n    font: {fontFamily:'Arial', fontSize: defaultFontSize+6, fontWeight: 'bold'},\n    text: 'Fred Smith ' + i,\n    left: 70, top: 6,\n    width: 200, height: 30\n  });\n  row.add(labelUserName);\n\n  var labelDetails = Ti.UI.createLabel({\n    color: '#222',\n    font: {fontFamily:'Arial', fontSize: defaultFontSize+2, fontWeight: 'normal'},\n    text: 'Replied to post with id ' + randomInt(1000) + '.',\n    left: 70, top: 44,\n    width: 360\n  });\n  row.add(labelDetails);\n\n  var imageCalendar = Ti.UI.createImageView({\n    image: IMG_BASE + 'custom_tableview/eventsButton.png',\n    left: 70, bottom: 2,\n    width: 32, height: 32\n  });\n  row.add(imageCalendar);\n\n  var labelDate = Ti.UI.createLabel({\n    color: '#999',\n    font: {fontFamily:'Arial', fontSize: defaultFontSize, fontWeight: 'normal'},\n    text: 'on ' + randomInt(30) + ' Nov 2012',\n    left: 105, bottom: 10,\n    width: 200, height: 20\n  });\n  row.add(labelDate);\n\n  tableData.push(row);\n}\n\nvar tableView = Ti.UI.createTableView({\n  backgroundColor: 'white',\n  data: tableData\n});\n\nwin.add(tableView);\nwin.open();\n```\n"
+    },
+    {
+      "title": "Alloy XML Markup",
+      "code": "Previous table view sections example as an Alloy view.\n\n``` xml\n<Alloy>\n    <Window id=\"win\">\n        <TableView id=\"table\">\n            <TableViewSection id=\"sectionFruit\" headerTitle=\"Fruit\">\n                <TableViewRow title=\"Apple\"/>\n                <TableViewRow title=\"Bananas\"/>\n            </TableViewSection>\n            <TableViewSection id=\"sectionVeg\" headerTitle=\"Vegetables\">\n                <TableViewRow title=\"Carrots\"/>\n                <TableViewRow title=\"Potatoes\"/>\n            </TableViewSection>\n            <TableViewSection id=\"sectionFish\" headerTitle=\"Fish\">\n                <TableViewRow title=\"Cod\"/>\n                <TableViewRow title=\"Haddock\"/>\n            </TableViewSection>\n        </TableView>\n    </Window>\n</Alloy>\n```\n"
+    }
+  ],
+  "properties": [
+    {
+      "name": "allowsMultipleSelectionDuringEditing",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Determines whether multiple items of this table view can be selected at the same time while editing the table.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": {
+        "android": "10.1.0",
+        "iphone": "8.2.0",
+        "ipad": "8.2.0",
+        "macos": "9.2.0"
+      },
+      "default": "false"
+    },
+    {
+      "name": "allowsMultipleSelectionInteraction",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Allows a two-finger pan gesture to automatically transition the table view into editing mode and start selecting rows.",
+      "description": "Setting this property to true allows the user to start selecting multiple contiguous rows via a two-finger pan gesture.\nIf the table view is already in editing mode, the user can also select multiple rows via a one-finger pan gesture along\nthe edge of the table that contains editing controls (checkboxes). In order to support this behavior,\nyou must also set [Titanium.UI.TableView.allowsMultipleSelectionDuringEditing](api:Titanium.UI.TableView#allowsMultipleSelectionDuringEditing) to true.\nOnce user interaction stops the [Titanium.UI.TableView.rowsselected](api:Titanium.UI.TableView#rowsselected) event is fired.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": {
+        "iphone": "8.2.0",
+        "ipad": "8.2.0",
+        "macos": "9.2.0"
+      },
+      "default": "false"
+    },
+    {
+      "name": "allowsSelection",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Determines whether this table's rows can be selected.",
+      "description": "Set to `false` to prevent rows from being selected.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": {
+        "iphone": "8.2.0",
+        "ipad": "8.2.0",
+        "macos": "9.2.0"
+      },
+      "default": "true"
+    },
+    {
+      "name": "allowsSelectionDuringEditing",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Determines whether this table's rows can be selected while editing the table.",
+      "description": "Set to `true` to allow rows to be selected.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": {
+        "android": "10.1.0",
+        "iphone": "5.4.0",
+        "ipad": "5.4.0",
+        "macos": "9.2.0"
+      },
+      "default": "false"
+    },
+    {
+      "name": "backgroundColor",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Background color of the view, as a color name or hex triplet.",
+      "description": "For information about color values, see the \"Colors\" section of [Titanium.UI](api:Titanium.UI).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        },
+        {
+          "kind": "type",
+          "name": "Titanium.UI.Color"
+        }
+      ],
+      "default": "transparent on non-iOS platforms, white on the iOS platform"
+    },
+    {
+      "name": "contentOffset",
+      "platforms": [
+        "android"
+      ],
+      "summary": "X and Y coordinates to which to reposition the top-left point of the content region.",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Point"
+        }
+      ],
+      "since": {
+        "android": "12.4.0"
+      }
+    },
+    {
+      "name": "data",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Rows of the table view.",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Array",
+          "args": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.TableViewRow"
+            }
+          ]
+        },
+        {
+          "kind": "generic",
+          "name": "Array",
+          "args": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.TableViewSection"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "dimBackgroundForSearch",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "A Boolean indicating whether the underlying content is dimmed during a search.",
+      "description": "If you do not want to show the dimmed background when clicking on the search bar,\nset this property `false` during creation.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "6.2.0",
+      "availability": "creation",
+      "default": "true"
+    },
+    {
+      "name": "editable",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Determines the rows' default editable behavior, which allows them to be deleted by the user\nwhen the table is in `editing` or `moving` mode.\n",
+      "description": "This property determines the default behavior of child rows, but may be overridden by\na row's [editable](api:Titanium.UI.TableViewRow#editable) property.\n\nSee the [Titanium.UI.TableView](api:Titanium.UI.TableView) description section for a full explanation of the TableView's\n`editing` and `moving` modes.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": {
+        "android": "9.3.0",
+        "iphone": "3.2.0",
+        "ipad": "3.2.0",
+        "macos": "9.2.0"
+      },
+      "default": "Depends on `editing` and `moving` mode"
+    },
+    {
+      "name": "editing",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Determines whether row editing mode is active.\n",
+      "description": "The `editing` mode allows rows to be deleted or re-ordered, depending on their\n[editable](api:Titanium.UI.TableViewRow#editable) and [moveable](api:Titanium.UI.TableViewRow#moveable)\nsettings.\n\nSee the [Titanium.UI.TableView](api:Titanium.UI.TableView) description section for a full explanation of the TableView's\n`editing` and `moving` modes.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": {
+        "android": "9.3.0",
+        "iphone": "3.2.0",
+        "ipad": "3.2.0",
+        "macos": "9.2.0"
+      },
+      "default": "false"
+    },
+    {
+      "name": "filterAnchored",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Determines whether the search is limited to the start of the string",
+      "description": "Set to `true` to enable case anchored search.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "3.3.0",
+      "default": "false"
+    },
+    {
+      "name": "filterAttribute",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Filter attribute to be used when searching.",
+      "description": "On the Android platform, this property can only be set to Titanium-defined properties of the\nTableViewRow object, such as `title`.  To search text stored in a different attribute, set the `title`\nproperty of the TableViewRow object to the property to be searched. For example:\n\n``` js\nvar label = Ti.UI.createLabel({text: 'Foobar'}),\nvar row = Ti.UI.createTableViewRow(title: label.text);\nrow.add(label);\n```\n\nOn the iOS platform, this property can be set to any property on the TableViewRow object,\nincluding arbitrary properties set on the object, not only Titanium-defined properties.\n\nNote that the filter is not anchored to the beginning of the string. So typing \"ha\"\nin the text box will include rows titled 'Harold' and 'Harvard', but also 'Sharon'\nand 'Jonathan'.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "filterCaseInsensitive",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Determines whether the search is case insensitive.",
+      "description": "Set to `false` to enable case sensitive search.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "default": "true"
+    },
+    {
+      "name": "fixedSize",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Sets fixedSize mode on Android TableView.",
+      "description": "Set it to `true` if all TableView items have the same size to gain some performance.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "11.0.0",
+      "availability": "creation",
+      "default": "false"
+    },
+    {
+      "name": "footerDividersEnabled",
+      "platforms": [
+        "android"
+      ],
+      "summary": "When set to false, the ListView will not draw the divider before the footer view.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "3.3.0",
+      "availability": "creation",
+      "default": "undefined but behaves as false"
+    },
+    {
+      "name": "footerTitle",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Table view footer title.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "footerView",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Table view footer as a view that will be rendered instead of a label.",
+      "description": "In Alloy you can use a `<FooterView>` element nested in a `<TableView>` element:\n\n``` xml\n<Alloy>\n    <TableView>\n        <FooterView>\n            <View backgroundColor=\"#a00\" height=\"50dp\"/>\n        </FooterView>\n        <TableViewRow><Label>Row 1</Label></TableViewRow>\n        <TableViewRow><Label>Row 2</Label></TableViewRow>\n    </TableView>\n</Alloy>\n```\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.UI.View"
+        }
+      ]
+    },
+    {
+      "name": "headerDividersEnabled",
+      "platforms": [
+        "android"
+      ],
+      "summary": "When set to false, the ListView will not draw the divider after the header view.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "3.3.0",
+      "availability": "creation",
+      "default": "undefined but behaves as false"
+    },
+    {
+      "name": "headerPullView",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "View positioned above the first row that is only revealed when the user drags the table\ncontents down.\n",
+      "description": "A `headerPullView` is a UI control that is often used to provide a convenient way for the\nuser to refresh a table's data.  Typically used with the\n[setContentInsets](api:Titanium.UI.TableView#setContentInsets) method.\n\nTo specify the wrapper color see [Titanium.UI.View.pullBackgroundColor](api:Titanium.UI.View#pullBackgroundColor).\n\nFor an example, see the \"Pull to refresh\" section in the\n[TableViews guide](https://titaniumsdk.com/guide/Titanium_SDK/Titanium_SDK_How-tos/User_Interface_Deep_Dives/TableViews.html).\n\nAlloy applications can use a `<HeaderPullView>` element inside a `<TableView>` element.\n\n``` xml\n<Alloy>\n    <TableView>\n        <HeaderPullView platform=\"ios\">\n            <View class=\"pull\">\n                <Label color=\"#F2F4F4\" bottom=\"25dp\">Header pull view</Label>\n            </View>\n        </HeaderPullView>\n    </TableView>\n</Alloy>\n```\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.UI.View"
+        }
+      ],
+      "since": "2.1.0"
+    },
+    {
+      "name": "headerTitle",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Table view header title.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "headerView",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Table view header as a view that will be rendered instead of a label.",
+      "description": "In Alloy you can use a `<HeaderView>` element nested in a `<TableView>` element:\n\n``` js\n<Alloy>\n    <TableView>\n        <HeaderView>\n            <View backgroundColor=\"#a00\" height=\"50dp\"/>\n        </HeaderView>\n        <TableViewRow><Label>Row 1</Label></TableViewRow>\n        <TableViewRow><Label>Row 2</Label></TableViewRow>\n    </TableView>\n</Alloy>\n```\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.UI.View"
+        }
+      ]
+    },
+    {
+      "name": "hideSearchOnSelection",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Determines whether the search field should hide on completion.",
+      "description": "Set to `false` to prevent the search field from being hidden when an item in the search\nresults is clicked.\n\nMany standard applications (such as Contacts) have a behavior equivalent to `false` for this\nvalue, but the default is `true` for legacy reasons.\n\nThe Android platform behaves as though this value were `false`.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "default": "true"
+    },
+    {
+      "name": "index",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Array of objects (with `title` and `index` properties) to control the table view index.",
+      "description": "If an index array is specified, an index bar is displayed on the right-hand side of the\ntable view. Clicking on a title in the index bar scrolls the table view to the row\nindex associated with that title. If the index is -1 the table view will scroll to the top.\n",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Array",
+          "args": [
+            {
+              "kind": "type",
+              "name": "TableViewIndexEntry"
+            }
+          ]
+        }
+      ],
+      "inlined": {
+        "name": "TableViewIndexEntry",
+        "summary": "A simple object that represents an index entry in a `TableView`.",
+        "properties": [
+          {
+            "name": "index",
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
+            "summary": "Row index associated with this item.",
+            "type": [
+              {
+                "kind": "primitive",
+                "name": "Number"
+              }
+            ]
+          },
+          {
+            "name": "title",
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
+            "summary": "Title to display in the index bar for this item.",
+            "type": [
+              {
+                "kind": "primitive",
+                "name": "String"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "keyboardDismissMode",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The manner in which the keyboard is dismissed when a drag begins in the table view.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "12.2.0",
+      "default": "Undefined (behaves like <Titanium.UI.iOS.KEYBOARD_DISMISS_MODE_NONE>)",
+      "constants": [
+        "Titanium.UI.iOS.KEYBOARD_DISMISS_MODE_INTERACTIVE",
+        "Titanium.UI.iOS.KEYBOARD_DISMISS_MODE_NONE",
+        "Titanium.UI.iOS.KEYBOARD_DISMISS_MODE_ON_DRAG"
+      ]
+    },
+    {
+      "name": "maxClassname",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Max number of row class names.",
+      "description": "See [Titanium.UI.TableViewRow.className](api:Titanium.UI.TableViewRow#className) for more details. This property will default to\n32 when it is set to a number lesser than that.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.2.0",
+      "availability": "creation",
+      "default": "32"
+    },
+    {
+      "name": "maxRowHeight",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Maximum row height for table view rows.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ]
+    },
+    {
+      "name": "minRowHeight",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Minimum row height for table view rows.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ]
+    },
+    {
+      "name": "moveable",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Determines the rows' default moveable behavior, which allows them to be re-ordered by the\nuser when the table is in `editing` or `moving` mode.\n",
+      "description": "This property determines the default behavior of child rows, but may be overridden by a\nrow's [moveable](api:Titanium.UI.TableViewRow#moveable) property.\n\nSee the [Titanium.UI.TableView](api:Titanium.UI.TableView) description section for a full explanation of the TableView's\n`editing` and `moving` modes.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": {
+        "android": "9.3.0",
+        "iphone": "3.2.0",
+        "ipad": "3.2.0",
+        "macos": "9.2.0"
+      },
+      "default": "Depends on `editing` and `moving` mode"
+    },
+    {
+      "name": "moving",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Determines whether row moving mode is active.\n",
+      "description": "The `moving` mode allows rows to be deleted or re-ordered, depending on their\n[editable](api:Titanium.UI.TableViewRow#editable) and [moveable](api:Titanium.UI.TableViewRow#moveable)\nsettings.\n\nSee the [Titanium.UI.TableView](api:Titanium.UI.TableView) description section for a full explanation of the TableView's\n`editing` and `moving` modes.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": {
+        "android": "9.3.0",
+        "iphone": "3.2.0",
+        "ipad": "3.2.0",
+        "macos": "9.2.0"
+      },
+      "default": "false"
+    },
+    {
+      "name": "overScrollMode",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Determines the behavior when the user overscrolls the view.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "3.1.0",
+      "default": "Titanium.UI.Android.OVER_SCROLL_ALWAYS",
+      "constants": [
+        "Titanium.UI.Android.OVER_SCROLL_ALWAYS",
+        "Titanium.UI.Android.OVER_SCROLL_IF_CONTENT_SCROLLS",
+        "Titanium.UI.Android.OVER_SCROLL_NEVER"
+      ]
+    },
+    {
+      "name": "refreshControl",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "View positioned above the first row that is only revealed when the user drags the list view contents down.",
+      "description": "An alternate to the headerPullView property. See [Titanium.UI.RefreshControl](api:Titanium.UI.RefreshControl) for usage and examples.\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.UI.RefreshControl"
+        }
+      ],
+      "since": {
+        "android": "6.2.0",
+        "iphone": "3.2.0",
+        "ipad": "3.2.0"
+      }
+    },
+    {
+      "name": "resultsBackgroundColor",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The background color of the search results (iOS-only).",
+      "description": "For information about color values, see the \"Colors\" section of [Titanium.UI](api:Titanium.UI).\nNote: A transparent background-color is not officially supported by Apple to\nprevent that the list of results overlaps with the list view below it.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        },
+        {
+          "kind": "type",
+          "name": "Titanium.UI.Color"
+        }
+      ],
+      "since": "7.3.0",
+      "availability": "creation",
+      "default": "undefined (behaves as white)"
+    },
+    {
+      "name": "resultsSeparatorColor",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Separator line color between rows inside search results,\nas a color name or hex triplet (iOS-only).\n",
+      "description": "To make the line invisible, set this property to `transparent`, or the same value as the\n[backgroundColor](api:Titanium.UI.TableView#backgroundColor) property.\nFor information about color values, see the \"Colors\" section of [Titanium.UI](api:Titanium.UI).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        },
+        {
+          "kind": "type",
+          "name": "Titanium.UI.Color"
+        }
+      ],
+      "since": "7.3.0",
+      "availability": "creation",
+      "default": "undefined (behaves as gray)"
+    },
+    {
+      "name": "resultsSeparatorInsets",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The insets for search results separators (applies to all cells & iOS-only).\n",
+      "description": "Cell separators do not extend all the way to the edge of the list view.\nThis property sets the default inset for all cells in the table.\nSet this to a dictionary with two keys, `left` specifying inset from left edge and `right`\nspecifying the inset from the right edge.\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "HorizontalInsets"
+        }
+      ],
+      "since": "7.3.0",
+      "availability": "creation"
+    },
+    {
+      "name": "resultsSeparatorStyle",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The separator style of the search results (iOS-only).",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "7.3.0",
+      "availability": "creation",
+      "constants": [
+        "Titanium.UI.TABLE_VIEW_SEPARATOR_STYLE_NONE",
+        "Titanium.UI.TABLE_VIEW_SEPARATOR_STYLE_SINGLE_LINE"
+      ]
+    },
+    {
+      "name": "rowHeight",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Default row height for table view rows.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ]
+    },
+    {
+      "name": "rowSeparatorInsets",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The insets for table view cells (applies to all cells).",
+      "description": "Cell separators do not extend all the way to the edge of the table view. Set this to a\ndictionary with two keys, `left` specifying inset from left edge and `right` specifying the inset from the\nright edge. This property is only available upon creation of the cells.\n\nFor example:\n``` js\ntableView1.rowSeparatorInsets = {\n    left: 10,\n    right: 10\n};\n```\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "HorizontalInsets"
+        }
+      ],
+      "since": "5.2.0"
+    },
+    {
+      "name": "scrollable",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "If `true`, the tableview can be scrolled.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": {
+        "android": "7.3.0"
+      },
+      "default": "true"
+    },
+    {
+      "name": "scrollIndicatorStyle",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Style of the scrollbar.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "2.1.0",
+      "default": "<Titanium.UI.iOS.ScrollIndicatorStyle.DEFAULT>",
+      "constants": [
+        "Titanium.UI.iOS.ScrollIndicatorStyle.BLACK",
+        "Titanium.UI.iOS.ScrollIndicatorStyle.DEFAULT",
+        "Titanium.UI.iOS.ScrollIndicatorStyle.WHITE"
+      ]
+    },
+    {
+      "name": "scrollsToTop",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Controls whether the scroll-to-top gesture is effective.",
+      "description": "The scroll-to-top gesture is a tap on the status bar; The default value of this property is true.\nThis gesture works when you have a single visible table view.\nIf there are multiple table views, web views, text areas, and/or scroll views visible,\nyou will need to disable (set to false) on the above views you DON'T want this\nbehaviour on. The remaining view will then respond to scroll-to-top gesture.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "2.1.2",
+      "default": "true"
+    },
+    {
+      "name": "search",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Search field to use for the table view.",
+      "description": "In an Alloy application, you can use a `<SearchView>` or `<SearchBar>` element inside a `<TableView>` element.\n\n``` xml\n<Alloy>\n    <TableView>\n      <!-- search, shorthand with Ti.UI.SearchBar -->\n      <SearchBar platform=\"ios\"/>\n      <!-- search, shorthand with Ti.UI.Android.SearchView -->\n      <SearchView ns=\"Ti.UI.Android\" platform=\"android\"/>\n    </TableView>\n</Alloy>\n```\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.UI.SearchBar"
+        },
+        {
+          "kind": "type",
+          "name": "Titanium.UI.Android.SearchView"
+        }
+      ]
+    },
+    {
+      "name": "searchAsChild",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Determines whether the [SearchBar](api:Titanium.UI.SearchBar) or [SearchView](api:Titanium.UI.Android.SearchView) appears as part of the TableView.",
+      "description": "Set to false if the search view will be displayed in the action bar.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "3.0.2",
+      "default": "true"
+    },
+    {
+      "name": "searchHidden",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Determines whether the search field is visible.",
+      "description": "Set to `true` to hide the search field.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "default": "false (search field visible)"
+    },
+    {
+      "name": "sectionCount",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Number of sections in this table view.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "3.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "sectionHeaderTopPadding",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Padding above each section header.",
+      "description": "If not set or set to `-1`, it defaults to an automatic spacing determined by the system.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "10.1.0",
+      "osver": {
+        "ios": {
+          "min": "15.0"
+        }
+      }
+    },
+    {
+      "name": "sections",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Sections of this table.",
+      "description": "In Release 3.0, this property is read-only on Android.\n\nDue to a known issue, TIMOB-12616, the `sections` property should not be used\nfor adding sections on iOS.\n",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Array",
+          "args": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.TableViewSection"
+            }
+          ]
+        }
+      ],
+      "since": {
+        "android": "3.1.0",
+        "iphone": "3.0.0",
+        "ipad": "3.0.0"
+      }
+    },
+    {
+      "name": "separatorColor",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Separator line color between rows, as a color name or hex triplet.",
+      "description": "To make the line invisible, set this property to `transparent`, or the same value as the\n[backgroundColor](api:Titanium.UI.TableView#backgroundColor) property.\n\nFor information about color values, see the \"Colors\" section of [Titanium.UI](api:Titanium.UI).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        },
+        {
+          "kind": "type",
+          "name": "Titanium.UI.Color"
+        }
+      ],
+      "default": "platform-specific default color"
+    },
+    {
+      "name": "separatorInsets",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The insets for table view separators (applies to all cells).",
+      "description": "Cell separators do not extend all the way to the edge of the table view.\nThis property sets the default inset for all cells in the table. Set this to a dictionary\nwith two keys, `left` specifying inset from left edge and `right` specifying the inset from the right edge.\n\nFor example:\n``` js\ntableView1.separatorInsets = {\n    left: 10,\n    right: 10\n};\n```\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "HorizontalInsets"
+        }
+      ],
+      "since": "3.2.0",
+      "deprecated": {
+        "since": "5.2.0",
+        "notes": "Use [Titanium.UI.TableView.tableSeparatorInsets](Titanium.UI.TableView.tableSeparatorInsets) instead."
+      }
+    },
+    {
+      "name": "separatorStyle",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Separator style constant.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": {
+        "android": "5.2.0"
+      },
+      "constants": [
+        "Titanium.UI.TABLE_VIEW_SEPARATOR_STYLE_NONE",
+        "Titanium.UI.TABLE_VIEW_SEPARATOR_STYLE_SINGLE_LINE"
+      ]
+    },
+    {
+      "name": "showSearchBarInNavBar",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "A Boolean indicating whether search bar will be in navigation bar.",
+      "description": "If you want to show the search bar in navigation bar, set this property `true` during creation.\nUse the [Titanium.UI.Window.hidesSearchBarWhenScrolling](api:Titanium.UI.Window#hidesSearchBarWhenScrolling) property to control the visibility of the\nsearchbar when scrolling.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "8.1.0",
+      "availability": "creation",
+      "default": "false"
+    },
+    {
+      "name": "showSelectionCheck",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Determines whether the selection checkmark is displayed on selected rows.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": {
+        "android": "10.1.0"
+      },
+      "default": "true"
+    },
+    {
+      "name": "showVerticalScrollIndicator",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Determines whether this table view displays a vertical scroll indicator.",
+      "description": "Set to `false` to hide the vertical scroll indicator.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "default": "true"
+    },
+    {
+      "name": "style",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Style of the table view, specified using one of the constants from\n[Titanium.UI.iOS.TableViewStyle](api:Titanium.UI.iOS.TableViewStyle).\n",
+      "description": "Style should always be set before setting the `data` on table view.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "constants": [
+        "Titanium.UI.iOS.TableViewStyle.GROUPED",
+        "Titanium.UI.iOS.TableViewStyle.INSET_GROUPED",
+        "Titanium.UI.iOS.TableViewStyle.PLAIN"
+      ]
+    },
+    {
+      "name": "tableSeparatorInsets",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The insets for the table view header and footer.",
+      "description": "Cell separators do not extend all the way to the edge of the table view. Set this to a\ndictionary with two keys, `left` specifying inset from left edge and `right` specifying the inset from the\nright edge. If the rowSeparatorInsets is not set, the tableSeparatorInsets will also set the cell insets.\n\nFor example:\n``` js\ntableView1.tableSeparatorInsets = {\n    left: 10,\n    right: 10\n};\n```\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "HorizontalInsets"
+        }
+      ],
+      "since": "5.2.0"
+    },
+    {
+      "name": "touchFeedback",
+      "platforms": [
+        "android"
+      ],
+      "summary": "A material design visual construct that provides an instantaneous visual confirmation of touch point.",
+      "description": "Touch feedback is only applied to a view's background.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "10.0.0",
+      "default": "true"
+    }
+  ],
+  "methods": [
+    {
+      "name": "appendRow",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Appends a single row or an array of rows to the end of the table.",
+      "description": "Each row can be passed as a [TableViewRow](api:Titanium.UI.TableViewRow) object, or as\ndictionary specifying the properties for a table row, in which case this `TableView` will\ncreate `TableViewRow` objects as needed.\n\nOn iOS, the row(s) can be inserted with animation by specifying a `properties` parameter.\n",
+      "parameters": [
+        {
+          "name": "row",
+          "summary": "Row or rows to add to the table.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.TableViewRow"
+            },
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Titanium.UI.TableViewRow"
+                }
+              ]
+            },
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Titanium.UI.TableViewRow"
+                }
+              ]
+            },
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "generic",
+                  "name": "Dictionary",
+                  "args": [
+                    {
+                      "kind": "type",
+                      "name": "Titanium.UI.TableViewRow"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "animation",
+          "summary": "Animation properties. (iOS only.)",
+          "type": [
+            {
+              "kind": "type",
+              "name": "TableViewAnimationProperties"
+            }
+          ],
+          "optional": true,
+          "inlined": {
+            "name": "TableViewAnimationProperties",
+            "summary": "A simple object for specifying the animation properties to use when inserting or deleting rows, or scrolling the table.",
+            "description": "Not all properties apply to all methods.\n\n`animationStyle` does not apply to the `scrollToTop` or `scrollToIndex` methods.\n\n`positon` only applies to the `scrollToIndex` method.\n",
+            "properties": [
+              {
+                "name": "animated",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Whether this table change should be animated. Ignored if any `animationStyle` value is specified.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Boolean"
+                  }
+                ],
+                "default": "true"
+              },
+              {
+                "name": "animationStyle",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Type of animation to use for row insertions and deletions.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ],
+                "default": "If `animated` is `true` but no `animationStyle` is specified, the style defaults to\n[FADE](Titanium.UI.iOS.RowAnimationStyle.FADE).\n",
+                "constants": [
+                  "Titanium.UI.iOS.RowAnimationStyle.BOTTOM",
+                  "Titanium.UI.iOS.RowAnimationStyle.FADE",
+                  "Titanium.UI.iOS.RowAnimationStyle.LEFT",
+                  "Titanium.UI.iOS.RowAnimationStyle.NONE",
+                  "Titanium.UI.iOS.RowAnimationStyle.RIGHT",
+                  "Titanium.UI.iOS.RowAnimationStyle.TOP"
+                ]
+              },
+              {
+                "name": "position",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Specifies what position to scroll the selected row to.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ],
+                "default": "<Titanium.UI.TableViewScrollPosition.NONE>",
+                "constants": [
+                  "Titanium.UI.TableViewScrollPosition.BOTTOM",
+                  "Titanium.UI.TableViewScrollPosition.MIDDLE",
+                  "Titanium.UI.TableViewScrollPosition.NONE",
+                  "Titanium.UI.TableViewScrollPosition.TOP"
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "appendSection",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Appends a single section or an array of sections to the end of the table.",
+      "description": "Each section can be passed as a [TableViewSection](api:Titanium.UI.TableViewSection) object, or as\ndictionary specifying the properties for a table section, in which case this `TableView` will\ncreate `TableViewSection` objects as needed.\n\nOn iOS, the section(s) can be inserted with animation by specifying a `properties` parameter.\n\nDue to a known issue, TIMOB-12616, this method should not be used for adding sections on iOS.\n",
+      "since": "3.0.0",
+      "parameters": [
+        {
+          "name": "section",
+          "summary": "Section or section to add to the table.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.TableViewSection"
+            },
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Titanium.UI.TableViewSection"
+                }
+              ]
+            },
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Titanium.UI.TableViewSection"
+                }
+              ]
+            },
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "generic",
+                  "name": "Dictionary",
+                  "args": [
+                    {
+                      "kind": "type",
+                      "name": "Titanium.UI.TableViewSection"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "animation",
+          "summary": "Animation properties. (iOS only.)",
+          "type": [
+            {
+              "kind": "type",
+              "name": "TableViewAnimationProperties"
+            }
+          ],
+          "optional": true,
+          "inlined": {
+            "name": "TableViewAnimationProperties",
+            "summary": "A simple object for specifying the animation properties to use when inserting or deleting rows, or scrolling the table.",
+            "description": "Not all properties apply to all methods.\n\n`animationStyle` does not apply to the `scrollToTop` or `scrollToIndex` methods.\n\n`positon` only applies to the `scrollToIndex` method.\n",
+            "properties": [
+              {
+                "name": "animated",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Whether this table change should be animated. Ignored if any `animationStyle` value is specified.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Boolean"
+                  }
+                ],
+                "default": "true"
+              },
+              {
+                "name": "animationStyle",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Type of animation to use for row insertions and deletions.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ],
+                "default": "If `animated` is `true` but no `animationStyle` is specified, the style defaults to\n[FADE](Titanium.UI.iOS.RowAnimationStyle.FADE).\n",
+                "constants": [
+                  "Titanium.UI.iOS.RowAnimationStyle.BOTTOM",
+                  "Titanium.UI.iOS.RowAnimationStyle.FADE",
+                  "Titanium.UI.iOS.RowAnimationStyle.LEFT",
+                  "Titanium.UI.iOS.RowAnimationStyle.NONE",
+                  "Titanium.UI.iOS.RowAnimationStyle.RIGHT",
+                  "Titanium.UI.iOS.RowAnimationStyle.TOP"
+                ]
+              },
+              {
+                "name": "position",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Specifies what position to scroll the selected row to.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ],
+                "default": "<Titanium.UI.TableViewScrollPosition.NONE>",
+                "constants": [
+                  "Titanium.UI.TableViewScrollPosition.BOTTOM",
+                  "Titanium.UI.TableViewScrollPosition.MIDDLE",
+                  "Titanium.UI.TableViewScrollPosition.NONE",
+                  "Titanium.UI.TableViewScrollPosition.TOP"
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "deleteRow",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Deletes an existing row.",
+      "description": "On iOS, the row can be deleted with animation by specifying a `properties` parameter.\nStarting in SDK 3.1.0, the row can be specified using [Titanium.UI.TableViewRow](api:Titanium.UI.TableViewRow) on Android and iOS.\n",
+      "parameters": [
+        {
+          "name": "row",
+          "summary": "Index of the row to delete, or the row object to delete.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            },
+            {
+              "kind": "type",
+              "name": "Titanium.UI.TableViewRow"
+            }
+          ]
+        },
+        {
+          "name": "animation",
+          "summary": "Animation properties. (iOS only.)",
+          "type": [
+            {
+              "kind": "type",
+              "name": "TableViewAnimationProperties"
+            }
+          ],
+          "optional": true,
+          "inlined": {
+            "name": "TableViewAnimationProperties",
+            "summary": "A simple object for specifying the animation properties to use when inserting or deleting rows, or scrolling the table.",
+            "description": "Not all properties apply to all methods.\n\n`animationStyle` does not apply to the `scrollToTop` or `scrollToIndex` methods.\n\n`positon` only applies to the `scrollToIndex` method.\n",
+            "properties": [
+              {
+                "name": "animated",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Whether this table change should be animated. Ignored if any `animationStyle` value is specified.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Boolean"
+                  }
+                ],
+                "default": "true"
+              },
+              {
+                "name": "animationStyle",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Type of animation to use for row insertions and deletions.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ],
+                "default": "If `animated` is `true` but no `animationStyle` is specified, the style defaults to\n[FADE](Titanium.UI.iOS.RowAnimationStyle.FADE).\n",
+                "constants": [
+                  "Titanium.UI.iOS.RowAnimationStyle.BOTTOM",
+                  "Titanium.UI.iOS.RowAnimationStyle.FADE",
+                  "Titanium.UI.iOS.RowAnimationStyle.LEFT",
+                  "Titanium.UI.iOS.RowAnimationStyle.NONE",
+                  "Titanium.UI.iOS.RowAnimationStyle.RIGHT",
+                  "Titanium.UI.iOS.RowAnimationStyle.TOP"
+                ]
+              },
+              {
+                "name": "position",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Specifies what position to scroll the selected row to.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ],
+                "default": "<Titanium.UI.TableViewScrollPosition.NONE>",
+                "constants": [
+                  "Titanium.UI.TableViewScrollPosition.BOTTOM",
+                  "Titanium.UI.TableViewScrollPosition.MIDDLE",
+                  "Titanium.UI.TableViewScrollPosition.NONE",
+                  "Titanium.UI.TableViewScrollPosition.TOP"
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "deleteSection",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Deletes an existing section.",
+      "description": "On iOS, the section can be deleted with animation by specifying a `properties` parameter.\n",
+      "since": "3.0.0",
+      "parameters": [
+        {
+          "name": "section",
+          "summary": "Index of the section to delete.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "animation",
+          "summary": "Animation properties. (iOS only.)",
+          "type": [
+            {
+              "kind": "type",
+              "name": "TableViewAnimationProperties"
+            }
+          ],
+          "optional": true,
+          "inlined": {
+            "name": "TableViewAnimationProperties",
+            "summary": "A simple object for specifying the animation properties to use when inserting or deleting rows, or scrolling the table.",
+            "description": "Not all properties apply to all methods.\n\n`animationStyle` does not apply to the `scrollToTop` or `scrollToIndex` methods.\n\n`positon` only applies to the `scrollToIndex` method.\n",
+            "properties": [
+              {
+                "name": "animated",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Whether this table change should be animated. Ignored if any `animationStyle` value is specified.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Boolean"
+                  }
+                ],
+                "default": "true"
+              },
+              {
+                "name": "animationStyle",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Type of animation to use for row insertions and deletions.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ],
+                "default": "If `animated` is `true` but no `animationStyle` is specified, the style defaults to\n[FADE](Titanium.UI.iOS.RowAnimationStyle.FADE).\n",
+                "constants": [
+                  "Titanium.UI.iOS.RowAnimationStyle.BOTTOM",
+                  "Titanium.UI.iOS.RowAnimationStyle.FADE",
+                  "Titanium.UI.iOS.RowAnimationStyle.LEFT",
+                  "Titanium.UI.iOS.RowAnimationStyle.NONE",
+                  "Titanium.UI.iOS.RowAnimationStyle.RIGHT",
+                  "Titanium.UI.iOS.RowAnimationStyle.TOP"
+                ]
+              },
+              {
+                "name": "position",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Specifies what position to scroll the selected row to.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ],
+                "default": "<Titanium.UI.TableViewScrollPosition.NONE>",
+                "constants": [
+                  "Titanium.UI.TableViewScrollPosition.BOTTOM",
+                  "Titanium.UI.TableViewScrollPosition.MIDDLE",
+                  "Titanium.UI.TableViewScrollPosition.NONE",
+                  "Titanium.UI.TableViewScrollPosition.TOP"
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "deselectRow",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Programmatically deselects a row.",
+      "parameters": [
+        {
+          "name": "row",
+          "summary": "Row index to deselect.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "insertRowAfter",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Inserts a row after another row.",
+      "description": "Each row can be passed as a [TableViewRow](api:Titanium.UI.TableViewRow) object, or as\ndictionary specifying the properties for a table row, in which case this `TableView` will\ncreate `TableViewRow` objects as needed.\n\nOn iOS, the row(s) may be inserted with animation by setting the `animation` parameter.\n",
+      "parameters": [
+        {
+          "name": "index",
+          "summary": "Index of the row to insert after.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "row",
+          "summary": "Row to insert.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.TableViewRow"
+            },
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Titanium.UI.TableViewRow"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "animation",
+          "summary": "Animation properties. (iOS only.)",
+          "type": [
+            {
+              "kind": "type",
+              "name": "TableViewAnimationProperties"
+            }
+          ],
+          "optional": true,
+          "inlined": {
+            "name": "TableViewAnimationProperties",
+            "summary": "A simple object for specifying the animation properties to use when inserting or deleting rows, or scrolling the table.",
+            "description": "Not all properties apply to all methods.\n\n`animationStyle` does not apply to the `scrollToTop` or `scrollToIndex` methods.\n\n`positon` only applies to the `scrollToIndex` method.\n",
+            "properties": [
+              {
+                "name": "animated",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Whether this table change should be animated. Ignored if any `animationStyle` value is specified.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Boolean"
+                  }
+                ],
+                "default": "true"
+              },
+              {
+                "name": "animationStyle",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Type of animation to use for row insertions and deletions.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ],
+                "default": "If `animated` is `true` but no `animationStyle` is specified, the style defaults to\n[FADE](Titanium.UI.iOS.RowAnimationStyle.FADE).\n",
+                "constants": [
+                  "Titanium.UI.iOS.RowAnimationStyle.BOTTOM",
+                  "Titanium.UI.iOS.RowAnimationStyle.FADE",
+                  "Titanium.UI.iOS.RowAnimationStyle.LEFT",
+                  "Titanium.UI.iOS.RowAnimationStyle.NONE",
+                  "Titanium.UI.iOS.RowAnimationStyle.RIGHT",
+                  "Titanium.UI.iOS.RowAnimationStyle.TOP"
+                ]
+              },
+              {
+                "name": "position",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Specifies what position to scroll the selected row to.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ],
+                "default": "<Titanium.UI.TableViewScrollPosition.NONE>",
+                "constants": [
+                  "Titanium.UI.TableViewScrollPosition.BOTTOM",
+                  "Titanium.UI.TableViewScrollPosition.MIDDLE",
+                  "Titanium.UI.TableViewScrollPosition.NONE",
+                  "Titanium.UI.TableViewScrollPosition.TOP"
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "insertRowBefore",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Inserts a row before another row.",
+      "description": "Each row can be passed as a [TableViewRow](api:Titanium.UI.TableViewRow) object, or as\ndictionary specifying the properties for a table row, in which case this `TableView` will\ncreate `TableViewRow` objects as needed.\n\nOn iOS, the row(s) may be inserted with animation by setting the `animation` parameter.\n",
+      "parameters": [
+        {
+          "name": "index",
+          "summary": "Index of the row to insert before.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "row",
+          "summary": "Row to insert.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.TableViewRow"
+            },
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Titanium.UI.TableViewRow"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "animation",
+          "summary": "Animation properties. (iOS only.)",
+          "type": [
+            {
+              "kind": "type",
+              "name": "TableViewAnimationProperties"
+            }
+          ],
+          "optional": true,
+          "inlined": {
+            "name": "TableViewAnimationProperties",
+            "summary": "A simple object for specifying the animation properties to use when inserting or deleting rows, or scrolling the table.",
+            "description": "Not all properties apply to all methods.\n\n`animationStyle` does not apply to the `scrollToTop` or `scrollToIndex` methods.\n\n`positon` only applies to the `scrollToIndex` method.\n",
+            "properties": [
+              {
+                "name": "animated",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Whether this table change should be animated. Ignored if any `animationStyle` value is specified.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Boolean"
+                  }
+                ],
+                "default": "true"
+              },
+              {
+                "name": "animationStyle",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Type of animation to use for row insertions and deletions.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ],
+                "default": "If `animated` is `true` but no `animationStyle` is specified, the style defaults to\n[FADE](Titanium.UI.iOS.RowAnimationStyle.FADE).\n",
+                "constants": [
+                  "Titanium.UI.iOS.RowAnimationStyle.BOTTOM",
+                  "Titanium.UI.iOS.RowAnimationStyle.FADE",
+                  "Titanium.UI.iOS.RowAnimationStyle.LEFT",
+                  "Titanium.UI.iOS.RowAnimationStyle.NONE",
+                  "Titanium.UI.iOS.RowAnimationStyle.RIGHT",
+                  "Titanium.UI.iOS.RowAnimationStyle.TOP"
+                ]
+              },
+              {
+                "name": "position",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Specifies what position to scroll the selected row to.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ],
+                "default": "<Titanium.UI.TableViewScrollPosition.NONE>",
+                "constants": [
+                  "Titanium.UI.TableViewScrollPosition.BOTTOM",
+                  "Titanium.UI.TableViewScrollPosition.MIDDLE",
+                  "Titanium.UI.TableViewScrollPosition.NONE",
+                  "Titanium.UI.TableViewScrollPosition.TOP"
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "insertSectionAfter",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Inserts a section after another section.",
+      "description": "Each section can be passed as a [TableViewSection](api:Titanium.UI.TableViewSection) object, or as\ndictionary specifying the properties for a table section, in which case this `TableView` will\ncreate `TableViewSection` objects as needed.\n\nOn iOS, the section(s) may be inserted with animation by setting the `animation` parameter.\n\nDue to a known issue, TIMOB-12616, this method should not be used for adding sections on iOS.\n",
+      "since": "3.0.0",
+      "parameters": [
+        {
+          "name": "index",
+          "summary": "Index of the section to insert after.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "section",
+          "summary": "section to insert.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.TableViewSection"
+            },
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Titanium.UI.TableViewSection"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "animation",
+          "summary": "Animation properties. (iOS only.)",
+          "type": [
+            {
+              "kind": "type",
+              "name": "TableViewAnimationProperties"
+            }
+          ],
+          "optional": true,
+          "inlined": {
+            "name": "TableViewAnimationProperties",
+            "summary": "A simple object for specifying the animation properties to use when inserting or deleting rows, or scrolling the table.",
+            "description": "Not all properties apply to all methods.\n\n`animationStyle` does not apply to the `scrollToTop` or `scrollToIndex` methods.\n\n`positon` only applies to the `scrollToIndex` method.\n",
+            "properties": [
+              {
+                "name": "animated",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Whether this table change should be animated. Ignored if any `animationStyle` value is specified.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Boolean"
+                  }
+                ],
+                "default": "true"
+              },
+              {
+                "name": "animationStyle",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Type of animation to use for row insertions and deletions.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ],
+                "default": "If `animated` is `true` but no `animationStyle` is specified, the style defaults to\n[FADE](Titanium.UI.iOS.RowAnimationStyle.FADE).\n",
+                "constants": [
+                  "Titanium.UI.iOS.RowAnimationStyle.BOTTOM",
+                  "Titanium.UI.iOS.RowAnimationStyle.FADE",
+                  "Titanium.UI.iOS.RowAnimationStyle.LEFT",
+                  "Titanium.UI.iOS.RowAnimationStyle.NONE",
+                  "Titanium.UI.iOS.RowAnimationStyle.RIGHT",
+                  "Titanium.UI.iOS.RowAnimationStyle.TOP"
+                ]
+              },
+              {
+                "name": "position",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Specifies what position to scroll the selected row to.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ],
+                "default": "<Titanium.UI.TableViewScrollPosition.NONE>",
+                "constants": [
+                  "Titanium.UI.TableViewScrollPosition.BOTTOM",
+                  "Titanium.UI.TableViewScrollPosition.MIDDLE",
+                  "Titanium.UI.TableViewScrollPosition.NONE",
+                  "Titanium.UI.TableViewScrollPosition.TOP"
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "insertSectionBefore",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Inserts a section before another section.",
+      "description": "Each section can be passed as a [TableViewSection](api:Titanium.UI.TableViewSection) object, or as\ndictionary specifying the properties for a table section, in which case this `TableViewSection` will\ncreate `TableViewSection` objects as needed.\n\nOn iOS, the section(s) may be inserted with animation by setting the `animation` parameter.\n\nDue to a known issue, TIMOB-12616, this method should not be used for adding sections on iOS.\n",
+      "since": "3.0.0",
+      "parameters": [
+        {
+          "name": "index",
+          "summary": "Index of the section to insert before.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "section",
+          "summary": "section to insert.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.TableViewSection"
+            },
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Titanium.UI.TableViewSection"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "animation",
+          "summary": "Animation properties. (iOS only.)",
+          "type": [
+            {
+              "kind": "type",
+              "name": "TableViewAnimationProperties"
+            }
+          ],
+          "optional": true,
+          "inlined": {
+            "name": "TableViewAnimationProperties",
+            "summary": "A simple object for specifying the animation properties to use when inserting or deleting rows, or scrolling the table.",
+            "description": "Not all properties apply to all methods.\n\n`animationStyle` does not apply to the `scrollToTop` or `scrollToIndex` methods.\n\n`positon` only applies to the `scrollToIndex` method.\n",
+            "properties": [
+              {
+                "name": "animated",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Whether this table change should be animated. Ignored if any `animationStyle` value is specified.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Boolean"
+                  }
+                ],
+                "default": "true"
+              },
+              {
+                "name": "animationStyle",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Type of animation to use for row insertions and deletions.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ],
+                "default": "If `animated` is `true` but no `animationStyle` is specified, the style defaults to\n[FADE](Titanium.UI.iOS.RowAnimationStyle.FADE).\n",
+                "constants": [
+                  "Titanium.UI.iOS.RowAnimationStyle.BOTTOM",
+                  "Titanium.UI.iOS.RowAnimationStyle.FADE",
+                  "Titanium.UI.iOS.RowAnimationStyle.LEFT",
+                  "Titanium.UI.iOS.RowAnimationStyle.NONE",
+                  "Titanium.UI.iOS.RowAnimationStyle.RIGHT",
+                  "Titanium.UI.iOS.RowAnimationStyle.TOP"
+                ]
+              },
+              {
+                "name": "position",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Specifies what position to scroll the selected row to.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ],
+                "default": "<Titanium.UI.TableViewScrollPosition.NONE>",
+                "constants": [
+                  "Titanium.UI.TableViewScrollPosition.BOTTOM",
+                  "Titanium.UI.TableViewScrollPosition.MIDDLE",
+                  "Titanium.UI.TableViewScrollPosition.NONE",
+                  "Titanium.UI.TableViewScrollPosition.TOP"
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "scrollToIndex",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Scrolls the table view to ensure that the specified row is on screen.",
+      "description": "On iOS, specify a [TableViewAnimationProperties](api:TableViewAnimationProperties) object to control the position that\nthe selected row is scrolled to, and whether scrolling is animated.\n",
+      "parameters": [
+        {
+          "name": "index",
+          "summary": "Row index to scroll to.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "animation",
+          "summary": "Animation properties.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "TableViewAnimationProperties"
+            }
+          ],
+          "optional": true,
+          "inlined": {
+            "name": "TableViewAnimationProperties",
+            "summary": "A simple object for specifying the animation properties to use when inserting or deleting rows, or scrolling the table.",
+            "description": "Not all properties apply to all methods.\n\n`animationStyle` does not apply to the `scrollToTop` or `scrollToIndex` methods.\n\n`positon` only applies to the `scrollToIndex` method.\n",
+            "properties": [
+              {
+                "name": "animated",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Whether this table change should be animated. Ignored if any `animationStyle` value is specified.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Boolean"
+                  }
+                ],
+                "default": "true"
+              },
+              {
+                "name": "animationStyle",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Type of animation to use for row insertions and deletions.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ],
+                "default": "If `animated` is `true` but no `animationStyle` is specified, the style defaults to\n[FADE](Titanium.UI.iOS.RowAnimationStyle.FADE).\n",
+                "constants": [
+                  "Titanium.UI.iOS.RowAnimationStyle.BOTTOM",
+                  "Titanium.UI.iOS.RowAnimationStyle.FADE",
+                  "Titanium.UI.iOS.RowAnimationStyle.LEFT",
+                  "Titanium.UI.iOS.RowAnimationStyle.NONE",
+                  "Titanium.UI.iOS.RowAnimationStyle.RIGHT",
+                  "Titanium.UI.iOS.RowAnimationStyle.TOP"
+                ]
+              },
+              {
+                "name": "position",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Specifies what position to scroll the selected row to.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ],
+                "default": "<Titanium.UI.TableViewScrollPosition.NONE>",
+                "constants": [
+                  "Titanium.UI.TableViewScrollPosition.BOTTOM",
+                  "Titanium.UI.TableViewScrollPosition.MIDDLE",
+                  "Titanium.UI.TableViewScrollPosition.NONE",
+                  "Titanium.UI.TableViewScrollPosition.TOP"
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "scrollToTop",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Scrolls the table to a specific top position where 0 is the topmost y position in the\ntable view.\n",
+      "description": "The behavior of this method is platform-specific.\n\nOn Android, the `top` value is interpreted as a row index that should be scrolled\nto the top of the screen. The table will not scroll the last row of data higher than\nthe bottom of the screen. If there is less than one screenful of data below the\nspecified row, the table doesn't scroll the specified row all the way to the top.\nIf the table has less than one screenful of data total, it does not scroll at all.\n\nOn iOS, the `top` value is interpreted as a pixel offset between the top of the top\nrow of data and the top of the table view. So a `top` value of 0 scrolls the list to\nthe top. A positive value scrolls it down, and a negative value scrolls the list up\nabove the first item.\n\nOn iOS, specify a [TableViewAnimationProperties](api:TableViewAnimationProperties) object with `animated` set to `false` to\ndisable the scrolling animation.\n",
+      "parameters": [
+        {
+          "name": "top",
+          "summary": "Y position for the top of the table view.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "animation",
+          "summary": "Animation properties.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "TableViewAnimationProperties"
+            }
+          ],
+          "optional": true,
+          "inlined": {
+            "name": "TableViewAnimationProperties",
+            "summary": "A simple object for specifying the animation properties to use when inserting or deleting rows, or scrolling the table.",
+            "description": "Not all properties apply to all methods.\n\n`animationStyle` does not apply to the `scrollToTop` or `scrollToIndex` methods.\n\n`positon` only applies to the `scrollToIndex` method.\n",
+            "properties": [
+              {
+                "name": "animated",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Whether this table change should be animated. Ignored if any `animationStyle` value is specified.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Boolean"
+                  }
+                ],
+                "default": "true"
+              },
+              {
+                "name": "animationStyle",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Type of animation to use for row insertions and deletions.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ],
+                "default": "If `animated` is `true` but no `animationStyle` is specified, the style defaults to\n[FADE](Titanium.UI.iOS.RowAnimationStyle.FADE).\n",
+                "constants": [
+                  "Titanium.UI.iOS.RowAnimationStyle.BOTTOM",
+                  "Titanium.UI.iOS.RowAnimationStyle.FADE",
+                  "Titanium.UI.iOS.RowAnimationStyle.LEFT",
+                  "Titanium.UI.iOS.RowAnimationStyle.NONE",
+                  "Titanium.UI.iOS.RowAnimationStyle.RIGHT",
+                  "Titanium.UI.iOS.RowAnimationStyle.TOP"
+                ]
+              },
+              {
+                "name": "position",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Specifies what position to scroll the selected row to.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ],
+                "default": "<Titanium.UI.TableViewScrollPosition.NONE>",
+                "constants": [
+                  "Titanium.UI.TableViewScrollPosition.BOTTOM",
+                  "Titanium.UI.TableViewScrollPosition.MIDDLE",
+                  "Titanium.UI.TableViewScrollPosition.NONE",
+                  "Titanium.UI.TableViewScrollPosition.TOP"
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "selectRow",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Programmatically selects a row. In Android, it sets the currently selected item. If in touch mode,\nthe item will not be selected but it will still be positioned appropriately. If the specified\nselection position is less than 0, then the item at position 0 will be selected.\n",
+      "since": {
+        "iphone": "1.8.2",
+        "ipad": "1.8.2",
+        "android": "3.0.0"
+      },
+      "parameters": [
+        {
+          "name": "row",
+          "summary": "Row index to select.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "setContentInsets",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Sets this tableview's content insets.",
+      "description": "A table view is essentially a scroll view that contains a set of static row views that\nrepresents the content. Thus, the `setContentInsets` method facilitates a margin, or inset,\ndistance between the content and the container scroll view.\n\nTypically used with the [headerPullView](api:Titanium.UI.TableView#headerPullView) property.\n",
+      "since": "2.1.0",
+      "parameters": [
+        {
+          "name": "edgeInsets",
+          "summary": "Sets the distance that the content view is inset from the enclosing scroll view of the table.\nFor example:\n\n``` js\nsetContentInset({ top: 50, bottom: 10, right: 10, left: 10 }, { animated: true });\n```\n",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Padding"
+            }
+          ]
+        },
+        {
+          "name": "options",
+          "summary": "Determines whether, and how, the content inset change should be animated.\n\nNote that the default here is equivalent to passing in `{ animated: false }`\n",
+          "type": [
+            {
+              "kind": "type",
+              "name": "AnimatedWithDurationOptions"
+            }
+          ],
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "setContentOffset",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Sets the value of the content offset of the table view without animation by default.",
+      "since": {
+        "android": "10.1.0",
+        "iphone": "3.4.0",
+        "ipad": "3.4.0",
+        "macos": "9.2.0"
+      },
+      "parameters": [
+        {
+          "name": "contentOffset",
+          "summary": "Dictionary with the properties `x`, `y`.\nThe `x` and `y` coordinates reposition the top-left point of the scrollable region of the table view.\n",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Point"
+            }
+          ]
+        },
+        {
+          "name": "options",
+          "summary": "Pass in `{ animated: true }` to animate the transition.\n\nNote that the default here is equivalent to passing in `{ animated: false }`\n",
+          "type": [
+            {
+              "kind": "type",
+              "name": "AnimatedOptions"
+            }
+          ],
+          "optional": true,
+          "default": "{ animated: false }"
+        }
+      ]
+    },
+    {
+      "name": "setData",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Sets the data in the table.",
+      "description": "Each row can be passed as a [TableViewRow](api:Titanium.UI.TableViewRow) object, or as\ndictionary specifying the properties for a table row, in which case this `TableView` will\ncreate `TableViewRow` objects as needed.\n\n`setData` can also be used to add [TableViewSection](api:Titanium.UI.TableViewSection)s to a\ntable view.\n",
+      "parameters": [
+        {
+          "name": "data",
+          "summary": "Rows or sections to add to this table.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Titanium.UI.TableViewRow"
+                }
+              ]
+            },
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "generic",
+                  "name": "Dictionary",
+                  "args": [
+                    {
+                      "kind": "type",
+                      "name": "Titanium.UI.TableViewRow"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Titanium.UI.TableViewSection"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "animation",
+          "summary": "Animation properties. (iOS only.)",
+          "type": [
+            {
+              "kind": "type",
+              "name": "TableViewAnimationProperties"
+            }
+          ],
+          "optional": true,
+          "inlined": {
+            "name": "TableViewAnimationProperties",
+            "summary": "A simple object for specifying the animation properties to use when inserting or deleting rows, or scrolling the table.",
+            "description": "Not all properties apply to all methods.\n\n`animationStyle` does not apply to the `scrollToTop` or `scrollToIndex` methods.\n\n`positon` only applies to the `scrollToIndex` method.\n",
+            "properties": [
+              {
+                "name": "animated",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Whether this table change should be animated. Ignored if any `animationStyle` value is specified.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Boolean"
+                  }
+                ],
+                "default": "true"
+              },
+              {
+                "name": "animationStyle",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Type of animation to use for row insertions and deletions.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ],
+                "default": "If `animated` is `true` but no `animationStyle` is specified, the style defaults to\n[FADE](Titanium.UI.iOS.RowAnimationStyle.FADE).\n",
+                "constants": [
+                  "Titanium.UI.iOS.RowAnimationStyle.BOTTOM",
+                  "Titanium.UI.iOS.RowAnimationStyle.FADE",
+                  "Titanium.UI.iOS.RowAnimationStyle.LEFT",
+                  "Titanium.UI.iOS.RowAnimationStyle.NONE",
+                  "Titanium.UI.iOS.RowAnimationStyle.RIGHT",
+                  "Titanium.UI.iOS.RowAnimationStyle.TOP"
+                ]
+              },
+              {
+                "name": "position",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Specifies what position to scroll the selected row to.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ],
+                "default": "<Titanium.UI.TableViewScrollPosition.NONE>",
+                "constants": [
+                  "Titanium.UI.TableViewScrollPosition.BOTTOM",
+                  "Titanium.UI.TableViewScrollPosition.MIDDLE",
+                  "Titanium.UI.TableViewScrollPosition.NONE",
+                  "Titanium.UI.TableViewScrollPosition.TOP"
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "setHeaderPullView",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Sets the value of the [Titanium.UI.TableView.headerPullView] property.",
+      "since": "2.1.0",
+      "deprecated": {
+        "since": "10.0.0",
+        "removed": "10.0.0",
+        "notes": "Use the <Titanium.UI.TableView.headerPullView> property instead."
+      },
+      "parameters": [
+        {
+          "name": "view",
+          "summary": "View to display.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.View"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "updateRow",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Updates an existing row, optionally with animation.",
+      "parameters": [
+        {
+          "name": "index",
+          "summary": "Index of the row to update.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "row",
+          "summary": "Row data to update.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.TableViewRow"
+            }
+          ]
+        },
+        {
+          "name": "animation",
+          "summary": "Animation properties. (iOS only.)",
+          "type": [
+            {
+              "kind": "type",
+              "name": "TableViewAnimationProperties"
+            }
+          ],
+          "inlined": {
+            "name": "TableViewAnimationProperties",
+            "summary": "A simple object for specifying the animation properties to use when inserting or deleting rows, or scrolling the table.",
+            "description": "Not all properties apply to all methods.\n\n`animationStyle` does not apply to the `scrollToTop` or `scrollToIndex` methods.\n\n`positon` only applies to the `scrollToIndex` method.\n",
+            "properties": [
+              {
+                "name": "animated",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Whether this table change should be animated. Ignored if any `animationStyle` value is specified.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Boolean"
+                  }
+                ],
+                "default": "true"
+              },
+              {
+                "name": "animationStyle",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Type of animation to use for row insertions and deletions.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ],
+                "default": "If `animated` is `true` but no `animationStyle` is specified, the style defaults to\n[FADE](Titanium.UI.iOS.RowAnimationStyle.FADE).\n",
+                "constants": [
+                  "Titanium.UI.iOS.RowAnimationStyle.BOTTOM",
+                  "Titanium.UI.iOS.RowAnimationStyle.FADE",
+                  "Titanium.UI.iOS.RowAnimationStyle.LEFT",
+                  "Titanium.UI.iOS.RowAnimationStyle.NONE",
+                  "Titanium.UI.iOS.RowAnimationStyle.RIGHT",
+                  "Titanium.UI.iOS.RowAnimationStyle.TOP"
+                ]
+              },
+              {
+                "name": "position",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Specifies what position to scroll the selected row to.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ],
+                "default": "<Titanium.UI.TableViewScrollPosition.NONE>",
+                "constants": [
+                  "Titanium.UI.TableViewScrollPosition.BOTTOM",
+                  "Titanium.UI.TableViewScrollPosition.MIDDLE",
+                  "Titanium.UI.TableViewScrollPosition.NONE",
+                  "Titanium.UI.TableViewScrollPosition.TOP"
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateSection",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Updates an existing section, optionally with animation.",
+      "description": "Known issues:\n\n*   On iOS, event listeners do not fire correctly after table view sections are\n    updated using the `updateSection` methods.\n    ([TIMOB-12616](https://jira-archive.titaniumsdk.com/TIMOB-12616)\n",
+      "since": "3.0.0",
+      "parameters": [
+        {
+          "name": "index",
+          "summary": "Index of the section to update.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "section",
+          "summary": "section data to update.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.TableViewSection"
+            }
+          ]
+        },
+        {
+          "name": "animation",
+          "summary": "Animation properties. (iOS only.)",
+          "type": [
+            {
+              "kind": "type",
+              "name": "TableViewAnimationProperties"
+            }
+          ],
+          "inlined": {
+            "name": "TableViewAnimationProperties",
+            "summary": "A simple object for specifying the animation properties to use when inserting or deleting rows, or scrolling the table.",
+            "description": "Not all properties apply to all methods.\n\n`animationStyle` does not apply to the `scrollToTop` or `scrollToIndex` methods.\n\n`positon` only applies to the `scrollToIndex` method.\n",
+            "properties": [
+              {
+                "name": "animated",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Whether this table change should be animated. Ignored if any `animationStyle` value is specified.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Boolean"
+                  }
+                ],
+                "default": "true"
+              },
+              {
+                "name": "animationStyle",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Type of animation to use for row insertions and deletions.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ],
+                "default": "If `animated` is `true` but no `animationStyle` is specified, the style defaults to\n[FADE](Titanium.UI.iOS.RowAnimationStyle.FADE).\n",
+                "constants": [
+                  "Titanium.UI.iOS.RowAnimationStyle.BOTTOM",
+                  "Titanium.UI.iOS.RowAnimationStyle.FADE",
+                  "Titanium.UI.iOS.RowAnimationStyle.LEFT",
+                  "Titanium.UI.iOS.RowAnimationStyle.NONE",
+                  "Titanium.UI.iOS.RowAnimationStyle.RIGHT",
+                  "Titanium.UI.iOS.RowAnimationStyle.TOP"
+                ]
+              },
+              {
+                "name": "position",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Specifies what position to scroll the selected row to.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ],
+                "default": "<Titanium.UI.TableViewScrollPosition.NONE>",
+                "constants": [
+                  "Titanium.UI.TableViewScrollPosition.BOTTOM",
+                  "Titanium.UI.TableViewScrollPosition.MIDDLE",
+                  "Titanium.UI.TableViewScrollPosition.NONE",
+                  "Titanium.UI.TableViewScrollPosition.TOP"
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "click",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when a table row is clicked by the user.",
+      "properties": [
+        {
+          "name": "detail",
+          "summary": "Indicates whether the detail button was clicked. Only `true` if `row.hasDetail` is\n`true` and the detail button was clicked.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "index",
+          "summary": "Row index.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "row",
+          "summary": "Table view row object.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.TableViewRow"
+            }
+          ]
+        },
+        {
+          "name": "rowData",
+          "summary": "Properties of the row.\n\nWhen the row is created implicitly using a JavaScript dictionary object,\nuse this property rather than `row` to access any custom row properties.\n\nHere's an example of creating a row implicitly, which is not the recommended way.\n\n``` js\nvar data = [{title:'Row 1', hasChild:true, color:'red', selectedColor:'#fff', special:'special 1'},];\nvar table = Ti.UI.createTableView({data: data});\n```\n",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Titanium.UI.TableViewRow"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "searchMode",
+          "summary": "Indicates whether the table is in search mode.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "section",
+          "summary": "Table view section object, if the clicked row is contained in a section.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.TableViewSection"
+            }
+          ]
+        },
+        {
+          "name": "x",
+          "summary": "X coordinate of the event from the `source` view's coordinate system.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "y",
+          "summary": "Y coordinate of the event from the `source` view's coordinate system.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "delete",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when a table row is deleted by the user.",
+      "since": {
+        "android": "10.0.0"
+      },
+      "properties": [
+        {
+          "name": "detail",
+          "summary": "Indicates whether the delete button was clicked. Always `false` for this event.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "index",
+          "summary": "Row index.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "row",
+          "summary": "Table view row object.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.TableViewRow"
+            }
+          ]
+        },
+        {
+          "name": "rowData",
+          "summary": "Properties of the row. Use this property rather than `row` to access any custom row\nproperties.\n",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Titanium.UI.TableViewRow"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "searchMode",
+          "summary": "Indicates whether the table is in search mode. Always `false` for this event.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "section",
+          "summary": "Table view section object, if the deleted row is contained in a section.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.TableViewSection"
+            }
+          ]
+        },
+        {
+          "name": "x",
+          "summary": "X coordinate of the event from the `source` view's coordinate system.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "y",
+          "summary": "Y coordinate of the event from the `source` view's coordinate system.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "doubletap",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when the device detects a double tap against this view.",
+      "properties": [
+        {
+          "name": "index",
+          "summary": "Row index.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "row",
+          "summary": "Table view row object.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.TableViewRow"
+            }
+          ]
+        },
+        {
+          "name": "rowData",
+          "summary": "Properties of the row.\n\nWhen the row is created implicitly using a JavaScript dictionary object,\nuse this property rather than `row` to access any custom row properties.\n\nHere's an example of creating a row implicitly, which is not the recommended way.\n\n``` js\nvar data = [{title:'Row 1', hasChild:true, color:'red', selectedColor:'#fff', special:'special 1'},];\nvar table = Ti.UI.createTableView({data: data});\n```\n",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Titanium.UI.TableViewRow"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "x",
+          "summary": "X coordinate of the event from the `source` view's coordinate system.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "y",
+          "summary": "Y coordinate of the event from the `source` view's coordinate system.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "dragend",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when the scrollable region stops being dragged.",
+      "description": "A dragging gesture is when a touch remains in contact with the display to physically drag\nthe view, as opposed to it being the result of scrolling momentum.\n",
+      "since": "3.0.0",
+      "properties": [
+        {
+          "name": "decelerate",
+          "summary": "Indicates whether scrolling will continue but decelerate, now that the drag gesture has\nbeen released by the touch. If `false`, scrolling will stop immediately.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "dragstart",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when the scrollable region starts being dragged.",
+      "description": "A dragging gesture is when a touch remains in contact with the display to physically drag\nthe view, as opposed to it being the result of scrolling momentum.\n",
+      "since": "3.0.0"
+    },
+    {
+      "name": "editaction",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when the user interacts with one of the custom edit actions defined by [Titanium.UI.TableViewRow.editActions](api:Titanium.UI.TableViewRow#editActions).",
+      "description": "Do not rely on the `source` property to determine which item fired the event.  Use the\n`row` and `section`, or the `index` to determine the table row that generated\nthe event.\n\nNote that the `index` property of this event correspond to the list view state\nbefore the user action.\n",
+      "since": "12.4.0",
+      "properties": [
+        {
+          "name": "action",
+          "summary": "The [title](api:RowActionType#title) as defined in the row action object.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "identifier",
+          "summary": "The [identifier](RowActionType. identifier) of the row action. Only included in the event\nif previously defined.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "row",
+          "summary": "The row that fired this event.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.TableViewRow"
+            },
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Titanium.UI.TableViewRow"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "section",
+          "summary": "The section that fired this event.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.TableViewSection"
+            }
+          ]
+        },
+        {
+          "name": "index",
+          "summary": "The index of the row that fired this event.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "indexclick",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when the index bar is clicked by the user.",
+      "description": "If the tabe view contains the [index](api:Titanium.UI.TableView#index) array of indices the index bar will appear on the side.\nThis event will fire when this bar is clicked\n",
+      "since": "3.4.0",
+      "properties": [
+        {
+          "name": "title",
+          "summary": "The title of the index clicked.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "index",
+          "summary": "The index number clicked.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "longpress",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when the device detects a long press.",
+      "description": "A long press is generated by touching and holding on the touchscreen. Unlike a `longclick`,\nit does not respond to the trackball button.\n\nThe event occurs before the finger is lifted.\n\nA `longpress` and a `longclick` can occur together.\n\nIn contrast to a `longclick`, this event returns the `x` and `y` coordinates of the touch.\n",
+      "properties": [
+        {
+          "name": "index",
+          "summary": "Row index.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "row",
+          "summary": "Table view row object.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.TableViewRow"
+            }
+          ]
+        },
+        {
+          "name": "rowData",
+          "summary": "Properties of the row.\n\nWhen the row is created implicitly using a JavaScript dictionary object,\nuse this property rather than `row` to access any custom row properties.\n\nHere's an example of creating a row implicitly, which is not the recommended way.\n\n``` js\nvar data = [{title:'Row 1', hasChild:true, color:'red', selectedColor:'#fff', special:'special 1'},];\nvar table = Ti.UI.createTableView({data: data});\n```\n",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Titanium.UI.TableViewRow"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "y",
+          "summary": "Y coordinate of the event from the `source` view's coordinate system.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "x",
+          "summary": "X coordinate of the event from the `source` view's coordinate system.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "move",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when a table row is moved by the user.",
+      "since": {
+        "android": "9.3.0",
+        "iphone": "3.2.0",
+        "ipad": "3.2.0",
+        "macos": "9.2.0"
+      },
+      "properties": [
+        {
+          "name": "detail",
+          "summary": "Boolean to indicate if the right area was clicked. Always `false` for this event.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "index",
+          "summary": "Row index.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "searchMode",
+          "summary": "Boolean to indicate if the table is in search mode. Always `false` for this event.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "section",
+          "summary": "Table view section object, if the deleted row is contained in a section.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.TableViewSection"
+            }
+          ]
+        },
+        {
+          "name": "row",
+          "summary": "Table view row object.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.TableViewRow"
+            }
+          ]
+        },
+        {
+          "name": "rowData",
+          "summary": "Properties of the row. Use this property rather than `row` to access any custom row\nproperties.\n",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Titanium.UI.TableViewRow"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "x",
+          "summary": "X coordinate of the event from the `source` view's coordinate system.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "y",
+          "summary": "Y coordinate of the event from the `source` view's coordinate system.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rowsselected",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when user stops two-pan gesture interaction for selecting multiple rows.\nIt is used in conjunction with [Titanium.UI.TableView.allowsMultipleSelectionInteraction](api:Titanium.UI.TableView#allowsMultipleSelectionInteraction).\n",
+      "since": {
+        "android": "10.1.0",
+        "iphone": "8.2.0",
+        "ipad": "8.2.0",
+        "macos": "9.2.0"
+      },
+      "properties": [
+        {
+          "name": "selectedRows",
+          "summary": "List of rows selected by user.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "SelectedRowObject"
+                }
+              ]
+            }
+          ],
+          "inlined": {
+            "name": "SelectedRowObject",
+            "summary": "The arguments for the [Titanium.UI.TableView.rowsselected](api:Titanium.UI.TableView#rowsselected) event.",
+            "properties": [
+              {
+                "name": "index",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Row index.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ]
+              },
+              {
+                "name": "row",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Table view row object.",
+                "type": [
+                  {
+                    "kind": "type",
+                    "name": "Titanium.UI.TableViewRow"
+                  }
+                ]
+              },
+              {
+                "name": "rowData",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Properties of the row. Use this property rather than `row` to access any custom row properties.\n",
+                "type": [
+                  {
+                    "kind": "generic",
+                    "name": "Dictionary",
+                    "args": [
+                      {
+                        "kind": "type",
+                        "name": "Titanium.UI.TableViewRow"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "section",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Table view section object, if the clicked row is contained in a section.",
+                "type": [
+                  {
+                    "kind": "type",
+                    "name": "Titanium.UI.TableViewSection"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "startingRow",
+          "summary": "First row selected when user started interaction.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "SelectedRowObject"
+            }
+          ],
+          "inlined": {
+            "name": "SelectedRowObject",
+            "summary": "The arguments for the [Titanium.UI.TableView.rowsselected](api:Titanium.UI.TableView#rowsselected) event.",
+            "properties": [
+              {
+                "name": "index",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Row index.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ]
+              },
+              {
+                "name": "row",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Table view row object.",
+                "type": [
+                  {
+                    "kind": "type",
+                    "name": "Titanium.UI.TableViewRow"
+                  }
+                ]
+              },
+              {
+                "name": "rowData",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Properties of the row. Use this property rather than `row` to access any custom row properties.\n",
+                "type": [
+                  {
+                    "kind": "generic",
+                    "name": "Dictionary",
+                    "args": [
+                      {
+                        "kind": "type",
+                        "name": "Titanium.UI.TableViewRow"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "section",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Table view section object, if the clicked row is contained in a section.",
+                "type": [
+                  {
+                    "kind": "type",
+                    "name": "Titanium.UI.TableViewSection"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "scroll",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when the table view is scrolled.",
+      "properties": [
+        {
+          "name": "contentOffset",
+          "summary": "Dictionary with `x` and `y` properties containing the content offset.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Point"
+            }
+          ]
+        },
+        {
+          "name": "contentSize",
+          "summary": "Dictionary with `width` and `height` properties containing the size of the content\n(regardless of the display size in the case of scrolling).\n",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Size"
+            }
+          ]
+        },
+        {
+          "name": "firstVisibleItem",
+          "summary": "Row index of the topmost visible row in the view.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "size",
+          "summary": "Dictionary with `width` and `height` properties containing the size of the visible\ntable view\n",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Size"
+            }
+          ]
+        },
+        {
+          "name": "totalItemCount",
+          "summary": "Total number of rows in the view.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "visibleItemCount",
+          "summary": "Number of rows currently visible in the view.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "scrollend",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when the table view stops scrolling.",
+      "since": "3.0.0",
+      "properties": [
+        {
+          "name": "contentSize",
+          "summary": "Dictionary with `width` and `height` properties containing the size of the content\n(regardless of the display size in the case of scrolling).\n",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Size"
+            }
+          ]
+        },
+        {
+          "name": "contentOffset",
+          "summary": "Dictionary with `x` and `y` properties containing the content offset.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Point"
+            }
+          ]
+        },
+        {
+          "name": "size",
+          "summary": "Dictionary with `width` and `height` properties containing the size of the visible\ntable view.\n",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Size"
+            }
+          ]
+        },
+        {
+          "name": "x",
+          "summary": "X coordinate of the event from the `source` view's coordinate system.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "y",
+          "summary": "Y coordinate of the event from the `source` view's coordinate system.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "singletap",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when the device detects a single tap against the view.",
+      "properties": [
+        {
+          "name": "index",
+          "summary": "Row index.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "row",
+          "summary": "Table view row object.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.TableViewRow"
+            }
+          ]
+        },
+        {
+          "name": "rowData",
+          "summary": "Properties of the row.\n\nWhen the row is created implicitly using a JavaScript dictionary object,\nuse this property rather than `row` to access any custom row properties.\n\nHere's an example of creating a row implicitly, which is not the recommended way.\n\n    var data = [{title:'Row 1', hasChild:true, color:'red', selectedColor:'#fff', special:'special 1'},];\n    var table = Ti.UI.createTableView({data: data});\n",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Titanium.UI.TableViewRow"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "x",
+          "summary": "X coordinate of the event from the `source` view's coordinate system.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "y",
+          "summary": "Y coordinate of the event from the `source` view's coordinate system.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "swipe",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when the device detects a swipe gesture (left or right) against the view.",
+      "since": {
+        "android": "2.1.0",
+        "iphone": "2.1.0",
+        "ipad": "2.1.0"
+      },
+      "properties": [
+        {
+          "name": "direction",
+          "summary": "Direction of the swipe, either `left`, `right` or `unknown`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "index",
+          "summary": "Row index.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "row",
+          "summary": "Table view row object.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.TableViewRow"
+            }
+          ]
+        },
+        {
+          "name": "rowData",
+          "summary": "Properties of the row.\n\nWhen the row is created implicitly using a JavaScript dictionary object,\nuse this property rather than `row` to access any custom row properties.\n\nHere's an example of creating a row implicitly, which is not the recommended way.\n\n``` js\nvar data = [{title:'Row 1', hasChild:true, color:'red', selectedColor:'#fff', special:'special 1'},];\nvar table = Ti.UI.createTableView({data: data});\n```\n",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Titanium.UI.TableViewRow"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "x",
+          "summary": "X coordinate of the event's endpoint from the `source` view's coordinate system.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "y",
+          "summary": "Y coordinate of the event's endpoint from the `source` view's coordinate system.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "touchcancel",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when a touch gesture is interrupted by the device.",
+      "description": "Generated in various circumstances, including an incoming call to allow the UI to clean\nup state.\n\nOn Android and iOS, be aware that a row or table touch event and a table\n[scroll](api:Titanium.UI.TableView#scroll) event cannot occur concurrently. If a table begins\nto scroll during a touch event, the appropriate row or table `touchcancel` event fire\nbefore the `scroll` event begins.\n",
+      "properties": [
+        {
+          "name": "x",
+          "summary": "X coordinate of the event from the `source` view's coordinate system.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "y",
+          "summary": "Y coordinate of the event from the `source` view's coordinate system.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "force",
+          "summary": "The current force value of the touch event.\nNote: This property only available for iOS devices that support 3D-Touch and run 9.0 or later.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "maximumPossibleForce",
+          "summary": "Maximum possible value of the force property.\nNote: This property is only available for iOS devices that support 3D-Touch and run 9.0 or later.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "altitudeAngle",
+          "summary": "A value which indicates the stylus angle on the screen. If the stylus is perpendicular to the screen or no stylus is\nbeing used, the value will be Pi/2. If the stylus is parallel to the screen, the value will be 0.\nNote: This property is only available for iOS devices that support 3D-Touch and are 9.1 or later.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "timestamp",
+          "summary": "The time (in seconds) when the touch was used in correlation with the system start up.\n Note: This property is only available for iOS devices that support 3D-Touch and run 9.0 or later.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "touchend",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when a touch gesture is complete.",
+      "description": "On Android and iOS, be aware that a row or table touch event and a table\n[scroll](api:Titanium.UI.TableView#scroll) event cannot occur concurrently. If a table begins\nto scroll during a touch event, the appropriate row or table `touchcancel` event fire\nbefore the `scroll` event begins.\n",
+      "properties": [
+        {
+          "name": "index",
+          "summary": "Row index.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "row",
+          "summary": "Table view row object.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.TableViewRow"
+            }
+          ]
+        },
+        {
+          "name": "rowData",
+          "summary": "Properties of the row.\n\nWhen the row is created implicitly using a JavaScript dictionary object,\nuse this property rather than `row` to access any custom row properties.\n\nHere's an example of creating a row implicitly, which is not the recommended way.\n\n``` js\nvar data = [{title:'Row 1', hasChild:true, color:'red', selectedColor:'#fff', special:'special 1'},];\nvar table = Ti.UI.createTableView({data: data});\n```\n",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Titanium.UI.TableViewRow"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "x",
+          "summary": "X coordinate of the event from the `source` view's coordinate system.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "y",
+          "summary": "Y coordinate of the event from the `source` view's coordinate system.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "force",
+          "summary": "The current force value of the touch event.\nNote: This property only available for iOS devices that support 3D-Touch and run 9.0 or later.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "maximumPossibleForce",
+          "summary": "Maximum possible value of the force property.\nNote: This property is only available for iOS devices that support 3D-Touch and run 9.0 or later.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "altitudeAngle",
+          "summary": "A value which indicates the stylus angle on the screen. If the stylus is perpendicular to the screen or no stylus is\nbeing used, the value will be Pi/2. If the stylus is parallel to the screen, the value will be 0.\nNote: This property is only available for iOS devices that support 3D-Touch and are 9.1 or later.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "timestamp",
+          "summary": "The time (in seconds) when the touch was used in correlation with the system start up.\n Note: This property is only available for iOS devices that support 3D-Touch and run 9.0 or later.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "touchstart",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired as soon as the device detects a touch gesture against this view.",
+      "description": "On Android and iOS, be aware that a row or table touch event and a table\n[scroll](api:Titanium.UI.TableView#scroll) event cannot occur concurrently. If a table begins\nto scroll during a touch event, the appropriate row or table `touchcancel` event fire\nbefore the `scroll` event begins.\n",
+      "properties": [
+        {
+          "name": "index",
+          "summary": "Row index.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "row",
+          "summary": "Table view row object.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.TableViewRow"
+            }
+          ]
+        },
+        {
+          "name": "rowData",
+          "summary": "Properties of the row.\n\nWhen the row is created implicitly using a JavaScript dictionary object,\nuse this property rather than `row` to access any custom row properties.\n\nHere's an example of creating a row implicitly, which is not the recommended way.\n\n``` js\nvar data = [{title:'Row 1', hasChild:true, color:'red', selectedColor:'#fff', special:'special 1'},];\nvar table = Ti.UI.createTableView({data: data});\n```\n",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Titanium.UI.TableViewRow"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "x",
+          "summary": "X coordinate of the event from the `source` view's coordinate system.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "y",
+          "summary": "Y coordinate of the event from the `source` view's coordinate system.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "force",
+          "summary": "The current force value of the touch event.\nNote: This property only available for iOS devices that support 3D-Touch and run 9.0 or later.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "maximumPossibleForce",
+          "summary": "Maximum possible value of the force property.\nNote: This property is only available for iOS devices that support 3D-Touch and run 9.0 or later.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "altitudeAngle",
+          "summary": "A value which indicates the stylus angle on the screen. If the stylus is perpendicular to the screen or no stylus is\nbeing used, the value will be Pi/2. If the stylus is parallel to the screen, the value will be 0.\nNote: This property is only available for iOS devices that support 3D-Touch and are 9.1 or later.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "timestamp",
+          "summary": "The time (in seconds) when the touch was used in correlation with the system start up.\n Note: This property is only available for iOS devices that support 3D-Touch and run 9.0 or later.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "twofingertap",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when the device detects a two-finger tap against the view.",
+      "properties": [
+        {
+          "name": "x",
+          "summary": "X coordinate of the event from the `source` view's coordinate system.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "y",
+          "summary": "Y coordinate of the event from the `source` view's coordinate system.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "inherited": {
+    "properties": [
+      {
+        "name": "accessibilityDisableLongPress",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "accessibilityHidden",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "accessibilityHint",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "accessibilityLabel",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "accessibilityValue",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "anchorPoint",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "animatedCenter",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundDisabledColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "backgroundDisabledImage",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "backgroundFocusedColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "backgroundFocusedImage",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "backgroundGradient",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundImage",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundLeftCap",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundRepeat",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundTopCap",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "borderColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "borderRadius",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "borderWidth",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "bottom",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "center",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "clipMode",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "elevation",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "filterTouchesWhenObscured",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "focusable",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "height",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "hiddenBehavior",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "horizontalMotionEffect",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "horizontalWrap",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "id",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "keepScreenOn",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "layout",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "left",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "lifecycleContainer",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "opacity",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "overrideCurrentAnimation",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "previewContext",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone"
+        ]
+      },
+      {
+        "name": "pullBackgroundColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "rect",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "right",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "rotation",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad"
+        ]
+      },
+      {
+        "name": "rotationX",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "rotationY",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "scaleX",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "scaleY",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "size",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "softKeyboardOnFocus",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "tintColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "tooltip",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "top",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "touchEnabled",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "touchFeedbackColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "transform",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "transitionName",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "translationX",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "translationY",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "translationZ",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "verticalMotionEffect",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "viewShadowColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "viewShadowOffset",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "viewShadowRadius",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "visible",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "width",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "zIndex",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "animate",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "clearMotionEffects",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "convertPointToView",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "getViewById",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "hide",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "insertAt",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "show",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "stopAnimation",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "toImage",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      }
+    ],
+    "events": [
+      {
+        "name": "dblclick",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "keypressed",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "longclick",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "pinch",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "postlayout",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "touchmove",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      }
+    ]
+  },
+  "references": [
+    "AnimatedOptions",
+    "AnimatedWithDurationOptions",
+    "HorizontalInsets",
+    "Padding",
+    "Point",
+    "RowActionType",
+    "SelectedRowObject",
+    "Size",
+    "TableViewAnimationProperties",
+    "TableViewIndexEntry",
+    "Titanium.UI",
+    "Titanium.UI.Android",
+    "Titanium.UI.Android.SearchView",
+    "Titanium.UI.Button",
+    "Titanium.UI.Color",
+    "Titanium.UI.ImageView",
+    "Titanium.UI.Label",
+    "Titanium.UI.RefreshControl",
+    "Titanium.UI.ScrollView",
+    "Titanium.UI.ScrollableView",
+    "Titanium.UI.SearchBar",
+    "Titanium.UI.TableViewRow",
+    "Titanium.UI.TableViewSection",
+    "Titanium.UI.TextArea",
+    "Titanium.UI.TextField",
+    "Titanium.UI.View",
+    "Titanium.UI.Window",
+    "Titanium.UI.iOS.TableViewStyle"
+  ],
+  "source": "Titanium/UI/TableView.yml"
+}

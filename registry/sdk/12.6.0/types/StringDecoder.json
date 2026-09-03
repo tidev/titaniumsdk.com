@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 1,
+  "name": "StringDecoder",
+  "kind": "pseudo",
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
+  "since": "8.3.0",
+  "summary": "The primary class exported by the [string_decoder](api:string_decoder) core module.",
+  "properties": [],
+  "methods": [
+    {
+      "name": "constructor",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Creates a new `StringDecoder` instance.",
+      "parameters": [
+        {
+          "name": "encoding",
+          "summary": "The character encoding the `StringDecoder` will use.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ],
+          "optional": true,
+          "default": "utf8"
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "StringDecoder"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "end",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Returns any remaining input stored in the internal buffer as a string. Bytes representing incomplete UTF-8 and UTF-16 characters will be replaced with substitution characters appropriate for the character encoding.\n\nIf the `buffer` argument is provided, one final call to `stringDecoder.write()` is performed before returning the remaining input. After `end()` is called, the `stringDecoder` object can be reused for new input.\n",
+      "parameters": [
+        {
+          "name": "buffer",
+          "summary": "A `Buffer`, or `TypedArray`, or `DataView` containing the bytes to decode.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "buffer.Buffer"
+            },
+            {
+              "kind": "primitive",
+              "name": "Uint8Array"
+            }
+          ],
+          "optional": true,
+          "default": "utf8"
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "write",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Returns a decoded string, ensuring that any incomplete multibyte characters at the end of the `Buffer`, or `TypedArray`, or `DataView` are omitted from the returned string and stored in an internal buffer for the next call to `stringDecoder.write()` or `stringDecoder.end()`.",
+      "parameters": [
+        {
+          "name": "buffer",
+          "summary": "A `Buffer`, or `TypedArray`, or `DataView` containing the bytes to decode.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "buffer.Buffer"
+            },
+            {
+              "kind": "primitive",
+              "name": "Uint8Array"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "events": [],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "references": [
+    "buffer.Buffer",
+    "string_decoder"
+  ],
+  "source": "NodeJS/string_decoder.yml"
+}

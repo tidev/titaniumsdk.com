@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.Android.BroadcastReceiver",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android"
+  ],
+  "since": "3.1.0",
+  "summary": "Monitor and handle Android system broadcasts.",
+  "description": "The application can use broadcast receivers to monitor system events from the Android OS\nas well as custom broadcasts sent by other applications. The application will need to know the\nname of the broadcast actions in order to monitor them. Note that Titanium only supports\nprogrammatically creating and registering broadcast receivers. Titanium does not support\ndeclaring a receiver in the Android manifest.\n\nTo create a Broadcast Receiver, use the [Titanium.Android.createBroadcastReceiver](api:Titanium.Android#createBroadcastReceiver) method.\nSpecify either a callback to handle the broadcast with the `onReceived` property or a\nJavaScript file with the `url` property.  Do not specify both.  If both properties are\nused, the `url` property takes precedence.\n\nTo start listening to a broadcast, pass the `BroadcastReceiver` object and an array of\nbroadcast actions to listen for to the [Titanium.Android.registerBroadcastReceiver](api:Titanium.Android#registerBroadcastReceiver) method.\n\nTitanium exposes some of the system-level broadcasts as the `Titanium.Android.ACTION_*`\nconstants. Note that some of these constants are not broadcast messages.\n\nYou can also define a custom broadcast action.  Use a reverse domain name scheme in order to\navoid potential conflicts with other applications.\n\nTo stop listening to a broadcast, pass the `BroadcastReceiver` object to the\n[Titanium.Android.unregisterBroadcastReceiver](api:Titanium.Android#unregisterBroadcastReceiver) method.\n\nTo monitor a broadcast that requires a special permission, declare the **`<uses-permission>`**\nelement in the Android manifest section of the `tiapp.xml` file for each broadcast that uses\na special permission.  For example, to monitor the `NEW_OUTGOING_CALL` broadcast, the\napplication needs to add the following permission:\n\n``` xml\n<ti:app>\n    <android>\n        <manifest>\n            <uses-permission android:name=\"android.permission.NEW_OUTGOING_CALL\" />\n        </manifest>\n    </android>\n</ti:app>\n```\n\nFurther Reading:\n\n  * [Android Broadcast Intents and Receivers guide](https://titaniumsdk.com/guide/Titanium_SDK/Titanium_SDK_How-tos/Platform_API_Deep_Dives/Android_API_Deep_Dives/Android_Broadcast_Intents_and_Receivers.html#create-a-broadcast-intent)\n  * [Android Developers: Broadcast Receivers](https://developer.android.com/reference/android/content/BroadcastReceiver.html).\n",
+  "examples": [
+    {
+      "title": "Create and register a broadcast receiver",
+      "code": "This example creates a broadcast receiver and registers it to handle the airplane mode broadcast.\n\n``` js\nvar bc = Ti.Android.createBroadcastReceiver({\n    onReceived: function() {\n        Ti.API.info('Handling broadcast.');\n    }\n});\n\nTi.Android.registerBroadcastReceiver(bc, [Ti.Android.ACTION_AIRPLANE_MODE_CHANGED]);\n```\n"
+    }
+  ],
+  "properties": [
+    {
+      "name": "onReceived",
+      "platforms": [
+        "android"
+      ],
+      "summary": "The function called when a broadcast is received.",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Callback",
+          "args": [
+            {
+              "kind": "primitive",
+              "name": "Object"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "url",
+      "platforms": [
+        "android"
+      ],
+      "summary": "URL of the JavaScript file to handle the broadcast.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    }
+  ],
+  "methods": [],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "lifecycleContainer",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      }
+    ],
+    "events": []
+  },
+  "references": [
+    "Titanium.Android",
+    "Titanium.Proxy"
+  ],
+  "source": "Titanium/Android/BroadcastReceiver.yml"
+}

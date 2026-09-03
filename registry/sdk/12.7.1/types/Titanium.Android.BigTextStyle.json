@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.Android.BigTextStyle",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android"
+  ],
+  "since": "5.4.0",
+  "summary": "Helper object for generating large-format notifications that include a lot of text.",
+  "description": "If the platform does not provide large-format notifications, this style helper has no effect.\nThe user will always see the normal notification view.\n\nThis style object attaches to a [Titanium.Android.Notification](api:Titanium.Android.Notification) object and modifies its behavior.\n",
+  "examples": [
+    {
+      "title": "Big text style Example",
+      "code": "``` js\nvar bigTextStyle = Titanium.Android.createBigTextStyle({\n    bigText: \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\",\n    bigContentTitle: \"Title for big text\",\n    summaryText: \"Summary for big text\"\n});\n\n// Create big text style notification\nvar notification = Titanium.Android.createNotification({\n    contentTitle: 'Something Happened',\n    contentText : 'Click to return to the application.',\n    style: bigTextStyle,\n    time: Date.now()\n});\n\n// Send the notification.\nTitanium.Android.NotificationManager.notify(1, notification);\n```\n"
+    }
+  ],
+  "properties": [
+    {
+      "name": "bigContentTitle",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Overrides [Titanium.Android.Notification.contentTitle](api:Titanium.Android.Notification#contentTitle) in the big form of the notification. This defaults to the value passed to [Titanium.Android.Notification.contentTitle](api:Titanium.Android.Notification#contentTitle).",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "default": "<Titanium.Android.Notification.contentTitle>"
+    },
+    {
+      "name": "bigText",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Sets the longer text to be displayed in the big form of the notification in place of the content text.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "summaryText",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Set the first line of text after the detail section in the big form of the notification.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    }
+  ],
+  "methods": [],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "lifecycleContainer",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      }
+    ],
+    "events": []
+  },
+  "references": [
+    "Titanium.Android.Notification",
+    "Titanium.Proxy"
+  ],
+  "source": "Titanium/Android/BigTextStyle.yml"
+}

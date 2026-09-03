@@ -1,0 +1,232 @@
+{
+  "schemaVersion": 1,
+  "name": "assert.AssertionError",
+  "kind": "pseudo",
+  "extends": "Error",
+  "inheritanceChain": [
+    "Error"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
+  "summary": "Indicates the failure of an assertion. All errors thrown by the [assert](api:assert) module will be instances of the `AssertionError` class.\n",
+  "properties": [
+    {
+      "name": "actual",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Set to the actual argument for methods such as `assert.strictEqual()`.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "any"
+        }
+      ]
+    },
+    {
+      "name": "code",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Value is always `ERR_ASSERTION` to show that the error is an assertion error.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "expected",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Set to the expected value for methods such as `assert.strictEqual()`.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "any"
+        }
+      ]
+    },
+    {
+      "name": "generatedMessage",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Indicates if the message was auto-generated (`true`) or not.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ]
+    },
+    {
+      "name": "operator",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Set to the passed in operator value.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "constructor",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "A subclass of `Error` that indicates the failure of an assertion.",
+      "parameters": [
+        {
+          "name": "options",
+          "summary": "options",
+          "type": [
+            {
+              "kind": "type",
+              "name": "assert.AssertionError.options"
+            }
+          ],
+          "optional": true,
+          "inlined": {
+            "name": "assert.AssertionError.options",
+            "summary": "options used in the [assert.AssertionError](api:assert.AssertionError) constructor argument",
+            "properties": [
+              {
+                "name": "actual",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "The `actual` property on the error instance.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "any"
+                  }
+                ]
+              },
+              {
+                "name": "expected",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "The `expected` property on the error instance.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "any"
+                  }
+                ]
+              },
+              {
+                "name": "message",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "If provided, the error message is set to this value.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  }
+                ],
+                "optional": true
+              },
+              {
+                "name": "operator",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "The `operator` property on the error instance.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  }
+                ]
+              },
+              {
+                "name": "stackStartFn",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "If provided, the generated stack trace omits frames before this function.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Function"
+                  }
+                ],
+                "optional": true
+              }
+            ]
+          }
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "assert.AssertionError"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "events": [],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "references": [
+    "assert",
+    "assert.AssertionError.options"
+  ],
+  "source": "NodeJS/assert.yml"
+}

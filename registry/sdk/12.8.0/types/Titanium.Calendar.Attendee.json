@@ -1,0 +1,230 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.Calendar.Attendee",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "iphone",
+    "ipad",
+    "macos"
+  ],
+  "since": "6.0.0",
+  "summary": "An object that represents a single attendee of an event.",
+  "description": "The API supports retrieving information about the attendee of an event.\n",
+  "properties": [
+    {
+      "name": "email",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The attendee email.",
+      "description": "Due to privacy concerns in iOS, this value will be empty if the attendee\nis the device owner.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": {
+        "android": "6.2.0",
+        "iphone": "6.0.0",
+        "ipad": "6.0.0"
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "isOrganizer",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Indicates whether this attendee is the event organizer.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "name",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The attendee name.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": {
+        "android": "6.2.0",
+        "iphone": "6.0.0",
+        "ipad": "6.0.0"
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "role",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The role of the attendee.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only",
+      "constants": [
+        "Titanium.Calendar.ATTENDEE_ROLE_CHAIR",
+        "Titanium.Calendar.ATTENDEE_ROLE_NON_PARTICIPANT",
+        "Titanium.Calendar.ATTENDEE_ROLE_OPTIONAL",
+        "Titanium.Calendar.ATTENDEE_ROLE_REQUIRED",
+        "Titanium.Calendar.ATTENDEE_ROLE_UNKNOWN"
+      ]
+    },
+    {
+      "name": "status",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The status of the attendee.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": {
+        "android": "6.2.0",
+        "iphone": "6.0.0",
+        "ipad": "6.0.0"
+      },
+      "permission": "read-only",
+      "constants": [
+        "Titanium.Calendar.ATTENDEE_STATUS_ACCEPTED",
+        "Titanium.Calendar.ATTENDEE_STATUS_DECLINED",
+        "Titanium.Calendar.ATTENDEE_STATUS_DELEGATED",
+        "Titanium.Calendar.ATTENDEE_STATUS_INVITED",
+        "Titanium.Calendar.ATTENDEE_STATUS_IN_PROCESS",
+        "Titanium.Calendar.ATTENDEE_STATUS_NONE",
+        "Titanium.Calendar.ATTENDEE_STATUS_PENDING",
+        "Titanium.Calendar.ATTENDEE_STATUS_TENTATIVE",
+        "Titanium.Calendar.ATTENDEE_STATUS_UNKNOWN"
+      ]
+    },
+    {
+      "name": "type",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The type of the attendee.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": {
+        "android": "6.2.0",
+        "iphone": "6.0.0",
+        "ipad": "6.0.0"
+      },
+      "permission": "read-only",
+      "constants": [
+        "Titanium.Calendar.ATTENDEE_TYPE_GROUP",
+        "Titanium.Calendar.ATTENDEE_TYPE_NONE",
+        "Titanium.Calendar.ATTENDEE_TYPE_PERSON",
+        "Titanium.Calendar.ATTENDEE_TYPE_REQUIRED",
+        "Titanium.Calendar.ATTENDEE_TYPE_RESOURCE",
+        "Titanium.Calendar.ATTENDEE_TYPE_ROOM",
+        "Titanium.Calendar.ATTENDEE_TYPE_UNKNOWN"
+      ]
+    }
+  ],
+  "methods": [],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      }
+    ],
+    "events": []
+  },
+  "references": [
+    "Titanium.Proxy"
+  ],
+  "source": "Titanium/Calendar/Attendee.yml"
+}

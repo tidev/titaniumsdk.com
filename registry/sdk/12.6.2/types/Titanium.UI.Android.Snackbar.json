@@ -1,0 +1,354 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.UI.Android.Snackbar",
+  "kind": "view",
+  "extends": "Titanium.UI.View",
+  "inheritanceChain": [
+    "Titanium.UI.View",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android"
+  ],
+  "since": "11.1.0",
+  "summary": "Snackbars provide brief messages about app processes at the bottom of the screen.",
+  "description": "| Android |\n| ------- |\n| ![Android](./snackbar_android.png) |\n\nFor design guidelines, see\n[Material design: Snackbars](https://material.io/components/snackbars)\n",
+  "examples": [
+    {
+      "title": "Show a Snackbar",
+      "code": "Display a Snackbar with an action button.\n\n``` js\nconst win = Ti.UI.createWindow();\nconst btn = Ti.UI.createButton({\n  title: 'show message'\n});\nbtn.addEventListener('click', function() {\n  snack.show();\n});\n\nconst snack = Ti.UI.Android.createSnackbar({\n  message: 'Hello Snackbar!',\n  length: Ti.UI.Android.Snackbar.LENGTH_INDEFINITE,\n  action: 'click me'\n});\nsnack.addEventListener('click', function(e) {\n  console.log(e.action);\n});\n\nwin.add([btn, snack]);\nwin.open();\n```\n"
+    }
+  ],
+  "properties": [
+    {
+      "name": "action",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Text of the right hand action button",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "10.2.0"
+    },
+    {
+      "name": "length",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Display time of the Snackbar",
+      "description": "Use with on of the constants: `Ti.UI.Android.Snackbar.LENGTH_SHORT`,\n`Ti.UI.Android.Snackbar.LENGTH_LONG` or\n`Ti.UI.Android.Snackbar.LENGTH_INDEFINITE`\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "10.2.0",
+      "default": "LENGTH_SHORT"
+    },
+    {
+      "name": "LENGTH_INDEFINITE",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Use with `length` to specify the display time.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "LENGTH_LONG",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Use with `length` to specify the display time.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "LENGTH_SHORT",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Use with `length` to specify the display time.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "message",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Text of Snackbar",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "10.2.0"
+    }
+  ],
+  "methods": [
+    {
+      "name": "show",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Show the Snackbar"
+    }
+  ],
+  "events": [
+    {
+      "name": "click",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Fired when the action button is clicked",
+      "properties": [
+        {
+          "name": "action",
+          "summary": "The text of the action button.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "inherited": {
+    "properties": [
+      {
+        "name": "accessibilityDisableLongPress",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "elevation",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "filterTouchesWhenObscured",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "hiddenBehavior",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "id",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "lifecycleContainer",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "rotation",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "rotationX",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "rotationY",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "scaleX",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "scaleY",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "tooltip",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "touchFeedback",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "touchFeedbackColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "transitionName",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "translationX",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "translationY",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "translationZ",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "getViewById",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "hide",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "insertAt",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "replaceAt",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "stopAnimation",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      }
+    ],
+    "events": []
+  },
+  "references": [
+    "Titanium.UI.View"
+  ],
+  "source": "Titanium/UI/Android/Snackbar.yml"
+}

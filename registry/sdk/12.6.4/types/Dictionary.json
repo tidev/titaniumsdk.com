@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "name": "Dictionary",
+  "kind": "pseudo",
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
+  "summary": "Plain JavaScript object.",
+  "description": "The type `Dictionary` is used to describe a plain JavaScript object used to pass a \nset of properties.\n\nThe type `Dictionary<` _Type_ `>` is used to describe a dictionary\nwhere the properties correspond to the properties of the named _Type_. So \n`Dictionary<` `Titanium.UI.Window` `>` refers to a dictionary of `Window`\nproperties. \n\nProperty dictionaries are used extensively in the Titanium API, especially when \ncreating objects. For example, You can specify the initial properties for \na new window by passing a `Dictionary<` `Titanium.UI.Window` `>` object to the \n[createWindow](api:Titanium.UI#createWindow) method:\n\n``` js\nvar window = Ti.UI.createWindow({\n    title: \"Test\", \n    fullscreen: true, \n    backgroundColor: '#aea'\n});\n```\n",
+  "properties": [],
+  "methods": [],
+  "events": [],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "references": [
+    "Titanium.UI"
+  ],
+  "source": "common/Dictionary.yml"
+}

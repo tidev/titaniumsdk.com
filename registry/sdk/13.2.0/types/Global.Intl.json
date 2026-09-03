@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "name": "Global.Intl",
+  "kind": "module",
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
+  "since": {
+    "iphone": "6.0.0",
+    "ipad": "6.0.0",
+    "android": "9.1.0",
+    "macos": "9.2.0"
+  },
+  "summary": "Namespace providing JavaScript's standard internationalization APIs.",
+  "description": "Provides support for localized number formatting, date/time formatting,\nand language sensitive string comparisons.\n\nFor more detail, see the MDN website about\n[Intl](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Intl).\n",
+  "properties": [],
+  "methods": [
+    {
+      "name": "getCanonicalLocales",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Gets canonical locale identifiers matching given BCP 47 locale identifiers.",
+      "description": "``` js\n// Will return ['en-US'].\nTi.API.info(Intl.getCanonicalLocales('EN-US'));\n\n// Will return ['en-US', 'fr'].\nTi.API.info(Intl.getCanonicalLocales(['EN-US', 'Fr']));\n```\n",
+      "osver": {
+        "ios": {
+          "min": "11.2"
+        }
+      },
+      "parameters": [
+        {
+          "name": "locales",
+          "summary": "A string or array of strings providing BCP 47 locale identifiers to fetch the canonical names of.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            },
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "primitive",
+                  "name": "String"
+                }
+              ]
+            }
+          ],
+          "optional": true,
+          "default": "undefined"
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "primitive",
+                  "name": "String"
+                }
+              ]
+            }
+          ],
+          "summary": "Returns an array of canonical names matching given BCP 47 locale names. Duplicate locales will be removed.\nReturns an empty array if argument is empty or undefined.\n"
+        }
+      ]
+    }
+  ],
+  "events": [],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "source": "Global/Intl/Intl.yml"
+}

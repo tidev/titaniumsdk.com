@@ -1,0 +1,355 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.Android.Menu",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android"
+  ],
+  "since": "1.5",
+  "summary": "The Titanium binding of an Android Options Menu.",
+  "description": "The Menu and MenuItems APIs are used to create the action items\nfor the action bar. Action items can appear in either the action bar or the action bar's\noverflow menu.\n\nTo create action items with JavaScript, assign a callback function to the activity's\n[onCreateOptionsMenu](api:Titanium.Android.Activity#onCreateOptionsMenu) property.\nThe activity's menu object is passed in to the `onCreateOptionsMenu` function when the menu is created.\nUse the Menu's [add()](api:Titanium.Android.Menu#add) method to create new action items.\n\nIn Alloy you can use `<Menu>` and `<MenuItem>` elements to create an options menu.\n\n``` xml\n<Menu id=\"menu\" platform=\"android\">\n    <!-- Cannot specify node text.  Use attributes only. -->\n    <MenuItem id=\"saveitem\" title=\"Save\" icon=\"item1.png\" onClick=\"doSave\" />\n    <MenuItem id=\"closeitem\" title=\"Close\" icon=\"item1.png\" onClick=\"doClose\" />\n</Menu>\n```\n\nTo switch menu items dynamically, call\n[invalidateOptionsMenu](api:Titanium.Android.Activity#invalidateOptionsMenu), which causes\nthe `onCreateOptionsMenu` callback to be called again.\n\n#### Menus on Tab Groups\n\nMenus must be added to tab groups using the tab group's\nactivity. These changes were required to support the Android 3.0 action bar.\n\nThe TabGroup activity is available using [TabGroup.activity](api:Titanium.UI.TabGroup#activity).\nHowever, unlike a window's activity it is not currently possible to set properties on\nthe tab group's activity before the tab group is opened. To add a menu to a tab group,\nset the `onCreateOptionsMenu` property to the tab group's `open` event listener, and\nthen call `invalidateOptionsMenu` to force the changes to take effect.\n\n``` js\ntabGroup.addEventListener(\"open\", function(e) {\n    var activity = globals.tabs.getActivity();\n    activity.onCreateOptionsMenu = function(e) {\n        var menuItem = e.menu.add({\n            title : \"Add Task\",\n            showAsAction : Ti.Android.SHOW_AS_ACTION_ALWAYS,\n            icon : \"add_icon.png\"\n        });\n        menuItem.addEventListener(\"click\", function(e) {\n            //\n        });\n    }\n    activity.invalidateOptionsMenu();\n});\n```\n\n### Application Notes for Release 3.2.x and earlier\n\nIf you are using Release 3.2.x and earlier, the options menu is presented differently\nbased on the Android version and application settings.\n\nOn Android devices prior to Android 3.0 (API level 11), the menu is always presented\nas an options menu, which is displayed when the **Menu** button is pressed.\n\nOn Android 3.0 and later, menu items can be displayed as _action items_ in the action\nbar. To enable this, the application must be built with a theme that supports the\naction bar, such as the Holo theme. (See\n[Android Themes](https://titaniumsdk.com/guide/Titanium_SDK/Titanium_SDK_How-tos/User_Interface_Deep_Dives/Android_UI_Components_and_Conventions/Android_Themes.html) in\nthe Titanium Guides for information on setting your application's theme.)\n\nFor menu items displayed in the menu, the `onCreateOptionsMenu` function is called\nonce, and the [onPrepareOptionsMenu](api:Titanium.Android.Activity#onPrepareOptionsMenu) callback function is called each\ntime the menu is opened. The `onPrepareOptionsMenu` function can be used to switch menu items dynamically.\n\n#### Further Reading\n\nSee also:\n\n*   [Menus](https://developer.android.com/guide/topics/ui/menus.html) in the\n    Android Developer Guides.\n\n*   [Action Bar](https://developer.android.com/guide/topics/ui/actionbar.html) in\n    the Android Developer Guides.\n\n*   [Menu](https://developer.android.com/reference/android/view/Menu.html)\n    in the Android Developer Reference.\n",
+  "examples": [
+    {
+      "title": "Creating a Simple Menu",
+      "code": "This sample creates an Android menu that displays a menu item named \"Item 1\",\nwhich logs a debug message when clicked.\n\nIf the action bar is in use, the menu item will be displayed as an action item if there is room in the action bar.\n\n``` js\nvar win = Ti.UI.createWindow({\n  fullscreen: true\n});\n\nvar activity = win.activity;\n\nactivity.onCreateOptionsMenu = function(e){\n  var menu = e.menu;\n  var menuItem = menu.add({\n    title: \"Item 1\",\n    icon:  \"item1.png\",\n    showAsAction: Ti.Android.SHOW_AS_ACTION_IF_ROOM\n  });\n  menuItem.addEventListener(\"click\", function(e) {\n    Ti.API.debug(\"I was clicked\");\n  });\n};\n\nwin.open();\n```\n"
+    },
+    {
+      "title": "Creating a Dynamic Menu",
+      "code": "This sample creates an Android menu that displays a menu item named\n\"Login\" or \"Logout\", depending on the value of a `loggedIn` Boolean variable.\nClick on the item to toggle the variable's value.\n\n``` js\nvar win = Ti.UI.createWindow({\n  fullscreen: true\n});\nvar LOGIN = 1, LOGOUT = 2;\nvar loggedIn = false;\n\nvar activity = win.activity;\n\nactivity.onCreateOptionsMenu = function(e){\n  var menu = e.menu;\n  var login = menu.add({ title: \"Login\", itemId: LOGIN });\n  login.icon = 'login.png';\n  login.addEventListener(\"click\", function(e) {\n    loggedIn = true;\n    // In Android 3.0 and above we need to call invalidateOptionsMenu() for menu changes at runtime\n    win.activity.invalidateOptionsMenu();\n  });\n  var logout = menu.add({ title: \"Logout\", itemId: LOGOUT });\n  logout.icon = 'logout.png';\n  logout.addEventListener(\"click\", function(e) {\n    loggedIn = false;\n    // In Android 3.0 and above we need to call invalidateOptionsMenu() for menu changes at runtime\n    win.activity.invalidateOptionsMenu();\n  });\n};\n\nactivity.onPrepareOptionsMenu = function(e) {\n  var menu = e.menu;\n  menu.findItem(LOGIN).visible = !loggedIn;\n  menu.findItem(LOGOUT).visible = loggedIn;\n};\nwin.open();\n```\n"
+    },
+    {
+      "title": "Alloy XML Markup",
+      "code": "Previous simple menu example as an Alloy view.\n\nDue to the way menus are created in Alloy, menus created using Alloy markup are not\ndisplayed until the options menu is invalidated. To force menus (or action items)\nto be displayed, call `invalidateOptionsMenu` from the `open` event listener of the window or tab group\nwhere the menu is defined.\n\nindex.xml:\n``` xml\n<Alloy>\n    <!-- Create a heavyweight window to use the Android menu. -->\n    <Window id=\"win\" fullscreen=\"true\" onOpen=\"doOpen\">\n\n        <!-- The Menu tag adds the Android menu. -->\n        <Menu id=\"menu\" platform=\"android\">\n\n            <!-- Cannot specify node text.  Use attributes only. -->\n            <MenuItem id=\"menuItem\" title=\"Item 1\" icon=\"item1.png\" onClick=\"doClick\" showAsAction=\"Ti.Android.SHOW_AS_ACTION_IF_ROOM\" />\n        </Menu>\n\n        <!-- Place additional views here -->\n    </Window>\n</Alloy>\n```\n\nindex.js:\n``` js\nfunction doClick(e) {\n    Ti.API.info(\"Menu item clicked: \" + e.source.title);\n}\n\n// Ensure menu is displayed\nfunction doOpen(e) {\n    $.win.activity.invalidateOptionsMenu();\n}\n```\n"
+    }
+  ],
+  "properties": [
+    {
+      "name": "items",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Array of menu items in this menu.",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Array",
+          "args": [
+            {
+              "kind": "type",
+              "name": "Titanium.Android.MenuItem"
+            }
+          ]
+        }
+      ],
+      "permission": "read-only"
+    }
+  ],
+  "methods": [
+    {
+      "name": "add",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Creates a [Titanium.Android.MenuItem](api:Titanium.Android.MenuItem) from the passed creation options.",
+      "parameters": [
+        {
+          "name": "options",
+          "summary": "Creation options. Supported options are\n[itemId](api:Titanium.Android.MenuItem#itemId),\n[groupId](api:Titanium.Android.MenuItem#groupId),\n[title](api:Titanium.Android.MenuItem#title),\n[order](api:Titanium.Android.MenuItem#order),\n[actionView](api:Titanium.Android.MenuItem#actionView),\n[checkable](api:Titanium.Android.MenuItem#checkable),\n[checked](api:Titanium.Android.MenuItem#checked),\n[enabled](api:Titanium.Android.MenuItem#enabled),\n[icon](api:Titanium.Android.MenuItem#icon),\n[showAsAction](api:Titanium.Android.MenuItem#showAsAction),\n[titleCondensed](api:Titanium.Android.MenuItem#titleCondensed), and\n[visible](api:Titanium.Android.MenuItem#visible).\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Object"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Android.MenuItem"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "clear",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Clears all items from this menu.",
+      "description": "You should release all references you have retained to [Titanium.Android.MenuItem](api:Titanium.Android.MenuItem) previously created.\n"
+    },
+    {
+      "name": "close",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Closes the menu, if visible."
+    },
+    {
+      "name": "findItem",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Locates a [MenuItem](api:Titanium.Android.MenuItem) in this menu, by item ID or reference.",
+      "description": "Returns the identified menu item, or `null` if the menu item was not located.\n",
+      "parameters": [
+        {
+          "name": "item",
+          "summary": "Integer [itemId](api:Titanium.Android.MenuItem#itemId) or a reference to a `MenuItem` object.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            },
+            {
+              "kind": "type",
+              "name": "Titanium.Android.MenuItem"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Android.MenuItem"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "getItem",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Returns the [MenuItem](api:Titanium.Android.MenuItem) at a specific index.",
+      "description": "Returns `null` if no menu item exists at the specified index.\n",
+      "parameters": [
+        {
+          "name": "index",
+          "summary": "Index of the menu item to return.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Android.MenuItem"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hasVisibleItems",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Returns `true` if this menu has visible items.",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "removeGroup",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Removes all menu items with the specified\n[groupId](api:Titanium.Android.MenuItem#groupId).\n",
+      "parameters": [
+        {
+          "name": "groupId",
+          "summary": "Group ID of items to remove.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "removeItem",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Removes a specific [MenuItem](api:Titanium.Android.MenuItem) identified by its\n[itemId](api:Titanium.Android.MenuItem#itemId).\n",
+      "parameters": [
+        {
+          "name": "itemId",
+          "summary": "Item ID of item to remove.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "setGroupEnabled",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Enables or disables a group of menu items identified by a\n[groupId](api:Titanium.Android.MenuItem#groupId).\n",
+      "parameters": [
+        {
+          "name": "groupId",
+          "summary": "ID of the group to enable or disable.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "enabled",
+          "summary": "True to enable the specified group, false to disable it.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "setGroupVisible",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Shows or hides a group of menu items identified by a\n[groupId](api:Titanium.Android.MenuItem#groupId).\n",
+      "parameters": [
+        {
+          "name": "groupId",
+          "summary": "Group ID to enable or disable.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "visible",
+          "summary": "True to show the group, false to hide it.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "size",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Number of items in this menu.",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "lifecycleContainer",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      }
+    ],
+    "events": []
+  },
+  "references": [
+    "Titanium.Android.Activity",
+    "Titanium.Android.MenuItem",
+    "Titanium.Proxy",
+    "Titanium.UI.TabGroup"
+  ],
+  "source": "Titanium/Android/Menu.yml"
+}

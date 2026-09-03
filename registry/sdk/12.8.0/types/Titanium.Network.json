@@ -1,0 +1,1572 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.Network",
+  "kind": "module",
+  "extends": "Titanium.Module",
+  "inheritanceChain": [
+    "Titanium.Module",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
+  "since": "0.1",
+  "summary": "The top level network module.",
+  "description": "The `Network` module is used to access networking related functionality.\n\nFor TCP sockets, see [Titanium.Network.Socket.TCP](api:Titanium.Network.Socket.TCP).\n\nThe legacy [Titanium.Network.TCPSocket](api:Titanium.Network.TCPSocket) object is still required\nby the [BonjourBrowser](api:Titanium.Network.BonjourBrowser) and\n[BonjourService](api:Titanium.Network.BonjourService) objects.\n\nFor all other socket needs, use [Titanium.Network.Socket.TCP](api:Titanium.Network.Socket.TCP).\n\n### App Transport Security\n\nStarting with iOS 9, Apple introduced new security and compatibility guidelines for networking\nand connectivity, which include:\n\n  * All connections must support TLS 1.2 or greater, and use forward secrecy ciphers supported by iOS\n  * Certificates must use at least a SHA-256 fingerprint with either a 2048-bit or greater RSA key,\n    or a 256-bit or greater ECC key\n  * Application must be compatible with IPv6 DNS64/NAT64 networks as part of App Store submissions\n\nBecause of the new requirements, Titanium disables the App Transport Security (ATS)\nrequirements, which only includes the TLS and certificate cipher requirements,\nto allow all connections by default.\n\nIf you wish to re-enable ATS, add the `NSAppTransportSecurity` dict to the `ios plist` section\nof the `tiapp.xml` file, then add the `NSAllowArbitraryLoads` key and set it to `false`, indicating\nthat you want to manage your whitelisted URL's yourself.\n\n``` xml\n<ti:app>\n  <!-- ... -->\n  <ios>\n    <plist>\n      <dict>\n        <key>NSAppTransportSecurity</key>\n        <dict>\n          <key>NSAllowsArbitraryLoads</key>\n          <false/>\n        </dict>\n      </dict>\n    </plist>\n  </ios>\n  <!-- ... -->\n</ti:app>\n```\n\nListed below are other guidelines from Apple.\n\n**Avoid hard-coded IPv4 address literals**\n\nTry not to include hard-coded IPv4 address literals in your application, for example, 127.0.0.1.\n\n**Whitelist URLs**\n\nIf ATS is enabled and the web service you are trying to contact does not support the new security guidelines,\niOS will not allow you to connect to the service. An error will be returned in the network response\nstating the connection failed because it did not meet the ATS policy standards.\n\nTo allow the connection, you will need to add\na `NSAppTransportSecurity` dict to the `ios plist` section of the `tiapp.xml` file.\nIn the `NSAppTransportSecurity` dict, you add the `NSExceptionDomains` dict to whitelist\nspecific domains.\n\nFor more information, see\n[iOS Developer Library: App Transport Security](https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW33).\n\nExample:\n\n``` xml\n<ti:app>\n  <!-- ... -->\n  <ios>\n    <plist>\n      <dict>\n        <key>NSAppTransportSecurity</key>\n        <dict>\n          <!-- 1) Default: Disable ATS completely -->\n          <key>NSAllowsArbitraryLoads</key>\n          <true/>\n\n          <-- 2) Alternative: Define whitelisted domains -->\n          <key>NSExceptionDomains</key>\n          <dict>\n            <!-- Loosen security measure for www.foo.com domain -->\n            <key>www.foo.com</key>\n            <dict>\n              <!-- Set TLS v1.0 as the minimum TLS version -->\n              <key>NSExceptionMinimumTLSVersion</key>\n              [string](api:Global.String)TLSv1.0</string>\n              <!-- Can use other ciphers besides forward secrecy ciphers -->\n              <key>NSExceptionRequiresForwardSecrecy</key>\n              <false/>\n              <!-- Allow HTTP connections -->\n              <key>NSExceptionAllowsInsecureHTTPLoads</key>\n              <true/>\n            </dict>\n          </dict>\n        </dict>\n      </dict>\n    </plist>\n  </ios>\n  <!-- ... -->\n</ti:app>\n```\n\n**Test IPV6 DNS64/NAT64**\n\nIf you submit your application to the iTunes Store, you should setup an IPv6 DNS64/NAT64\nnetwork to test your application to verify it is compatible with IPv6.\n\nIf you are running macOS 10.11 or greater, you can use your computer to setup a local IPv6 Wi-Fi\nnetwork, which requires an Internet connection not through Wi-Fi.\n\nTo create the network, from System Preferences, enable Internet sharing with NAT64 network\nenabled to share your Wi-Fi connection.\n\nFor detailed instructions, see\n[Mac Developer Library: Test for IPv6 DNS64/NAT64 Compatibility](https://developer.apple.com/library/content/documentation/NetworkingInternetWeb/Conceptual/NetworkingOverview/UnderstandingandPreparingfortheIPv6Transition/UnderstandingandPreparingfortheIPv6Transition.html#//apple_ref/doc/uid/TP40010220-CH213-SW16).\n",
+  "properties": [
+    {
+      "name": "allHTTPCookies",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "A list of all cookies in the cookie storage.",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Array",
+          "args": [
+            {
+              "kind": "type",
+              "name": "Titanium.Network.Cookie"
+            }
+          ]
+        }
+      ],
+      "since": "3.3.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "NETWORK_LAN",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "A [networkType](api:Titanium.Network#networkType) value indicating that the device is\ncommunicating over a local-area network.\n",
+      "description": "This constant is also a possible value for the `networkType` property of the\n[change](api:Titanium.Network#change) event.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "NETWORK_MOBILE",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "A [networkType](api:Titanium.Network#networkType) value indicating that the device is\ncommunicating over a mobile network.\n",
+      "description": "This constant is also a possible value for the `networkType` property of the\n[change](api:Titanium.Network#change) event.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "NETWORK_NONE",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "A [networkType](api:Titanium.Network#networkType) value indicating that no\nnetwork is available.\n",
+      "description": "This constant is also a possible value for the `networkType` property of the\n[change](api:Titanium.Network#change) event.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "NETWORK_UNKNOWN",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "A [networkType](api:Titanium.Network#networkType) value indicating that the\ncurrent network type is unknown.\n",
+      "description": "This constant is also a possible value for the `networkType` property of the\n[change](api:Titanium.Network#change) event.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "NETWORK_WIFI",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "A [networkType](api:Titanium.Network#networkType) value indicating that the\ndevice is communicating over a WiFi network.\n",
+      "description": "This constant is also a possible value for the `networkType` property of the\n[change](api:Titanium.Network#change) event.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "networkType",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Network type value as a constant.",
+      "description": "One of the `NETWORK` constants defined in [Titanium.Network](api:Titanium.Network).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only",
+      "constants": [
+        "Titanium.Network.NETWORK_LAN",
+        "Titanium.Network.NETWORK_MOBILE",
+        "Titanium.Network.NETWORK_NONE",
+        "Titanium.Network.NETWORK_UNKNOWN",
+        "Titanium.Network.NETWORK_WIFI"
+      ]
+    },
+    {
+      "name": "networkTypeName",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Network type as a String. Returns one of `NONE`, `WIFI`, `LAN`, `MOBILE`, or `UNKNOWN`.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "NOTIFICATION_TYPE_ALERT",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Constant value for an Alert style push notification.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "NOTIFICATION_TYPE_BADGE",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Constant value for a Badge style push notification.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "NOTIFICATION_TYPE_NEWSSTAND",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Constant value for a Newsstand style push notification. Only available on iOS5 and later",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "NOTIFICATION_TYPE_SOUND",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Constant value for a Sound style push notification.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "online",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Boolean value indicating if the device is connected to the network.",
+      "description": "The `online` property is `true` if the device has network access via WiFi,\nLAN, or mobile/cellular network.\n\nNote that if the device is connected to a private network without Internet access,\nthen this property will be `true` as well. This means you cannot assume the device\nhas Internet access if it's connected to the network.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "PROGRESS_UNKNOWN",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Constant value specifying that the progress of a download can not be calculated.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "3.5.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "remoteDeviceUUID",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Remote device UUID if the device is registered with the Apple Push Notification\nService, or null if it is not registered.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "remoteNotificationsEnabled",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Indicates whether push  notifications have been enabled using\n[registerForPushNotifications](api:Titanium.Network#registerForPushNotifications).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": {
+        "android": "12.0.0",
+        "iphone": "3.3.0",
+        "ipad": "3.3.0"
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "remoteNotificationTypes",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Array of push notification type constants enabled for the application.",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Array",
+          "args": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "TLS_VERSION_1_0",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Constant value specifying TLS version 1.0 for SSL.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": {
+        "android": "3.6.0",
+        "iphone": "1.8.0.1",
+        "ipad": "1.8.0.1"
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "TLS_VERSION_1_1",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Constant value specifying TLS version 1.1 for SSL.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": {
+        "android": "3.6.0",
+        "iphone": "1.8.0.1",
+        "ipad": "1.8.0.1"
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "TLS_VERSION_1_2",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Constant value specifying TLS version 1.2 for SSL.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": {
+        "android": "3.6.0",
+        "iphone": "1.8.0.1",
+        "ipad": "1.8.0.1"
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "TLS_VERSION_1_3",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Constant value specifying TLS version 1.3 for SSL.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": {
+        "android": "8.3.0",
+        "iphone": "8.3.0",
+        "ipad": "8.3.0"
+      },
+      "permission": "read-only",
+      "osver": {
+        "android": {
+          "min": "10.0"
+        },
+        "ios": {
+          "min": "12.2"
+        }
+      }
+    }
+  ],
+  "methods": [
+    {
+      "name": "addHTTPCookie",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Adds a cookie to the HTTP client cookie store.\n",
+      "description": "On iOS, the cookie will override an existing cookie with the same name, domain and path, if any. The cookie's\n`expiryDate` property must be a date later than the creating date, otherwise the cookie will not persist in the\ncookie storage.\nOn Android, any existing cookie with the same domain and name will be replaced with the new cookie. This is a bug\nin [BasicCookieStore](https://developer.android.com/reference/org/apache/http/impl/cookie/BasicClientCookie.html)\nbecause based on `RFC6265`, an existing cookie can be evicted and replaced only when it has the same cookie-name,\ndomain-value and path-value with the new cookie.\n",
+      "since": {
+        "android": "3.2.0",
+        "iphone": "3.3.0",
+        "ipad": "3.3.0"
+      },
+      "parameters": [
+        {
+          "name": "cookie",
+          "summary": "The cookie to add",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Network.Cookie"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "addSystemCookie",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Adds a cookie to the system cookie store.\n",
+      "description": "On Android, [Titanium.UI.WebView](api:Titanium.UI.WebView) uses the system cookie store. Any existing cookie with the same\ndomain, path and name will be replaced with the new cookie.\n",
+      "since": "3.2.0",
+      "parameters": [
+        {
+          "name": "cookie",
+          "summary": "The cookie to add",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Network.Cookie"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "createBonjourBrowser",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Creates and returns a `BonjourBrowser` object.",
+      "parameters": [
+        {
+          "name": "serviceType",
+          "summary": "Service to search for, must include the protocol type suffix (._tcp).",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "domain",
+          "summary": "Bonjour service domain to conduct the search in.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ],
+          "default": "`local.` (The trailing period is intentional.)\n"
+        },
+        {
+          "name": "parameters",
+          "summary": "A dictionary object of properties defined in [Titanium.Network.BonjourBrowser](api:Titanium.Network.BonjourBrowser).\n",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Titanium.Network.BonjourBrowser"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Network.BonjourBrowser"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "createBonjourService",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Creates and returns a `BonjourService` object.",
+      "parameters": [
+        {
+          "name": "name",
+          "summary": "Name of the service. Must be a unique identifier for this service type and domain.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "type",
+          "summary": "Type of service.  Must include the protocol identifier (._tcp).",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "domain",
+          "summary": "Domain to publish the service in.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ],
+          "default": "`local.` (The trailing period is intentional.)\n"
+        },
+        {
+          "name": "parameters",
+          "summary": "Dictionary object of properties defined in [Titanium.Network.BonjourService](api:Titanium.Network.BonjourService).\n",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Titanium.Network.BonjourService"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Network.BonjourService"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "createCookie",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Creates and returns an instance of [Titanium.Network.Cookie](api:Titanium.Network.Cookie).",
+      "since": {
+        "android": "3.2.0",
+        "iphone": "3.3.0",
+        "ipad": "3.3.0"
+      },
+      "factoryFor": "Titanium.Network.Cookie",
+      "parameters": [
+        {
+          "name": "parameters",
+          "summary": "Properties to set on a new object, including any defined by [Titanium.Network.Cookie](api:Titanium.Network.Cookie) except those marked not-creation or read-only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Titanium.Network.Cookie"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Network.Cookie"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "createHTTPClient",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Creates and returns an instance of [Titanium.Network.HTTPClient](api:Titanium.Network.HTTPClient).",
+      "since": "0.1",
+      "factoryFor": "Titanium.Network.HTTPClient",
+      "parameters": [
+        {
+          "name": "parameters",
+          "summary": "Properties to set on a new object, including any defined by [Titanium.Network.HTTPClient](api:Titanium.Network.HTTPClient) except those marked not-creation or read-only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Titanium.Network.HTTPClient"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Network.HTTPClient"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "createTCPSocket",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Creates and returns an instance of [Titanium.Network.TCPSocket](api:Titanium.Network.TCPSocket).",
+      "since": "1.2.0",
+      "deprecated": {
+        "since": "1.7.0",
+        "removed": "9.0.0",
+        "notes": "Use [Titanium.Network.Socket.TCP](Titanium.Network.Socket.TCP) where possible.\n"
+      },
+      "factoryFor": "Titanium.Network.TCPSocket",
+      "parameters": [
+        {
+          "name": "parameters",
+          "summary": "Properties to set on a new object, including any defined by [Titanium.Network.TCPSocket](api:Titanium.Network.TCPSocket) except those marked not-creation or read-only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Titanium.Network.TCPSocket"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Network.TCPSocket"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "decodeURIComponent",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Returns a decoded version of a URI encoded value.",
+      "parameters": [
+        {
+          "name": "value",
+          "summary": "URI encoded input value to be decoded.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "encodeURIComponent",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Returns a URI encoded version of the specified URI component.",
+      "description": "On iOS, this also escapes the following characters, which are allowed in a\nURL but may not be allowed or desirable inside a path component:\n\n```\n!*'();:@+$,/?%#[]=&\n```\n",
+      "parameters": [
+        {
+          "name": "value",
+          "summary": "Input value to be encoded.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "getHTTPCookies",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Gets all the cookies with the domain, path and name matched with the given values from the HTTP client cookie store.\n",
+      "description": "The domain matching and path matching follow `RFC6265`. If name is null, return all the cookies with the domain and\npath matched.\n",
+      "since": {
+        "android": "3.2.0",
+        "iphone": "3.3.0",
+        "ipad": "3.3.0"
+      },
+      "parameters": [
+        {
+          "name": "domain",
+          "summary": "The domain of the cookie to get. It is case-insensitive.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "path",
+          "summary": "The path of the cookie to get. It is case-sensitive.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "name",
+          "summary": "The name of the cookie to get. It is case-sensitive.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Titanium.Network.Cookie"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "getHTTPCookiesForDomain",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Gets all the cookies with the domain matched with the given values from the HTTP client cookie store.\n",
+      "description": "The domain matching follows `RFC6265`.\n",
+      "since": {
+        "android": "3.2.0",
+        "iphone": "3.3.0",
+        "ipad": "3.3.0"
+      },
+      "parameters": [
+        {
+          "name": "domain",
+          "summary": "The domain of the cookie to get. It is case-insensitive.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Titanium.Network.Cookie"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "getSystemCookies",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Gets all the cookies with the domain, path and name matched with the given values from the system cookie store.\n",
+      "description": "On Android, [Titanium.UI.WebView](api:Titanium.UI.WebView) uses the system cookie store. The domain matching and path matching follow `RFC6265`.\nIf name is null, return all the cookies with the domain and path matched. The returned cookies only have their\n[name](api:Titanium.Network.Cookie#name) and [value](api:Titanium.Network.Cookie#value) properties returned.\n",
+      "since": "3.2.0",
+      "parameters": [
+        {
+          "name": "domain",
+          "summary": "The domain of the cookie to get. It is case-insensitive.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "path",
+          "summary": "The path of the cookie to get. It is case-sensitive.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "name",
+          "summary": "The name of the cookie to get. It is case-sensitive.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Titanium.Network.Cookie"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "registerForPushNotifications",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Registers for push notifications with the Apple Push Notification Service.",
+      "description": "Call this method to allow remote push notifications. It should usually be called on application start.\n\n**iOS Notes**:\nBefore calling this method, the application needs to call the [Titanium.App.iOS.registerUserNotificationSettings](api:Titanium.App.iOS#registerUserNotificationSettings)\nmethod and pass it the notification types to use. Setting the notification types with this\nmethod will have no effect and throws a warning.\n\n**Android Notes**:\nMake sure to also add the `<uses-permission android:name=\"android.permission.POST_NOTIFICATIONS\"/>` permission in the `<manifest>` tag of your tiapp.xml.\nExample:\n\n``` js\nconst win = Ti.UI.createWindow();\nwin.addEventListener(\"open\", function() {\n  console.log(\"Is enabled\", Ti.Network.remoteNotificationsEnabled);\n\n  Ti.Network.registerForPushNotifications({\n    success: (e) => {\n      console.log(\"success\", e);\n    },\n    error: (e) => {\n       console.log(\"error\", e);\n    }\n  });\n});\nwin.open();\n```\nThe permission request will only be shown twice. After that it won't show up again and the user has to go to the app permissions to enable it.\n",
+      "parameters": [
+        {
+          "name": "config",
+          "summary": "Dictionary specifying push-notification related options.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "PushNotificationConfig"
+            }
+          ],
+          "inlined": {
+            "name": "PushNotificationConfig",
+            "summary": "Simple object for specifying push notification options to\n[registerForPushNotifications](api:Titanium.Network#registerForPushNotifications).\n",
+            "properties": [
+              {
+                "name": "callback",
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Callback function invoked upon receiving a new push notification.",
+                "type": [
+                  {
+                    "kind": "generic",
+                    "name": "Callback",
+                    "args": [
+                      {
+                        "kind": "type",
+                        "name": "PushNotificationData"
+                      }
+                    ]
+                  }
+                ],
+                "inlined": {
+                  "name": "PushNotificationData",
+                  "summary": "A simple object representing a push notification.",
+                  "properties": [
+                    {
+                      "name": "data",
+                      "platforms": [
+                        "android",
+                        "iphone",
+                        "ipad",
+                        "macos"
+                      ],
+                      "summary": "The `userinfo` dictionary passed to the Apple Push Notification Service.",
+                      "description": "For more information, see the following item in the iOS Developer Library:\n\n[`application:didReceiveRemoteNotification:fetchCompletionHandler` in the UIApplicationDelegate Protocol\nReference](https://developer.apple.com/documentation/uikit/uiapplicationdelegate/1623013-application)\n",
+                      "type": [
+                        {
+                          "kind": "type",
+                          "name": "Dictionary"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "inBackground",
+                      "platforms": [
+                        "android",
+                        "iphone",
+                        "ipad",
+                        "macos"
+                      ],
+                      "summary": "Boolean indicating if notification was received while app was in background.",
+                      "type": [
+                        {
+                          "kind": "primitive",
+                          "name": "Boolean"
+                        }
+                      ],
+                      "since": "3.1.0"
+                    }
+                  ]
+                }
+              },
+              {
+                "name": "error",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Callback function called when an error occurs during registration.\n",
+                "type": [
+                  {
+                    "kind": "generic",
+                    "name": "Callback",
+                    "args": [
+                      {
+                        "kind": "type",
+                        "name": "PushNotificationErrorArg"
+                      }
+                    ]
+                  }
+                ],
+                "inlined": {
+                  "name": "PushNotificationErrorArg",
+                  "summary": "A simple object passed to the\n[registerForPushNotifications](api:Titanium.Network#registerForPushNotifications) error callback.\n",
+                  "properties": [
+                    {
+                      "name": "code",
+                      "platforms": [
+                        "iphone",
+                        "ipad",
+                        "macos"
+                      ],
+                      "summary": "Error code. Returns a non-zero value.",
+                      "description": "If the error was generated by the operating system, that system's error value\nis used. Otherwise, this value will be -1.\n",
+                      "type": [
+                        {
+                          "kind": "primitive",
+                          "name": "Number"
+                        }
+                      ],
+                      "since": "3.1.0"
+                    },
+                    {
+                      "name": "success",
+                      "platforms": [
+                        "android",
+                        "iphone",
+                        "ipad",
+                        "macos"
+                      ],
+                      "summary": "Indicates if the operation succeeded. Returns `false`.",
+                      "description": "Returns `false`.",
+                      "type": [
+                        {
+                          "kind": "primitive",
+                          "name": "Boolean"
+                        }
+                      ],
+                      "since": "3.1.0"
+                    },
+                    {
+                      "name": "type",
+                      "platforms": [
+                        "android",
+                        "iphone",
+                        "ipad",
+                        "macos"
+                      ],
+                      "summary": "The value of this string is always \"remote\".",
+                      "type": [
+                        {
+                          "kind": "primitive",
+                          "name": "String"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "name": "success",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Callback function called when the push registration is successfully completed.\n",
+                "type": [
+                  {
+                    "kind": "generic",
+                    "name": "Callback",
+                    "args": [
+                      {
+                        "kind": "type",
+                        "name": "PushNotificationSuccessArg"
+                      }
+                    ]
+                  }
+                ],
+                "inlined": {
+                  "name": "PushNotificationSuccessArg",
+                  "summary": "A simple object passed to the\n[registerForPushNotifications](api:Titanium.Network#registerForPushNotifications) success callback.\n",
+                  "properties": [
+                    {
+                      "name": "code",
+                      "platforms": [
+                        "iphone",
+                        "ipad",
+                        "macos"
+                      ],
+                      "summary": "Error code. Returns 0.",
+                      "description": "Error code will be 0.",
+                      "type": [
+                        {
+                          "kind": "primitive",
+                          "name": "Number"
+                        }
+                      ],
+                      "since": "3.1.0"
+                    },
+                    {
+                      "name": "deviceToken",
+                      "platforms": [
+                        "iphone",
+                        "ipad",
+                        "macos"
+                      ],
+                      "summary": "The device token which this device was registered for.",
+                      "type": [
+                        {
+                          "kind": "primitive",
+                          "name": "String"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "error",
+                      "platforms": [
+                        "iphone",
+                        "ipad",
+                        "macos"
+                      ],
+                      "summary": "Error message, if any returned.",
+                      "description": "Will be undefined.",
+                      "type": [
+                        {
+                          "kind": "primitive",
+                          "name": "String"
+                        }
+                      ],
+                      "since": "3.1.0"
+                    },
+                    {
+                      "name": "success",
+                      "platforms": [
+                        "android",
+                        "iphone",
+                        "ipad",
+                        "macos"
+                      ],
+                      "summary": "Indicates if the operation succeeded. Returns `true`.",
+                      "description": "Returns `true`.",
+                      "type": [
+                        {
+                          "kind": "primitive",
+                          "name": "Boolean"
+                        }
+                      ],
+                      "since": "3.1.0"
+                    },
+                    {
+                      "name": "type",
+                      "platforms": [
+                        "android",
+                        "iphone",
+                        "ipad",
+                        "macos"
+                      ],
+                      "summary": "The value of this string is always \"remote\".",
+                      "type": [
+                        {
+                          "kind": "primitive",
+                          "name": "String"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "name": "types",
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Array of `NOTIFICATION_TYPE` constants that the application would like to receive.",
+                "description": "Setting the `types` property with the [Titanium.Network.registerForPushNotifications](api:Titanium.Network#registerForPushNotifications) method has no effect.\n\nUse the [Titanium.App.iOS.registerUserNotificationSettings](api:Titanium.App.iOS#registerUserNotificationSettings) method to register the notification types to receive.\n",
+                "type": [
+                  {
+                    "kind": "generic",
+                    "name": "Array",
+                    "args": [
+                      {
+                        "kind": "primitive",
+                        "name": "Number"
+                      }
+                    ]
+                  }
+                ],
+                "constants": [
+                  "Titanium.Network.NOTIFICATION_TYPE_ALERT",
+                  "Titanium.Network.NOTIFICATION_TYPE_BADGE",
+                  "Titanium.Network.NOTIFICATION_TYPE_NEWSSTAND",
+                  "Titanium.Network.NOTIFICATION_TYPE_SOUND"
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "removeAllHTTPCookies",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Removes all the cookies from the HTTP client cookie store.\n",
+      "since": {
+        "android": "3.2.0",
+        "iphone": "3.3.0",
+        "ipad": "3.3.0"
+      }
+    },
+    {
+      "name": "removeAllSystemCookies",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Removes all the cookie from the system client cookie store.\n",
+      "description": "On Android, [Titanium.UI.WebView](api:Titanium.UI.WebView) uses the system cookie store.\n",
+      "since": "3.2.0"
+    },
+    {
+      "name": "removeHTTPCookie",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Removes the cookie with the domain, path and name exactly the same as the given values from the HTTP client cookie store.\n",
+      "since": {
+        "android": "3.2.0",
+        "iphone": "3.3.0",
+        "ipad": "3.3.0"
+      },
+      "parameters": [
+        {
+          "name": "domain",
+          "summary": "The domain of the cookie to remove. It is case-insensitive.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "path",
+          "summary": "The path of the cookie to remove. It is case-sensitive.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "name",
+          "summary": "The name of the cookie to remove. It is case-sensitive.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "removeHTTPCookiesForDomain",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Removes the cookies with the domain matched with the given values from the HTTP client cookie store.\n",
+      "description": "The domain matching follows `RFC6265`.\n",
+      "since": {
+        "android": "3.2.0",
+        "iphone": "3.3.0",
+        "ipad": "3.3.0"
+      },
+      "parameters": [
+        {
+          "name": "domain",
+          "summary": "The domain of the cookie to remove. It is case-insensitive.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "removeSystemCookie",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Removes the cookie with the domain, path and name exactly the same as the given values from the system cookie store.\n",
+      "description": "On Android, [Titanium.UI.WebView](api:Titanium.UI.WebView) uses the system cookie store.\n",
+      "since": "3.2.0",
+      "parameters": [
+        {
+          "name": "domain",
+          "summary": "The domain of the cookie to remove. It is case-insensitive.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "path",
+          "summary": "The path of the cookie to remove. It is case-sensitive.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "name",
+          "summary": "The name of the cookie to remove. It is case-sensitive.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "unregisterForPushNotifications",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Unregisters the application for push notifications.",
+      "description": "Per Apple's documentation, it is rarely necessary to call this method. See:\n[unregisterForRemoteNotifications in the UIApplication Class\nReference](https://developer.apple.com/documentation/uikit/uiapplication/1623093-unregisterforremotenotifications)\n\nFor example, calling this method would be required if a new version of\nyour application no longer supports push notifications.\n"
+    }
+  ],
+  "events": [
+    {
+      "name": "change",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when network connectivity changes.",
+      "properties": [
+        {
+          "name": "networkTypeName",
+          "summary": "New network type as a string.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "online",
+          "summary": "Boolean indicating if the device is connected to the network.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "networkType",
+          "summary": "New network type",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "reason",
+          "summary": "Human-readable text describing the reason for the change.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "lifecycleContainer",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      }
+    ],
+    "events": []
+  },
+  "references": [
+    "Global.String",
+    "PushNotificationConfig",
+    "Titanium.App.iOS",
+    "Titanium.Module",
+    "Titanium.Network.BonjourBrowser",
+    "Titanium.Network.BonjourService",
+    "Titanium.Network.Cookie",
+    "Titanium.Network.HTTPClient",
+    "Titanium.Network.Socket.TCP",
+    "Titanium.Network.TCPSocket",
+    "Titanium.UI.WebView"
+  ],
+  "source": "Titanium/Network/Network.yml"
+}

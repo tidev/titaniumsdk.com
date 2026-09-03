@@ -1,0 +1,131 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.Android.PendingIntent",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android"
+  ],
+  "since": "1.5",
+  "summary": "The Titanium binding of an Android `PendingIntent`.",
+  "description": "Use the [Titanium.Android.createPendingIntent](api:Titanium.Android#createPendingIntent) method to create a pending intent.\n\nThe type of `Intent` you pass to `createPendingIntent`  determines what kind of \n`PendingIntent` is created.  Each type corresponds directly with a get method on \nAndroid's PendingIntent:\n\n*   To create a `PendingIntent` that starts an activity, pass in an activity intent, \n    created with [createIntent](api:Titanium.Android#createIntent). This is equivalent to\n    calling the native Android `PendingIntent.getActivity` method. See\n    [PendingIntent.getActivity in the Android API Reference](https://developer.android.com/reference/android/app/PendingIntent.html#getActivity(android.content.Context, int, android.content.Intent, int))\n\n*    To create a `PendingIntent` that starts a service, pass in a service intent,\n    created with [createServiceIntent](api:Titanium.Android#createServiceIntent). This is \n     equivalent to calling the native Android `PendingIntent.getService` method. See \n     [PendingIntent.getService in the Android API Reference](https://developer.android.com/reference/android/app/PendingIntent.html#getService(android.content.Context, int, android.content.Intent, int)).\n\nThe `PendingIntent` is always associated with the activity that was the current activity\nwhen the intent was created.\n\nNote that this `PendingIntent` is designed primarily to be used with the \n[Notification](api:Titanium.Android.Notification) object. It does not support all features \nof the native Android `PendingIntent` -- in particular, \nbroadcast pending intents are not supported.\n\nSee also: \n\n*   [PendingIntent in the Android API Reference](https://developer.android.com/reference/android/app/PendingIntent.html)\n",
+  "properties": [
+    {
+      "name": "flags",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Flags used for creating the Pending Intent.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "availability": "creation",
+      "constants": [
+        "Titanium.Android.FLAG_CANCEL_CURRENT",
+        "Titanium.Android.FLAG_NO_CREATE",
+        "Titanium.Android.FLAG_ONE_SHOT",
+        "Titanium.Android.FLAG_UPDATE_CURRENT"
+      ]
+    },
+    {
+      "name": "intent",
+      "platforms": [
+        "android"
+      ],
+      "summary": "The intent data to pass to the [Activity](api:Titanium.Android.Activity) launched by this `PendingIntent`.\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.Android.Intent"
+        }
+      ],
+      "availability": "creation"
+    },
+    {
+      "name": "updateCurrentIntent",
+      "platforms": [
+        "android"
+      ],
+      "summary": "If this property is true, flag [Titanium.Android.FLAG_UPDATE_CURRENT](api:Titanium.Android#FLAG_UPDATE_CURRENT) will be\nappended to `flags` automatically. Default value is true.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "availability": "creation"
+    }
+  ],
+  "methods": [],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "lifecycleContainer",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      }
+    ],
+    "events": []
+  },
+  "references": [
+    "Titanium.Android",
+    "Titanium.Android.Activity",
+    "Titanium.Android.Intent",
+    "Titanium.Android.Notification",
+    "Titanium.Proxy"
+  ],
+  "source": "Titanium/Android/PendingIntent.yml"
+}

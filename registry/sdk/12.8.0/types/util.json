@@ -1,0 +1,1326 @@
+{
+  "schemaVersion": 1,
+  "name": "util",
+  "kind": "pseudo",
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
+  "since": "8.1.0",
+  "summary": "A Node.js-compatible implementation of the core `util` module",
+  "description": "Titanium provides a number of shims and ports of core Node.js module functionality.\n\nThis module is intended to provide a Node-compatible port of the `util` core module.\n\nMore details on the Node.js API can be found in their [util module documentation](https://nodejs.org/api/util.html)\n",
+  "properties": [
+    {
+      "name": "types",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "`util.types` provides type checks for different kinds of built-in objects. Unlike `instanceof` or `Object.prototype.toString.call(value)`, these checks do not inspect properties of the object that are accessible from JavaScript (like their prototype), and usually have the overhead of calling into C++.\n\nThe result generally does not make any guarantees about what kinds of properties or behavior a value exposes in JavaScript. They are primarily useful for addon developers who prefer to do type checking in JavaScript.\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "util.types"
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "callbackify",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Takes an `async` function (or a function that returns a `Promise`) and returns a function following the error-first callback style, i.e. taking an `(err, value) => ... callback` as the last argument. In the callback, the first argument will be the rejection reason (or `null` if the `Promise` resolved), and the second argument will be the resolved value.\n",
+      "parameters": [
+        {
+          "name": "original",
+          "summary": "An `async` function",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Function"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Function"
+            }
+          ],
+          "summary": "a callback style function"
+        }
+      ]
+    },
+    {
+      "name": "debug",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Alias for `util.debuglog`. Usage allows for readability of that doesn't imply logging when only using `util.debuglog().enabled`.",
+      "parameters": [
+        {
+          "name": "section",
+          "summary": "A string identifying the portion of the application for which the `debuglog` function is being created.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "callback",
+          "summary": "A callback invoked the first time the logging function is called with a function argument that is a more optimized logging function.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Function"
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Function"
+            }
+          ],
+          "summary": "The logging function"
+        }
+      ]
+    },
+    {
+      "name": "debuglog",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The `util.debuglog()` method is used to create a function that conditionally writes debug messages to `stderr` based on the existence of the `NODE_DEBUG` environment variable. If the section name appears within the value of that environment variable, then the returned function operates similar to `console.error()`. If not, then the returned function is a no-op.\n\n**NOTE:** Titanium currently returns a no-op regardless of the `NODE_DEBUG` environment variable.\n",
+      "parameters": [
+        {
+          "name": "section",
+          "summary": "A string identifying the portion of the application for which the `debuglog` function is being created.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "callback",
+          "summary": "A callback invoked the first time the logging function is called with a function argument that is a more optimized logging function.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Function"
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Function"
+            }
+          ],
+          "summary": "The logging function"
+        }
+      ]
+    },
+    {
+      "name": "deprecate",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The `util.deprecate()` method wraps fn (which may be a function or class) in such a way that it is marked as deprecated.\n",
+      "parameters": [
+        {
+          "name": "fn",
+          "summary": "The function that is being deprecated.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Function"
+            }
+          ]
+        },
+        {
+          "name": "msg",
+          "summary": "A warning message to display when the deprecated function is invoked.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "code",
+          "summary": "A deprecation code. **NOTE:** Titanium currently ignores this argument.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Function"
+            }
+          ],
+          "summary": "The deprecated function wrapped to emit a warning."
+        }
+      ]
+    },
+    {
+      "name": "format",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The `util.format()` method returns a formatted string using the first argument as a printf-like format string which can contain zero or more format specifiers. Each specifier is replaced with the converted value from the corresponding argument.\n",
+      "parameters": [
+        {
+          "name": "format",
+          "summary": "A `printf`-like format string.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "args",
+          "summary": "variable arguments to inject into the formatted string",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "any"
+            }
+          ],
+          "optional": true,
+          "repeatable": true
+        }
+      ]
+    },
+    {
+      "name": "formatWithOptions",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "This function is identical to `util.format()`, except in that it takes an `inspectOptions` argument which specifies options that are passed along to `util.inspect()`.",
+      "parameters": [
+        {
+          "name": "inspectOptions",
+          "summary": "Options passed along to [util.inspect](api:util#inspect)`()`",
+          "type": [
+            {
+              "kind": "type",
+              "name": "UtilInspectOptions"
+            }
+          ],
+          "inlined": {
+            "name": "UtilInspectOptions",
+            "summary": "Abstract type for the options object passed to [util.inspect](api:util#inspect)",
+            "properties": [
+              {
+                "name": "breakLength",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "The length at which input values are split across multiple lines. Set to `Infinity` to format the input as a single line (in combination with `compact` set to `true` or any number >= `1`).",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ],
+                "default": "80",
+                "optional": true
+              },
+              {
+                "name": "colors",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "If `true`, the output is styled with ANSI color codes. Colors are customizable.\n",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Boolean"
+                  }
+                ],
+                "default": "false",
+                "optional": true
+              },
+              {
+                "name": "compact",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Setting this to `false` causes each object key to be displayed on a new line. It will also add new lines to text that is longer than `breakLength`. If set to a number, the most n inner elements are united on a single line as long as all properties fit into `breakLength`. Short array elements are also grouped together. No text will be reduced below 16 characters, no matter the `breakLength` size. For more information, see the example below.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Boolean"
+                  },
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ],
+                "default": "3",
+                "optional": true
+              },
+              {
+                "name": "customInspect",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "If `false`, `[util.inspect.custom](depth, opts)` functions are not invoked.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Boolean"
+                  }
+                ],
+                "default": "true",
+                "optional": true
+              },
+              {
+                "name": "depth",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Specifies the number of times to recurse while formatting object. This is useful for inspecting large objects. To recurse up to the maximum call stack size pass `Infinity` or `null`.\n",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ],
+                "default": "2",
+                "optional": true
+              },
+              {
+                "name": "getters",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "If set to `true`, getters are inspected. If set to `'get'`, only getters without a corresponding setter are inspected. If set to `'set'`, only getters with a corresponding setter are inspected. This might cause side effects depending on the getter function.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Boolean"
+                  },
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  }
+                ],
+                "default": "false",
+                "optional": true
+              },
+              {
+                "name": "maxArrayLength",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Specifies the maximum number of `Array`, `TypedArray`, `WeakMap` and `WeakSet` elements to include when formatting. Set to `null` or `Infinity` to show all elements. Set to `0` or negative to show no elements.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ],
+                "default": "100",
+                "optional": true
+              },
+              {
+                "name": "maxStringLength",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Specifies the maximum number of characters to include when formatting. Set to `null` or `Infinity` to show all elements. Set to `0` or negative to show no characters.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ],
+                "default": "10000",
+                "optional": true
+              },
+              {
+                "name": "showHidden",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "If `true`, object's non-enumerable symbols and properties are included in the formatted result. `WeakMap` and `WeakSet` entries are also included as well as user defined prototype properties (excluding method properties).\n",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Boolean"
+                  }
+                ],
+                "default": "false",
+                "optional": true
+              },
+              {
+                "name": "showProxy",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "If `true`, `Proxy` inspection includes the target and handler objects.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Boolean"
+                  }
+                ],
+                "default": "false",
+                "optional": true
+              },
+              {
+                "name": "sorted",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "If set to `true` or a function, all properties of an object, and `Set` and `Map` entries are sorted in the resulting string. If set to `true` the default sort is used. If set to a function, it is used as a compare function.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Boolean"
+                  },
+                  {
+                    "kind": "primitive",
+                    "name": "Function"
+                  }
+                ],
+                "optional": true
+              }
+            ]
+          }
+        },
+        {
+          "name": "format",
+          "summary": "A `printf`-like format string.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "inherits",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Usage of `util.inherits()` is discouraged. Please use the ES6 `class` and `extends` keywords to get language level inheritance support. Also note that the two styles are semantically incompatible.\n\nInherit the prototype methods from one constructor into another. The prototype of `constructor` will be set to a new object created from `superConstructor`.\n\nThis mainly adds some input validation on top of `Object.setPrototypeOf(constructor.prototype, superConstructor.prototype)`. As an additional convenience, `superConstructor` will be accessible through the `constructor.super_` property.\n",
+      "parameters": [
+        {
+          "name": "constructor",
+          "summary": "constructor function for \"subclass\"",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Function"
+            }
+          ]
+        },
+        {
+          "name": "superConstructor",
+          "summary": "constructor function for \"super class\"",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Function"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "inspect",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The `util.inspect()` method returns a string representation of `object` that is intended for debugging. The output of `util.inspect` may change at any time and should not be depended upon programmatically. Additional `options` may be passed that alter the result. `util.inspect()` will use the constructor's name and/or `@@toStringTag` to make an identifiable tag for an inspected `value`.\n",
+      "parameters": [
+        {
+          "name": "object",
+          "summary": "Any JavaScript primitive or Object.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "any"
+            }
+          ]
+        },
+        {
+          "name": "options",
+          "summary": "Additional options to modify the output of the inspect function",
+          "type": [
+            {
+              "kind": "type",
+              "name": "UtilInspectOptions"
+            }
+          ],
+          "optional": true,
+          "inlined": {
+            "name": "UtilInspectOptions",
+            "summary": "Abstract type for the options object passed to [util.inspect](api:util#inspect)",
+            "properties": [
+              {
+                "name": "breakLength",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "The length at which input values are split across multiple lines. Set to `Infinity` to format the input as a single line (in combination with `compact` set to `true` or any number >= `1`).",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ],
+                "default": "80",
+                "optional": true
+              },
+              {
+                "name": "colors",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "If `true`, the output is styled with ANSI color codes. Colors are customizable.\n",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Boolean"
+                  }
+                ],
+                "default": "false",
+                "optional": true
+              },
+              {
+                "name": "compact",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Setting this to `false` causes each object key to be displayed on a new line. It will also add new lines to text that is longer than `breakLength`. If set to a number, the most n inner elements are united on a single line as long as all properties fit into `breakLength`. Short array elements are also grouped together. No text will be reduced below 16 characters, no matter the `breakLength` size. For more information, see the example below.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Boolean"
+                  },
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ],
+                "default": "3",
+                "optional": true
+              },
+              {
+                "name": "customInspect",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "If `false`, `[util.inspect.custom](depth, opts)` functions are not invoked.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Boolean"
+                  }
+                ],
+                "default": "true",
+                "optional": true
+              },
+              {
+                "name": "depth",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Specifies the number of times to recurse while formatting object. This is useful for inspecting large objects. To recurse up to the maximum call stack size pass `Infinity` or `null`.\n",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ],
+                "default": "2",
+                "optional": true
+              },
+              {
+                "name": "getters",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "If set to `true`, getters are inspected. If set to `'get'`, only getters without a corresponding setter are inspected. If set to `'set'`, only getters with a corresponding setter are inspected. This might cause side effects depending on the getter function.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Boolean"
+                  },
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  }
+                ],
+                "default": "false",
+                "optional": true
+              },
+              {
+                "name": "maxArrayLength",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Specifies the maximum number of `Array`, `TypedArray`, `WeakMap` and `WeakSet` elements to include when formatting. Set to `null` or `Infinity` to show all elements. Set to `0` or negative to show no elements.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ],
+                "default": "100",
+                "optional": true
+              },
+              {
+                "name": "maxStringLength",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Specifies the maximum number of characters to include when formatting. Set to `null` or `Infinity` to show all elements. Set to `0` or negative to show no characters.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ],
+                "default": "10000",
+                "optional": true
+              },
+              {
+                "name": "showHidden",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "If `true`, object's non-enumerable symbols and properties are included in the formatted result. `WeakMap` and `WeakSet` entries are also included as well as user defined prototype properties (excluding method properties).\n",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Boolean"
+                  }
+                ],
+                "default": "false",
+                "optional": true
+              },
+              {
+                "name": "showProxy",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "If `true`, `Proxy` inspection includes the target and handler objects.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Boolean"
+                  }
+                ],
+                "default": "false",
+                "optional": true
+              },
+              {
+                "name": "sorted",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "If set to `true` or a function, all properties of an object, and `Set` and `Map` entries are sorted in the resulting string. If set to `true` the default sort is used. If set to a function, it is used as a compare function.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Boolean"
+                  },
+                  {
+                    "kind": "primitive",
+                    "name": "Function"
+                  }
+                ],
+                "optional": true
+              }
+            ]
+          }
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "isArray",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Alias for `Array.isArray()`.\n\nReturns `true` if the given `object` is an `Array`. Otherwise, returns `false`.\n",
+      "parameters": [
+        {
+          "name": "object",
+          "summary": "any value",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "any"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "isBoolean",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Returns `true` if the given `object` is a `Boolean`. Otherwise, returns `false`.",
+      "parameters": [
+        {
+          "name": "object",
+          "summary": "any value",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "any"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "isBuffer",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Returns `true` if the given `object` is a `Buffer`. Otherwise, returns `false`.",
+      "parameters": [
+        {
+          "name": "object",
+          "summary": "any value",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "any"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "isDate",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Returns `true` if the given `object` is a `Date`. Otherwise, returns `false`.",
+      "parameters": [
+        {
+          "name": "object",
+          "summary": "any value",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "any"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "isError",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Returns `true` if the given `object` is an `Error`. Otherwise, returns `false`.",
+      "parameters": [
+        {
+          "name": "object",
+          "summary": "any value",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "any"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "isFunction",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Returns `true` if the given `object` is a `Function`. Otherwise, returns `false`.",
+      "parameters": [
+        {
+          "name": "object",
+          "summary": "any value",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "any"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "isNull",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Returns `true` if the given `object` is strictly `null`. Otherwise, returns `false`.",
+      "parameters": [
+        {
+          "name": "object",
+          "summary": "any value",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "any"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "isNullOrUndefined",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Returns `true` if the given `object` is `null` or `undefined`. Otherwise, returns `false`.",
+      "parameters": [
+        {
+          "name": "object",
+          "summary": "any value",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "any"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "isNumber",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Returns `true` if the given `object` is a `Number`. Otherwise, returns `false`.",
+      "parameters": [
+        {
+          "name": "object",
+          "summary": "any value",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "any"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "isObject",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Returns `true` if the given `object` is strictly an `Object` **and** not a `Function` (even though functions are objects in JavaScript). Otherwise, returns `false`.",
+      "parameters": [
+        {
+          "name": "object",
+          "summary": "any value",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "any"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "isPrimitive",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Returns `true` if the given `object` is a primitive type. Otherwise, returns `false`.",
+      "parameters": [
+        {
+          "name": "object",
+          "summary": "any value",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "any"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "isRegExp",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Returns `true` if the given `object` is a `RegExp`. Otherwise, returns `false`.",
+      "parameters": [
+        {
+          "name": "object",
+          "summary": "any value",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "any"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "isString",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Returns `true` if the given `object` is a `string`. Otherwise, returns `false`.",
+      "parameters": [
+        {
+          "name": "object",
+          "summary": "any value",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "any"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "isSymbol",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Returns `true` if the given `object` is a `Symbol`. Otherwise, returns `false`.",
+      "parameters": [
+        {
+          "name": "object",
+          "summary": "any value",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "any"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "isUndefined",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Returns `true` if the given `object` is `undefined`. Otherwise, returns `false`.",
+      "parameters": [
+        {
+          "name": "object",
+          "summary": "any value",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "any"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "log",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The `util.log()` method prints the given `string` to `stdout` with an included timestamp.",
+      "parameters": [
+        {
+          "name": "string",
+          "summary": "string to print",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "promisify",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Takes a function following the common error-first callback style, i.e. taking an `(err, value) => ... callback` as the last argument, and returns a version that returns promises.\n",
+      "parameters": [
+        {
+          "name": "original",
+          "summary": "A typical Node.js style callback function",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Function"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Function"
+            }
+          ],
+          "summary": "a function that returns a `Promise`"
+        }
+      ]
+    }
+  ],
+  "events": [],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "references": [
+    "UtilInspectOptions",
+    "util.types"
+  ],
+  "source": "NodeJS/util.yml"
+}

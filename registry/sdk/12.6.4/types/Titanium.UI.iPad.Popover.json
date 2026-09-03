@@ -1,0 +1,362 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.UI.iPad.Popover",
+  "kind": "view",
+  "extends": "Titanium.UI.View",
+  "inheritanceChain": [
+    "Titanium.UI.View",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "ipad",
+    "macos"
+  ],
+  "since": {
+    "ipad": "1.2.0",
+    "macos": "9.2.0"
+  },
+  "summary": "A Popover is used to manage the presentation of content in a popover.",
+  "description": "A popover is created using the [Titanium.UI.iPad.createPopover](api:Titanium.UI.iPad#createPopover) method or **`<Popover>`** Alloy element.\n\nPopovers are used to present information temporarily, but in a way that does not take over\nthe entire screen in the way that a modal view does. The popover content is layered on top of\nthe existing content in a special type of window. The popover remains visible until the user\ntaps outside of the popover window or it is explicitly dismissed.\n\nDo not add top-level view containers, such as a `SplitWindow` or `TabGroup`, to a popover.\nAdding top-level view containers may have unintended side effects. See the [contentView](api:Titanium.UI.iPad.Popover#contentView)\nproperty for more information.\n",
+  "examples": [
+    {
+      "title": "Simple Popover with a Title and Right Button",
+      "code": "In this example, we create a simple popover and position it near the button.\n\n``` js\nvar win = Ti.UI.createWindow({backgroundColor: 'white'});\n\nvar button = Ti.UI.createButton({title: 'Open Popover!'});\nbutton.addEventListener('click', function(e){\n    popover.show({ view: button });\n})\nwin.add(button);\n\nvar rightButton = Ti.UI.createButton({title: 'Robin'});\nrightButton.addEventListener('click', function(e){\n    alert(\"But green's the color of spring.\");\n});\n\nvar contentWindow = Ti.UI.createWindow({\n    rightNavButton: rightButton,\n    title: 'Kermit'\n});\ncontentWindow.add(Ti.UI.createLabel({text: \"It's not easy being green.\"}));\n\nvar popover = Ti.UI.iPad.createPopover({\n    backgroundColor: 'green',\n    contentView: Ti.UI.createNavigationWindow({\n        width: 250,\n        height: 100,\n        window: contentWindow\n    })\n});\n\nwin.open();\n```\n"
+    },
+    {
+      "title": "Alloy XML Markup",
+      "code": "Previous example as an Alloy project.\n\n`app/views/index.xml`:\n``` xml\n<Alloy>\n    <Window>\n        <Button id=\"button\" onClick=\"openPopover\">Open Popover!</Button>\n    </Window>\n</Alloy>\n```\n\n`app/controllers/index.js`:\n``` js\nfunction openPopover() {\n    var popover = Alloy.createController('popover').getView();\n    popover.show({view:$.button});\n};\n\n$.index.open();\n```\n\n`app/views/popover.xml`:\n``` xml\n<Alloy>\n    <Popover backgroundColor='green'>\n        <ContentView>\n            <NavigationWindow height='100' width='250'>\n                <Window title='Kermit'>\n                    <RightNavButton onClick=\"showAlert\" title=\"Robin\" />\n                    <Label>It's not easy being green.</Label>\n                </Window>\n            </NavigationWindow>\n        </ContentView>\n    </Popover>\n</Alloy>\n```\n\n`app/controllers/popover.js`:\n``` js\nfunction showAlert(e) {\n    alert('But green is the color of spring.');\n};\n\n// Prior to Alloy 1.1.0, the rightNavButton property was set in the controller.\n// var button = Ti.UI.createButton({title: 'Robin'});\n// button.addEventListener('click', showAlert);\n// $.popover.rightNavButton = button;\n```\n"
+    }
+  ],
+  "properties": [
+    {
+      "name": "arrowDirection",
+      "platforms": [
+        "ipad",
+        "macos"
+      ],
+      "summary": "Indicates the arrow direction of the popover.",
+      "description": "Use this property to indicate the popover arrows to use.  You can bitwise-OR the constant\nvalues together.\n\nDo not set this property to [Titanium.UI.iPad.POPOVER_ARROW_DIRECTION_UNKNOWN](api:Titanium.UI.iPad#POPOVER_ARROW_DIRECTION_UNKNOWN).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "constants": [
+        "Titanium.UI.iPad.POPOVER_ARROW_DIRECTION_ANY",
+        "Titanium.UI.iPad.POPOVER_ARROW_DIRECTION_DOWN",
+        "Titanium.UI.iPad.POPOVER_ARROW_DIRECTION_LEFT",
+        "Titanium.UI.iPad.POPOVER_ARROW_DIRECTION_RIGHT",
+        "Titanium.UI.iPad.POPOVER_ARROW_DIRECTION_UP"
+      ]
+    },
+    {
+      "name": "backgroundColor",
+      "platforms": [
+        "ipad",
+        "macos"
+      ],
+      "summary": "Sets the background color of the popover.",
+      "description": "It is recommended to set this property to colorize the whole popover instead of only\nits content view.\n",
+      "since": "5.2.0",
+      "availability": "creation",
+      "default": "undefined (behaves as transparent)"
+    },
+    {
+      "name": "contentView",
+      "platforms": [
+        "ipad",
+        "macos"
+      ],
+      "summary": "View to use for the popover content. Must be set before calling the `show()` method.",
+      "description": "Set this property to any [Titanium.UI.View](api:Titanium.UI.View) object, including a [Titanium.UI.Window](api:Titanium.UI.Window) or\n[Titanium.UI.NavigationWindow](api:Titanium.UI.NavigationWindow) object.\n\nThis property does not support the [Titanium.UI.iOS.SplitWindow](api:Titanium.UI.iOS.SplitWindow) or [Titanium.UI.TabGroup](api:Titanium.UI.TabGroup) objects.\n\nWhen this property is set to a valid object, the popover **does not include the navigation\ncontroller** unless it is set to a [Titanium.UI.NavigationWindow](api:Titanium.UI.NavigationWindow) object.\n\nIn an Alloy application, you can specify this property as a `<ContentView>` child element\nof the `<Popover>` element:\n\n``` xml\n<Alloy>\n    <Popover>\n        <ContentView>\n            <Window title=\"Popover\">\n                <Label>Popover!</Label>\n            </Window>\n        </ContentView>\n    </Popover>\n</Alloy>\n```\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.UI.View"
+        }
+      ],
+      "since": "3.2.0"
+    },
+    {
+      "name": "passthroughViews",
+      "platforms": [
+        "ipad",
+        "macos"
+      ],
+      "summary": "Passthrough views to use when the popover is shown.",
+      "description": "Specify view objects that the user can interact with while the popover is open. While\ninteracting with these view, the popover will not be dismissed.\n",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Array",
+          "args": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.View"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "hide",
+      "platforms": [
+        "ipad",
+        "macos"
+      ],
+      "summary": "Hides the popover.",
+      "parameters": [
+        {
+          "name": "options",
+          "summary": "Display properties to use when hiding the popover.\nNote that the default here is equivalent to passing in `{ animated: false }`\n",
+          "type": [
+            {
+              "kind": "type",
+              "name": "AnimatedOptions"
+            }
+          ],
+          "optional": true,
+          "default": "{ animated: false }"
+        }
+      ]
+    },
+    {
+      "name": "show",
+      "platforms": [
+        "ipad",
+        "macos"
+      ],
+      "summary": "Displays the popover.",
+      "parameters": [
+        {
+          "name": "options",
+          "summary": "Display properties to use when displaying the popover.\nNote that the default here is to be animated.\n",
+          "type": [
+            {
+              "kind": "type",
+              "name": "ShowPopoverParams"
+            }
+          ],
+          "inlined": {
+            "name": "ShowPopoverParams",
+            "summary": "Dictionary of options for [Titanium.UI.iPad.Popover.show](api:Titanium.UI.iPad.Popover#show).",
+            "description": "All properties are optional except you need to specify the `view` property for the `show()`\nmethod to attach the popover to a view component.\n",
+            "properties": [
+              {
+                "name": "animated",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Indicates whether to animate showing the popover.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Boolean"
+                  }
+                ],
+                "default": "true",
+                "optional": true
+              },
+              {
+                "name": "rect",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Sets the arrow position of the popover relative to the attached view object's dimensions\nwhen showing the popover.\n",
+                "description": "Setting the x, y coordinates to (0, 0) places the popover in the top-left corner of the view object.  Set both the `width` and `height` properties to 1.",
+                "type": [
+                  {
+                    "kind": "type",
+                    "name": "Dimension"
+                  }
+                ],
+                "default": "All dimension properties are set to zero.",
+                "optional": true
+              },
+              {
+                "name": "view",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Attaches the popover to the specified view when showing the popover.",
+                "type": [
+                  {
+                    "kind": "type",
+                    "name": "Titanium.UI.View"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "hide",
+      "platforms": [
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when the popover is hidden."
+    }
+  ],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "height",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "horizontalMotionEffect",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "id",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "rotation",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "ipad"
+        ]
+      },
+      {
+        "name": "tooltip",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "verticalMotionEffect",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "width",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "ipad",
+          "macos"
+        ]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "clearMotionEffects",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "getViewById",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "insertAt",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "ipad",
+          "macos"
+        ]
+      }
+    ],
+    "events": []
+  },
+  "references": [
+    "AnimatedOptions",
+    "ShowPopoverParams",
+    "Titanium.UI.NavigationWindow",
+    "Titanium.UI.TabGroup",
+    "Titanium.UI.View",
+    "Titanium.UI.Window",
+    "Titanium.UI.iOS.SplitWindow",
+    "Titanium.UI.iPad"
+  ],
+  "source": "Titanium/UI/iPad/Popover.yml"
+}

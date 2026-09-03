@@ -1,0 +1,1028 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.XML.Element",
+  "kind": "proxy",
+  "extends": "Titanium.XML.Node",
+  "inheritanceChain": [
+    "Titanium.XML.Node",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
+  "since": {
+    "android": "0.9",
+    "iphone": "0.9",
+    "ipad": "0.9",
+    "macos": "9.2.0"
+  },
+  "summary": "Represents an element in a DOM document, a [Titanium.XML.Node](api:Titanium.XML.Node) defined by a start-tag and end-tag (or an empty tag). Elements may have [attributes](api:Titanium.XML.Attr) associated with them.\nImplements the [DOM Level 2 API](https://www.w3.org/TR/DOM-Level-2-Core/core.html#ID-745549614) on Android and iOS with some non-standard extensions.\n",
+  "properties": [
+    {
+      "name": "tagName",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The name of the element, as defined by its tag.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "text",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Content (value) of all text nodes within this node.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "deprecated": {
+        "since": "2.0.0",
+        "notes": "Use [Titanium.XML.Element.textContent](Titanium.XML.Element.textContent) instead."
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "textContent",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Content (value) of all text nodes within this node.",
+      "description": "On Android, `textContent` is supported on [Element](api:Titanium.XML.Element) and\n[Text](api:Titanium.XML.Text) nodes only.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "permission": "read-only"
+    }
+  ],
+  "methods": [
+    {
+      "name": "getAttribute",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Retrieves an attribute value by name, returning it as a string.",
+      "parameters": [
+        {
+          "name": "name",
+          "summary": "The name of the attribute",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ],
+          "summary": "The [Titanium.XML.Attr](api:Titanium.XML.Attr) value as a string, or empty string if the attribute has no specified or default value.\n"
+        }
+      ]
+    },
+    {
+      "name": "getAttributeNode",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Retrieves an attribute value by name, returning it as a [Titanium.XML.Attr](api:Titanium.XML.Attr) object.\n",
+      "parameters": [
+        {
+          "name": "name",
+          "summary": "The name of the attribute",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.XML.Attr"
+            }
+          ],
+          "summary": "The [Titanium.XML.Attr](api:Titanium.XML.Attr) value, or null if there is no such attribute."
+        }
+      ]
+    },
+    {
+      "name": "getAttributeNodeNS",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Retrieves an attribute value by local name and namespace URI, returning it as a [Titanium.XML.Attr](api:Titanium.XML.Attr) object.\n",
+      "parameters": [
+        {
+          "name": "namespaceURI",
+          "summary": "The namespace URI of the attribute to retrieve.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "localName",
+          "summary": "The local name of the attribute to retrieve.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.XML.Attr"
+            }
+          ],
+          "summary": "The [Titanium.XML.Attr](api:Titanium.XML.Attr) value, or null if there is no such attribute."
+        }
+      ]
+    },
+    {
+      "name": "getAttributeNS",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Retrieves an attribute value by local name and namespace URI, returning it as a string.\n",
+      "parameters": [
+        {
+          "name": "namespaceURI",
+          "summary": "The namespace URI of the attribute to retrieve.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "localName",
+          "summary": "The local name of the attribute to retrieve.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ],
+          "summary": "The [Titanium.XML.Attr](api:Titanium.XML.Attr) value as a string, or empty string if the attribute has no specified or default value.\n"
+        }
+      ]
+    },
+    {
+      "name": "getElementsByTagName",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Retrieves a [Titanium.XML.NodeList](api:Titanium.XML.NodeList) of all descendant elements with a given tag name, in preorder traversal.\n",
+      "parameters": [
+        {
+          "name": "name",
+          "summary": "The name of the element. The value `*` matches all tags.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.XML.NodeList"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "getElementsByTagNameNS",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Retrieves a [Titanium.XML.NodeList](api:Titanium.XML.NodeList) of all descendant elements with a given local name and namespace URI, in preorder traversal.\n",
+      "parameters": [
+        {
+          "name": "namespaceURI",
+          "summary": "The namespace URI of the element. The value `*` matches all namespaces.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "localName",
+          "summary": "The local name of the element. The value `*` matches all local names.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.XML.NodeList"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hasAttribute",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Determines whether or not an attribute with the given name is available in the element, or has a default value.\n",
+      "parameters": [
+        {
+          "name": "name",
+          "summary": "The name of the attribute to search for.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hasAttributeNS",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Determines whether or not an attribute with the given name is available in the element, or has a default value.\n",
+      "parameters": [
+        {
+          "name": "namespaceURI",
+          "summary": "The namespace URI of the attribute to search for.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "localName",
+          "summary": "The local name of the attribute to search for.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "removeAttribute",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Removes an attribute by name. If the attribute has a default value, it is immediately replaced with this default, including namespace URI and local name. Throws an exception if the element is read-only.\n",
+      "parameters": [
+        {
+          "name": "name",
+          "summary": "The name of the attribute to remove.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "removeAttributeNode",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Removes the specified attribute node. If the removed attribute has a default value, it is replaced immediately, with the same namespace and local name as the removed attribute, if applicable. Throws an exception if the element is read-only, or the attribute is not an attribute of the element.\n",
+      "parameters": [
+        {
+          "name": "oldAttr",
+          "summary": "The attribute to remove.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.XML.Attr"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "removeAttributeNS",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Removes an attribute by local name and namespace URI. If the attribute has a default value, it is immediately replaced with this default, including namespace URI and local name. Throws an exception if the element is read-only.\n",
+      "parameters": [
+        {
+          "name": "namespaceURI",
+          "summary": "The namespace URI of the attribute to remove.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "localName",
+          "summary": "The local name of the attribute to remove.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "setAttribute",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Adds a new attribute. Any attribute with the same name is replaced. Throws an exception if the element is read-only, or if the name contains an illegal character.\n",
+      "parameters": [
+        {
+          "name": "name",
+          "summary": "The name of the attribute.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "value",
+          "summary": "The value of the attribute. This is value is __not__ parsed as part of the assignment. Any markup is treated as literal text, and needs to be escaped.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "setAttributeNode",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Adds a new attribute. Any attribute with the same `nodeName` as the argument is replaced. Throws an exception if the element is read-only, if `newAttr` is from a different document, or if `newAttr` is already an attribute of another element.\n",
+      "parameters": [
+        {
+          "name": "newAttr",
+          "summary": "The attribute node to add to the element.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.XML.Attr"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.XML.Attr"
+            }
+          ],
+          "summary": "The attribute that was replaced, or `null` otherwise."
+        }
+      ]
+    },
+    {
+      "name": "setAttributeNodeNS",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Adds a new attribute. Any attribute with the same local name and namespace URI is replaced. Throws an exception if the element is read-only, if `newAttr` is from a different document, or if `newAttr` is already an attribute of another element.\n",
+      "parameters": [
+        {
+          "name": "newAttr",
+          "summary": "The attribute node to add to the element.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.XML.Attr"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.XML.Attr"
+            }
+          ],
+          "summary": "The attribute that was replaced, or `null` otherwise."
+        }
+      ]
+    },
+    {
+      "name": "setAttributeNS",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Adds a new attribute. Any attribute with the same local name and namespace URI is present on the element is replaced, with its prefix changed to that of the `qualifiedName` parameter. Throws an exception if the element is read-only, if the name contains an illegal character, or if the qualified name contains an error.\n",
+      "parameters": [
+        {
+          "name": "namespaceURI",
+          "summary": "The namespace URI of the attribute.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "qualifiedName",
+          "summary": "The qualified name of the attribute. If it is malformed, has a prefix and namespaceURI is `null`, or if the prefix is `xml` or `xmlns` but does not correspond to a property defined in the [XML](https://www.w3.org/XML/1998/namespace) or [XMLNS](https://www.w3.org/2000/xmlns/) specifications, then it contains an error.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "value",
+          "summary": "The value of the attribute. This is value is __not__ parsed as part of the assignment. Any markup is treated as literal text, and needs to be escaped.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "ATTRIBUTE_NODE",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "attributes",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "CDATA_SECTION_NODE",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "childNodes",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "COMMENT_NODE",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "DOCUMENT_FRAGMENT_NODE",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "DOCUMENT_NODE",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "DOCUMENT_TYPE_NODE",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "ELEMENT_NODE",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "ENTITY_NODE",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "ENTITY_REFERENCE_NODE",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "firstChild",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "lastChild",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "lifecycleContainer",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "localName",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "namespaceURI",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "nextSibling",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "nodeName",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "nodeType",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "nodeValue",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "NOTATION_NODE",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "ownerDocument",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "parentNode",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "prefix",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "previousSibling",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "PROCESSING_INSTRUCTION_NODE",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "TEXT_NODE",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "appendChild",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "cloneNode",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "hasAttributes",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "hasChildNodes",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "insertBefore",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "isSupported",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "normalize",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "removeChild",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "replaceChild",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      }
+    ],
+    "events": []
+  },
+  "references": [
+    "Titanium.XML.Attr",
+    "Titanium.XML.Node",
+    "Titanium.XML.NodeList",
+    "Titanium.XML.Text"
+  ],
+  "source": "Titanium/XML/Element.yml"
+}

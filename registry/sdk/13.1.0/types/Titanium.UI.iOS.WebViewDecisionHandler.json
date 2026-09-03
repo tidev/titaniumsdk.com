@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.UI.iOS.WebViewDecisionHandler",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "iphone",
+    "ipad",
+    "macos"
+  ],
+  "since": {
+    "iphone": "8.0.0",
+    "ipad": "8.0.0",
+    "macos": "9.2.0"
+  },
+  "summary": "It represents the decision handler to tell to webview, whether allow or cancel the navigation.\n",
+  "description": "Returned as the `handler` parameter of [Titanium.UI.WebView.handleurl](api:Titanium.UI.WebView#handleurl).\nSee the example section \"Usage of allowedURLSchemes and handleurl in iOS\" inside [Titanium.UI.WebView](api:Titanium.UI.WebView) for usage.\n",
+  "properties": [],
+  "methods": [
+    {
+      "name": "invoke",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "It calls the decision handler with given action policy.",
+      "parameters": [
+        {
+          "name": "value",
+          "summary": "Action policy passed to decision handle.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      }
+    ],
+    "events": []
+  },
+  "references": [
+    "Titanium.Proxy",
+    "Titanium.UI.WebView"
+  ],
+  "source": "Titanium/UI/iOS/WebViewDecisionHandler.yml"
+}

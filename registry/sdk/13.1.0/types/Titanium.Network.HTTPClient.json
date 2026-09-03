@@ -1,0 +1,1029 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.Network.HTTPClient",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
+  "since": "0.1",
+  "summary": "HTTP client object that (mostly) implements the XMLHttpRequest specification.",
+  "description": "Use [Titanium.Network.createHTTPClient](api:Titanium.Network#createHTTPClient) to create a new `HTTPClient` object.\n\nAn `HTTPClient` object is intended to be used for a single request. It may be\npossible to re-use an `HTTPClient` object, but this use case is not tested.\n\nThere are three steps in making a typical HTTP request:\n\n* Creating an `HTTPClient` object.\n* Opening the `HTTPClient` object.\n* Sending the request.\n\nBefore opening the request, you must define one or more callbacks to handle\nthe HTTP response, as well as errors, progress updates, and other conditions.\n\nThe `HTTPClient` callbacks operate somewhat differently from other\nTitanium callbacks, in accordance with the XMLHttpRequest specification.\n\nWhen the callbacks are invoked, the `this` value is set to either the\noriginal `HTTPClient` object itself, or a response object that holds all\nof the response-related properties defined for the `HTTPClient` object. So the\ncallbacks can use code like this to access the response values:\n\n``` js\nhttpResponse = this.responseText;\nstatus = this.status;\n```\n\n#### Content-Type Header\n\nWhen sending a POST request with the HTTP client, the Content-Type header is set automatically\ndepending on the platform and data type sent.\n\nOn the Android and iOS platforms:\n\n  * If you are sending a JavaScript object, the content type is set to `multipart/form-data`.\n  * For all other data types on Android, the content type is set to `application/x-www-form-urlencoded`.\n  * For all other data types on iOS, the content type is **NOT** set.\n\nUse the [setRequestHeader](api:Titanium.Network.HTTPClient#setRequestHeader) method to override the\ndefault Content-Type header.\n\n#### Asynchronous vs. Synchronous HTTP Requests\n\nBy default, the `HTTPClient` makes asynchronous requests.  Asynchronous requests do not block\nthe application and use callbacks to process responses when they are received.\n\nSynchronous requests block the execution of the application until it receives a response.\nOn the iOS platform,  you can make synchronous requests by setting the optional\n`async` parameter to `false` when calling the [open](api:Titanium.Network.HTTPClient#open) method.\n\nThe Android platform does not support synchronous requests.\n\n#### TLS Support\n\nTransport Layer Security (TLS) is a protocol that ensures privacy between communicating applications\nand their users on the Internet. When a server and client communicate, TLS ensures that no third\nparty may eavesdrop or tamper with any message. TLS is the successor to the Secure Sockets Layer (SSL).\n\nTo communicate to servers with the TLS protocol, you need to use the same TLS version between\nthe client and server.\n\n<table class=\"doc-table\" summary=\"This table provides information about TLS versions.\">\n  <caption><b>TLS versions by platform</b></caption>\n  <thead>\n    <tr>\n      <th>Protocol</th>\n      <th>Android</th>\n      <th>iOS</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <th align=\"left\">TLS 1.0</th>\n      <td>1.0+</td>\n      <td>1.0+</td>\n    </tr>\n    <tr>\n      <th align=\"left\">TLS 1.1</th>\n      <td>4.1+</td>\n      <td>5.0+</td>\n    </tr>\n    <tr>\n      <th align=\"left\">TLS 1.2</th>\n      <td>4.1+</td>\n      <td>5.0+</td>\n    </tr>\n    <tr>\n      <th align=\"left\">TLS 1.3</th>\n      <td>10.0+</td>\n      <td>12.2+</td>\n    </tr>\n  </tbody>\n</table>\n\nIn Titanium, if a connection with TLS 1.2 fails, Titanium will re-attempt the connection with\nTLS 1.1 and TLS 1.0. By default, TLS 1.2 is attempted first.\n\nOn Android, use the [Titanium.Network.HTTPClient.tlsVersion](api:Titanium.Network.HTTPClient#tlsVersion) property to set the version of the TLS protocol\nif you know the version the server is running.  If you do not know, do not set this property.\n\nOn iOS, add the `NSExceptionMinimumTLSVersion` key in the `<plist>` section of `tiapp.xml` to set a minimum TLS version.\nSee following example:\n\n```\n<key>NSAppTransportSecurity</key>\n<dict>\n  <key>NSExceptionDomains</key>\n  <dict>\n    <key>www.titaniumsdk.com</key>\n    <dict>\n      <key>NSExceptionMinimumTLSVersion</key>\n      [string](api:Global.String)TLSv1.3</string>\n    </dict>\n  </dict>\n</dict>\n```\nTitanium will not fallback with a lower TLS version if the `tlsVersion` property in Android or `NSExceptionMinimumTLSVersion` in iOS, is set.\nSetting the TLS version saves time from re-attempting connections with lower TLS versions and\nprovides added security by denying attempts to use lower TLS versions.\n\n#### Caching Data\n\nYou can also use the HTTP client API to cache image, response data or related. A convenient\nway to do so is by setting the [Titanium.Network.HTTPClient.file](api:Titanium.Network.HTTPClient#file) property to a path or target\nfile, which will be populated with the response data in a successful case (e.g. in the `onload`\ncallback). For more complex use cases, make sure to check [To.ImageCache](https://github.com/Topener/To.ImageCache/)\nwhich also supports expire-handling and extended cache control.\n\n#### Android Platform Implementation Notes\n\nOn Android, the `HTTPClient` uses its own cookie store which does not share cookies with the\nsystem cookie store used by [Titanium.UI.WebView](api:Titanium.UI.WebView). Developers can manage their cookies for both\ncookie stores using the methods [Titanium.Network.addHTTPCookie](api:Titanium.Network#addHTTPCookie), [Titanium.Network.addSystemCookie](api:Titanium.Network#addSystemCookie),\n[Titanium.Network.getHTTPCookies](api:Titanium.Network#getHTTPCookies), [Titanium.Network.getHTTPCookiesForDomain](api:Titanium.Network#getHTTPCookiesForDomain), [Titanium.Network.getSystemCookies](api:Titanium.Network#getSystemCookies),\n[Titanium.Network.removeHTTPCookie](api:Titanium.Network#removeHTTPCookie), [Titanium.Network.removeHTTPCookiesForDomain](api:Titanium.Network#removeHTTPCookiesForDomain), [Titanium.Network.removeAllHTTPCookies](api:Titanium.Network#removeAllHTTPCookies),\n[Titanium.Network.removeSystemCookie](api:Titanium.Network#removeSystemCookie), [Titanium.Network.removeAllSystemCookies](api:Titanium.Network#removeAllSystemCookies).\n\n#### Connect to local network in iOS\n\nOn iOS 14 and later, while connecting to local network a prompt will be shown to request user's permission.\nAdd key `NSLocalNetworkUsageDescription` to the `ios plist` section of the tiapp.xml file to show the message on prompt.\nIf this key is not added default message will be shown in prompt.\n\nExample:\n\n``` xml\n<ti:app>\n  <!-- ... -->\n  <ios>\n    <plist>\n      <dict>\n        <!-- Reason to access local network-->\n        <key>NSLocalNetworkUsageDescription</key>\n        [string](api:Global.String)\n            Specify the reason for accessing the local network.\n            This appears in the alert dialog when asking the user\n            for permission to access local network.\n        </string>\n      </dict>\n    </plist>\n  </ios>\n  <!-- ... -->\n</ti:app>\n```\n",
+  "examples": [
+    {
+      "title": "Simple GET Request",
+      "code": "The following code excerpt does a simple GET request and logs the response text.\n\n``` js\nvar url = \"http://www.titaniumsdk.com\";\nvar client = Ti.Network.createHTTPClient({\n    // function called when the response data is available\n    onload : function(e) {\n        Ti.API.info(\"Received text: \" + this.responseText);\n        alert('success');\n    },\n    // function called when an error occurs, including a timeout\n    onerror : function(e) {\n        Ti.API.debug(e.error);\n        alert('error');\n    },\n    timeout : 5000  // in milliseconds\n});\n// Prepare the connection.\nclient.open(\"GET\", url);\n// Send the request.\nclient.send();\n```\n"
+    }
+  ],
+  "properties": [
+    {
+      "name": "allResponseHeaders",
+      "platforms": [
+        "android"
+      ],
+      "summary": "All of the response headers.",
+      "description": "Contains a single string, or an empty string if no headers are available.\n\nSee also: [getResponseHeader](api:Titanium.Network.HTTPClient#getResponseHeader).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "autoEncodeUrl",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Determines whether automatic encoding is enabled for the specified URL.",
+      "description": "Set to `false` to disable automatic URL-encoding.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "default": "true"
+    },
+    {
+      "name": "autoRedirect",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Determines whether automatic automatic handling of HTTP redirects is enabled.",
+      "description": "Set to `false` to disable automatic HTTP redirects handling.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "default": "true"
+    },
+    {
+      "name": "cache",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Determines whether HTTP responses are cached.",
+      "description": "If `cache` is set to `true`, requests using this HTTP client will cache their responses\n(respecting headers such as \"no-cache\", \"no-store\", and cache expiry). In this case, repeated\nrequests to the same URL may retrieve the initial response rather than triggering a new\nrequest. The cache is shared between all instances of `HTTPClient`.\n\nCaching should only be enabled for HTTP requests which you expect the result to remain\nconsistent for.\n\nIf `cache` is `false`, any request on this HTTP client will result in a new HTTP request.\n\nThis property must be set before `open` is called.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "2.0.0",
+      "default": "false"
+    },
+    {
+      "name": "connected",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Indicates whether the response was successful.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "connectionType",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Connection type, normally either `GET`, `POST` or `PATCH`.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "domain",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Sets the domain parameter for authentication credentials.",
+      "description": "Set this parameter when authentication against NTLM domains along with the [username](api:Titanium.Network.HTTPClient#username)\nand [password](api:Titanium.Network.HTTPClient#password) properties.\niOS supports NTLM authentication natively.\nAndroid can be extended using the [addAuthFactory](Titanium.Network.HTTPClient.addAuthFactory) method.\nMust be set before calling [open](api:Titanium.Network.HTTPClient#open).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "3.0.0",
+      "default": "Undefined"
+    },
+    {
+      "name": "DONE",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Ready state constant indicating that the request is complete.",
+      "description": "In this ready state, either the data has been transferred, or an error has occurred.\n\nSee also [readyState](api:Titanium.Network.HTTPClient#readyState).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "enableKeepAlive",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Determines whether the client should attempt to keep a persistent connection.",
+      "description": "Set to `true` to maintain a persistent connection.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "default": "false"
+    },
+    {
+      "name": "file",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Target local file or file path to receive data.",
+      "description": "This property can be set anytime prior to calling [send](api:Titanium.Network.HTTPClient#send).\nThe file must be writable such as the application data directory or temp directory.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        },
+        {
+          "kind": "type",
+          "name": "Titanium.Filesystem.File"
+        }
+      ],
+      "since": {
+        "android": "3.4.0"
+      }
+    },
+    {
+      "name": "HEADERS_RECEIVED",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Ready state constant indicating that response headers have been received.",
+      "description": "See also [readyState](api:Titanium.Network.HTTPClient#readyState).",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "LOADING",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Ready state constant indicating that response data is being received from the remote server.\n",
+      "description": "See also [readyState](api:Titanium.Network.HTTPClient#readyState).",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "location",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Absolute URL of the request.",
+      "description": "If the request redirects, this property returns the URL of the redirected request.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "ondatastream",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Function to be called at regular intervals as the request data is being received.",
+      "description": "Must be set before calling `open`.\n\nThe `progress` property of the event will contain a value from 0.0-1.0 with the progress of\nthe request. If the progress can not be calculated,\nthe value will be [PROGRESS_UNKNOWN](api:Titanium.Network#PROGRESS_UNKNOWN).\n",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Callback",
+          "args": [
+            {
+              "kind": "primitive",
+              "name": "Object"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "onerror",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Function to be called upon a error response.",
+      "description": "Must be set before calling `open`.\nThe `code` property of the callback's argument is -1001 for timed-out requests.\n",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Callback",
+          "args": [
+            {
+              "kind": "type",
+              "name": "FailureResponse"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "onload",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Function to be called upon a successful response.",
+      "description": "Must be set before calling `open`.\n\nTo access response data and headers, access the `HTTPClient` object itself (accessible as\n`this` during the callback, or the `source` property of the callback event).\n",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Callback",
+          "args": [
+            {
+              "kind": "type",
+              "name": "SuccessResponse"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "onreadystatechange",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Function to be called for each [readyState](api:Titanium.Network.HTTPClient#readyState) change.\n",
+      "description": "Must be set before calling `open`.\n\nWhen the callback is invoked, `this.readyState` is set to one of the\n`Titanium.Network.HTTPClient` ready-state constants,\n[OPENED](api:Titanium.Network.HTTPClient#OPENED),\n[HEADERS_RECEIVED](api:Titanium.Network.HTTPClient#HEADERS_RECEIVED),\n[LOADING](api:Titanium.Network.HTTPClient#LOADING),\nor [DONE](api:Titanium.Network.HTTPClient#DONE).\n\nDue to the asynchronous nature of the Titanium platform, the internal value of\n[readyState](api:Titanium.Network.HTTPClient#readyState) might be different from the state change\nfor which the event was fired. To address this discrepancy, the function is now invoked with a\npayload object of type [ReadyStatePayload](api:ReadyStatePayload). This is supported on the iOS and Android platforms.\n",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Callback",
+          "args": [
+            {
+              "kind": "primitive",
+              "name": "Object"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "onsendstream",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Function to be called at regular intervals as the request data is being transmitted.",
+      "description": "Must be set before calling `open`.\n\nThe `progress` property of the event will contain a value from 0.0-1.0 with the progress of\nthe upload.\n",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Callback",
+          "args": [
+            {
+              "kind": "primitive",
+              "name": "Object"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "OPENED",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Ready state constant indicating that the connection has been opened, but the request has\nnot yet been sent.\n",
+      "description": "See also [readyState](api:Titanium.Network.HTTPClient#readyState).",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "password",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Sets the password parameter for authentication credentials.",
+      "description": "Must be set before calling [open](api:Titanium.Network.HTTPClient#open).",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "3.0.0",
+      "default": "Undefined"
+    },
+    {
+      "name": "readyState",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The current ready state of this HTTP request.",
+      "description": "The ready state describes the current state of the request. The ready state is set to one of\nthe five `Titanium.Network.HTTPClient` ready state constants. A typical HTTP request goes\nthrough the states in this order:\n\n* [UNSENT](api:Titanium.Network.HTTPClient#UNSENT)\n* [OPENED](api:Titanium.Network.HTTPClient#OPENED)\n* [HEADERS_RECEIVED](api:Titanium.Network.HTTPClient#HEADERS_RECEIVED)\n* [LOADING](api:Titanium.Network.HTTPClient#LOADING)\n* [DONE](api:Titanium.Network.HTTPClient#DONE)\n\nThe `onreadystatechange` callback is invoked each time the ready state changes.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only",
+      "constants": [
+        "Titanium.Network.HTTPClient.DONE",
+        "Titanium.Network.HTTPClient.HEADERS_RECEIVED",
+        "Titanium.Network.HTTPClient.LOADING",
+        "Titanium.Network.HTTPClient.OPENED",
+        "Titanium.Network.HTTPClient.UNSENT"
+      ]
+    },
+    {
+      "name": "responseData",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Response data as a `Blob` object.",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.Blob"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "responseDictionary",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Response as JSON object.",
+      "description": "Set to `null` if the content type returned by the server was not a JSON or if the content could not be parsed.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "responseHeaders",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Returns all the response headers returned with the request.",
+      "description": "Contains a dictionary of response headers only after the http call has finished.\n\nSee also: [getResponseHeader](api:Titanium.Network.HTTPClient#getResponseHeader).\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Dictionary"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "responseText",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Response as text.",
+      "description": "Set to `null` if an error was received or no data was returned.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "responseXML",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Response object as an XML DOM Document object.",
+      "description": "Set to `null` if the content type returned by the server was not XML or if the content could not be parsed.",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.XML.Document"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "securityManager",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The Security Manager for this client.",
+      "description": "This property **must** be specified during creation. Set this property on the HTTPClient to participate in the authentication and resource management of the connection. See [SecurityManagerProtocol](api:SecurityManagerProtocol) for further information.",
+      "type": [
+        {
+          "kind": "type",
+          "name": "SecurityManagerProtocol"
+        }
+      ],
+      "since": "3.3.0",
+      "availability": "creation"
+    },
+    {
+      "name": "status",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Response HTTP status code.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "statusText",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Human-readable status message associated with the status code.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "timeout",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Timeout in milliseconds when the connection should be aborted.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "default": "On iOS, the default is 15000 (15 seconds).\n"
+    },
+    {
+      "name": "timeoutForResource",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "The maximum amount of time (in milliseconds) that a resource request should be allowed to take.\n",
+      "description": "The resource timeout controls how long (in milliseconds) to wait for an entire resource to transfer before giving up.\nThe resource timer starts when the request is initiated and counts until either the request completes or this timeout is reached, whichever comes first.\nFor more detail see [timeoutintervalforresource](https://developer.apple.com/documentation/foundation/nsurlsessionconfiguration/1408153-timeoutintervalforresource?language=objc)\nfrom Apple documentation.\nThis property also applies if [Ti.Network.HttpClient.waitsForConnectivity](api:Titanium.Network.HTTPClient#waitsForConnectivity) is set to `true`.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "9.2.0",
+      "default": "The default is `7*24*60*60*1000` milliseconds (7 days).\n"
+    },
+    {
+      "name": "tlsVersion",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Sets the TLS version to use for handshakes.",
+      "description": "If you experience handshake failures, set this value to a lower version using the TLS\nconstants in [Titanium.Network](api:Titanium.Network). 'undefined', 'null', or unsupported values use the default\nbehavior for that Android versions.\n\nSetting this property disables falling back to lower TLS versions.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": {
+        "android": "3.6.0"
+      },
+      "default": "undefined, behaves as `Ti.Network.TLS_VERSION_1_2`.\n",
+      "constants": [
+        "Titanium.Network.TLS_VERSION_1_0",
+        "Titanium.Network.TLS_VERSION_1_1",
+        "Titanium.Network.TLS_VERSION_1_2",
+        "Titanium.Network.TLS_VERSION_1_3"
+      ]
+    },
+    {
+      "name": "UNSENT",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Ready state constant indicating that HTTPClient request has not been opened or sent.",
+      "description": "See also [readyState](api:Titanium.Network.HTTPClient#readyState).",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "username",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Sets the username parameter for authentication credentials.",
+      "description": "Must be set before calling [open](api:Titanium.Network.HTTPClient#open).",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "3.0.0",
+      "default": "Undefined"
+    },
+    {
+      "name": "validatesSecureCertificate",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Determines how SSL certification validation is performed on connection.",
+      "description": "On Android, this property is ignored if the `securityManager` property is used to create a custom SSL context and will handle the given URI.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "default": "False when running in the simulator or on device in testing mode, and true if built for\nrelease in distribution mode.\n"
+    },
+    {
+      "name": "waitsForConnectivity",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "A Boolean value that indicates whether the session should wait for connectivity to become available, or fail immediately.\n",
+      "description": "Causes tasks to wait for network connectivity to become available, rather than immediately failing\nwith an error when it is not. When waiting for connectivity, the [Ti.Network.HttpClient.timeout](api:Titanium.Network.HTTPClient#timeout)\nproperty does not apply, but the [Ti.Network.HttpClient.timeoutForResource](api:Titanium.Network.HTTPClient#timeoutForResource) property does.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "9.2.0",
+      "default": "false"
+    }
+  ],
+  "methods": [
+    {
+      "name": "abort",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Cancels a pending request."
+    },
+    {
+      "name": "clearCookies",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Clears any cookies stored for the host.",
+      "parameters": [
+        {
+          "name": "host",
+          "summary": "The URL of the host/domain to clear cookies for.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "getAllResponseHeaders",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "All of the response headers.",
+      "description": "Contains a single string, or an empty string if no headers are available.\n\nSee also: [getResponseHeader](api:Titanium.Network.HTTPClient#getResponseHeader).\n\nIntended to match the `XMLHTTPRequest` [getAllResponseHeaders API](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/getAllResponseHeaders).\n",
+      "since": {
+        "iphone": "10.0.0",
+        "ipad": "10.0.0",
+        "macos": "10.0.0",
+        "android": "0.8"
+      },
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "getResponseHeader",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Returns the value of the specified response header.",
+      "parameters": [
+        {
+          "name": "name",
+          "summary": "Name of the header to retrieve.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "open",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Opens the request and prepares the connection.",
+      "parameters": [
+        {
+          "name": "method",
+          "summary": "HTTP method for this request, such as 'GET' or 'POST'. 'PATCH' is available on Android from SDK 4.1.0.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "url",
+          "summary": "URL for the request.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "async",
+          "summary": "Determines whether the request should be made asynchronously. Only used on iOS.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ],
+          "optional": true,
+          "default": "true"
+        }
+      ]
+    },
+    {
+      "name": "send",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Sends the request.",
+      "description": "For POST requests, use the `data` parameter to send POST data.\n\nIf you pass a serializable JavaScript object, it is automatically turned into form-encoded\nPOST data. You can also send an arbitrary string or binary data (in the form of a\n[Titanium.Blob](api:Titanium.Blob)).\n\nTo send array data, specify each array element individually as a property of the object.\nFor example, normally, you specify an array in an object as:\n\n``` js\nvar payload = { myArray: [1, 2, 3] };\n```\n\nInstead, for the HTTP client to encode the data correctly, you need to send the data as:\n\n``` js\nvar payload = {\n    \"myArray[0]\" : 1,\n    \"myArray[1]\" : 2,\n    \"myArray[2]\" : 3\n};\n```\n\nOn iOS, you can specify a synchronous request when you call `open` by passing `false` for\nthe `async` parameter. In the case of a synchronous request, `send` blocks until the request\nis complete.\n",
+      "parameters": [
+        {
+          "name": "data",
+          "summary": "Data to send with a POST request.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Object"
+            },
+            {
+              "kind": "primitive",
+              "name": "String"
+            },
+            {
+              "kind": "type",
+              "name": "Titanium.Filesystem.File"
+            },
+            {
+              "kind": "type",
+              "name": "Titanium.Blob"
+            }
+          ],
+          "optional": true,
+          "default": "no data"
+        }
+      ]
+    },
+    {
+      "name": "setRequestHeader",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Sets the value for the specified request header. Must be called after `open` but before `send`.\n",
+      "parameters": [
+        {
+          "name": "name",
+          "summary": "Name of the header to set.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "value",
+          "summary": "Value to assign to the header. May be `null` to clear a default header value, such as\nX-Requested-With.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "setTimeout",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Sets the request timeout.",
+      "deprecated": {
+        "since": "10.0.0",
+        "removed": "10.0.0",
+        "notes": "Use the <Titanium.Network.HTTPClient.timeout> property instead."
+      },
+      "parameters": [
+        {
+          "name": "timeout",
+          "summary": "Timeout in milliseconds.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "lifecycleContainer",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      }
+    ],
+    "events": []
+  },
+  "references": [
+    "Dictionary",
+    "FailureResponse",
+    "Global.String",
+    "ReadyStatePayload",
+    "SecurityManagerProtocol",
+    "SuccessResponse",
+    "Titanium.Blob",
+    "Titanium.Filesystem.File",
+    "Titanium.Network",
+    "Titanium.Proxy",
+    "Titanium.UI.WebView",
+    "Titanium.XML.Document"
+  ],
+  "source": "Titanium/Network/HTTPClient.yml"
+}

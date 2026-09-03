@@ -1,0 +1,280 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.Database",
+  "kind": "module",
+  "extends": "Titanium.Module",
+  "inheritanceChain": [
+    "Titanium.Module",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
+  "since": "0.1",
+  "summary": "The top-level `Database` module, used for creating and accessing the\nin-application SQLite database.\n",
+  "properties": [
+    {
+      "name": "FIELD_TYPE_DOUBLE",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Constant for requesting a column's value returned in double form.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "FIELD_TYPE_FLOAT",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Constant for requesting a column's value returned in float form.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "FIELD_TYPE_INT",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Constant for requesting a column's value returned in integer form.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "FIELD_TYPE_STRING",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Constant for requesting a column's value returned in string form.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    }
+  ],
+  "methods": [
+    {
+      "name": "install",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Installs an SQLite database to device's internal storage.",
+      "description": "Copies an SQLite database file to the device's internal storage (only) and\ncreates a persistent name that is available for the lifetime of the app. \nOn Android, if the source file does not exist, an empty database is created.\n\nReturns a reference to the opened database. If the destination file already\nexists, behaves as [Titanium.Database.open](api:Titanium.Database#open).\n\nThis method is primarily used for iOS.\n\nWith Android, as there is often minimal internal storage available, `install`\nmay only be appropriate for small databases or for prototyping. When database\nfiles are to be stored on external storage (for example, SD Card), a combination of\n[Titanium.Filesystem](api:Titanium.Filesystem) and [Titanium.Database.open](api:Titanium.Database#open) is required.\n\nWith Titanium 1.8.0.1 on iOS, the default database location changed in accordance\nwith Apple's guidelines. If a database file already exists in the old\nlocation, `install` will automatically move it to the new location\nrather than copying the file from the path provided in the first\nargument.\n\nFiles stored in the `Private Documents` directory on iOS5 will be\nautomatically backed up to iCloud and removed from the device in low\nstorage situations. See\n[How do I prevent files from being backed up to iCloud and iTunes?](https://developer.apple.com/library/ios/qa/qa1719/_index.html)\nfor details. To prevent this for database files, use the [Titanium.Database.DB.file](api:Titanium.Database.DB#file) \nobject with the [Titanium.Filesystem.File.remoteBackup](api:Titanium.Filesystem.File#remoteBackup) property. \n\nAlways [close](api:Titanium.Database.DB#close) the database after use.\n",
+      "examples": [
+        {
+          "title": "Install a Database (iOS)",
+          "code": "A database, with a filename of `mydb1` and located in the same directory as the\nthe running script, is installed.\n\n``` js\nvar db1 = Ti.Database.install('mydb1', 'mydb1Installed');\n```\n\nThe file is copied to the default database location with a file\nextension of `sql`.\n\n**On simulator**\n\n* `/Users/user_name/Library/Application Support/iPhone Simulator/ios_version/Applications/apple_app_id/Library/Private Documents/mydb1Installed.sql` (Titanium 1.8.0.1)\n* `/Users/user_name/Library/Application Support/iPhone Simulator/ios_version/Applications/apple_app_id/Library/Application Support/database/mydb1Installed.sql` (earlier versions)\n\n**On device**\n\n* `/Applications/apple_app_id/Library/Private Documents/mydb1Installed.sql` (Titanium 1.8.0.1)\n* `/Applications/apple_app_id/Library/Application Support/database/mydb1Installed.sql` (earlier versions)\n\nTo prevent the database file being automatically backed up to iCloud, use [remoteBackup](Titanium.Filesystem.File.remoteBackup).\n\n``` js\ndb1.file.remoteBackup = false;\n```\n"
+        },
+        {
+          "title": "Install a Database to Internal Storage (Android)",
+          "code": "A database, with a filename of `mydb1` and located in the same directory as the\nthe running script, is installed.\n\n``` js\nvar db1 = Ti.Database.install('mydb1', 'mydb1Installed');\n```\n\nUnlike on iOS, no file extension is added. The file is opened in the\nfollowing default database location, on both emulator and device.\n\n* `file:///data/data/appID/databases/mydb1Installed`\n"
+        },
+        {
+          "title": "Install a Database to External Storage (Android)",
+          "code": "The device is checked for the presence of external storage and a\ndatabase, with a filename of `mydb2` and located in the same directory as the\nthe running script, is installed.\n\n``` js\nif (Ti.Platform.name === 'android' && Ti.Filesystem.isExternalStoragePresent()) {\n  var db2 = Ti.Database.install('mydb2', Ti.Filesystem.externalStorageDirectory + 'path' + Ti.Filesystem.separator + 'to' + Ti.Filesystem.separator + 'mydb2Installed');\n}\n```\n\nUnlike on iOS, no file extension is added. The file is copied to the\nabsolute path provided.\n\n* `file:///sdcard/path/to/mydb2Installed`\n"
+        }
+      ],
+      "parameters": [
+        {
+          "name": "path",
+          "summary": "Path and filename of the database file to copy to internal storage.\nFile location is relative to the script's context unless an absolute\npath, such as one constructed with a [Titanium.Filesystem](api:Titanium.Filesystem) \nconstant, is used.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "dbName",
+          "summary": "Destination filename or absolute path, which will subsequently be passed to\n[Titanium.Database.open](api:Titanium.Database#open).\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Database.DB"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "open",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Opens an SQLite database.",
+      "description": "Opens an SQLite database and returns a reference to it. If the database does\nnot exist, creates an empty database file and returns a reference to this\nopened database.\n\nWith Titanium 1.8.0.1 on iOS, the default database location changed in accordance\nwith Apple's guidelines. If a database file already exists in the old\nlocation, `open` will automatically move it to the new location.\n\nAlways [close](api:Titanium.Database.DB#close) the database after use.\n",
+      "examples": [
+        {
+          "title": "Open a Database from Internal Storage (iOS)",
+          "code": "A database, with a persistant name of `mydb1Installed` and located in the\ndefault database location on internal storage, is opened.\n\n``` js\nvar db = Ti.Database.open('mydb1Installed');\n```\n\nA file extension of `sql` is added, and the file is opened from the\nfollowing location.\n\nOn simulator\n\n* `/Users/<user name>/Library/Application Support/iPhone Simulator/<iOS version>/Applications/<apple app id>/Library/Private Documents/mydb1Installed.sql` (Titanium 1.8.0.1)\n* `/Users/<user name>/Library/Application Support/iPhone Simulator/<iOS version>/Applications/<apple app id>/Library/Application Support/database/mydb1Installed.sql` (earlier versions)\n\nOn device\n\n* `/Applications/<apple app id>/Library/Private Documents/mydb1Installed.sql` (Titanium 1.8.0.1)\n* `/Applications/<apple app id>/Library/Application Support/database/mydb1Installed.sql` (earlier versions)\n"
+        },
+        {
+          "title": "Open a Database on Internal Storage (Android)",
+          "code": "A database, with a persistant name of `mydb1Installed` and located in the\ndefault database location on internal storage, is opened.\n\n``` js\nvar db1 = Ti.Database.open('mydb1Installed');\n```\n\nUnlike on iOS, no file extension is added. The file is opened in\nthe following location.\n\n* `file:///data/data/appID/databases/mydb1Installed`\n"
+        },
+        {
+          "title": "Open a Database on External Storage (Android)",
+          "code": "A database, with a filename of `mydb2Installed` and located at the\nabsolute path provided, is opened.\n\n``` js\nif (Ti.Platform.name === 'android' && Ti.Filesystem.isExternalStoragePresent()) {\n  var db2 = Ti.Database.open(Ti.Filesystem.externalStorageDirectory + 'path' + Ti.Filesystem.separator + 'to' + Ti.Filesystem.separator + 'mydb2Installed');\n}\n```\n\nUnlike on iOS, no file extension is added. The file is copied to the\nabsolute path, as follows.\n\n* `file:///sdcard/path/to/mydb2Installed`\n"
+        },
+        {
+          "title": "Open a Database in the shared directory of an application group (iOS)",
+          "code": "Opens a Database in a shared directory\n\n``` js\nvar suiteDir = Ti.Filesystem.directoryForSuite('group.appc.Sharing');\nif (!suiteDir) {\n    logInApp('Suite Directory not found, check Entitlements.');\n    return;\n}\nvar path = suiteDir + 'TestDB';\nvar db = Ti.Database.open(path);\ndb.close();\n```\n"
+        }
+      ],
+      "parameters": [
+        {
+          "name": "dbName",
+          "summary": "The dbname previously passed to [Titanium.Database.install](api:Titanium.Database#install). An absolute path \nto the file, including one that is constructed with a [Titanium.Filesystem](api:Titanium.Filesystem) \nconstant or [Titanium.Filesystem.directoryForSuite](api:Titanium.Filesystem#directoryForSuite) method, may be used.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Database.DB"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "lifecycleContainer",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      }
+    ],
+    "events": []
+  },
+  "references": [
+    "Titanium.Database.DB",
+    "Titanium.Filesystem",
+    "Titanium.Filesystem.File",
+    "Titanium.Module"
+  ],
+  "source": "Titanium/Database/Database.yml"
+}

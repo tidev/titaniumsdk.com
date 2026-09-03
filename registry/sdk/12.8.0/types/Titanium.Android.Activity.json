@@ -1,0 +1,907 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.Android.Activity",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android"
+  ],
+  "since": "1.5",
+  "summary": "The Titanium binding of an Android Activity.",
+  "description": "According to the Android API Reference, an activity is \"a single, focused thing that a\nuser can do.\"\n\nIn almost all cases, an activity is associated with a window.  Activities are central\nto the Android **Back** button navigation -- the **Back** button closes the current\nactivity and returns to whatever activity was open previously.\n\nIn Titanium, the Android Activity is not created until a window or tab group is opened.\nAfter a Window or TabGroup object is created but before it is opened, its `activity` property\nrefers to an empty JavaScript object. You can use it to set properties on the activity, such as\nthe `onCreateOptionsMenu` property, but you cannot invoke any Activity methods.\n\nAfter the window or tab group opens, a real Activity object is created and the properties from\nthe JavaScript object are copied over. The `activity` property now refers to this real Activity object,\nwhich you can use to call the various Activity methods. For example, to use the\n`invalidateOptionsMenu` method, you need to get the activity after the window or tab group opens.\n\nSee also [android.app.Activity](https://developer.android.com/reference/android/app/Activity.html)\nin the Android API Reference.\n\n#### Activity Lifecycle\n\nIn Android, activities are created, started, resumed, paused, stopped, destroyed and restarted.\nTitanium generates lifecycle events for activities but does not generate application-level events.\nTo be notified when an activity's lifecycle event is triggered, assign callbacks to the following activity\nproperties:\n\n  * [onCreate](api:Titanium.Android.Activity#onCreate)\n  * [onStart](api:Titanium.Android.Activity#onStart)\n  * [onResume](api:Titanium.Android.Activity#onResume)\n  * [onPause](api:Titanium.Android.Activity#onPause)\n  * [onStop](api:Titanium.Android.Activity#onStop)\n  * [onDestroy](api:Titanium.Android.Activity#onDestroy)\n  * [onRestart](api:Titanium.Android.Activity#onRestart)\n\nSee also the \"Understand the Lifecycle Callbacks\" section in\n[Android Developers: Activity Lifecycle](https://developer.android.com/training/basics/activity-lifecycle/starting.html).\n\n#### Don't keep activities option\n\nAndroid 4.0 and greater devices have an option called **Don't keep activities** under the **Developer\nOptions** menu. When this option is enabled, the Android OS will destroy an activity as soon as it\nis stopped. It is intended to help developers debug their apps. For example, it can simulate the\ncase that Android will kill an activity in the background due to memory pressure. In\nnormal use, it is not recommended to turn this option on because this may lead to unexpected issues\non the apps, such as freezes, force closes and reboots.\n\nWhen the **Don't keep activities** option is enabled, the lifecycle of the activity is different\nfrom the normal case. Whenever the user leaves an activity, such as backgrounding the app using the\nHOME button, this activity is destroyed by Android, which calls `onDestroy`.  In the normal case, `onStop`\nwould be called and the activity would not be destroyed.  Later, when the user goes back to that activity, this\nactivity will be recreated, which calls `onCreate`.  In the normal case, since the activity is not destroyed,\n`onRestart` would be called instead.  Therefore, some events, such as the open and close events on the Window\nor TabGroup, will be fired differently from the normal case, and the root window of the app must set\n[exitOnClose](api:Titanium.UI.Window#exitOnClose) to true; otherwise, the app will be unable to back out, that is,\nhitting the BACK button in the root window will not allow the application to exit.\n\n#### Deprecated Behavior\n\nPrior to Release 8.0.0, you would set the below \"tiapp.xml\" property to `true` to handle the case\nwhere the Android OS would automatically close all child activity windows after the app has been backgrounded\nfor about 30 minutes, bringing the app back to the root splash screen activity window. The below property\nwould restart your app's UI in this case. This is no longer needed in 8.0.0 since Titanium now sets the\n\"AndroidManifest.xml\" setting\n[android:alwaysRetainTaskState](https://developer.android.com/guide/topics/manifest/activity-element#always)\nto the root activity instead\n\n``` xml\n<property name=\"ti.android.root.reappears.restart\" type=\"bool\">true</property>\n```\n\nPrior to Release 3.4.0, to monitor lifecycle events, use the activity's events, `create`, `destroy`,\n`pause`, `resume`, `start` and `stop`, to be notified when an activity is created, destroyed, paused,\nresumed, started and stopped, respectively.\n\nYou can only set Activity properties from a TabGroup object after the tab group opens.\n\nPrior to Release 3.2.0, you can create either a \"lightweight\" or \"heavyweight\" window, as\ndescribed on the [Titanium.UI.Window](api:Titanium.UI.Window) reference page. A *heavyweight* window creates a\nnew `Activity`. A *lightweight* window runs inside the same activity as the code that\ncreated it.  If you try to reference the activity of lightweight window, it returns undefined.\n",
+  "examples": [
+    {
+      "title": "Callback Example",
+      "code": "The following example shows how to start an activity and retrieve a result code\nand optional data intent when the activity ends.\n\n``` js\nactivity.startActivityForResult(intent, function(e) {\n    // The request code used to start this Activity\n    var requestCode = e.requestCode;\n    // The result code returned from the activity\n    // (https://developer.android.com/reference/android/app/Activity.html#StartingActivities)\n    var resultCode = e.resultCode;\n    // A Titanium.Android.Intent filled with data returned from the Activity\n    var intent = e.intent;\n    // The Activity the received the result\n    var source = e.source;\n});\n```\n"
+    }
+  ],
+  "properties": [
+    {
+      "name": "actionBar",
+      "platforms": [
+        "android"
+      ],
+      "summary": "The action bar for this activity.",
+      "description": "See also: [Action Bar](https://developer.android.com/guide/topics/ui/actionbar.html) in\nthe Android Developer Reference.\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.Android.ActionBar"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "intent",
+      "platforms": [
+        "android"
+      ],
+      "summary": "The last `Intent` received by this activity.",
+      "description": "Will initially be set to the intent that created/launched the activity. If this is the app's root activity,\nthen this intent will change when a \"newintent\" event has been fired.\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.Android.Intent"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "onCreate",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Callback function called when the Android activity is created.\n",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Callback",
+          "args": [
+            {
+              "kind": "type",
+              "name": "ActivityLifecycleCallbackObject"
+            }
+          ]
+        }
+      ],
+      "since": "3.4.0",
+      "inlined": {
+        "name": "ActivityLifecycleCallbackObject",
+        "summary": "Simple object passed to the [Titanium.Android.Activity](api:Titanium.Android.Activity) callbacks for\nonCreate, onDestroy, onPause, onResume, onStart, onStop, onRestart.\n\nAdditional properties may be set on the Object.\n",
+        "properties": [
+          {
+            "name": "source",
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
+            "summary": "The Activity firing the callback.",
+            "type": [
+              {
+                "kind": "type",
+                "name": "Titanium.Android.Activity"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "onCreateOptionsMenu",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Callback function called to initially create an Android options menu\nfor this Activity when the user presses the **Menu** button.\n",
+      "description": "See the menu examples in [Titanium.Android.Menu](api:Titanium.Android.Menu).\n\nSee also:\n[Creating an Options Menu](https://developer.android.com/guide/topics/ui/menus.html#options-menu)\nin the Android Developer's Guide.\n",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Callback",
+          "args": [
+            {
+              "kind": "type",
+              "name": "OptionsMenuCallbackObject"
+            }
+          ]
+        }
+      ],
+      "inlined": {
+        "name": "OptionsMenuCallbackObject",
+        "summary": "Simple object passed to the [Titanium.Android.Activity](api:Titanium.Android.Activity) callbacks for\nonPrepareOptionsMenu and onCreateOptionsMenu.\n\nAdditional properties may be set on the Object.\n",
+        "properties": [
+          {
+            "name": "menu",
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
+            "summary": "The relevant Menu.",
+            "type": [
+              {
+                "kind": "type",
+                "name": "Titanium.Android.Menu"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "onDestroy",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Callback function called when the Android activity is destroyed.\n",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Callback",
+          "args": [
+            {
+              "kind": "type",
+              "name": "ActivityLifecycleCallbackObject"
+            }
+          ]
+        }
+      ],
+      "since": "3.4.0",
+      "inlined": {
+        "name": "ActivityLifecycleCallbackObject",
+        "summary": "Simple object passed to the [Titanium.Android.Activity](api:Titanium.Android.Activity) callbacks for\nonCreate, onDestroy, onPause, onResume, onStart, onStop, onRestart.\n\nAdditional properties may be set on the Object.\n",
+        "properties": [
+          {
+            "name": "source",
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
+            "summary": "The Activity firing the callback.",
+            "type": [
+              {
+                "kind": "type",
+                "name": "Titanium.Android.Activity"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "onPause",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Callback function called when the Android activity is paused.\n",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Callback",
+          "args": [
+            {
+              "kind": "type",
+              "name": "ActivityLifecycleCallbackObject"
+            }
+          ]
+        }
+      ],
+      "since": "3.4.0",
+      "inlined": {
+        "name": "ActivityLifecycleCallbackObject",
+        "summary": "Simple object passed to the [Titanium.Android.Activity](api:Titanium.Android.Activity) callbacks for\nonCreate, onDestroy, onPause, onResume, onStart, onStop, onRestart.\n\nAdditional properties may be set on the Object.\n",
+        "properties": [
+          {
+            "name": "source",
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
+            "summary": "The Activity firing the callback.",
+            "type": [
+              {
+                "kind": "type",
+                "name": "Titanium.Android.Activity"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "onPrepareOptionsMenu",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Callback function called to prepare an options menu for display when the user presses\nthe **Menu** button.\n",
+      "description": "See the menu examples in [Titanium.Android.Menu](api:Titanium.Android.Menu).\n\nSee also:\n[Creating an Options Menu](https://developer.android.com/guide/topics/ui/menus.html#options-menu)\nin the Android Developer's Guide.\n",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Callback",
+          "args": [
+            {
+              "kind": "type",
+              "name": "OptionsMenuCallbackObject"
+            }
+          ]
+        }
+      ],
+      "inlined": {
+        "name": "OptionsMenuCallbackObject",
+        "summary": "Simple object passed to the [Titanium.Android.Activity](api:Titanium.Android.Activity) callbacks for\nonPrepareOptionsMenu and onCreateOptionsMenu.\n\nAdditional properties may be set on the Object.\n",
+        "properties": [
+          {
+            "name": "menu",
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
+            "summary": "The relevant Menu.",
+            "type": [
+              {
+                "kind": "type",
+                "name": "Titanium.Android.Menu"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "onRestart",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Callback function called when the Android activity is restarted.\n",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Callback",
+          "args": [
+            {
+              "kind": "type",
+              "name": "ActivityLifecycleCallbackObject"
+            }
+          ]
+        }
+      ],
+      "since": "3.4.0",
+      "inlined": {
+        "name": "ActivityLifecycleCallbackObject",
+        "summary": "Simple object passed to the [Titanium.Android.Activity](api:Titanium.Android.Activity) callbacks for\nonCreate, onDestroy, onPause, onResume, onStart, onStop, onRestart.\n\nAdditional properties may be set on the Object.\n",
+        "properties": [
+          {
+            "name": "source",
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
+            "summary": "The Activity firing the callback.",
+            "type": [
+              {
+                "kind": "type",
+                "name": "Titanium.Android.Activity"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "onResume",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Callback function called when the Android activity is resumed.\n",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Callback",
+          "args": [
+            {
+              "kind": "type",
+              "name": "ActivityLifecycleCallbackObject"
+            }
+          ]
+        }
+      ],
+      "since": "3.4.0",
+      "inlined": {
+        "name": "ActivityLifecycleCallbackObject",
+        "summary": "Simple object passed to the [Titanium.Android.Activity](api:Titanium.Android.Activity) callbacks for\nonCreate, onDestroy, onPause, onResume, onStart, onStop, onRestart.\n\nAdditional properties may be set on the Object.\n",
+        "properties": [
+          {
+            "name": "source",
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
+            "summary": "The Activity firing the callback.",
+            "type": [
+              {
+                "kind": "type",
+                "name": "Titanium.Android.Activity"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "onStart",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Callback function called when the Android activity is started.\n",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Callback",
+          "args": [
+            {
+              "kind": "type",
+              "name": "ActivityLifecycleCallbackObject"
+            }
+          ]
+        }
+      ],
+      "since": "3.4.0",
+      "inlined": {
+        "name": "ActivityLifecycleCallbackObject",
+        "summary": "Simple object passed to the [Titanium.Android.Activity](api:Titanium.Android.Activity) callbacks for\nonCreate, onDestroy, onPause, onResume, onStart, onStop, onRestart.\n\nAdditional properties may be set on the Object.\n",
+        "properties": [
+          {
+            "name": "source",
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
+            "summary": "The Activity firing the callback.",
+            "type": [
+              {
+                "kind": "type",
+                "name": "Titanium.Android.Activity"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "onStop",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Callback function called when the Android activity is stopped.\n",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Callback",
+          "args": [
+            {
+              "kind": "type",
+              "name": "ActivityLifecycleCallbackObject"
+            }
+          ]
+        }
+      ],
+      "since": "3.4.0",
+      "inlined": {
+        "name": "ActivityLifecycleCallbackObject",
+        "summary": "Simple object passed to the [Titanium.Android.Activity](api:Titanium.Android.Activity) callbacks for\nonCreate, onDestroy, onPause, onResume, onStart, onStop, onRestart.\n\nAdditional properties may be set on the Object.\n",
+        "properties": [
+          {
+            "name": "source",
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
+            "summary": "The Activity firing the callback.",
+            "type": [
+              {
+                "kind": "type",
+                "name": "Titanium.Android.Activity"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "requestedOrientation",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Specifies a specific orientation for this activity.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "write-only",
+      "constants": [
+        "Titanium.Android.SCREEN_ORIENTATION_BEHIND",
+        "Titanium.Android.SCREEN_ORIENTATION_LANDSCAPE",
+        "Titanium.Android.SCREEN_ORIENTATION_NOSENSOR",
+        "Titanium.Android.SCREEN_ORIENTATION_PORTRAIT",
+        "Titanium.Android.SCREEN_ORIENTATION_SENSOR",
+        "Titanium.Android.SCREEN_ORIENTATION_UNSPECIFIED",
+        "Titanium.Android.SCREEN_ORIENTATION_USER"
+      ]
+    },
+    {
+      "name": "supportToolbar",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Toolbar instance that serves as ActionBar",
+      "description": "This property is used to set a toolbar as an ActionBar prior to the actual activity creation.\nAfter the activity is created that must be done through the [setSupportActionBar()](api:Titanium.Android.Activity#setSupportActionBar) method.\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.UI.Toolbar"
+        }
+      ],
+      "since": "6.2.0"
+    }
+  ],
+  "methods": [
+    {
+      "name": "finish",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Closes this activity.",
+      "description": "See also:\n[finish](https://developer.android.com/reference/android/app/Activity.html#finish())\nin the Android API Reference.\n"
+    },
+    {
+      "name": "getString",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Gets an Android or Application string using the specified Resource ID and optional format arguments.",
+      "description": "If the optional format arguments are supplied, these are substituted for the\ncorresponding format specifiers in the string. For example, given the following\nstring resource:\n\n``` xml\n<string name=\"greeting\">\"Hello %1$s, this is %2$s.\"</string>\n```\n\nYou could call `getString` like this:\n\n``` js\nTi.Android.currentActivity.getString(Ti.App.Android.R.string.greeting,  \"Bob\", \"Doug\" );\n```\n\nThe resulting string is:\n\n```\n\"Hello Bob, this is Doug.\"\n```\n\nSee also:\n*   [getString](https://developer.android.com/reference/android/content/Context.html#getString(int))\n    in the Android Developer Reference\n*   [Formatter](https://developer.android.com/reference/java/util/Formatter.html)\n    in the Android Developer Reference\n*   [String Resources](https://developer.android.com/guide/topics/resources/string-resource.html#String)\n    in the Android Developer Guide\n",
+      "parameters": [
+        {
+          "name": "resourceId",
+          "summary": "Resource ID from the Application or Android.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "format",
+          "summary": "Optional format arguments for the String resource. May be repeated.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "any"
+            }
+          ],
+          "optional": true,
+          "repeatable": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "invalidateOptionsMenu",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Declares that the option menu has changed and should be recreated.",
+      "description": "This method needs to be used in Android 3.0 and above when changing menus at runtime.  See\n[changingTheMenu](https://developer.android.com/guide/topics/ui/menus.html#ChangingTheMenu) in\nthe Android API Reference for more details.\n",
+      "since": "3.0.0"
+    },
+    {
+      "name": "openOptionsMenu",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Programmatically opens the options menu.",
+      "description": "See also: [onMenuOpened](https://developer.android.com/reference/android/app/Activity.html#onMenuOpened(int, android.view.Menu))\nin the Android API Reference.\n",
+      "since": "3.0.0"
+    },
+    {
+      "name": "sendBroadcast",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Broadcast the passed in `Intent` to all `BroadcastReceiver`s.",
+      "since": "3.2.0",
+      "parameters": [
+        {
+          "name": "intent",
+          "summary": "Description of the broadcast.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Android.Intent"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "sendBroadcastWithPermission",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Broadcast the passed in `Intent` to all `BroadcastReceiver`s with an optional permission.",
+      "since": "3.2.0",
+      "parameters": [
+        {
+          "name": "intent",
+          "summary": "Description of the broadcast.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Android.Intent"
+            }
+          ]
+        },
+        {
+          "name": "receiverPermission",
+          "summary": "Name of the permission that the receiver should hold in order to receive the broadcast.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ],
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "setRequestedOrientation",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Sets the requested Activity orientation.",
+      "description": "See also:\n[setRequestedOrientation](https://developer.android.com/reference/android/app/Activity.html#setRequestedOrientation(int))\nin the Android API Reference.\n",
+      "deprecated": {
+        "since": "10.0.0",
+        "removed": "10.0.0",
+        "notes": "Use the <Titanium.Android.requestedOrientation> property instead"
+      },
+      "parameters": [
+        {
+          "name": "orientation",
+          "summary": "Orientation mode for the activity.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "setResult",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Sets the result of this activity using an `Intent`.",
+      "description": "This method should only be used by [Ti.Android.rootActivity](api:Titanium.Android#rootActivity) when launched\nby another app via [startActivityForResult](api:Titanium.Android.Activity#startActivityForResult). After calling\n`setResult()`, you are expected to call the root activity's [finish](api:Titanium.Android.Activity#finish)\nmethod afterwards to return the result to the calling app.\n\nSee Android's documentation for\n[setResult](https://developer.android.com/reference/android/app/Activity.html#setResult(int)).\n",
+      "parameters": [
+        {
+          "name": "resultCode",
+          "summary": "Result code for this activity.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "intent",
+          "summary": "An optional `Intent` with extra result data.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Android.Intent"
+            }
+          ],
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "setSupportActionBar",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Sets a toolbar instance to be used as an ActionBar.",
+      "description": "This method is used if you want to add a Toolbar as an ActionBar after the Activity has been created.\nIf you want to set it up before that [supportToolbar](api:Titanium.Android.Activity#supportToolbar) must be used.\n",
+      "since": "6.2.0",
+      "parameters": [
+        {
+          "name": "toolbar",
+          "summary": "Instance of a toolbar to be used as an ActionBar",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.Toolbar"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "startActivity",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Starts a new activity, using the passed in `Intent` as the description.",
+      "description": "See also: [startActivity](https://developer.android.com/reference/android/app/Activity.html#startActivity(android.content.Intent))\n    in the Android Developer Reference.\n",
+      "parameters": [
+        {
+          "name": "intent",
+          "summary": "Description of the activity to start.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Android.Intent"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "startActivityForResult",
+      "platforms": [
+        "android"
+      ],
+      "summary": "The same as `startActivity`, but also accepts a callback function for handling the result of the started Activity.",
+      "description": "See also:\n[startActivityForResult](https://developer.android.com/reference/android/app/Activity.html#startActivityForResult(android.content.Intent, int))\nin the Android Developer Reference.\n",
+      "parameters": [
+        {
+          "name": "intent",
+          "summary": "Description of the activity to start.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Android.Intent"
+            }
+          ]
+        },
+        {
+          "name": "callback",
+          "summary": "Callback function to be executed when the activity sets result. See\nexamples.\n",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Callback",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "ActivityResult"
+                }
+              ]
+            }
+          ],
+          "inlined": {
+            "name": "ActivityResult",
+            "summary": "Simple object passed to the\n[startActivityForResult](api:Titanium.Android.Activity#startActivityForResult) callback.\n",
+            "properties": [
+              {
+                "name": "intent",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Intent that can contain data returned to the caller. Data can be attached to\nthe intent as \"extras\").\n",
+                "type": [
+                  {
+                    "kind": "type",
+                    "name": "Titanium.Android.Intent"
+                  }
+                ]
+              },
+              {
+                "name": "requestCode",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Unique, automatically generated integer request code.\n",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ]
+              },
+              {
+                "name": "resultCode",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Integer result code that the started activity passed to\n[setResult](api:Titanium.Android.Activity#setResult).\n",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "newintent",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Fired when the activity is already running and an intent different than the one that launched it was received.\n",
+      "description": "This event will only be fired by [Ti.Android.rootActivity](api:Titanium.Android#rootActivity), which is\nthe splash screen activity. This event will never be fired by any of the child activities. The root\nactivity' [intent](api:Titanium.Android.Intent) property will be updated when to the new intent when fired.\n\nSee also:\n[onNewIntent](https://developer.android.com/reference/android/app/Activity.html#onNewIntent(android.content.Intent))\nin the Android Developer Reference.\n",
+      "since": "3.0.0",
+      "properties": [
+        {
+          "name": "intent",
+          "summary": "The `Intent` passed to the native `onNewIntent` method.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Android.Intent"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "onIntent",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Fired when the activity is launched.",
+      "since": "6.0.0",
+      "properties": [
+        {
+          "name": "intent",
+          "summary": "The `Intent` used to launch the Activity.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Android.Intent"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "userinteraction",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Called whenever a key, touch, or trackball event is dispatched to the activity.",
+      "description": "Implement this method if you wish to know that the user has interacted with the device in some\nway while your activity is running. This event and `userleavehint` are intended to help activities\nmanage status bar notifications intelligently; specifically, for helping activities determine the\nproper time to cancel a notfication.\n\nAll calls to your activity's \"userleavehint\" event will be accompanied by calls to \"userinteraction\".\nThis ensures that your activity will be told of relevant user activity such as pulling down the\nnotification pane and touching an item there.\n\nNote that this callback will be invoked for the touch down action that begins a touch gesture,\nbut may not be invoked for the touch-moved and touch-up actions that follow.\n\nSee also:\n[onUserInteraction](https://developer.android.com/reference/android/app/Activity.html#onUserInteraction())\nin the Android Developer Reference.\n",
+      "since": "7.5.0"
+    },
+    {
+      "name": "userleavehint",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Fired when the activity is about to go into the background as a result of user choice.",
+      "description": "See also:\n[onUserLeaveHint](https://developer.android.com/reference/android/app/Activity.html#onUserLeaveHint())\nin the Android Developer Reference.\n",
+      "since": "3.2.0"
+    }
+  ],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "lifecycleContainer",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      }
+    ],
+    "events": []
+  },
+  "references": [
+    "ActivityLifecycleCallbackObject",
+    "ActivityResult",
+    "OptionsMenuCallbackObject",
+    "Titanium.Android",
+    "Titanium.Android.ActionBar",
+    "Titanium.Android.Intent",
+    "Titanium.Android.Menu",
+    "Titanium.Proxy",
+    "Titanium.UI.Toolbar",
+    "Titanium.UI.Window"
+  ],
+  "source": "Titanium/Android/Activity.yml"
+}

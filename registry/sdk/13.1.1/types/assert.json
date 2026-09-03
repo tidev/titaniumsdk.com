@@ -1,0 +1,744 @@
+{
+  "schemaVersion": 1,
+  "name": "assert",
+  "kind": "pseudo",
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
+  "since": "8.1.0",
+  "summary": "A Node.js-compatible implementation of the core `assert` module",
+  "description": "Titanium provides a number of shims and ports of core Node.js module functionality.\n\nThis module is intended to provide a Node-compatible port of the `assert` core module.\n\nMore details on the Node.js API can be found in their [assert module documentation](https://nodejs.org/api/assert.html)\n\n**Note:** The `assert` module can also be invoked as a function and is equivalent to calling the [assert.ok](api:assert#ok) method:\n\n``` javascript\n  const assert = require('assert');\n  assert(value, 'message'); // equivalent to assert.ok(value, 'message')\n```\n",
+  "properties": [
+    {
+      "name": "AssertionError",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "extension of `Error`",
+      "type": [
+        {
+          "kind": "type",
+          "name": "assert.AssertionError"
+        }
+      ]
+    },
+    {
+      "name": "strict",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "an alias of `assert` that enforces strict version of comparison methods",
+      "type": [
+        {
+          "kind": "type",
+          "name": "assert.strict"
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "deepEqual",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Tests for deep equality between the `actual` and `expected` parameters.\nConsider using `assert.deepStrictEqual()` instead.\n`assert.deepEqual()` can have surprising results.\n",
+      "parameters": [
+        {
+          "name": "actual",
+          "summary": "The actual value",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "any"
+            }
+          ]
+        },
+        {
+          "name": "expected",
+          "summary": "The expected value",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "any"
+            }
+          ]
+        },
+        {
+          "name": "message",
+          "summary": "error message",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            },
+            {
+              "kind": "primitive",
+              "name": "Error"
+            }
+          ],
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "deepStrictEqual",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Tests for deep equality between the `actual` and `expected` parameters.\n\"Deep\" equality means that the enumerable \"own\" properties of child objects are recursively evaluated also by the following rules.\n",
+      "parameters": [
+        {
+          "name": "actual",
+          "summary": "The actual value",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "any"
+            }
+          ]
+        },
+        {
+          "name": "expected",
+          "summary": "The expected value",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "any"
+            }
+          ]
+        },
+        {
+          "name": "message",
+          "summary": "error message",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            },
+            {
+              "kind": "primitive",
+              "name": "Error"
+            }
+          ],
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "doesNotReject",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Awaits the `asyncFn` promise or, if `asyncFn` is a function, immediately calls the function and awaits the returned promise to complete. It will then check that the promise is not rejected.\n\nIf `asyncFn` is a function and it throws an error synchronously, `assert.doesNotReject()` will return a rejected `Promise` with that error. If the function does not return a promise, `assert.doesNotReject()` will return a rejected `Promise` with an `ERR_INVALID_RETURN_VALUE` error. In both cases the error handler is skipped.\n\nUsing `assert.doesNotReject()` is actually not useful because there is little benefit in catching a rejection and then rejecting it again. Instead, consider adding a comment next to the specific code path that should not reject and keep error messages as expressive as possible.\n\nIf specified, `error` can be a `Class`, `RegExp` or a validation function. See `assert.throws()` for more details.\n\nBesides the async nature to await the completion behaves identically to `assert.doesNotThrow()`.\n",
+      "parameters": [
+        {
+          "name": "asyncFn",
+          "summary": "function to invoke",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Function"
+            },
+            {
+              "kind": "generic",
+              "name": "Promise",
+              "args": [
+                {
+                  "kind": "primitive",
+                  "name": "Object"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "error",
+          "summary": "The expected `Error` type (class or name)",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "RegExp"
+            },
+            {
+              "kind": "primitive",
+              "name": "Function"
+            }
+          ],
+          "optional": true
+        },
+        {
+          "name": "message",
+          "summary": "error message",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ],
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "doesNotThrow",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Asserts that the function `fn` does not throw an `error`.\n\nUsing `assert.doesNotThrow()` is actually not useful because there is no benefit in catching an error and then rethrowing it. Instead, consider adding a comment next to the specific code path that should not throw and keep error messages as expressive as possible.\n\nWhen `assert.doesNotThrow()` is called, it will immediately call the `fn` function.\n\nIf an error is thrown and it is the same type as that specified by the `error` parameter, then an `AssertionError` is thrown. If the error is of a different type, or if the error parameter is undefined, the error is propagated back to the caller.\n\nIf specified, `error` can be a Class, RegExp or a validation function. See `assert.throws()` for more details.\n",
+      "parameters": [
+        {
+          "name": "fn",
+          "summary": "function to invoke",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Function"
+            }
+          ]
+        },
+        {
+          "name": "error",
+          "summary": "The expected `Error` type (class or name)",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "RegExp"
+            },
+            {
+              "kind": "primitive",
+              "name": "Function"
+            }
+          ],
+          "optional": true
+        },
+        {
+          "name": "message",
+          "summary": "error message",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ],
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "equal",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Tests shallow, coercive equality between the actual and expected parameters using the Abstract Equality Comparison (`==`).\n`NaN` is special handled and treated as being identical in case both sides are `NaN`.\n",
+      "parameters": [
+        {
+          "name": "actual",
+          "summary": "The actual value",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "any"
+            }
+          ]
+        },
+        {
+          "name": "expected",
+          "summary": "The expected value",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "any"
+            }
+          ]
+        },
+        {
+          "name": "message",
+          "summary": "error message",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            },
+            {
+              "kind": "primitive",
+              "name": "Error"
+            }
+          ],
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "fail",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Throws an `AssertionError` with the provided error message or a default error message.\nIf the `message` parameter is an instance of an `Error` then it will be thrown instead of the `AssertionError`.\n",
+      "parameters": [
+        {
+          "name": "message",
+          "summary": "error message",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            },
+            {
+              "kind": "primitive",
+              "name": "Error"
+            }
+          ],
+          "optional": true,
+          "default": "Failed"
+        }
+      ]
+    },
+    {
+      "name": "ifError",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Throws `value` if `value` is not `undefined` or `null`.\nThis is useful when testing the error argument in callbacks.\nThe stack trace contains all frames from the error passed to `ifError()` including the potential new frames for `ifError()` itself.\n",
+      "parameters": [
+        {
+          "name": "value",
+          "summary": "potentially thrown value/object",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "any"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "notDeepEqual",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Tests for any deep inequality. Opposite of `assert.deepEqual()`.\n",
+      "parameters": [
+        {
+          "name": "actual",
+          "summary": "The actual value",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "any"
+            }
+          ]
+        },
+        {
+          "name": "expected",
+          "summary": "The expected value",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "any"
+            }
+          ]
+        },
+        {
+          "name": "message",
+          "summary": "error message",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            },
+            {
+              "kind": "primitive",
+              "name": "Error"
+            }
+          ],
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "notDeepStrictEqual",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Tests for deep strict inequality. Opposite of `assert.deepStrictEqual()`.\n",
+      "parameters": [
+        {
+          "name": "actual",
+          "summary": "The actual value",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "any"
+            }
+          ]
+        },
+        {
+          "name": "expected",
+          "summary": "The expected value",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "any"
+            }
+          ]
+        },
+        {
+          "name": "message",
+          "summary": "error message",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            },
+            {
+              "kind": "primitive",
+              "name": "Error"
+            }
+          ],
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "notEqual",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Tests shallow, coercive inequality with the Abstract Equality Comparison (`!=`).\n`NaN` is special handled and treated as being identical in case both sides are `NaN`.\n",
+      "parameters": [
+        {
+          "name": "actual",
+          "summary": "The actual value",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "any"
+            }
+          ]
+        },
+        {
+          "name": "expected",
+          "summary": "The expected value",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "any"
+            }
+          ]
+        },
+        {
+          "name": "message",
+          "summary": "error message",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            },
+            {
+              "kind": "primitive",
+              "name": "Error"
+            }
+          ],
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "notStrictEqual",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Tests strict inequality between the actual and expected parameters as determined by the [SameValue Comparison](https://tc39.github.io/ecma262/#sec-samevalue).\n",
+      "parameters": [
+        {
+          "name": "actual",
+          "summary": "The actual value",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "any"
+            }
+          ]
+        },
+        {
+          "name": "expected",
+          "summary": "The expected value",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "any"
+            }
+          ]
+        },
+        {
+          "name": "message",
+          "summary": "error message",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            },
+            {
+              "kind": "primitive",
+              "name": "Error"
+            }
+          ],
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "ok",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Tests if `value` is truthy. It is equivalent to `assert.equal(!!value, true, message)`.\n\nIf `value` is not truthy, an `AssertionError` is thrown with a message property set equal to the value of the `message` parameter.\nIf the `message` parameter is `undefined`, a default error message is assigned.\nIf the `message` parameter is an instance of an `Error` then it will be thrown instead of the `AssertionError`.\nIf no arguments are passed in at all message will be set to the string: `'No value argument passed to \\`assert.ok()\\`'`.\n",
+      "parameters": [
+        {
+          "name": "value",
+          "summary": "The input that is checked for being truthy.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "any"
+            }
+          ]
+        },
+        {
+          "name": "message",
+          "summary": "error message",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            },
+            {
+              "kind": "primitive",
+              "name": "Error"
+            }
+          ],
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "rejects",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Awaits the `asyncFn` promise or, if `asyncFn` is a function, immediately calls the function and awaits the returned promise to complete. It will then check that the promise is rejected.\n\nIf `asyncFn` is a function and it throws an error synchronously, `assert.rejects()` will return a rejected `Promise` with that error. If the function does not return a promise, `assert.rejects()` will return a rejected `Promise` with an `ERR_INVALID_RETURN_VALUE` error. In both cases the error handler is skipped.\n\nBesides the async nature to await the completion behaves identically to `assert.throws()`.\n\nIf specified, `error` can be a `Class`, `RegExp`, a validation function, an object where each property will be tested for, or an instance of error where each property will be tested for including the non-enumerable `message` and `name` properties.\n\nIf specified, `message` will be the message provided by the `AssertionError` if the `asyncFn` fails to reject.\n",
+      "parameters": [
+        {
+          "name": "asyncFn",
+          "summary": "function to invoke",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Function"
+            },
+            {
+              "kind": "generic",
+              "name": "Promise",
+              "args": [
+                {
+                  "kind": "primitive",
+                  "name": "any"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "error",
+          "summary": "The expected `Error` type (class or name)",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "RegExp"
+            },
+            {
+              "kind": "primitive",
+              "name": "Function"
+            },
+            {
+              "kind": "primitive",
+              "name": "Object"
+            },
+            {
+              "kind": "primitive",
+              "name": "Error"
+            }
+          ],
+          "optional": true
+        },
+        {
+          "name": "message",
+          "summary": "error message",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ],
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "strictEqual",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Tests strict equality between the actual and expected parameters as determined by the [SameValue Comparison](https://tc39.github.io/ecma262/#sec-samevalue).\n",
+      "parameters": [
+        {
+          "name": "actual",
+          "summary": "The actual value",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "any"
+            }
+          ]
+        },
+        {
+          "name": "expected",
+          "summary": "The expected value",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "any"
+            }
+          ]
+        },
+        {
+          "name": "message",
+          "summary": "error message",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            },
+            {
+              "kind": "primitive",
+              "name": "Error"
+            }
+          ],
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "throws",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Expects the function `fn` to throw an error.\n\nIf specified, `error` can be a `Class`, `RegExp`, a validation function, a validation object where each property will be tested for strict deep equality, or an instance of error where each property will be tested for strict deep equality including the non-enumerable `message` and `name` properties.\nWhen using an object, it is also possible to use a regular expression, when validating against a string property. See below for examples.\n\nIf specified, `message` will be appended to the message provided by the AssertionError if the fn call fails to throw or in case the error validation fails.\n",
+      "parameters": [
+        {
+          "name": "fn",
+          "summary": "function to invoke",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Function"
+            }
+          ]
+        },
+        {
+          "name": "error",
+          "summary": "The expected `Error` type (class or name)",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "RegExp"
+            },
+            {
+              "kind": "primitive",
+              "name": "Function"
+            }
+          ],
+          "optional": true
+        },
+        {
+          "name": "message",
+          "summary": "error message",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ],
+          "optional": true
+        }
+      ]
+    }
+  ],
+  "events": [],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "references": [
+    "assert.AssertionError",
+    "assert.strict"
+  ],
+  "source": "NodeJS/assert.yml"
+}

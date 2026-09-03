@@ -1,0 +1,1037 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.XML.Document",
+  "kind": "proxy",
+  "extends": "Titanium.XML.Node",
+  "inheritanceChain": [
+    "Titanium.XML.Node",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
+  "since": {
+    "android": "0.9",
+    "iphone": "0.9",
+    "ipad": "0.9",
+    "macos": "9.2.0"
+  },
+  "summary": "The DOM Document returned from [Titanium.XML.parseString](api:Titanium.XML#parseString).",
+  "description": "Implements the [DOM Level 2 API](https://www.w3.org/TR/DOM-Level-2-Core/core.html#i-Document) on\nAndroid and iOS.\n\nAs of version 3.1, Android does not truly support DTDs.  A document with a DTD can be\nparsed, however it is not validated, its default attributes are not be automatically\nadded into the DOM tree, and so on.\n\nThis has been reported as [Android Issue #7395](http://code.google.com/p/android/issues/detail?id=7395).\n",
+  "properties": [
+    {
+      "name": "doctype",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "An interface to the list of entities that are defined for the document, such as via a Document Type Definition (DTD).",
+      "description": "See note about Android and DTDs.\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.XML.DocumentType"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "documentElement",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Root element of this document.",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.XML.Element"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "implementation",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "[DOMImplementation](api:Titanium.XML.DOMImplementation) object associated with this\ndocument.\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.XML.DOMImplementation"
+        }
+      ],
+      "permission": "read-only"
+    }
+  ],
+  "methods": [
+    {
+      "name": "createAttribute",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Creates an attribute with the given name.",
+      "parameters": [
+        {
+          "name": "name",
+          "summary": "Name for the new attribute.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.XML.Attr"
+            }
+          ],
+          "summary": "Attribute object, ready to be added to an element."
+        }
+      ]
+    },
+    {
+      "name": "createAttributeNS",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Creates an attribute with the given name and namespace.",
+      "parameters": [
+        {
+          "name": "namespaceURI",
+          "summary": "Namespace URI for the new attribute.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "name",
+          "summary": "Qualified name for the new attribute (can include a prefix).",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.XML.Attr"
+            }
+          ],
+          "summary": "Attribute object, ready to be added to an element."
+        }
+      ]
+    },
+    {
+      "name": "createCDATASection",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Creates and returns a [CDATASection](api:Titanium.XML.CDATASection).",
+      "parameters": [
+        {
+          "name": "data",
+          "summary": "String data to go into the CDATA section.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.XML.CDATASection"
+            }
+          ],
+          "summary": "CDATA section with the given data, ready to be added to an element."
+        }
+      ]
+    },
+    {
+      "name": "createComment",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Creates a [Comment](api:Titanium.XML.Comment) with the supplied string data.",
+      "parameters": [
+        {
+          "name": "data",
+          "summary": "Comment text.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.XML.Comment"
+            }
+          ],
+          "summary": "Comment object, ready to be appended to the DOM tree."
+        }
+      ]
+    },
+    {
+      "name": "createDocumentFragment",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Creates an empty [DocumentFragment](api:Titanium.XML.DocumentFragment).",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.XML.DocumentFragment"
+            }
+          ],
+          "summary": "The empty [Titanium.XML.DocumentFragment](api:Titanium.XML.DocumentFragment)."
+        }
+      ]
+    },
+    {
+      "name": "createElement",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Creates an element with the given tag name.",
+      "parameters": [
+        {
+          "name": "tagName",
+          "summary": "Name for the created element.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.XML.Element"
+            }
+          ],
+          "summary": "Newly created element."
+        }
+      ]
+    },
+    {
+      "name": "createElementNS",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Create a new element with the given namespace and name.",
+      "parameters": [
+        {
+          "name": "namespaceURI",
+          "summary": "URI for the namespace the new element belongs to.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "name",
+          "summary": "Qualified for the new element (can include a prefix).",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.XML.Element"
+            }
+          ],
+          "summary": "New namespace-qualified element."
+        }
+      ]
+    },
+    {
+      "name": "createEntityReference",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Creates an [EntityReference](api:Titanium.XML.EntityReference) with the given name.",
+      "parameters": [
+        {
+          "name": "name",
+          "summary": "Name for the new entity reference.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.XML.EntityReference"
+            }
+          ],
+          "summary": "Newly-created entity reference."
+        }
+      ]
+    },
+    {
+      "name": "createProcessingInstruction",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Creates a processing instruction for inserting into the DOM tree.",
+      "parameters": [
+        {
+          "name": "target",
+          "summary": "Target part for the processing instruction.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "data",
+          "summary": "Data for the processing instruction node.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.XML.ProcessingInstruction"
+            }
+          ],
+          "summary": "New processing instruction."
+        }
+      ]
+    },
+    {
+      "name": "createTextNode",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Creates a text node.",
+      "parameters": [
+        {
+          "name": "data",
+          "summary": "The string value for the text node.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.XML.Text"
+            }
+          ],
+          "summary": "Newly-created text node."
+        }
+      ]
+    },
+    {
+      "name": "getElementById",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Returns an [Element](api:Titanium.XML.Element) that has an ID attribute with the given value.",
+      "parameters": [
+        {
+          "name": "elementId",
+          "summary": "A unique ID value for an element to search for.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.XML.Element"
+            }
+          ],
+          "summary": "The Element matching the given ID, if any."
+        }
+      ]
+    },
+    {
+      "name": "getElementsByTagName",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Returns a node list of elements in the document which have the given tag.",
+      "parameters": [
+        {
+          "name": "tagname",
+          "summary": "Tag name to search for.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.XML.NodeList"
+            }
+          ],
+          "summary": "List of elements in the document which have the given tag name."
+        }
+      ]
+    },
+    {
+      "name": "getElementsByTagNameNS",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Returns a node list of elements in the document which belong to the given namespace and have the given tag name.",
+      "parameters": [
+        {
+          "name": "namespaceURI",
+          "summary": "Namespace URI used for matching elements.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "localname",
+          "summary": "Tag name to search for.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.XML.NodeList"
+            }
+          ],
+          "summary": "List of elements in the document which belong to the given namespace and have the given tag name."
+        }
+      ]
+    },
+    {
+      "name": "importNode",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Imports a node from another document to this document,\nwithout altering or removing the source node from the original document.\n",
+      "description": "This method creates a new copy of the source node, ready to be inserted into\nthis document.  The returned node has an [ownerDocument](api:Titanium.XML.Node#ownerDocument)\nproperty that points to this document, but its [parentNode](api:Titanium.XML.Node#parentNode)\nproperty is `null`, since it has not been inserted into the current document.\n\nFor more on node ownership, see [ownerDocument issues](https://www.w3.org/DOM/faq.html#ownerdoc)\nin the W3C DOM FAQ.\n",
+      "parameters": [
+        {
+          "name": "importedNode",
+          "summary": "Node to import.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.XML.Node"
+            }
+          ]
+        },
+        {
+          "name": "deep",
+          "summary": "If true, recursively import the subtree under the specified node; if false, import only the node itself.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.XML.Node"
+            }
+          ],
+          "summary": "Imported node that belongs now to this document."
+        }
+      ]
+    }
+  ],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "ATTRIBUTE_NODE",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "attributes",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "CDATA_SECTION_NODE",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "childNodes",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "COMMENT_NODE",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "DOCUMENT_FRAGMENT_NODE",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "DOCUMENT_NODE",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "DOCUMENT_TYPE_NODE",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "ELEMENT_NODE",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "ENTITY_NODE",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "ENTITY_REFERENCE_NODE",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "firstChild",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "lastChild",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "lifecycleContainer",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "localName",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "namespaceURI",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "nextSibling",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "nodeName",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "nodeType",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "nodeValue",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "NOTATION_NODE",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "ownerDocument",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "parentNode",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "prefix",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "previousSibling",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "PROCESSING_INSTRUCTION_NODE",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "text",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "TEXT_NODE",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "textContent",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "appendChild",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "cloneNode",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "hasAttributes",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "hasChildNodes",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "insertBefore",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "isSupported",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "normalize",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "removeChild",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "replaceChild",
+        "from": "Titanium.XML.Node",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      }
+    ],
+    "events": []
+  },
+  "references": [
+    "Titanium.XML",
+    "Titanium.XML.Attr",
+    "Titanium.XML.CDATASection",
+    "Titanium.XML.Comment",
+    "Titanium.XML.DOMImplementation",
+    "Titanium.XML.DocumentFragment",
+    "Titanium.XML.DocumentType",
+    "Titanium.XML.Element",
+    "Titanium.XML.EntityReference",
+    "Titanium.XML.Node",
+    "Titanium.XML.NodeList",
+    "Titanium.XML.ProcessingInstruction",
+    "Titanium.XML.Text"
+  ],
+  "source": "Titanium/XML/Document.yml"
+}

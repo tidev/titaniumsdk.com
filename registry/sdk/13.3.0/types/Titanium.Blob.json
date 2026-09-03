@@ -1,0 +1,702 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.Blob",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
+  "since": {
+    "iphone": "0.9",
+    "ipad": "0.9",
+    "android": "0.9",
+    "macos": "9.2.0"
+  },
+  "summary": "A container for binary data.",
+  "description": "A `Blob` represents a chunk of binary information, often obtained through\nan [HTTPClient](api:Titanium.Network.HTTPClient) or by reading a [File](api:Titanium.Filesystem.File).\n\nBlobs are often used to store text or image data.\nThe `Blob` object includes a number of properties and methods specific to image blobs.\n\nAndroid supports an [append](api:Titanium.Blob#append) method, but\notherwise blobs are immutable.\n\nThe [Titanium.Utils](api:Titanium.Utils) module provides several utility methods for working with\nblobs, including methods for converting between blobs and Base64-encoded strings,\nand methods for generating SHA-1 and SHA-256 hashes and MD5 digests from blob data.\n\nThe [Buffer](api:Titanium.Buffer) object can also contain binary data, and is\nmore easily mutable. Extracting blob data to a buffer is somewhat roundabout:\n\n``` js\nvar blobStream = Ti.Stream.createStream({ source: myBlob, mode: Ti.Stream.MODE_READ });\nvar newBuffer = Ti.createBuffer({ length: myBlob.length });\nvar bytes = blobStream.read(newBuffer);\n```\n\nCreating a blob from a buffer is much easier:\n``` js\nvar newBlob = myBuffer.toBlob();\n```\n\nIn both cases, the conversion involves copying the data from one object to another, so\nyou should be conscious of the amount of the data being copied.\n",
+  "properties": [
+    {
+      "name": "file",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "File object represented by this blob, or `null` if this blob is not\nassociated with a file.\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.Filesystem.File"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "height",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "If this blob represents an image, this is the height of the image in pixels.",
+      "description": "If this blob doesn't represent an image, `height` is reported as 0.\n\n**NOTE 1**: On SDK versions prior to 9.1.0, Ti.Blob images may have reported in points, not pixels.\nThis would occur for images with a higher density/scale returned by [Titanium.UI.View.toImage](api:Titanium.UI.View#toImage) or images with `@dx` density suffixes.\nYou may multiply by [Titanium.Platform.DisplayCaps.logicalDensityFactor](api:Titanium.Platform.DisplayCaps#logicalDensityFactor) to try and determine the pixels, but this value may be off for some pixel/density combinations.\n(e.g. a `10px` image would report as `3` on a `3x` density screen, so multiplying would give you `9` pixels, which is still incorrect)\n\n**NOTE 2**: This represents the height the platform decodes the image to in memory. iOS will automatically\nrotate a JPEG based on its EXIF orientation when loaded into memory, but Android does not and instead\nrotates it when shown on-screen. You can read the [uprightHeight](api:Titanium.Blob#uprightHeight) to determine\nwhat the image height will be after rotation, if applicable.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "length",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Length of this blob in bytes.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "mimeType",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Mime type of the data in this blob.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "nativePath",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "If this blob represents a [File](api:Titanium.Filesystem.File), this is the file URL\nthat represents it.\n",
+      "description": "If this blob doesn't represent a file, the value of `nativePath` is `null`.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "rotation",
+      "platforms": [
+        "android"
+      ],
+      "summary": "EXIF rotation of the image if available. Can be `undefined` if no orientation was found.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": {
+        "android": "12.3.0"
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "size",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Size of the blob in pixels (for image blobs) or bytes (for all other blobs).\n",
+      "description": "If this blob represents an image, this is the total number of pixels in the image.\nOtherwise it returns the number of bytes in the binary data.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": {
+        "android": "7.2.0",
+        "iphone": "0.9.0",
+        "ipad": "0.9.0",
+        "macos": "9.2.0"
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "text",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "UTF-8 string representation of the data in this blob.",
+      "description": "If this blob represents pure binary data, the value will be `null`.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "uprightHeight",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "If the blob references an image, this provides the height in pixels after factoring in EXIF orientation.",
+      "description": "The height of the image in pixels after rotating/flipping it based on its EXIF orientation,\nwhich is commonly the case with JPEGs. Will return the save value as the [height](api:Titanium.Blob#height)\nproperty if image does not have an EXIF orientation or if the orientation is already upright.\n\nOn iOS, properties [height](api:Titanium.Blob#height) and [uprightHeight](api:Titanium.Blob#uprightHeight) will always match.\nOn Android, these properties may differ when loading a JPEG since this platform does not automatically\nrotate the loaded image in memory, but it is rotated when displaying it on-screen.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "9.2.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "uprightWidth",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "If the blob references an image, this provides the width in pixels after factoring in EXIF orientation.",
+      "description": "The width of the image in pixels after rotating/flipping it based on its EXIF orientation,\nwhich is commonly the case with JPEGs. Will return the save value as the [width](api:Titanium.Blob#width)\nproperty if image does not have an EXIF orientation or if the orientation is already upright.\n\nOn iOS, properties [width](api:Titanium.Blob#width) and [uprightWidth](api:Titanium.Blob#uprightWidth) will always match.\nOn Android, these properties may differ when loading a JPEG since this platform does not automatically\nrotate the loaded image in memory, but it is rotated when displaying it on-screen.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "9.2.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "width",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "If this blob represents an image, this is the width of the image in pixels.",
+      "description": "If this blob doesn't represent an image, `width` is reported as 0.\n\n**NOTE 1**: On SDK versions prior to 9.1.0, Ti.Blob images may have reported in points, not pixels.\nThis would occur for images with a higher density/scale returned by [Titanium.UI.View.toImage](api:Titanium.UI.View#toImage) or images with `@dx` density suffixes.\nYou may multiply by [Titanium.Platform.DisplayCaps.logicalDensityFactor](api:Titanium.Platform.DisplayCaps#logicalDensityFactor) to try and determine the pixels, but this value may be off for some pixel/density combinations.\n(e.g. a `10px` image would report as `3` on a `3x` density screen, so multiplying would give you `9` pixels, which is still incorrect)\n\n**NOTE 2**: This represents the width the platform decodes the image to in memory. iOS will automatically\nrotate a JPEG based on its EXIF orientation when loaded into memory, but Android does not and instead\nrotates it when shown on-screen. You can read the [uprightWidth](api:Titanium.Blob#uprightWidth) to determine\nwhat the image width will be after rotation, if applicable.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    }
+  ],
+  "methods": [
+    {
+      "name": "append",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Appends the data from another blob to this blob.",
+      "parameters": [
+        {
+          "name": "blob",
+          "summary": "Blob to append to this blob.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Blob"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "arrayBuffer",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Returns a `Promise` that resolves with the contents of the blob as binary data contained in an `ArrayBuffer`.",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Promise",
+              "args": [
+                {
+                  "kind": "primitive",
+                  "name": "ArrayBuffer"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "imageAsCompressed",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Creates a new blob by compressing the underlying image to the specified quality.",
+      "description": "Returns the compressed image as a blob.\n\nIf this blob doesn't represent an image, returns `null`.\n",
+      "since": {
+        "iphone": "6.1.0",
+        "ipad": "6.1.0",
+        "android": "6.1.0",
+        "macos": "9.2.0"
+      },
+      "parameters": [
+        {
+          "name": "quality",
+          "summary": "Quality to compress this image to. From 0.0 (lowest quality) to 1.0 (highest quality).",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Blob"
+            }
+          ],
+          "summary": "Compressed image as a blob."
+        }
+      ]
+    },
+    {
+      "name": "imageAsCropped",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Creates a new blob by cropping the underlying image to the specified dimensions.",
+      "description": "Returns the cropped image as a blob.\n\nIf this blob doesn't represent an image, returns `null`.\n",
+      "since": {
+        "android": "3.0.0",
+        "macos": "9.2.0"
+      },
+      "parameters": [
+        {
+          "name": "options",
+          "summary": "Image cropping options. [Dimension](api:Dimension) properties are all optional for this use case.\n\nDefaults will be to use the current image's `height`/`width` and to center the cropped rectangle horizontally/vertically on the original image (`x`/`y`).\n",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Dimension"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Blob"
+            }
+          ],
+          "summary": "Cropped image as a blob."
+        }
+      ]
+    },
+    {
+      "name": "imageAsResized",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Creates a new blob by resizing and scaling the underlying image to the specified dimensions.",
+      "description": "Returns the resized image as a blob.\n\nIf this blob doesn't represent an image, returns `null`.\n",
+      "since": {
+        "android": "3.0.0",
+        "macos": "9.2.0"
+      },
+      "parameters": [
+        {
+          "name": "width",
+          "summary": "Width to resize this image to.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "height",
+          "summary": "Height to resize this image to.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Blob"
+            }
+          ],
+          "summary": "Resized image as a blob."
+        }
+      ]
+    },
+    {
+      "name": "imageAsThumbnail",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Returns a thumbnail version of the underlying image, optionally with a border and rounded corners.",
+      "description": "Returns the thumbnail image as a blob.\n\nIf this blob doesn't represent an image, returns `null`.\n\nThe final height/width of the image will actually be `size + (2 * borderSize)` as the border is added around the image.\nBy default the `borderSize` is `1`.\n",
+      "since": {
+        "android": "3.0.0",
+        "macos": "9.2.0"
+      },
+      "parameters": [
+        {
+          "name": "size",
+          "summary": "Size of the thumbnail, in either width or height.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "borderSize",
+          "summary": "Width of the thumbnail's border.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "optional": true,
+          "default": "1"
+        },
+        {
+          "name": "cornerRadius",
+          "summary": "Radius of the thumbnail's corners.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "optional": true,
+          "default": "0"
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Blob"
+            }
+          ],
+          "summary": "The image thumbnail in a blob."
+        }
+      ]
+    },
+    {
+      "name": "imageWithAlpha",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Returns a copy of the underlying image with an added alpha channel.",
+      "description": "Returns the new image as a blob, or `null` if this blob is not an image.\n",
+      "since": {
+        "android": "3.0.0",
+        "macos": "9.2.0"
+      },
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Blob"
+            }
+          ],
+          "summary": "The image with an alpha channel in a blob, or `null` if this blob is not an image."
+        }
+      ]
+    },
+    {
+      "name": "imageWithRoundedCorner",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Returns a copy of the underlying image with rounded corners added.",
+      "description": "Returns the new image as a blob, or `null` if this blob is not an image.\nThe image will grow in height and width by `(2 * borderSize)` as the border is added around the image to avoid scaling.\nBy default the `borderSize` is `1`.\n",
+      "since": {
+        "android": "3.0.0",
+        "macos": "9.2.0"
+      },
+      "parameters": [
+        {
+          "name": "cornerSize",
+          "summary": "Size of the rounded corners in pixels.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "borderSize",
+          "summary": "Width of the border in pixels.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ],
+          "optional": true,
+          "default": "1"
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Blob"
+            }
+          ],
+          "summary": "Image with a rounded corner in a blob, or `null` if this blob is not an image."
+        }
+      ]
+    },
+    {
+      "name": "imageWithTransparentBorder",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Returns a copy of the underlying image with an added transparent border.",
+      "description": "Returns the new image as a blob, or `null` if this blob is not an image.\nThe image will grow in height and width by `(2 * borderSize)` as the border is added around the image to avoid scaling.\n",
+      "since": {
+        "android": "3.0.0",
+        "macos": "9.2.0"
+      },
+      "parameters": [
+        {
+          "name": "size",
+          "summary": "Width of the transparent border in pixels.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Blob"
+            }
+          ],
+          "summary": "The image with a transparent border in a blob, or `null` if this blob is not an image."
+        }
+      ]
+    },
+    {
+      "name": "toArrayBuffer",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Returns an `ArrayBuffer` representation of this blob.",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "ArrayBuffer"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "toString",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Returns a string representation of this blob.",
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "lifecycleContainer",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      }
+    ],
+    "events": []
+  },
+  "references": [
+    "Dimension",
+    "Titanium.Buffer",
+    "Titanium.Filesystem.File",
+    "Titanium.Network.HTTPClient",
+    "Titanium.Platform.DisplayCaps",
+    "Titanium.Proxy",
+    "Titanium.UI.View",
+    "Titanium.Utils"
+  ],
+  "source": "Titanium/Blob.yml"
+}

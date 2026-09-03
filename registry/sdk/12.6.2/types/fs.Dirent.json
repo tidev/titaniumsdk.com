@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "name": "fs.Dirent",
+  "kind": "pseudo",
+  "platforms": [],
+  "summary": "A representation of a directory entry, which can be a file or a subdirectory within the directory, as returned by reading from an <fs.Dir>.\nThe directory entry is a combination of the file name and file type pairs.\n\n**NOTE:** Titanium does not currently implement this type.\n",
+  "properties": [],
+  "methods": [],
+  "events": [],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "source": "NodeJS/fs.yml"
+}

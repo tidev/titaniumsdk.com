@@ -1,0 +1,98 @@
+{
+  "schemaVersion": 1,
+  "name": "titleAttributesParams",
+  "kind": "pseudo",
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
+  "since": {
+    "android": "12.3.0",
+    "iphone": "3.2.0",
+    "ipad": "3.2.0",
+    "macos": "9.2.0"
+  },
+  "summary": "Dictionary of options for the [Titanium.UI.Window.titleAttributes](api:Titanium.UI.Window#titleAttributes) property.",
+  "examples": [
+    {
+      "title": "Simple Example",
+      "code": "``` js\nvar win = Ti.UI.createWindow({\n    title: 'Title',\n    barColor: 'yellow',\n    titleAttributes:  {\n        color:'blue',\n        font: {fontFamily:'Snell Roundhand', fontSize:36},\n        shadow:{color:'gray', offset:{width:1,height:1}}\n    }\n});\nvar nav = Ti.UI.createNavigationWindow({window: win});\nnav.open();\n```\n"
+    }
+  ],
+  "properties": [
+    {
+      "name": "color",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Color of the window title, as a color name or hex triplet.",
+      "description": "For information about color values, see the \"Colors\" section of [Titanium.UI](api:Titanium.UI).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        },
+        {
+          "kind": "type",
+          "name": "Titanium.UI.Color"
+        }
+      ],
+      "since": {
+        "android": "12.3.0",
+        "iphone": "3.2.0",
+        "ipad": "3.2.0",
+        "macos": "9.2.0"
+      }
+    },
+    {
+      "name": "font",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Font to use for the window title.",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Font"
+        }
+      ]
+    },
+    {
+      "name": "shadow",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Shadow color and offset for the window title.",
+      "type": [
+        {
+          "kind": "type",
+          "name": "shadowDict"
+        }
+      ]
+    }
+  ],
+  "methods": [],
+  "events": [],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "references": [
+    "Font",
+    "Titanium.UI",
+    "Titanium.UI.Color",
+    "Titanium.UI.Window",
+    "shadowDict"
+  ],
+  "source": "Titanium/UI/Window.yml"
+}

@@ -1,0 +1,201 @@
+{
+  "schemaVersion": 1,
+  "name": "LocationCoordinates",
+  "kind": "pseudo",
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
+  "summary": "Simple object holding the data for a location update.",
+  "properties": [
+    {
+      "name": "accuracy",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Accuracy of the location update, in meters.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ]
+    },
+    {
+      "name": "altitude",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Altitude of the location update, in meters.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ]
+    },
+    {
+      "name": "altitudeAccuracy",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Vertical accuracy of the location update, in meters.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "osver": {
+        "android": {
+          "min": "8.0.0"
+        }
+      }
+    },
+    {
+      "name": "floor",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The floor of the building on which the user is located.",
+      "type": [
+        {
+          "kind": "type",
+          "name": "LocationCoordinatesFloor"
+        }
+      ],
+      "since": {
+        "iphone": "3.6.0",
+        "ipad": "3.6.0"
+      },
+      "inlined": {
+        "name": "LocationCoordinatesFloor",
+        "summary": "Simple object holding floor of the building on which the user is located.\n",
+        "properties": [
+          {
+            "name": "level",
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
+            "summary": "The logical floor of the building.",
+            "description": "Level values represent logical levels above or below ground level and are not\nintended to correspond to any numbering scheme in use by the building itself.\nThe ground floor of a building is always represented by the value 0. Floors\nabove the ground floor are represented by positive integers, so a value of 1\nrepresents the floor above ground level, a value of 2 represents two floors\nabove ground level, and so on. Floors below the ground floor are represented\nby corresponding negative integers, with a value of -1 representing the floor\nimmediately below ground level and so on.\n",
+            "type": [
+              {
+                "kind": "primitive",
+                "name": "Number"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "heading",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Compass heading, in degrees. May be unknown if device is not moving. On\niOS, a negative value indicates that the heading data is not valid.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ]
+    },
+    {
+      "name": "latitude",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Latitude of the location update, in decimal degrees.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ]
+    },
+    {
+      "name": "longitude",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Longitude of the location update, in decimal degrees.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ]
+    },
+    {
+      "name": "speed",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Current speed in meters/second. On iOS, a negative value indicates that the\nheading data is not valid or the accuracy is configured incorrectly.\nNote: Due to the Apple Geolocation API, set the [Titanium.Geolocation.accuracy](api:Titanium.Geolocation#accuracy)\nproperty to [Titanium.Geolocation.ACCURACY_BEST_FOR_NAVIGATION](api:Titanium.Geolocation#ACCURACY_BEST_FOR_NAVIGATION) in order to properly\nmeasure speed changes and prevent the app from returning negative values.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ]
+    },
+    {
+      "name": "timestamp",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Timestamp for this location update, in milliseconds.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ]
+    }
+  ],
+  "methods": [],
+  "events": [],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "references": [
+    "LocationCoordinatesFloor",
+    "Titanium.Geolocation"
+  ],
+  "source": "Titanium/Geolocation/Geolocation.yml"
+}

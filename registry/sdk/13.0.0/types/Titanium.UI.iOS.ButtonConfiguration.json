@@ -1,0 +1,376 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.UI.iOS.ButtonConfiguration",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "iphone",
+    "ipad",
+    "macos"
+  ],
+  "since": {
+    "iphone": "13.0.0",
+    "ipad": "13.0.0",
+    "macos": "13.0.0"
+  },
+  "summary": "A configuration object for customizing the appearance and behavior of a button.\n",
+  "description": "The ButtonConfiguration API provides a modern way to configure buttons on iOS with support for \nvarious styles, titles, subtitles, images, and padding. This API wraps the native `UIButtonConfiguration`\nintroduced in iOS 15.0 and represents a modern alternative to the existing Button API while retaining\nbackwards compatibility. In the future, this API may be merged into the root parameters of a button instead.\n\nUse the [Titanium.UI.iOS.createButtonConfiguration](api:Titanium.UI.iOS#createButtonConfiguration) method to create a button configuration.\n\nButton configurations support several predefined styles:\n- **plain**: A plain button style with minimal background\n- **tinted**: A tinted button style with a subtle background\n- **filled**: A filled button style with a solid background\n- **gray**: A gray button style\n- **borderless**: A borderless button style\n- **bordered**: A bordered button style with an outline\n- **borderedTinted**: A bordered button style with a tinted outline\n- **borderedProminent**: A bordered button style with a prominent appearance\n\nAdditional styles available on iOS 26.0+:\n- **glass**: A glass-like appearance\n- **prominentGlass**: A prominent glass-like appearance\n- **clearGlass**: A clear glass-like appearance\n- **prominentClearGlass**: A prominent clear glass-like appearance\n",
+  "examples": [
+    {
+      "title": "Basic Button Configuration",
+      "code": "``` js\nconst button = Ti.UI.createButton({\n    configuration: Ti.UI.iOS.createButtonConfiguration({\n        style: 'filled',\n        title: 'Sign In',\n        subtitle: 'with your account',\n        backgroundColor: '#007AFF',\n        color: 'white'\n    })\n});\n```\n"
+    },
+    {
+      "title": "Button with Image and Padding",
+      "code": "``` js\nconst button = Ti.UI.createButton({\n    configuration: Ti.UI.iOS.createButtonConfiguration({\n        style: 'borderedTinted',\n        title: 'Upload',\n        image: 'upload-icon.png',\n        imagePlacement: 'leading',\n        imagePadding: 8,\n        padding: {\n            top: 12,\n            left: 20,\n            bottom: 12,\n            right: 20\n        }\n    })\n});\n```\n"
+    },
+    {
+      "title": "Prominent Button Style",
+      "code": "``` js\nconst button = Ti.UI.createButton({\n    configuration: Ti.UI.iOS.createButtonConfiguration({\n        style: 'borderedProminent',\n        title: 'Get Started',\n        backgroundColor: '#34C759'\n    })\n});\n```\n"
+    },
+    {
+      "title": "Typography and Alignment",
+      "code": "``` js\nconst button = Ti.UI.createButton({\n    configuration: Ti.UI.iOS.createButtonConfiguration({\n        style: 'filled',\n        title: 'Continue',\n        font: { fontSize: 18, fontWeight: 'semibold' },\n        textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER\n    })\n});\n```\n"
+    },
+    {
+      "title": "Highlighted Background Color",
+      "code": "``` js\nconst button = Ti.UI.createButton({\n    configuration: Ti.UI.iOS.createButtonConfiguration({\n        style: 'filled',\n        title: 'Tap Me',\n        backgroundColor: '#007AFF',\n        backgroundSelectedColor: '#005BBB' // shown while pressed\n    })\n});\n```\n"
+    }
+  ],
+  "properties": [
+    {
+      "name": "attributedString",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Specify an attributed string for the button title.",
+      "description": "Sets the configuration’s `attributedTitle`. If set, avoid also setting\n`title`, `color`, and `font` to prevent conflicting styles.\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.UI.AttributedString"
+        }
+      ]
+    },
+    {
+      "name": "backgroundColor",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The background color of the button.",
+      "description": "Sets the base background color for the button. This color may be modified\nby the system based on the button state and configuration style.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        },
+        {
+          "kind": "type",
+          "name": "Titanium.UI.Color"
+        }
+      ]
+    },
+    {
+      "name": "backgroundSelectedColor",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Background color to use while the button is highlighted (pressed).",
+      "description": "When this configuration is assigned to a [Titanium.UI.Button](api:Titanium.UI.Button) and both\n`backgroundColor` and `backgroundSelectedColor` are provided, the button will\nautomatically swap the configuration’s background to `backgroundSelectedColor`\nwhen highlighted and restore the base color when not highlighted.\n\nThis mirrors the traditional `backgroundSelectedColor` behavior on views when\nused with modern button configurations.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        },
+        {
+          "kind": "type",
+          "name": "Titanium.UI.Color"
+        }
+      ]
+    },
+    {
+      "name": "color",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The foreground color of the button's content.",
+      "description": "Sets the base foreground color for the button's title and subtitle text.\nThis color may be modified by the system based on the button state.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        },
+        {
+          "kind": "type",
+          "name": "Titanium.UI.Color"
+        }
+      ]
+    },
+    {
+      "name": "font",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Font to use for the button title.",
+      "description": "Sets the font applied to the configuration’s title via the underlying\n`UIButtonConfiguration.titleTextAttributesTransformer`.\n\nWhen using `attributedString`, prefer setting font in the attributed content instead.\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Font"
+        }
+      ]
+    },
+    {
+      "name": "image",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The image to display on the button.",
+      "description": "The image to display alongside the button's title. Use the imagePlacement\nproperty to control where the image appears relative to the title.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        },
+        {
+          "kind": "type",
+          "name": "Titanium.Blob"
+        },
+        {
+          "kind": "type",
+          "name": "Titanium.Filesystem.File"
+        }
+      ]
+    },
+    {
+      "name": "imagePadding",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The spacing between the image and title.",
+      "description": "The amount of spacing in points between the button's image and its title text.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "default": "0"
+    },
+    {
+      "name": "imagePlacement",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The placement of the image relative to the title.",
+      "description": "Controls where the button's image appears relative to its title text.\n\nValid string values are:\n- `\"leading\"`: Place the image before the title text\n- `\"trailing\"`: Place the image after the title text\n- `\"top\"`: Place the image above the title text\n- `\"bottom\"`: Place the image below the title text\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "default": "leading"
+    },
+    {
+      "name": "padding",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The padding around the button's content.",
+      "description": "An object with top, left, bottom, and right properties to specify\nthe content insets for the button.\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Padding"
+        }
+      ]
+    },
+    {
+      "name": "style",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The style of button configuration to create.",
+      "description": "Sets the base configuration style for the button. This property should be set first\nas it determines the initial configuration that other properties will modify.\n\nValid string values are:\n- `\"plain\"`: A plain button style with minimal background\n- `\"tinted\"`: A tinted button style with a subtle background\n- `\"filled\"`: A filled button style with a solid background\n- `\"gray\"`: A gray button style\n- `\"borderless\"`: A borderless button style\n- `\"bordered\"`: A bordered button style with an outline\n- `\"borderedTinted\"`: A bordered button style with a tinted outline\n- `\"borderedProminent\"`: A bordered button style with a prominent appearance\n- `\"glass\"`: A glass-like appearance (iOS 26.0+)\n- `\"prominentGlass\"`: A prominent glass-like appearance (iOS 26.0+)\n- `\"clearGlass\"`: A clear glass-like appearance (iOS 26.0+)\n- `\"prominentClearGlass\"`: A prominent clear glass-like appearance (iOS 26.0+)\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "availability": "creation"
+    },
+    {
+      "name": "subtitle",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The subtitle text to display below the title.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "textAlign",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Text alignment of the configuration title.",
+      "description": "Aligns the title within the button’s content area. Maps to\n`UIButtonConfigurationTitleAlignment`.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        },
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "constants": [
+        "Titanium.UI.TEXT_ALIGNMENT_CENTER",
+        "Titanium.UI.TEXT_ALIGNMENT_JUSTIFY",
+        "Titanium.UI.TEXT_ALIGNMENT_LEFT",
+        "Titanium.UI.TEXT_ALIGNMENT_RIGHT"
+      ]
+    },
+    {
+      "name": "title",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The title text to display on the button.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "titlePadding",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The spacing between the title and subtitle.",
+      "description": "The amount of spacing in points between the button's title and subtitle text.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "default": "0"
+    }
+  ],
+  "methods": [],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      }
+    ],
+    "events": []
+  },
+  "references": [
+    "Font",
+    "Padding",
+    "Titanium.Blob",
+    "Titanium.Filesystem.File",
+    "Titanium.Proxy",
+    "Titanium.UI.AttributedString",
+    "Titanium.UI.Button",
+    "Titanium.UI.Color",
+    "Titanium.UI.iOS"
+  ],
+  "source": "Titanium/UI/iOS/ButtonConfiguration.yml"
+}

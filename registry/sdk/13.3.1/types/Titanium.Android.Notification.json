@@ -1,0 +1,743 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.Android.Notification",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android"
+  ],
+  "since": "1.5",
+  "summary": "UI notifications that can be sent while the application is in the background.",
+  "description": "Notifications alert the user that something is happening to your application while it is\nin the background. Notifications appear in the notification drawer until the user\nclears them and on the lock screen for devices running Android 5.0 or greater.\nNote that the user can filter or turn notifications on and off from **Settings**.\n\nFor Android toast notifications (pop-up notifications sent while the application is in the\nforeground), see [Titanium.UI.Notification](api:Titanium.UI.Notification).\n\nTo create a notification, use the [Titanium.Android.createNotification](api:Titanium.Android#createNotification) method.\n\nPass the Notification object to the methods of the [Titanium.Android.NotificationManager](api:Titanium.Android.NotificationManager) class\nto send or cancel notifications.\n\nFor examples of using Notifications, see [Android Notifications](#!/guide/Android_Notifications).\n\nFurther Reading:\n\n  * [Android Developers: Notifications](https://developer.android.com/design/patterns/notifications.html)\n\n#### Android 5.0 Changes\n\nStarting with Android 5.0 (API 21), ticker text, defined with the `tickerText` property,\nno longer appears in the status bar when the notification is first sent but is used as an\naudible notification if accessibility services are enabled.\n\nNotifications now appear in the lock screen.  The user can customize the visibility level of\nthese notifications from **Settings**.  The visibility level is based on the `visibility`\nproperty set on the notification.\n",
+  "examples": [
+    {
+      "title": "Simple Notification Example",
+      "code": "The following example shows how to create a notification that launches the\napplication when the user clicks on the notification.\n\nTo have the notification launch an application when the user clicks on it,\nassign the `contentIntent` property to an [Intent](Titanium.Android.Intent) object\nthat launches the main activity of the application by specifying the `packageName`\nand `className` properties of the intent.\n\nThe `packageName` is the project's application ID. For Titanium applications, you\ncan find this in the `tiapp.xml` file.\n\nThe `className` is the name of the main activity, prefixed with the `packageName`.\nFor Titanium applications, the name of the main activity is the application name with\nonly the first character capitalized suffixed with `Activity`.  You can also find the name\nof the main activity in the `build/android/AndroidManifest.xml` file after you build your\napplication.\n\nFor example, if the application ID is `com.appcelerator.notificationsample` and the\napplication name is `NotificationSample`, the class name will be:\n\n```\ncom.appcelerator.notificationsample.NotificationsampleActivity\n```\n\nThe notification icon must be specified as an Android resource ID. In this case,\nthe icon, `my_icon.png` would be placed in `platforms/android/res/drawable/my_icon.png`.\nSee <Titanium.App.Android.R> for more information.\n\nThis example does not include a custom alert sound. For information on adding a\ncustom alert sound, see [Notification.sound](Titanium.Android.Notification.sound).\n\n``` js\n// Intent object to launch the application\nvar intent = Ti.Android.createIntent({\n    action: Ti.Android.ACTION_MAIN,\n    // Substitute the correct class name for your application\n    className: 'com.appcelerator.notificationsample.NotificationsampleActivity',\n    // Substitute the correct package name for your application\n    packageName: 'com.appcelerator.notificationsample'\n});\nintent.flags |= Ti.Android.FLAG_ACTIVITY_NEW_TASK;\nintent.addCategory(Ti.Android.CATEGORY_LAUNCHER);\n\n// Create a PendingIntent to tie together the Activity and Intent\nvar pending = Titanium.Android.createPendingIntent({\n    intent: intent,\n    flags: Titanium.Android.FLAG_UPDATE_CURRENT\n});\n\n// Create the notification\nvar notification = Titanium.Android.createNotification({\n  // icon is passed as an Android resource ID -- see Ti.App.Android.R.\n    icon: Ti.App.Android.R.drawable.my_icon,\n  contentTitle: 'Something Happened',\n  contentText : 'Click to return to the application.',\n  contentIntent: pending\n});\n\n// Send the notification.\nTitanium.Android.NotificationManager.notify(1, notification);\n```\n"
+    },
+    {
+      "title": "Bundled Notifications Example",
+      "code": "The following example shows how to create bundled notifications.\n\n``` js\nvar id = 100,\n    groupKey = 'group_key';\n\nfor (var i = 3; i > 0; i--) {\n    Ti.Android.NotificationManager.notify(id++,\n        Ti.Android.createNotification({\n            icon: Ti.Android.R.drawable.ic_dialog_info,\n            contentTitle: 'NOTIFICATION #' + i,\n            contentText : 'Lorem ipsum dolor sit amet, facer eruditi omittantur cu pri, nibh nonumy putant eam eu.'\n            groupKey: groupKey\n        })\n    );\n}\nTi.Android.NotificationManager.notify(id++,\n    Ti.Android.createNotification({\n        icon: Ti.Android.R.drawable.ic_dialog_info,\n        contentTitle: 'NOTIFICATIONS',\n        contentText : 'You have 3 notifications.',\n        groupKey: groupKey,\n        groupSummary: true\n    })\n);\n```\n"
+    }
+  ],
+  "properties": [
+    {
+      "name": "audioStreamType",
+      "platforms": [
+        "android"
+      ],
+      "summary": "The audio stream type to use when playing the sound.",
+      "description": "Specify one of the `STREAM` constants from [Titanium.Android](api:Titanium.Android).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "constants": [
+        "Titanium.Android.STREAM_ALARM",
+        "Titanium.Android.STREAM_DEFAULT",
+        "Titanium.Android.STREAM_MUSIC",
+        "Titanium.Android.STREAM_NOTIFICATION",
+        "Titanium.Android.STREAM_RING",
+        "Titanium.Android.STREAM_SYSTEM",
+        "Titanium.Android.STREAM_VOICE_CALL"
+      ]
+    },
+    {
+      "name": "category",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Sets the notification's category.",
+      "description": "If your notification falls into one of the predefined categories, assign it accordingly.\nAspects of the system UI such as the notification shade may use this information\nto make ranking and filtering decisions. This property only works for devices running Android 5.0 (API 21)\nand greater.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "3.6.0",
+      "constants": [
+        "Titanium.Android.CATEGORY_ALARM",
+        "Titanium.Android.CATEGORY_ALTERNATIVE",
+        "Titanium.Android.CATEGORY_BROWSABLE",
+        "Titanium.Android.CATEGORY_CALL",
+        "Titanium.Android.CATEGORY_DEFAULT",
+        "Titanium.Android.CATEGORY_DEVELOPMENT_PREFERENCE",
+        "Titanium.Android.CATEGORY_EMAIL",
+        "Titanium.Android.CATEGORY_EMBED",
+        "Titanium.Android.CATEGORY_ERROR",
+        "Titanium.Android.CATEGORY_EVENT",
+        "Titanium.Android.CATEGORY_FRAMEWORK_INSTRUMENTATION_TEST",
+        "Titanium.Android.CATEGORY_HOME",
+        "Titanium.Android.CATEGORY_INFO",
+        "Titanium.Android.CATEGORY_LAUNCHER",
+        "Titanium.Android.CATEGORY_MESSAGE",
+        "Titanium.Android.CATEGORY_MONKEY",
+        "Titanium.Android.CATEGORY_OPENABLE",
+        "Titanium.Android.CATEGORY_PREFERENCE",
+        "Titanium.Android.CATEGORY_PROGRESS",
+        "Titanium.Android.CATEGORY_PROMO",
+        "Titanium.Android.CATEGORY_RECOMMENDATION",
+        "Titanium.Android.CATEGORY_SAMPLE_CODE",
+        "Titanium.Android.CATEGORY_SELECTED_ALTERNATIVE",
+        "Titanium.Android.CATEGORY_SERVICE",
+        "Titanium.Android.CATEGORY_SOCIAL",
+        "Titanium.Android.CATEGORY_STATUS",
+        "Titanium.Android.CATEGORY_TAB",
+        "Titanium.Android.CATEGORY_TEST",
+        "Titanium.Android.CATEGORY_TRANSPORT",
+        "Titanium.Android.CATEGORY_UNIT_TEST"
+      ]
+    },
+    {
+      "name": "channelId",
+      "platforms": [
+        "android"
+      ],
+      "summary": "The channel id specified for the notification.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "7.0.0",
+      "osver": {
+        "android": {
+          "min": "8.0"
+        }
+      }
+    },
+    {
+      "name": "color",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Accent color used behind icon.",
+      "description": "Accent color of the circle used behind icon. The Icon will be stenciled in white on top of a\ncircle of the color set. For information about color values, see the \"Colors\" section of [Titanium.UI](api:Titanium.UI).\n\nSee Android Reference for the [color](https://developer.android.com/reference/android/app/Notification.html#color) property.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "7.0.0"
+    },
+    {
+      "name": "contentIntent",
+      "platforms": [
+        "android"
+      ],
+      "summary": "The `PendingIntent` to execute when the expanded status entry is clicked.",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.Android.PendingIntent"
+        }
+      ]
+    },
+    {
+      "name": "contentText",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Description text of the notification.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "contentTitle",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Title of the notification.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "contentView",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Custom layout to display in the notification.",
+      "description": "Calling [setLatestEventInfo](api:Titanium.Android.Notification#setLatestEventInfo) or\nsetting the `contentText` or `contentTitle` properties causes the notification to use\nthe default notification layout, overriding any custom layout set through\n`contentView`.\n\nIf you use a custom layout, you can use the\n[RemoteViews](api:Titanium.Android.RemoteViews) methods to update the displayed\nnotification.\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.Android.RemoteViews"
+        }
+      ],
+      "permission": "write-only"
+    },
+    {
+      "name": "defaults",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Specifies which values should be taken from the defaults.",
+      "description": "Specify the bitwise OR of the desired values:\n[Titanium.Android.DEFAULT_LIGHTS](api:Titanium.Android#DEFAULT_LIGHTS), [Titanium.Android.DEFAULT_SOUND](api:Titanium.Android#DEFAULT_SOUND), and\n[Titanium.Android.DEFAULT_VIBRATE](api:Titanium.Android#DEFAULT_VIBRATE). Use [Titanium.Android.DEFAULT_ALL](api:Titanium.Android#DEFAULT_ALL) to specify\nthat all values should be taken from the defaults.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "constants": [
+        "Titanium.Android.DEFAULT_ALL",
+        "Titanium.Android.DEFAULT_LIGHTS",
+        "Titanium.Android.DEFAULT_SOUND",
+        "Titanium.Android.DEFAULT_VIBRATE"
+      ]
+    },
+    {
+      "name": "deleteIntent",
+      "platforms": [
+        "android"
+      ],
+      "summary": "The `PendingIntent` to execute when the status entry is deleted by the user with the \"Clear All Notifications\" button.",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.Android.PendingIntent"
+        }
+      ]
+    },
+    {
+      "name": "flags",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Set of flags for the notification.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "default": "<Titanium.Android.FLAG_AUTO_CANCEL>",
+      "constants": [
+        "Titanium.Android.FLAG_AUTO_CANCEL",
+        "Titanium.Android.FLAG_INSISTENT",
+        "Titanium.Android.FLAG_NO_CLEAR",
+        "Titanium.Android.FLAG_ONGOING_EVENT",
+        "Titanium.Android.FLAG_ONLY_ALERT_ONCE",
+        "Titanium.Android.FLAG_SHOW_LIGHTS"
+      ]
+    },
+    {
+      "name": "groupKey",
+      "platforms": [
+        "android"
+      ],
+      "summary": "The group key that the notification will belong to.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "6.2.0",
+      "osver": {
+        "android": {
+          "min": "5.1"
+        }
+      }
+    },
+    {
+      "name": "groupSummary",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Specifies if this is a group summary notification.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "6.2.0",
+      "osver": {
+        "android": {
+          "min": "5.1"
+        }
+      }
+    },
+    {
+      "name": "icon",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Notification icon, specified as an Android resource ID, or a local URL to a density-specific image.",
+      "description": "If specified as a URL, the icon must be placed in one of the density-specific\nfolders under `Resources/android/images`. For example, if your icon is called\n`my_icon.png`, you would create high- and medium-density versions of the icons\nwith the following paths:\n\n```\nResources/android/images/res-hdpi/my_icon.png\nResources/android/images/res-mdpi/my_icon.png\n```\n\nTo access this icon, you'd use the URL '/images/my_icon.png'.\n\nTo access the same icon using an Android resource ID, place the icon in:\n\n```\nplatform/android/res/drawable/my_icon.png\n```\n\nThis icon's resource ID can be referenced through the [Titanium.App.Android.R](api:Titanium.App.Android#R)\nobject:\n\n``` js\nicon: Ti.App.Android.R.drawable.my_icon,\n```\n\nSee [Titanium.App.Android.R](api:Titanium.App.Android#R) for more information on accessing\nAndroid resources by ID.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        },
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "largeIcon",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Add a large icon to the notification (and the ticker on some devices) specified as an Android resource ID, or a local URL to a density-specific image.",
+      "description": "If specified as a URL, the icon must be placed in one of the density-specific\nfolders under `Resources/android/images`. For example, if your icon is called\n`my_large_icon.png`, you would create high- and medium-density versions of the icons\nwith the following paths:\n\n```\nResources/android/images/res-hdpi/my_large_icon.png\nResources/android/images/res-mdpi/my_large_icon.png\n```\n\nTo access this large icon, you'd use the URL '/images/my_large_icon.png'.\n\nTo access the same large icon using an Android resource ID, place the icon in:\n\n```\nplatform/android/res/drawable/my_large_icon.png\n```\n\nThis large icon's resource ID can be referenced through the [Titanium.App.Android.R](api:Titanium.App.Android#R)\nobject:\n\n``` js\nicon: Ti.App.Android.R.drawable.my_large_icon,\n```\n\nSee [Titanium.App.Android.R](api:Titanium.App.Android#R) for more information on accessing\nAndroid resources by ID.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        },
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "4.2.0"
+    },
+    {
+      "name": "ledARGB",
+      "platforms": [
+        "android"
+      ],
+      "summary": "The color for the LED to blink.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ]
+    },
+    {
+      "name": "ledOffMS",
+      "platforms": [
+        "android"
+      ],
+      "summary": "The number of milliseconds for the LED to be off while it's flashing.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ]
+    },
+    {
+      "name": "ledOnMS",
+      "platforms": [
+        "android"
+      ],
+      "summary": "The number of milliseconds for the LED to be on while it's flashing.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ]
+    },
+    {
+      "name": "number",
+      "platforms": [
+        "android"
+      ],
+      "summary": "The number of events that this notification represents.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ]
+    },
+    {
+      "name": "priority",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Sets the priority of the notification.",
+      "description": "This property only works for devices running Android 4.1 (API 16) and greater.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "3.6.0",
+      "default": "undefined but behaves as Titanium.Android.PRIORITY_DEFAULT",
+      "constants": [
+        "Titanium.Android.PRIORITY_DEFAULT",
+        "Titanium.Android.PRIORITY_HIGH",
+        "Titanium.Android.PRIORITY_LOW",
+        "Titanium.Android.PRIORITY_MAX",
+        "Titanium.Android.PRIORITY_MIN"
+      ]
+    },
+    {
+      "name": "sound",
+      "platforms": [
+        "android"
+      ],
+      "summary": "A URL to the sound to play.",
+      "description": "The URL cannot refer to a file in the Resources directory, but it can refer to\na file in the raw resources directory\n([Filesystem.resRawDirectory](api:Titanium.Filesystem#resRawDirectory)) or the\nexternal storage directory\n([Filesystem.externalStorageDirectory](api:Titanium.Filesystem#externalStorageDirectory)).\n\nNote that this sound property is ignored on Android 8.0 and above. On these OS versions,\nyou must use the [NotificationChannel.sound](api:Titanium.Android.NotificationChannel#sound)\nproperty and that sound will play for any notification posted under that channel. Also, you will\nstill need to set this notification's sound property for OS versions older than Android 8.0 too,\nmeaning that the sound URL needs to be set in both places.\n\nTo play a raw resource file, place the audio file in the `platform/android/res/raw`\nfolder and reference it as:\n\n``` js\nnotification.sound = Ti.Filesystem.resRawDirectory + audioFileName;\n```\n\nTo play a file from the Resources directory, first copy it to external storage. For example, you\ncould define the following function:\n\n``` js\n// Copy resource file to SD card, and return a native path.\n// Return undefined if we can't copy the file.\nfunction getOrCopyAudioFile(resourceFilename) {\n    var outFile = Ti.Filesystem.getFile(Ti.Filesystem.externalStorageDirectory, 'sound', 'cricket.wav');\n    var outPath = outFile.nativePath;\n\n    if (! outFile.exists()) {\n        var outDir = Ti.Filesystem.getFile(Ti.Filesystem.externalStorageDirectory, 'sound');\n        if (! outDir.isDirectory()) {\n            if (! outDir.createDirectory()) {\n                Ti.API.debug(\"Failed to create directory.\");\n                outDir = null;\n                return undefined;\n            }\n        }\n        outDir = null;\n\n        var inFile = Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, 'cricket.wav');\n        try {\n            inFile.copy(outPath);\n        } catch (ex) {\n            Ti.API.debug(\"Failed to copy file.\");\n            inFile = null;\n            return undefined;\n        }\n        inFile = null;\n    }\n    outFile = null;\n    return outPath;\n}\n```\n\nThen when creating a notification, specify the sound like this:\n\n``` js\nvar sound = getOrCopyAudioFile();\nif (sound) {\n    notification.sound = sound;\n}\n```\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "osver": {
+        "android": {
+          "max": "7.1"
+        }
+      }
+    },
+    {
+      "name": "style",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Style object that can apply a rich notification style.",
+      "description": "Notifications in the notification drawer appear in two main visual styles, normal view and big view.\nThe big view of a notification only appears when the notification is expanded.\nThis happens when the notification is at the top of the drawer, or the user clicks the notification.\nOn platform versions that don't offer expanded notifications, styles that depend on expanded notifications have no effect.\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.Android.BigTextStyle"
+        },
+        {
+          "kind": "type",
+          "name": "Titanium.Android.BigPictureStyle"
+        }
+      ],
+      "since": "5.4.0"
+    },
+    {
+      "name": "tickerText",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Text to scroll across the screen when this item is added to the status bar.",
+      "description": "For devices running Android 5.0 (API 21) and greater, the ticket text is no longer displayed\nin the status bar.  However, this property is used as an audible notification if accessibility\nservices are enabled.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "visibility",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Allows user to conceal private information of the notification on the lock screen.",
+      "description": "This property only works on devices running Android 5.0 (API 21) and greater.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "3.6.0",
+      "default": "undefined but behaves as Titanium.Android.VISIBILITY_PUBLIC",
+      "constants": [
+        "Titanium.Android.VISIBILITY_PRIVATE",
+        "Titanium.Android.VISIBILITY_PUBLIC",
+        "Titanium.Android.VISIBILITY_SECRET"
+      ]
+    },
+    {
+      "name": "wakeLock",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Will wake up the device for the given time (in milliseconds) when the notification is shown.\nThe application needs to also set the `android.permission.WAKE_LOCK` permission\nin the Android manifest section of the `tiapp.xml` file.\n\n``` xml\n<ti:app>\n    <android>\n        <manifest>\n            <uses-permission android:name=\"android.permission.WAKE_LOCK\" />\n        </manifest>\n    </android>\n</ti:app>\n```\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "wakeLockOptions"
+        }
+      ],
+      "since": "6.2.0",
+      "default": "0",
+      "inlined": {
+        "name": "wakeLockOptions",
+        "summary": "Parameter for wakeLock",
+        "properties": [
+          {
+            "name": "flags",
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
+            "summary": "Wake lock level and flag. See [PowerManager.newWakeLock in the Android API Reference](https://developer.android.com/reference/android/os/PowerManager.html#newWakeLock(int,%20java.lang.String))",
+            "type": [
+              {
+                "kind": "primitive",
+                "name": "Number"
+              }
+            ],
+            "default": "Titanium.Android.WAKE_LOCK_FULL | Titanium.Android.WAKE_LOCK_ACQUIRE_CAUSES_WAKEUP | Titanium.Android.WAKE_LOCK_ON_AFTER_RELEASE",
+            "constants": [
+              "Titanium.Android.WAKE_LOCK_ACQUIRE_CAUSES_WAKEUP",
+              "Titanium.Android.WAKE_LOCK_FULL",
+              "Titanium.Android.WAKE_LOCK_ON_AFTER_RELEASE",
+              "Titanium.Android.WAKE_LOCK_PARTIAL",
+              "Titanium.Android.WAKE_LOCK_SCREEN_BRIGHT",
+              "Titanium.Android.WAKE_LOCK_SCREEN_DIM"
+            ]
+          },
+          {
+            "name": "time",
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
+            "summary": "Minimum time the device will be switched on (plus device switch-off time)",
+            "type": [
+              {
+                "kind": "primitive",
+                "name": "Number"
+              }
+            ],
+            "default": "3000"
+          }
+        ]
+      }
+    },
+    {
+      "name": "when",
+      "platforms": [
+        "android"
+      ],
+      "summary": "The timestamp for the notification (defaults to the current time).",
+      "description": "If the timestamp is set to 0, no time is displayed in the notification\nwindow for this notification.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Date"
+        },
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "addAction",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Add an action button to the notification",
+      "description": "Up to three actions buttons can be added, additional buttons will be ignored.\n",
+      "since": "6.2.0",
+      "parameters": [
+        {
+          "name": "icon",
+          "summary": "Icon of the action button as URL or resource ID",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            },
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "title",
+          "summary": "Title of the action button",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "intent",
+          "summary": "Intent of the action button",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Android.PendingIntent"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "setLatestEventInfo",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Sets the latest event info using the built-in notification view for this notification.",
+      "parameters": [
+        {
+          "name": "contentTitle",
+          "summary": "Title to display when the notification is expanded.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "contentText",
+          "summary": "Text to display when the notification is expanded.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "contentIntent",
+          "summary": "Intent to launch when the user clicks on the notification.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Android.PendingIntent"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "setProgress",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Set the progress this notification represents.",
+      "since": "6.1.0",
+      "parameters": [
+        {
+          "name": "max",
+          "summary": "Defines the maximum value the progress can take.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "progress",
+          "summary": "Defines the progress value, between 0 and max.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "indeterminate",
+          "summary": "Allows to enable the indeterminate mode.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "lifecycleContainer",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      }
+    ],
+    "events": []
+  },
+  "references": [
+    "Titanium.Android",
+    "Titanium.Android.BigPictureStyle",
+    "Titanium.Android.BigTextStyle",
+    "Titanium.Android.NotificationChannel",
+    "Titanium.Android.NotificationManager",
+    "Titanium.Android.PendingIntent",
+    "Titanium.Android.RemoteViews",
+    "Titanium.App.Android",
+    "Titanium.Filesystem",
+    "Titanium.Proxy",
+    "Titanium.UI",
+    "Titanium.UI.Notification",
+    "wakeLockOptions"
+  ],
+  "source": "Titanium/Android/Notification.yml"
+}

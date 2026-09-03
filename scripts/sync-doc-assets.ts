@@ -1,4 +1,14 @@
-import { copyFileSync, existsSync, mkdirSync, readdirSync, rmSync, statSync } from 'node:fs';
+import { createHash } from 'node:crypto';
+import {
+  copyFileSync,
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  readdirSync,
+  rmSync,
+  statSync,
+  writeFileSync,
+} from 'node:fs';
 import { dirname, join, relative, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -10,6 +20,21 @@ import { fileURLToPath } from 'node:url';
  * retention rules operate on that directory, and assets kept outside it would
  * silently fall outside both. The copy is a build step and the destination is
  * gitignored, so the images are committed exactly once.
+ *
+ * ## Written once per distinct image, not once per version
+ *
+ * Every version carries its own copy of the same screenshots. Measured across
+ * a 13-month span — 12.8.0 against 13.4.1 — all 54 images are byte-identical,
+ * so mirroring per version would deploy the same 9MB once for each release
+ * compiled. At nineteen releases that is ~170MB of the same pictures.
+ *
+ * So the destination is content-addressed: one file per distinct image, named
+ * by its hash, plus a manifest mapping each version's logical URL onto it.
+ * Identical images collapse to one file; an image that ever does change simply
+ * gets a different hash, so this stays correct rather than merely smaller.
+ *
+ * The manifest is what `src/lib/docs/assets.ts` reads to rewrite an image URL
+ * at render time.
  *
  *   node scripts/sync-doc-assets.ts
  */
@@ -47,29 +72,57 @@ function imageDirs(base: string): { from: string; rel: string }[] {
   return found;
 }
 
-let copied = 0;
-let unchanged = 0;
+const POOL = join(PUBLIC, 'img');
+
+/** Logical URL a page would ask for -> the pooled file that answers it. */
+const manifest: Record<string, string> = {};
 const wanted = new Set<string>();
+let written = 0;
+let reused = 0;
+let logical = 0;
 
 for (const source of SOURCES) {
   for (const { from, rel } of imageDirs(source)) {
-    // registry/sdk/main/images/... -> public/docs/sdk/main/images/...
-    const target = join(PUBLIC, rel.replace(/^registry\//, ''), 'images');
+    // registry/sdk/main/images/... -> the URL /docs/sdk/main/images/...
+    const urlBase = `/docs/${rel.replace(/^registry\//, '')}/images`;
     for (const file of walk(from)) {
-      const to = join(target, relative(from, file));
-      wanted.add(to);
-      if (existsSync(to) && statSync(to).size === statSync(file).size) {
-        unchanged++;
+      const within = relative(from, file).split(sep).join('/');
+      const bytes = readFileSync(file);
+      // Short but far past collision risk for a few hundred images, and it
+      // keeps the URLs readable.
+      const digest = createHash('sha256').update(bytes).digest('hex').slice(0, 16);
+      const ext = within.includes('.') ? within.slice(within.lastIndexOf('.')) : '';
+      const pooled = join(POOL, `${digest}${ext}`);
+
+      manifest[`${urlBase}/${within}`] = `/docs/img/${digest}${ext}`;
+      logical++;
+
+      if (wanted.has(pooled)) {
+        reused++;
         continue;
       }
-      mkdirSync(dirname(to), { recursive: true });
-      copyFileSync(file, to);
-      copied++;
+      wanted.add(pooled);
+      if (existsSync(pooled) && statSync(pooled).size === bytes.length) {
+        reused++;
+        continue;
+      }
+      mkdirSync(dirname(pooled), { recursive: true });
+      copyFileSync(file, pooled);
+      written++;
     }
   }
 }
 
-// Anything left behind belongs to a version that no longer exists.
+const manifestPath = join(PUBLIC, 'assets.json');
+wanted.add(manifestPath);
+mkdirSync(dirname(manifestPath), { recursive: true });
+writeFileSync(
+  manifestPath,
+  `${JSON.stringify(Object.fromEntries(Object.entries(manifest).sort(([a], [b]) => a.localeCompare(b))), null, 0)}\n`
+);
+
+// Anything left behind belongs to a version that no longer exists, or to the
+// per-version layout this replaced.
 let removed = 0;
 for (const file of walk(PUBLIC)) {
   if (wanted.has(file)) continue;
@@ -78,5 +131,7 @@ for (const file of walk(PUBLIC)) {
 }
 
 console.log(
-  `doc assets: ${copied} copied, ${unchanged} unchanged` + (removed ? `, ${removed} removed` : '')
+  `doc assets: ${logical} references -> ${wanted.size - 1} distinct images ` +
+    `(${written} written, ${reused} already pooled)` +
+    (removed ? `, ${removed} removed` : '')
 );

@@ -1,0 +1,1265 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.Media.AudioPlayer",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
+  "since": "0.9",
+  "summary": "An audio player object used for streaming audio to the device, and low-level control of the audio playback.\n",
+  "description": "On Android, when you are done playing a given audio file, you must call the\n[release](api:Titanium.Media.AudioPlayer#release) method to stop buffering audio data and\nrelease associated system resources. Since 7.5.0, this method is available on iOS as well\nand will release all audio-player related resources. After this method has been called,\nthe object should not be accessed anymore.\n\nOn iOS, you can control how the audio stream interacts with other system sounds\nby setting [Titanium.Media.audioSessionCategory](api:Titanium.Media#audioSessionCategory). Since Titanium 7.5.0, this API\nuses the [AVPlayer API](https://developer.apple.com/documentation/avfoundation/avplayer) for a more modern\nand performant audio playback.\n\nUse the [Titanium.Media.createAudioPlayer](api:Titanium.Media#createAudioPlayer) method to create an audio player.\n",
+  "examples": [
+    {
+      "title": "Audio Streaming",
+      "code": "The following example demonstrates using the `AudioPlayer` object to stream audio.\n\n``` js\nvar win = Ti.UI.createWindow({\n    title: 'Audio Test',\n    backgroundColor: '#fff',\n    layout: 'vertical'\n});\n\nvar startStopButton = Ti.UI.createButton({\n    title: 'Start/Stop Streaming',\n    top: 10,\n    width: 200,\n    height: 40\n});\n\nvar pauseResumeButton = Ti.UI.createButton({\n    title: 'Pause/Resume Streaming',\n    top: 10,\n    width: 200,\n    height: 40,\n    enabled: false\n});\n\nwin.add(startStopButton);\nwin.add(pauseResumeButton);\n\n// allowBackground: true on Android allows the\n// player to keep playing when the app is in the\n// background.\nvar audioPlayer = Ti.Media.createAudioPlayer({\n    url: 'www.example.com/podcast.mp3',\n    allowBackground: true\n});\n\nstartStopButton.addEventListener('click', function() {\n    // When paused, playing returns false.\n    // If both are false, playback is stopped.\n    if (audioPlayer.playing || audioPlayer.paused) {\n        audioPlayer.stop();\n        pauseResumeButton.enabled = false;\n        audioPlayer.release();\n    } else {\n        audioPlayer.start();\n        pauseResumeButton.enabled = true;\n    }\n});\n\npauseResumeButton.addEventListener('click', function() {\n    if (audioPlayer.paused) {\n        audioPlayer.start();\n    } else {\n        audioPlayer.pause();\n    }\n});\n\naudioPlayer.addEventListener('progress', function(e) {\n    Ti.API.info('Time Played: ' + Math.round(e.progress) + ' milliseconds');\n});\n\naudioPlayer.addEventListener('change', function(e) {\n    Ti.API.info('State: ' + e.description + ' (' + e.state + ')');\n});\n\nwin.addEventListener('close', function() {\n    audioPlayer.stop();\n    audioPlayer.release();\n});\n\nwin.open();\n```\n"
+    }
+  ],
+  "properties": [
+    {
+      "name": "allowBackground",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Boolean to indicate if audio should continue playing even if the associated\nAndroid [Activity](api:Titanium.Android.Activity) is paused.\n",
+      "description": "Setting `allowBackground` to `true` allows the audio to continue playing, for\nexample, if the application is in the background.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "availability": "creation",
+      "default": "false"
+    },
+    {
+      "name": "allowsExternalPlayback",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Indicates whether the player allows switching to \"external playback\" mode.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "7.5.0",
+      "default": "true"
+    },
+    {
+      "name": "AUDIO_TYPE_ALARM",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Used to identify the volume of audio streams for alarms.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.2.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "AUDIO_TYPE_MEDIA",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Used to identify the volume of audio streams for media playback.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.2.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "AUDIO_TYPE_NOTIFICATION",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Used to identify the volume of audio streams for notifications.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.2.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "AUDIO_TYPE_RING",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Used to identify the volume of audio streams for the phone ring.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.2.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "AUDIO_TYPE_SIGNALLING",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Used to identify the volume of audio streams for DTMF tones or beeps.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.2.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "AUDIO_TYPE_VOICE",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Used to identify the volume of audio streams for voice calls.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.2.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "audioFocus",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Focuses on the current audio player and stops other audio playing.",
+      "description": "If true then all other audio sources will be stopped\nwhen Titanium.AudioPlayer is started or resumed.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "availability": "creation",
+      "default": "false"
+    },
+    {
+      "name": "audioSessionId",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Returns the audio session id.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "10.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "audioType",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Changes the audio-stream-type.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.2.0",
+      "default": "<Titanium.Media.AudioPlayer.AUDIO_TYPE_MEDIA>",
+      "constants": [
+        "Titanium.Media.Sound.AUDIO_TYPE_ALARM",
+        "Titanium.Media.Sound.AUDIO_TYPE_MEDIA",
+        "Titanium.Media.Sound.AUDIO_TYPE_NOTIFICATION",
+        "Titanium.Media.Sound.AUDIO_TYPE_RING",
+        "Titanium.Media.Sound.AUDIO_TYPE_SIGNALLING",
+        "Titanium.Media.Sound.AUDIO_TYPE_VOICE"
+      ]
+    },
+    {
+      "name": "bitRate",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Bit rate of the current playback stream.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ]
+    },
+    {
+      "name": "bufferSize",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Size of the buffer used for streaming, in milliseconds.",
+      "description": "Prior to Titanium 7.5.0, this property was set in bytes. Since the internal iOS\nAPI moved to the more modern AVPlayer, this property now works with milliseconds instead.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ]
+    },
+    {
+      "name": "duration",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Estimated duration in milliseconds of the file being played.",
+      "description": "May return `0` when playing a live stream.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "3.3.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "externalPlaybackActive",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Indicates whether the player is currently playing video in \"external playback\" mode.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "7.5.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "idle",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Boolean indicating if the player is idle.",
+      "description": "`true` if the player is in the initialized state: that is, not playing, paused,\nor waiting for data.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "muted",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Indicates whether or not audio output of the player is muted.",
+      "description": "Only affects audio muting for the player instance and not for the device.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "7.5.0"
+    },
+    {
+      "name": "paused",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Boolean indicating if audio playback is paused.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ]
+    },
+    {
+      "name": "playing",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Boolean indicating if audio is currently playing.",
+      "description": "Returns `false` if playback is stopped or paused.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "progress",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Current playback progress, in milliseconds.",
+      "description": "Returns zero if `bitRate` has not yet been detected.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "rate",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Indicates the desired rate of playback; 0.0 means \"paused\", 1.0 indicates a \ndesire to play at the natural rate of the current item. In addition, 2.0\nwould mean that the audio plays twice as fast.\n",
+      "description": "Setting the value of rate to 0.0 pauses playback, causing the value of \nthe `state` property change to [Titanium.Media.AUDIO_STATE_PAUSED](api:Titanium.Media#AUDIO_STATE_PAUSED).\nSetting the rate to a non-zero value causes the value of the `state` property \nto become either <Titanium.Media.AUDIO_STATE_WAITING_FOR_QUEUE> or \n[Titanium.Media.AUDIO_STATE_PLAYING](api:Titanium.Media#AUDIO_STATE_PLAYING), depending on whether sufficient \nmedia data has been buffered for playback to occur and whether the player's \ndefault behavior of waiting in order to minimize stalling is permitted.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "7.5.0",
+      "default": "0"
+    },
+    {
+      "name": "state",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Current state of playback, specified using one of the `STATE` constants defined on this object.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only",
+      "constants": [
+        "Titanium.Media.AUDIO_STATE_BUFFERING",
+        "Titanium.Media.AUDIO_STATE_INITIALIZED",
+        "Titanium.Media.AUDIO_STATE_PAUSED",
+        "Titanium.Media.AUDIO_STATE_PLAYING",
+        "Titanium.Media.AUDIO_STATE_STARTING",
+        "Titanium.Media.AUDIO_STATE_STOPPED",
+        "Titanium.Media.AUDIO_STATE_STOPPING",
+        "Titanium.Media.AUDIO_STATE_WAITING_FOR_DATA"
+      ]
+    },
+    {
+      "name": "STATE_BUFFERING",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Audio data is being buffered from the network.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "deprecated": {
+        "since": "7.5.0",
+        "notes": "Use [Titanium.Media.AUDIO_STATE_BUFFERING](Titanium.Media.AUDIO_STATE_BUFFERING) instead."
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "STATE_INITIALIZED",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Audio playback is being initialized.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "deprecated": {
+        "since": "7.5.0",
+        "notes": "Use [Titanium.Media.AUDIO_STATE_INITIALIZED](Titanium.Media.AUDIO_STATE_INITIALIZED) instead."
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "STATE_PAUSED",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Playback is paused.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "deprecated": {
+        "since": "7.5.0",
+        "notes": "Use [Titanium.Media.AUDIO_STATE_PAUSED](Titanium.Media.AUDIO_STATE_PAUSED) instead."
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "STATE_PLAYING",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Audio playback is active.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "deprecated": {
+        "since": "7.5.0",
+        "notes": "Use [Titanium.Media.AUDIO_STATE_PLAYING](Titanium.Media.AUDIO_STATE_PLAYING) instead."
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "STATE_STARTING",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Audio playback is starting.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "deprecated": {
+        "since": "7.5.0",
+        "notes": "Use [Titanium.Media.AUDIO_STATE_STARTING](Titanium.Media.AUDIO_STATE_STARTING) instead."
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "STATE_STOPPED",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Audio playback is stopped.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "deprecated": {
+        "since": "7.5.0",
+        "notes": "Use [Titanium.Media.AUDIO_STATE_STOPPED](Titanium.Media.AUDIO_STATE_STOPPED) instead."
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "STATE_STOPPING",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Audio playback is stopping.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "deprecated": {
+        "since": "7.5.0",
+        "notes": "Use [Titanium.Media.AUDIO_STATE_STOPPING](Titanium.Media.AUDIO_STATE_STOPPING) instead."
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "STATE_WAITING_FOR_DATA",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Player is waiting for audio data from the network.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "deprecated": {
+        "since": "7.5.0",
+        "notes": "Use [Titanium.Media.AUDIO_STATE_WAITING_FOR_DATA](Titanium.Media.AUDIO_STATE_WAITING_FOR_DATA) instead."
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "STATE_WAITING_FOR_QUEUE",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Player is waiting for audio data to fill the queue.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "deprecated": {
+        "since": "7.5.0",
+        "notes": "Use [Titanium.Media.AUDIO_STATE_WAITING_FOR_QUEUE](Titanium.Media.AUDIO_STATE_WAITING_FOR_QUEUE) instead."
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "time",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Current playback position of the audio.",
+      "description": "Time is reported in milliseconds.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "3.3.0"
+    },
+    {
+      "name": "url",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "URL for the audio stream.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "volume",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Volume of the audio, from 0.0 (muted) to 1.0 (loudest).",
+      "description": "This setting controls the volume of the sound relative to the overall\nvolume setting for the device.\n\nOn iOS, to adjust the volume of the device, set the `volume` property of\n[Titanium.Media.appMusicPlayer](api:Titanium.Media#appMusicPlayer) and set the [Titanium.Media.audioSessionCategory](api:Titanium.Media#audioSessionCategory) property\nto either [Titanium.Media.AUDIO_SESSION_CATEGORY_AMBIENT](api:Titanium.Media#AUDIO_SESSION_CATEGORY_AMBIENT),\n[Titanium.Media.AUDIO_SESSION_CATEGORY_SOLO_AMBIENT](api:Titanium.Media#AUDIO_SESSION_CATEGORY_SOLO_AMBIENT),\nor [Titanium.Media.AUDIO_SESSION_CATEGORY_PLAYBACK](api:Titanium.Media#AUDIO_SESSION_CATEGORY_PLAYBACK).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "2.1.0"
+    },
+    {
+      "name": "waiting",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Boolean indicating if the playback is waiting for audio data from the network.",
+      "description": "This property is `true` if the player is in any of the waiting states, including\nbuffering, starting, waiting for data, and waiting for queue.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "permission": "read-only"
+    }
+  ],
+  "methods": [
+    {
+      "name": "getAudioSessionId",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Returns the audio session id.",
+      "since": "5.4.0",
+      "deprecated": {
+        "since": "10.0.0",
+        "notes": "Use the [audioSessionId](Titanium.Media.AudioPlayer.audioSessionId) property instead"
+      },
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "getPaused",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Returns the value of the [paused](api:Titanium.Media.AudioPlayer#paused) property.",
+      "deprecated": {
+        "since": "7.5.0",
+        "removed": "10.0.0",
+        "notes": "Use the cross-platform API <Titanium.Media.AudioPlayer.paused> property instead."
+      },
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "getPlaying",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Returns the value of the [playing](api:Titanium.Media.AudioPlayer#playing) property.",
+      "deprecated": {
+        "since": "7.5.0",
+        "removed": "10.0.0",
+        "notes": "Use the cross-platform API <Titanium.Media.AudioPlayer.playing> property instead."
+      },
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "isPaused",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Returns the value of the [paused](api:Titanium.Media.AudioPlayer#paused) property.",
+      "deprecated": {
+        "since": "7.5.0",
+        "removed": "10.0.0",
+        "notes": "Use the cross-platform API <Titanium.Media.AudioPlayer.paused> property instead."
+      },
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "isPlaying",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Returns the value of the [playing](api:Titanium.Media.AudioPlayer#playing) property.",
+      "deprecated": {
+        "since": "7.5.0",
+        "removed": "10.0.0",
+        "notes": "Use the cross-platform API <Titanium.Media.AudioPlayer.playing> property instead."
+      },
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "pause",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Pauses audio playback.",
+      "description": "On iOS, the `pause` call operates as a toggle. If the stream is already paused,\ncalling `pause` again resumes playing the stream.\n\nOn Android, the `pause` call does nothing if the stream is already paused.\n\nOn both platforms, calling [Titanium.Media.AudioPlayer.start](api:Titanium.Media.AudioPlayer#start) on a paused\nstream resumes play.\n"
+    },
+    {
+      "name": "play",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Starts or resumes audio playback.",
+      "description": "This method is identical to .\n",
+      "deprecated": {
+        "since": "7.5.0",
+        "notes": "Use the cross-platform API [Titanium.Media.AudioPlayer.start](Titanium.Media.AudioPlayer.start) instead."
+      }
+    },
+    {
+      "name": "release",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Stops buffering audio data and releases audio resources.",
+      "description": "On Android, this method should be called when you are done streaming a given\naudio object, to release underlying resources, including buffered data.\n\nOn iOS, this method can be called for parity to release the current player\ninstance and it's observers. Note: If you are listening to the `progress` event,\nyou should remove and re-add the event listener.\n",
+      "since": {
+        "android": "0.9",
+        "iphone": "7.5.0",
+        "ipad": "7.5.0"
+      }
+    },
+    {
+      "name": "restart",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Restarts (stops and stars) audio playback.",
+      "since": "7.5.0"
+    },
+    {
+      "name": "seekToTime",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Moves the playback cursor and invokes the specified block when the seek \noperation has either been completed or been interrupted.\n",
+      "description": "Use this method to seek to a specified time for the current player item and \nto be notified by the `seek` event when the seek operation is complete.  \n",
+      "since": "7.5.0",
+      "parameters": [
+        {
+          "name": "time",
+          "summary": "The time in milliseconds to seek to.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "setPaused",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Sets the value of the [paused](api:Titanium.Media.AudioPlayer#paused) property.",
+      "description": "On iOS, this method can be used to pause and unpause playback. For portability,\nit is preferable to use the [Titanium.Media.AudioPlayer.pause](api:Titanium.Media.AudioPlayer#pause) and\n[Titanium.Media.AudioPlayer.start](api:Titanium.Media.AudioPlayer#start) methods instead.\n",
+      "deprecated": {
+        "since": "7.5.0",
+        "removed": "10.0.0",
+        "notes": "Use the cross-platform API [Titanium.Media.AudioPlayer.pause](Titanium.Media.AudioPlayer.pause) instead."
+      },
+      "parameters": [
+        {
+          "name": "paused",
+          "summary": "Pass `true` to pause the current playback temporarily, `false` to unpause it.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "start",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Starts or resumes audio playback."
+    },
+    {
+      "name": "stateDescription",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Converts a [state](api:Titanium.Media.AudioPlayer#state) value into a text description\nsuitable for display.\n",
+      "parameters": [
+        {
+          "name": "state",
+          "summary": "State value to convert.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "stop",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Stops audio playback."
+    }
+  ],
+  "events": [
+    {
+      "name": "change",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when the state of the playback changes.",
+      "description": "This event can be generated by programmatic events, such as pausing or stopping the audio,\nand also by external events, such as the current state of network buffering.\n",
+      "properties": [
+        {
+          "name": "state",
+          "summary": "Current state of playback.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "description",
+          "summary": "Text description of the state of playback.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "complete",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when the audio has finished playing.",
+      "since": {
+        "android": "0.9",
+        "iphone": "7.5.0",
+        "ipad": "7.5.0"
+      },
+      "properties": [
+        {
+          "name": "success",
+          "summary": "Indicates if the sound was played successfully.\nReturns `true` if request succeeded, `false` otherwise.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "error",
+          "summary": "Error message, if any returned. Will be undefined if `success` is `true`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "code",
+          "summary": "Error code.\nError code will be 0 if `success` is `true`, nonzero otherwise. If the error\nwas generated by the operating system, that system's error value is used.\nOtherwise, this value will be -1.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "error",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when there's an error.",
+      "since": "4.1.0",
+      "properties": [
+        {
+          "name": "error",
+          "summary": "Error message.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "code",
+          "summary": "Error code. Different between Android and iOS.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "metadata",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when the timed metadata was encountered most recently within the media as it plays.",
+      "description": "Use this event to receive meta information about real time streams and buffers, for example\nthe title of an active radio stream. Read more about timed metadata in the [Apple docs](https://developer.apple.com/documentation/avfoundation/avplayeritem/1389602-timedmetadata?language=objc).\n",
+      "since": "7.5.0",
+      "properties": [
+        {
+          "name": "items",
+          "summary": "An array of metadata items containing relevant information about the current media item.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "TiMetadataItemType"
+                }
+              ]
+            }
+          ],
+          "inlined": {
+            "name": "TiMetadataItemType",
+            "summary": "An abstract type to represent a metadata item inside the `metadata` event (iOS only).",
+            "description": "This type is key-value based and is returned inside an array of metadata items.\nRead more about timed metadata items in the [Apple docs](https://developer.apple.com/documentation/avfoundation/avmetadataitem?language=objc).\n",
+            "properties": [
+              {
+                "name": "extraAttributes",
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "A dictionary of the additional attributes.",
+                "type": [
+                  {
+                    "kind": "type",
+                    "name": "Dictionary"
+                  }
+                ]
+              },
+              {
+                "name": "key",
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "The key of the metadata item, e.g. \"title\".",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  }
+                ]
+              },
+              {
+                "name": "keySpace",
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "The key-path of the metadata item.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  }
+                ]
+              },
+              {
+                "name": "value",
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "The value of the metadata item. Can be represented as various types.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  },
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  },
+                  {
+                    "kind": "primitive",
+                    "name": "Boolean"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "progress",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired once per second with the current progress during playback.",
+      "properties": [
+        {
+          "name": "progress",
+          "summary": "Current progress, in milliseconds.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "seek",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired once the [seekToTime](api:Titanium.Media.AudioPlayer#seek) method completes.",
+      "properties": [
+        {
+          "name": "finished",
+          "summary": "The event for any prior seek request that is still in process will be invoked \nimmediately with the `finished` parameter set to `false`. \nIf the new request completes without being interrupted by another seek \nrequest or by any other operation this event will be invoked with \nthe `finished` parameter set to `true`. \n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "lifecycleContainer",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      }
+    ],
+    "events": []
+  },
+  "references": [
+    "TiMetadataItemType",
+    "Titanium.Android.Activity",
+    "Titanium.Media",
+    "Titanium.Proxy"
+  ],
+  "source": "Titanium/Media/AudioPlayer.yml"
+}

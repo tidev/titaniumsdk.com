@@ -1,0 +1,157 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.BlobStream",
+  "kind": "proxy",
+  "extends": "Titanium.IOStream",
+  "inheritanceChain": [
+    "Titanium.IOStream",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
+  "since": {
+    "android": "1.7",
+    "iphone": "1.7",
+    "ipad": "1.7",
+    "macos": "9.2.0"
+  },
+  "summary": "Wrapper around [Titanium.Blob](api:Titanium.Blob) that implements the [Titanium.IOStream](api:Titanium.IOStream) interface.",
+  "description": "Use the [Titanium.Stream.createStream](api:Titanium.Stream#createStream) method to create a `BlobStream` instance from a\n`Blob`.\n",
+  "properties": [],
+  "methods": [],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "lifecycleContainer",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "close",
+        "from": "Titanium.IOStream",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "isReadable",
+        "from": "Titanium.IOStream",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "isWritable",
+        "from": "Titanium.IOStream",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "read",
+        "from": "Titanium.IOStream",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "write",
+        "from": "Titanium.IOStream",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      }
+    ],
+    "events": []
+  },
+  "references": [
+    "Titanium.Blob",
+    "Titanium.IOStream",
+    "Titanium.Stream"
+  ],
+  "source": "Titanium/BlobStream.yml"
+}

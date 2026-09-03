@@ -1,0 +1,356 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.Android.ActionBar",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android"
+  ],
+  "since": "3.0",
+  "summary": "An action bar is a window feature that identifies the application and user location,\nand provides user actions and navigation modes.\n",
+  "description": "You can add action items to the action bar by defining an Android menu and setting the\nmenu items to display as action items. See [Menu](api:Titanium.Android.Menu) and\n[MenuItem](api:Titanium.Android.MenuItem) for details.\n\nYou cannot change the action bar's settings until the window's [activity](api:Titanium.UI.Window#activity)\nor tab group's [activity](api:Titanium.UI.TabGroup#activity) has been created.\nYou can detect this by assigning a callback to the activity's [onCreate](api:Titanium.Android.Activity#onCreate)\nproperty.\n\nNote that setting the [Window.navBarHidden](api:Titanium.UI.Window#navBarHidden) property\nto true disables the Action Bar since it is part of the navigation title bar.\n\nFor more examples on using the Action Bar, refer to the\n[Android Action Bar guide](https://titaniumsdk.com/guide/Titanium_SDK/Titanium_SDK_How-tos/User_Interface_Deep_Dives/Android_UI_Components_and_Conventions/Android_Action_Bar.html).\n\n#### Application Notes for Alloy\n\nStarting with Alloy 1.5.0, you can add ActionBar attributes to the `ActionBar` element.\nTo use the action bar, add the `<ActionBar>` tag as a child of either a\na `<Window>` or `<TabGroup>`, then set ActionBar attributes in either the XML or TSS file.\n\nStarting with Alloy 1.4.0, you can also add ActionBar attributes to the `Menu` element.\nDo not define ActionBar attributes in both the `ActionBar` and `Menu` elements. Only define the\nattributes in one element.\n\nTo add action items to the action bar, add the `<Menu>` tag as a child of either\na `<Window>` or `<TabGroup>`, then add `<MenuItem>` tags as children of the `<Menu>` tag.\nSet MenuItem attributes in either the XML or TSS file.\n\nFor an example of using the Action Bar with Alloy, see \"Action Bar using Alloy XML Markup\" below.\n",
+  "examples": [
+    {
+      "title": "Action Bar using Alloy XML Markup",
+      "code": "Adds action items and sets several properties on a window's action bar in the XML and TSS files.\n\n`app/views/index.xml`:\n``` xml\n<Alloy>\n    <Window title=\"My Test App\">\n        <ActionBar id=\"actionbar\" title=\"My XML Menu\" onHomeIconItemSelected=\"doMenuClick\" />\n        <Menu>\n            <MenuItem id=\"item1\" title=\"Settings\" onClick=\"openSettings\" />\n            <MenuItem id=\"item2\" title=\"Search\" onClick=\"doSearch\" />\n        </Menu>\n        <Label id=\"label\">Welcome!</Label>\n    </Window>\n</Alloy>\n```\n\n\n`app/controllers/index.js`:\n```\nfunction doMenuClick() {}\nfunction openSettings() {}\nfunction doSearch() {}\n$.index.open();\n```\n\n`app/styles/index.tss`:\n```\n\"MenuItem\": {\n    showAsAction: Ti.Android.SHOW_AS_ACTION_ALWAYS\n},\n\"#item1\": {\n    icon: Ti.Android.R.drawable.ic_menu_preferences\n},\n\"#item2\": {\n    icon: Ti.Android.R.drawable.ic_menu_search\n},\n\"#actionbar\": {\n    icon: \"/actionicon.png\",\n    displayHomeAsUp: true,\n    backgroundImage: \"/actionbackground.png\"\n}\n```\n"
+    },
+    {
+      "title": "Action Bar Example",
+      "code": "The following example sets several properties on a window's action bar.\n\n``` js\nconst win = Ti.UI.createWindow({\n    title: \"Old Title\",\n    navBarHidden: false\n});\nif (OS_ANDROID) {\n    win.activity.onCreate = () => {\n        const actionBar = win.activity.actionBar;\n        if (actionBar) {\n            actionBar.backgroundImage = Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, 'bg.png').nativePath;\n            actionBar.title = \"New Title\";\n            actionBar.onHomeIconItemSelected = () => {\n                Ti.API.info(\"Home icon clicked!\");\n            };\n        }\n    };\n}\nwin.open();\n```\n\nThe above can be done for a tab group via its [activity](Titanium.UI.TabGroup.activity) property.\nNote that individual tab windows do not have an activity. Only the root tab group (which hosts the tabs)\nprovides an activity property.\n"
+    }
+  ],
+  "properties": [
+    {
+      "name": "backgroundImage",
+      "platforms": [
+        "android"
+      ],
+      "summary": "The background image for the action bar, specified as a local file path or URL.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "permission": "write-only"
+    },
+    {
+      "name": "customView",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Sets a view to be used for a custom navigation mode.",
+      "description": "Inserts a custom view for navigation in the space\nbetween the application's home button and menu actions.\nThe custom view is trimmed to fit the space available.\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.UI.View"
+        }
+      ],
+      "since": "7.1.0"
+    },
+    {
+      "name": "displayHomeAsUp",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Displays an \"up\" affordance on the \"home\" area of the action bar.",
+      "description": "See also: [setDisplayHomeAsUpEnabled](https://developer.android.com/reference/android/app/ActionBar.html#setDisplayHomeAsUpEnabled(boolean))\nin the Android Developer Reference.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "permission": "write-only"
+    },
+    {
+      "name": "homeAsUpIndicator",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Sets a custom icon for the \"home\" button in the corner of the action bar.",
+      "description": "Can be set to a `String` file path or URL to an image, to an image blob, or to a resource ID\nfrom `Ti.App.Android.R.drawable.*` or `Ti.Android.R.drawable.*`. It's highly recommended to set this\nto a vector drawable resource ID.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        },
+        {
+          "kind": "primitive",
+          "name": "Number"
+        },
+        {
+          "kind": "type",
+          "name": "Titanium.Blob"
+        }
+      ],
+      "since": "11.0.0",
+      "permission": "write-only"
+    },
+    {
+      "name": "homeButtonEnabled",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Enable or disable the \"home\" button in the corner of the action bar.",
+      "description": "See also: [setHomeButtonEnabled](https://developer.android.com/reference/android/app/ActionBar.html#setHomeButtonEnabled(boolean))\nin the Android Developer Reference.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "3.3.0",
+      "permission": "write-only"
+    },
+    {
+      "name": "icon",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Sets the application icon displayed in the \"home\" area of the action bar.",
+      "description": "Before Titanium 11.0.0, this property only supports a `String` and it must be assigned a local file path\nor URL to an image.\n\nAs of Titanium 11.0.0, this property can also be assigned an image blob or a native drawable resource ID\nfrom `Ti.App.Android.R.drawable.*` or `Ti.Android.R.drawable.*`.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        },
+        {
+          "kind": "primitive",
+          "name": "Number"
+        },
+        {
+          "kind": "type",
+          "name": "Titanium.Blob"
+        }
+      ],
+      "permission": "write-only"
+    },
+    {
+      "name": "logo",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Sets the application logo displayed in the \"home\" area of the action bar.",
+      "description": "Before Titanium 11.0.0, this property only supports a `String` and it must be assigned a local file path\nor URL to an image.\n\nAs of Titanium 11.0.0, this property can also be assigned an image blob or a native drawable resource ID\nfrom `Ti.App.Android.R.drawable.*` or `Ti.Android.R.drawable.*`.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        },
+        {
+          "kind": "primitive",
+          "name": "Number"
+        },
+        {
+          "kind": "type",
+          "name": "Titanium.Blob"
+        }
+      ],
+      "permission": "write-only"
+    },
+    {
+      "name": "navigationMode",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Controls the navigation mode.",
+      "description": "The navigation mode can be [NAVIGATION_MODE_STANDARD](api:Titanium.Android#NAVIGATION_MODE_STANDARD), or [NAVIGATION_MODE_TABS](api:Titanium.Android#NAVIGATION_MODE_TABS).\nA TabGroup is initialized by Titanium Mobile with `NAVIGATION_MODE_TABS`, and can be hidden by setting to `NAVIGATION_MODE_STANDARD`. `NAVIGATION_MODE_LIST` is not yet supported.\nSee also: [setNavigationMode](https://developer.android.com/reference/android/app/ActionBar.html#setNavigationMode(int))\nin the Android Developer Reference.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ]
+    },
+    {
+      "name": "onHomeIconItemSelected",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Callback function called when the home icon is clicked.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Callback"
+        }
+      ],
+      "permission": "write-only"
+    },
+    {
+      "name": "subtitle",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Sets the subtitle of the action bar.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "3.2.3"
+    },
+    {
+      "name": "title",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Sets the title of the action bar.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "visible",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Gets or sets the action bar visibility state.",
+      "description": "Setting this property to `true` or `false` is the equivalent of calling the\n[show()](api:Titanium.Android.ActionBar#show) or [hide()](api:Titanium.Android.ActionBar#hide) methods.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "11.0.0"
+    }
+  ],
+  "methods": [
+    {
+      "name": "hide",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Hides the action bar if it is currently showing.",
+      "description": "See also:\n[hide](https://developer.android.com/reference/android/app/ActionBar.html#hide())\nin the Android API Reference.\n"
+    },
+    {
+      "name": "setDisplayShowHomeEnabled",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Shows or hides the action bar home icon",
+      "description": "See also:\n[setDisplayShowHomeEnabled](https://developer.android.com/reference/android/app/ActionBar.html#setDisplayShowHomeEnabled(boolean))\nin the Android API Reference.\n",
+      "since": "3.3.0",
+      "parameters": [
+        {
+          "name": "show",
+          "summary": "Boolean to show or hide action bar home icon",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "setDisplayShowTitleEnabled",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Shows or hides the action bar title/subtitle",
+      "description": "See also:\n[setDisplayShowTitleEnabled](https://developer.android.com/reference/android/app/ActionBar.html#setDisplayShowTitleEnabled(boolean))\nin the Android API Reference.\n",
+      "since": "3.3.0",
+      "parameters": [
+        {
+          "name": "show",
+          "summary": "Boolean to show or hide action bar title/subtitle",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "show",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Shows the action bar if it is currently hidden.",
+      "description": "See also:\n[show](https://developer.android.com/reference/android/app/ActionBar.html#show())\nin the Android API Reference.\n"
+    }
+  ],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "lifecycleContainer",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      }
+    ],
+    "events": []
+  },
+  "references": [
+    "Titanium.Android",
+    "Titanium.Android.Activity",
+    "Titanium.Android.Menu",
+    "Titanium.Android.MenuItem",
+    "Titanium.Blob",
+    "Titanium.Proxy",
+    "Titanium.UI.TabGroup",
+    "Titanium.UI.View",
+    "Titanium.UI.Window"
+  ],
+  "source": "Titanium/Android/ActionBar.yml"
+}

@@ -1,0 +1,130 @@
+{
+  "schemaVersion": 1,
+  "name": "Font",
+  "kind": "pseudo",
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
+  "summary": "An abstract datatype for specifying a text font.",
+  "description": "Available fonts vary by platform and device. On iOS, font support depends on the OS\nversion. On Android, font support depends on the OS version **and** device manufacturer.\n\nNote that to update the font used by a UI component, you must set the object's `font`\nproperty, like this:\n\n``` js\nmyLabel.font = {\n    fontSize: 24,\n    fontFamily: myFontName\n}\n```\n\nChanging the `font` object after assigning it does not reliably affect the underlying UI\ncomponent:\n\n``` js\n// This may not work as expected\nmyLabel.font.fontSize = 24;\n```\n\n#### Custom Fonts\n\nCustom TrueType (.ttf) or OpenType (.otf) fonts may be embedded in an application on iOS and\nAndroid. (Note that you must have redistribution rights on the fonts you ship.)\n\n\nIn Alloy applications, custom fonts must be placed in a \"fonts\" folder in the platform-specific assets folder (<strong>app/assets/android/fonts</strong>, for example).\nIn classic Titanium applications, custom fonts must be placed in the **Resources/fonts** directory.\n\nFor an example of using custom fonts, see [Custom Fonts](https://titaniumsdk.com/guide/Titanium_SDK/Titanium_SDK_How-tos/User_Interface_Deep_Dives/Custom_Fonts.html).\n",
+  "properties": [
+    {
+      "name": "fontFamily",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Specifies the font family or specific font to use.",
+      "description": "\nThis can be the name of a font family (for example, \"Helvetica\" or \"DroidSans\") the base\nname of the font file (for example, \"Droid_sans.ttf\"), or the font's PostScript name. The\nvalue you specify also depends on the platform you are targeting.\n\n* On Android specify the font file name without its file extension (.otf or .ttf).\nFor example, if you were using the \"Burnstown Dam\" font whose file name is\nnamed `burnstown_dam.ttf`, then you specify `fontFamily: 'burnstown_dam'`.\n\n* On iOS you use the font's [PostScript name](https://titaniumsdk.com/guide/Titanium_SDK/Titanium_SDK_How-tos/User_Interface_Deep_Dives/Custom_Fonts.html#finding-a-font-s-postscript-name).\nFor example, the PostScript name for Burnstown Dam is \"BurnstownDam-Regular so you'd specify: `fontFamily: 'BurnstownDam-Regular'`.\n\nFor an example of using a custom font, see [Custom Fonts](https://titaniumsdk.com/guide/Titanium_SDK/Titanium_SDK_How-tos/User_Interface_Deep_Dives/Custom_Fonts.html).\n\nNotes:\n\n  * Available fonts differ by platform.\n  * If the requested family name does not match an existing font, the default font family is used.\n  * On Android, the generic names \"sans-serif,\" \"serif,\" and \"monospace\" (or \"monospaced\")\n    are mapped to system fonts. On iOS, only \"monospace\" is supported.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "default": "Uses the default system font."
+    },
+    {
+      "name": "fontSize",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Font size, in platform-dependent units.",
+      "description": "On iOS, font sizes are always specified in typographical points\n(not to be confused with the Apple \"points\" used for other measurements on iOS).\n\nOn Android the default font sizing is in pixels, but the size can also\ninclude a unit specifier. Supported units and their specifiers are:\n\n* pixels (px)\n* typographical points (pt)\n* density-independent pixels (dp or dip)\n* millimeters (mm)\n* inches (in)\n\nFor example, \"16dp\" specifies a size of 16 density-independent pixels.\n\niOS ignores any unit specifier after the size value.\n\nOn Windows, font sizing is in effective pixels, not actual physical pixels so you don't have to alter font sizes for different screens sizes or resolutions.\nFor more information about font sizing on Windows, see [Typography Size and Scaling](https://docs.microsoft.com/en-us/windows/uwp/design/style/typography#size-and-scaling).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        },
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "default": "15px"
+    },
+    {
+      "name": "fontStyle",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Font style. Valid values are \"italic\" or \"normal\".",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "default": "normal"
+    },
+    {
+      "name": "fontWeight",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Font weight. Valid values are \"bold\", \"semibold\", \"normal\", \"thin\",\n\"light\" and \"ultralight\".\n",
+      "description": "The \"semibold\", \"thin\", \"light\" and \"ultralight\" weights are recognized\non iOS only. \"thin\", \"light\" and \"ultralight\" are only available on iOS 8.2\nand later.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "default": "normal"
+    },
+    {
+      "name": "textStyle",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The text style for the font.",
+      "description": "Use one of the TEXT_STYLE constants from [Titanium.UI](api:Titanium.UI) to set the font to a predefined system font.\nWhen this property is set to a valid value, all other font properties are ignored.\n\nNotes:\n Since SDK 9.0.0 property [Font.fontFamily](api:Font#fontFamily) will not be ignored for iOS 11+.\n Custom fonts can be used with this property for dynamic font management.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "3.2.0",
+      "constants": [
+        "Titanium.UI.TEXT_STYLE_BODY",
+        "Titanium.UI.TEXT_STYLE_CALLOUT",
+        "Titanium.UI.TEXT_STYLE_CAPTION1",
+        "Titanium.UI.TEXT_STYLE_CAPTION2",
+        "Titanium.UI.TEXT_STYLE_FOOTNOTE",
+        "Titanium.UI.TEXT_STYLE_HEADLINE",
+        "Titanium.UI.TEXT_STYLE_LARGE_TITLE",
+        "Titanium.UI.TEXT_STYLE_SUBHEADLINE",
+        "Titanium.UI.TEXT_STYLE_TITLE1",
+        "Titanium.UI.TEXT_STYLE_TITLE2",
+        "Titanium.UI.TEXT_STYLE_TITLE3"
+      ]
+    }
+  ],
+  "methods": [],
+  "events": [],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "references": [
+    "Titanium.UI"
+  ],
+  "source": "Titanium/UI/Font.yml"
+}

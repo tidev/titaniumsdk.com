@@ -1,0 +1,1737 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.UI.SearchBar",
+  "kind": "view",
+  "extends": "Titanium.UI.View",
+  "inheritanceChain": [
+    "Titanium.UI.View",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
+  "since": "0.8",
+  "summary": "A specialized text field for entering search text.",
+  "description": "| Android | iOS |\n| ------- | --- |\n| ![Android](./searchbar_android.png) | ![iOS](./searchbar_ios.png) |\n\nSearch bars are most commonly used for filtering the rows in a [TableView](api:Titanium.UI.TableView) and\n[ListView](api:Titanium.UI.ListView). You can add a search bar to a table view via its\n[search](api:Titanium.UI.TableView#search) property. You can add a search bar to a list view via its\n[searchBar](api:Titanium.UI.SearchBar) property.\n\nA search bar can also be used on its own.\n\nUse the [Titanium.UI.createSearchBar](api:Titanium.UI#createSearchBar) method or Alloy **`<SearchBar>`** element to create a search bar.\n\n#### Android Notes\n\nOn Android, the search bar's `[x]` clear button is used as a cancel button if\n[iconifiedByDefault](api:Titanium.UI.SearchBar#iconifiedByDefault) is set `true`,\ncausing it to collapse back into an icon. Otherwise, it will only clear the text\nand you'll receive a [change](api:Titanium.UI.SearchBar#change) event instead of a\n[cancel](api:Titanium.UI.SearchBar#cancel) event like iOS.\n",
+  "examples": [
+    {
+      "title": "Simple Search Bar",
+      "code": "``` js\nvar search = Titanium.UI.createSearchBar({\n  barColor:'#000',\n  showCancel:true,\n  height:43,\n  top:0,\n});\n```\n"
+    },
+    {
+      "title": "Alloy XML Markup",
+      "code": "Previous example as an Alloy view.\n\n``` xml\n<Alloy>\n    <SearchBar id=\"search\" barColor=\"#000\" showCancel=\"true\" height=\"43\" top=\"0\" />\n</Alloy>\n```\n"
+    },
+    {
+      "title": "Search Bar with TableView",
+      "code": "``` js\nvar search = Ti.UI.createSearchBar({\n    showCancel: true\n});\nvar tableview = Ti.UI.createTableView({\n    search: search\n});\n```\n"
+    },
+    {
+      "title": "Alloy XML Markup",
+      "code": "Previous example as an Alloy view.\n\n``` xml\n<Alloy>\n    <TableView id=\"tableview\">\n        <SearchBar id=\"search\" showCancel=\"true\" />\n    </TableView>\n</Alloy>\n```\n"
+    }
+  ],
+  "properties": [
+    {
+      "name": "autocapitalization",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Determines how text is capitalized during typing.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": {
+        "android": "10.0.0",
+        "iphone": "0.8",
+        "ipad": "0.8",
+        "macos": "9.2.0"
+      },
+      "default": "Titanium.UI.TEXT_AUTOCAPITALIZATION_NONE",
+      "constants": [
+        "Titanium.UI.TEXT_AUTOCAPITALIZATION_ALL",
+        "Titanium.UI.TEXT_AUTOCAPITALIZATION_NONE",
+        "Titanium.UI.TEXT_AUTOCAPITALIZATION_SENTENCES",
+        "Titanium.UI.TEXT_AUTOCAPITALIZATION_WORDS"
+      ]
+    },
+    {
+      "name": "autocorrect",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Determines whether the text in the search bar is autocorrected during typing.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": {
+        "android": "10.0.0",
+        "iphone": "0.8",
+        "ipad": "0.8",
+        "macos": "9.2.0"
+      },
+      "default": "false"
+    },
+    {
+      "name": "barColor",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Bar color of the search bar view, as a color name or hex triplet.",
+      "description": "For information about color values, see the \"Colors\" section of [Titanium.UI](api:Titanium.UI).\n\nOn iOS and Android, `barColor` specifies the color of the \"frame\" around the search text field.\nOn Windows, `barColor` specifies the color of the whole surrounding area of the search text field.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        },
+        {
+          "kind": "type",
+          "name": "Titanium.UI.Color"
+        }
+      ],
+      "default": "System default bar color."
+    },
+    {
+      "name": "cancelButtonTitle",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The title of the cancel button when the search bar field is focused.",
+      "description": "Use this property if you want to display a custom cancel title.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "5.4.0",
+      "default": "System-localized 'Cancel'"
+    },
+    {
+      "name": "color",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Color of the text in this text field, as a color name or hex triplet.",
+      "description": "For information about color values, see the \"Colors\" section of [Titanium.UI](api:Titanium.UI).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        },
+        {
+          "kind": "type",
+          "name": "Titanium.UI.Color"
+        }
+      ],
+      "since": "7.1.0"
+    },
+    {
+      "name": "fieldBackgroundDisabledImage",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Background image of the text field in disabled state, specified as a local file path or URL.",
+      "description": "If this property is not specified, the default white background is used.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "7.5.0"
+    },
+    {
+      "name": "fieldBackgroundImage",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Background image of the text field, specified as a local file path or URL.",
+      "description": "If this property is not specified, the default white background is used.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "7.5.0"
+    },
+    {
+      "name": "focused",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Determines whether this SearchBar has focus.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "9.1.0",
+      "permission": "read-only",
+      "default": "false"
+    },
+    {
+      "name": "hintText",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Text to show when the search bar field is not focused.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "default": "On iOS, System-localized 'Search'. On Android and Windows, no hint text."
+    },
+    {
+      "name": "hintTextColor",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Hint text color to display when the field is empty.",
+      "description": "Sets the color of the [Titanium.UI.SearchBar.hintText](api:Titanium.UI.SearchBar#hintText).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        },
+        {
+          "kind": "type",
+          "name": "Titanium.UI.Color"
+        }
+      ],
+      "since": "7.1.0",
+      "default": "The platform's default hint text color."
+    },
+    {
+      "name": "hinttextid",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Key identifying a string from the locale file to use for the\n[hintText](api:Titanium.UI.SearchBar#hintText) property.\n",
+      "description": "Only one of `hintText` or `hinttextid` should be specified.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "iconColor",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Color of the search and close icon. Search icon will only work for `iconified:false`.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        },
+        {
+          "kind": "type",
+          "name": "Titanium.UI.Color"
+        }
+      ],
+      "since": "12.0.0"
+    },
+    {
+      "name": "iconified",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Collapses/expands the search view to/from a search icon.",
+      "description": "See [Android Documentation](https://developer.android.com/reference/android/widget/SearchView.html#setIconified(boolean)) for more details.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "default": "undefined"
+    },
+    {
+      "name": "iconifiedByDefault",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Set true show as a search icon that expands to a search view when tapped on.",
+      "description": "See [Android Documentation](https://developer.android.com/reference/android/widget/SearchView.html#setIconifiedByDefault(boolean)) for more details.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "default": "false"
+    },
+    {
+      "name": "keyboardAppearance",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Determines the appearance of the keyboard to be displayed the field is focused.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.2.0",
+      "default": "Titanium.UI.KEYBOARD_APPEARANCE_DEFAULT",
+      "constants": [
+        "Titanium.UI.KEYBOARD_APPEARANCE_DARK",
+        "Titanium.UI.KEYBOARD_APPEARANCE_DEFAULT",
+        "Titanium.UI.KEYBOARD_APPEARANCE_LIGHT"
+      ]
+    },
+    {
+      "name": "keyboardType",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Keyboard type constant to use when the field is focused.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "default": "Titanium.UI.KEYBOARD_TYPE_DEFAULT",
+      "constants": [
+        "Titanium.UI.KEYBOARD_TYPE_ASCII",
+        "Titanium.UI.KEYBOARD_TYPE_DECIMAL_PAD",
+        "Titanium.UI.KEYBOARD_TYPE_DEFAULT",
+        "Titanium.UI.KEYBOARD_TYPE_EMAIL",
+        "Titanium.UI.KEYBOARD_TYPE_NAMEPHONE_PAD",
+        "Titanium.UI.KEYBOARD_TYPE_NUMBERS_PUNCTUATION",
+        "Titanium.UI.KEYBOARD_TYPE_NUMBER_PAD",
+        "Titanium.UI.KEYBOARD_TYPE_PHONE_PAD",
+        "Titanium.UI.KEYBOARD_TYPE_TWITTER",
+        "Titanium.UI.KEYBOARD_TYPE_URL",
+        "Titanium.UI.KEYBOARD_TYPE_WEBSEARCH"
+      ]
+    },
+    {
+      "name": "prompt",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Single line of text displayed at the top of the search bar.",
+      "description": "On Android, this property is no longer supported as of Titanium 10.0.0.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "default": "No prompt."
+    },
+    {
+      "name": "promptid",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Key identifying a string from the locale file to use for the\n[prompt](api:Titanium.UI.SearchBar#prompt) property.\n",
+      "description": "On Android, this property is no longer supported as of Titanium 10.0.0.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "showBookmark",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Determines whether the bookmark button is displayed.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "default": "false"
+    },
+    {
+      "name": "showCancel",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Determines whether the cancel button is displayed.",
+      "description": "On iOS, you can specify that showing and hiding the cancel button should be animated.\nThe change is not animated by default. To enable animation, call\n[setShowCancel](api:Titanium.UI.SearchBar#setShowCancel).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "default": "false"
+    },
+    {
+      "name": "style",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Determines the style of the search bar.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.4.0",
+      "default": "Titanium.UI.iOS.SEARCH_BAR_STYLE_PROMINENT",
+      "constants": [
+        "Titanium.UI.iOS.SEARCH_BAR_STYLE_MINIMAL",
+        "Titanium.UI.iOS.SEARCH_BAR_STYLE_PROMINENT"
+      ]
+    },
+    {
+      "name": "tokens",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The token of a search text field",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Array",
+          "args": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ],
+      "since": "9.1.0",
+      "default": "",
+      "osver": {
+        "ios": {
+          "min": "13.0"
+        }
+      }
+    },
+    {
+      "name": "value",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Value of the search bar.",
+      "description": "On Android and before Titanium 10.0.0, the value cannot be set until after the search bar is created.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "blur",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Causes the search bar to lose focus."
+    },
+    {
+      "name": "focus",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Causes the search bar to gain focus."
+    },
+    {
+      "name": "insertTokenAtIndex",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Inserts a new search token at the specified index.",
+      "since": "9.1.0",
+      "osver": {
+        "ios": {
+          "min": "13.0"
+        }
+      },
+      "parameters": [
+        {
+          "name": "token",
+          "summary": "The token to insert",
+          "type": [
+            {
+              "kind": "type",
+              "name": "SearchBarToken"
+            }
+          ],
+          "inlined": {
+            "name": "SearchBarToken",
+            "summary": "The search bar token for the [Titanium.UI.SearchBar.insertTokenAtIndex](api:Titanium.UI.SearchBar#insertTokenAtIndex) method.",
+            "properties": [
+              {
+                "name": "identifier",
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "The identifier of the search bar token.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  }
+                ]
+              },
+              {
+                "name": "image",
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "The image of the search bar token.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  }
+                ],
+                "optional": true
+              },
+              {
+                "name": "text",
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "The text of the search bar token (displayed in the search bar).",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "index",
+          "summary": "The index to insert the token at.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "removeTokenAtIndex",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Removes an existing token at the specified index.",
+      "since": "9.1.0",
+      "osver": {
+        "ios": {
+          "min": "13.0"
+        }
+      },
+      "parameters": [
+        {
+          "name": "index",
+          "summary": "The index to remove the token at.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "setShowCancel",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Shows or hides the cancel button.",
+      "description": "Sets the value of the [showCancel](api:Titanium.UI.SearchBar#showCancel) property.\n\nOn iOS, this method can be used to specify animation properties when changing the\nstate of the cancel button.\n\n``` js\nsearchBar.setShowCancel(true, { animated: true });\n```\n",
+      "parameters": [
+        {
+          "name": "showCancel",
+          "summary": "New value for [showCancel](api:Titanium.UI.SearchBar#showCancel).",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "options",
+          "summary": "Dictionary of animation properties. Currently only a\nsingle boolean property, `animated` is supported. Only used on iOS.\n\nNote that the default here is equivalent to passing in `{ animated: false }`\n",
+          "type": [
+            {
+              "kind": "type",
+              "name": "AnimatedOptions"
+            }
+          ],
+          "optional": true,
+          "default": "{ animated: false }"
+        }
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "blur",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when the search bar loses focus.",
+      "properties": [
+        {
+          "name": "value",
+          "summary": "Value of the search bar.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "bookmark",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Fired when the bookmark button is pressed.",
+      "properties": [
+        {
+          "name": "value",
+          "summary": "Value of the search bar.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cancel",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when the cancel button is pressed.",
+      "properties": [
+        {
+          "name": "value",
+          "summary": "Value of the search bar.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "change",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when the value of the search bar changes.",
+      "properties": [
+        {
+          "name": "value",
+          "summary": "Value of the search bar.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "focus",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Fired when the search bar gains focus.",
+      "properties": [
+        {
+          "name": "value",
+          "summary": "Value of the search bar.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "return",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when keyboard search button is pressed.",
+      "properties": [
+        {
+          "name": "value",
+          "summary": "Value of the search bar.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "inherited": {
+    "properties": [
+      {
+        "name": "accessibilityDisableLongPress",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "accessibilityHidden",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "accessibilityHint",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "accessibilityLabel",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "accessibilityValue",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "anchorPoint",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "animatedCenter",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundDisabledColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "backgroundDisabledImage",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "backgroundFocusedColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "backgroundFocusedImage",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "backgroundGradient",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundImage",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundLeftCap",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundRepeat",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundSelectedColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundSelectedImage",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "backgroundTopCap",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "borderColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "borderRadius",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "borderWidth",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "bottom",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "center",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "children",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "clipMode",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "elevation",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "filterTouchesWhenObscured",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "focusable",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "height",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "hiddenBehavior",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "horizontalMotionEffect",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "horizontalWrap",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "id",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "keepHardwareMode",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "keepScreenOn",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "layout",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "left",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "lifecycleContainer",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "opacity",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "overrideCurrentAnimation",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "previewContext",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone"
+        ]
+      },
+      {
+        "name": "pullBackgroundColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "rect",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "right",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "rotation",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad"
+        ]
+      },
+      {
+        "name": "rotationX",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "rotationY",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "scaleX",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "scaleY",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "size",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "softKeyboardOnFocus",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "tintColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "tooltip",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "top",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "touchEnabled",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "touchFeedback",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "touchFeedbackColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "transform",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "transitionName",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "translationX",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "translationY",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "translationZ",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "verticalMotionEffect",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "viewShadowColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "viewShadowOffset",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "viewShadowRadius",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "visible",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "width",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "zIndex",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "animate",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "clearMotionEffects",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "convertPointToView",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "getViewById",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "hide",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "insertAt",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "show",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "stopAnimation",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "toImage",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      }
+    ],
+    "events": [
+      {
+        "name": "click",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "dblclick",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "doubletap",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "keypressed",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "longclick",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "longpress",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "pinch",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "postlayout",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "rotate",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "singletap",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "swipe",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "touchcancel",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "touchend",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "touchmove",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "touchstart",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "twofingertap",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      }
+    ]
+  },
+  "references": [
+    "AnimatedOptions",
+    "SearchBarToken",
+    "Titanium.UI",
+    "Titanium.UI.Color",
+    "Titanium.UI.ListView",
+    "Titanium.UI.TableView",
+    "Titanium.UI.View"
+  ],
+  "source": "Titanium/UI/SearchBar.yml"
+}

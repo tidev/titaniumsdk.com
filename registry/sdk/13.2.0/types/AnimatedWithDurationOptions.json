@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "name": "AnimatedWithDurationOptions",
+  "kind": "pseudo",
+  "extends": "AnimatedOptions",
+  "inheritanceChain": [
+    "AnimatedOptions"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
+  "summary": "A JavaScript object holding `animated` and `duration` properties. Used on iOS For [TableView](api:Titanium.UI.TableView) and [ListView](api:Titanium.UI.ListView) content offset transitions.",
+  "properties": [
+    {
+      "name": "duration",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The duration in `milliseconds` for animation",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "default": "300",
+      "optional": true
+    }
+  ],
+  "methods": [],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "animated",
+        "from": "AnimatedOptions",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      }
+    ],
+    "methods": [],
+    "events": []
+  },
+  "references": [
+    "AnimatedOptions",
+    "Titanium.UI.ListView",
+    "Titanium.UI.TableView"
+  ],
+  "source": "Titanium/UI/AnimatedOptions.yml"
+}

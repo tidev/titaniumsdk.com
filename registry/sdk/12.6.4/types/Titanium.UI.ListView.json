@@ -1,0 +1,3703 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.UI.ListView",
+  "kind": "view",
+  "extends": "Titanium.UI.View",
+  "inheritanceChain": [
+    "Titanium.UI.View",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
+  "since": "3.1.0",
+  "summary": "A list view is used to present information, organized in to sections and items,\nin a vertically-scrolling view.\n",
+  "description": "| Android | iOS |\n| ------- | --- |\n| ![Android](./listview_android.png) | ![iOS](./listview_ios.png) |\n\nUse the [Titanium.UI.createListView](api:Titanium.UI#createListView) method or **`<ListView>`** Alloy element to create a `ListView`.\n\nA `ListView` object is a container for [ListSection](api:Titanium.UI.ListSection)\nobjects that are, in turn, containers for [ListItem](api:Titanium.UI.ListItem) objects. This is\neasily visualized as an Alloy view:\n\n``` xml\n<Alloy>\n    <ListView id=\"list\">\n        <ListSection>\n            <ListItem title=\"List item 1\"></ListItem>\n            <ListItem title=\"List item 2\"></ListItem>\n            <ListItem title=\"List item 3\"></ListItem>\n        </ListSection>\n    </ListView>\n</Alloy>\n```\n\nFor more instructions and examples of using `ListView`, refer to the\n[ListViews guide](https://titaniumsdk.com/guide/Titanium_SDK/Titanium_SDK_How-tos/User_Interface_Deep_Dives/ListViews/).\n\n#### Creating a List\n\nTo create a `ListView` object using JavaScript, pass an array of [ListDataItem](api:ListDataItem) objects to the list section's\n[items](api:Titanium.UI.ListSection#items) property, which creates and adds each array\nelement as a row to a single [ListSection](api:Titanium.UI.ListSection). Use the `ListView`'s\n[sections](api:Titanium.UI.ListView#sections) property to add the section(s) to the list view.\n\nBy default, only the `image`, `title` and `accessoryType` of a list data item\nare displayed in the list. Refer to the next section for using an item template.\n\nSee the \"List View Sections\" example.\n\n#### Customizing the List Items\n\nTo create a custom list view, you need to define an [ItemTemplate](api:ItemTemplate) and define each view\ncomponent you want to add. Use the `bindId` property of the child template to bind a dictionary\nproperty in the item data to a child view component.\n\nMap the template to a style name using the [Titanium.UI.ListView.templates](api:Titanium.UI.ListView#templates) property, then use\nthe style name to  set the [Titanium.UI.ListView.defaultItemTemplate](api:Titanium.UI.ListView#defaultItemTemplate) property to globally change\nall item styles or set the [ListDataItem.template](api:ListDataItem#template) property when passing in your list data\nto apply the template to that one list item or to override the globally defined template.\n\nOn iOS, you can specify one of the template constants for the [ListDataItem.template](api:ListDataItem#template) property\nor [Titanium.UI.ListView.defaultItemTemplate](api:Titanium.UI.ListView#defaultItemTemplate):\n[Titanium.UI.LIST_ITEM_TEMPLATE_CONTACTS](api:Titanium.UI#LIST_ITEM_TEMPLATE_CONTACTS), [Titanium.UI.LIST_ITEM_TEMPLATE_SETTINGS](api:Titanium.UI#LIST_ITEM_TEMPLATE_SETTINGS)\nor [Titanium.UI.LIST_ITEM_TEMPLATE_SUBTITLE](api:Titanium.UI#LIST_ITEM_TEMPLATE_SUBTITLE).\n\nSee [Titanium.UI.ListItem](api:Titanium.UI.ListItem) for a detailed description of creating list items with a custom\nitem template and see the \"List View with Custom Item Template\" example for a sample.\n\n#### List and Table Views\n\nThis section describes the differences between the new list view and the old table view.\n\n`ListView` is analogous to `TableView`, `ListSection` is analogous to `TableViewSection`, and\n`ListItem` is analogous to `TableViewRow`.\n\nBoth list view and table view present data to user as a vertically scrolling list of rows.\nHowever, list view uses a data-oriented approach versus table view's view-oriented approach.\n\nList view is designed for performance. One side effect of the design is that you cannot directly\nmanipulate the views--add children, set view properties and bind event callbacks--as you can in\n`TableView`. Instead, you interact with list items indirectly, using templates and data items. The\nnext subsection describes how to use list items.\n\n##### ListItem versus TableViewRow\n\nWith `TableView`, you can directly add rows to a table view using the data property and its accessors.\nWith `TableViewRows`, you can directly create a row using the `Ti.UI.createTableViewRow` and customize\nits styling by setting its view properties. You can add view subcomponents to the row using the add\nmethod.\n\nWith `ListView`, you need to explicitly create a `ListSection` in order to add a `ListItem` to a `ListView`.\nYou cannot directly add a `ListItem` to a `ListView`.\nIn a `TableView`, a `TableViewRow` can be directly added to a `TableView` because a\n`TableViewSection` is implicitly created and added to the `TableView`.\n\nA `ListItem` object is not created in the same method as a `TableViewRow`.\nA `ListItem` is created by passing an array of `ListDataItem` objects to the `ListSection`.\n\nYou cannot add views to a `ListItem` using the `add` method, which could be done with a\n`TableViewRow`. To add views to a `ListItem`, you need to define an [ItemTemplate](api:ItemTemplate),\nwhich is bound to a list data item using the `template` property.\n\nYou cannot explicitly set properties or bind events for a `ListItem`.  You have to set them using the\n`properties` dictionary of a [ListDataItem](api:ListDataItem) or [ItemTemplate](api:ItemTemplate) and the `events` dictionary of the\n[ItemTemplate](api:ItemTemplate) or [ViewTemplate](api:ViewTemplate), respectively.\n\n##### API Differences\n\n- **TableViewRow properties**: The following properties and their accessors are not\n  available for `ListItem`: `accessibilityLabel`, `className`, `editable`, `hasCheck`,\n  `hasChild`, `hasDetail`, `leftImage`, `moveable` and `rightImage`.\n\n    - For `hasCheck`, `hasChild`, and `hasDetail`, use the `accessoryType` property.\n    - For `leftImage` and `rightImage`, use the `image` property or create a custom item template.\n\n- **TableViewRow methods**: `ListItem` does not support any methods. Adding views and binding\n  event callbacks are supported through the item template.\n\n- **TableViewSection properties**: The following properties and their accessors are not\n  supported by `ListSection`: `rows` and `rowCount`.\n\n    - For `rows`, use the `items` property.\n    - For `rowCount`, use the `itemCount` property. (Not yet implemented.)\n\n- **TableViewSection methods**: The following methods are not supported by `ListSection`:\n  `add`, `remove` and `rowAtIndex`.\n\n    - For `rowAtIndex`, use the `getItemAt` method.\n    - For `add` and `remove`, use the other `ListSection` methods to manipulate the `ListItem`\n      objects in the `ListSection`.\n\n- **TableView properties**: The `data` property and its accessors are not available\n  for `ListView`. Use the `sections` property to set the `ListSections` for a `ListView`.  You\n  cannot directly add `ListItem` objects to a `ListView`.\n\n- **TableView methods**: The following methods are not available to `ListView`:\n  `appendRow`, `deleteRow`, `deselectRow`, `insertRowAfter`, `insertRowBefore`, `selectRow`,\n  `updateRow`, `scrollToIndex` and `selectRow`.\n\n    - For `scrollToIndex`, use the `scrollToItem` method.\n    - For `selectRow`, use the `selectItem` method. (Currently implemented only for iOS.)\n    - For all other row methods, you cannot manipulate `ListItems` with a `ListView`.\n      You have to manipulate them with the `ListSection` they are contained in.\n\n#### List and Scroll Views\n\nAs a list view inherently scrolls, it creates a very poor user experience when it contains\nother scrolling views, such as a [ScrollableView](api:Titanium.UI.ScrollableView) or\n[TextArea](api:Titanium.UI.TextArea). Thus, this layout is strongly discouraged.\n\n#### TextFields in Lists with SOFT_INPUT_ADJUST_PAN (Android)\nIn order to use [TextField](api:Titanium.UI.TextField) inside `ListView`, [SOFT_INPUT_ADJUST_PAN](api:Titanium.UI.Android#SOFT_INPUT_ADJUST_PAN)\nmust be set to the window that is containing the `ListView`, otherwise the [TextField](api:Titanium.UI.TextField) may not be able to gain focus.\n\nWhen a [TextField](api:Titanium.UI.TextField) is placed in a row near the bottom of a `ListView`,\nin a window that is configured with\n[SOFT_INPUT_ADJUST_PAN](api:Titanium.UI.Android#SOFT_INPUT_ADJUST_PAN), it is expected for the\ntext field to automatically move to a visible position after it is focused and the software\nkeyboard displayed. However, due to a known problem caused by native Android's `ListView` behavior,\nthe keyboard is likely to completely obscure the text field.\n\nTo mitigate this, a `ScrollView` may be used instead of a list view, as demonstrated in the\n[ScrollView](api:Titanium.UI.ScrollView), \"Scroll View as a Table View\", example.\n\n#### Editing Support\n\nEditing a ListView through user initiated actions is supported through the following properties.\n\n- **ListItem properties**:\n\n    - [canEdit](api:Titanium.UI.ListItem#canEdit) - When this is set to true, it allows the item to be deleted\n      from the ListView through a user initiated action. The item can only be deleted when the ListView is\n      in editing mode. The ListView can enter 'editing' mode either by explicitly setting the [editing](api:Titanium.UI.ListView#editing)\n      property to true, or by swiping accross an item whose `canEdit` property is set to true. When the user\n      deletes the item, a [delete](api:Titanium.UI.ListView#delete) event is fired.\n\n    - [editActions](api:Titanium.UI.ListItem#editActions) - When [canEdit](api:Titanium.UI.ListItem#canEdit) is set to true, the default behavior\n      is to allow the item to be deleted. This behavior can be overridden by using the [editActions](api:Titanium.UI.ListItem#editActions)\n      property of the item. When this property is defined, the user is instead presented with the options as defined by the [title](api:RowActionType#title) property.\n      In this scenario the ListView does not fire a [delete](api:Titanium.UI.ListView#delete) event. Instead the [editaction](api:Titanium.UI.ListView#editaction) event is fired\n      and the developer is free to update the ListView as required. This is supported on Titanium SDK 4.1.0 and later on the iOS platform.\n\n    - [canInsert](api:Titanium.UI.ListItem#canInsert) - When this is set to true, it allows the item to insert a new item to the\n      ListView through a user initiated action. A new item can only be inserted when the ListView is\n      in editing mode. The ListView can enter 'editing' mode by explicitly setting the [editing](api:Titanium.UI.ListView#editing)\n      property to true. When the user clicks on the '+' sign of the item, an [insert](api:Titanium.UI.ListView#insert) event is fired.\n      Note: A new item is not inserted automatically when clicking on the '+' sign to let you decide the way to insert a new item.\n      You can use any inserting method of [Ti.UI.ListSection](api:Titanium.UI.ListSection), for example [insertItemsAt](api:Titanium.UI.ListSection#insertItemsAt)\n      and [appendItems](api:Titanium.UI.ListSection#appendItems).\n\n    - [canMove](api:Titanium.UI.ListItem#canMove) - When this item is set to true, it allows the item to be moved\n      to a different location within the ListView. The item can only be moved when the ListView is put in\n      editing mode by explicitly setting the [editing](api:Titanium.UI.ListView#editing) property to true. When the\n      user moves an item, a [move](api:Titanium.UI.ListView#move) event is fired.\n\n- **ListView properties**:\n\n    - [editing](api:Titanium.UI.ListView#editing) - Determines if the List View is in a state where items can\n      be deleted or reordered.\n\n    - [requiresEditingToMove](api:Titanium.UI.ListView#requiresEditingToMove) - Determines if the ListView\n      should be able to drag-and-drop without explicitely enabling editing support (like drag bars).\n\n    - [pruneSectionsOnEdit](api:Titanium.UI.ListView#pruneSectionsOnEdit) - When this property is set to true and the\n      user action results in a section having no other items, the section is deleted from the List View. Please note\n      that this property only applies to the sections whose items are being edited.\n",
+  "examples": [
+    {
+      "title": "List View Sections",
+      "code": "Creates a list with three sections, each with two rows.\nAdds two sections to the table before and one after it is rendered.\n\n``` js\nvar win = Ti.UI.createWindow({backgroundColor: 'gray'});\nvar listView = Ti.UI.createListView();\nvar sections = [];\n\nvar fruitDataSet = [\n    {properties: { title: 'Apple'}},\n    {properties: { title: 'Banana'}},\n];\nvar fruitSection = Ti.UI.createListSection({ headerTitle: 'Fruits', items: fruitDataSet});\nsections.push(fruitSection);\n\nvar vegDataSet = [\n    {properties: { title: 'Carrots'}},\n    {properties: { title: 'Potatoes'}},\n];\nvar vegSection = Ti.UI.createListSection({ headerTitle: 'Vegetables', items: vegDataSet});\nsections.push(vegSection);\n\nlistView.sections = sections;\nwin.add(listView);\nwin.open();\n\nvar fishDataSet = [\n    {properties: { title: 'Cod'}},\n    {properties: { title: 'Haddock'}},\n];\nvar fishSection = Ti.UI.createListSection({ headerTitle: 'Fish', items: fishDataSet});\nlistView.appendSection(fishSection);\n```\n"
+    },
+    {
+      "title": "List View with Custom Item Template",
+      "code": "Modifies the previous example to create a list using an item template to customize the view layout.\n\n``` js\nvar win = Ti.UI.createWindow({backgroundColor: 'white'});\n\n// Create a custom template that displays an image on the left,\n// then a title next to it with a subtitle below it.\nvar myTemplate = {\n    childTemplates: [\n        {                            // Image justified left\n            type: 'Ti.UI.ImageView', // Use an image view for the image\n            bindId: 'pic',           // Maps to a custom pic property of the item data\n            properties: {            // Sets the image view  properties\n                width: '50dp', height: '50dp', left: 0\n            }\n        },\n        {                            // Title\n            type: 'Ti.UI.Label',     // Use a label for the title\n            bindId: 'info',          // Maps to a custom info property of the item data\n            properties: {            // Sets the label properties\n                color: 'black',\n                font: { fontFamily:'Arial', fontSize: '20dp', fontWeight:'bold' },\n                left: '60dp', top: 0,\n            }\n        },\n        {                            // Subtitle\n            type: 'Ti.UI.Label',     // Use a label for the subtitle\n            bindId: 'es_info',       // Maps to a custom es_info property of the item data\n            properties: {            // Sets the label properties\n                color: 'gray',\n                font: { fontFamily:'Arial', fontSize: '14dp' },\n                left: '60dp', top: '25dp',\n            }\n        }\n    ]\n};\n\nvar listView = Ti.UI.createListView({\n    // Maps myTemplate dictionary to 'template' string\n    templates: { 'template': myTemplate },\n    // Use 'template', that is, the myTemplate dict created earlier\n    // for all items as long as the template property is not defined for an item.\n    defaultItemTemplate: 'template'\n});\nvar sections = [];\n\nvar fruitDataSet = [\n    // the text property of info maps to the text property of the title label\n    // the text property of es_info maps to text property of the subtitle label\n    // the image property of pic maps to the image property of the image view\n    { info: {text: 'Apple'}, es_info: {text: 'Manzana'}, pic: {image: 'apple.png'}},\n    { info: {text: 'Banana'}, es_info: {text: 'Banana'}, pic: {image: 'banana.png'}}\n];\nvar fruitSection = Ti.UI.createListSection({ headerTitle: 'Fruits / Frutas', items: fruitDataSet});\nsections.push(fruitSection);\n\nvar vegDataSet = [\n    { info: {text: 'Carrot'}, es_info: {text: 'Zanahoria'}, pic: {image: 'carrot.png'}},\n    { info: {text: 'Potato'}, es_info: {text: 'Patata'}, pic: {image: 'potato.png'}}\n];\nvar vegSection = Ti.UI.createListSection({ headerTitle: 'Vegetables / Verduras', items: vegDataSet});\nsections.push(vegSection);\n\nvar grainDataSet = [\n    { info: {text: 'Corn'}, es_info: {text: 'Maiz'}, pic: {image: 'corn.png'}},\n    { info: {text: 'Rice'}, es_info: {text: 'Arroz'}, pic: {image: 'rice.png'}}\n];\nvar grainSection = Ti.UI.createListSection({ headerTitle: 'Grains / Granos', items: grainDataSet});\nsections.push(grainSection);\n\nlistView.sections = sections;\nwin.add(listView);\nwin.open();\n```\n"
+    },
+    {
+      "title": "List View with a pullView",
+      "code": "This sample shows how the [pullView](Titanium.UI.ListView.pullView) property could be\nutilized along with the [pull](Titanium.UI.ListView.pull) and [pullend](Titanium.UI.ListView.pullend) events to\ncreate a refresh control.\n\n``` js\nvar win = Ti.UI.createWindow();\nvar listView = Ti.UI.createListView({height:'90%', top:0});\nvar sections = [];\n\nvar fruitDataSet = [\n    {properties: { title: 'Apple'}},\n    {properties: { title: 'Banana'}},\n];\nvar fruitSection = Ti.UI.createListSection({ headerTitle: 'Fruits', items: fruitDataSet});\nsections.push(fruitSection);\n\nvar vegDataSet = [\n    {properties: { title: 'Carrots'}},\n    {properties: { title: 'Potatoes'}},\n];\nvar vegSection = Ti.UI.createListSection({ headerTitle: 'Vegetables', items: vegDataSet});\n\nvar fishDataSet = [\n    {properties: { title: 'Cod'}},\n    {properties: { title: 'Haddock'}},\n];\nvar fishSection = Ti.UI.createListSection({ headerTitle: 'Fish', items: fishDataSet});\n\nlistView.sections = sections;\nvar refreshCount = 0;\n\nfunction getFormattedDate(){\n    var date = new Date();\n    return date.getMonth() + '/' + date.getDate() + '/' + date.getFullYear() + ' ' + date.getHours() + ':' + date.getMinutes();\n}\n\nfunction resetPullHeader(){\n    actInd.hide();\n    imageArrow.transform=Ti.UI.createMatrix2D();\n    if (refreshCount < 2) {\n        imageArrow.show();\n        labelStatus.text = 'Pull down to refresh...';\n        labelLastUpdated.text = 'Last Updated: ' + getFormattedDate();\n    } else {\n        labelStatus.text = 'Nothing To Refresh';\n        labelLastUpdated.text = 'Last Updated: ' + getFormattedDate();\n        listView.removeEventListener('pull', pullListener);\n        listView.removeEventListener('pullend', pullendListener);\n        eventStatus.text = 'Removed event listeners.';\n    }\n    listView.setContentInsets({top:0}, {animated:true});\n}\n\nfunction loadTableData()\n{\n    if (refreshCount == 0) {\n        listView.appendSection(vegSection);\n    } else if (refreshCount == 1) {\n        listView.appendSection(fishSection);\n    }\n    refreshCount ++;\n    resetPullHeader();\n}\n\nfunction pullListener(e){\n    eventStatus.text = 'EVENT pull FIRED. e.active = '+e.active;\n    if (e.active == false) {\n        var unrotate = Ti.UI.createMatrix2D();\n        imageArrow.animate({transform:unrotate, duration:180});\n        labelStatus.text = 'Pull down to refresh...';\n    } else {\n        var rotate = Ti.UI.createMatrix2D().rotate(180);\n        imageArrow.animate({transform:rotate, duration:180});\n        if (refreshCount == 0) {\n            labelStatus.text = 'Release to get Vegetables...';\n        } else {\n            labelStatus.text = 'Release to get Fish...';\n        }\n    }\n}\n\nfunction pullendListener(e){\n    eventStatus.text = 'EVENT pullend FIRED.';\n\n    if (refreshCount == 0) {\n        labelStatus.text = 'Loading Vegetables...';\n    } else {\n        labelStatus.text = 'Loading Fish...';\n    }\n    imageArrow.hide();\n    actInd.show();\n    listView.setContentInsets({top:80}, {animated:true});\n    setTimeout(function(){\n        loadTableData();\n    }, 2000);\n}\n\nvar tableHeader = Ti.UI.createView({\n    backgroundColor:'#e2e7ed',\n    width:320, height:80\n});\n\nvar border = Ti.UI.createView({\n    backgroundColor:'#576c89',\n    bottom:0,\n    height:2\n});\ntableHeader.add(border);\n\nvar imageArrow = Ti.UI.createImageView({\n    image:'arrow.png',\n    left:20, bottom:10,\n    width:23, height:60\n});\ntableHeader.add(imageArrow);\n\nvar labelStatus = Ti.UI.createLabel({\n    color:'#576c89',\n    font:{fontSize:13, fontWeight:'bold'},\n    text:'Pull down to refresh...',\n    textAlign:'center',\n    left:55, bottom:30,\n    width:200\n});\ntableHeader.add(labelStatus);\n\nvar labelLastUpdated = Ti.UI.createLabel({\n    color:'#576c89',\n    font:{fontSize:12},\n    text:'Last Updated: ' + getFormattedDate(),\n    textAlign:'center',\n    left:55, bottom:15,\n    width:200\n});\ntableHeader.add(labelLastUpdated);\n\nvar actInd = Ti.UI.createActivityIndicator({\n    left:20, bottom:13,\n    width:30, height:30\n});\ntableHeader.add(actInd);\nlistView.pullView = tableHeader;\nlistView.addEventListener('pull', pullListener);\nlistView.addEventListener('pullend',pullendListener);\n\nvar eventStatus = Ti.UI.createLabel({\n    font:{fontSize:13, fontWeight:'bold'},\n    text: 'Event data will show here',\n    bottom:0,\n    height:'10%'\n})\n\nwin.add(listView);\nwin.add(eventStatus);\nwin.open();\n```\n"
+    },
+    {
+      "title": "Alloy XML Markup",
+      "code": "'List View with Custom Item Template' as an Alloy view.  List view markup is supported in\nAlloy 1.2.0 and later.\n\n`app/views/index.xml`:\n``` xml\n<Alloy>\n    <Window>\n        <ListView id=\"listView\" defaultItemTemplate=\"template\">\n\n            <!-- The Templates tag sets the ListView's templates property -->\n\n            <Templates>\n\n                <!-- Define your item templates within the Templates tags or use the\n                      Require tag to include a view that only contains an ItemTemplate -->\n\n                <ItemTemplate name=\"template\">\n                    <ImageView bindId=\"pic\" id=\"icon\" />\n                    <Label bindId=\"info\" id=\"title\" />\n                    <Label bindId=\"es_info\" id=\"subtitle\" />\n                </ItemTemplate>\n\n            </Templates>\n\n            <ListSection headerTitle=\"Fruit / Frutas\">\n\n                <!-- You can specify any ListItem or ListDataItem properties in ListItem -->\n\n                <!-- Specify data to bind to the item template with inline attributes\n                      defined as <bindId>:<Ti.UI.Component.property> -->\n\n                <ListItem info:text=\"Apple\" es_info:text=\"Manzana\" pic:image=\"/apple.png\" />\n                <ListItem info:text=\"Banana\" es_info:text=\"Banana\" pic:image=\"/banana.png\" />\n            </ListSection>\n            <ListSection headerTitle=\"Vegetables / Verduras\">\n                <ListItem info:text=\"Carrot\" es_info:text=\"Zanahoria\" pic:image=\"/carrot.png\" />\n                <ListItem info:text=\"Potato\" es_info:text=\"Patata\" pic:image=\"/potato.png\" />\n            </ListSection>\n            <ListSection headerTitle=\"Grains / Granos\">\n                <ListItem info:text=\"Corn\" es_info:text=\"Maiz\" pic:image=\"/corn.png\" />\n                <ListItem info:text=\"Rice\" es_info:text=\"Arroz\" pic:image=\"/rice.png\" />\n            </ListSection>\n        </ListView>\n    </Window>\n</Alloy>\n```\n\n`app/styles/index.tss`:\n``` js\n\"#icon\" : {\n    width: '50dp', height: '50dp', left: 0\n},\n\"#title\" : {\n    color: 'black',\n    font: { fontFamily:'Arial', fontSize: '20dp', fontWeight:'bold' },\n    left: '60dp', top: 0\n},\n\"#subtitle\" : {\n    color: 'gray',\n    font: { fontFamily:'Arial', fontSize: '14dp' },\n    left: '60dp', top: '25dp'\n}\n```\n"
+    },
+    {
+      "title": "Alloy example of ListView properties",
+      "code": "Supported in Alloy 1.3.0 and later.\n\nIn Alloy, ListView's `searchView`, `headerView`, `footerView`, and `pullView`\nproperties may be declared as XML elements inline with the `ListView` element.  The example\nbelow demonstrates how to use `searchView`, `headerView` and `footerView`.\n\n``` xml\n<Alloy>\n    <Window fullscreen=\"true\">\n        <ListView>\n            <!-- Sets ListView's searchView property.\n                  For Android, you can also do <SearchView platform=\"android\" />\n                  to use a Ti.UI.Android.SearchView instead of a search bar. -->\n            <SearchBar barColor=\"#000\" />\n\n            <!-- Sets ListView's headerView property -->\n            <HeaderView>\n                <View backgroundColor=\"#DDD\" height=\"Ti.UI.SIZE\">\n                    <Label>Header View</Label>\n                </View>>\n            </HeaderView>\n\n            <ListSection>\n                <ListItem title=\"Papaya\" searchableText=\"Papaya\"/>\n                <ListItem title=\"Peach\" searchableText=\"Peach\"/>\n                <ListItem title=\"Pear\" searchableText=\"Pear\"/>\n                <ListItem title=\"Persimmon\" searchableText=\"Persimmon\"/>\n                <ListItem title=\"Pineapple\" searchableText=\"Pineapple\"/>\n                <ListItem title=\"Pluot\" searchableText=\"Pluto\"/>\n                <ListItem title=\"Pomegranate\" searchableText=\"Pomegranate\"/>\n            </ListSection>\n\n            <!-- Sets ListView's footerView property -->\n            <FooterView>\n                <View backgroundColor=\"#DDD\" height=\"Ti.UI.SIZE\">\n                    <Label>Footer View</Label>\n                </View>\n            </FooterView>\n        </ListView>\n    </Window>\n</Alloy>\n```\n"
+    },
+    {
+      "title": "Alloy example of `<PullView>` element",
+      "code": "The example below demonstrates how to use a `<PullView>` Alloy element.\n\n``` xml\n<!-- views/index.xml -->\n<Alloy>\n    <Window class=\"container\" >\n        <ListView id=\"list\">\n            <ListSection>\n                <ListItem title=\"Number 1\"></ListItem>\n                <ListItem title=\"Number 2\"></ListItem>\n            </ListSection>\n            <PullView>\n                <View backgroundColor=\"red\" height=\"50\">\n                    <Label>Release to reload</Label>\n                </View>\n            </PullView>\n        </ListView>\n    </Window>\n</Alloy>\n```\n"
+    }
+  ],
+  "properties": [
+    {
+      "name": "allowsMultipleSelectionDuringEditing",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Determines whether multiple items of this list view can be selected at the same time while editing the table.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": {
+        "android": "10.1.0",
+        "iphone": "7.0.0",
+        "ipad": "7.0.0",
+        "macos": "9.2.0"
+      },
+      "default": "false"
+    },
+    {
+      "name": "allowsMultipleSelectionInteraction",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Allows a two-finger pan gesture to automatically transition the table view into editing mode and start selecting rows.",
+      "description": "Setting this property to true allows the user to start selecting multiple contiguous rows via a two-finger pan gesture.\nIf the table view is already in editing mode, the user can also select multiple rows via a one-finger pan gesture along\nthe edge of the table that contains editing controls (checkboxes). In order to support this behavior,\nyou must also set [Titanium.UI.ListView.allowsMultipleSelectionDuringEditing](api:Titanium.UI.ListView#allowsMultipleSelectionDuringEditing) to true.\nOnce user interaction stops the [Titanium.UI.ListView.itemsselected](api:Titanium.UI.ListView#itemsselected) event is fired.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": {
+        "android": "10.1.0",
+        "iphone": "8.2.0",
+        "ipad": "8.2.0",
+        "macos": "9.2.0"
+      },
+      "default": "false"
+    },
+    {
+      "name": "allowsSelection",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Determines whether this item can be selected.",
+      "description": "Set to `false` to prevent the item from being selected.\n\nOn iOS, even if this property is set to `false`, you can interact with the detail disclosure\naccessory (`accessoryType` set to [Titanium.UI.LIST_ACCESSORY_TYPE_DETAIL](api:Titanium.UI#LIST_ACCESSORY_TYPE_DETAIL)) and any child\ntemplates that are controls, such as a button, slider, etc.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "default": "true"
+    },
+    {
+      "name": "allowsSelectionDuringEditing",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Determines whether this list view items can be selected while editing the table.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": {
+        "android": "10.1.0",
+        "iphone": "5.4.0",
+        "ipad": "5.4.0",
+        "macos": "9.2.0"
+      },
+      "default": "false"
+    },
+    {
+      "name": "canScroll",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Determines if the list view can scroll in response to user actions.",
+      "description": "Set to false to disable scrolling.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": {
+        "android": "6.1.0",
+        "iphone": "3.2.0",
+        "ipad": "3.2.0"
+      },
+      "default": "true"
+    },
+    {
+      "name": "caseInsensitiveSearch",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Determines if the search performed is case insensitive.",
+      "description": "Used in conjunction with [searchView](api:Titanium.UI.ListView#searchView) and  [searchText](api:Titanium.UI.ListView#searchText) properties of\nList View and [searchableText](api:Titanium.UI.ListItem#searchableText) property of List Item.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "3.2.0",
+      "default": "true"
+    },
+    {
+      "name": "contentOffset",
+      "platforms": [
+        "android"
+      ],
+      "summary": "X and Y coordinates to which to reposition the top-left point of the content region.",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Point"
+        }
+      ],
+      "since": {
+        "android": "12.4.0"
+      }
+    },
+    {
+      "name": "continuousUpdate",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Determines if the scrolling event should fire every time there is a new visible item.",
+      "description": "When setting `continuousUpdate` to `true` the [scrolling](api:Titanium.UI.ListView#scrolling) event will fire every time a new item is scrolled in.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "11.1.0",
+      "default": "false"
+    },
+    {
+      "name": "defaultItemTemplate",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Sets the default template for list data items that do not specify the `template` property.",
+      "description": "Can be set to any of the built-in templates or those defined in the `templates` property.\n\nCan be changed dynamically.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        },
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "default": "Titanium.UI.LIST_ITEM_TEMPLATE_DEFAULT"
+    },
+    {
+      "name": "dimBackgroundForSearch",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "A Boolean indicating whether the underlying content is dimmed during a search.",
+      "description": "If you do not want to show the dimmed background when clicking on the search bar,\nset this property `false` during creation.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "6.2.0",
+      "availability": "creation",
+      "default": "true"
+    },
+    {
+      "name": "disableBounce",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Determines whether the scroll-bounce of the list view should be disabled.",
+      "description": "Set to `true` to disable the vertical bounce.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "5.4.0",
+      "default": "false"
+    },
+    {
+      "name": "editing",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Determines if the list view is currently in editing mode.",
+      "description": "For more information see the \"Editing Support\" section of [Titanium.UI.ListView](api:Titanium.UI.ListView).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": {
+        "android": "9.3.0",
+        "iphone": "3.2.0",
+        "ipad": "3.2.0",
+        "macos": "9.2.0"
+      },
+      "default": "false"
+    },
+    {
+      "name": "fastScroll",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Sets the fastScroll mode on Android ListViews.",
+      "description": "Set to `true` to enable fastScroll mode.  When fast scrolling is enabled, the user\ncan quickly scroll through lists by dragging the fast scroll thumb.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "7.5.0",
+      "default": "false"
+    },
+    {
+      "name": "fixedSize",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Sets fixedSize mode on Android ListViews.",
+      "description": "Set it to `true` if all ListItems have the same size to gain some performance.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "11.0.0",
+      "availability": "creation",
+      "default": "false"
+    },
+    {
+      "name": "footerDividersEnabled",
+      "platforms": [
+        "android"
+      ],
+      "summary": "When set to false, the ListView will not draw the divider before the footer view.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "3.3.0",
+      "availability": "creation",
+      "default": "undefined but behaves as false"
+    },
+    {
+      "name": "footerTitle",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "List view footer title.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "footerView",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "List view footer as a view that will be rendered instead of a label.",
+      "description": "In Alloy you can specify this property with a `<FooterView>` child element of a `<ListView>`\nelement (see Examples). On Android, this is a creation only property.\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.UI.View"
+        }
+      ],
+      "since": "3.2.0"
+    },
+    {
+      "name": "forceUpdates",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Optimize the `continuousUpdate` scrolling event.",
+      "description": "If `continuousUpdate` is enabled and you set `forceUpdates` to `true` it will fire the scrolling](Titanium.UI.ListView.scrolling) all the time.\nOtherwise it will only update when a new item is scrolled in (default).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "12.3.0",
+      "default": "false"
+    },
+    {
+      "name": "headerDividersEnabled",
+      "platforms": [
+        "android"
+      ],
+      "summary": "When set to false, the ListView will not draw the divider after the header view.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "3.3.0",
+      "availability": "creation",
+      "default": "undefined but behaves as false"
+    },
+    {
+      "name": "headerTitle",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "List view header title.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "headerView",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "List view header as a view that will be rendered instead of a label.",
+      "description": "On Android, this is a creation only property.\nIn Alloy you can specify this property with a `<HeaderView>` child element of a `<ListView>`\nelement (see Examples).\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.UI.View"
+        }
+      ],
+      "since": "3.2.0"
+    },
+    {
+      "name": "keepSectionsInSearch",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Determines if the section information is displayed in the search results when using the `searchText` property.",
+      "description": "Used in conjunction with [searchText](api:Titanium.UI.ListView#searchText) property of List View\nand [searchableText](api:Titanium.UI.ListItem#searchableText) property of List Item.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "3.2.0",
+      "default": "false"
+    },
+    {
+      "name": "keyboardDismissMode",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The manner in which the keyboard is dismissed when a drag begins in the list view.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.0.0",
+      "default": "Undefined (behaves like <Titanium.UI.iOS.KEYBOARD_DISMISS_MODE_NONE>)",
+      "constants": [
+        "Titanium.UI.iOS.KEYBOARD_DISMISS_MODE_INTERACTIVE",
+        "Titanium.UI.iOS.KEYBOARD_DISMISS_MODE_NONE",
+        "Titanium.UI.iOS.KEYBOARD_DISMISS_MODE_ON_DRAG"
+      ]
+    },
+    {
+      "name": "lazyLoadingEnabled",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Determines if the list view should use lazy loading to load remote images.",
+      "description": "Lazy loading is used to load remote images only if they are in the visible view area. It is enabled\nby default. If you disable it, images will be loaded even if they are currently not visible. Disabling\nimproves the loading of images, but can also cause trouble in list views having a lot of\nremote images, because every remote image opens a new HTTP request.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "5.1.0",
+      "default": "true"
+    },
+    {
+      "name": "listSeparatorInsets",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The insets for the list view header and footer.",
+      "description": "Cell separators do not extend all the way to the edge of the list view. Set this to a\ndictionary with two keys, `left` specifying inset from left edge and `right` specifying the inset from the\nright edge. If the rowSeparatorInsets is not set, the listSeparatorInsets will also set the cell insets.\n\nFor example:\n``` js\nlistView.listSeparatorInsets = {\n    left: 10,\n    right: 10\n};\n```\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "HorizontalInsets"
+        }
+      ],
+      "since": "5.4.0"
+    },
+    {
+      "name": "pruneSectionsOnEdit",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Determines if empty sections are retained when the user completes editing the list view.",
+      "description": "For more information see the \"Editing Support\" section of [Titanium.UI.ListView](api:Titanium.UI.ListView).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "3.2.0",
+      "default": "false"
+    },
+    {
+      "name": "pullView",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "View positioned above the first row that is only revealed when the user drags the list view contents down.",
+      "description": "A `pullView` is a UI control that is often used to provide a convenient way for the user to refresh\na table's data.  Typically used in conjunction with [setContentInsets](api:Titanium.UI.ListView#setContentInsets)\nmethod and [pull](api:Titanium.UI.ListView#pull) and [pullend](api:Titanium.UI.ListView#pullend) events.\n\nTo specify the wrapper color see [Titanium.UI.View.pullBackgroundColor](api:Titanium.UI.View#pullBackgroundColor).\n\nIn Alloy you can assign this property with a `<PullView>` child element of a `<ListView>`\nelement:\n\n``` xml\n<Alloy>\n  <ListView>\n    <ListSection>\n      <ListItem title=\"Item a\"></ListItem>\n      <ListItem title=\"Item b\"></ListItem>\n      <ListItem title=\"Item c\"></ListItem>\n    </ListSection>\n    <PullView>\n      <View height=\"50\" backgroundColor=\"black\">\n        <Label/>\n      </View>\n    </PullView>\n  </ListView>\n</Alloy>\n```\n\nSee the code example on `pullView` to  see how it may be utilized.\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.UI.View"
+        }
+      ],
+      "since": "3.2.0"
+    },
+    {
+      "name": "refreshControl",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "View positioned above the first row that is only revealed when the user drags the list view contents down.",
+      "description": "An alternate to the pullView property. See [Titanium.UI.RefreshControl](api:Titanium.UI.RefreshControl) for usage and examples.\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.UI.RefreshControl"
+        }
+      ],
+      "since": {
+        "android": "6.2.0",
+        "iphone": "3.2.0",
+        "ipad": "3.2.0"
+      }
+    },
+    {
+      "name": "requiresEditingToMove",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Determines if the list view should allow drag-and-drop even without going into the editing mode",
+      "description": "For more information see the \"Editing Support\" section of [Titanium.UI.ListView](api:Titanium.UI.ListView).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "11.1.0",
+      "default": "true"
+    },
+    {
+      "name": "resultsBackgroundColor",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The background color of the search results (iOS-only).",
+      "description": "For information about color values, see the \"Colors\" section of [Titanium.UI](api:Titanium.UI).\nNote: A transparent background-color is not officially supported by Apple to\nprevent that the list of results overlaps with the list view below it.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        },
+        {
+          "kind": "type",
+          "name": "Titanium.UI.Color"
+        }
+      ],
+      "since": "6.1.0",
+      "availability": "creation",
+      "default": "undefined (behaves as white)"
+    },
+    {
+      "name": "resultsSeparatorColor",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Separator line color between rows inside search results,\nas a color name or hex triplet (iOS-only).\n",
+      "description": "To make the line invisible, set this property to `transparent`, or the same value as the\n[backgroundColor](api:Titanium.UI.ListView#backgroundColor) property.\nFor information about color values, see the \"Colors\" section of [Titanium.UI](api:Titanium.UI).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        },
+        {
+          "kind": "type",
+          "name": "Titanium.UI.Color"
+        }
+      ],
+      "since": "6.1.0",
+      "availability": "creation",
+      "default": "undefined (behaves as gray)"
+    },
+    {
+      "name": "resultsSeparatorInsets",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The insets for search results separators (applies to all cells & iOS-only).\n",
+      "description": "Cell separators do not extend all the way to the edge of the list view.\nThis property sets the default inset for all cells in the table.\nSet this to a dictionary with two keys, `left` specifying inset from left edge and `right`\nspecifying the inset from the right edge.\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "HorizontalInsets"
+        }
+      ],
+      "since": "6.1.0",
+      "availability": "creation"
+    },
+    {
+      "name": "resultsSeparatorStyle",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The separator style of the search results (iOS-only).",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "6.1.0",
+      "availability": "creation",
+      "constants": [
+        "Titanium.UI.TABLE_VIEW_SEPARATOR_STYLE_NONE",
+        "Titanium.UI.TABLE_VIEW_SEPARATOR_STYLE_SINGLE_LINE"
+      ]
+    },
+    {
+      "name": "rowSeparatorInsets",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The insets for list view cells (applies to all cells).",
+      "description": "Cell separators do not extend all the way to the edge of the list view. Set this to a\ndictionary with two keys, `left` specifying inset from left edge and `right` specifying the inset from the\nright edge. This property is only available upon creation of the cells.\n\nFor example:\n``` js\nlistView.rowSeparatorInsets = {\n    left: 10,\n    right: 10\n};\n```\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "HorizontalInsets"
+        }
+      ],
+      "since": "5.2.0"
+    },
+    {
+      "name": "scrollIndicatorStyle",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Style of the scrollbar.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "default": "<Titanium.UI.iOS.ScrollIndicatorStyle.DEFAULT>",
+      "constants": [
+        "Titanium.UI.iOS.ScrollIndicatorStyle.BLACK",
+        "Titanium.UI.iOS.ScrollIndicatorStyle.DEFAULT",
+        "Titanium.UI.iOS.ScrollIndicatorStyle.WHITE"
+      ]
+    },
+    {
+      "name": "searchText",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The string to use as the search parameter.",
+      "description": "Provides a generic search API for the List View. This property can not be used when the\n[searchView](api:Titanium.UI.ListView#searchView) property is set. Used in conjunction with\n[caseInsensitiveSearch](api:Titanium.UI.ListView#caseInsensitiveSearch) property of List View and\n[searchableText](api:Titanium.UI.ListItem#searchableText) property of List Item.\n\nOn iOS, when using this property the [style](api:Titanium.UI.ListView#style) property of the\nList View is honored. If the [keepSectionsInSearch](api:Titanium.UI.ListView#keepSectionsInSearch) property\nis set to true then section information is preserved in the search results, otherwise the search\nresults are displayed in a single section.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "3.2.0"
+    },
+    {
+      "name": "searchView",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Search field to use for the list view.",
+      "description": "Provides the same functionality as the [search](api:Titanium.UI.TableView#search) property in\n[TableView](api:Titanium.UI.TableView). Used in conjunction with\n[caseInsensitiveSearch](api:Titanium.UI.ListView#caseInsensitiveSearch) property of List View and\n[searchableText](api:Titanium.UI.ListItem#searchableText) property of List Item.\n\nOn Android, you can either specify [Titanium.UI.SearchBar](api:Titanium.UI.SearchBar) or [Titanium.UI.Android.SearchView](api:Titanium.UI.Android.SearchView),\nwhile on iOS only [Titanium.UI.SearchBar](api:Titanium.UI.SearchBar) is supported.\n\nIn an Alloy application, you can use a `<SearchView>` or `<SearchBar>` element inside a `<ListView>` element.\n\n``` xml\n<Alloy>\n    <ListView>\n        <!-- search, shorthand with Ti.UI.SearchBar -->\n      <SearchBar class=\"search\" platform=\"ios\"/>\n      <!-- search, shorthand with Ti.UI.Android.SearchView -->\n      <SearchView ns=\"Ti.UI.Android\" class=\"search\" platform=\"android\"/>\n    </ListView>\n</Alloy>\n```\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.UI.SearchBar"
+        },
+        {
+          "kind": "type",
+          "name": "Titanium.UI.Android.SearchView"
+        }
+      ],
+      "since": "3.2.0"
+    },
+    {
+      "name": "sectionCount",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Number of sections in this list view.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "sectionHeaderTopPadding",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Padding above each section header.",
+      "description": "If not set or set to `-1`, it defaults to an automatic spacing determined by the system.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "10.1.0",
+      "osver": {
+        "ios": {
+          "min": "15.0"
+        }
+      }
+    },
+    {
+      "name": "sectionIndexTitles",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Array of objects (with `title` and `index` properties) to control the list view index.",
+      "description": "If an index array is specified, an index bar is displayed on the right-hand side of the list view.\nClicking on a title in the index bar scrolls the list view to the section index associated with that title.\n",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Array",
+          "args": [
+            {
+              "kind": "type",
+              "name": "ListViewIndexEntry"
+            }
+          ]
+        }
+      ],
+      "since": "3.2.0",
+      "inlined": {
+        "name": "ListViewIndexEntry",
+        "summary": "A simple object that represents an index entry in a `ListView`.",
+        "description": "Used in conjunction with the [sectionIndexTitles](api:Titanium.UI.ListView#sectionIndexTitles) property of the List View.\n",
+        "properties": [
+          {
+            "name": "index",
+            "platforms": [
+              "iphone",
+              "ipad",
+              "macos"
+            ],
+            "summary": "Section index associated with this title.",
+            "type": [
+              {
+                "kind": "primitive",
+                "name": "Number"
+              }
+            ]
+          },
+          {
+            "name": "title",
+            "platforms": [
+              "iphone",
+              "ipad",
+              "macos"
+            ],
+            "summary": "Title to display in the index bar.",
+            "type": [
+              {
+                "kind": "primitive",
+                "name": "String"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "sections",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Sections of this list.",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Array",
+          "args": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.ListSection"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "selectedItems",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Returns the selected list view items.",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Array",
+          "args": [
+            {
+              "kind": "type",
+              "name": "ListItemEventType"
+            }
+          ]
+        }
+      ],
+      "since": {
+        "android": "10.1.0",
+        "iphone": "7.0.0",
+        "ipad": "7.0.0",
+        "macos": "9.2.0"
+      },
+      "inlined": {
+        "name": "ListItemEventType",
+        "summary": "The arguments for the [Titanium.UI.ListView.prefetch](api:Titanium.UI.ListView#prefetch) and [Titanium.UI.ListView.cancelprefetch](api:Titanium.UI.ListView#cancelprefetch) events.",
+        "properties": [
+          {
+            "name": "itemId",
+            "platforms": [
+              "iphone",
+              "ipad",
+              "macos"
+            ],
+            "summary": "The item ID bound to the list item that generated the event.",
+            "type": [
+              {
+                "kind": "primitive",
+                "name": "String"
+              }
+            ]
+          },
+          {
+            "name": "itemIndex",
+            "platforms": [
+              "iphone",
+              "ipad",
+              "macos"
+            ],
+            "summary": "Item index.",
+            "type": [
+              {
+                "kind": "primitive",
+                "name": "Number"
+              }
+            ]
+          },
+          {
+            "name": "section",
+            "platforms": [
+              "iphone",
+              "ipad",
+              "macos"
+            ],
+            "summary": "List section if the item is contained in a list section.",
+            "type": [
+              {
+                "kind": "type",
+                "name": "Titanium.UI.ListSection"
+              }
+            ]
+          },
+          {
+            "name": "sectionIndex",
+            "platforms": [
+              "iphone",
+              "ipad",
+              "macos"
+            ],
+            "summary": "Section index.",
+            "type": [
+              {
+                "kind": "primitive",
+                "name": "Number"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "separatorColor",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Separator line color between items, as a color name or hex triplet.",
+      "description": "To make the line invisible, set this property to `transparent`, or the same value as the\n[backgroundColor](api:Titanium.UI.ListView#backgroundColor) property.\nFor information about color values, see the \"Colors\" section of [Titanium.UI](api:Titanium.UI).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        },
+        {
+          "kind": "type",
+          "name": "Titanium.UI.Color"
+        }
+      ],
+      "since": "3.2.0",
+      "default": "platform-specific default color"
+    },
+    {
+      "name": "separatorHeight",
+      "platforms": [
+        "android"
+      ],
+      "summary": "height of the ListView separator.",
+      "description": "Height of the ListView separator, in platform-specific units. If undefined, default native height will be used.\nNumerical inputs are treated as pixels. For example, 3 and \"3px\" are equivalent.\nOn Android API < 23 you must specify [Titanium.UI.ListView.separatorStyle](api:Titanium.UI.ListView#separatorStyle) and\n[Titanium.UI.ListView.separatorColor](api:Titanium.UI.ListView#separatorColor) for this property to work.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        },
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "4.1.0"
+    },
+    {
+      "name": "separatorInsets",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The insets for list view separators (applies to all cells).",
+      "description": "Cell separators do not extend all the way to the edge of the list view.\nThis property sets the default inset for all cells in the table.\nSet this to a dictionary with two keys, `left` specifying inset from left edge and `right` specifying the inset from the right edge.\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "HorizontalInsets"
+        }
+      ],
+      "since": "3.2.0",
+      "deprecated": {
+        "since": "5.2.0",
+        "notes": "Use [Titanium.UI.ListView.listSeparatorInsets](Titanium.UI.ListView.listSeparatorInsets) instead."
+      }
+    },
+    {
+      "name": "separatorStyle",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Separator style constant.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": {
+        "android": "8.1.0",
+        "iphone": "3.2.0",
+        "ipad": "3.2.0"
+      },
+      "constants": [
+        "Titanium.UI.TABLE_VIEW_SEPARATOR_STYLE_NONE",
+        "Titanium.UI.TABLE_VIEW_SEPARATOR_STYLE_SINGLE_LINE"
+      ]
+    },
+    {
+      "name": "showSearchBarInNavBar",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "A Boolean indicating whether search bar will be in navigation bar.",
+      "description": "If you want to show the search bar in navigation bar, set this property `true` during creation.\nUse the [Titanium.UI.Window.hidesSearchBarWhenScrolling](api:Titanium.UI.Window#hidesSearchBarWhenScrolling) property to control the visibility of the\nsearchbar when scrolling.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "8.1.0",
+      "availability": "creation",
+      "default": "false"
+    },
+    {
+      "name": "showSelectionCheck",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Determines whether the selection checkmark is displayed on selected items.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": {
+        "android": "10.1.0"
+      },
+      "default": "true"
+    },
+    {
+      "name": "showVerticalScrollIndicator",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Determines whether this list view displays a vertical scroll indicator.",
+      "description": "Set to `false` to hide the vertical scroll indicator.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "default": "true"
+    },
+    {
+      "name": "style",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Style of the list view.",
+      "description": "Style should always be set before setting the sections on list view.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "availability": "creation",
+      "default": "Titanium.UI.iOS.ListViewStyle.PLAIN",
+      "constants": [
+        "Titanium.UI.iOS.ListViewStyle.GROUPED",
+        "Titanium.UI.iOS.ListViewStyle.INSET_GROUPED",
+        "Titanium.UI.iOS.ListViewStyle.PLAIN"
+      ]
+    },
+    {
+      "name": "tableSeparatorInsets",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The insets for the table view header and footer.",
+      "description": "Cell separators do not extend all the way to the edge of the list view. Set this to a\ndictionary with two keys, `left` specifying inset from left edge and `right` specifying the inset from the\nright edge. If the rowSeparatorInsets is not set, the tableSeparatorInsets will also set the cell insets.\n\nFor example:\n\n``` js\nlistView.tableSeparatorInsets = {\n    left: 10,\n    right: 10\n};\n```\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "HorizontalInsets"
+        }
+      ],
+      "since": "5.2.0",
+      "deprecated": {
+        "since": "5.4.0",
+        "notes": "Use [Titanium.UI.ListView.listSeparatorInsets](Titanium.UI.ListView.listSeparatorInsets) instead."
+      }
+    },
+    {
+      "name": "templates",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Contain key-value pairs mapping a style name (key) to an [ItemTemplate](api:ItemTemplate) (value).",
+      "description": "This property cannot be changed once a window has been opened.\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Dictionary"
+        }
+      ],
+      "availability": "creation"
+    },
+    {
+      "name": "touchFeedback",
+      "platforms": [
+        "android"
+      ],
+      "summary": "A material design visual construct that provides an instantaneous visual confirmation of touch point.",
+      "description": "Touch feedback is only applied to a view's background.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "10.0.0",
+      "default": "true"
+    },
+    {
+      "name": "willScrollOnStatusTap",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Controls the scroll-to-top gesture.",
+      "description": "If the user taps on the status bar, the view scrolls to the top.\nThis gesture works when you have a single visible list view.\nIf there are multiple list views, table views, web views, text areas, and/or scroll views visible,\nyou need to disable (set to `false`) this property on the views you **DO NOT** want to\nenable this behavior for.  The remaining view responds to the scroll-to-top gesture.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "default": "true"
+    }
+  ],
+  "methods": [
+    {
+      "name": "addMarker",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Adds a reference item in the list view.",
+      "description": "See [marker](api:Titanium.UI.ListView#marker) event for details.\n",
+      "since": "4.1.0",
+      "parameters": [
+        {
+          "name": "markerProps",
+          "summary": "Dictionary to describe the reference item.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "ListViewMarkerProps"
+            }
+          ],
+          "inlined": {
+            "name": "ListViewMarkerProps",
+            "summary": "The parameter for [setMarker](api:Titanium.UI.ListView#setMarker) and [addMarker](api:Titanium.UI.ListView#addMarker) methods.",
+            "description": "Use this in conjunction with [setMarker](api:Titanium.UI.ListView#setMarker) and [addMarker](api:Titanium.UI.ListView#addMarker) methods. For example:\n\n``` js\nsetMarker({ sectionIndex: 5, itemIndex: 10 });\naddMarker({ sectionIndex: 7, itemIndex: 2 });\n```\n",
+            "properties": [
+              {
+                "name": "itemIndex",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "The itemIndex of the reference item.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ]
+              },
+              {
+                "name": "sectionIndex",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "The sectionIndex of the reference item.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "appendSection",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Appends a single section or an array of sections to the end of the list.",
+      "description": "On iOS, the section(s) can be inserted with an animation by specifying the `animation`\nparameter.\n",
+      "parameters": [
+        {
+          "name": "section",
+          "summary": "Section or sections to add to the list.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.ListSection"
+            },
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Titanium.UI.ListSection"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "animation",
+          "summary": "Animation properties. (iOS only.)",
+          "type": [
+            {
+              "kind": "type",
+              "name": "ListViewAnimationProperties"
+            }
+          ],
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "deleteSectionAt",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Deletes an existing section.",
+      "description": "On iOS, the section can be deleted with an animation by specifying the `animation` parameter.\n",
+      "parameters": [
+        {
+          "name": "sectionIndex",
+          "summary": "Index of the section to delete.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "animation",
+          "summary": "Animation properties. (iOS only.)",
+          "type": [
+            {
+              "kind": "type",
+              "name": "ListViewAnimationProperties"
+            }
+          ],
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "deselectItem",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Deselects a specific item.",
+      "since": "3.2.0",
+      "parameters": [
+        {
+          "name": "sectionIndex",
+          "summary": "Section index.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "itemIndex",
+          "summary": "Item index.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "insertSectionAt",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Inserts a section or an array of sections at a specific index.",
+      "description": "Existing sections at that index and after are pushed down.\n\nOn iOS, the section(s) may be inserted with an animation by setting the `animation` parameter.\n",
+      "parameters": [
+        {
+          "name": "sectionIndex",
+          "summary": "Index of the section to insert before.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "section",
+          "summary": "Section or sections to insert.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.ListSection"
+            },
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Titanium.UI.ListSection"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "animation",
+          "summary": "Animation properties. (iOS only.)",
+          "type": [
+            {
+              "kind": "type",
+              "name": "ListViewAnimationProperties"
+            }
+          ],
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "replaceSectionAt",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Replaces an existing section.",
+      "description": "On iOS, the section may be replaced with an animation by setting the `animation` parameter.\n",
+      "parameters": [
+        {
+          "name": "sectionIndex",
+          "summary": "Index of the section to update.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "section",
+          "summary": "section data to update.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.ListSection"
+            }
+          ]
+        },
+        {
+          "name": "animation",
+          "summary": "Animation properties. (iOS only.)",
+          "type": [
+            {
+              "kind": "type",
+              "name": "ListViewAnimationProperties"
+            }
+          ],
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "scrollToItem",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Scrolls to a specific item.",
+      "description": "On Android 4.x, the list does not stop at the correct position.\nThis is a known bug in Android.\n([Android Issue #37278](https://code.google.com/p/android/issues/detail?id=37278))\n\nAndroid added support for the `animation` parameter in Release 3.3.0 on the Titanium SDK.\n",
+      "parameters": [
+        {
+          "name": "sectionIndex",
+          "summary": "Section index.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "itemIndex",
+          "summary": "Item index.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "animation",
+          "summary": "Animation properties. (iOS, Android and Windows)",
+          "type": [
+            {
+              "kind": "type",
+              "name": "ListViewAnimationProperties"
+            }
+          ],
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "selectItem",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Selects an item in the list using the specified item and section indices.",
+      "parameters": [
+        {
+          "name": "sectionIndex",
+          "summary": "Index of the section the item is in.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "itemIndex",
+          "summary": "Index of the item to select.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "setContentInsets",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Sets this list view's content insets.",
+      "description": "A list view is essentially a scroll view that contains a set of static row views that\nrepresents the content. Thus, the `setContentInsets` method facilitates a margin, or inset,\ndistance between the content and the container scroll view.\n\nTypically used with the [pullView](api:Titanium.UI.ListView#pullView) property.\n",
+      "since": "3.2.0",
+      "parameters": [
+        {
+          "name": "edgeInsets",
+          "summary": "Sets the distance that the content view is inset from the enclosing scroll view of the list view.\nFor example\n\n    setContentInset({top:50,bottom:10,right:10,left:10}, {animated:true})\n",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Padding"
+            }
+          ]
+        },
+        {
+          "name": "options",
+          "summary": "Determines whether, and how, the content inset change should be animated.\nNote that the default here is equivalent to passing in `{ animated: false, duration: 300 }`\n",
+          "type": [
+            {
+              "kind": "type",
+              "name": "AnimatedWithDurationOptions"
+            }
+          ],
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "setContentOffset",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Sets the value of the content offset of the list view without animation by default.",
+      "since": {
+        "android": "10.1.0",
+        "iphone": "3.4.0",
+        "ipad": "3.4.0",
+        "macos": "9.2.0"
+      },
+      "parameters": [
+        {
+          "name": "contentOffset",
+          "summary": "Dictionary with the properties `x`, `y`.\nThe `x` and `y` coordinates reposition the top-left point of the scrollable region of the list view.\n",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Point"
+            }
+          ]
+        },
+        {
+          "name": "options",
+          "summary": "Pass in `{ animated: true }` to animate the transition. Note that the default here is equivalent to passing in `{ animated: false }`\n",
+          "type": [
+            {
+              "kind": "type",
+              "name": "AnimatedOptions"
+            }
+          ],
+          "optional": true,
+          "default": "{ animated: false }"
+        }
+      ]
+    },
+    {
+      "name": "setMarker",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Sets a reference item in the list view.",
+      "description": "This method replaces previous reference items with the current one.\nSee [marker](api:Titanium.UI.ListView#marker) event for details.\n",
+      "since": "3.2.0",
+      "parameters": [
+        {
+          "name": "markerProps",
+          "summary": "Dictionary to describe the reference item.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "ListViewMarkerProps"
+            }
+          ],
+          "inlined": {
+            "name": "ListViewMarkerProps",
+            "summary": "The parameter for [setMarker](api:Titanium.UI.ListView#setMarker) and [addMarker](api:Titanium.UI.ListView#addMarker) methods.",
+            "description": "Use this in conjunction with [setMarker](api:Titanium.UI.ListView#setMarker) and [addMarker](api:Titanium.UI.ListView#addMarker) methods. For example:\n\n``` js\nsetMarker({ sectionIndex: 5, itemIndex: 10 });\naddMarker({ sectionIndex: 7, itemIndex: 2 });\n```\n",
+            "properties": [
+              {
+                "name": "itemIndex",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "The itemIndex of the reference item.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ]
+              },
+              {
+                "name": "sectionIndex",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "The sectionIndex of the reference item.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "cancelprefetch",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when list items that previously were considered as candidates for pre-fetching were not\nactually used. Note that this event is only available on iOS 10 and later\n",
+      "description": "Use the `sectionIndex` and `itemIndex`, or the `itemId` to determine the list item that generated\nthe event, and use the `bindId` to check which child control fired the event.\n",
+      "since": "6.1.0",
+      "properties": [
+        {
+          "name": "prefetchedItems",
+          "summary": "An array of prefetched items.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "ListItemEventType"
+                }
+              ]
+            }
+          ],
+          "inlined": {
+            "name": "ListItemEventType",
+            "summary": "The arguments for the [Titanium.UI.ListView.prefetch](api:Titanium.UI.ListView#prefetch) and [Titanium.UI.ListView.cancelprefetch](api:Titanium.UI.ListView#cancelprefetch) events.",
+            "properties": [
+              {
+                "name": "itemId",
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "The item ID bound to the list item that generated the event.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  }
+                ]
+              },
+              {
+                "name": "itemIndex",
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Item index.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ]
+              },
+              {
+                "name": "section",
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "List section if the item is contained in a list section.",
+                "type": [
+                  {
+                    "kind": "type",
+                    "name": "Titanium.UI.ListSection"
+                  }
+                ]
+              },
+              {
+                "name": "sectionIndex",
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Section index.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "delete",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when a list row is deleted by the user.",
+      "description": "Do not rely on the `source` property to determine which item fired the event.  Use the\n`sectionIndex` and `itemIndex`, or the `itemId` to determine the list item that generated\nthe event, and use the `bindId` to check which child control fired the event.\n\nNote that the `sectionIndex` and `itemIndex` properties of this event correspond to the List View state\nbefore the user action.\n",
+      "since": {
+        "android": "10.0.0",
+        "iphone": "3.2.0",
+        "ipad": "3.2.0",
+        "macos": "9.2.0"
+      },
+      "properties": [
+        {
+          "name": "section",
+          "summary": "List section from which the item is deleted.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.ListSection"
+            }
+          ]
+        },
+        {
+          "name": "sectionIndex",
+          "summary": "Section index.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "itemIndex",
+          "summary": "Item index.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "itemId",
+          "summary": "The item ID bound to the list item that generated the event.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "bubbles",
+          "summary": "false. This event does not bubble.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "dragend",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when the user stops dragging the list view.",
+      "description": "Different to the `pullend` event, this event does also fire when no [pullView](api:Titanium.UI.ListView#pullView)\nis specified and the user drags inside the list view.\n",
+      "since": "5.2.0",
+      "properties": [
+        {
+          "name": "bubbles",
+          "summary": "false. This event does not bubble.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "dragstart",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when the user starts dragging the list view.",
+      "description": "Different to the `pull` event, this event does also fire when no [pullView](api:Titanium.UI.ListView#pullView)\nis specified and the user drags inside the list view.\n",
+      "since": "5.2.0",
+      "properties": [
+        {
+          "name": "bubbles",
+          "summary": "false. This event does not bubble.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "editaction",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when the user interacts with one of the custom edit actions defined by [Titanium.UI.ListItem.editActions](api:Titanium.UI.ListItem#editActions).",
+      "description": "Do not rely on the `source` property to determine which item fired the event.  Use the\n`sectionIndex` and `itemIndex`, or the `itemId` to determine the list item that generated\nthe event.\n\nNote that the `sectionIndex` and `itemIndex` properties of this event correspond to the list view state\nbefore the user action.\n",
+      "since": "5.0.0",
+      "properties": [
+        {
+          "name": "action",
+          "summary": "The [title](api:RowActionType#title) as defined in the row action object.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "identifier",
+          "summary": "The [identifier](RowActionType. identifier) of the row action. Only included in the event\nif previously defined. Available in Titanium 6.0.0 and later.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "section",
+          "summary": "List section from which the event was generated.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.ListSection"
+            }
+          ]
+        },
+        {
+          "name": "sectionIndex",
+          "summary": "Section index.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "itemIndex",
+          "summary": "Item index.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "itemId",
+          "summary": "The item ID bound to the list item that generated the event.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "bubbles",
+          "summary": "false. This event does not bubble.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "indexclick",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when the index bar is clicked by the user.",
+      "description": "If the list view contains the [sectionIndexTitles](api:Titanium.UI.ListView#sectionIndexTitles) array of indices the index bar will appear on the side.\nThis event will fire when this bar is clicked\n",
+      "since": "3.4.0",
+      "properties": [
+        {
+          "name": "title",
+          "summary": "The title of the index clicked.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "index",
+          "summary": "The index number clicked.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "insert",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when a list row is inserted by the user.",
+      "description": "Do not rely on the `source` property to determine which item fired the event.  Use the\n`sectionIndex` and `itemIndex`, or the `itemId` to determine the list item that generated\nthe event, and use the `bindId` to check which child control fired the event.\n\nNote that the `sectionIndex` and `itemIndex` properties of this event correspond to the List View state\nbefore the user action.\n",
+      "since": "5.4.0",
+      "properties": [
+        {
+          "name": "section",
+          "summary": "List section from which the item is deleted.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.ListSection"
+            }
+          ]
+        },
+        {
+          "name": "sectionIndex",
+          "summary": "Section index.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "itemIndex",
+          "summary": "Item index.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "itemId",
+          "summary": "The item ID bound to the list item that generated the event.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "bubbles",
+          "summary": "false. This event does not bubble.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "itemclick",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when a list row is clicked by the user.",
+      "description": "Do not rely on the `source` property to determine which item fired the event.  Use the\n`sectionIndex` and `itemIndex`, or the `itemId` to determine the list item that generated\nthe event, and use the `bindId` to check which child control fired the event.\n",
+      "properties": [
+        {
+          "name": "section",
+          "summary": "List section if the item is contained in a list section.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.ListSection"
+            }
+          ]
+        },
+        {
+          "name": "sectionIndex",
+          "summary": "Section index.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "itemIndex",
+          "summary": "Item index.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "itemId",
+          "summary": "The item ID bound to the list item that generated the event.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "bindId",
+          "summary": "The bind ID of the control that generated this event, if one exists.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "accessoryClicked",
+          "summary": "Returns `true` if the detail button is clicked else returns `false`.\n\nOnly returns `true` if the `accessoryType` property is set to\n[Titanium.UI.LIST_ACCESSORY_TYPE_DETAIL](api:Titanium.UI#LIST_ACCESSORY_TYPE_DETAIL).  All other accessories return `false` if\nclicked.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "itemsselected",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when user stops two-pan gesture interaction for selecting multiple items.\nIt is used with [Titanium.UI.ListView.allowsMultipleSelectionInteraction](api:Titanium.UI.ListView#allowsMultipleSelectionInteraction).\n",
+      "since": {
+        "android": "10.1.0",
+        "iphone": "8.2.0",
+        "ipad": "8.2.0",
+        "macos": "9.2.0"
+      },
+      "properties": [
+        {
+          "name": "selectedItems",
+          "summary": "List of items selected by user.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "SelectedItem"
+                }
+              ]
+            }
+          ],
+          "inlined": {
+            "name": "SelectedItem",
+            "summary": "The arguments for the [Titanium.UI.ListView.itemsselected](api:Titanium.UI.ListView#itemsselected) event.",
+            "properties": [
+              {
+                "name": "itemIndex",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Item index.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ]
+              },
+              {
+                "name": "section",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "List section if the item is contained in a list section.",
+                "type": [
+                  {
+                    "kind": "type",
+                    "name": "Titanium.UI.ListSection"
+                  }
+                ]
+              },
+              {
+                "name": "sectionIndex",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Section index.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "startingItem",
+          "summary": "First item selected when user started interaction.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "SelectedItem"
+            }
+          ],
+          "inlined": {
+            "name": "SelectedItem",
+            "summary": "The arguments for the [Titanium.UI.ListView.itemsselected](api:Titanium.UI.ListView#itemsselected) event.",
+            "properties": [
+              {
+                "name": "itemIndex",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Item index.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ]
+              },
+              {
+                "name": "section",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "List section if the item is contained in a list section.",
+                "type": [
+                  {
+                    "kind": "type",
+                    "name": "Titanium.UI.ListSection"
+                  }
+                ]
+              },
+              {
+                "name": "sectionIndex",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Section index.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "marker",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when the list view displays the reference item.",
+      "description": "This event is fired only once per reference item. Use this in conjunction with the [setMarker](api:Titanium.UI.ListView#setMarker) and [addMarker](api:Titanium.UI.ListView#addMarker) methods.\nOn iOS this method does not fire when list view is in search mode.\n",
+      "since": "3.2.0",
+      "properties": [
+        {
+          "name": "bubbles",
+          "summary": "false. This event does not bubble.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "sectionIndex",
+          "summary": "section index of the reference item.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "itemIndex",
+          "summary": "section item index of the reference item.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "move",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when a list row is moved to a different location by the user.",
+      "description": "Do not rely on the `source` property to determine which item fired the event.  Use the\n`sectionIndex` and `itemIndex`, or the `itemId` to determine the list item that generated\nthe event, and use the `bindId` to check which child control fired the event.\n\nNote that the `sectionIndex`,`itemIndex`,`targetSectionIndex` and `targetItemIndex` properties of this event correspond to the List View state\nbefore the user action.\n",
+      "since": {
+        "android": "9.3.0",
+        "iphone": "3.2.0",
+        "ipad": "3.2.0",
+        "macos": "9.2.0"
+      },
+      "properties": [
+        {
+          "name": "section",
+          "summary": "List section from which the item is moved.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.ListSection"
+            }
+          ]
+        },
+        {
+          "name": "sectionIndex",
+          "summary": "Section index.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "itemIndex",
+          "summary": "Item index.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "targetSection",
+          "summary": "List section to which the item is moved. Might be the same as `section` property.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.ListSection"
+            }
+          ]
+        },
+        {
+          "name": "targetSectionIndex",
+          "summary": "Section index.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "targetItemIndex",
+          "summary": "Position within the `targetSection`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "itemId",
+          "summary": "The item ID bound to the list item that generated the event.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "bubbles",
+          "summary": "false. This event does not bubble.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "moveend",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when a list row has ended moving.",
+      "description": "This property can be used to change the UI once a drag-and-drop interaction ends.\n",
+      "since": "11.1.0"
+    },
+    {
+      "name": "movestart",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when a list row has started moving.",
+      "description": "This event can be used to change the UI once a new drag-and-drop interaction starts.\nThe event properties are available in Titanium SDK 12.0.0+\n",
+      "since": "11.1.0",
+      "properties": [
+        {
+          "name": "section",
+          "summary": "List section from which the item is moved.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.ListSection"
+            }
+          ]
+        },
+        {
+          "name": "sectionIndex",
+          "summary": "section index of the reference item.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "itemIndex",
+          "summary": "section item index of the reference item.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "noresults",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when the search using either [searchView](api:Titanium.UI.ListView#searchView) or [searchText](api:Titanium.UI.ListView#searchText) has no results.",
+      "description": "When items are filtered in a list view using either the `searchView` or `searchText`, it is possible that the search\nreturns an empty set.\n\nWhile the `searchView` API automatically shows a **No Results** cell in the list view, the `searchText` API does not do so.\nDevelopers can listen to this event and perform appropriate actions when the search result set is empty.\n",
+      "since": {
+        "android": "4.2.0",
+        "iphone": "3.3.0",
+        "ipad": "3.3.0"
+      },
+      "properties": [
+        {
+          "name": "bubbles",
+          "summary": "false. This event does not bubble.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "prefetch",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when new list items are prefetched. The items are ordered ascending by geometric distance\nfrom the list view. Note that this event is only available on iOS 10 and later.\n",
+      "description": "Use the `sectionIndex` and `itemIndex`, or the `itemId` to determine the list item that generated\nthe event, and use the `bindId` to check which child control fired the event.\n",
+      "since": "6.1.0",
+      "properties": [
+        {
+          "name": "prefetchedItems",
+          "summary": "An array of prefetched items.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "ListItemEventType"
+                }
+              ]
+            }
+          ],
+          "inlined": {
+            "name": "ListItemEventType",
+            "summary": "The arguments for the [Titanium.UI.ListView.prefetch](api:Titanium.UI.ListView#prefetch) and [Titanium.UI.ListView.cancelprefetch](api:Titanium.UI.ListView#cancelprefetch) events.",
+            "properties": [
+              {
+                "name": "itemId",
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "The item ID bound to the list item that generated the event.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  }
+                ]
+              },
+              {
+                "name": "itemIndex",
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Item index.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ]
+              },
+              {
+                "name": "section",
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "List section if the item is contained in a list section.",
+                "type": [
+                  {
+                    "kind": "type",
+                    "name": "Titanium.UI.ListSection"
+                  }
+                ]
+              },
+              {
+                "name": "sectionIndex",
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Section index.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "pull",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when the user drags the list view past the top edge of the [pullView](api:Titanium.UI.ListView#pullView).",
+      "since": "3.2.0",
+      "properties": [
+        {
+          "name": "active",
+          "summary": "Determines if the `pullView` is completely visible (true) or partially hidden (false).",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "bubbles",
+          "summary": "false. This event does not bubble.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "pullend",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when the user stops dragging the list view and the [pullView](api:Titanium.UI.ListView#pullView) is completely visible.",
+      "since": "3.2.0",
+      "properties": [
+        {
+          "name": "bubbles",
+          "summary": "false. This event does not bubble.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "scrollend",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fires when the list view ends scrolling. Calling the `scrollTo` methods will not fire this event",
+      "description": "This event will fire when the list view ends scrolling. Use the `firstVisibleSectionIndex` and\nthe `firstVisibleItemIndex` to determine the position of the list view.\n",
+      "since": "4.1.0",
+      "properties": [
+        {
+          "name": "visibleItemCount",
+          "summary": "The number of visible items in the list view when the event fires.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "firstVisibleItem",
+          "summary": "The first visible item in the list view when the event fires; this item might not be fully visible. May be -1 on iOS.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Object"
+            },
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "firstVisibleSection",
+          "summary": "The first visible section in the list view when the event fires.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.ListSection"
+            }
+          ]
+        },
+        {
+          "name": "firstVisibleItemIndex",
+          "summary": "The index of the first visible item in the list view when the event fires; this item might not be fully visible.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "firstVisibleSectionIndex",
+          "summary": "The index of the first visible section in the list view when the event fires.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "bubbles",
+          "summary": "false. This event does not bubble.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "scrolling",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fires when the list view is scrolling. Calling the `scrollTo` methods will not fire this event",
+      "description": "This event will fire while the list view is scrolling and the user releases the finger.\nOn iOS no event is fired when the finger is not released. Use  `direction` to determine the scroll direction,\n`velocity` to determine scroll speed, targetContentOffset to determine where the scrolling will end (in dpi).\nWhen `direction` is `down`, `velocity` is negative and viceversa. On Android `velocity` and `targetContentOffset` is 0.\n",
+      "since": {
+        "android": "6.1.0",
+        "iphone": "5.4.0",
+        "ipad": "5.4.0"
+      },
+      "properties": [
+        {
+          "name": "direction",
+          "summary": "Direction of the scroll either 'up', 'down' or 'unknown'.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "velocity",
+          "summary": "The velocity of the scroll in scale factor per second",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "targetContentOffset",
+          "summary": "The expected y axis offset when the scrolling action decelerates to a stop.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "visibleItemCount",
+          "summary": "The number of visible items in the list view when the event fires.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "firstVisibleItem",
+          "summary": "The first visible item in the list view when the event fires; this item might not be fully visible. May be -1 on iOS.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Object"
+            },
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "firstVisibleSection",
+          "summary": "The first visible section in the list view when the event fires.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.ListSection"
+            }
+          ]
+        },
+        {
+          "name": "firstVisibleItemIndex",
+          "summary": "The index of the first visible item in the list view when the event fires; this item might not be fully visible.\nNote: The index is `-1` when there are no items in the [Titanium.UI.ListView](api:Titanium.UI.ListView).\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "firstVisibleSectionIndex",
+          "summary": "The index of the first visible section in the list view when the event fires.\nNote: The index is `-1` when there are no items in the [Titanium.UI.ListView](api:Titanium.UI.ListView).\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "scrollstart",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fires when the list view starts scrolling by user interaction. Calling the `scrollTo` methods will not fire this event",
+      "description": "This event will fire when the user starts scrolling the list view. Use the `firstVisibleSectionIndex` and\nthe `firstVisibleItemIndex` to determine the position of the list view.\n",
+      "since": "4.1.0",
+      "properties": [
+        {
+          "name": "visibleItemCount",
+          "summary": "The number of visible items in the list view when the event fires.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "firstVisibleItem",
+          "summary": "The first visible item in the list view when the event fires; this item might not be fully visible. May be -1 on iOS.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Object"
+            },
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "firstVisibleSection",
+          "summary": "The first visible section in the list view when the event fires.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.ListSection"
+            }
+          ]
+        },
+        {
+          "name": "firstVisibleItemIndex",
+          "summary": "The index of the first visible item in the list view when the event fires; this item might not be fully visible.\nNote: The index is `-1` when there are no items in the [Titanium.UI.ListView](api:Titanium.UI.ListView).\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "firstVisibleSectionIndex",
+          "summary": "The index of the first visible section in the list view when the event fires.\nNote: The index is `-1` when there are no items in the [Titanium.UI.ListView](api:Titanium.UI.ListView).\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "bubbles",
+          "summary": "false. This event does not bubble.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "inherited": {
+    "properties": [
+      {
+        "name": "accessibilityDisableLongPress",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "accessibilityHidden",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "accessibilityHint",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "accessibilityLabel",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "accessibilityValue",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "anchorPoint",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "animatedCenter",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundDisabledColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "backgroundDisabledImage",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "backgroundFocusedColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "backgroundFocusedImage",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "backgroundGradient",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundImage",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundLeftCap",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundRepeat",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundTopCap",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "borderColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "borderRadius",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "borderWidth",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "bottom",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "center",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "clipMode",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "elevation",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "filterTouchesWhenObscured",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "focusable",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "height",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "hiddenBehavior",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "horizontalMotionEffect",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "horizontalWrap",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "id",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "keepScreenOn",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "layout",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "left",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "lifecycleContainer",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "opacity",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "overrideCurrentAnimation",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "previewContext",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone"
+        ]
+      },
+      {
+        "name": "pullBackgroundColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "rect",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "right",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "rotation",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad"
+        ]
+      },
+      {
+        "name": "rotationX",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "rotationY",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "scaleX",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "scaleY",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "size",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "softKeyboardOnFocus",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "tintColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "tooltip",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "top",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "touchEnabled",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "touchFeedbackColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "transform",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "transitionName",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "translationX",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "translationY",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "translationZ",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "verticalMotionEffect",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "viewShadowColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "viewShadowOffset",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "viewShadowRadius",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "visible",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "width",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "zIndex",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "animate",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "clearMotionEffects",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "convertPointToView",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "getViewById",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "hide",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "insertAt",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "show",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "stopAnimation",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "toImage",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      }
+    ],
+    "events": []
+  },
+  "references": [
+    "AnimatedOptions",
+    "AnimatedWithDurationOptions",
+    "Dictionary",
+    "HorizontalInsets",
+    "ItemTemplate",
+    "ListDataItem",
+    "ListItemEventType",
+    "ListViewAnimationProperties",
+    "ListViewIndexEntry",
+    "ListViewMarkerProps",
+    "Padding",
+    "Point",
+    "RowActionType",
+    "SelectedItem",
+    "Titanium.UI",
+    "Titanium.UI.Android",
+    "Titanium.UI.Android.SearchView",
+    "Titanium.UI.Color",
+    "Titanium.UI.ListItem",
+    "Titanium.UI.ListSection",
+    "Titanium.UI.RefreshControl",
+    "Titanium.UI.ScrollView",
+    "Titanium.UI.ScrollableView",
+    "Titanium.UI.SearchBar",
+    "Titanium.UI.TableView",
+    "Titanium.UI.TextArea",
+    "Titanium.UI.TextField",
+    "Titanium.UI.View",
+    "Titanium.UI.Window",
+    "ViewTemplate"
+  ],
+  "source": "Titanium/UI/ListView.yml"
+}
