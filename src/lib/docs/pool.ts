@@ -48,8 +48,13 @@ const Entry = z.string().regex(/^[0-9a-f]{8,64}\.[a-z0-9]+$/);
 
 export const ContentsSchema = z.strictObject({
   schemaVersion: z.number().int().positive(),
-  /** Where the pool sits, relative to the version directory. */
-  pool: z.string().regex(/^(\.\.\/)+_pool$/),
+  /**
+   * Where the pool sits, relative to the version directory.
+   *
+   * `../_pool` for a version in the registry, plain `_pool` for the developer
+   * CLI, which compiles into a scratch directory that owns its own.
+   */
+  pool: z.string().regex(/^(\.\.\/)*_pool$/),
   /** Pooled filename of this version's `index.json`. */
   index: Entry,
   /** Type name -> pooled filename. */

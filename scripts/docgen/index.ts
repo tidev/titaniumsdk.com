@@ -1,5 +1,5 @@
-import { indexPath } from '../../src/lib/docs/pool.ts';
-import { POOL_DIR } from '../lib/pool.ts';
+import { CONTENTS, type Contents, indexPath } from '../../src/lib/docs/pool.ts';
+import { POOL_DIR, POOL_SCHEMA_VERSION } from '../lib/pool.ts';
 import { compile, CompileError } from './compile.ts';
 import type { ExternalSource } from './external.ts';
 import { sdkSource } from './sources.ts';
@@ -21,7 +21,7 @@ import { sdkSource } from './sources.ts';
  * CI uses regen.ts, which wraps this with source resolution and the immutable
  * version guard.
  */
-import { existsSync } from 'node:fs';
+import { existsSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -79,6 +79,26 @@ try {
     external,
     log: (m) => console.log(m),
   });
+  // Without this the CLI leaves a pool of blobs and nothing that names them:
+  // the compile succeeds and its output cannot be read back, by this repo's
+  // own readers or by anything else. `regen.ts` writes one; this had been
+  // overlooked when the registry became content-addressed in TI-25.
+  //
+  // Images are absent rather than empty-by-accident: the CLI compiles an
+  // apidoc directory in isolation, and pooling its images is `regen.ts`'s job.
+  if (!planOnly && result.contents) {
+    const dir = outDir ?? resolve(source);
+    const contents: Contents = {
+      schemaVersion: POOL_SCHEMA_VERSION,
+      pool: POOL_DIR,
+      index: result.contents.index,
+      types: result.contents.types,
+      images: {},
+    };
+    writeFileSync(join(dir, CONTENTS), `${JSON.stringify(contents, null, 2)}\n`);
+    console.log(`${CONTENTS} written to ${dir}`);
+  }
+
   process.exit(planOnly && result.parseProblems.length ? 1 : 0);
 } catch (err) {
   console.error(err instanceof CompileError ? `\n${err.message}` : err);
