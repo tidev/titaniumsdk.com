@@ -5,7 +5,7 @@ import { MemberSection } from '@/components/docs/member-section';
 import { Prose } from '@/components/docs/prose';
 import { OnThisPage, SectionJump, jumpLinks, type TocGroup } from '@/components/docs/toc';
 import { formatSince } from '@/lib/docs/format';
-import { anchorFor, pathLinker } from '@/lib/docs/links';
+import { anchorAllocator, pathLinker } from '@/lib/docs/links';
 import { sdkIndex, sdkType, resolveVersion, sourceUrl, MAIN } from '@/lib/docs/registry';
 import { crumbsFor, subtypesOf } from '@/lib/docs/tree';
 import { buildTypeView } from '@/lib/docs/type-view';
@@ -97,10 +97,16 @@ export default async function TypePage({ params }: PageProps<'/docs/sdk/[version
   const since = formatSince(api.since);
   const subtypes = subtypesOf(types, api.name);
 
+  // Window has a method `open()` and an event `open`; allocated together, they
+  // no longer both claim `id="open"`.
+  const anchor = anchorAllocator(
+    [view.properties, view.methods, view.events],
+    ['property', 'method', 'event']
+  );
   const groups: TocGroup[] = [
-    { id: 'properties', title: 'Properties', members: view.properties, anchor: anchorFor },
-    { id: 'methods', title: 'Methods', members: view.methods, anchor: anchorFor },
-    { id: 'events', title: 'Events', members: view.events, anchor: anchorFor },
+    { id: 'properties', title: 'Properties', members: view.properties, anchor },
+    { id: 'methods', title: 'Methods', members: view.methods, anchor },
+    { id: 'events', title: 'Events', members: view.events, anchor },
   ];
   // Examples are a section of this page in their own right; the member groups
   // come from the same list the rail renders.

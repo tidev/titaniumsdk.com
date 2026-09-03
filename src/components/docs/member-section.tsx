@@ -26,7 +26,7 @@ import type { ApiPlatform } from '@/lib/registry';
  */
 type Addressing = {
   link: ApiLinker;
-  anchor: (member: string) => string;
+  anchor: (member: ResolvedMember) => string;
 };
 
 /**
@@ -96,7 +96,7 @@ function Member({
   typePlatforms: readonly ApiPlatform[];
   level: Level;
 }) {
-  const id = anchor(member.name);
+  const id = anchor(member);
   const since = formatSince(member.since);
   const osver = formatOsver(member.osver);
   const declaredAt = member.inheritedFrom && link(member.inheritedFrom, member.name);
