@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
-  "generator": "sha256:ac231061067ed51d0966e3953108bbd9c19cae952495be231d05241eb191edf3",
+  "generator": "sha256:e99bd3f5be41521d751562aab056cbacf71361b9ab79a771acf936badbe31846",
   "external": {
     "repo": "tidev/titanium-sdk",
     "version": "main",
-    "hash": "sha256:0c8e94bd4e64c06147ad9ff63806ba4cc4617e8aca5fa7095f28472598bbf5a4"
+    "hash": "sha256:596d178fc9679d51a1480f9ca34007ceea11e4311978168a103c41ce255599d4"
   },
-  "generatedAt": "2026-08-30T06:52:26.739Z",
+  "generatedAt": "2026-09-03T15:02:36.302Z",
   "sources": {
     "Annotation.yml": {
-      "hash": "sha256:bbc4cfc3af9d0cb1468f4df93b27e3b07137da0779c2045361d0b91c96b60d00",
+      "hash": "sha256:e2e9d3952195a13672d6013041f38832254a8cf826d7d330edb50dcb70636990",
       "types": [
         "Modules.Map.Annotation"
       ]
@@ -34,7 +34,7 @@
       ]
     },
     "Map.yml": {
-      "hash": "sha256:ddfdb77802192ab7d309cec3ff16c683dc074498f5ae0c59da4c5aca6b14df36",
+      "hash": "sha256:867674d1c022e9aa20999290d2a80d08dbeade47d3f063c5a614465418f308b9",
       "types": [
         "Modules.Map",
         "MapPointType",
@@ -74,7 +74,7 @@
       ]
     },
     "View.yml": {
-      "hash": "sha256:a7b3aa791595bfff379add7a536e3f21167b61eb77abd63647231981e01b2431",
+      "hash": "sha256:5cfafd8cc701c6fe28f273dd88568e06d9feeb378c82387051586bbe6949aa65",
       "types": [
         "Modules.Map.View",
         "MapViewPadding",
@@ -89,7 +89,7 @@
     "Modules.Map.Annotation": {
       "source": "Annotation.yml",
       "extends": "Titanium.Proxy",
-      "outputHash": "sha256:df126d0e7739b078b129fa1cde8492328568f533a2b194a7da4e647f1653758a"
+      "outputHash": "sha256:4bc338fbd7848f670653dc9c3fc6dc76e43cd8a7263601eeb91876a8132fc507"
     },
     "Modules.Map.Camera": {
       "source": "Camera.yml",
@@ -109,7 +109,7 @@
     "Modules.Map": {
       "source": "Map.yml",
       "extends": "Titanium.Module",
-      "outputHash": "sha256:82d001ea5028d3bc2133cfad8ec3f5585388aa12d5b3556f0c13b0f1265967fe"
+      "outputHash": "sha256:345dd73d4134840f3ece786fe30281ab3511344dcd8f202a32592a0e5c1e4915"
     },
     "MapPointType": {
       "source": "Map.yml",
@@ -143,7 +143,7 @@
     "Modules.Map.View": {
       "source": "View.yml",
       "extends": "Titanium.UI.View",
-      "outputHash": "sha256:b3a7f8fc8239f514658d0cc4340e93b4949bfee48a3d9f60916de3f4f1c1b36c"
+      "outputHash": "sha256:20a0686e0e6ea964b4b1a288bdb7184e29b2c0fe1e9f4c066a1ae1ebbef95287"
     },
     "MapRegionTypev2": {
       "source": "View.yml",
