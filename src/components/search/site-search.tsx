@@ -1,6 +1,7 @@
 'use client';
 
 import { type Detail, resultDetail } from './result-detail.ts';
+import { buildSymbolTable, lookupSymbols, type SymbolPayload } from './symbols.ts';
 import { useCallback, useEffect, useId, useRef, useState } from 'react';
 
 /**
@@ -16,21 +17,44 @@ import { useCallback, useEffect, useId, useRef, useState } from 'react';
  * visitors never need.
  */
 
-type Kind = 'api' | 'module' | 'blog';
+type Kind = 'symbol' | 'api' | 'module' | 'blog';
 
 type Hit = {
   url: string;
   title: string;
   kind: Kind;
-  detail: Detail;
+  /** Absent on a symbol hit: the name is the whole answer. */
+  detail: Detail | null;
 };
 
 /** Group order and labels. Guides join this when TI-32 lands. */
 const GROUPS: { kind: Kind; label: string }[] = [
+  { kind: 'symbol', label: 'Symbols' },
   { kind: 'api', label: 'API reference' },
   { kind: 'module', label: 'Modules' },
   { kind: 'blog', label: 'Blog' },
 ];
+
+/**
+ * The symbol table (TI-70), fetched once on first open.
+ *
+ * 22KB brotli of names, matched in the browser. It runs before Pagefind and
+ * answers the two queries Pagefind cannot: a bare member name, which appears on
+ * every page that inherits it, and a misspelt one, which Pagefind has no
+ * tolerance for at all. Both were measured in TI-46.
+ *
+ * A failure here is not a failure of search — the Pagefind half still answers —
+ * so this resolves to an empty table rather than rejecting.
+ */
+let symbolTable: Promise<ReturnType<typeof buildSymbolTable>> | undefined;
+
+function loadSymbols() {
+  symbolTable ??= fetch('/symbols.json')
+    .then((r) => (r.ok ? (r.json() as Promise<SymbolPayload>) : null))
+    .then((payload) => (payload ? buildSymbolTable(payload) : []))
+    .catch(() => []);
+  return symbolTable;
+}
 
 type PagefindResult = {
   data: () => Promise<{
@@ -76,8 +100,9 @@ export function SiteSearch() {
   const show = useCallback(() => {
     setOpen(true);
     dialogRef.current?.showModal();
-    // Warm the runtime while the person is still typing the first character.
+    // Warm both while the person is still typing the first character.
     void loadPagefind().catch(() => setFailed(true));
+    void loadSymbols();
   }, []);
 
   const hide = useCallback(() => {
@@ -112,18 +137,35 @@ export function SiteSearch() {
     let cancelled = false;
     const timer = setTimeout(async () => {
       try {
+        // Symbols first and separately: an exact or near name match is a better
+        // answer than anything ranked, and it is available without waiting on
+        // the Pagefind runtime.
+        const symbols = lookupSymbols(await loadSymbols(), q, 6).map((hit): Hit => ({
+          url: hit.url,
+          title: hit.title,
+          kind: 'symbol',
+          detail: null,
+        }));
+        if (cancelled) return;
+        setHits(symbols);
+
         const pf = await loadPagefind();
         const res = await pf.search(q);
         const top = await Promise.all(res.results.slice(0, 30).map((r) => r.data()));
         if (cancelled) return;
-        setHits(
-          top.map((d) => ({
-            url: d.url,
-            title: d.meta?.title ?? d.url,
-            kind: (d.meta?.kind as Kind) ?? 'api',
-            detail: resultDetail(d.meta?.title ?? '', d.excerpt),
-          }))
-        );
+        // A page already named above adds nothing as a prose result.
+        const named = new Set(symbols.map((s) => s.url));
+        setHits([
+          ...symbols,
+          ...top
+            .filter((d) => !named.has(d.url))
+            .map((d): Hit => ({
+              url: d.url,
+              title: d.meta?.title ?? d.url,
+              kind: (d.meta?.kind as Kind) ?? 'api',
+              detail: resultDetail(d.meta?.title ?? '', d.excerpt),
+            })),
+        ]);
         setActive(0);
       } catch {
         if (!cancelled) setFailed(true);
