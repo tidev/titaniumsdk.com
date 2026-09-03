@@ -4,11 +4,13 @@ import { LegacyAnchor } from '@/components/docs/legacy-anchor';
 import { MemberSection } from '@/components/docs/member-section';
 import { Prose } from '@/components/docs/prose';
 import { OnThisPage, SectionJump, jumpLinks, type TocGroup } from '@/components/docs/toc';
+import { OlderVersionNotice, VersionSwitcher } from '@/components/docs/version-switcher';
 import { formatSince } from '@/lib/docs/format';
 import { anchorAllocator, pathLinker } from '@/lib/docs/links';
 import { sdkIndex, sdkType, resolveVersion, sourceUrl, MAIN } from '@/lib/docs/registry';
 import { crumbsFor, subtypesOf } from '@/lib/docs/tree';
 import { buildTypeView } from '@/lib/docs/type-view';
+import { newerVersion, versionOptions } from '@/lib/docs/versions';
 import { SITE_URL } from '@/lib/site';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
@@ -96,6 +98,7 @@ export default async function TypePage({ params }: PageProps<'/docs/sdk/[version
   const { type: api } = view;
   const since = formatSince(api.since);
   const subtypes = subtypesOf(types, api.name);
+  const newer = newerVersion(resolved, api.name);
 
   // Window has a method `open()` and an event `open`; allocated together, they
   // no longer both claim `id="open"`.
@@ -144,7 +147,15 @@ export default async function TypePage({ params }: PageProps<'/docs/sdk/[version
               unreleased
             </span>
           )}
+          {/* `ml-auto` so it sits at the far end of the crumb row rather than
+              crowding the trail, and wraps below it on a phone. */}
+          <VersionSwitcher
+            current={resolved}
+            options={versionOptions(api.name)}
+            className="ml-auto"
+          />
         </div>
+        {newer && <OlderVersionNotice current={resolved} newer={newer} type={api.name} />}
 
         <header className="mt-3">
           <h1 className="font-mono text-3xl font-semibold tracking-tight break-words">

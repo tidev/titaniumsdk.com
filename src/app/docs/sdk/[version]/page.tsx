@@ -1,4 +1,6 @@
+import { OlderVersionNotice, VersionSwitcher } from '@/components/docs/version-switcher';
 import { sdkIndex, sdkVersions, resolveVersion, MAIN } from '@/lib/docs/registry';
+import { newerVersion, versionOptions } from '@/lib/docs/versions';
 import { SITE_URL } from '@/lib/site';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
@@ -41,6 +43,7 @@ export default async function VersionIndex({ params }: PageProps<'/docs/sdk/[ver
   if (!index) notFound();
 
   const base = `/docs/sdk/${resolved}`;
+  const newer = newerVersion(resolved);
   const byKind = new Map<string, typeof index.types>();
   for (const t of index.types) {
     byKind.set(t.kind, [...(byKind.get(t.kind) ?? []), t]);
@@ -50,13 +53,17 @@ export default async function VersionIndex({ params }: PageProps<'/docs/sdk/[ver
     // The layout supplies the gutters; this only owns its own measure.
     <div className="max-w-4xl py-10">
       <header>
-        <h1 className="text-3xl font-semibold tracking-tight">SDK API reference</h1>
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+          <h1 className="text-3xl font-semibold tracking-tight">SDK API reference</h1>
+          <VersionSwitcher current={resolved} options={versionOptions()} className="ml-auto" />
+        </div>
         <p className="mt-2 text-text-muted">
           <span className="font-mono">{resolved}</span>
           {resolved === MAIN && ' — compiled from the development branch, not a release'}
           {' · '}
           {index.counts.types} types, {index.counts.members.toLocaleString()} declared members
         </p>
+        {newer && <OlderVersionNotice current={resolved} newer={newer} />}
       </header>
 
       {KIND_ORDER.filter((k) => byKind.has(k)).map((kind) => (
