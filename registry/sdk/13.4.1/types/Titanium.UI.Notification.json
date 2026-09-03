@@ -1,0 +1,230 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.UI.Notification",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android"
+  ],
+  "since": "0.8",
+  "summary": "A toast notification.",
+  "description": "| Android | iOS |\n| ------- | --- |\n| ![Android](./toast_android.png) |  |\n\nA toast notification is an unobtrusive, pop-up notification that does not\nblock the UI. Use the [Titanium.UI.createNotification](api:Titanium.UI#createNotification) method or **`<Notification>`** Alloy element\nto create a Toast notification.\n\nOn Android, by default, a toast notification appears centered on the bottom half of the screen.\nOn Windows Phone, by default, a toast notification appears over the status bar on the top part\nof the screen.\n",
+  "examples": [
+    {
+      "title": "Simple Toast Notification",
+      "code": "The simplest use case is also the most common.\n\n``` js\nvar toast = Ti.UI.createNotification({\n    message:\"Please Stand By\",\n    duration: Ti.UI.NOTIFICATION_DURATION_LONG\n});\ntoast.show();\n```\n"
+    },
+    {
+      "title": "Alloy XML Markup",
+      "code": "Previous example as an Alloy view.\n\nindex.xml\n``` xml\n<Alloy>\n    <Window>\n        <Notification id=\"toast\" platform=\"android\" message=\"Please Stand By\" duration=\"Ti.UI.NOTIFICATION_DURATION_LONG\" />\n    </Window>\n</Alloy>\n```\n\nindex.js\n``` js\n$.index.open();\n$.toast.show();\n```\n"
+    }
+  ],
+  "properties": [
+    {
+      "name": "duration",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Determines how long the notification stays on screen.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "default": "<Titanium.UI.NOTIFICATION_DURATION_SHORT>",
+      "constants": [
+        "Titanium.UI.NOTIFICATION_DURATION_LONG",
+        "Titanium.UI.NOTIFICATION_DURATION_SHORT"
+      ]
+    },
+    {
+      "name": "gravity",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Determines the location at which the notification should appear on the screen.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.4.0",
+      "constants": [
+        "Titanium.UI.Android.GRAVITY_AXIS_CLIP",
+        "Titanium.UI.Android.GRAVITY_AXIS_PULL_AFTER",
+        "Titanium.UI.Android.GRAVITY_AXIS_PULL_BEFORE",
+        "Titanium.UI.Android.GRAVITY_AXIS_SPECIFIED",
+        "Titanium.UI.Android.GRAVITY_AXIS_X_SHIFT",
+        "Titanium.UI.Android.GRAVITY_AXIS_Y_SHIFT",
+        "Titanium.UI.Android.GRAVITY_BOTTOM",
+        "Titanium.UI.Android.GRAVITY_CENTER",
+        "Titanium.UI.Android.GRAVITY_CENTER_HORIZONTAL",
+        "Titanium.UI.Android.GRAVITY_CENTER_VERTICAL",
+        "Titanium.UI.Android.GRAVITY_CLIP_HORIZONTAL",
+        "Titanium.UI.Android.GRAVITY_CLIP_VERTICAL",
+        "Titanium.UI.Android.GRAVITY_DISPLAY_CLIP_HORIZONTAL",
+        "Titanium.UI.Android.GRAVITY_DISPLAY_CLIP_VERTICAL",
+        "Titanium.UI.Android.GRAVITY_END",
+        "Titanium.UI.Android.GRAVITY_FILL",
+        "Titanium.UI.Android.GRAVITY_FILL_HORIZONTAL",
+        "Titanium.UI.Android.GRAVITY_FILL_VERTICAL",
+        "Titanium.UI.Android.GRAVITY_HORIZONTAL_GRAVITY_MASK",
+        "Titanium.UI.Android.GRAVITY_LEFT",
+        "Titanium.UI.Android.GRAVITY_NO_GRAVITY",
+        "Titanium.UI.Android.GRAVITY_RELATIVE_HORIZONTAL_GRAVITY_MASK",
+        "Titanium.UI.Android.GRAVITY_RELATIVE_LAYOUT_DIRECTION",
+        "Titanium.UI.Android.GRAVITY_RIGHT",
+        "Titanium.UI.Android.GRAVITY_START",
+        "Titanium.UI.Android.GRAVITY_TOP",
+        "Titanium.UI.Android.GRAVITY_VERTICAL_GRAVITY_MASK"
+      ]
+    },
+    {
+      "name": "horizontalMargin",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Horizontal placement of the notification, *as a fraction of the screen width*.",
+      "description": "Useful values range from -0.5 (far left) to 0.5 (far right). A value of zero indicates default placement.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "default": "0"
+    },
+    {
+      "name": "message",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Notification text to display.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "verticalMargin",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Vertical placement of the notification, *as a fraction of the screen height*.",
+      "description": "Useful values range from -0.5 (top) to 0.5 (bottom). A value of zero indicates default placement.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "default": "0"
+    },
+    {
+      "name": "xOffset",
+      "platforms": [
+        "android"
+      ],
+      "summary": "X offset from the default position, in pixels.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "default": "0"
+    },
+    {
+      "name": "yOffset",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Y offset from the default position, in pixels.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "default": "0"
+    }
+  ],
+  "methods": [
+    {
+      "name": "show",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Show the notification."
+    }
+  ],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "lifecycleContainer",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      }
+    ],
+    "events": []
+  },
+  "references": [
+    "Titanium.Proxy",
+    "Titanium.UI"
+  ],
+  "source": "Titanium/UI/Notification.yml"
+}

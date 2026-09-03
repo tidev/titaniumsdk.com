@@ -1,0 +1,179 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.UI.AttributedString",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
+  "since": "3.6.0",
+  "summary": "An attributed string proxy manages character strings and associated sets of attributes (for example,\nfont and foregroundcolor) that apply to individual characters or ranges of characters in the string.\n",
+  "description": "The AttributedString proxy is created with the [Titanium.UI.createAttributedString](api:Titanium.UI#createAttributedString) method.\n\nThe `text` property must be set initially in the constructor when creating an attributed string.\nThe [attributes](api:Titanium.UI.AttributedString#attributes) can either be set in the constructor or after it has been created.\n\nFor examples of Attributed Strings, see the\n[Attributed Strings guide](https://titaniumsdk.com/guide/Titanium_SDK/Titanium_SDK_How-tos/User_Interface_Deep_Dives/Attributed_Strings.html).\n",
+  "examples": [
+    {
+      "title": "Adds an array of attributes to a label",
+      "code": "Creates an AttributedString proxy, adds some attributes to it, and applies them\nto a <Titanium.UI.Label>.\n\n``` js\nvar win = Titanium.UI.createWindow({\n    backgroundColor: '#ddd',\n});\n\nwin.open();\n\nvar text =  'Bacon ipsum dolor Titanium SDK rocks! sit amet fatback leberkas salami sausage tongue strip steak.';\n\nvar attr = Titanium.UI.createAttributedString({\n    text: text,\n    attributes: [\n        // Underlines text\n        {\n            type: Titanium.UI.ATTRIBUTE_UNDERLINES_STYLE,\n            value: Ti.UI.ATTRIBUTE_UNDERLINE_STYLE_SINGLE,\n            range: [text.indexOf('Titanium'), ('Titanium').length]\n        },\n        // Sets a background color\n        {\n            type: Titanium.UI.ATTRIBUTE_BACKGROUND_COLOR,\n            value: \"red\",\n            range: [text.indexOf('Titanium'), ('Titanium').length]\n        },\n        {\n            type: Titanium.UI.ATTRIBUTE_BACKGROUND_COLOR,\n            value: \"blue\",\n            range: [text.indexOf('Titanium'), ('Titanium').length]\n        },\n        {\n            type: Titanium.UI.ATTRIBUTE_BACKGROUND_COLOR,\n            value: \"yellow\",\n            range: [text.indexOf('rocks!'), ('rocks!').length]\n        },\n        // Sets a foreground color\n        {\n            type: Titanium.UI.ATTRIBUTE_FOREGROUND_COLOR,\n            value: \"orange\",\n            range: [0,  text.length]\n        },\n        {\n            type: Titanium.UI.ATTRIBUTE_FOREGROUND_COLOR,\n            value: \"black\",\n            range: [text.indexOf('rocks!'), ('rocks!').length]\n        }\n    ]\n});\n\nvar label = Titanium.UI.createLabel({\n    left: 20,\n    right: 20,\n    height: Titanium.UI.SIZE,\n    attributedString: attr\n});\n\nwin.add(label);\n```\n"
+    },
+    {
+      "title": "Adds attributes, one by one.",
+      "code": "``` js\nvar win = Titanium.UI.createWindow({\n    backgroundColor: '#ddd',\n});\n\nwin.open();\n\nvar text =  'Bacon ipsum dolor Titanium SDK rocks! sit amet fatback leberkas salami sausage tongue strip steak.';\n\nvar attr = Titanium.UI.createAttributedString({\n    text: text\n});\n\n// Underlines text\nattr.addAttribute({\n    type: Titanium.UI.ATTRIBUTE_UNDERLINES_STYLE,\n    range: [0, text.length]\n});\n\nvar label = Titanium.UI.createLabel({\n    left: 20,\n    right: 20,\n    height: Titanium.UI.SIZE,\n    attributedString: attr\n});\n\nwin.add(label);\n```\n"
+    },
+    {
+      "title": "Links with underline color.",
+      "code": "``` js\nconst win = Ti.UI.createWindow({\n\tbackgroundColor: 'gray',\n\tlayout: 'vertical'\n});\nconst lbl_a = createLink();\nconst lbl_b = createLink();\n\ncolorLink(lbl_b);\n\nwin.add([lbl_a, lbl_b]);\nwin.open();\n\nfunction createLink() {\n\tconst label = Ti.UI.createLabel({\n\t\ttop: 20,\n\t\tattributedString: Ti.UI.createAttributedString({\n\t\t\ttext: 'Check out Titanium SDK',\n\t\t\tattributes: [{\n\t\t\t\ttype: Ti.UI.ATTRIBUTE_LINK,\n\t\t\t\tvalue: 'https://titaniumsdk.com',\n\t\t\t\trange: [10, 12]\n\t\t\t}]\n\t\t})\n\t});\n\n\tlabel.addEventListener('link', e => {\n\t\tTi.Platform.openURL(e.url);\n\t});\n\n\treturn label;\n}\n\nfunction colorLink(lbl) {\n\tconst attributedString = lbl.attributedString;\n\tconst textColor = 'purple';\n\tconst underlineColor = 'yellow';\n\n\tfor (const attribute of attributedString.attributes) {\n\t\tif (attribute.type === Ti.UI.ATTRIBUTE_LINK) {\n\n\t\t\t// Set new link color.\n\t\t\tattributedString.addAttribute({\n\t\t\t\ttype: Ti.UI.ATTRIBUTE_FOREGROUND_COLOR,\n\t\t\t\tvalue: textColor,\n\t\t\t\trange: attribute.range\n\t\t\t});\n\n\t\t\t// Set new underline color.\n\t\t\tattributedString.addAttribute({\n\t\t\t\ttype: Ti.UI.ATTRIBUTE_UNDERLINE_COLOR,\n\t\t\t\tvalue: underlineColor,\n\t\t\t\trange: attribute.range\n\t\t\t});\n\t\t}\n\t}\n}\n```\n"
+    }
+  ],
+  "properties": [
+    {
+      "name": "attributes",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "An array of attributes to add.\n",
+      "description": "Internally, this calls the [addAttribute](api:Titanium.UI.AttributedString#addAttribute)\nmethod for each of the attributes passed in.\n",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Array",
+          "args": [
+            {
+              "kind": "type",
+              "name": "Attribute"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "text",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The text applied to the attributed string.\n",
+      "description": "The `text` property must be set in the constructor and cannot be changed.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "addAttribute",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Adds an [attribute](api:Attribute) with the given name and value to the characters in the specified range.",
+      "parameters": [
+        {
+          "name": "attribute",
+          "summary": "An attribute object.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Attribute"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "lifecycleContainer",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      }
+    ],
+    "events": []
+  },
+  "references": [
+    "Attribute",
+    "Titanium.Proxy",
+    "Titanium.UI"
+  ],
+  "source": "Titanium/UI/AttributedString.yml"
+}

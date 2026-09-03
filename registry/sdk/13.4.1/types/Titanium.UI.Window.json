@@ -1,0 +1,3133 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.UI.Window",
+  "kind": "view",
+  "extends": "Titanium.UI.View",
+  "inheritanceChain": [
+    "Titanium.UI.View",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
+  "since": "0.9",
+  "summary": "The Window is an empty drawing surface or container.",
+  "description": "To create a window, use the [Titanium.UI.createWindow](api:Titanium.UI#createWindow) method or a **`<Window>`** Alloy element.\n\nA window is a top-level container which can contain other views. Windows can\nbe *opened* and *closed*.  Opening a window causes the window and its child\nviews to be added to the application's render stack, on top of any previously opened\nwindows. Closing a window removes the window and its children from the render stack.\n\nWindows *contain* other views, but in general they are not *contained* inside\nother views. There are a few specialized views that manage windows:\n\n* [NavigationWindow](api:Titanium.UI.NavigationWindow)\n* [SplitWindow](api:Titanium.UI.iOS.SplitWindow)\n* [TabGroup](api:Titanium.UI.TabGroup)\n* [Tab](api:Titanium.UI.Tab)\n\nBy default, windows occupy the entire screen except for the navigation bar,\nstatus bar, and in the case of windows contained in tab groups, the tab bar.\nTo take up the entire screen, covering any other UI, specify `fullscreen:true`\nwhen creating the window.\n\n### Pass Context Between Windows\n\nTo pass data between windows, use a\n[CommonJS module](https://titaniumsdk.com/guide/Titanium_SDK/Titanium_SDK_Guide/Best_Practices_and_Recommendations/CommonJS_Modules_in_Titanium.html)\nto save information from one window then retrieve it in another.  In the example below, the foo\nmodule exposes two methods to store and retrieve an object.  The first window of the project\nloads the foo module and uses the set method to store some data before opening the second window.\nThe second window loads the same module and is able to retrieve the content saved by the first\nwindow with the get method.\n\nNote that for Alloy projects, you can simply pass the context as the second argument of the\nAlloy.createController method, then retrieve the data with the special variable `$.args`\nin the controller code.\n\n`app/lib/foo.js`:\n``` js\n// For a classic Titanium project, save the file to 'Resources/foo.js'\nvar data = {};\nfunction setData (obj){\n    data = obj;\n}\nfunction getData () {\n    return data;\n}\n\n// The special variable 'exports' exposes the functions as public\nexports.setData = setData;\nexports.getData = getData;\n```\n\n`app/views/index.xml`:\n``` xml\n<Alloy>\n    <Window backgroundColor=\"blue\">\n        <Label onClick=\"openWindow\">Open the Red Window!</Label>\n    </Window>\n</Alloy>\n```\n\n`app/controllers/index.js`:\n``` js\nvar foo = require('foo');\nfoo.setData({foobar: 42});\n\nfunction openWindow () {\n    var win2 = Alloy.createController('win2').getView();\n    // For Alloy projects, you can pass context\n    // to the controller in the Alloy.createController method.\n    // var win2 = Alloy.createController('win2', {foobar: 42}).getView();\n    win2.open();\n}\n\n$.index.open();\n```\n\n`app/views/win2.xml`:\n``` xml\n<Alloy>\n    <Window backgroundColor=\"red\">\n        <Label id=\"label\">I am a red window.</Label>\n    </Window>\n</Alloy>\n```\n\n`app/controllers/win2.js`:\n``` js\nvar foo = require('foo');\n$.label.text = foo.getData().foobar;\n\n// For Alloy projects, you can also pass in context\n// with the Alloy.createController method and retrieve\n// it in the controller code.\n// $.label.text = $.args.foobar;\n```\n\n### Modal Windows\n\nIn the user interface, a modal window is a window that blocks the main application UI until the\nmodal window is dismissed.  A modal window requires the user to interact with it to resume the\nnormal flow of the application.  For example, if an action requires the user to login, the\napplication can present a login window, then after the user is authenticated, the normal flow\nof the application can be resumed.\n\nTo create a modal window, set the `modal` property to `true` in the dictionary passed to\neither the `Titanium.UI.createWindow()` method or the Window object's `open()` method.\n\n#### Android Behavior\n\nThe Android platform does not has the concept of a modal window but instead uses modal\ndialogs. You are probably looking for a [Titanium.UI.AlertDialog](api:Titanium.UI.AlertDialog) or [Titanium.UI.OptionDialog](api:Titanium.UI.OptionDialog) and\nthe `androidView` property rather than a modal window.\n\nHowever, if you know what you are doing and use `modal`, Titanium creates a window with\na translucent background (if the background properties are not set).\n\nThe combination of `fullscreen:true` and `modal:true` will not work as expected.\nIf the background window displays the status bar or action bar, it will be visible behind the modal\nwindow.\n\nNote that Titanium will allow a non-modal window to open on top of a modal window on\nAndroid.\n\n#### iOS Behavior\n\nBy default, if you do not set a `backgroundColor`, the modal's background color will be the\nvalue set to `Titanium.UI.backgroundColor`.\n\nThe modal window will not show the background window stack even if you make the modal translucent.\nFor fullscreen modals, when the modal appears, the background window stack is removed. For\nnon-fullscreen modals on the iPad, the background will be opaque gray if a background color\nis not specified.\n\nBy default, modal windows appear from the bottom of the screen and slide up. To change the default\ntransition, set the `modalTransitionStyle` property to a\n`Titanium.UI.iOS.MODAL_TRANSITION_STYLE_*` constant in the dictionary passed to the Window\nobject's `open()` method.\n\nModal windows should not support orientation modes that the window they are opened over do not\nsupport. Doing otherwise *may* cause bad visual/redraw behavior after the modal is dismissed,\ndue to how iOS manages modal transitions.\n\nStarting with Release 3.1.3, if the `orientationModes` property of a modal window is undefined,\nthen the orientations supported by this window would be the orientation modes specified by\nthe `tiapp.xml` with the `UISupportedInterfaceOrientations` key.\n\niOS does not allow opening non-modal windows on top of a modal window.\n\n##### iPad Features\n\nIn addition to full-screen modal windows, iPad supports \"Page sheet\"\nand \"Form sheet\" style windows:\n\n* **Page sheet** style windows have a fixed width, equal to the width of the screen\n  in portrait mode, and a height equal to the *current* height of the screen. This means\n  that in portrait mode, the window covers the entire screen. In landscape mode,\n  the window is centered on the screen horizontally.\n\n* **Form sheet** style windows are smaller than the screen size, and centered on the screen.\n\nThe example below is a modal window using the Form sheet style:\n\n<img src=\"./window-modal.png\" width=\"400\" />\n\nYou can create this type of modal window on iPad with the following code snippet:\n\n``` js\nvar win = Ti.UI.createNavigationWindow({\n    window: Ti.UI.createWindow({\n        title: \"Modal Window\"\n    })\n});\n\nwin.open({\n    modal: true,\n    modalTransitionStyle: Ti.UI.iOS.MODAL_TRANSITION_STYLE_FLIP_HORIZONTAL,\n    modalStyle: Ti.UI.iOS.MODAL_PRESENTATION_FORMSHEET\n});\n```\n\n### Animations\n\nWindows can be animated like a [View](api:Titanium.UI.View), such as using an animation\nto open or close a window.  The example below creates a window\nthat opens from small to large with a bounce effect.  This is done by applying a\ntransformation at initialization time that scales the original size of the window to 0.\nWhen the window is opened, a new 2D transformation is applied that will scale the window\nsize from 0 to 110% of it's original size, then, after 1/20th of a second, it is scaled\nback to it's original size at 100%. This gives the bounce effect during animation.\n\n`app/views/index.xml`:\n``` xml\n<Alloy>\n    <Window backgroundColor=\"blue\" onPostlayout=\"animateOpen\" >\n        <Label color=\"orange\">Animated Window</Label>\n    </Window>\n</Alloy>\n```\n\n`app/controllers/index.js`:\n``` js\n$.index.transform = Titanium.UI.createMatrix2D().scale(0);\n$.index.open();\n\nvar a = Ti.UI.createAnimation({\n    transform : Ti.UI.createMatrix2D().scale(1.1),\n    duration : 2000,\n});\na.addEventListener('complete', function() {\n    $.index.animate({\n        transform: Ti.UI.createMatrix2D(),\n        duration: 200\n    });\n});\n\nfunction animateOpen() {\n    $.index.animate(a);\n}\n```\n\nNote that to animate an Android window while you open it, you need to follow a specific\nprocedure which is explained below in \"Window Transitions in Android\".\n\n### iOS Platform Notes\n\n#### iOS Transition Animations\n\niOS contains built-in transition animations when switching between non-modal windows. In the Window's\n`open` method, set the `transition` property to a `Titanium.UI.iOS.AnimationStyle` constant to use an animation.\nFor example, to flip right-to-left between two windows:\n\n`app/views/index.xml`:\n``` xml\n<Alloy>\n    <Window backgroundColor=\"blue\" onOpen=\"animateOpen\">\n        <Label id=\"label\">I am a blue window!</Label>\n    </Window>\n</Alloy>\n```\n\n`app/controllers/index.js`\n``` js\nfunction animateOpen() {\n    Alloy.createController('win2').getView().open({\n        transition: Ti.UI.iOS.AnimationStyle.FLIP_FROM_LEFT\n    });\n}\n$.index.open();\n```\n\n`app/views/win2.xml`:\n``` xml\n<Alloy>\n    <Window backgroundColor=\"red\">\n        <Label id=\"label\">I am a red window!</Label>\n    </Window>\n</Alloy>\n```\n\nIn the above example, the red window will be animated from the right-to-left over the blue window.\n\nYou can create transition animations when opening and closing windows in\neither a [Titanium.UI.iOS.NavigationWindow](api:Titanium.UI.iOS.NavigationWindow) or [Titanium.UI.Tab](api:Titanium.UI.Tab).\n\nUse the [Titanium.UI.iOS.createTransitionAnimation](api:Titanium.UI.iOS#createTransitionAnimation) method to specify an animation objects to hide and\nshow the window, then set the newly created TransitionAnimation object to the window's\n[Titanium.UI.Window.transitionAnimation](api:Titanium.UI.Window#transitionAnimation) property.\n\nIn the example below, the windows are closed by rotating them upside down while simultaneously\nmaking them transparent:\n\n`app/views/index.xml`:\n``` xml\n<Alloy>\n    <NavigationWindow platform=\"ios\">\n        <Window id=\"redwin\" title=\"Red Window\" backgroundColor=\"red\">\n            <Button id=\"button\" onClick=\"openBlueWindow\">Open Blue Window</Button>\n        </Window>\n    </NavigationWindow>\n</Alloy>\n```\n\n`app/controllers/index.js`:\n``` js\nfunction openBlueWindow(e) {\n    var bluewin = Alloy.createController('bluewin').getView();\n    $.index.openWindow(bluewin);\n}\n\n$.redwin.transitionAnimation = Ti.UI.iOS.createTransitionAnimation({\n    duration: 300,\n    // The show transition makes the window opaque and rotates it correctly\n    transitionTo: {\n        opacity: 1,\n        duration: 300,\n        transform: Ti.UI.createMatrix2D()\n    },\n    // The hide transition makes the window transparent and rotates it upside down\n    transitionFrom: {\n        opacity: 0,\n        duration: 300 / 2,\n        transform: Ti.UI.createMatrix2D().rotate(180),\n    }\n});\n\n$.index.open();\n```\n\n`app/views/bluewin.xml`:\n``` xml\n<Alloy>\n    <Window title=\"Blue Window\" backgroundColor=\"blue\" opacity=\"0\">\n        <Button onClick=\"closeWindow\">Close Window</Button>\n    </Window>\n</Alloy>\n```\n\n`app/controllers/bluewin.js`:\n``` js\nfunction closeWindow(){\n    $.bluewin.close();\n}\n\n$.bluewin.transitionAnimation = Ti.UI.iOS.createTransitionAnimation({\n    duration: 300,\n    // The show transition makes the window opaque and rotates it correctly\n    transitionTo: {\n        opacity: 1,\n        duration: 300,\n        transform: Ti.UI.createMatrix2D()\n    },\n    // The hide transition makes the window transparent and rotates it upside down\n    transitionFrom: {\n        opacity: 0,\n        duration: 300 / 2,\n        transform: Ti.UI.createMatrix2D().rotate(180),\n    }\n});\n\n$.bluewin.transform = Ti.UI.createMatrix2D().rotate(180);\n```\n\n### Android Platform Notes\n\n#### Window Transitions in Android\n\nA window is associated with a new Android [Activity](api:Titanium.Android.Activity). The only way\nto animate the opening or closing of an Activity in Android is to apply an animation _resource_\nto it. Passing a [Titanium.UI.Animation](api:Titanium.UI.Animation) object as a parameter to [Titanium.UI.Window.open](api:Titanium.UI.Window#open)\nor [Titanium.UI.Window.close](api:Titanium.UI.Window#close) will have no effect.\n\nInstead, in the parameter dictionary you pass to [Titanium.UI.Window.open](api:Titanium.UI.Window#open) or [Titanium.UI.Window.close](api:Titanium.UI.Window#close),\nyou should set the `activityEnterAnimation` and `activityExitAnimation` keys to\nanimation resources. `activityEnterAnimation` should be set to the animation you want to run\non the incoming activity, while `activityExitAnimation` should be set to the animation you\nwant to run on the outgoing activity that you are leaving.\n\nAnimation resources are available through the `R` object. Use either [Titanium.Android.R](api:Titanium.Android.R) for\nbuilt-in resources or [Titanium.App.Android.R](api:Titanium.App.Android#R) for resources that you package in your application.\n\nAs an example, you may wish for the window that you are opening to fade in while the window\nyou are leaving should fade out:\n\n``` js\nvar win2 = Ti.UI.createWindow();\nwin2.open({\n    activityEnterAnimation: Ti.Android.R.anim.fade_in,\n    activityExitAnimation: Ti.Android.R.anim.fade_out\n});\n```\n\nSee the official Android [R.anim](https://developer.android.com/reference/android/R.anim.html) documentation\nfor information about built-in animations.\n\nFor information on creating your own animation resource XML files, see\n\"[View Animation](https://developer.android.com/guide/topics/resources/animation-resource.html#View)\"\nin Android's Resources documentation. After creating an animation resource file, you can place it under\n`platform/android/res/anim` in your Titanium project folder and it will be packaged in your app's APK\nand then available via [Titanium.App.Android.R](api:Titanium.App.Android#R).\n\n#### Material design transitions in Android\n\nYou can provide transition between common elements among participating activities. For example in a master-detail pattern,\nclicking on a row item animates the common elements of image, title smoothly into details activity as if they are part of\nthe same scene. This seamless animation is called shared element transition and can be achieved by the following steps.\n\nSay window A is opening window B.\nFirstly, specify a unique `transitionName` to the common UI elements between the two windows.\nNext use `addSharedElement` method on window B passing the window A common UI element and the transition name. This tells the system\nwhich views are shared between windows and performs the transition between them. Note that we specify the UI elements of window A\nsince the system needs the source element and connects the destination element from the shared transition name once window B is created\nand shown.\n\nFor example to transition a preview ImageView in window A to a full-width ImageView in window B.\n\n``` js\nconst windowA = Ti.UI.createWindow({\n  title: \"overview\"\n});\n\n// Create an item in window A with a unique transitionName.\nconst viewA = Ti.UI.createImageView({\n  top: 10,\n  left: 10,\n  scalingMode: Titanium.Media.IMAGE_SCALING_ASPECT_FILL,\n  image: \"https://api.lorem.space/image/shoes?w=500&h=500\",\n  height: 100,\n  width: 100,\n  transitionName: 'title'\n});\n\nconst btn = Ti.UI.createButton({\n  bottom: 10,\n  title: \"open new window\"\n})\n\nbtn.addEventListener(\"click\", function() {\n  // Before opening window B specify the common UI elements.\n  windowB.addSharedElement(viewA, \"title\");\n  windowB.open();\n\n  windowB.activity.onCreate = () => {\n    const actionBar = windowB.activity.actionBar;\n    if (actionBar) {\n      actionBar.displayHomeAsUp = true;\n      actionBar.title = \"New Title\";\n      actionBar.onHomeIconItemSelected = () => {\n        windowB.close();\n      };\n    }\n  };\n})\nwindowA.add([viewA, btn]);\nwindowA.open();\n\n// Creating an item in window B, note that the same transitionName is used.\nconst windowB = Ti.UI.createWindow({});\nconst viewB = Ti.UI.createImageView({\n  scalingMode: Titanium.Media.IMAGE_SCALING_ASPECT_FILL,\n  top: 0,\n  left: 0,\n  image: \"https://api.lorem.space/image/shoes?w=500&h=500\",\n  height: 200,\n  width: Ti.UI.FILL,\n  transitionName: 'title'\n});\nconst labelB = Ti.UI.createLabel({\n  top: 210,\n  left: 10,\n  text: \"Detail window\"\n})\nwindowB.add([viewB, labelB]);\n```\n\nFurther you can use `activityEnterTransition`, `activityExitTransition`, `activityReenterTransition`\nand `activityReturnTransition` to customize the way activities transition into the scene. These are intended\nto be used with views set up as \"shared elements\" via the `addSharedElement()` method where these views\nwill be moved from window to the other. As of Titanium 8.0.1, you don't have to add views as shared elements\nto use these transition animations, while in older version of Titanium that was required.\n\nSee the official Android [Activity Transitions](https://developer.android.com/training/material/animations.html#Transitions)\ndocumentation for more information and supported transitions.\n\n#### Android \"root\" Windows\n\nIn Android, you may wish to specify that a window which you create (such as the first\nwindow) should be considered the root window and that the application should exit when\nthe back button is pressed from that window.  This is particularly useful if your application\nis not using a Tab Group and therefore the splash screen window is appearing whenever you\npress the back button from your lowest window on the stack.\n\nTo indicate that a particular window should cause an application to exit when the back\nbutton is pressed, pass `exitOnClose: true` as one of the creation arguments, as shown here:\n\n``` js\nvar win = Titanium.UI.createWindow({\n  title: 'My Root Window',\n  exitOnClose: true\n});\n```\n\nStarting with Release 3.2.0, the root window's `exitOnClose` property is set to `true` by\ndefault.  Prior to Release 3.2.0, the default value of the property was `false` for all windows.\n",
+  "examples": [
+    {
+      "title": "Full Screen Window example",
+      "code": "Create a fullscreen window with a red background.\n\n``` js\nvar window = Titanium.UI.createWindow({\n    backgroundColor:'red'\n});\nwindow.open({fullscreen:true});\n```\n"
+    },
+    {
+      "title": "Alloy XML Markup",
+      "code": "Previous example as an Alloy view.\n\n``` xml\n<Alloy>\n    <Window id=\"win\" backgroundColor=\"red\" fullscreen=\"true\" />\n</Alloy>\n```\n"
+    }
+  ],
+  "properties": [
+    {
+      "name": "activity",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Contains a reference to the Android Activity object associated with this window.\n",
+      "description": "An Activity object is not created until the window is opened.\nBefore the window is opened, `activity` refers to an empty JavaScript object.\nYou can be set properties on this object, but cannot invoke any Activity methods on it.\nOnce the window is opened, the actual Activity object is created,\nusing any properties set on the JavaScript object. At this point, you can call methods\non the activity and access any properties that are set when the activity is created,\nfor example, [actionBar](api:Titanium.Android.Activity#actionBar).\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.Android.Activity"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "activityEnterTransition",
+      "platforms": [
+        "android"
+      ],
+      "summary": "The type of transition used when activity is entering.",
+      "description": "Activity B's enter transition determines how views in B are animated when A starts B.\nApplicable for Android 5.0 and above. This transition property will be ignored if `animated` is set to false.\nWill also be ignored unless at least 1 view has been assigned to the `addSharedElement()` method,\nexcept on Titanium 8.0.1 and higher where shared elements are no longer required to do transitions.\n\nSee \"Material design activity transitions in Android\" in the main description of Titanium.UI.Window\nfor more information.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.2.0",
+      "availability": "creation",
+      "default": "If not specified uses platform theme transition.",
+      "osver": {
+        "android": {
+          "min": 5
+        }
+      },
+      "constants": [
+        "Titanium.UI.Android.TRANSITION_EXPLODE",
+        "Titanium.UI.Android.TRANSITION_FADE_IN",
+        "Titanium.UI.Android.TRANSITION_FADE_OUT",
+        "Titanium.UI.Android.TRANSITION_NONE",
+        "Titanium.UI.Android.TRANSITION_SLIDE_BOTTOM",
+        "Titanium.UI.Android.TRANSITION_SLIDE_LEFT",
+        "Titanium.UI.Android.TRANSITION_SLIDE_RIGHT",
+        "Titanium.UI.Android.TRANSITION_SLIDE_TOP"
+      ]
+    },
+    {
+      "name": "activityExitTransition",
+      "platforms": [
+        "android"
+      ],
+      "summary": "The type of transition used when activity is exiting.",
+      "description": "Activity A's exit transition determines how views in A are animated when A starts B.\nApplicable for Android 5.0 and above. This transition property will be ignored if `animated` is set to false.\nWill also be ignored unless at least 1 view has been assigned to the `addSharedElement()` method,\nexcept on Titanium 8.0.1 and higher where shared elements are no longer required to do transitions.\n\nSee \"Material design activity transitions in Android\" in the main description of Titanium.UI.Window\nfor more information.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.2.0",
+      "availability": "creation",
+      "default": "If not specified uses platform theme transition.",
+      "osver": {
+        "android": {
+          "min": 5
+        }
+      },
+      "constants": [
+        "Titanium.UI.Android.TRANSITION_EXPLODE",
+        "Titanium.UI.Android.TRANSITION_FADE_IN",
+        "Titanium.UI.Android.TRANSITION_FADE_OUT",
+        "Titanium.UI.Android.TRANSITION_NONE",
+        "Titanium.UI.Android.TRANSITION_SLIDE_BOTTOM",
+        "Titanium.UI.Android.TRANSITION_SLIDE_LEFT",
+        "Titanium.UI.Android.TRANSITION_SLIDE_RIGHT",
+        "Titanium.UI.Android.TRANSITION_SLIDE_TOP"
+      ]
+    },
+    {
+      "name": "activityReenterTransition",
+      "platforms": [
+        "android"
+      ],
+      "summary": "The type of transition used when reentering to a previously started activity.",
+      "description": "Activity A's reenter transition determines how views in A are animated when B returns to A.\nApplicable for Android 5.0 and above. This transition property will be ignored if `animated` is set to false.\nWill also be ignored unless at least 1 view has been assigned to the `addSharedElement()` method,\nexcept on Titanium 8.0.1 and higher where shared elements are no longer required to do transitions.\n\nSee \"Material design activity transitions in Android\" in the main description of Titanium.UI.Window\nfor more information.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.2.0",
+      "availability": "creation",
+      "default": "If not specified uses `activityExitTransition`.",
+      "osver": {
+        "android": {
+          "min": 5
+        }
+      },
+      "constants": [
+        "Titanium.UI.Android.TRANSITION_EXPLODE",
+        "Titanium.UI.Android.TRANSITION_FADE_IN",
+        "Titanium.UI.Android.TRANSITION_FADE_OUT",
+        "Titanium.UI.Android.TRANSITION_NONE",
+        "Titanium.UI.Android.TRANSITION_SLIDE_BOTTOM",
+        "Titanium.UI.Android.TRANSITION_SLIDE_LEFT",
+        "Titanium.UI.Android.TRANSITION_SLIDE_RIGHT",
+        "Titanium.UI.Android.TRANSITION_SLIDE_TOP"
+      ]
+    },
+    {
+      "name": "activityReturnTransition",
+      "platforms": [
+        "android"
+      ],
+      "summary": "The type of transition used when returning from a previously started activity.",
+      "description": "Activity B's return transition determines how views in B are animated when B returns to A.\nApplicable for Android 5.0 and above. This transition property will be ignored if `animated` is set to false.\nWill also be ignored unless at least 1 view has been assigned to the `addSharedElement()` method,\nexcept on Titanium 8.0.1 and higher where shared elements are no longer required to do transitions.\n\nSee \"Material design activity transitions in Android\" in the main description of Titanium.UI.Window\nfor more information.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.2.0",
+      "availability": "creation",
+      "default": "If not specified uses `activityEnterTransition`.",
+      "osver": {
+        "android": {
+          "min": 5
+        }
+      },
+      "constants": [
+        "Titanium.UI.Android.TRANSITION_EXPLODE",
+        "Titanium.UI.Android.TRANSITION_FADE_IN",
+        "Titanium.UI.Android.TRANSITION_FADE_OUT",
+        "Titanium.UI.Android.TRANSITION_NONE",
+        "Titanium.UI.Android.TRANSITION_SLIDE_BOTTOM",
+        "Titanium.UI.Android.TRANSITION_SLIDE_LEFT",
+        "Titanium.UI.Android.TRANSITION_SLIDE_RIGHT",
+        "Titanium.UI.Android.TRANSITION_SLIDE_TOP"
+      ]
+    },
+    {
+      "name": "activitySharedElementEnterTransition",
+      "platforms": [
+        "android"
+      ],
+      "summary": "The type of enter transition used when animating shared elements between two activities.",
+      "description": "Activity B's shared element enter transition determines how shared elements animate from A to B.\nApplicable for Android 5.0 and above. This value will be ignored if `animated` is set to false.\nSee \"Material design activity transitions in Android\" in the main description of Titanium.UI.Window\nfor more information.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.2.0",
+      "availability": "creation",
+      "default": "Defaults to Android platform's [move](https://github.com/android/platform_frameworks_base/blob/lollipop-release/core/res/res/transition/move.xml) transition.\n",
+      "osver": {
+        "android": {
+          "min": 5
+        }
+      },
+      "constants": [
+        "Titanium.UI.Android.TRANSITION_CHANGE_BOUNDS",
+        "Titanium.UI.Android.TRANSITION_CHANGE_CLIP_BOUNDS",
+        "Titanium.UI.Android.TRANSITION_CHANGE_IMAGE_TRANSFORM",
+        "Titanium.UI.Android.TRANSITION_CHANGE_TRANSFORM",
+        "Titanium.UI.Android.TRANSITION_NONE"
+      ]
+    },
+    {
+      "name": "activitySharedElementExitTransition",
+      "platforms": [
+        "android"
+      ],
+      "summary": "The type of exit transition used when animating shared elements between two activities.",
+      "description": "Activity A's shared element exit transition animates shared elements before they transition from A to B\nApplicable for Android 5.0 and above. This value will be ignored if `animated` is set to false.\nSee \"Material design activity transitions in Android\" in the main description of Titanium.UI.Window\nfor more information.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.2.0",
+      "availability": "creation",
+      "default": "Defaults to Android platform's [move](https://github.com/android/platform_frameworks_base/blob/lollipop-release/core/res/res/transition/move.xml) transition.\n",
+      "osver": {
+        "android": {
+          "min": 5
+        }
+      },
+      "constants": [
+        "Titanium.UI.Android.TRANSITION_CHANGE_BOUNDS",
+        "Titanium.UI.Android.TRANSITION_CHANGE_CLIP_BOUNDS",
+        "Titanium.UI.Android.TRANSITION_CHANGE_IMAGE_TRANSFORM",
+        "Titanium.UI.Android.TRANSITION_CHANGE_TRANSFORM",
+        "Titanium.UI.Android.TRANSITION_NONE"
+      ]
+    },
+    {
+      "name": "activitySharedElementReenterTransition",
+      "platforms": [
+        "android"
+      ],
+      "summary": "The type of reenter transition used when animating shared elements between two activities.",
+      "description": "Activity A's shared element reenter transition animates shared elements after they have transitioned from B to A.\nApplicable for Android 5.0 and above. This value will be ignored if `animated` is set to false.\nSee \"Material design activity transitions in Android\" in the main description of Titanium.UI.Window\nfor more information.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.2.0",
+      "availability": "creation",
+      "default": "Defaults to Android platform's [move](https://github.com/android/platform_frameworks_base/blob/lollipop-release/core/res/res/transition/move.xml) transition.\n",
+      "osver": {
+        "android": {
+          "min": 5
+        }
+      },
+      "constants": [
+        "Titanium.UI.Android.TRANSITION_CHANGE_BOUNDS",
+        "Titanium.UI.Android.TRANSITION_CHANGE_CLIP_BOUNDS",
+        "Titanium.UI.Android.TRANSITION_CHANGE_IMAGE_TRANSFORM",
+        "Titanium.UI.Android.TRANSITION_CHANGE_TRANSFORM",
+        "Titanium.UI.Android.TRANSITION_NONE"
+      ]
+    },
+    {
+      "name": "activitySharedElementReturnTransition",
+      "platforms": [
+        "android"
+      ],
+      "summary": "The type of return transition used when animating shared elements between two activities.",
+      "description": "Activity B's shared element return transition determines how shared elements animate from B to A.\nApplicable for Android 5.0 and above. This value will be ignored if `animated` is set to false.\nSee \"Material design activity transitions in Android\" in the main description of Titanium.UI.Window\nfor more information.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.2.0",
+      "availability": "creation",
+      "default": "Defaults to Android platform's [move](https://github.com/android/platform_frameworks_base/blob/lollipop-release/core/res/res/transition/move.xml) transition.\n",
+      "osver": {
+        "android": {
+          "min": 5
+        }
+      },
+      "constants": [
+        "Titanium.UI.Android.TRANSITION_CHANGE_BOUNDS",
+        "Titanium.UI.Android.TRANSITION_CHANGE_CLIP_BOUNDS",
+        "Titanium.UI.Android.TRANSITION_CHANGE_IMAGE_TRANSFORM",
+        "Titanium.UI.Android.TRANSITION_CHANGE_TRANSFORM",
+        "Titanium.UI.Android.TRANSITION_NONE"
+      ]
+    },
+    {
+      "name": "autoAdjustScrollViewInsets",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Specifies whether or not the view controller should automatically adjust its scroll view insets.\n",
+      "description": "When the value is true, it allows the view controller to adjust its scroll view insets in response\nto the screen areas consumed by the status bar, navigation bar, toolbar and tab bar.\n\nThe default behavior assumes that this is false. Must be specified before **opening** the window.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": {
+        "iphone": "3.1.3",
+        "ipad": "3.1.3",
+        "macos": "9.2.0"
+      }
+    },
+    {
+      "name": "backButtonTitle",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Title for the back button. This is only valid when the window is a child of a tab.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "backButtonTitleImage",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The image to show as the back button. This is only valid when the window is a child of a tab.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        },
+        {
+          "kind": "type",
+          "name": "Titanium.Blob"
+        }
+      ]
+    },
+    {
+      "name": "backgroundColor",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Background color of the window, as a color name or hex triplet.",
+      "description": "On Android, to specify a semi-transparent background, set the alpha value using the\n[opacity](api:Titanium.UI.Window#opacity) property before opening the window.\n\nFor information about color values, see the \"Colors\" section of [Titanium.UI](api:Titanium.UI).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        },
+        {
+          "kind": "type",
+          "name": "Titanium.UI.Color"
+        }
+      ],
+      "default": "Transparent"
+    },
+    {
+      "name": "barColor",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Background color for the nav bar, as a color name or hex triplet.\n",
+      "description": "For information about color values, see the \"Colors\" section of [Titanium.UI](api:Titanium.UI).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        },
+        {
+          "kind": "type",
+          "name": "Titanium.UI.Color"
+        }
+      ],
+      "since": {
+        "android": "8.0.1",
+        "iphone": "0.9",
+        "ipad": "0.9"
+      }
+    },
+    {
+      "name": "barImage",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Background image for the nav bar, specified as a URL to a local image.",
+      "description": "The behavior of this API on iOS has changed from version 3.2.0. Previous versions\nof the SDK created a custom image view and inserted it as a child of the navigation bar.\nThe Titanium SDK now uses the native call to set the background image of the navigation bar.\nYou can set it to a 1px transparent png to use a combination of `barColor` and `hideShadow:true`.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "bottom",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Window's bottom position, in platform-specific units.",
+      "description": "On Android, this property has no effect.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        },
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "default": "0"
+    },
+    {
+      "name": "closed",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Determines whether this Window is closed.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "9.1.0",
+      "permission": "read-only",
+      "default": "true"
+    },
+    {
+      "name": "exitOnClose",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Boolean value indicating if the application should exit when the Android\nBack button is pressed while the window is being shown or when the window\nis closed programmatically.\n",
+      "description": "Starting in 3.4.2 you can set this property at any time. In earlier releases you can only set this as a createWindow({...}) option.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "default": "true if this is the first window launched else false; prior to Release 3.3.0, the\ndefault was always false.\n"
+    },
+    {
+      "name": "extendEdges",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "An array of supported values specified using the EXTEND_EDGE constants in [Titanium.UI](api:Titanium.UI).\n",
+      "description": "This is only valid for windows hosted by navigation controllers or tab bar controllers. This property is used to\ndetermine the layout of the window within its parent view controller. For example if the window is specified to extend its top edge\nand it is hosted in a navigation controller, then the top edge of the window is extended underneath the navigation bar so that part\nof the window is obscured. If the navigation bar is opaque (translucent property on window is false), then the top edge of the window\nwill only extend if [Titanium.UI.Window.includeOpaqueBars](api:Titanium.UI.Window#includeOpaqueBars) is set to true.\n\nThe default behavior is to assume that no edges are to be extended. Must be specified before **opening** the window.\n",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Array",
+          "args": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ],
+      "since": {
+        "iphone": "3.1.3",
+        "ipad": "3.1.3",
+        "macos": "9.2.0"
+      },
+      "constants": [
+        "Titanium.UI.EXTEND_EDGE_ALL",
+        "Titanium.UI.EXTEND_EDGE_BOTTOM",
+        "Titanium.UI.EXTEND_EDGE_LEFT",
+        "Titanium.UI.EXTEND_EDGE_NONE",
+        "Titanium.UI.EXTEND_EDGE_RIGHT",
+        "Titanium.UI.EXTEND_EDGE_TOP"
+      ]
+    },
+    {
+      "name": "extendSafeArea",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Specifies whether the screen insets/notches are allowed to overlap the window's content or not.\n",
+      "description": "If set `true`, then the contents of the window will be extended to fill the whole screen and allow the\nsystem's UI elements (such as a translucent status-bar) and physical obstructions (such as the iPhone X\nrounded corners and top sensor housing) to overlap the window's content. In this case, it is the app\ndeveloper's responsibility to position views so that they're unobstructed. On Android, you can use the\n[Window.safeAreaPadding](api:Titanium.UI.Window#safeAreaPadding) property after the window has been opened to\nlayout your content within the insets.\n\nIf set `false`, then the window's content will be laid out within the safe-area and its child views will be\nunobstructed. For example, you will not need to position a view below the top status-bar.\n\nRead more about the safe-area layout-guide in the [Human Interface Guidelines](https://developer.apple.com/ios/human-interface-guidelines/overview/iphone-x/).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": {
+        "android": "7.5.0",
+        "iphone": "6.3.0",
+        "ipad": "6.3.0",
+        "macos": "9.2.0"
+      },
+      "availability": "creation",
+      "default": "`false` on Android, `true` on iOS."
+    },
+    {
+      "name": "flagSecure",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Treat the content of the window as secure, preventing it from appearing in screenshots or from being viewed on non-secure displays.\n",
+      "description": "When the value is true, preventing it from appearing in screenshots or from being viewed on non-secure displays.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "3.3.0",
+      "availability": "creation",
+      "default": "false"
+    },
+    {
+      "name": "focused",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Determines whether this TextArea has focus.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "9.1.0",
+      "permission": "read-only",
+      "default": "false"
+    },
+    {
+      "name": "fullscreen",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Boolean value indicating if the window is fullscreen.",
+      "description": "A fullscreen window occupies all of the screen space, hiding the status bar. Must be specified\nat creation time or in the `options` dictionary passed to the [Window.open](api:Titanium.UI.Window#open) method.\n\nOn iOS the behavior of this property has changed. Starting from 3.1.3, if this property is undefined\nthen the property is set to the value for UIStatusBarHidden defined in tiapp.xml.\nIf that is not defined it is treated as **explicit false**. On earlier versions, opening a window with this property\nundefined would not effect the status bar appearance.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "default": "false"
+    },
+    {
+      "name": "hidesBackButton",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Set this to true to hide the back button of navigation bar.",
+      "description": "When this property is set to `true`, the navigation window hides its back button.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": {
+        "android": "8.0.0",
+        "iphone": "7.5.0",
+        "ipad": "7.5.0",
+        "macos": "9.2.0"
+      },
+      "default": "false"
+    },
+    {
+      "name": "hidesBarsOnSwipe",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Set this to true to hide the navigation bar on swipe.",
+      "description": "When this property is set to true, an upward swipe hides the navigation bar and toolbar.\nA downward swipe shows both bars again.  If the toolbar does not have any items, it remains\nvisible even after a swipe.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": {
+        "iphone": "6.0.0",
+        "ipad": "6.0.0",
+        "macos": "9.2.0"
+      },
+      "availability": "creation",
+      "default": "false"
+    },
+    {
+      "name": "hidesBarsOnTap",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Set this to true to hide the navigation bar on tap.",
+      "description": "When the value of this property is true, the navigation controller toggles the hiding and\nshowing of its navigation bar and toolbar in response to an otherwise unhandled tap\nin the content area.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": {
+        "iphone": "6.0.0",
+        "ipad": "6.0.0",
+        "macos": "9.2.0"
+      },
+      "availability": "creation",
+      "default": "false"
+    },
+    {
+      "name": "hidesBarsWhenKeyboardAppears",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Set this to true to hide the navigation bar when the keyboard appears.",
+      "description": "When this property is set to true, the appearance of the keyboard causes the\nnavigation controller to hide its navigation bar and toolbar.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": {
+        "iphone": "6.0.0",
+        "ipad": "6.0.0",
+        "macos": "9.2.0"
+      },
+      "availability": "creation",
+      "default": "false"
+    },
+    {
+      "name": "hideShadow",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Set this to true to hide the shadow image of the navigation bar.",
+      "description": "This property is only honored if a valid value is specified for the [barImage](api:Titanium.UI.Window#barImage) property.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": {
+        "iphone": "3.2.0",
+        "ipad": "3.2.0",
+        "macos": "9.2.0"
+      },
+      "default": "false"
+    },
+    {
+      "name": "hidesSearchBarWhenScrolling",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "A Boolean value indicating whether the integrated search bar is hidden when scrolling any underlying content.",
+      "description": "When the value of this property is true, the search bar is visible only when the scroll position\nequals the top of your content view. When the user scrolls down, the search bar collapses into\nthe navigation bar. Scrolling back to the top reveals the search bar again. When the value of\nthis property is false, the search bar remains regardless of the current scroll position.\nYou must set [Titanium.UI.ListView.showSearchBarInNavBar](api:Titanium.UI.ListView#showSearchBarInNavBar) or [Titanium.UI.TableView.showSearchBarInNavBar](api:Titanium.UI.TableView#showSearchBarInNavBar)\nproperty for this property to have any effect.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": {
+        "iphone": "8.1.0",
+        "ipad": "8.1.0",
+        "macos": "9.2.0"
+      },
+      "default": "true"
+    },
+    {
+      "name": "homeIndicatorAutoHidden",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Boolean value indicating whether the system is allowed to hide the visual indicator for returning to the Home screen.",
+      "description": "Set this value true, if you want the system to determine when to hide the indicator. Set this value false,\nif you want the indicator shown at all times. The system takes your preference into account, but setting\ntrue is no guarantee that the indicator will be hidden.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": {
+        "iphone": "7.3.0",
+        "ipad": "7.3.0",
+        "macos": "9.2.0"
+      },
+      "default": "false"
+    },
+    {
+      "name": "includeOpaqueBars",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Specifies if the edges should extend beyond opaque bars (navigation bar, tab bar, toolbar).\n",
+      "description": "By default edges are only extended to include translucent bars. However if this is set to true, then edges are extended beyond\nopaque bars as well.\n\nThe default behavior assumes that this is false. Must be specified before **opening** the window.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": {
+        "iphone": "3.1.3",
+        "ipad": "3.1.3",
+        "macos": "9.2.0"
+      }
+    },
+    {
+      "name": "largeTitleDisplayMode",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The mode to use when displaying the title of the navigation bar.",
+      "description": "Automatically use the large out-of-line title based on the state of the\nprevious item in the navigation bar. An item with\n`largeTitleDisplayMode = Ti.UI.iOS.LARGE_TITLE_DISPLAY_MODE_AUTOMATIC`\nwill show or hide the large title based on the request of the previous\nnavigation item. If the first item pushed is set to Automatic, then it\nwill show the large title if the navigation bar has `largeTitleEnabled = true`.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": {
+        "iphone": "6.3.0",
+        "ipad": "6.3.0",
+        "macos": "9.2.0"
+      },
+      "default": "Titanium.UI.iOS.LARGE_TITLE_DISPLAY_MODE_AUTOMATIC",
+      "constants": [
+        "Titanium.UI.iOS.LARGE_TITLE_DISPLAY_MODE_ALWAYS",
+        "Titanium.UI.iOS.LARGE_TITLE_DISPLAY_MODE_AUTOMATIC",
+        "Titanium.UI.iOS.LARGE_TITLE_DISPLAY_MODE_NEVER"
+      ]
+    },
+    {
+      "name": "largeTitleEnabled",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "A Boolean value indicating whether the title should be displayed in a large format.",
+      "description": "When set to `true`, the navigation bar will use a larger out-of-line\ntitle view when requested by the current navigation item. To specify when\nthe large out-of-line title view appears, see [Titanium.UI.Window.largeTitleDisplayMode](api:Titanium.UI.Window#largeTitleDisplayMode).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": {
+        "iphone": "6.3.0",
+        "ipad": "6.3.0",
+        "macos": "9.2.0"
+      },
+      "default": "false"
+    },
+    {
+      "name": "left",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Window's left position, in platform-specific units.",
+      "description": "On Android, this property has no effect.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        },
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "default": "0"
+    },
+    {
+      "name": "leftNavButton",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "View to show in the left nav bar area.",
+      "description": "In an Alloy application you can specify this property with a `<LeftNavButton>` element inside the\n`<Window>` element, for example:\n``` xml\n<Alloy>\n    <TabGroup>\n        <Tab>\n            <Window class=\"container\">\n                <LeftNavButton platform=ios>\n                    <Button title=\"Back\" onClick=\"closeWindow\" />\n                </LeftNavButton>\n            </Window>\n        </Tab>\n    </TabGroup>\n</Alloy>\n```\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.UI.View"
+        }
+      ]
+    },
+    {
+      "name": "leftNavButtons",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "An Array of views to show in the left nav bar area.",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Array",
+          "args": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.View"
+            }
+          ]
+        }
+      ],
+      "since": {
+        "iphone": "3.3.0",
+        "ipad": "3.3.0",
+        "macos": "9.2.0"
+      }
+    },
+    {
+      "name": "modal",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Indicates to open a modal window or not.",
+      "description": "Set to `true` to create a modal window.\n\nMust be specified at creation time or in the dictionary passed to the\n[Window.open](api:Titanium.UI.Window#open) method.\n\nIn the user interface, a modal window is a window that blocks the main application UI until\nthe modal window is dismissed.  A modal window requires the user to interact with it to\nresume the normal flow of the application.\n\nSee the \"Modal Windows\" section for platform-specific information.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "default": "false"
+    },
+    {
+      "name": "navBarColor",
+      "platforms": [
+        "android"
+      ],
+      "summary": "The color of the navigation bar (bottom bar) for this window.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": {
+        "android": "13.1.0"
+      }
+    },
+    {
+      "name": "navBarHidden",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Hides the navigation bar (`true`) or shows the navigation bar (`false`).",
+      "description": "#### iOS Platform Notes\n\nSince Titanium SDK 6.0.0, you can use this property to hide and show the property as well.\n\nUsing this property, the navigation bar will be hidden or shown animated by default. Please note that\nthis property will only take effect if the window is used inside a [Titanium.UI.NavigationWindow](api:Titanium.UI.NavigationWindow)\nand will be ignored otherwise. If you want to hide or show the navigation without an animation, use t\nhe methods [Titanium.UI.Window.showNavBar](api:Titanium.UI.Window#showNavBar) and [Titanium.UI.Window.hideNavBar](api:Titanium.UI.Window#hideNavBar) with the second parameter\nto specify the animation:\n\n``` js\n// \"myWindow\" is a Ti.UI.Window inside a Ti.UI.NavigationWindow\nmyWindow.hideNavBar(true, {animated: false});\n```\n\n#### Android Platform Notes\n\nBetween Release 3.3.0 and Release 14.0.0, due to changes to support the appcompat library,\nthis property had no effect and the action bar was always displayed.\n\nSince Release 14.0.0, this property is supported again on Android. It must be set at\ncreation time and hides the action bar before the window's activity draws its first frame,\nunlike calling `hide()` on [ActionBar](api:Titanium.Android.ActionBar) from the window's `open`\nevent, which can cause the action bar to flash briefly. Alternatively, use a theme without\nan action bar as described in the\n[Android Action Bar guide](https://titaniumsdk.com/guide/Titanium_SDK/Titanium_SDK_How-tos/User_Interface_Deep_Dives/Android_UI_Components_and_Conventions/Android_Action_Bar.html).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "default": "false"
+    },
+    {
+      "name": "navigationWindow",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The [Titanium.UI.NavigationWindow](api:Titanium.UI.NavigationWindow) instance hosting this window.",
+      "description": "Returns the navigation window that hosts this window. Returns `null` if the window is not\nhosted by a navigation window.\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.UI.NavigationWindow"
+        }
+      ],
+      "since": {
+        "iphone": "7.3.0",
+        "ipad": "7.3.0",
+        "macos": "9.2.0"
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "navTintColor",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The tintColor to apply to the navigation bar.",
+      "description": "This property is a direct correspondent of the tintColor property of NavigationBar on iOS.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        },
+        {
+          "kind": "type",
+          "name": "Titanium.UI.Color"
+        }
+      ],
+      "since": {
+        "iphone": "3.1.3",
+        "ipad": "3.1.3",
+        "macos": "9.2.0"
+      },
+      "default": "null"
+    },
+    {
+      "name": "onBack",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Callback function that overrides the default behavior when the user presses the **Back**\nbutton.\n",
+      "description": "This was separated from the [Titanium.UI.Window.androidback](api:Titanium.UI.Window#androidback) event. You need to define this\ncallback if you explicitly want to override the back button behavior.\n",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Callback",
+          "args": [
+            {
+              "kind": "primitive",
+              "name": "void"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "opacity",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The opacity from 0.0-1.0.",
+      "description": "iOS notes: For modal windows that cover the previous window, the previous window is\nremoved from the render stack after the modal window finishes opening. If the\nmodal window is semi-transparent, the underlying window will be visible during the\ntransition animation, but disappear as soon as the animation is completed. (In general\nall modal windows cover the previous window, except for iPad modal windows using the\nPage sheet or Form sheet style.)\n\nAndroid notes: If you set any of `windowSoftInputMode`, `fullscreen`, or `navBarHidden`,\n*and* you wish to use the `opacity` property at any time during the window's lifetime,\nbe sure to set an `opacity` value **before** opening the window.  You can later change that\nvalue -- and you can set it to 1 for full opacity if you wish -- but the important thing\nis that you set it to a value before opening the window if you will want to set it at\nany time during the window's lifetime.\n\nThe technical reason for this is that if the opacity property is present (i.e., has\nbeen set to something) and a new Android Activity is created for the window,\nthen a translucent theme will be used for the Activity.  Window transparency (opacity\nvalues below 1) will only work in Android if the Activity's theme is translucent, and\nTitanium only uses a translucent theme for an Activity if you set an opacity property\nbefore opening the window.  Additionally, do not use `opacity` and `fullscreen: true`\ntogether, because translucent themes in Android cannot hide the status bar.  Finally,\nif you do set the `opacity` property, be sure to also set a `backgroundImage` or\n`backgroundColor` property as well, unless you want the window to be completely\ntransparent.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ]
+    },
+    {
+      "name": "orientation",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Current orientation of the window.",
+      "description": "To determine the current orientation of the *device*, see\n[Gesture.orientation](api:Titanium.Gesture#orientation), instead.\n\nSee\nthe discussion of the [orientationModes](api:Titanium.UI.Window#orientationModes)\nproperty for more information on how the screen orientation is determined.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": {
+        "iphone": "3.0.0",
+        "ipad": "3.0.0",
+        "macos": "9.2.0"
+      },
+      "permission": "read-only",
+      "constants": [
+        "Titanium.UI.LANDSCAPE_LEFT",
+        "Titanium.UI.LANDSCAPE_RIGHT",
+        "Titanium.UI.PORTRAIT",
+        "Titanium.UI.UPSIDE_PORTRAIT"
+      ]
+    },
+    {
+      "name": "orientationModes",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Array of supported orientation modes, specified using the orientation\nconstants defined in [Titanium.UI](api:Titanium.UI).\n",
+      "description": "**Note:** Using the `orientationModes` property to force the orientation of non-modal\nwindows is considered a bad practice and will not be supported, including forcing the\norientation of windows inside a NavigationWindow or TabGroup.\n\nTo restrict this window to a certain set of orientations, specify one or more\nof the orientation constants [LANDSCAPE_LEFT](api:Titanium.UI#LANDSCAPE_LEFT),\n[LANDSCAPE_RIGHT](api:Titanium.UI#LANDSCAPE_RIGHT), [PORTRAIT](api:Titanium.UI#PORTRAIT),\n[UPSIDE_PORTRAIT](api:Titanium.UI#UPSIDE_PORTRAIT).\n\n`orientationModes` must be set **before** opening the window.\n\nTo determine the current orientation of the *window*, see\n[Window.orientation](api:Titanium.UI.Window#orientation).\nTo determine the current orientation of the *device*, see\n[Gesture.orientation](api:Titanium.Gesture#orientation).\nTo be notified when the device's current orientation changes, add a listener for the\n[Titanium.Gesture.orientationchange](api:Titanium.Gesture#orientationchange) event.\n\n#### Android Orientation Modes\n\nOn Android, orientation behavior is dependent on the Android SDK level\nof the device itself. Devices running Android 2.3 and above support \"sensor portrait\nmode\" and \"sensor landscape mode,\" in these modes, the device is locked into\neither a portrait or landscape orientation, but can switch between the normal and reverse\norientations (for example, between PORTRAIT and UPSIDE_PORTRAIT).\n\nIn addition, the definition of portrait or\nlandscape mode can vary based on the physical design of the device. For example,\non some devices [Titanium.UI.LANDSCAPE_LEFT](api:Titanium.UI#LANDSCAPE_LEFT) represents the top of the device being at\nthe 270 degree position but other devices may (based on camera position for example)\ntreat this position as [Titanium.UI.LANDSCAPE_RIGHT](api:Titanium.UI#LANDSCAPE_RIGHT). In general, applications for\nAndroid that need to be aware of orientation should try and limit their orientation\nlogic to handling either portrait or landscape rather than worrying about the reverse\nmodes. This approach will allow the orientation modes to adopt a more natural feel for\nthe specific device.\n\nThe following list breaks down the orientation behavior on Android based on the contents\nof the `orientationModes` array:\n\n1.  Empty array. Enables orientation to be fully controlled by the device sensor.\n\n2.  Array includes one or both portrait modes **and** one or both landscape modes.\n    Enables full sensor control (identical to an empty array).\n\n3.  Array contains PORTRAIT **and** UPSIDE_PORTRAIT. On Android 2.3 and above,\n    enables sensor portrait mode. This means the screen will shift between\n    both portrait modes according to the sensor inside the device.\n\n    On Android versions below 2.3, locks screen orientation in normal portrait mode.\n\n4.  Array contains LANDSCAPE_LEFT **and** LANDSCAPE_RIGHT. On Android 2.3 and above,\n    enables sensor landscape mode. This means the screen will shift between both\n    landscape modes according to the sensor inside the device.\n\n    On Android versions below 2.3, locks screen orientation in normal landscape mode.\n\n5.  Array contains **only** [PORTRAIT](api:Titanium.UI#PORTRAIT). Locks screen orientation\n    to normal portrait mode.\n\n6.  Array contains **only** [LANDSCAPE_LEFT](api:Titanium.UI#LANDSCAPE_LEFT). Locks screen\n    orientation to normal landscape mode.\n\n7.  Array contains **only** [UPSIDE_PORTRAIT](api:Titanium.UI#UPSIDE_PORTRAIT). On\n    Android 2.3 and above, locks screen in reverse portrait mode.\n\n    On Android versions below 2.3, results are undefined.\n\n8.  Array contains **only**  [LANDSCAPE_RIGHT](api:Titanium.UI#LANDSCAPE_RIGHT). On\n    Android 2.3 and above, locks screen in reverse landscape mode.\n\n    On Android versions below 2.3, results are undefined.\n",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Array",
+          "args": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ],
+      "default": "empty array",
+      "constants": [
+        "Titanium.UI.LANDSCAPE_LEFT",
+        "Titanium.UI.LANDSCAPE_RIGHT",
+        "Titanium.UI.PORTRAIT",
+        "Titanium.UI.UPSIDE_PORTRAIT"
+      ]
+    },
+    {
+      "name": "right",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Window's right position, in platform-specific units.",
+      "description": "On Android, this property has no effect.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        },
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "default": "0"
+    },
+    {
+      "name": "rightNavButton",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "View to show in the right nav bar area.",
+      "description": "In an Alloy application you can specify this property with a `<RightNavButton>` element in the\n`<Window>` element, for example:\n\n``` xml\n<Alloy>\n    <TabGroup>\n        <Tab>\n            <Window class=\"container\">\n                <RightNavButton platform=ios>\n                    <Button title=\"Back\" onClick=\"closeWindow\" />\n                </RightNavButton>\n            </Window>\n        </Tab>\n    </TabGroup>\n</Alloy>\n```\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.UI.View"
+        }
+      ]
+    },
+    {
+      "name": "rightNavButtons",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "An Array of views to show in the right nav bar area.",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Array",
+          "args": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.View"
+            }
+          ]
+        }
+      ],
+      "since": {
+        "iphone": "3.3.0",
+        "ipad": "3.3.0",
+        "macos": "9.2.0"
+      }
+    },
+    {
+      "name": "safeAreaPadding",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The padding needed to safely display content without it being overlapped by the screen insets and notches.",
+      "description": "When setting [Window.extendSafeArea](api:Titanium.UI.Window#extendSafeArea) to `true`, the system's insets\nsuch as a translucent status bar, translucent navigation bar, and/or camera notches will be allowed to\noverlay on top of the window's content. In this case, it is the app developer's responsibility to\nprevent these insets from overlapping key content such as buttons. This property provides the amount of\nspace needed to be added to the left, top, right, and bottom edges of the window root view to do this.\n\nThis property won't return values greater than zero until the window has been opened. It is recommended\nthat you read this property via a [Titanium.UI.View.postlayout](api:Titanium.UI.View#postlayout) event listener since the padding values can\nchange when when the app's orientation changes or when showing/hiding the action bar.\n\nIf the [Window.extendSafeArea](api:Titanium.UI.Window#extendSafeArea) property is set `false`, then the\nreturned padding will be all zeros since the root content will be positioned between all insets.\n\nBelow is an example on how to set up a safe-area view container using this property.\n\n``` js\n// Set up a window with a translucent top status bar and translucent nav bar.\n// This will only work on Android 4.4 and newer OS versions.\nvar win = Ti.UI.createWindow({\n    extendSafeArea: true,\n    theme: 'Theme.Titanium.NoTitleBar',\n    windowFlags: Ti.UI.Android.FLAG_TRANSLUCENT_NAVIGATION | Ti.UI.Android.FLAG_TRANSLUCENT_STATUS\n});\n\n// Set up a safe-area view to be laid out between the system insets.\n// You should use this as a container for child views.\nvar safeAreaView = Ti.UI.createView({\n    backgroundColor: 'green'\n});\nwin.add(safeAreaView);\nwin.addEventListener('postlayout', function() {\n    // Update the safe-area view's dimensions after every 'postlayout' event.\n    safeAreaView.applyProperties(win.safeAreaPadding);\n});\n\n// Open the window.\nwin.open();\n```\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Padding"
+        }
+      ],
+      "since": {
+        "android": "7.5.0",
+        "iphone": "8.0.0",
+        "ipad": "8.0.0",
+        "macos": "9.2.0"
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "shadowImage",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Shadow image for the navigation bar, specified as a URL to a local image..",
+      "description": "This property is only honored if a valid value is specified for the [barImage](api:Titanium.UI.Window#barImage) property.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": {
+        "iphone": "3.2.0",
+        "ipad": "3.2.0",
+        "macos": "9.2.0"
+      }
+    },
+    {
+      "name": "splitActionBar",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Boolean value to enable split action bar.",
+      "description": "`splitActionBar` must be set **before** opening the window.\nThis property indicates if the window should use a [split action bar](https://developer.android.com/guide/topics/ui/actionbar.html#SplitBar)\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "3.6.0",
+      "deprecated": {
+        "since": "6.2.0",
+        "notes": "Deprecated in AppCompat theme. The same behaviour can be achieved by using Toolbar."
+      },
+      "availability": "creation"
+    },
+    {
+      "name": "statusBarColor",
+      "platforms": [
+        "android"
+      ],
+      "summary": "The color of the status bar (top bar) for this window.",
+      "description": "Starting with Android 16 (target SDK 36), the status bar is always transparent as part of\nedge-to-edge enforcement, and `statusBarColor` is ignored by the system. On Android 16+,\nthe status bar area will show the window's `backgroundColor` instead. Use `backgroundColor`\nto control the color behind the status bar on Android 16+.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": {
+        "android": "12.5.0"
+      }
+    },
+    {
+      "name": "statusBarStyle",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The status bar style associated with this window.",
+      "description": "Sets the status bar style when this window has focus. This is now the recommended way to control the\nstatus bar style on the application.\n\nIf this value is undefined, the value is set to UIStatusBarStyle defined in tiapp.xml.\nIf that is not defined it defaults to [Titanium.UI.iOS.StatusBar.DEFAULT](api:Titanium.UI.iOS.StatusBar#DEFAULT).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": {
+        "iphone": "3.1.3",
+        "ipad": "3.1.3",
+        "macos": "9.2.0"
+      },
+      "constants": [
+        "Titanium.UI.iOS.StatusBar.DEFAULT",
+        "Titanium.UI.iOS.StatusBar.GRAY",
+        "Titanium.UI.iOS.StatusBar.GREY",
+        "Titanium.UI.iOS.StatusBar.LIGHT_CONTENT"
+      ]
+    },
+    {
+      "name": "sustainedPerformanceMode",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Maintain a sustainable level of performance.",
+      "description": "Performance can fluctuate dramatically for long-running apps, because the system throttles\nsystem-on-chip engines as device components reach their temperature limits. This fluctuation\npresents a moving target for app developers creating high-performance, long-running apps.\n\nSetting this feature to true will set sustained performance mode for the corresponding window.\nIf property is undefined then it defaults to false.\n\nNote: This feature is only available on supported devices. The functionality is experimental and\nsubject to change in future releases. See [Android docs](https://source.android.com/devices/tech/power/performance) for further info.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "7.0.0",
+      "osver": {
+        "android": {
+          "min": "7.0"
+        }
+      }
+    },
+    {
+      "name": "swipeToClose",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Boolean value indicating if the user should be able to close a window using a swipe gesture.",
+      "description": "If `false` the user will not be able to swipe from the left edge of the window to close it.\nNote: This property is only used for a window being embedded in a [Ti.UI.Tab](api:Titanium.UI.Tab) or\n[Ti.UI.NavigationWindow](api:Titanium.UI.NavigationWindow). It is enabled by default.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": {
+        "iphone": "5.2.0",
+        "ipad": "5.2.0",
+        "macos": "9.2.0"
+      },
+      "default": "true"
+    },
+    {
+      "name": "tabBarHidden",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Boolean value indicating if the tab bar should be hidden.\n",
+      "description": "`tabBarHidden` must be set **before** opening the window.\n\nThis property is only valid when the window is the child of a tab.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ]
+    },
+    {
+      "name": "theme",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Name of the theme to apply to the window.",
+      "description": "Set the theme of the window. It can be either a [built-in theme](https://titaniumsdk.com/guide/Titanium_SDK/Titanium_SDK_How-tos/User_Interface_Deep_Dives/Android_UI_Components_and_Conventions/Android_Themes.html#titanium-material-themes)\nor a [custom theme](https://titaniumsdk.com/guide/Titanium_SDK/Titanium_SDK_How-tos/User_Interface_Deep_Dives/Android_UI_Components_and_Conventions/Android_Themes.html#custom-themes).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "3.4.0",
+      "availability": "creation"
+    },
+    {
+      "name": "title",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Title of the window.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "titleAttributes",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Title text attributes of the window.",
+      "description": "Use this property to specify the color, font and shadow attributes of the title.\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "titleAttributesParams"
+        }
+      ],
+      "since": {
+        "android": "12.3.0",
+        "iphone": "3.2.0",
+        "ipad": "3.2.0",
+        "macos": "9.2.0"
+      }
+    },
+    {
+      "name": "titleControl",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "View to show in the title area of the nav bar.",
+      "description": "In an Alloy application you can specify this property using a `<TitleControl>` element inside\n`<Window>`, for example:\n\n``` xml\n<Alloy>\n    <Window>\n        <RightNavButton>\n            <Button title=\"Back\" />\n        </RightNavButton>\n        <LeftNavButton>\n            <Button title=\"Back\" />\n        </LeftNavButton>\n        <TitleControl>\n            <View backgroundColor=\"blue\" height=\"100%\" width=\"100%\"></View>\n        </TitleControl>\n    </Window>\n</Alloy>\n```\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.UI.View"
+        }
+      ]
+    },
+    {
+      "name": "titleid",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Key identifying a string from the locale file to use for the window title.",
+      "description": "Only one of `title` or `titleid` should be specified.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "titleImage",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Image to show in the title area of the nav bar, specified as a local file path or URL.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "titlePrompt",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Title prompt for the window.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "titlepromptid",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Key identifying a string from the locale file to use for the window title prompt.",
+      "description": "Only one of `titlePrompt` or `titlepromptid` should be specified.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "toolbar",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Array of button objects to show in the window's toolbar.\n",
+      "description": "The toolbar is only shown when the window is inside a [Titanium.UI.NavigationWindow](api:Titanium.UI.NavigationWindow).\nTo display a toolbar when a window is not inside a NavigationWindow, add an instance of a\n[Titanium.UI.iOS.Toolbar](api:Titanium.UI.iOS.Toolbar) to the window.\n\nTo customize the toolbar, use the [setToolbar()](api:Titanium.UI.Window#setToolbar) method.\n\nSince Alloy 1.6.0, you can specify this property using the `<WindowToolbar>` element as a\nchild of a `<Window>` element, for example:\n\n``` xml\n<Alloy>\n    <NavigationWindow>\n        <Window>\n            <WindowToolbar>\n                <Button id=\"send\" title=\"Send\" style=\"Ti.UI.BUTTON_STYLE_OPTION_POSITIVE\" />\n                <FlexSpace/>\n                <Button id=\"camera\" systemButton=\"Ti.UI.iOS.SystemButton.CAMERA\" />\n                <FlexSpace/>\n                <Button id=\"cancel\" systemButton=\"Ti.UI.iOS.SystemButton.CANCEL\" />\n            </WindowToolbar>\n        </Window>\n    </NavigationWindow>\n</Alloy>\n```\n",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Array",
+          "args": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.View"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "top",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Window's top position, in platform-specific units.",
+      "description": "On Android, this property has no effect.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        },
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "default": "0"
+    },
+    {
+      "name": "transitionAnimation",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Use a transition animation when opening or closing windows in a\n[Titanium.UI.NavigationWindow](api:Titanium.UI.NavigationWindow) or [Titanium.UI.Tab](api:Titanium.UI.Tab).\n",
+      "description": "Create the transition animation using the [Titanium.UI.iOS.createTransitionAnimation](api:Titanium.UI.iOS#createTransitionAnimation)\nmethod.\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.Proxy"
+        }
+      ],
+      "since": {
+        "iphone": "3.2.0",
+        "ipad": "3.2.0",
+        "macos": "9.2.0"
+      }
+    },
+    {
+      "name": "translucent",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Boolean value indicating if the nav bar is translucent.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "default": "true on iOS 7 and above, false otherwise."
+    },
+    {
+      "name": "uiFlags",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Additional UI flags to set on the Activity Window.",
+      "description": "See [WindowManager.LayoutParams](https://developer.android.com/reference/android/view/View#setSystemUiVisibility\\(int\\)) for a\nlist of additional flags that can be assigned to this property. For example, you can use `8192` (SYSTEM_UI_FLAG_LIGHT_STATUS_BAR) to set\nthe status bar text color to a dark color.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "12.7.0"
+    },
+    {
+      "name": "windowFlags",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Additional flags to set on the Activity Window.",
+      "description": "Sets flags such as [Titanium.UI.Android.FLAG_TRANSLUCENT_NAVIGATION](api:Titanium.UI.Android#FLAG_TRANSLUCENT_NAVIGATION) and\n[Titanium.UI.Android.FLAG_TRANSLUCENT_STATUS](api:Titanium.UI.Android#FLAG_TRANSLUCENT_STATUS). When using multiple flags, you must bitwise-or them together.\n\nSee [WindowManager.LayoutParams](https://developer.android.com/reference/android/view/WindowManager.LayoutParams.html) for\nlist of additional flags that you can assign to this property. You can assign these Java flags to this property\nby using their numeric constant.\n\nSetting [Titanium.UI.Window.fullscreen](api:Titanium.UI.Window#fullscreen) to `true` automatically sets the [WindowManager.LayoutParams.FLAG_FULLSCREEN](https://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#FLAG_FULLSCREEN)\nflag. Setting [Titanium.UI.Window.flagSecure](api:Titanium.UI.Window#flagSecure) to true automatically sets the [WindowManager.LayoutParams.FLAG_SECURE](https://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#FLAG_SECURE) flag.\n\nUse [Titanium.UI.Android.STATUS_BAR_LIGHT](api:Titanium.UI.Android#STATUS_BAR_LIGHT) to set the status bar text color to light mode.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "3.3.0",
+      "availability": "creation"
+    },
+    {
+      "name": "windowPixelFormat",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Set the pixel format for the Activity's Window.",
+      "description": "For more information on pixel formats, see\n[Android SDK Window.setFormat](https://developer.android.com/reference/android/view/Window.html#setFormat(int))\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.8.0",
+      "constants": [
+        "Titanium.UI.Android.PIXEL_FORMAT_A_8",
+        "Titanium.UI.Android.PIXEL_FORMAT_LA_88",
+        "Titanium.UI.Android.PIXEL_FORMAT_L_8",
+        "Titanium.UI.Android.PIXEL_FORMAT_OPAQUE",
+        "Titanium.UI.Android.PIXEL_FORMAT_RGBA_4444",
+        "Titanium.UI.Android.PIXEL_FORMAT_RGBA_5551",
+        "Titanium.UI.Android.PIXEL_FORMAT_RGBA_8888",
+        "Titanium.UI.Android.PIXEL_FORMAT_RGBX_8888",
+        "Titanium.UI.Android.PIXEL_FORMAT_RGB_332",
+        "Titanium.UI.Android.PIXEL_FORMAT_RGB_565",
+        "Titanium.UI.Android.PIXEL_FORMAT_RGB_888",
+        "Titanium.UI.Android.PIXEL_FORMAT_TRANSLUCENT",
+        "Titanium.UI.Android.PIXEL_FORMAT_TRANSPARENT",
+        "Titanium.UI.Android.PIXEL_FORMAT_UNKNOWN"
+      ]
+    },
+    {
+      "name": "windowSoftInputMode",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Determines whether a window's soft input area (ie software keyboard) is visible\nas it receives focus and how the window behaves in order to accommodate it while keeping its\ncontents in view.\n",
+      "description": "In order for this property to take effect on an emulator, its Android Virtual Device (AVD)\nmust be configured with the `Keyboard Support` setting set to `No`. Note that it is always\nrecommended to test an application on a physical device to understand its true behavior.\n\nThis property is capable of representing two settings from the soft input *visibility*\nconstants and soft input *adjustment* constants\nusing the [bitwise OR](http://en.wikipedia.org/wiki/Bitwise_operation#OR) operation.\n\nNote that in JavaScript, bitwise OR is achieved using the single pipe operand. See the\nexample for a demonstration.\n\nFor more information, see the official Android Developers website API Reference for\n[Window.setSoftInputMode](https://developer.android.com/reference/android/view/Window.html#setSoftInputMode(int)).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "availability": "creation",
+      "constants": [
+        "Titanium.UI.Android.SOFT_INPUT_ADJUST_NOTHING",
+        "Titanium.UI.Android.SOFT_INPUT_ADJUST_PAN",
+        "Titanium.UI.Android.SOFT_INPUT_ADJUST_RESIZE",
+        "Titanium.UI.Android.SOFT_INPUT_ADJUST_UNSPECIFIED",
+        "Titanium.UI.Android.SOFT_INPUT_STATE_ALWAYS_HIDDEN",
+        "Titanium.UI.Android.SOFT_INPUT_STATE_ALWAYS_VISIBLE",
+        "Titanium.UI.Android.SOFT_INPUT_STATE_HIDDEN",
+        "Titanium.UI.Android.SOFT_INPUT_STATE_UNSPECIFIED",
+        "Titanium.UI.Android.SOFT_INPUT_STATE_VISIBLE"
+      ],
+      "examples": [
+        {
+          "title": "Soft Input Visibility and Adjustment",
+          "code": "Create a white window and respond to a click of it to open a red window containing a\ntext area. Show the software keyboard automatically as the red window opens.\n\n``` js\nvar win1 = Ti.UI.createWindow({\n  backgroundColor: 'white',\n  exitOnClose: true,\n  fullscreen: false,\n  title: 'Click window to test'\n});\n\n// use bitwise OR to combine two settings for the windowSoftInputMode property\nvar softInput = Ti.UI.Android.SOFT_INPUT_STATE_ALWAYS_VISIBLE | Ti.UI.Android.SOFT_INPUT_ADJUST_PAN;\n\nwin1.addEventListener('click', function(){\nvar win2 = Ti.UI.createWindow({\n  backgroundColor: 'red',\n  fullscreen: false,\n  windowSoftInputMode: softInput\n});\n\nvar textArea = Ti.UI.createTextArea({\n  value : 'I am a textarea',\n  height : 200,\n  width : 300,\n  top : 200\n});\nwin2.add(textArea);\nwin2.open();\n});\n\nwin1.open();\n```\n"
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "addSharedElement",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Adds a common UI element to participate in window transition animation.",
+      "description": "Available from Android 5.0. Use the current window's UI element that is contextually shared with the other window.\n",
+      "since": "5.2.0",
+      "osver": {
+        "android": {
+          "min": 5
+        }
+      },
+      "parameters": [
+        {
+          "name": "view",
+          "summary": "The shared view from the current window.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.View"
+            }
+          ]
+        },
+        {
+          "name": "transitionName",
+          "summary": "The assigned common transition name of UI elements in both windows.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "close",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Closes the window.",
+      "description": "Android only supports the argument type [closeWindowParams](api:closeWindowParams).\n",
+      "parameters": [
+        {
+          "name": "params",
+          "summary": "Animation or display properties to use when closing the window.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.Animation"
+            },
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Titanium.UI.Animation"
+                }
+              ]
+            },
+            {
+              "kind": "type",
+              "name": "closeWindowParams"
+            }
+          ],
+          "optional": true,
+          "inlined": {
+            "name": "closeWindowParams",
+            "summary": "Dictionary of options for the [Titanium.UI.Window.close](api:Titanium.UI.Window#close) method.",
+            "properties": [
+              {
+                "name": "activityEnterAnimation",
+                "platforms": [
+                  "android"
+                ],
+                "summary": "Animation resource to use for the incoming activity.",
+                "description": "This value will be ignored if `animated` is set to false.\nSee \"Window Transitions in Android\" in the main description of [Titanium.UI.Window](api:Titanium.UI.Window)\nfor more information.\n",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ]
+              },
+              {
+                "name": "activityExitAnimation",
+                "platforms": [
+                  "android"
+                ],
+                "summary": "Animation resource to use for the outgoing activity.",
+                "description": "This value will be ignored if `animated` is set to false.\nSee \"Window Transitions in Android\" in the main description of [Titanium.UI.Window](api:Titanium.UI.Window)\nfor more information.\n",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ],
+                "examples": [
+                  {
+                    "title": "Fading out a Window",
+                    "code": "``` js\nwin2.close({\n    activityEnterAnimation: Ti.Android.R.anim.fade_in,\n    activityExitAnimation: Ti.Android.R.anim.fade_out\n});\n```\n"
+                  }
+                ]
+              },
+              {
+                "name": "animated",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Determines whether to use an animated effect when the window is closed. Defaults to `true` on Android, `false` on iOS.\n",
+                "description": "This property supports animated transitions on windows except for modal windows (`modal:true`).\nThe transitions are on by default, but you can disable this behavior by setting this value\nto `false`.\n",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Boolean"
+                  }
+                ]
+              },
+              {
+                "name": "animationDuration",
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "duration of the animation in milliseconds",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ],
+                "default": "1000"
+              },
+              {
+                "name": "animationStyle",
+                "platforms": [
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Transition type to use during a transition animation.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Number"
+                  }
+                ],
+                "default": "<Titanium.UI.iOS.AnimationStyle.NONE>",
+                "constants": [
+                  "Titanium.UI.iOS.AnimationStyle.CROSS_DISSOLVE",
+                  "Titanium.UI.iOS.AnimationStyle.CURL_DOWN",
+                  "Titanium.UI.iOS.AnimationStyle.CURL_UP",
+                  "Titanium.UI.iOS.AnimationStyle.FLIP_FROM_BOTTOM",
+                  "Titanium.UI.iOS.AnimationStyle.FLIP_FROM_LEFT",
+                  "Titanium.UI.iOS.AnimationStyle.FLIP_FROM_RIGHT",
+                  "Titanium.UI.iOS.AnimationStyle.FLIP_FROM_TOP",
+                  "Titanium.UI.iOS.AnimationStyle.NONE"
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Promise",
+              "args": [
+                {
+                  "kind": "primitive",
+                  "name": "any"
+                }
+              ]
+            }
+          ],
+          "summary": "Starting in SDK 10.0.0, this method returns a `Promise` that will be resolved once the window is closed,\nakin to adding a one-time listener for the `close` event. If the window fails to close (for example, because\nit was not yet open) the `Promise` will be rejected.\n"
+        }
+      ]
+    },
+    {
+      "name": "hideNavBar",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Hides the navigation bar.",
+      "description": "If the window is not displayed in a [Titanium.UI.NavigationWindow](api:Titanium.UI.NavigationWindow), this method has no effect.\n",
+      "parameters": [
+        {
+          "name": "options",
+          "summary": "Options dictionary supporting a single `animated` boolean property to determine whether\nthe navigation bar will be animated (default) while being hidden. Note that the default here is equivalent to `{ animated: true }`\n",
+          "type": [
+            {
+              "kind": "type",
+              "name": "AnimatedOptions"
+            }
+          ],
+          "optional": true,
+          "default": "{ animated: true }"
+        }
+      ]
+    },
+    {
+      "name": "hideTabBar",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Hides the tab bar. Must be called before opening the window.",
+      "description": "To hide the tab bar when opening a window as a child of a tab, call\n`hideTabBar` or set `tabBarHidden` to `true` **before** opening the window.\nIf the window is not a child of a tab, this method has no effect.\n",
+      "deprecated": {
+        "since": "12.7.0",
+        "removed": "13.0.0",
+        "notes": "Deprecated in favor of <Titanium.UI.Window.tabBarHidden> property."
+      }
+    },
+    {
+      "name": "hideToolbar",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Makes the bottom toolbar invisible.",
+      "description": "If the window is not displayed in a [Titanium.UI.NavigationWindow](api:Titanium.UI.NavigationWindow), this method has no effect.\nNote: This method is only intended to work with toolbars that are created using [setToolbar](api:Titanium.UI.Window#setToolbar).\nIt will not have any effect on toolbars added manually to the window.\n",
+      "since": {
+        "iphone": "5.4.0",
+        "ipad": "5.4.0",
+        "macos": "9.2.0"
+      },
+      "parameters": [
+        {
+          "name": "options",
+          "summary": "Options dictionary supporting a single `animated` boolean property to determine whether\nthe toolbar will be animated (default) while being hidden. Note that the default here is equivalent to `{ animated: true }`\n",
+          "type": [
+            {
+              "kind": "type",
+              "name": "AnimatedOptions"
+            }
+          ],
+          "optional": true,
+          "default": "{ animated: true }"
+        }
+      ]
+    },
+    {
+      "name": "open",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Opens the window.",
+      "parameters": [
+        {
+          "name": "params",
+          "summary": "Animation or display properties to use when opening the window.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "openWindowParams"
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Promise",
+              "args": [
+                {
+                  "kind": "primitive",
+                  "name": "any"
+                }
+              ]
+            }
+          ],
+          "summary": "Starting in SDK 10.0.0, this method returns a `Promise` that will be resolved once the window is opened,\nakin to adding a one-time listener for the `open` event. If the window fails to open (for example, because\nit is already opened or opening) the `Promise` will be rejected.\n"
+        }
+      ]
+    },
+    {
+      "name": "removeAllSharedElements",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Clears all added shared elements.",
+      "description": "Available from Android 5.0. Use this method to clear all shared elements. This will not remove the views from view hierarchy.\n",
+      "since": "5.2.0",
+      "osver": {
+        "android": {
+          "min": 5
+        }
+      }
+    },
+    {
+      "name": "setToolbar",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Sets the array of items to show in the window's toolbar.",
+      "parameters": [
+        {
+          "name": "items",
+          "summary": "Array of button objects to show in the window's toolbar.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Array",
+              "args": [
+                {
+                  "kind": "primitive",
+                  "name": "Object"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "params",
+          "summary": "Parameters to control the toolbar appearance.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "windowToolbarParam"
+            }
+          ],
+          "optional": true,
+          "inlined": {
+            "name": "windowToolbarParam",
+            "summary": "Dictionary of options for the [Titanium.UI.Window.setToolbar](api:Titanium.UI.Window#setToolbar) method.",
+            "properties": [
+              {
+                "name": "animated",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Defines if the toolbar appearance is animated.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Boolean"
+                  }
+                ],
+                "default": "true if the window has toolbar items, false otherwise."
+              },
+              {
+                "name": "barColor",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Background color for the toolbar, as a color name or hex triplet.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  },
+                  {
+                    "kind": "type",
+                    "name": "Titanium.UI.Color"
+                  }
+                ]
+              },
+              {
+                "name": "tintColor",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "The tintColor to apply to the tool bar.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  },
+                  {
+                    "kind": "type",
+                    "name": "Titanium.UI.Color"
+                  }
+                ]
+              },
+              {
+                "name": "translucent",
+                "platforms": [
+                  "android",
+                  "iphone",
+                  "ipad",
+                  "macos"
+                ],
+                "summary": "Defines if the toolbar is translucent.",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "Boolean"
+                  }
+                ],
+                "default": "true"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "showNavBar",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Makes the navigation bar visible.",
+      "description": "If the window is not displayed in a [Titanium.UI.NavigationWindow](api:Titanium.UI.NavigationWindow), this method has no effect.\n",
+      "parameters": [
+        {
+          "name": "options",
+          "summary": "Options dictionary supporting a single `animated` boolean property to determine whether\nthe navigation bar will be animated (default) while being shown. Note that the default here is equivalent to `{ animated: true }`\n",
+          "type": [
+            {
+              "kind": "type",
+              "name": "AnimatedOptions"
+            }
+          ],
+          "optional": true,
+          "default": "{ animated: true }"
+        }
+      ]
+    },
+    {
+      "name": "showTabBar",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Shows the tab bar. Must be called before opening the window.",
+      "description": "To show the tab bar when opening a window as a child of a tab, call\n`showTabBar` or set `tabBarHidden` to `false` **before** opening the window.\nIf the window is not a child of a tab, this method has no effect.\n",
+      "deprecated": {
+        "since": "12.7.0",
+        "removed": "13.0.0",
+        "notes": "Deprecated in favor of <Titanium.UI.Window.tabBarHidden> property."
+      }
+    },
+    {
+      "name": "showToolbar",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Makes the bottom toolbar visible.",
+      "description": "If the window is not displayed in a [Titanium.UI.NavigationWindow](api:Titanium.UI.NavigationWindow), this method has no effect.\nNote: This method is only intended to work with toolbars that are created using [setToolbar](api:Titanium.UI.Window#setToolbar).\nIt will not have any effect on toolbars added manually to the window.\n",
+      "since": {
+        "iphone": "5.4.0",
+        "ipad": "5.4.0",
+        "macos": "9.2.0"
+      },
+      "parameters": [
+        {
+          "name": "options",
+          "summary": "Options dictionary supporting a single `animated` boolean property to determine whether\nthe toolbar will be animated (default) while being shown. Note that the default here is equivalent to `{ animated: true }`\n",
+          "type": [
+            {
+              "kind": "type",
+              "name": "AnimatedOptions"
+            }
+          ],
+          "optional": true,
+          "default": "{ animated: true }"
+        }
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "androidback",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Fired when the back button is pressed by the user.",
+      "description": "This event is fired when the current window's activity detects\na back button press by the user to navigate back.\n\nBy default this event would trigger the current activity to be finished\nand removed from the task stack. Subscribing to this event with a listener\nwill prevent the default behavior. To finish the activity from your listener\njust call the *close* method of the window.\n\nThis event replaces the android:back event. Some behavior\nchanges may exist such as the event no longer firing when the\nuser dismisses the keyboard with the back button or when the\nuser closes a full-screen video which is embedded in a web view\nwith the back button.\n",
+      "since": "3.0.0"
+    },
+    {
+      "name": "androidcamera",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Fired when the Camera button is released.",
+      "description": "Setting a listener disables the default key handling for this button. To restore\ndefault behavior, remove the listener. It is recommended that you only have one\nhandler per window.\n",
+      "since": "3.0.0"
+    },
+    {
+      "name": "androidfocus",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Fired when the Camera button is half-pressed then released.",
+      "description": "Setting a listener disables the default key handling for this button. To restore\ndefault behavior, remove the listener. It is recommended that you only have one\nhandler per window.\n",
+      "since": "3.0.0"
+    },
+    {
+      "name": "androidsearch",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Fired when the Search button is released.",
+      "description": "Setting a listener disables the default key handling for this button. To restore\ndefault behavior, remove the listener. It is recommended that you only have\none handler per window.\n",
+      "since": "3.0.0"
+    },
+    {
+      "name": "androidvoldown",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Fired when the volume down button is released.",
+      "description": "Setting a listener disables the default key handling for this button. To restore\ndefault behavior, remove the listener. It is recommended that you only have one\nhandler per window.\n",
+      "since": "3.0.0"
+    },
+    {
+      "name": "androidvolup",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Fired when the volume up button is released.",
+      "description": "Setting a listener disables the default key handling for this button. To restore\ndefault behavior, remove the listener. It is recommended that you only have one\nhandler per window.\n",
+      "since": "3.0.0"
+    },
+    {
+      "name": "blur",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when the window loses focus.",
+      "description": "On Android, this event also fires before putting the activity in the background\n(before the activity enters the pause state).\n\nOn iOS, this event does not fire before putting the application in the background.\nThe application needs to monitor the [Titanium.App.pause](api:Titanium.App#pause) event.\nSee [Titanium.App](api:Titanium.App) for more information on the iOS application lifecycle.\n"
+    },
+    {
+      "name": "close",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when the window is closed."
+    },
+    {
+      "name": "focus",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when the window gains focus.",
+      "description": "The listener for this event must be defined before this window\nis opened.\n\nOn Android, this event also fires when the activity enters the foreground\n(after the activity enters the resume state).\n\nOn iOS, this event does not fire after the application returns to the foreground\nif it was previously backgrounded.\nThe application needs to monitor the [Titanium.App.resumed](api:Titanium.App#resumed) event.\nSee [Titanium.App](api:Titanium.App) for more information on the iOS application lifecycle.\n"
+    },
+    {
+      "name": "open",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when the window is opened.",
+      "description": "The listener for this event must be defined before this window\nis opened.\n"
+    }
+  ],
+  "inherited": {
+    "properties": [
+      {
+        "name": "accessibilityDisableLongPress",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "accessibilityHidden",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "accessibilityHint",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "accessibilityLabel",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "accessibilityValue",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "anchorPoint",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "animatedCenter",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundDisabledColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "backgroundDisabledImage",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "backgroundFocusedColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "backgroundFocusedImage",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "backgroundGradient",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundImage",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundLeftCap",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundRepeat",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundSelectedColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundSelectedImage",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "backgroundTopCap",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "borderColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "borderRadius",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "borderWidth",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "center",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "children",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "clipMode",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "elevation",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "filterTouchesWhenObscured",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "focusable",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "height",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "hiddenBehavior",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "horizontalMotionEffect",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "horizontalWrap",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "id",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "keepHardwareMode",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "keepScreenOn",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "layout",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "lifecycleContainer",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "overrideCurrentAnimation",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "previewContext",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone"
+        ]
+      },
+      {
+        "name": "pullBackgroundColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "rect",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "rotation",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad"
+        ]
+      },
+      {
+        "name": "rotationX",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "rotationY",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "scaleX",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "scaleY",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "size",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "softKeyboardOnFocus",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "tintColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "tooltip",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "touchEnabled",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "touchFeedback",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "touchFeedbackColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "transform",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "transitionName",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "translationX",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "translationY",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "translationZ",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "verticalMotionEffect",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "viewShadowColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "viewShadowOffset",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "viewShadowRadius",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "visible",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "width",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "zIndex",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      }
+    ],
+    "methods": [
+      {
+        "name": "add",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "animate",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "clearMotionEffects",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "convertPointToView",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "getViewById",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "hide",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "insertAt",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "remove",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "replaceAt",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "show",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "stopAnimation",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "toImage",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      }
+    ],
+    "events": [
+      {
+        "name": "click",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "dblclick",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "doubletap",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "keypressed",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "longclick",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "longpress",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "pinch",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "postlayout",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "rotate",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "singletap",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "swipe",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "touchcancel",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "touchend",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "touchmove",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "touchstart",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "twofingertap",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "android",
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      }
+    ]
+  },
+  "references": [
+    "AnimatedOptions",
+    "Padding",
+    "Titanium.Android.ActionBar",
+    "Titanium.Android.Activity",
+    "Titanium.Android.R",
+    "Titanium.App",
+    "Titanium.App.Android",
+    "Titanium.Blob",
+    "Titanium.Gesture",
+    "Titanium.Proxy",
+    "Titanium.UI",
+    "Titanium.UI.AlertDialog",
+    "Titanium.UI.Android",
+    "Titanium.UI.Animation",
+    "Titanium.UI.Color",
+    "Titanium.UI.ListView",
+    "Titanium.UI.NavigationWindow",
+    "Titanium.UI.OptionDialog",
+    "Titanium.UI.Tab",
+    "Titanium.UI.TabGroup",
+    "Titanium.UI.TableView",
+    "Titanium.UI.View",
+    "Titanium.UI.iOS",
+    "Titanium.UI.iOS.NavigationWindow",
+    "Titanium.UI.iOS.SplitWindow",
+    "Titanium.UI.iOS.StatusBar",
+    "Titanium.UI.iOS.Toolbar",
+    "closeWindowParams",
+    "openWindowParams",
+    "titleAttributesParams",
+    "windowToolbarParam"
+  ],
+  "source": "Titanium/UI/Window.yml"
+}
