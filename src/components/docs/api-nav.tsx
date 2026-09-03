@@ -12,12 +12,12 @@ import { useEffect, useRef } from 'react';
  * `[type]`, and no CSS selector can open a `<details>`. `usePathname()` is the
  * only way to read it.
  *
- * It is not a client-rendered tree, though. Every route below this layout is
- * prerendered through `generateStaticParams` with `dynamicParams = false`, so
- * the pathname resolves at build time: the `open` attributes and `aria-current`
- * ship inside the static HTML. The tree expands to the right branch and marks
- * the current page with scripting turned off, and hydration has nothing to
- * correct.
+ * It is not a client-rendered tree, though. Type pages render on the server for
+ * one concrete URL — at build time before, on first request now — so either way
+ * the pathname resolves during that render and the `open` attributes and
+ * `aria-current` ship inside the HTML. The tree expands to the right branch and
+ * marks the current page with scripting turned off, and hydration has nothing
+ * to correct. Verified against an on-demand response, not assumed.
  *
  * The flat type list is the prop rather than the built tree because props are
  * serialised into every page's flight payload, and the nested form costs about

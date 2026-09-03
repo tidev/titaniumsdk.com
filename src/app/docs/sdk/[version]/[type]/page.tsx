@@ -6,14 +6,7 @@ import { Prose } from '@/components/docs/prose';
 import { OnThisPage, SectionJump, jumpLinks, type TocGroup } from '@/components/docs/toc';
 import { formatSince } from '@/lib/docs/format';
 import { anchorFor, pathLinker } from '@/lib/docs/links';
-import {
-  sdkIndex,
-  sdkType,
-  sdkVersions,
-  resolveVersion,
-  sourceUrl,
-  MAIN,
-} from '@/lib/docs/registry';
+import { sdkIndex, sdkType, resolveVersion, sourceUrl, MAIN } from '@/lib/docs/registry';
 import { crumbsFor, subtypesOf } from '@/lib/docs/tree';
 import { buildTypeView } from '@/lib/docs/type-view';
 import { SITE_URL } from '@/lib/site';
@@ -23,16 +16,47 @@ import { notFound } from 'next/navigation';
 /**
  * One page per compiled type.
  *
- * Everything is read from `registry/` on disk — no network at build time, which
- * is what keeps rebuilds fast and preview deploys reproducible.
+ * Everything is read from `registry/` on disk — no network at build time or at
+ * request time, which is what keeps rebuilds fast and preview deploys
+ * reproducible.
+ *
+ * ## Rendered on first request, not at build time
+ *
+ * TI-25 prerendered these and said to record the numbers before reaching for
+ * runtime rendering. Here they are. One SDK version is 190MB of HTML and RSC
+ * payload across 284 pages; twenty versions are 3.8GB. Vercel caps a
+ * deployment's static files at 100MB, so even a single version overshoots by
+ * 90MB — this was never a question of how many releases to keep.
+ *
+ * Page weight is not the cause and trimming it is not the fix: brotli takes the
+ * largest page from 1053KB to 71KB, because what makes the file big is 152
+ * distinct class strings repeated 4,116 times. Nothing is served more slowly
+ * for this change. What moves is when the file is written.
+ *
+ * `generateStaticParams` returns nothing, so a page is rendered the first time
+ * someone asks for it and then cached indefinitely — `revalidate = false`,
+ * which is honest rather than lazy. A published version is frozen, so there is
+ * nothing for a revalidation window to catch, and even `main` — the one tree
+ * that does move — is safe: the cache is per-deployment, and `main` only
+ * changes when a recompile is deployed.
+ *
+ * `dynamicParams` is therefore on, which makes `notFound()` below the thing
+ * that rejects an unknown version or type. Before, the absence of a prerendered
+ * file did that.
  */
 
-export const dynamicParams = false;
+export const dynamicParams = true;
+export const revalidate = false;
 
+/**
+ * Empty deliberately.
+ *
+ * An empty list is what puts this route on the incremental path instead of
+ * making it fully dynamic; returning a subset would prerender that subset, and
+ * the whole point is that no amount of it fits.
+ */
 export function generateStaticParams() {
-  return sdkVersions().flatMap((version) =>
-    (sdkIndex(version)?.types ?? []).map((t) => ({ version, type: t.name }))
-  );
+  return [];
 }
 
 export async function generateMetadata({

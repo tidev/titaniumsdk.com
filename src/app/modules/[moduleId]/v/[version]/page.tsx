@@ -9,13 +9,7 @@ import { formatDate } from '@/lib/docs/format';
 import type { InstallRelease } from '@/lib/docs/install';
 import { latestPerPlatform } from '@/lib/docs/module-summary';
 import { buildModuleReference, moduleLinker } from '@/lib/docs/module-view';
-import {
-  moduleHasDocs,
-  moduleIds,
-  moduleIndex,
-  moduleRelease,
-  moduleVersions,
-} from '@/lib/docs/modules';
+import { moduleHasDocs, moduleIndex, moduleRelease } from '@/lib/docs/modules';
 import { blobUrl, type CompiledSource } from '@/lib/docs/registry';
 import { SITE_URL } from '@/lib/site';
 import type { Metadata } from 'next';
@@ -36,12 +30,21 @@ import { notFound } from 'next/navigation';
  * and apidoc was only ever compiled for a few of them.
  */
 
-export const dynamicParams = false;
+/**
+ * Rendered on first request, for the reason the SDK reference is — see
+ * `src/app/docs/sdk/[version]/[type]/page.tsx`. These 339 pages are 139MB of
+ * the 154MB that `/modules` prerendered, and the deployment has 100MB for
+ * everything.
+ *
+ * The rest of `/modules` stays prerendered: the landing, readme, releases and
+ * install pages are 69 pages and ~15MB between them, and they are what people
+ * actually arrive on.
+ */
+export const dynamicParams = true;
+export const revalidate = false;
 
 export function generateStaticParams() {
-  return moduleIds().flatMap((moduleId) =>
-    moduleVersions(moduleId).map((version) => ({ moduleId, version }))
-  );
+  return [];
 }
 
 export async function generateMetadata({
