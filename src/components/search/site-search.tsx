@@ -216,14 +216,20 @@ export function SiteSearch() {
         className="m-0 h-full max-h-none w-full max-w-none bg-transparent p-0 backdrop:bg-black/50 open:flex open:items-start open:justify-center"
       >
         <div className="mt-[10vh] flex max-h-[70vh] w-full max-w-xl flex-col overflow-hidden rounded-lg border border-border bg-bg shadow-2xl sm:mt-[12vh]">
-          <div className="flex items-center gap-3 border-b border-border px-4">
+          {/* The divider only exists to separate the field from results. With
+                nothing below it, it is a line under a lone input. */}
+          <div
+            className={`flex items-center gap-3 px-4 ${
+              ordered.length || (term.trim() && open) ? 'border-b border-border' : ''
+            }`}
+          >
             <svg
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
               strokeWidth="1.75"
               strokeLinecap="round"
-              className="size-4 shrink-0 text-text-subtle"
+              className="size-5 shrink-0 text-text-subtle"
               aria-hidden="true"
             >
               <circle cx="11" cy="11" r="7" />
@@ -238,7 +244,7 @@ export function SiteSearch() {
               // search field instead of reaching the dialog, so Escape stopped
               // closing the dialog — verified, not theorised.
               type="text"
-              placeholder="Search the API, modules and blog"
+              placeholder="Search"
               aria-label="Search query"
               role="combobox"
               aria-expanded={ordered.length > 0}
@@ -246,7 +252,7 @@ export function SiteSearch() {
               aria-activedescendant={ordered.length ? `${listId}-${active}` : undefined}
               autoComplete="off"
               spellCheck={false}
-              className="w-full bg-transparent py-3.5 text-base text-text outline-none placeholder:text-text-subtle"
+              className="w-full bg-transparent py-4 text-lg text-text outline-none placeholder:text-text-subtle"
             />
             <kbd className="hidden shrink-0 rounded border border-border px-1.5 py-0.5 font-mono text-2xs text-text-subtle sm:block">
               esc
@@ -302,24 +308,22 @@ export function SiteSearch() {
                 );
               })}
 
-            {open && !ordered.length && (
+            {/* Nothing at all until something is typed, so an unused search is
+                just a field — the panel has no advice to give before there is
+                a query, and inventing some only makes it taller. Everything
+                below needs a term to be worth saying. */}
+            {open && !ordered.length && term.trim() && (
               <p className="px-4 py-8 text-center text-sm text-text-muted">
                 {failed ? (
                   'Search is unavailable right now.'
                 ) : busy ? (
                   'Searching…'
-                ) : term.trim() ? (
+                ) : (
                   <>
                     Nothing matches <span className="font-mono text-text">{term.trim()}</span>.
                     <span className="mt-1 block text-xs text-text-subtle">
                       Search matches whole words, so check the spelling.
                     </span>
-                  </>
-                ) : (
-                  <>
-                    Search {'—'} try <span className="font-mono text-text">Titanium.UI.Window</span>
-                    , <span className="font-mono text-text">createHTTPClient</span> or{' '}
-                    <span className="font-mono text-text">hyperloop</span>.
                   </>
                 )}
               </p>
