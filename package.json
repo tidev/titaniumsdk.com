@@ -6,7 +6,7 @@
   "scripts": {
     "assets": "node scripts/sync-doc-assets.ts",
     "audit:guides": "node scripts/audit-legacy-guides.ts",
-    "build": "node scripts/prune-builds.ts && node scripts/sync-doc-assets.ts && next build",
+    "build": "node scripts/prune-builds.ts && node scripts/sync-doc-assets.ts && node scripts/generate-search-index.ts && next build",
     "check": "next typegen && tsc --noEmit",
     "check:contrast": "node scripts/check-contrast.ts",
     "check:offline": "NODE_OPTIONS='--import ./scripts/assert-offline.ts' next build",
@@ -25,6 +25,7 @@
     "registry:module-docs": "node scripts/backfill-module-docs.ts",
     "registry:modules": "node scripts/generate-modules.ts",
     "registry:prune": "node scripts/prune-builds.ts",
+    "search:index": "node scripts/generate-search-index.ts",
     "start": "next start",
     "test": "node --test 'scripts/**/*.test.ts' 'src/**/*.test.ts'",
     "tokens": "node scripts/generate-tokens.ts && oxfmt src/app/globals.css"
@@ -50,6 +51,7 @@
     "babel-plugin-react-compiler": "1.0.0",
     "oxfmt": "0.65.0",
     "oxlint": "1.80.0",
+    "pagefind": "^1.5.2",
     "tailwindcss": "4.3.3",
     "typescript": "7.0.2"
   },

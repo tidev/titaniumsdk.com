@@ -1,6 +1,7 @@
 import { MobileNav } from './mobile-nav';
 import { ThemeToggle } from './theme-toggle';
 import { TitaniumLogo } from './titanium-logo';
+import { SiteSearch } from '@/components/search/site-search';
 import { GITHUB_ORG_URL, primaryNav } from '@/lib/nav';
 import Link from 'next/link';
 
@@ -31,28 +32,7 @@ export function SiteHeader() {
         </nav>
 
         <div className="ml-auto flex items-center gap-2">
-          {/* Layout slot for search. TI-47 wires the handler; disabled rather
-              than hidden so the header does not reflow when it lands. */}
-          <button
-            type="button"
-            disabled
-            title="Search is not wired up yet"
-            className="hidden items-center gap-2 rounded-md border border-border px-3 py-1.5 text-sm text-text-subtle sm:flex disabled:cursor-not-allowed"
-          >
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.75"
-              strokeLinecap="round"
-              className="size-4"
-              aria-hidden="true"
-            >
-              <circle cx="11" cy="11" r="7" />
-              <path d="M20 20l-3.5-3.5" />
-            </svg>
-            Search
-          </button>
+          <SiteSearch />
 
           <a
             href={GITHUB_ORG_URL}
