@@ -42,13 +42,13 @@ Execute `titanium sdk select 10.1.1.GA` to rollback.
 - Support for the password-less `PassKeys` API
 - Improved support for biometric auth to authorize / deauthorize specifics parts of your app
 
-Missing a feature? Please report it via [GitHub](https://github.com/tidev/titanium_mobile/issues)
+Missing a feature? Please report it via [GitHub](https://github.com/tidev/titanium-sdk/issues)
 
 ## Known Issues
 
 - When using `Ti.UI.TabGroup`, the navigation bar / tab bar does not respect proper safe area. This might be a beta issue, but it's being investigated
 
-Missing a known issue? Please report it via [GitHub](https://github.com/tidev/titanium_mobile/issues)
+Missing a known issue? Please report it via [GitHub](https://github.com/tidev/titanium-sdk/issues)
 
 ## Roadmap
 

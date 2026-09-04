@@ -36,7 +36,7 @@ Execute `titanium sdk install latest --default` to rollback.
 
 ## Report Bugs
 
-As always, please test it on your apps and give feedback. If you run into any issues that seem related to the updates, please report them on [GitHub](https://github.com/tidev/titanium_mobile/issues).
+As always, please test it on your apps and give feedback. If you run into any issues that seem related to the updates, please report them on [GitHub](https://github.com/tidev/titanium-sdk/issues).
 
 ## How can I support?
 
