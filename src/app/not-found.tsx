@@ -42,7 +42,7 @@ const PLACES = [
 export default function NotFound() {
   return (
     <div className="mx-auto w-full max-w-2xl px-4 py-20 sm:px-6 lg:px-8">
-      <p className="font-mono text-sm text-text-subtle">404</p>
+      <p className="font-mono text-4xl text-text-subtle">404</p>
       <h1 className="mt-2 text-3xl font-semibold tracking-tight">This page does not exist</h1>
       <NotFoundDetail />
 

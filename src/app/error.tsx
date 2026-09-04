@@ -39,7 +39,7 @@ export default function Error({
 
   return (
     <div className="mx-auto w-full max-w-2xl px-4 py-20 sm:px-6 lg:px-8">
-      <p className="font-mono text-sm text-text-subtle">500</p>
+      <p className="font-mono text-4xl text-text-subtle">500</p>
       <h1 className="mt-2 text-3xl font-semibold tracking-tight">Something went wrong</h1>
       <p className="mt-3 text-text-muted">
         This page failed to render. It is not something you did, and trying again often works — the
