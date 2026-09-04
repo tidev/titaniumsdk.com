@@ -13,15 +13,29 @@ import { notFound } from 'next/navigation';
  * A static segment beside `[type]`, so `/docs/sdk/13.4.1/release-notes` resolves
  * here rather than being read as a type named `release-notes`.
  *
- * Prerendered, unlike the type pages: there are 56 of these against 45,610 of
- * those, and they are the pages a release announcement links to, so they should
- * not pay a cold render. Together they are about 1.2MB of source.
+ * ## Only the recent ones are prerendered
+ *
+ * All 56 were, until the deployment was measured: they came to 18.7MB of the
+ * 105.8MB build, against TI-25's 100MB cap, and 8.0.0 alone is a 1.5MB page —
+ * a major release's changelog is enormous. The reasoning for prerendering them
+ * was sound and the cost was never checked.
+ *
+ * The newest few stay prerendered because they are the ones anything links to:
+ * the landing page's latest-release line, the version index, the top of
+ * /downloads. The rest are an archive reached by someone who went looking, and
+ * a cold render is around a tenth of a second before it is cached for good.
  */
 
-export const dynamicParams = false;
+/** Enough to cover what the site links to, and little enough to stay cheap. */
+const PRERENDERED = 5;
+
+export const dynamicParams = true;
+export const revalidate = false;
 
 export function generateStaticParams() {
-  return versionsWithNotes().map((version) => ({ version }));
+  return versionsWithNotes()
+    .slice(0, PRERENDERED)
+    .map((version) => ({ version }));
 }
 
 export async function generateMetadata({
