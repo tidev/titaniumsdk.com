@@ -1,5 +1,6 @@
 import { OlderVersionNotice, VersionSwitcher } from '@/components/docs/version-switcher';
 import { sdkIndex, sdkVersions, resolveVersion, MAIN } from '@/lib/docs/registry';
+import { hasReleaseNote } from '@/lib/docs/release-notes';
 import { newerVersion, versionOptions } from '@/lib/docs/versions';
 import { SITE_URL } from '@/lib/site';
 import type { Metadata } from 'next';
@@ -73,6 +74,17 @@ export default async function VersionIndex({ params }: PageProps<'/docs/sdk/[ver
             {resolved === MAIN && ' — compiled from the development branch, not a release'}
             {' · '}
             {index.counts.types} types, {index.counts.members.toLocaleString()} declared members
+            {hasReleaseNote(resolved) && (
+              <>
+                {' · '}
+                <a
+                  href={`/docs/sdk/${resolved}/release-notes`}
+                  className="text-link hover:underline"
+                >
+                  Release notes
+                </a>
+              </>
+            )}
           </p>
           {newer && <OlderVersionNotice current={resolved} newer={newer} />}
         </header>

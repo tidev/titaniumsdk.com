@@ -1,7 +1,7 @@
 import { Terminal } from '@/components/ui/terminal';
-import { publishedPosts } from '@/lib/blog/posts';
 import { formatDate } from '@/lib/docs/format';
 import { communityListings, moduleSummaries } from '@/lib/docs/modules';
+import { hasReleaseNote } from '@/lib/docs/release-notes';
 import { latestRelease } from '@/lib/downloads/registry';
 import { communityNav } from '@/lib/nav';
 import Link from 'next/link';
@@ -20,17 +20,19 @@ import Link from 'next/link';
 /**
  * Where this release is written up on this site.
  *
- * There are no release-note pages here: the legacy `/guide/...Release_Note`
- * URLs the SDK still links to are gone, which is TI-67. The announcement post
- * is the real article — highlights, upgrade notes, credits — so the version
- * links there, matched on the release name appearing in the post title rather
- * than by rebuilding the slug. Older releases predate the blog, hence the
- * fallback to the release list.
+ * The release notes now have pages of their own (TI-72), so this points at the
+ * one for this version. It used to match a blog post by looking for the release
+ * name inside the post title, which worked but rested on a coincidence of
+ * wording — a retitled announcement would have quietly sent the landing page to
+ * the release list instead.
+ *
+ * The announcement post is still the better read where one exists, but it is
+ * not the record; the release note is, and it exists for every recent release
+ * where a post may not.
  */
-function releaseNotesHref(name: string | undefined): string {
-  if (!name) return '/downloads/releases';
-  const post = publishedPosts().find((p) => p.title.includes(name));
-  return post ? `/blog/${post.slug}` : '/downloads/releases';
+function releaseNotesHref(version: string | undefined): string {
+  if (version && hasReleaseNote(version)) return `/docs/sdk/${version}/release-notes`;
+  return '/downloads/releases';
 }
 
 /** Every number on this page comes from the registry on disk, never a literal. */
@@ -39,7 +41,7 @@ function facts() {
   return {
     version: release?.version,
     released: release?.date,
-    notes: releaseNotesHref(release?.name),
+    notes: releaseNotesHref(release?.version),
     registryModules: moduleSummaries().length,
     communityModules: communityListings().length,
   };

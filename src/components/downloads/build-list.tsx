@@ -15,6 +15,7 @@ export function BuildList({
   builds,
   branch,
   latest,
+  notesHref,
 }: {
   /**
    * `prerelease` marks a row the releases page can fold away. It is rendered as
@@ -26,6 +27,14 @@ export function BuildList({
   branch?: string;
   /** Name of the build to mark as current, if any is. */
   latest?: string;
+  /**
+   * Where this build's release notes live on this site, or null.
+   *
+   * A callback rather than a flag because this list also renders CI builds,
+   * which have none, and because only 56 of the 71 GA releases have a note —
+   * the page that knows which is the page that should decide.
+   */
+  notesHref?: (build: Build & { prerelease?: boolean }) => string | null;
 }) {
   return (
     // The rule is on each row rather than `divide-y` on the list: a folded-away
@@ -34,7 +43,13 @@ export function BuildList({
     // whenever the hidden row happens to be the first one.
     <ul className="mt-4">
       {builds.map((build) => (
-        <BuildRow key={build.name} build={build} branch={branch} latest={build.name === latest} />
+        <BuildRow
+          key={build.name}
+          build={build}
+          branch={branch}
+          latest={build.name === latest}
+          notes={notesHref?.(build) ?? null}
+        />
       ))}
     </ul>
   );
@@ -44,10 +59,12 @@ function BuildRow({
   build,
   branch,
   latest,
+  notes,
 }: {
   build: Build & { prerelease?: boolean };
   branch?: string;
   latest: boolean;
+  notes: string | null;
 }) {
   const expiresAt = build.expires ? Date.parse(build.expires) : Number.NaN;
 
@@ -107,13 +124,25 @@ function BuildRow({
           href={build.url}
           target="_blank"
           rel="noreferrer"
-          // The date is the visible label, so say where it goes: a release tag
-          // page for a release, the workflow run for a CI build.
-          title={branch ? 'Workflow run on GitHub' : 'Release notes on GitHub'}
+          // The date is the visible label, so say where it goes: the release's
+          // tag for a release, the workflow run for a CI build.
+          //
+          // Not "release notes": every GA release body on GitHub is either
+          // empty or a link back to this site — measured across all 71 in
+          // TI-72 — so that title promised something the page does not have.
+          title={branch ? 'Workflow run on GitHub' : 'Release tag on GitHub'}
           className="text-xs text-text-subtle hover:text-link focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
         >
           {branch ? 'Built' : 'Released'} {formatDate(build.date)}
         </a>
+        {notes && (
+          <a
+            href={notes}
+            className="text-xs text-link hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
+          >
+            Release notes
+          </a>
+        )}
       </div>
 
       {/* The command goes behind the gate along with the links: once the
