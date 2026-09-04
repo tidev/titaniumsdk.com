@@ -16,11 +16,11 @@
     "tidev/titanium-sdk": {
       "Global.Intl.NumberFormat.NumberFormatOptions.currency": "declared as the top-level pseudo-type NumberFormatOptions, not nested under NumberFormat",
       "Global.Intl.NumberFormat.NumberFormatOptions.style": "as above",
-      "Ti.Color": "no such type; colors are plain Strings",
+      "Ti.Color": "expands to Titanium.Color, which does not exist; the type is Titanium.UI.Color",
       "Titanium.Android.Activity.pause": "Activity has no pause/resume members",
       "Titanium.Android.Activity.resume": "as above",
       "Titanium.App.Android.R.color": "R is a dynamic resource namespace with no documented members",
-      "Titanium.Geolocation.frequency": "removed property, still referenced from Geolocation.Android",
+      "Titanium.Geolocation.frequency": "removed in 8.0.0, still referenced from Geolocation.Android",
       "Titanium.Geolocation.preferredProvider": "as above",
       "Titanium.Media.AUDIO_STATE_WAITING_FOR_QUEUE": "constant referenced but never declared",
       "Titanium.Media.allowMultiple": "belongs to the options dictionaries, not the Media module",
