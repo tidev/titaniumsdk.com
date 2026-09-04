@@ -2,6 +2,7 @@ import { CodeCopy } from '@/components/docs/code-copy';
 import { SiteFooter } from '@/components/site-footer';
 import { SiteHeader } from '@/components/site-header';
 import { SITE_URL } from '@/lib/site';
+import { THEME_INIT } from '@/lib/theme-init';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import './globals.css';
@@ -54,8 +55,6 @@ export const metadata: Metadata = {
  * flashes the wrong palette. Absent a choice, the CSS falls through to
  * prefers-color-scheme on its own and this sets nothing.
  */
-const THEME_INIT = `try{var t=localStorage.getItem("theme");if(t==="dark"||t==="light")document.documentElement.dataset.theme=t}catch(e){}`;
-
 export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
     <html
