@@ -1,0 +1,326 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.Network.TCPSocket",
+  "kind": "proxy",
+  "extends": "Titanium.Proxy",
+  "inheritanceChain": [
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "iphone",
+    "ipad"
+  ],
+  "since": "1.2.0",
+  "deprecated": {
+    "since": "1.7.0",
+    "removed": "9.0.0",
+    "notes": "Use [Titanium.Network.Socket.TCP](Titanium.Network.Socket.TCP) where possible.\n"
+  },
+  "summary": "The TCPSocket instance returned from [Titanium.Network.createTCPSocket](api:Titanium.Network#createTCPSocket).  This object\nrepresents a socket which either listens locally on the device for connections,\nor connects to a remote machine.\n",
+  "description": "Sockets are nontrivial; it is recommended that anyone using them be familiar with the basics of BSD sockets.  All sockets use TCP connections, and are asynchronous for read operations, so your program should be ready to receive 'read' events at any point.  Socket references cannot be transferred to socket objects, and vice-versa - socket references are an internal mechanism which is used only to determine which sockets to send data to and read data from.  For listening sockets, it is highly recommended that you use the string `\"INADDR_ANY\"` as the host name.  If a window containing a socket is closed, the socket MUST be closed also unless you intend to continue to receive data, otherwise the socket will consume resources (and potentially cause conflicts with opening the window again, if a listener) until the program is restarted.  Be aware of the differences between the listen() and connect() functions; attempting to use one when you mean the other may result in errors, unpredictable behavior, or both.",
+  "properties": [
+    {
+      "name": "hostName",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "the host name to connect to.  Must be `\"INADDR_ANY\"` or an identifier for the local device in order to listen",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ]
+    },
+    {
+      "name": "isValid",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "whether or not the socket is valid",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ]
+    },
+    {
+      "name": "mode",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "the socket's mode",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ]
+    },
+    {
+      "name": "port",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "the port to connect/listen on",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ]
+    },
+    {
+      "name": "stripTerminator",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "strip terminating null character when sending string data; default is false",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "close",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "close the socket"
+    },
+    {
+      "name": "connect",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "connect the socket to a TCP server"
+    },
+    {
+      "name": "listen",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "set up the socket to receive connections"
+    },
+    {
+      "name": "write",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "write data to the socket, if the mode is WRITE_MODE or READ_WRITE_MODE",
+      "parameters": [
+        {
+          "name": "data",
+          "summary": "either a string or blob object representing the data to be transferred",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Object"
+            },
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "sendTo",
+          "summary": "the socket reference to send the data to.  Default is to send to all connected sockets",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "read",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "new data was read off the socket",
+      "properties": [
+        {
+          "name": "from",
+          "summary": "the reference for the socket that data was retrieved from",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        },
+        {
+          "name": "data",
+          "summary": "a blob representing the data read, can be interpreted via toString",
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.Blob"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "readError",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "an error occurred when reading",
+      "properties": [
+        {
+          "name": "success",
+          "summary": "Indicates a successful operation. Returns `false`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "error",
+          "summary": "Error message, if any returned. May be undefined.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "code",
+          "summary": "Error code.\nIf the error was generated by the operating system, that system's error value\nis used. Otherwise, this value will be -1.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "writeError",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "an error occurred when writing",
+      "properties": [
+        {
+          "name": "success",
+          "summary": "Indicates a successful operation. Returns `false`.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "error",
+          "summary": "Error message, if any returned. May be undefined.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        },
+        {
+          "name": "code",
+          "summary": "Error code.\nIf the error was generated by the operating system, that system's error value\nis used. Otherwise, this value will be -1.\n",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone",
+          "ipad"
+        ]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone",
+          "ipad"
+        ]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone",
+          "ipad"
+        ]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone",
+          "ipad"
+        ]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone",
+          "ipad"
+        ]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone",
+          "ipad"
+        ]
+      }
+    ],
+    "events": []
+  },
+  "references": [
+    "Titanium.Blob",
+    "Titanium.Network",
+    "Titanium.Proxy"
+  ],
+  "source": "Titanium/Network/TCPSocket.yml"
+}

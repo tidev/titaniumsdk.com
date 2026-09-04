@@ -1,0 +1,392 @@
+{
+  "schemaVersion": 1,
+  "name": "PhotoGalleryOptionsType",
+  "kind": "pseudo",
+  "platforms": [
+    "android",
+    "iphone",
+    "ipad",
+    "macos"
+  ],
+  "summary": "Simple object for specifying options to\n[openPhotoGallery](api:Titanium.Media#openPhotoGallery).\n",
+  "properties": [
+    {
+      "name": "allowEditing",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Specifies if the media should be editable after capture/selection.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ]
+    },
+    {
+      "name": "allowMultiple",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Specifies if the user should be able to select multiple photos.",
+      "description": "The allowMultiple property is only available on Android API 18 and above.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": {
+        "android": "6.0.0",
+        "iphone": "9.2.0",
+        "ipad": "9.2.0"
+      },
+      "osver": {
+        "ios": {
+          "min": "14.0"
+        }
+      }
+    },
+    {
+      "name": "allowTranscoding",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Specifies if the video should be transcoded (using highest quality preset) . If set to false no video transcoding will be performed.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "8.1.0",
+      "default": "true"
+    },
+    {
+      "name": "animated",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Specifies if the dialog should be animated upon showing and hiding.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "default": "true"
+    },
+    {
+      "name": "arrowDirection",
+      "platforms": [
+        "ipad",
+        "macos"
+      ],
+      "summary": "Controls the type of arrow and position of the popover.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "constants": [
+        "Titanium.UI.iPad.POPOVER_ARROW_DIRECTION_ANY",
+        "Titanium.UI.iPad.POPOVER_ARROW_DIRECTION_DOWN",
+        "Titanium.UI.iPad.POPOVER_ARROW_DIRECTION_LEFT",
+        "Titanium.UI.iPad.POPOVER_ARROW_DIRECTION_RIGHT",
+        "Titanium.UI.iPad.POPOVER_ARROW_DIRECTION_UNKNOWN",
+        "Titanium.UI.iPad.POPOVER_ARROW_DIRECTION_UP"
+      ]
+    },
+    {
+      "name": "autohide",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Specifies if the photo gallery should be hidden automatically after the media\nselection is completed.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "default": "true"
+    },
+    {
+      "name": "cancel",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Function to call if the user presses the cancel button.",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Callback",
+          "args": [
+            {
+              "kind": "type",
+              "name": "FailureResponse"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "error",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Function to call upon receiving an error.",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Callback",
+          "args": [
+            {
+              "kind": "type",
+              "name": "FailureResponse"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "maxImages",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Specifies the number of images a user can select at maximum.",
+      "description": "Only available on Android API 21 and above and with `allowMultiple:true`\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": {
+        "android": "12.5.0"
+      }
+    },
+    {
+      "name": "mediaTypes",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Array of media type constants to allow.\n\nLive photos is only supported on the iOS platform, starting with iOS 9.1. If you want\nto allow live photos with [Titanium.Media.MEDIA_TYPE_LIVEPHOTO](api:Titanium.Media#MEDIA_TYPE_LIVEPHOTO), you also need to specify\nat least [Titanium.Media.MEDIA_TYPE_PHOTO](api:Titanium.Media#MEDIA_TYPE_PHOTO) as a fallback. If you do not allow live\nphotos, they still can be selected, but will be represented as a normal static photo.\n",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Array",
+          "args": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ],
+      "since": {
+        "android": "7.3.0",
+        "iphone": "0.8",
+        "ipad": "0.8"
+      },
+      "default": "Only photo and video allowed.",
+      "constants": [
+        "Titanium.Media.MEDIA_TYPE_LIVEPHOTO",
+        "Titanium.Media.MEDIA_TYPE_PHOTO",
+        "Titanium.Media.MEDIA_TYPE_VIDEO"
+      ]
+    },
+    {
+      "name": "pathOnly",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Do not include the blob in the result",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": {
+        "android": "12.5.0"
+      }
+    },
+    {
+      "name": "popoverView",
+      "platforms": [
+        "ipad",
+        "macos"
+      ],
+      "summary": "View to position the photo gallery popover on top of.",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.UI.View"
+        }
+      ]
+    },
+    {
+      "name": "selectionLimit",
+      "platforms": [
+        "iphone",
+        "ipad"
+      ],
+      "summary": "Specifies number of media item that can be selected.",
+      "description": "Setting this property to zero allows you to select maximum number of media supported by system.\nThis will work only when [PhotoGalleryOptionsType.allowMultiple](api:PhotoGalleryOptionsType#allowMultiple) is `true`.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "9.2.0",
+      "osver": {
+        "ios": {
+          "min": "14.0"
+        }
+      }
+    },
+    {
+      "name": "success",
+      "platforms": [
+        "android",
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Function to call when the photo gallery is closed after a successful selection.",
+      "description": "If [PhotoGalleryOptionsType.allowMultiple](api:PhotoGalleryOptionsType#allowMultiple) is `true`, then Callback[CameraMediaMultipleItemsType](api:CameraMediaMultipleItemsType) will be invoked.\nOtherwise Callback[CameraMediaItemType](api:CameraMediaItemType) will be invoked for single selection.\n",
+      "type": [
+        {
+          "kind": "generic",
+          "name": "Callback",
+          "args": [
+            {
+              "kind": "type",
+              "name": "CameraMediaItemType"
+            }
+          ]
+        },
+        {
+          "kind": "generic",
+          "name": "Callback",
+          "args": [
+            {
+              "kind": "type",
+              "name": "CameraMediaMultipleItemsType"
+            }
+          ]
+        }
+      ],
+      "inlined": {
+        "name": "CameraMediaMultipleItemsType",
+        "summary": "A media object from photo gallery when [PhotoGalleryOptionsType.allowMultiple](api:PhotoGalleryOptionsType#allowMultiple) is `true`.",
+        "properties": [
+          {
+            "name": "images",
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
+            "summary": "The list of selected images.\n",
+            "type": [
+              {
+                "kind": "generic",
+                "name": "Array",
+                "args": [
+                  {
+                    "kind": "type",
+                    "name": "CameraMediaItemType"
+                  }
+                ]
+              }
+            ],
+            "optional": true
+          },
+          {
+            "name": "livePhotos",
+            "platforms": [
+              "iphone",
+              "ipad"
+            ],
+            "summary": "The list of selected live photo objects.\n",
+            "type": [
+              {
+                "kind": "generic",
+                "name": "Array",
+                "args": [
+                  {
+                    "kind": "type",
+                    "name": "Titanium.UI.iOS.LivePhoto"
+                  }
+                ]
+              }
+            ],
+            "optional": true
+          },
+          {
+            "name": "videos",
+            "platforms": [
+              "android",
+              "iphone",
+              "ipad",
+              "macos"
+            ],
+            "summary": "The list of selected videos.\n",
+            "type": [
+              {
+                "kind": "generic",
+                "name": "Array",
+                "args": [
+                  {
+                    "kind": "type",
+                    "name": "CameraMediaItemType"
+                  }
+                ]
+              }
+            ],
+            "optional": true
+          }
+        ]
+      }
+    }
+  ],
+  "methods": [],
+  "events": [],
+  "inherited": {
+    "properties": [],
+    "methods": [],
+    "events": []
+  },
+  "references": [
+    "CameraMediaItemType",
+    "CameraMediaMultipleItemsType",
+    "FailureResponse",
+    "Titanium.Media",
+    "Titanium.UI.View"
+  ],
+  "source": "Titanium/Media/Media.yml"
+}

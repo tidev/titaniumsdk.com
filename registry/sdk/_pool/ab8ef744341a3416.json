@@ -1,0 +1,2035 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.UI.Android",
+  "kind": "module",
+  "extends": "Titanium.Module",
+  "inheritanceChain": [
+    "Titanium.Module",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android"
+  ],
+  "since": "1.0",
+  "summary": "The Android-specific UI capabilities. All properties, methods and events in this namespace will\nonly work on Android systems.\n\n#### Drawer Layout\n\nThe drawer-layout components acts as a top-level container for window content that allows\nfor interactive \"drawer\" views to be pulled out from one or both vertical edges of the window.\nIt is represented by a `centerView` and optional `leftView` and `rightView` components that\ncan be swiped in and out with additional configuration and transitions. Learn more about\ndrawer-layouts in it's dedicated [Titanium.UI.Android.DrawerLayout](api:Titanium.UI.Android.DrawerLayout) docs.\n",
+  "examples": [
+    {
+      "title": "Android Preferences Example",
+      "code": "Create preferences interface for the application.\n\n#### `app.js`\n``` js\nvar button = Ti.UI.createButton({\n  title:\t'Click to Open Preferences'\n});\nbutton.addEventListener('click', function() {\n  Ti.API.info('Current value for editText: ' + Ti.App.Properties.getString('editText'));\n  Ti.UI.Android.openPreferences();\n});\ncurrentWindow.add(button);\n```\n\n#### `platform/android/res/xml/preferences.xml`\n``` xml\n<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<PreferenceScreen xmlns:android=\"http://schemas.android.com/apk/res/android\"\n    android:title=\"Preferences\">\n  <PreferenceScreen\n      android:title=\"Misc. Preferences\"\n      android:summary=\"Click to see more options\">\n    <EditTextPreference\n      android:title=\"Edit Text Preference\"\n      android:summary=\"You may enter a string\"\n      android:defaultValue=\"\"\n      android:key=\"editText\" />\n  </PreferenceScreen>\n  <PreferenceCategory android:title=\"Category One\">\n    <CheckBoxPreference\n      android:title=\"CheckBox Preference\"\n      android:defaultValue=\"false\"\n      android:summary=\"You may enter a boolean\"\n      android:key=\"checkbox\" />\n    <RingtonePreference\n      android:title=\"Ringtone Preference\"\n      android:summary=\"You may pick a ringtone\"\n      android:defaultValue=\"\"\n      android:key=\"ringtone\" />\n  </PreferenceCategory>\n  <PreferenceCategory android:title=\"Category Two\">\n    <ListPreference\n      android:title=\"List Preference\"\n      android:summary=\"You may chose from multiple choices\"\n      android:key=\"list\"\n    android:entries=\"@array/listNames\"\n    android:entryValues=\"@array/listValues\"\n    />\n  </PreferenceCategory>\n</PreferenceScreen>\n```\n\n#### `platform/android/res/values/array/array.xml`\n``` xml\n<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<resources>\n  <string-array name=\"listNames\">\n    <item>5 Minutes</item>\n    <item>10 Minutes</item>\n    <item>15 Minutes</item>\n    <item>30 Minutes</item>\n    <item>60 Minutes</item>\n  </string-array>\n  <string-array name=\"listValues\">\n    <item>5</item>\n    <item>10</item>\n    <item>15</item>\n    <item>30</item>\n    <item>60</item>\n  </string-array>\n</resources>\n```\n"
+    }
+  ],
+  "properties": [
+    {
+      "name": "FLAG_LAYOUT_NO_LIMITS",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Flag allowing window to extend into the status bar and navigation bar.",
+      "description": "When assigned to [Window.windowFlags](api:Titanium.UI.Window#windowFlags), this flag will make the\nwindow ignore the system's insets such as the top status bar and bottom navigation bar so that\nthey overlap the window. The system may make the status bar and navigation bar completely transparent,\nbut this behavior is not guaranteed to happen.\n\nWhen using this flag, it's also recommended to set the\n[Window.extendSafeArea](api:Titanium.UI.Window#extendSafeArea) property to `true`.\n\nWarning: Using this flag causes [Window.safeAreaPadding](api:Titanium.UI.Window#safeAreaPadding)\nto return all zeros. This flag also breaks keyboard `adjustPan` support.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "10.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "FLAG_TRANSLUCENT_NAVIGATION",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Window flag which makes the Android system's navigation bar semi-transparent.",
+      "description": "When assigned to [Titanium.UI.Window.windowFlags](api:Titanium.UI.Window#windowFlags), this flag will make the Android\nsystem's bottom navigation bar semi-transparent. This flag will only work if you also set the\n[Window.extendSafeArea](api:Titanium.UI.Window#extendSafeArea) property to `true`.\n\nThis flag is only supported by Android 4.4 and newer OS versions. This flag is ignored on older versions.\nOn Android 4.4, navigation bar can only be translucent in portrait mode while newer OS versions support\nthis flag for all orientations.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "7.5.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "FLAG_TRANSLUCENT_STATUS",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Window flag which makes the Android system's top status bar semi-transparent.",
+      "description": "When assigned to [Titanium.UI.Window.windowFlags](api:Titanium.UI.Window#windowFlags), this flag will make the Android\nsystem's top status bar semi-transparent. This flag will only work if you also set the\n[Titanium.UI.Window.extendSafeArea](api:Titanium.UI.Window#extendSafeArea) property to `true`.\n\nThis flag is only supported by Android 4.4 and newer OS versions. This flag is ignored on older versions.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "7.5.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "GRAVITY_AXIS_CLIP",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Raw bit controlling whether the right/bottom edge is clipped to its container, based on the gravity direction being applied.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.4.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "GRAVITY_AXIS_PULL_AFTER",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Raw bit controlling how the right/bottom edge is placed.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.4.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "GRAVITY_AXIS_PULL_BEFORE",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Raw bit controlling how the left/top edge is placed.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.4.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "GRAVITY_AXIS_SPECIFIED",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Raw bit indicating the gravity for an axis has been specified.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.4.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "GRAVITY_AXIS_X_SHIFT",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Bits defining the horizontal axis.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.4.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "GRAVITY_AXIS_Y_SHIFT",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Bits defining the vertical axis.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.4.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "GRAVITY_BOTTOM",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Push object to the bottom of its container, not changing its size.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.4.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "GRAVITY_CENTER",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Place the object in the center of its container in both the vertical and horizontal axis, not changing its size.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.4.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "GRAVITY_CENTER_HORIZONTAL",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Place object in the horizontal center of its container, not changing its size.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.4.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "GRAVITY_CENTER_VERTICAL",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Place object in the vertical center of its container, not changing its size.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.4.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "GRAVITY_CLIP_HORIZONTAL",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Flag to clip the edges of the object to its container along the horizontal axis.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.4.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "GRAVITY_CLIP_VERTICAL",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Flag to clip the edges of the object to its container along the vertical axis.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.4.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "GRAVITY_DISPLAY_CLIP_HORIZONTAL",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Special constant to enable clipping to an overall display along the horizontal dimension.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.4.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "GRAVITY_DISPLAY_CLIP_VERTICAL",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Special constant to enable clipping to an overall display along the vertical dimension.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.4.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "GRAVITY_END",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Push object to x-axis position at the end of its container, not changing its size.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.4.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "GRAVITY_FILL",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Grow the horizontal and vertical size of the object if needed so it completely fills its container.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.4.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "GRAVITY_FILL_HORIZONTAL",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Grow the horizontal size of the object if needed so it completely fills its container.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.4.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "GRAVITY_FILL_VERTICAL",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Grow the vertical size of the object if needed so it completely fills its container.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.4.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "GRAVITY_HORIZONTAL_GRAVITY_MASK",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Binary mask to get the absolute horizontal gravity of a gravity.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.4.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "GRAVITY_LEFT",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Push object to the left of its container, not changing its size.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.4.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "GRAVITY_NO_GRAVITY",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Constant indicating that no gravity has been set",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.4.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "GRAVITY_RELATIVE_HORIZONTAL_GRAVITY_MASK",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Binary mask for the horizontal gravity and script specific direction bit.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.4.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "GRAVITY_RELATIVE_LAYOUT_DIRECTION",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Raw bit controlling whether the layout direction is relative or not (GRAVITY_START/GRAVITY_END instead of absolute GRAVITY_LEFT/GRAVITY_RIGHT).",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.4.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "GRAVITY_RIGHT",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Push object to the right of its container, not changing its size.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.4.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "GRAVITY_START",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Push object to x-axis position at the start of its container, not changing its size.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.4.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "GRAVITY_TOP",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Push object to the top of its container, not changing its size.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.4.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "GRAVITY_VERTICAL_GRAVITY_MASK",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Binary mask to get the vertical gravity of a gravity.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.4.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "OVER_SCROLL_ALWAYS",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Always allow a user to over-scroll this view, provided it is a view that can scroll.",
+      "description": "Use this with the following properties - [Titanium.UI.ScrollableView.overScrollMode](api:Titanium.UI.ScrollableView#overScrollMode), [Titanium.UI.ScrollView.overScrollMode](api:Titanium.UI.ScrollView#overScrollMode),\n[Titanium.UI.TableView.overScrollMode](api:Titanium.UI.TableView#overScrollMode) and [Titanium.UI.WebView.overScrollMode](api:Titanium.UI.WebView#overScrollMode).\n\nOnly applicable when [Titanium.Platform.Android.API_LEVEL](api:Titanium.Platform.Android#API_LEVEL) is 9 or above.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "3.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "OVER_SCROLL_IF_CONTENT_SCROLLS",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Allow a user to over-scroll this view only if the content is large enough to meaningfully scroll, provided it is a view that can scroll.",
+      "description": "Use this with the following properties - [Titanium.UI.ScrollableView.overScrollMode](api:Titanium.UI.ScrollableView#overScrollMode), [Titanium.UI.ScrollView.overScrollMode](api:Titanium.UI.ScrollView#overScrollMode),\n[Titanium.UI.TableView.overScrollMode](api:Titanium.UI.TableView#overScrollMode) and [Titanium.UI.WebView.overScrollMode](api:Titanium.UI.WebView#overScrollMode).\n\nOnly applicable when [Titanium.Platform.Android.API_LEVEL](api:Titanium.Platform.Android#API_LEVEL) is 9 or above.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "3.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "OVER_SCROLL_NEVER",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Never allow a user to over-scroll this view.",
+      "description": "Use this with the following properties - [Titanium.UI.ScrollableView.overScrollMode](api:Titanium.UI.ScrollableView#overScrollMode), [Titanium.UI.ScrollView.overScrollMode](api:Titanium.UI.ScrollView#overScrollMode),\n[Titanium.UI.TableView.overScrollMode](api:Titanium.UI.TableView#overScrollMode) and [Titanium.UI.WebView.overScrollMode](api:Titanium.UI.WebView#overScrollMode).\n\nOnly applicable when [Titanium.Platform.Android.API_LEVEL](api:Titanium.Platform.Android#API_LEVEL) is 9 or above.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "3.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "PIXEL_FORMAT_A_8",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Android A_8 pixel format for [Titanium.UI.Window](api:Titanium.UI.Window). Selecting the correct pixel format\ncan improve image clarity and performance.\n",
+      "description": "See the Android Developer website for official documentation about the\n[PixelFormat](https://developer.android.com/reference/android/graphics/PixelFormat.html)\nconstants.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.8.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "PIXEL_FORMAT_L_8",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Android L_8 pixel format for [Titanium.UI.Window](api:Titanium.UI.Window). Selecting the correct pixel format\ncan improve image clarity and performance.\n",
+      "description": "See the Android Developer website for official documentation about the\n[PixelFormat](https://developer.android.com/reference/android/graphics/PixelFormat.html)\nconstants.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.8.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "PIXEL_FORMAT_LA_88",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Android LA_88 pixel format for [Titanium.UI.Window](api:Titanium.UI.Window). Selecting the correct pixel format\ncan improve image clarity and performance.\n",
+      "description": "See the Android Developer website for official documentation about the\n[PixelFormat](https://developer.android.com/reference/android/graphics/PixelFormat.html)\nconstants.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.8.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "PIXEL_FORMAT_OPAQUE",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Android OPAQUE pixel format for [Titanium.UI.Window](api:Titanium.UI.Window). Selecting the correct pixel format\ncan improve image clarity and performance.\n",
+      "description": "See the Android Developer website for official documentation about the\n[PixelFormat](https://developer.android.com/reference/android/graphics/PixelFormat.html)\nconstants.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.8.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "PIXEL_FORMAT_RGB_332",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Android RGB_332 pixel format for [Titanium.UI.Window](api:Titanium.UI.Window). Selecting the correct pixel format\ncan improve image clarity and performance.\n",
+      "description": "See the Android Developer website for official documentation about the\n[PixelFormat](https://developer.android.com/reference/android/graphics/PixelFormat.html)\nconstants.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.8.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "PIXEL_FORMAT_RGB_565",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Android RGB_565 pixel format for [Titanium.UI.Window](api:Titanium.UI.Window). Selecting the correct pixel format\ncan improve image clarity and performance.\n",
+      "description": "See the Android Developer website for official documentation about the\n[PixelFormat](https://developer.android.com/reference/android/graphics/PixelFormat.html)\nconstants.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.8.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "PIXEL_FORMAT_RGB_888",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Android RGB_888 pixel format for [Titanium.UI.Window](api:Titanium.UI.Window). Selecting the correct pixel format\ncan improve image clarity and performance.\n",
+      "description": "See the Android Developer website for official documentation about the\n[PixelFormat](https://developer.android.com/reference/android/graphics/PixelFormat.html)\nconstants.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.8.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "PIXEL_FORMAT_RGBA_4444",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Android RGBA_4444 pixel format for [Titanium.UI.Window](api:Titanium.UI.Window). Selecting the correct pixel format\ncan improve image clarity and performance.\n",
+      "description": "See the Android Developer website for official documentation about the\n[PixelFormat](https://developer.android.com/reference/android/graphics/PixelFormat.html)\nconstants.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.8.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "PIXEL_FORMAT_RGBA_5551",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Android RGBA_5551 pixel format for [Titanium.UI.Window](api:Titanium.UI.Window). Selecting the correct pixel format\ncan improve image clarity and performance.\n",
+      "description": "See the Android Developer website for official documentation about the\n[PixelFormat](https://developer.android.com/reference/android/graphics/PixelFormat.html)\nconstants.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.8.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "PIXEL_FORMAT_RGBA_8888",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Android RGBA_8888 pixel format for [Titanium.UI.Window](api:Titanium.UI.Window). Selecting the correct pixel format\ncan improve image clarity and performance.\n",
+      "description": "See the Android Developer website for official documentation about the\n[PixelFormat](https://developer.android.com/reference/android/graphics/PixelFormat.html)\nconstants.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.8.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "PIXEL_FORMAT_RGBX_8888",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Android RGBX_8888 pixel format for [Titanium.UI.Window](api:Titanium.UI.Window). Selecting the correct pixel format\ncan improve image clarity and performance.\n",
+      "description": "See the Android Developer website for official documentation about the\n[PixelFormat](https://developer.android.com/reference/android/graphics/PixelFormat.html)\nconstants.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.8.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "PIXEL_FORMAT_TRANSLUCENT",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Android TRANSLUCENT pixel format for [Titanium.UI.Window](api:Titanium.UI.Window). Selecting the correct pixel format\ncan improve image clarity and performance.\n",
+      "description": "See the Android Developer website for official documentation about the\n[PixelFormat](https://developer.android.com/reference/android/graphics/PixelFormat.html)\nconstants.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.8.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "PIXEL_FORMAT_TRANSPARENT",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Android A_8 pixel format for [Titanium.UI.Window](api:Titanium.UI.Window). Selecting the correct pixel format can\nimprove image clarity and performance.\n",
+      "description": "See the Android Developer website for official documentation about the\n[PixelFormat](https://developer.android.com/reference/android/graphics/PixelFormat.html)\nconstants.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.8.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "PIXEL_FORMAT_UNKNOWN",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Android UNKNOWN pixel format for [Titanium.UI.Window](api:Titanium.UI.Window). Selecting the correct pixel format\ncan improve image clarity and performance.\n",
+      "description": "See the Android Developer website for official documentation about the\n[PixelFormat](https://developer.android.com/reference/android/graphics/PixelFormat.html)\nconstants.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "1.8.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "PROGRESS_INDICATOR_DETERMINANT",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Used with the [Titanium.UI.Android.ProgressIndicator.type](api:Titanium.UI.Android.ProgressIndicator#type) property to indicate an ongoing\nactivity of determinate length.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "3.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "PROGRESS_INDICATOR_DIALOG",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Display [Titanium.UI.Android.ProgressIndicator](api:Titanium.UI.Android.ProgressIndicator) as a modal dialog. (default)",
+      "description": "Used with the [Titanium.UI.Android.ProgressIndicator.location](api:Titanium.UI.Android.ProgressIndicator#location) property.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "3.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "PROGRESS_INDICATOR_INDETERMINANT",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Used with the [Titanium.UI.Android.ProgressIndicator.type](api:Titanium.UI.Android.ProgressIndicator#type) property to indicate an ongoing\nactivity of indeterminate length. (default)\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "3.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "PROGRESS_INDICATOR_STATUS_BAR",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Display [Titanium.UI.Android.ProgressIndicator](api:Titanium.UI.Android.ProgressIndicator) as a horizontal progress bar in the title of\nthe window.\n",
+      "description": "Used with the [Titanium.UI.Android.ProgressIndicator.location](api:Titanium.UI.Android.ProgressIndicator#location) property.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "3.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "SCROLL_FLAG_ENTER_ALWAYS",
+      "platforms": [
+        "android"
+      ],
+      "summary": "When entering (scrolling on screen) the view will scroll on any downwards scroll event, regardless of whether the scrolling view is also scrolling. This is commonly referred to as the 'quick return' pattern.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "12.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "SCROLL_FLAG_ENTER_ALWAYS_COLLAPSED",
+      "platforms": [
+        "android"
+      ],
+      "summary": "An additional flag for 'enterAlways' which modifies the returning view to only initially scroll back to it's collapsed height. Once the scrolling view has reached the end of it's scroll range, the remainder of this view will be scrolled into view. The collapsed height is defined by the view's minimum height.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "12.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "SCROLL_FLAG_EXIT_UNTIL_COLLAPSED",
+      "platforms": [
+        "android"
+      ],
+      "summary": "When exiting (scrolling off screen) the view will be scrolled until it is 'collapsed'. The collapsed height is defined by the view's minimum height.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "12.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "SCROLL_FLAG_NO_SCROLL",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Disable scrolling on the view. This flag should not be combined with any of the other scroll flags.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "12.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "SCROLL_FLAG_SCROLL",
+      "platforms": [
+        "android"
+      ],
+      "summary": "The view will be scroll in direct relation to scroll events. This flag needs to be set for any of the other flags to take effect. If any sibling views before this one do not have this flag, then this value has no effect.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "12.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "SCROLL_FLAG_SNAP",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Upon a scroll ending, if the view is only partially visible then it will be snapped and scrolled to its closest edge. For example, if the view only has its bottom 25% displayed, it will be scrolled off screen completely. Conversely, if its bottom 75% is visible then it will be scrolled fully into view.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "12.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "SCROLL_FLAG_SNAP_MARGINS",
+      "platforms": [
+        "android"
+      ],
+      "summary": "An additional flag to be used with 'snap'. If set, the view will be snapped to its top and bottom margins, as opposed to the edges of the view itself.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "12.1.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "SOFT_INPUT_ADJUST_NOTHING",
+      "platforms": [
+        "android"
+      ],
+      "summary": "The window will not be resized, and it will not be panned to make its focus visible.\n",
+      "description": "Used with the [Titanium.UI.Window.windowSoftInputMode](api:Titanium.UI.Window#windowSoftInputMode) property.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "12.1.0",
+      "permission": "read-only",
+      "availability": "creation"
+    },
+    {
+      "name": "SOFT_INPUT_ADJUST_PAN",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Pan the current heavyweight window when the input method (ie software keyboard) is shown, to\nensure that its contents are not obscured.\n",
+      "description": "Used with the [Titanium.UI.Window.windowSoftInputMode](api:Titanium.UI.Window#windowSoftInputMode) property.\n\nOne of the group of soft input adjustment constants,\n[SOFT_INPUT_ADJUST_UNSPECIFIED](api:Titanium.UI.Android#SOFT_INPUT_ADJUST_UNSPECIFIED),\n[SOFT_INPUT_ADJUST_RESIZE](api:Titanium.UI.Android#SOFT_INPUT_ADJUST_RESIZE),\nand [SOFT_INPUT_ADJUST_PAN](api:Titanium.UI.Android#SOFT_INPUT_ADJUST_PAN).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only",
+      "availability": "creation"
+    },
+    {
+      "name": "SOFT_INPUT_ADJUST_RESIZE",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Resize the current heavyweight window when the input method (ie software keyboard) is shown,\nto ensure that its contents are not obscured.\n",
+      "description": "Used with the [Titanium.UI.Window.windowSoftInputMode](api:Titanium.UI.Window#windowSoftInputMode) property.\n\nOne of the group of soft input adjustment constants,\n[SOFT_INPUT_ADJUST_UNSPECIFIED](api:Titanium.UI.Android#SOFT_INPUT_ADJUST_UNSPECIFIED),\n[SOFT_INPUT_ADJUST_RESIZE](api:Titanium.UI.Android#SOFT_INPUT_ADJUST_RESIZE),\nand [SOFT_INPUT_ADJUST_PAN](api:Titanium.UI.Android#SOFT_INPUT_ADJUST_PAN).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only",
+      "availability": "creation"
+    },
+    {
+      "name": "SOFT_INPUT_ADJUST_UNSPECIFIED",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Use the system-default behavior to determine how the soft input area (ie software keyboard)\nis accomodated by the current heavyweight window when it receives focus (default.)\n",
+      "description": "Depends on the `AndroidManifest.xml` setting if defined or system-default otherwise to\ndetermine how to accomodate the soft keyboard when visible.\n\nUsed with the [Titanium.UI.Window.windowSoftInputMode](api:Titanium.UI.Window#windowSoftInputMode) property.\n\nOne of the group of soft input adjustment constants,\n[SOFT_INPUT_ADJUST_UNSPECIFIED](api:Titanium.UI.Android#SOFT_INPUT_ADJUST_UNSPECIFIED),\n[SOFT_INPUT_ADJUST_RESIZE](api:Titanium.UI.Android#SOFT_INPUT_ADJUST_RESIZE),\nand [SOFT_INPUT_ADJUST_PAN](api:Titanium.UI.Android#SOFT_INPUT_ADJUST_PAN).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only",
+      "availability": "creation"
+    },
+    {
+      "name": "SOFT_INPUT_STATE_ALWAYS_HIDDEN",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Always hide the soft input area (ie software keyboard) when the current heavyweight window\nreceives focus.\n",
+      "description": "Note that the unresolved bug [#7115](https://code.google.com/p/android/issues/detail?id=7115)\non the Official Android Project website affects this functionality.\n\nUsed with the [Titanium.UI.Window.windowSoftInputMode](api:Titanium.UI.Window#windowSoftInputMode) property.\n\nOne of the group of soft input visibility constants,\n[SOFT_INPUT_STATE_ALWAYS_HIDDEN](api:Titanium.UI.Android#SOFT_INPUT_STATE_ALWAYS_HIDDEN),\n[SOFT_INPUT_STATE_ALWAYS_VISIBLE](api:Titanium.UI.Android#SOFT_INPUT_STATE_ALWAYS_VISIBLE),\n[SOFT_INPUT_STATE_HIDDEN](api:Titanium.UI.Android#SOFT_INPUT_STATE_HIDDEN),\n[SOFT_INPUT_STATE_UNSPECIFIED](api:Titanium.UI.Android#SOFT_INPUT_STATE_UNSPECIFIED),\nand [SOFT_INPUT_STATE_VISIBLE](api:Titanium.UI.Android#SOFT_INPUT_STATE_VISIBLE).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "SOFT_INPUT_STATE_ALWAYS_VISIBLE",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Always show the soft input area (ie software keyboard) when the current heavyweight window\nreceives focus.\n",
+      "description": "Used with the [Titanium.UI.Window.windowSoftInputMode](api:Titanium.UI.Window#windowSoftInputMode) property.\n\nThis constant is one of the group of soft input visibility constants,\n[SOFT_INPUT_STATE_ALWAYS_HIDDEN](api:Titanium.UI.Android#SOFT_INPUT_STATE_ALWAYS_HIDDEN),\n[SOFT_INPUT_STATE_ALWAYS_VISIBLE](api:Titanium.UI.Android#SOFT_INPUT_STATE_ALWAYS_VISIBLE),\n[SOFT_INPUT_STATE_HIDDEN](api:Titanium.UI.Android#SOFT_INPUT_STATE_HIDDEN),\n[SOFT_INPUT_STATE_UNSPECIFIED](api:Titanium.UI.Android#SOFT_INPUT_STATE_UNSPECIFIED),\nand [SOFT_INPUT_STATE_VISIBLE](api:Titanium.UI.Android#SOFT_INPUT_STATE_VISIBLE).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "SOFT_INPUT_STATE_HIDDEN",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Attempt to hide the soft input area (ie software keyboard) when the current heavyweight\nwindow receives focus.\n",
+      "description": "Used with the [Titanium.UI.Window.windowSoftInputMode](api:Titanium.UI.Window#windowSoftInputMode) property.\n\nThis constant is one of the group of soft input visibility constants,\n[SOFT_INPUT_STATE_ALWAYS_HIDDEN](api:Titanium.UI.Android#SOFT_INPUT_STATE_ALWAYS_HIDDEN),\n[SOFT_INPUT_STATE_ALWAYS_VISIBLE](api:Titanium.UI.Android#SOFT_INPUT_STATE_ALWAYS_VISIBLE),\n[SOFT_INPUT_STATE_HIDDEN](api:Titanium.UI.Android#SOFT_INPUT_STATE_HIDDEN),\n[SOFT_INPUT_STATE_UNSPECIFIED](api:Titanium.UI.Android#SOFT_INPUT_STATE_UNSPECIFIED),\nand [SOFT_INPUT_STATE_VISIBLE](api:Titanium.UI.Android#SOFT_INPUT_STATE_VISIBLE).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "SOFT_INPUT_STATE_UNSPECIFIED",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Use the system-default behavior to determine whether to show the soft input area\n(ie software keyboard) when the current heavyweight window receives focus.\n",
+      "description": "Used with the [Titanium.UI.Window.windowSoftInputMode](api:Titanium.UI.Window#windowSoftInputMode) property.\n\nThis constant is one of the group of soft input visibility constants,\n[SOFT_INPUT_STATE_ALWAYS_HIDDEN](api:Titanium.UI.Android#SOFT_INPUT_STATE_ALWAYS_HIDDEN),\n[SOFT_INPUT_STATE_ALWAYS_VISIBLE](api:Titanium.UI.Android#SOFT_INPUT_STATE_ALWAYS_VISIBLE),\n[SOFT_INPUT_STATE_HIDDEN](api:Titanium.UI.Android#SOFT_INPUT_STATE_HIDDEN),\n[SOFT_INPUT_STATE_UNSPECIFIED](api:Titanium.UI.Android#SOFT_INPUT_STATE_UNSPECIFIED),\nand [SOFT_INPUT_STATE_VISIBLE](api:Titanium.UI.Android#SOFT_INPUT_STATE_VISIBLE).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "SOFT_INPUT_STATE_VISIBLE",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Attempt to show the soft input area (ie software keyboard) when the current heavyweight\nwindow receives focus.\n",
+      "description": "Used with the [Titanium.UI.Window.windowSoftInputMode](api:Titanium.UI.Window#windowSoftInputMode) property.\n\nThis constant is one of the group of soft input visibility constants,\n[SOFT_INPUT_STATE_ALWAYS_HIDDEN](api:Titanium.UI.Android#SOFT_INPUT_STATE_ALWAYS_HIDDEN),\n[SOFT_INPUT_STATE_ALWAYS_VISIBLE](api:Titanium.UI.Android#SOFT_INPUT_STATE_ALWAYS_VISIBLE),\n[SOFT_INPUT_STATE_HIDDEN](api:Titanium.UI.Android#SOFT_INPUT_STATE_HIDDEN),\n[SOFT_INPUT_STATE_UNSPECIFIED](api:Titanium.UI.Android#SOFT_INPUT_STATE_UNSPECIFIED),\nand [SOFT_INPUT_STATE_VISIBLE](api:Titanium.UI.Android#SOFT_INPUT_STATE_VISIBLE).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "SOFT_KEYBOARD_DEFAULT_ON_FOCUS",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Use Android default behavior to handle keyboard visibility when a view receives focus.\n(default)\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "SOFT_KEYBOARD_HIDE_ON_FOCUS",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Attempt to hide the soft keyboard when a view receives focus. Note: system can override\nrequest.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "SOFT_KEYBOARD_SHOW_ON_FOCUS",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Attempt to show the soft keyboard when a view receives focus. Note: system can override\nrequest.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "STATUS_BAR_LIGHT",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Sets the color of the status bar to light mode. Needs Android API level 23.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "12.7.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "SWITCH_STYLE_CHECKBOX",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Display a checkbox.",
+      "description": "Use with the [Titanium.UI.Switch.style](api:Titanium.UI.Switch#style) property.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "deprecated": {
+        "since": "10.0.0",
+        "notes": "Use <Titanium.UI.SWITCH_STYLE_CHECKBOX> instead."
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "SWITCH_STYLE_SWITCH",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Display a switch.",
+      "description": "Use with the [Titanium.UI.Switch.style](api:Titanium.UI.Switch#style) property.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "4.0.0",
+      "deprecated": {
+        "since": "10.0.0",
+        "notes": "Use <Titanium.UI.SWITCH_STYLE_SLIDER> instead."
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "SWITCH_STYLE_TOGGLEBUTTON",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Display a toggle button.",
+      "description": "Use with the [Titanium.UI.Switch.style](api:Titanium.UI.Switch#style) property.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "deprecated": {
+        "since": "10.0.0",
+        "notes": "Use <Titanium.UI.SWITCH_STYLE_TOGGLE_BUTTON> instead."
+      },
+      "permission": "read-only"
+    },
+    {
+      "name": "TAB_MODE_FIXED",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Set the TabGroup tab mode to fixed (default).",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "12.2.0",
+      "availability": "creation"
+    },
+    {
+      "name": "TAB_MODE_SCROLLABLE",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Set the TabGroup tab mode to scrollable.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "12.2.0",
+      "availability": "creation"
+    },
+    {
+      "name": "TABS_STYLE_BOTTOM_NAVIGATION",
+      "platforms": [
+        "android"
+      ],
+      "summary": "TabGroup style taking advantage of a bottom navigation controller for switching between tabs.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "8.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "TABS_STYLE_DEFAULT",
+      "platforms": [
+        "android"
+      ],
+      "summary": "The default TabGroup style that places the Tabs bellow the ActionBar and above the Window content.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "8.0.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "TRANSITION_CHANGE_BOUNDS",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Captures layout bounds of target views before and after the scene change and animates those changes during the transition.\n",
+      "description": "Use this only for shared element transition.\nRefers to [ChangeBounds](https://developer.android.com/reference/android/transition/ChangeBounds.html) transition.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.2.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "TRANSITION_CHANGE_CLIP_BOUNDS",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Captures the clip bounds before and after the scene change and animates those changes during the transition.\n",
+      "description": "Use this only for shared element transition.\nRefers to [ChangeClipBounds](https://developer.android.com/reference/android/transition/ChangeClipBounds.html) transition.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.2.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "TRANSITION_CHANGE_IMAGE_TRANSFORM",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Captures an ImageView's matrix before and after the scene change and animates it during the transition.\n",
+      "description": "Use this only for shared element transition.\nRefers to [ChangeImageTransform](https://developer.android.com/reference/android/transition/ChangeImageTransform.html) transition.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.2.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "TRANSITION_CHANGE_TRANSFORM",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Captures scale and rotation for Views before and after the scene change and animates those changes during the transition.\n",
+      "description": "Use this only for shared element transition.\nRefers to [ChangeTransform](https://developer.android.com/reference/android/transition/ChangeTransform.html) transition.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.2.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "TRANSITION_EXPLODE",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Moves views in or out from the edges of the scene.\n",
+      "description": "Use this only for activity transition.\nRefers to [Explode](https://developer.android.com/reference/android/transition/Explode.html) transition.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.2.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "TRANSITION_FADE_IN",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Fades in the views.\n",
+      "description": "Use this only for activity transition.\nRefers to [Fade](https://developer.android.com/reference/android/transition/Fade.html) transition.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.2.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "TRANSITION_FADE_OUT",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Fades out the views.\n",
+      "description": "Use this only for activity transition.\nRefers to [Fade](https://developer.android.com/reference/android/transition/Fade.html) transition.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.2.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "TRANSITION_NONE",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Resets transition to platform default.\n",
+      "description": "Can be used with activity and shared element transtion.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.2.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "TRANSITION_SLIDE_BOTTOM",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Moves views to bottom.\n",
+      "description": "Use this only for activity transition.\nRefers to [Slide](https://developer.android.com/reference/android/transition/Slide.html) transition.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.2.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "TRANSITION_SLIDE_LEFT",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Moves views to left.\n",
+      "description": "Use this only for activity transition.\nRefers to [Slide](https://developer.android.com/reference/android/transition/Slide.html) transition.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.2.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "TRANSITION_SLIDE_RIGHT",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Moves views to right.\n",
+      "description": "Use this only for activity transition.\nRefers to [Slide](https://developer.android.com/reference/android/transition/Slide.html) transition.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.2.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "TRANSITION_SLIDE_TOP",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Moves views to top.\n",
+      "description": "Use this only for activity transition.\nRefers to [Slide](https://developer.android.com/reference/android/transition/Slide.html) transition.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "5.2.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "WEBVIEW_LOAD_CACHE_ELSE_NETWORK",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Use with [WebView.cacheMode](api:Titanium.UI.WebView#cacheMode) to override how the cache is used in a web view.\n",
+      "description": "Use cached resources when they're available, even when they're expired. Otherwise load resources via network.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "3.2.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "WEBVIEW_LOAD_CACHE_ONLY",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Use with [WebView.cacheMode](api:Titanium.UI.WebView#cacheMode) to override how the cache is used in a web view.\n",
+      "description": "Don't use network, load from the cache only.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "3.2.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "WEBVIEW_LOAD_DEFAULT",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Use with [WebView.cacheMode](api:Titanium.UI.WebView#cacheMode) to override how the cache is used in a web view.\n",
+      "description": "This is the default cache usage mode.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "3.2.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "WEBVIEW_LOAD_NO_CACHE",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Use with [WebView.cacheMode](api:Titanium.UI.WebView#cacheMode) to override how the cache is used in a web view.\n",
+      "description": "Don't use cache, load from the network.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "3.2.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "WEBVIEW_PLUGINS_OFF",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Use with [WebView.pluginState](api:Titanium.UI.WebView#pluginState) to disable plugins in a web view.\n",
+      "description": "Content that requires a plugin, is not loaded, and any\nalternative content is displayed instead.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "WEBVIEW_PLUGINS_ON",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Use with [WebView.pluginState](api:Titanium.UI.WebView#pluginState) to enable plugins in a web view.\n",
+      "description": "Content that requires a plugin,, is always loaded, whether or not a plugin is\navailable for the content.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "WEBVIEW_PLUGINS_ON_DEMAND",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Display a placeholder and only load plugins when user selects it.",
+      "description": "Content that requires a plugin, is replaced by a placeholder. When\nthe user clicks on the placeholder, the plugin is loaded and the content is displayed.\n\nUse with [WebView.pluginState](api:Titanium.UI.WebView#pluginState) to load plugins on demand.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "permission": "read-only"
+    },
+    {
+      "name": "WEBVIEW_SCROLLBARS_DEFAULT",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Show horizontal and vertical scrollbar in a Ti.UI.WebView.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "12.3.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "WEBVIEW_SCROLLBARS_HIDE_ALL",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Hide all scrollbars in a Ti.UI.WebView.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "12.3.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "WEBVIEW_SCROLLBARS_HIDE_HORIZONTAL",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Hide horizontal scrollbar in a Ti.UI.WebView.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "12.3.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "WEBVIEW_SCROLLBARS_HIDE_VERTICAL",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Hide vertical scrollbar in a Ti.UI.WebView.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "12.3.0",
+      "permission": "read-only"
+    }
+  ],
+  "methods": [
+    {
+      "name": "createCardView",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Creates and returns an instance of [Titanium.UI.Android.CardView](api:Titanium.UI.Android.CardView).",
+      "since": "5.1.0",
+      "factoryFor": "Titanium.UI.Android.CardView",
+      "parameters": [
+        {
+          "name": "parameters",
+          "summary": "Properties to set on a new object, including any defined by [Titanium.UI.Android.CardView](api:Titanium.UI.Android.CardView) except those marked not-creation or read-only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Titanium.UI.Android.CardView"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.Android.CardView"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "createCollapseToolbar",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Creates and returns an instance of [Titanium.UI.Android.CollapseToolbar](api:Titanium.UI.Android.CollapseToolbar).",
+      "since": "12.1.0",
+      "factoryFor": "Titanium.UI.Android.CollapseToolbar",
+      "parameters": [
+        {
+          "name": "parameters",
+          "summary": "Properties to set on a new object, including any defined by [Titanium.UI.Android.CollapseToolbar](api:Titanium.UI.Android.CollapseToolbar) except those marked not-creation or read-only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Titanium.UI.Android.CollapseToolbar"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.Android.CollapseToolbar"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "createDrawerLayout",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Creates and returns an instance of [Titanium.UI.Android.DrawerLayout](api:Titanium.UI.Android.DrawerLayout).",
+      "since": "6.2.0",
+      "factoryFor": "Titanium.UI.Android.DrawerLayout",
+      "parameters": [
+        {
+          "name": "parameters",
+          "summary": "Properties to set on a new object, including any defined by [Titanium.UI.Android.DrawerLayout](api:Titanium.UI.Android.DrawerLayout) except those marked not-creation or read-only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Titanium.UI.Android.DrawerLayout"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.Android.DrawerLayout"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "createFloatingActionButton",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Creates and returns an instance of [Titanium.UI.Android.FloatingActionButton](api:Titanium.UI.Android.FloatingActionButton).",
+      "since": "12.0.0",
+      "factoryFor": "Titanium.UI.Android.FloatingActionButton",
+      "parameters": [
+        {
+          "name": "parameters",
+          "summary": "Properties to set on a new object, including any defined by [Titanium.UI.Android.FloatingActionButton](api:Titanium.UI.Android.FloatingActionButton) except those marked not-creation or read-only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Titanium.UI.Android.FloatingActionButton"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.Android.FloatingActionButton"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "createProgressIndicator",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Creates and returns an instance of [Titanium.UI.Android.ProgressIndicator](api:Titanium.UI.Android.ProgressIndicator).",
+      "since": "3.0.0",
+      "factoryFor": "Titanium.UI.Android.ProgressIndicator",
+      "parameters": [
+        {
+          "name": "parameters",
+          "summary": "Properties to set on a new object, including any defined by [Titanium.UI.Android.ProgressIndicator](api:Titanium.UI.Android.ProgressIndicator) except those marked not-creation or read-only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Titanium.UI.Android.ProgressIndicator"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.Android.ProgressIndicator"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "createSearchView",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Creates and returns an instance of [Titanium.UI.Android.SearchView](api:Titanium.UI.Android.SearchView).",
+      "since": "3.0.2",
+      "factoryFor": "Titanium.UI.Android.SearchView",
+      "parameters": [
+        {
+          "name": "parameters",
+          "summary": "Properties to set on a new object, including any defined by [Titanium.UI.Android.SearchView](api:Titanium.UI.Android.SearchView) except those marked not-creation or read-only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Titanium.UI.Android.SearchView"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.Android.SearchView"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "createSnackbar",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Creates and returns an instance of [Titanium.UI.Android.Snackbar](api:Titanium.UI.Android.Snackbar).",
+      "since": "11.1.0",
+      "factoryFor": "Titanium.UI.Android.Snackbar",
+      "parameters": [
+        {
+          "name": "parameters",
+          "summary": "Properties to set on a new object, including any defined by [Titanium.UI.Android.Snackbar](api:Titanium.UI.Android.Snackbar) except those marked not-creation or read-only.",
+          "type": [
+            {
+              "kind": "generic",
+              "name": "Dictionary",
+              "args": [
+                {
+                  "kind": "type",
+                  "name": "Titanium.UI.Android.Snackbar"
+                }
+              ]
+            }
+          ],
+          "optional": true
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.Android.Snackbar"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "getColorResource",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Returns a [Titanium.UI.Color](api:Titanium.UI.Color) instance for a color defined by the system or user resources (colors.xml)\n",
+      "description": "This method allows converting a known color resource id or short name to an actual color instance.\n\nThe resource id values can be accessed via [Titanium.Android.R.color](api:Titanium.Android.R#color) and `Titanium.App.Android.R.color` properties.\n\nSee the official Android Developer documentation for\nthe [R.color](https://developer.android.com/reference/android/R.color) constants.\n",
+      "since": "9.1.0",
+      "parameters": [
+        {
+          "name": "resourceIdOrColorName",
+          "summary": "integer resource id for a color, or the name of the color defined in the application resources (colors.xml).",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            },
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "type",
+              "name": "Titanium.UI.Color"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "harmonizedColor",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Creates a harmonizing color",
+      "description": "Shifts the hue of the input color towards the hue of colorPrimary and returns a new color\nas a hex string. Usage: `Ti.UI.Android.harmonizedColor(\"#ff0000\");`\n",
+      "since": {
+        "android": "12.0.0"
+      },
+      "parameters": [
+        {
+          "name": "color",
+          "summary": "Input Color",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            },
+            {
+              "kind": "type",
+              "name": "Titanium.UI.Color"
+            }
+          ]
+        }
+      ],
+      "returns": [
+        {
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hideSoftKeyboard",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Hides the soft keyboard.\n",
+      "description": "Be aware that it is not currently possible in the native Android API to detect that the\nkeyboard is already visible or to globally show the keyboard.\n"
+    },
+    {
+      "name": "moveToBackground",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Moves the app to the background",
+      "since": {
+        "android": "12.4.0"
+      }
+    },
+    {
+      "name": "openPreferences",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Opens an application preferences dialog, using the native Android system settings interface,\ndefined by the platform-specific `preferences.xml` and `array.xml` files.\n",
+      "description": "The preferences configuration files must be created in the project folders,\n`platform/android/res/xml/preferences.xml` and `platform/android/res/values/array/array.xml`.\n\nThe preferences values can be accessed via [Titanium.App.Properties](api:Titanium.App.Properties).\n\nSee the example for a demonstration, and the official Android Developer documentation for\nthe [preferences.xml](https://developer.android.com/guide/topics/ui/settings.html#DefiningPrefs)\nformat.\n"
+    }
+  ],
+  "events": [],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "lifecycleContainer",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      }
+    ],
+    "events": []
+  },
+  "references": [
+    "Titanium.Android.R",
+    "Titanium.App.Properties",
+    "Titanium.Module",
+    "Titanium.Platform.Android",
+    "Titanium.UI.Android.CardView",
+    "Titanium.UI.Android.CollapseToolbar",
+    "Titanium.UI.Android.DrawerLayout",
+    "Titanium.UI.Android.FloatingActionButton",
+    "Titanium.UI.Android.ProgressIndicator",
+    "Titanium.UI.Android.SearchView",
+    "Titanium.UI.Android.Snackbar",
+    "Titanium.UI.Color",
+    "Titanium.UI.ScrollView",
+    "Titanium.UI.ScrollableView",
+    "Titanium.UI.Switch",
+    "Titanium.UI.TableView",
+    "Titanium.UI.WebView",
+    "Titanium.UI.Window"
+  ],
+  "source": "Titanium/UI/Android/Android.yml"
+}
