@@ -1,5 +1,6 @@
-import { mkdirSync, readdirSync, rmSync, statSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { parse as parseYaml } from 'yaml';
 
 /**
  * Captures the SDK release notes into the registry (TI-72).
@@ -15,10 +16,24 @@ import { join } from 'node:path';
  * which is what the old site rendered. That repo is itself slated for archiving
  * in TI-52, so the notes are copied here rather than read across.
  *
- * Stored as they are. They are generated, so reformatting them would only make
- * the next capture a diff. Links are rewritten — see `rewrite` below — because
- * the addresses they carry are the old site's, and this site is what replaces
- * it.
+ * Stored beside the version they describe, at
+ * `registry/sdk/<version>/release-notes.md` — a release candidate shares its
+ * version with the GA that follows, so it takes `release-notes.rc.md` in the
+ * same directory. A directory holding only a note is inert to everything else,
+ * because `sdkVersions()` keys on `contents.json` rather than on the directory
+ * existing.
+ *
+ * The body is stored as it is. It is generated, so reformatting would only make
+ * the next capture a diff. Two things are changed: links are rewritten, see
+ * `rewrite` below, and the frontmatter gains `date`, `version` and `channel`.
+ *
+ * The date matters because the source bakes it into the title — "Titanium SDK
+ * 13.4.1.GA - 25 August 2026" — so a page could only show it inside a heading.
+ * It is taken from the release registry, which is the GitHub publish timestamp
+ * and what the rest of the site already shows, and parsed out of the title for
+ * the ten notes the registry does not list. Two of them disagreed with the
+ * registry by a day, so the title no longer carries one: a page cannot
+ * contradict itself about when a release happened.
  *
  * Deliberately not part of the build: a published release's notes never change,
  * so this is a decision someone makes, not something that happens on a schedule.
@@ -29,7 +44,7 @@ import { join } from 'node:path';
 
 const REPO = 'tidev/titanium-docs';
 const ROOT = 'docs/guide/Titanium_SDK/Titanium_SDK_Release_Notes';
-const OUT = join(process.cwd(), 'registry/sdk/release-notes');
+const SDK = join(process.cwd(), 'registry/sdk');
 const write = process.argv.includes('--write');
 
 const token = process.env.GITHUB_TOKEN ?? process.env.GH_TOKEN;
@@ -112,16 +127,59 @@ if (!write) {
   process.exit(0);
 }
 
-rmSync(OUT, { recursive: true, force: true });
-mkdirSync(OUT, { recursive: true });
+/** Release name -> publish date, from the channels the registry tracks. */
+const published = new Map<string, string>();
+for (const channel of ['ga', 'rc']) {
+  const file = join(SDK, `${channel}.json`);
+  if (!existsSync(file)) continue;
+  for (const r of JSON.parse(readFileSync(file, 'utf8')) as { name: string; date: string }[]) {
+    published.set(r.name, r.date);
+  }
+}
 
 let stored = 0;
+let dated = 0;
+const undatedNotes: string[] = [];
+
 for (const note of notes) {
   const blob = await api<{ content: string }>(`repos/${REPO}/contents/${encodeURI(note.path)}`);
-  const body = rewrite(Buffer.from(blob.content, 'base64').toString('utf8'));
-  writeFileSync(join(OUT, `${note.release}.md`), body.endsWith('\n') ? body : `${body}\n`);
+  const raw = rewrite(Buffer.from(blob.content, 'base64').toString('utf8'));
+
+  const front = /^---\n([\s\S]*?)\n---\n?/.exec(raw);
+  const parsed = (front ? (parseYaml(front[1]) as { title?: unknown }) : {}) ?? {};
+  const title = typeof parsed.title === 'string' ? parsed.title : `Titanium SDK ${note.release}`;
+
+  const version = note.release.replace(/\.(GA|RC\d*)$/, '');
+  const channel = /\.(GA|RC\d*)$/.exec(note.release)?.[1] ?? 'GA';
+
+  // The registry is the GitHub publish timestamp and is what the rest of the
+  // site shows; the title is the author-written fallback for the ten notes it
+  // does not list.
+  const fromTitle = /-\s*(\d{1,2}\s+\w+\s+\d{4})\s*$/.exec(title);
+  const date =
+    published.get(note.release) ??
+    (fromTitle ? new Date(`${fromTitle[1]} UTC`).toISOString() : undefined);
+  if (date) dated++;
+  else undatedNotes.push(note.release);
+
+  const yaml = [
+    `title: ${title.replace(/\s*-\s*\d{1,2}\s+\w+\s+\d{4}\s*$/, '').trim()}`,
+    date ? `date: ${date.slice(0, 10)}` : null,
+    `version: ${version}`,
+    `channel: ${channel}`,
+  ]
+    .filter(Boolean)
+    .join('\n');
+
+  const dir = join(SDK, version);
+  mkdirSync(dir, { recursive: true });
+  const name = channel === 'GA' ? 'release-notes.md' : `release-notes.${channel.toLowerCase()}.md`;
+  const body = front ? raw.slice(front[0].length) : raw;
+  writeFileSync(join(dir, name), `---\n${yaml}\n---\n${body.endsWith('\n') ? body : `${body}\n`}`);
   stored++;
 }
 
-const bytes = readdirSync(OUT).reduce((n, f) => n + statSync(join(OUT, f)).size, 0);
-console.log(`\n${stored} stored in registry/sdk/release-notes (${(bytes / 1024).toFixed(0)} KB)`);
+console.log(`\n${stored} stored under registry/sdk/<version>/, ${dated} with a date`);
+if (undatedNotes.length) {
+  console.log(`  no date anywhere for: ${undatedNotes.join(', ')}`);
+}

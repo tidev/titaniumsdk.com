@@ -1,5 +1,6 @@
 import { AssetLinks } from '@/components/downloads/asset-links';
 import { InstallCommand } from '@/components/downloads/install-command';
+import { hasReleaseNote } from '@/lib/docs/release-notes';
 import { formatDate, installCommand } from '@/lib/downloads/format';
 import { branchList, CHANNELS, latestRelease, releases } from '@/lib/downloads/registry';
 import { SITE_URL } from '@/lib/site';
@@ -84,15 +85,26 @@ export default function DownloadsOverview() {
           <div className="mt-3 rounded-lg border border-border bg-surface p-5">
             <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
               <span className="font-mono text-lg font-semibold">{latest.name}</span>
+              {/* Not "release notes": every GA release body on GitHub is empty
+                  or a link back to this site, measured across all 71 in TI-72.
+                  The notes live here now, and are linked beside it. */}
               <a
                 href={latest.url}
                 target="_blank"
                 rel="noreferrer"
-                title="Release notes on GitHub"
+                title="Release tag on GitHub"
                 className="text-xs text-text-subtle hover:text-link focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
               >
                 Released {formatDate(latest.date)}
               </a>
+              {latest.version && hasReleaseNote(latest.version) && (
+                <Link
+                  href={`/docs/sdk/${latest.version}/release-notes`}
+                  className="text-xs text-link hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
+                >
+                  Release notes
+                </Link>
+              )}
             </div>
 
             <div className="mt-4">

@@ -1,5 +1,6 @@
 import { Prose } from '@/components/docs/prose';
 import { VersionSwitcher } from '@/components/docs/version-switcher';
+import { formatDate } from '@/lib/docs/format';
 import { releaseNote, versionsWithNotes } from '@/lib/docs/release-notes';
 import { SITE_URL } from '@/lib/site';
 import type { Metadata } from 'next';
@@ -74,6 +75,11 @@ export default async function ReleaseNotes({
       </div>
 
       <h1 className="mt-3 text-3xl font-semibold tracking-tight">{note.title}</h1>
+      {note.date && (
+        <p className="mt-1 text-sm text-text-subtle">
+          Released <time dateTime={note.date}>{formatDate(note.date)}</time>
+        </p>
+      )}
 
       {/* The notes are generated markdown carrying hand-written tables of
           per-module versions, and `renderMarkdown` sanitizes on the way out. */}
