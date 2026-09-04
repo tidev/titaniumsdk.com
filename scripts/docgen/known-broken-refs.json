@@ -5,50 +5,48 @@
     "compile fails on NEW breakage while these stay visible; delete an entry as soon",
     "as the upstream fix lands, and docgen will tell you when one is no longer hit.",
     "Keyed by source repo: an entry only applies to, and is only reported stale by,",
-    "a compile of that repo. Without that, compiling any module would report all 23",
-    "SDK entries as no-longer-occurring, which reads as 'upstream fixed everything'.",
+    "a compile of that repo. Without that, compiling any module would report every one of another repo's",
+    "entries as no-longer-occurring, which reads as 'upstream fixed everything'.",
     "A module's entries cover references into the SDK too: those are checked against",
     "the compiled SDK index it is told to resolve against, so a module naming a type",
     "or member the SDK does not have fails the same way one of its own does.",
     "Run docgen with --strict to compile as if this file were empty."
   ],
-  "refs": {
-    "tidev/titanium-sdk": {
-      "Global.Intl.NumberFormat.NumberFormatOptions.currency": "declared as the top-level pseudo-type NumberFormatOptions, not nested under NumberFormat",
-      "Global.Intl.NumberFormat.NumberFormatOptions.style": "as above",
-      "Ti.Color": "expands to Titanium.Color, which does not exist; the type is Titanium.UI.Color",
-      "Titanium.Android.Activity.pause": "Activity has no pause/resume members",
-      "Titanium.Android.Activity.resume": "as above",
-      "Titanium.App.Android.R.color": "R is a dynamic resource namespace with no documented members",
-      "Titanium.Geolocation.frequency": "removed in 8.0.0, still referenced from Geolocation.Android",
-      "Titanium.Geolocation.preferredProvider": "as above",
-      "Titanium.Media.AUDIO_STATE_WAITING_FOR_QUEUE": "constant referenced but never declared",
-      "Titanium.Media.allowMultiple": "belongs to the options dictionaries, not the Media module",
-      "Titanium.Network.HTTPClient.addAuthFactory": "method referenced but never declared",
-      "Titanium.Network.INADDR_ANY": "constant referenced but never declared",
-      "Titanium.UI.ListView.selectionStyle": "declared on ListItem, not ListView",
-      "Titanium.UI.TabGroup.disableTabOptions": "the pseudo-type is disableTabOptions, not a TabGroup member",
-      "Titanium.UI.TableView.selectionStyle": "declared on TableViewRow, not TableView",
-      "Titanium.UI.clearMotionEffects": "declared on Titanium.UI.View",
-      "Titanium.UI.horizontalMotionEffect": "declared on Titanium.UI.View",
-      "Titanium.UI.iOS.createAlertDialog": "AlertDialog lives in Titanium.UI, so the factory is Titanium.UI.createAlertDialog",
-      "Titanium.UI.verticalMotionEffect": "declared on Titanium.UI.View",
-      "fs.Dir": "type referenced but never declared",
-      "fs.rm": "method referenced but never declared",
-      "fs.rmDir": "method referenced but never declared",
-      "fs.rmDirSync": "method referenced but never declared"
-    }
-  },
+  "refs": {},
   "historical": {
     "$comment": [
       "References broken only in published releases, which are immutable and",
       "therefore cannot be fixed upstream. Allowed like `refs`, but never",
       "reported stale: an entry here describes a frozen past and will stop",
       "occurring the moment the affected releases age out of what we compile,",
-      "which is not the same as upstream having fixed anything."
+      "which is not the same as upstream having fixed anything.",
+      "The 23 SDK entries moved here in Sep 2026 were fixed upstream by tidev/titanium-sdk#14569. They stay because every published GA still carries them and a tag cannot be rewritten."
     ],
     "tidev/titanium-sdk": {
-      "Titanium.UI.iOS.AttributedString": "the type is Titanium.UI.AttributedString; Label, TextArea and TextField kept the pre-move iOS. name until it was corrected between 12.8.0 and 13.2.0. Blocks every GA from 12.5.0 to 13.1.1."
+      "Global.Intl.NumberFormat.NumberFormatOptions.currency": "declared as the top-level pseudo-type NumberFormatOptions, not nested under NumberFormat. Fixed on main by #14569; still broken in every GA up to 13.4.1.",
+      "Global.Intl.NumberFormat.NumberFormatOptions.style": "as above. Fixed on main by #14569; still broken in every GA up to 13.4.1.",
+      "Ti.Color": "expands to Titanium.Color, which does not exist; the type is Titanium.UI.Color. Fixed on main by #14569; still broken in every GA up to 13.4.1.",
+      "Titanium.Android.Activity.pause": "Activity has no pause/resume members. Fixed on main by #14569; still broken in every GA up to 13.4.1.",
+      "Titanium.Android.Activity.resume": "as above. Fixed on main by #14569; still broken in every GA up to 13.4.1.",
+      "Titanium.App.Android.R.color": "R is a dynamic resource namespace with no documented members. Fixed on main by #14569; still broken in every GA up to 13.4.1.",
+      "Titanium.Geolocation.frequency": "removed in 8.0.0, still referenced from Geolocation.Android. Fixed on main by #14569; still broken in every GA up to 13.4.1.",
+      "Titanium.Geolocation.preferredProvider": "as above. Fixed on main by #14569; still broken in every GA up to 13.4.1.",
+      "Titanium.Media.AUDIO_STATE_WAITING_FOR_QUEUE": "constant referenced but never declared. Fixed on main by #14569; still broken in every GA up to 13.4.1.",
+      "Titanium.Media.allowMultiple": "belongs to the options dictionaries, not the Media module. Fixed on main by #14569; still broken in every GA up to 13.4.1.",
+      "Titanium.Network.HTTPClient.addAuthFactory": "method referenced but never declared. Fixed on main by #14569; still broken in every GA up to 13.4.1.",
+      "Titanium.Network.INADDR_ANY": "constant referenced but never declared. Fixed on main by #14569; still broken in every GA up to 13.4.1.",
+      "Titanium.UI.ListView.selectionStyle": "declared on ListItem, not ListView. Fixed on main by #14569; still broken in every GA up to 13.4.1.",
+      "Titanium.UI.TabGroup.disableTabOptions": "the pseudo-type is disableTabOptions, not a TabGroup member. Fixed on main by #14569; still broken in every GA up to 13.4.1.",
+      "Titanium.UI.TableView.selectionStyle": "declared on TableViewRow, not TableView. Fixed on main by #14569; still broken in every GA up to 13.4.1.",
+      "Titanium.UI.clearMotionEffects": "declared on Titanium.UI.View. Fixed on main by #14569; still broken in every GA up to 13.4.1.",
+      "Titanium.UI.horizontalMotionEffect": "declared on Titanium.UI.View. Fixed on main by #14569; still broken in every GA up to 13.4.1.",
+      "Titanium.UI.iOS.AttributedString": "the type is Titanium.UI.AttributedString; Label, TextArea and TextField kept the pre-move iOS. name until it was corrected between 12.8.0 and 13.2.0. Blocks every GA from 12.5.0 to 13.1.1.",
+      "Titanium.UI.iOS.createAlertDialog": "AlertDialog lives in Titanium.UI, so the factory is Titanium.UI.createAlertDialog. Fixed on main by #14569; still broken in every GA up to 13.4.1.",
+      "Titanium.UI.verticalMotionEffect": "declared on Titanium.UI.View. Fixed on main by #14569; still broken in every GA up to 13.4.1.",
+      "fs.Dir": "type referenced but never declared. Fixed on main by #14569; still broken in every GA up to 13.4.1.",
+      "fs.rm": "method referenced but never declared. Fixed on main by #14569; still broken in every GA up to 13.4.1.",
+      "fs.rmDir": "method referenced but never declared. Fixed on main by #14569; still broken in every GA up to 13.4.1.",
+      "fs.rmDirSync": "method referenced but never declared. Fixed on main by #14569; still broken in every GA up to 13.4.1."
     }
   }
 }
