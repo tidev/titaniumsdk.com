@@ -412,6 +412,10 @@ body {
   .prose-docs p,
   .prose-docs ul,
   .prose-docs ol,
+  .prose-docs blockquote {
+    margin-block: 0.75em;
+  }
+
   /* Callouts (TI-10). Tinted from the semantic status roles so a warning here
      is the same warning as everywhere else on the site, at the low opacity that
      keeps body text on it well past AA. */

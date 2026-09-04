@@ -44,9 +44,7 @@ const api = async <T>(path: string): Promise<T> => {
 };
 
 type TreeEntry = { path: string; type: string };
-const tree = await api<{ tree: TreeEntry[] }>(
-  `repos/${REPO}/git/trees/main?recursive=1`
-);
+const tree = await api<{ tree: TreeEntry[] }>(`repos/${REPO}/git/trees/main?recursive=1`);
 
 /**
  * `Titanium_SDK_13.4.1.GA_Release_Note.md` -> `13.4.1.GA`.
@@ -96,12 +94,17 @@ console.log(
  * quoted commit subject to say something untrue.
  */
 function rewrite(body: string): string {
-  return body
-    .replace(/https:\/\/github\.com\/tidev\/titanium_mobile\b/g, 'https://github.com/tidev/titanium-sdk')
-    // A commit subject naming the repository, not a URL: "fix windows build of
-    // Titanium SDK - titanium_mobile". Four of these across 11.0.0.
-    .replace(/(Titanium SDK - )titanium_mobile\b/g, '$1titanium-sdk')
-    .replace(/https:\/\/titaniumsdk\.com\//g, '/');
+  return (
+    body
+      .replace(
+        /https:\/\/github\.com\/tidev\/titanium_mobile\b/g,
+        'https://github.com/tidev/titanium-sdk'
+      )
+      // A commit subject naming the repository, not a URL: "fix windows build of
+      // Titanium SDK - titanium_mobile". Four of these across 11.0.0.
+      .replace(/(Titanium SDK - )titanium_mobile\b/g, '$1titanium-sdk')
+      .replace(/https:\/\/titaniumsdk\.com\//g, '/')
+  );
 }
 
 if (!write) {
@@ -114,9 +117,7 @@ mkdirSync(OUT, { recursive: true });
 
 let stored = 0;
 for (const note of notes) {
-  const blob = await api<{ content: string }>(
-    `repos/${REPO}/contents/${encodeURI(note.path)}`
-  );
+  const blob = await api<{ content: string }>(`repos/${REPO}/contents/${encodeURI(note.path)}`);
   const body = rewrite(Buffer.from(blob.content, 'base64').toString('utf8'));
   writeFileSync(join(OUT, `${note.release}.md`), body.endsWith('\n') ? body : `${body}\n`);
   stored++;

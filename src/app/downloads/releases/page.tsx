@@ -1,4 +1,5 @@
 import { BuildList } from '@/components/downloads/build-list';
+import { hasReleaseNote } from '@/lib/docs/release-notes';
 import { allReleases, latestRelease } from '@/lib/downloads/registry';
 import { SITE_URL } from '@/lib/site';
 import type { Metadata } from 'next';
@@ -60,7 +61,19 @@ export default function ReleasesPage() {
         </label>
       </div>
 
-      <BuildList builds={all} latest={latest} />
+      <BuildList
+        builds={all}
+        latest={latest}
+        // GA rows only. A release candidate carries the same `version` as the
+        // GA that follows it — 13.0.0.RC and 13.0.0.GA are both `13.0.0` — so
+        // matching on version alone pointed twelve prerelease rows at notes
+        // describing the release they preceded.
+        notesHref={(build) =>
+          !build.prerelease && build.version && hasReleaseNote(build.version)
+            ? `/docs/sdk/${build.version}/release-notes`
+            : null
+        }
+      />
     </div>
   );
 }
