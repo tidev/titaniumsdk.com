@@ -86,12 +86,21 @@ console.log(
  * The absolute-origin rule catches whatever else points at titaniumsdk.com, so
  * a captured note references this site by path rather than by hostname.
  *
- * Prose is left alone: six commit messages *mention* titanium_mobile as a word,
- * and only URLs are rewritten.
+ * Prose is rewritten only where the word names the repository. Four commit
+ * subjects read "fix windows build of Titanium SDK - titanium_mobile", which is
+ * the repository, and are renamed.
+ *
+ * Two are deliberately left: "replace titanium_mobile URLs" is a commit that
+ * replaced exactly those URLs, so renaming it would make the sentence describe
+ * the opposite of what happened. A blanket substitution would have corrupted a
+ * quoted commit subject to say something untrue.
  */
 function rewrite(body: string): string {
   return body
     .replace(/https:\/\/github\.com\/tidev\/titanium_mobile\b/g, 'https://github.com/tidev/titanium-sdk')
+    // A commit subject naming the repository, not a URL: "fix windows build of
+    // Titanium SDK - titanium_mobile". Four of these across 11.0.0.
+    .replace(/(Titanium SDK - )titanium_mobile\b/g, '$1titanium-sdk')
     .replace(/https:\/\/titaniumsdk\.com\//g, '/');
 }
 

@@ -31,7 +31,7 @@ For a more detailed overview, known issues and closed tickets, see the release n
 
 ## Report Bugs
 
-If you run into any issues that seem related to the update, please report them on [GitHub](https://github.com/tidev/titanium_mobile/issues).
+If you run into any issues that seem related to the update, please report them on [GitHub](https://github.com/tidev/titanium-sdk/issues).
 
 ## How can I support?
 

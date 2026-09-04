@@ -37,7 +37,7 @@ To get the latest Alloy version you run:
 
 ## How to participate
 
-Make sure to read https://github.com/tidev/titanium_mobile#contributing first to find out what is needed to contribute to Titanium. Check the issues for some inspiration or browse the docs https://titaniumsdk.com/ and look for mistakes/errors/places that can be improved.
+Make sure to read https://github.com/tidev/titanium-sdk#contributing first to find out what is needed to contribute to Titanium. Check the issues for some inspiration or browse the docs https://titaniumsdk.com/ and look for mistakes/errors/places that can be improved.
 
 Fork the repos, create a branch, make some changes and create a PR.
 
