@@ -120,6 +120,27 @@ jobs:
           # references — see the note in regen.ts.
           file_pattern: ${{ steps.regen.outputs.paths }}
 
+      # The commit is selective, so it can silently publish less than the regen
+      # produced. That is not hypothetical: `file_pattern` was scoped to the
+      # version directory, TI-25 moved the content into the shared pool beside
+      # it, and a regen committed a manifest whose four new blobs stayed in the
+      # runner. `validate-registry` above cannot see that — it runs before the
+      # commit, when everything still resolves on disk.
+      #
+      # Anything left in the working tree after the commit is something the
+      # pattern did not cover.
+      - name: Nothing left behind
+        if: steps.regen.outputs.changed == 'true'
+        run: |
+          left=$(git status --porcelain -- registry/)
+          if [ -n "$left" ]; then
+            echo "::error::the commit did not include everything the regen wrote:"
+            echo "$left"
+            echo 'Widen the `paths` output in scripts/docgen/regen.ts to cover it.' >&2
+            exit 1
+          fi
+          echo "Every file the regen wrote was committed." >> "$GITHUB_STEP_SUMMARY"
+
       - name: Report no-op
         if: steps.regen.outputs.changed != 'true'
         run: echo "No content change — nothing committed." >> "$GITHUB_STEP_SUMMARY"
