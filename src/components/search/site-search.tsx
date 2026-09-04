@@ -27,9 +27,17 @@ type Hit = {
   detail: Detail | null;
 };
 
-/** Group order and labels. Guides join this when TI-32 lands. */
+/**
+ * Group order and labels. Guides join this when TI-32 lands.
+ *
+ * The first group is named for how its results matched rather than for what
+ * they are. Everything below it is a section — API reference, Modules, Blog —
+ * but a name match crosses those: `ti.map` and `Titanium.UI.Window` arrive
+ * together. Calling it "Symbols" implied a category that overlapped "API
+ * reference", which is what those results also are.
+ */
 const GROUPS: { kind: Kind; label: string }[] = [
-  { kind: 'symbol', label: 'Symbols' },
+  { kind: 'symbol', label: 'Top Matches' },
   { kind: 'api', label: 'API reference' },
   { kind: 'module', label: 'Modules' },
   { kind: 'blog', label: 'Blog' },
