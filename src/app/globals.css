@@ -382,6 +382,26 @@ body {
    defensive rules the rest of the site does not.
 */
 @layer components {
+  /* The namespace tree's chevron turns with its own <details> and nothing
+     else. Tailwind's `group-open:` cannot say that: it compiles to
+     `:is(:where(.group):is([open]) *)`, a descendant match, and this tree nests
+     groups — so every chevron under an open branch was rotated by that
+     ancestor rather than by its own state, and all 283 of them pointed down.
+     The child combinator is the whole point of the rule. */
+  .api-nav details[open] > summary > svg {
+    rotate: 90deg;
+  }
+
+  /* Long unbreakable strings are the normal case in this prose, not the
+     exception: fully-qualified identifiers, and bare URLs the source never
+     made into links — ti.map has a 74-character Google Maps URL sitting in a
+     paragraph as plain text, which on its own scrolled the page 283px at
+     320px wide. `break-word` rather than `anywhere` so ordinary text still
+     wraps at spaces and only an oversized word is broken. */
+  .prose-docs {
+    overflow-wrap: break-word;
+  }
+
   .prose-docs > :first-child {
     margin-top: 0;
   }
@@ -392,6 +412,48 @@ body {
   .prose-docs p,
   .prose-docs ul,
   .prose-docs ol,
+  /* Callouts (TI-10). Tinted from the semantic status roles so a warning here
+     is the same warning as everywhere else on the site, at the low opacity that
+     keeps body text on it well past AA. */
+  .prose-docs .callout {
+    margin-block: 0.75em;
+    border-left: 3px solid var(--color-border-strong);
+    border-radius: 0.25rem;
+    background-color: color-mix(in oklch, var(--color-text-subtle) 8%, transparent);
+    padding: 0.625rem 0.875rem;
+  }
+  .prose-docs .callout > :first-child {
+    margin-top: 0;
+  }
+  .prose-docs .callout > :last-child {
+    margin-bottom: 0;
+  }
+  .prose-docs .callout-label {
+    margin-bottom: 0.25em;
+    font-size: 0.8125em;
+    font-weight: 600;
+    letter-spacing: var(--tracking-tight);
+    color: var(--color-text);
+  }
+  .prose-docs .callout-note,
+  .prose-docs .callout-important {
+    border-left-color: var(--color-info);
+    background-color: color-mix(in oklch, var(--color-info) 8%, transparent);
+  }
+  .prose-docs .callout-tip {
+    border-left-color: var(--color-success);
+    background-color: color-mix(in oklch, var(--color-success) 8%, transparent);
+  }
+  .prose-docs .callout-warning,
+  .prose-docs .callout-caution {
+    border-left-color: var(--color-warning);
+    background-color: color-mix(in oklch, var(--color-warning) 8%, transparent);
+  }
+  .prose-docs .callout-deprecated {
+    border-left-color: var(--color-danger);
+    background-color: color-mix(in oklch, var(--color-danger) 8%, transparent);
+  }
+
   .prose-docs blockquote {
     margin-block: 0.75em;
   }
@@ -450,6 +512,14 @@ body {
     padding: 0.125em 0.3em;
     font-family: var(--font-mono);
     font-size: 0.9em;
+    /* Inline code is a fully-qualified identifier as often as not, and one of
+       them is wider than a 320px viewport on its own. Same reasoning as the
+       link rule above; block code is excluded because a `<pre>` scrolls
+       instead, and breaking source across lines would misrepresent it. */
+    overflow-wrap: anywhere;
+  }
+  .prose-docs pre code {
+    overflow-wrap: normal;
   }
 
   /* Code blocks and tables scroll inside themselves. The source contains wide
@@ -469,6 +539,67 @@ body {
     background: none;
     padding: 0;
     font-size: inherit;
+  }
+
+  /* Syntax highlighting (TI-10). Shiki writes one `--shiki-light` and one
+     `--shiki-dark` custom property per token and no actual colour, so a single
+     payload serves both themes and the toggle costs no re-render. These rules
+     choose which of the two applies.
+
+     Shiki's own background is deliberately ignored: `--shiki-*-bg` is left
+     unread so the block keeps `--color-surface` above and sits on the site's
+     own surface rather than GitHub's. Only the token colours are borrowed. */
+  .prose-docs .shiki,
+  .prose-docs .shiki span {
+    color: var(--shiki-light);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme='light']) .prose-docs .shiki,
+    :root:not([data-theme='light']) .prose-docs .shiki span {
+      color: var(--shiki-dark);
+    }
+  }
+  :root[data-theme='dark'] .prose-docs .shiki,
+  :root[data-theme='dark'] .prose-docs .shiki span {
+    color: var(--shiki-dark);
+  }
+
+  /* The copy button is anchored to this wrapper rather than to the `<pre>`,
+     which scrolls horizontally — anchored to the scrolling box it would slide
+     away with the code. Added by CodeCopy after mount, so this styles nothing
+     until JavaScript runs. */
+  .prose-docs .code-block {
+    position: relative;
+  }
+  .prose-docs .code-copy {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: 0.25rem;
+    background-color: var(--color-bg);
+    padding: 0.125rem 0.5rem;
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    opacity: 0;
+    transition: opacity 120ms ease;
+  }
+  .prose-docs .code-copy:hover {
+    color: var(--color-text);
+  }
+  /* Revealed on hover only where hovering is a thing someone does. On touch
+     there is no hover state to enter, so it stays visible rather than
+     unreachable. */
+  @media (hover: hover) and (pointer: fine) {
+    .prose-docs .code-block:hover .code-copy,
+    .prose-docs .code-copy:focus-visible {
+      opacity: 1;
+    }
+  }
+  @media not all and (hover: hover) {
+    .prose-docs .code-copy {
+      opacity: 1;
+    }
   }
 
   .prose-docs table {

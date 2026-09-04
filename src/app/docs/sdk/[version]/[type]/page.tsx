@@ -4,11 +4,13 @@ import { LegacyAnchor } from '@/components/docs/legacy-anchor';
 import { MemberSection } from '@/components/docs/member-section';
 import { Prose } from '@/components/docs/prose';
 import { OnThisPage, SectionJump, jumpLinks, type TocGroup } from '@/components/docs/toc';
+import { OlderVersionNotice, VersionSwitcher } from '@/components/docs/version-switcher';
 import { formatSince } from '@/lib/docs/format';
-import { anchorFor, pathLinker } from '@/lib/docs/links';
+import { anchorAllocator, pathLinker } from '@/lib/docs/links';
 import { sdkIndex, sdkType, resolveVersion, sourceUrl, MAIN } from '@/lib/docs/registry';
 import { crumbsFor, subtypesOf } from '@/lib/docs/tree';
 import { buildTypeView } from '@/lib/docs/type-view';
+import { newerVersion, versionOptions } from '@/lib/docs/versions';
 import { SITE_URL } from '@/lib/site';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
@@ -96,11 +98,18 @@ export default async function TypePage({ params }: PageProps<'/docs/sdk/[version
   const { type: api } = view;
   const since = formatSince(api.since);
   const subtypes = subtypesOf(types, api.name);
+  const newer = newerVersion(resolved, api.name);
 
+  // Window has a method `open()` and an event `open`; allocated together, they
+  // no longer both claim `id="open"`.
+  const anchor = anchorAllocator(
+    [view.properties, view.methods, view.events],
+    ['property', 'method', 'event']
+  );
   const groups: TocGroup[] = [
-    { id: 'properties', title: 'Properties', members: view.properties, anchor: anchorFor },
-    { id: 'methods', title: 'Methods', members: view.methods, anchor: anchorFor },
-    { id: 'events', title: 'Events', members: view.events, anchor: anchorFor },
+    { id: 'properties', title: 'Properties', members: view.properties, anchor },
+    { id: 'methods', title: 'Methods', members: view.methods, anchor },
+    { id: 'events', title: 'Events', members: view.events, anchor },
   ];
   // Examples are a section of this page in their own right; the member groups
   // come from the same list the rail renders.
@@ -138,7 +147,17 @@ export default async function TypePage({ params }: PageProps<'/docs/sdk/[version
               unreleased
             </span>
           )}
+          {/* Below `xl` there is no rail, so this is the far end of the row
+              and lines up with the switcher on the version index. At `xl` the
+              rail appears and the article's right edge moves ~192px inward, so
+              the copy in the rail column takes over — see below. */}
+          <VersionSwitcher
+            current={resolved}
+            options={versionOptions(api.name)}
+            className="ml-auto xl:hidden"
+          />
         </div>
+        {newer && <OlderVersionNotice current={resolved} newer={newer} type={api.name} />}
 
         <header className="mt-3">
           <h1 className="font-mono text-3xl font-semibold tracking-tight break-words">
@@ -256,11 +275,18 @@ export default async function TypePage({ params }: PageProps<'/docs/sdk/[version
         </footer>
       </article>
 
-      <OnThisPage
-        links={api.examples?.length ? [{ id: 'examples', title: 'Examples' }] : []}
-        groups={groups}
-        className="hidden py-10 xl:col-start-2 xl:row-start-1 xl:block"
-      />
+      {/* The rail column. The switcher sits at its head so that at `xl` it
+          lands at the same right edge as the one on the version index, which
+          has no rail and puts it at the end of its own heading row. Only one of
+          the two copies is ever displayed, so nothing is announced twice. */}
+      <div className="hidden py-10 xl:col-start-2 xl:row-start-1 xl:block">
+        <VersionSwitcher current={resolved} options={versionOptions(api.name)} />
+        <OnThisPage
+          links={api.examples?.length ? [{ id: 'examples', title: 'Examples' }] : []}
+          groups={groups}
+          className="mt-6"
+        />
+      </div>
     </div>
   );
 }

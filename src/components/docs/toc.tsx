@@ -24,7 +24,7 @@ export type TocGroup = {
   id: string;
   title: string;
   members: ResolvedMember[];
-  anchor: (member: string) => string;
+  anchor: (member: ResolvedMember) => string;
 };
 
 /** Above this, listing every member costs more than it gives. */
@@ -82,7 +82,7 @@ export function OnThisPage({
               {group.members.map((m, i) => (
                 <li key={`${m.name}-${i}`}>
                   <a
-                    href={`#${group.anchor(m.name)}`}
+                    href={`#${group.anchor(m)}`}
                     className="block truncate py-0.5 font-mono text-xs text-text-muted hover:text-link"
                     title={m.name}
                   >

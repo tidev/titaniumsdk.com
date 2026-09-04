@@ -15,6 +15,53 @@ export function anchorFor(member: string): string {
 }
 
 /**
+ * Anchors for every member on one page, disambiguated across groups.
+ *
+ * A member name is unique within its group but not across them. On
+ * `Titanium.UI.Window` the method `open()` and the event `open` are different
+ * members with the same name, and both emitted `id="open"` — two elements
+ * sharing an id, which is invalid, and `#open` reaching whichever came first,
+ * so the event was not deep-linkable at all. 41 types in the registry declare a
+ * property and an event under one name; `toc.tsx` already keyed its list by
+ * position for the same reason without the anchors following.
+ *
+ * Keyed on the member itself rather than its name, because the name is exactly
+ * what is ambiguous. The first group to claim a name keeps the bare anchor and
+ * later ones take a suffix: a cross-reference arriving from another page has
+ * only the name to go on — `module-view.ts` builds `Titanium.UI.Window#open`
+ * with no idea which kind it means — so the bare anchor has to keep existing
+ * and keep pointing somewhere sensible. Groups are rendered properties,
+ * methods, events, which also ranks them by how likely a bare reference means
+ * that one.
+ *
+ * @param groups  the members of each group, in render order
+ * @param labels  the suffix for each group, used only on collision
+ * @param prefix  qualifies every anchor, for a page carrying several types
+ */
+export function anchorAllocator<T extends { name: string }>(
+  groups: readonly (readonly T[])[],
+  labels: readonly string[],
+  prefix = ''
+): (member: T) => string {
+  const taken = new Set<string>();
+  const assigned = new Map<T, string>();
+
+  groups.forEach((members, gi) => {
+    for (const member of members) {
+      if (assigned.has(member)) continue;
+      const base = anchorFor(member.name);
+      let id = base;
+      if (taken.has(id)) id = `${base}-${labels[gi] ?? gi}`;
+      for (let n = 2; taken.has(id); n++) id = `${base}-${labels[gi] ?? gi}-${n}`;
+      taken.add(id);
+      assigned.set(member, `${prefix}${id}`);
+    }
+  });
+
+  return (member) => assigned.get(member) ?? `${prefix}${anchorFor(member.name)}`;
+}
+
+/**
  * A member's id on a page that carries more than one type.
  *
  * `Modules.Map#NORMAL_TYPE` and `Modules.Map.View#mapType` share a page, so a

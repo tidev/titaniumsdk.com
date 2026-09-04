@@ -84,7 +84,8 @@ export function ApiNav({
         <nav
           ref={rail}
           aria-label="API reference"
-          className="max-h-[70dvh] overflow-y-auto pb-6 text-sm lg:sticky lg:top-16 lg:max-h-[calc(100dvh-4rem)] lg:py-10 lg:pr-3"
+          // `api-nav` is the hook for the chevron rule in globals.css; see there.
+          className="api-nav max-h-[70dvh] overflow-y-auto pb-6 text-sm lg:sticky lg:top-16 lg:max-h-[calc(100dvh-4rem)] lg:py-10 lg:pr-3"
         >
           <ul>
             {roots.map((node) => (
@@ -112,7 +113,11 @@ function Node({
 
   if (!node.children.length) {
     return (
-      <li>
+      // The same row shape as a branch's <summary>, so a leaf and a branch at
+      // the same depth start at the same x. Without the spacer the chevron
+      // pushed only the branches right, and a tier read as two tiers.
+      <li className="flex items-center gap-1.5">
+        <span aria-hidden className="size-3 shrink-0" />
         <Label node={node} base={base} current={current} />
       </li>
     );
@@ -120,19 +125,23 @@ function Node({
 
   return (
     <li>
-      <details open={open.has(node.id)} className="group">
+      <details open={open.has(node.id)}>
         {/* The namespace's own page is a link inside the summary. Clicking it
             toggles the details as well, which nobody sees because every link
             here is a full page load — and it buys one row per namespace
             instead of two. */}
         <summary className="flex cursor-pointer list-none items-center gap-1.5 py-1 [&::-webkit-details-marker]:hidden">
-          <Chevron className="transition-transform group-open:rotate-90" />
+          <Chevron className="transition-transform" />
           <Label node={node} base={base} current={current} />
           <span className="ml-auto pl-2 font-mono text-xs text-text-subtle">
             {node.children.length}
           </span>
         </summary>
-        <ul className="ml-2 border-l border-border pl-2">
+        {/* Tighter than it looks like it should be, deliberately. Reserving the
+            chevron slot on every row moved all 284 labels 18px right and pushed
+            twelve of them into truncation; the border already marks the level, so
+            the indent can give most of that back without losing the hierarchy. */}
+        <ul className="ml-1 border-l border-border pl-1.5">
           {node.children.map((child) => (
             <Node key={child.id} node={child} base={base} active={active} open={open} />
           ))}

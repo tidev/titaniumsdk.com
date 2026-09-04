@@ -1,3 +1,4 @@
+import { CodeCopy } from '@/components/docs/code-copy';
 import { SiteFooter } from '@/components/site-footer';
 import { SiteHeader } from '@/components/site-header';
 import { SITE_URL } from '@/lib/site';
@@ -87,6 +88,10 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
           {children}
         </main>
         <SiteFooter />
+        {/* Adds copy buttons to code blocks in rendered prose. Mounted once
+            here because prose appears under /docs, /modules and /blog alike,
+            and it re-runs itself on navigation. */}
+        <CodeCopy />
       </body>
     </html>
   );

@@ -26,7 +26,7 @@ import type { ApiPlatform } from '@/lib/registry';
  */
 type Addressing = {
   link: ApiLinker;
-  anchor: (member: string) => string;
+  anchor: (member: ResolvedMember) => string;
 };
 
 /**
@@ -96,7 +96,7 @@ function Member({
   typePlatforms: readonly ApiPlatform[];
   level: Level;
 }) {
-  const id = anchor(member.name);
+  const id = anchor(member);
   const since = formatSince(member.since);
   const osver = formatOsver(member.osver);
   const declaredAt = member.inheritedFrom && link(member.inheritedFrom, member.name);
@@ -106,7 +106,11 @@ function Member({
   return (
     <article id={id} className="scroll-mt-24 py-6">
       <div className="flex flex-wrap items-baseline gap-x-3 gap-y-2">
-        <Heading className="font-mono text-base font-semibold break-words">
+        {/* `min-w-0` is what lets `break-words` do anything: a flex item
+            defaults to `min-width: auto`, so the longest member names —
+            activitySharedElementReenterTransition and friends — held the row
+            open at 324px inside a 288px column and scrolled the page. */}
+        <Heading className="min-w-0 font-mono text-base font-semibold break-words">
           <a href={`#${id}`} className="hover:text-link">
             {member.name}
           </a>
@@ -304,7 +308,7 @@ function Parameters({ rows, link, caption }: { rows: Row[]; link: ApiLinker; cap
                     <dl className="mt-2 space-y-2 border-l border-border pl-3">
                       {p.inlined.properties.map((f) => (
                         <div key={f.name}>
-                          <dt className="font-mono text-xs">
+                          <dt className="font-mono text-xs break-words">
                             {f.name}
                             {f.optional && <span className="text-text-subtle">?</span>}{' '}
                             <span className="text-text-muted">

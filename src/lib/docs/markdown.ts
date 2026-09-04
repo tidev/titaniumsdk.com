@@ -1,4 +1,6 @@
 import { assetUrl } from './assets.ts';
+import { renderCallouts } from './callouts.ts';
+import { highlightCodeBlocks } from './highlight.ts';
 import { apiTarget, pathLinker, type ApiLinker } from './links.ts';
 import MarkdownIt from 'markdown-it';
 import sanitizeHtml from 'sanitize-html';
@@ -94,7 +96,7 @@ export function renderMarkdown(source: string | undefined, options: RenderOption
 
   const html = md.render(source);
 
-  return sanitizeHtml(html, {
+  const clean = sanitizeHtml(html, {
     ...SANITIZE,
     transformTags: {
       img: (tagName, attribs) => {
@@ -160,6 +162,11 @@ export function renderMarkdown(source: string | undefined, options: RenderOption
       },
     },
   });
+
+  // Both run after the allowlist, never before — see highlight.ts. Letting
+  // either write markup the sanitizer then has to permit would extend that
+  // permission to whoever wrote the module README this also renders.
+  return renderCallouts(highlightCodeBlocks(clean));
 }
 
 /** Single-paragraph render for summaries, which should not become block elements. */

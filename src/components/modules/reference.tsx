@@ -3,9 +3,9 @@ import { MemberSection } from '@/components/docs/member-section';
 import { Prose } from '@/components/docs/prose';
 import type { TocGroup } from '@/components/docs/toc';
 import { formatSince } from '@/lib/docs/format';
-import { memberAnchor, type ApiLinker } from '@/lib/docs/links';
+import { anchorAllocator, type ApiLinker } from '@/lib/docs/links';
 import type { ModuleReference } from '@/lib/docs/module-view';
-import type { TypeView } from '@/lib/docs/type-view';
+import type { ResolvedMember, TypeView } from '@/lib/docs/type-view';
 
 /**
  * A module's whole namespace on one page.
@@ -17,9 +17,38 @@ import type { TypeView } from '@/lib/docs/type-view';
  * module is also small enough for it: the largest is 284 members, roughly one
  * mid-sized SDK type.
  *
- * That is also why members are addressed by `memberAnchor`: `Modules.Map`'s
+ * That is also why member anchors are qualified by their type: `Modules.Map`'s
  * `NORMAL_TYPE` and `Modules.Map.View`'s `mapType` share a document here.
  */
+
+/**
+ * One type's member anchors, qualified by the type and disambiguated across its
+ * groups.
+ *
+ * Memoised on the view because the rail and the sections are built by separate
+ * calls and have to agree. Allocation is deterministic given the same view, so
+ * the cache is belt-and-braces rather than load-bearing.
+ *
+ * The qualification is what `memberAnchor` used to do: `Modules.Map`'s
+ * `NORMAL_TYPE` and `Modules.Map.View`'s `mapType` share a document, so a bare
+ * member name is not unique here. The group suffix is the other half —
+ * ti.map's `View` has both a `userLocation` property and a `userLocation`
+ * event, which collided even once qualified.
+ */
+const anchorsFor = new WeakMap<TypeView, (member: ResolvedMember) => string>();
+
+function typeAnchors(view: TypeView): (member: ResolvedMember) => string {
+  let fn = anchorsFor.get(view);
+  if (!fn) {
+    fn = anchorAllocator(
+      [view.properties, view.methods, view.events],
+      ['property', 'method', 'event'],
+      `${view.type.name}.`
+    );
+    anchorsFor.set(view, fn);
+  }
+  return fn;
+}
 
 /** The rail's groups: one per type, since a type is what a reader jumps to. */
 export function referenceToc(reference: ModuleReference): TocGroup[] {
@@ -27,7 +56,7 @@ export function referenceToc(reference: ModuleReference): TocGroup[] {
     id: view.type.name,
     title: view.type.name,
     members: [...view.properties, ...view.methods, ...view.events],
-    anchor: (member: string) => memberAnchor(view.type.name, member),
+    anchor: typeAnchors(view),
   }));
 }
 
@@ -43,7 +72,7 @@ export function TypeSection({
 }) {
   const api = view.type;
   const since = formatSince(api.since);
-  const anchor = (member: string) => memberAnchor(api.name, member);
+  const anchor = typeAnchors(view);
   const relative = imageBase ? { images: imageBase } : undefined;
 
   return (
