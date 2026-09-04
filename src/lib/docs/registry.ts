@@ -62,7 +62,7 @@ export const hasApiIndex = (dir: string): boolean => existsSync(join(dir, CONTEN
 
 export function apiIndexAt(dir: string): ApiIndex | null {
   const contents = contentsOf(dir);
-  const path = contents && poolPath(dir, contents, contents.index);
+  const path = contents && poolPath(dir, contents.index);
   return path ? readJson(path, (v) => ApiIndexSchema.parse(v)) : null;
 }
 
@@ -74,7 +74,7 @@ export function apiTypeAt(dir: string, name: string): ApiType | null {
   // filename it maps to.
   const contents = contentsOf(dir);
   const entry = contents?.types[name];
-  const path = entry ? poolPath(dir, contents!, entry) : null;
+  const path = entry ? poolPath(dir, entry) : null;
   return path ? readJson(path, (v) => ApiTypeSchema.parse(v)) : null;
 }
 

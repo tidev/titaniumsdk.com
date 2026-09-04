@@ -153,7 +153,7 @@ for (const dir of versionDirs(root)) {
     [contents.index, ApiIndexSchema] as const,
     ...Object.values(contents.types).map((e) => [e, ApiTypeSchema] as const),
   ]) {
-    const path = poolPath(dir, contents, entry);
+    const path = poolPath(dir, entry);
     if (!path || seen.has(path)) continue;
     seen.add(path);
     check(path, `${relative(root, dir)} -> ${entry}`, schema);

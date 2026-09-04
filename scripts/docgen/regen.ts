@@ -24,7 +24,7 @@ import { moduleIdFrom, resolveSource, sdkSource, type Source } from './sources.t
  */
 import { execFileSync } from 'node:child_process';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
-import { join, relative, resolve, sep } from 'node:path';
+import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 /** The only tree that may be rewritten. Everything else is a published release. */
@@ -246,7 +246,6 @@ try {
   // must not exist until everything it names is in the pool.
   const contents: Contents = {
     schemaVersion: POOL_SCHEMA_VERSION,
-    pool: relative(outDir, poolDir).split(sep).join('/'),
     index: result.contents?.index ?? '',
     types: result.contents?.types ?? {},
     images: assets.images,
@@ -274,7 +273,14 @@ try {
     const { appendFileSync } = await import('node:fs');
     appendFileSync(
       process.env.GITHUB_OUTPUT,
-      `changed=${changed > 0}\npath=${outRel}\nsummary=${repo}@${version}: ` +
+      // Both paths, and the pool is not optional: since TI-25 a version
+      // directory holds a manifest naming blobs that live in the shared pool
+      // beside it, so committing only `outRel` publishes references to files
+      // that were never committed. That is exactly what happened to
+      // ti.map@main — the manifest landed, its four new blobs did not, and
+      // the workflow's own validation could not see it because it runs before
+      // the commit, while the blobs are still in the runner's tree.
+      `changed=${changed > 0}\npaths=${outRel} ${join(registryRoot, POOL_DIR)}\nsummary=${repo}@${version}: ` +
         `${result.written.length} written, ${result.unchanged.length} unchanged, ` +
         `${result.removed.length} removed\n`
     );

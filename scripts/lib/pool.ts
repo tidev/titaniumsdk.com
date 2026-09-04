@@ -13,7 +13,12 @@ import { join } from 'node:path';
  * a manifest readable by eye.
  */
 
-export const POOL_DIR = '_pool';
+/**
+ * Re-exported rather than restated: the readers find the pool by looking for
+ * this name, so a second copy of the string is a way for the two halves to
+ * disagree about where the store is.
+ */
+export { POOL as POOL_DIR } from '../../src/lib/docs/pool.ts';
 export const POOL_SCHEMA_VERSION = 1;
 
 export const digestOf = (bytes: Buffer | string): string =>

@@ -114,7 +114,11 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: 'Regen API docs for ${{ env.SOURCE_REPO }}@${{ env.TARGET_VERSION }}'
-          file_pattern: ${{ steps.regen.outputs.path }}
+          # Two paths: the version directory and the shared pool beside it.
+          # The manifest in the first names blobs that live in the second, so
+          # committing only the version directory publishes dangling
+          # references — see the note in regen.ts.
+          file_pattern: ${{ steps.regen.outputs.paths }}
 
       - name: Report no-op
         if: steps.regen.outputs.changed != 'true'
