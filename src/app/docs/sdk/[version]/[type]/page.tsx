@@ -147,12 +147,14 @@ export default async function TypePage({ params }: PageProps<'/docs/sdk/[version
               unreleased
             </span>
           )}
-          {/* `ml-auto` so it sits at the far end of the crumb row rather than
-              crowding the trail, and wraps below it on a phone. */}
+          {/* Below `xl` there is no rail, so this is the far end of the row
+              and lines up with the switcher on the version index. At `xl` the
+              rail appears and the article's right edge moves ~192px inward, so
+              the copy in the rail column takes over — see below. */}
           <VersionSwitcher
             current={resolved}
             options={versionOptions(api.name)}
-            className="ml-auto"
+            className="ml-auto xl:hidden"
           />
         </div>
         {newer && <OlderVersionNotice current={resolved} newer={newer} type={api.name} />}
@@ -273,11 +275,18 @@ export default async function TypePage({ params }: PageProps<'/docs/sdk/[version
         </footer>
       </article>
 
-      <OnThisPage
-        links={api.examples?.length ? [{ id: 'examples', title: 'Examples' }] : []}
-        groups={groups}
-        className="hidden py-10 xl:col-start-2 xl:row-start-1 xl:block"
-      />
+      {/* The rail column. The switcher sits at its head so that at `xl` it
+          lands at the same right edge as the one on the version index, which
+          has no rail and puts it at the end of its own heading row. Only one of
+          the two copies is ever displayed, so nothing is announced twice. */}
+      <div className="hidden py-10 xl:col-start-2 xl:row-start-1 xl:block">
+        <VersionSwitcher current={resolved} options={versionOptions(api.name)} />
+        <OnThisPage
+          links={api.examples?.length ? [{ id: 'examples', title: 'Examples' }] : []}
+          groups={groups}
+          className="mt-6"
+        />
+      </div>
     </div>
   );
 }
