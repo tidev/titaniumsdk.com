@@ -1,5 +1,5 @@
 import { existsSync, readFileSync } from 'node:fs';
-import { join } from 'node:path';
+import { dirname, join } from 'node:path';
 import { z } from 'zod';
 
 /**
@@ -23,11 +23,11 @@ import { z } from 'zod';
  *   registry/sdk/_pool/<sha16>.json      one file per distinct document
  *   registry/sdk/13.4.1/contents.json    names the ones this version uses
  *
- * A version directory is therefore a manifest rather than a tree, and stays
- * self-describing: `contents.json` says where its pool is, so nothing has to
- * guess how deeply the directory is nested. `registry/sdk/<version>/` and
+ * A version directory is therefore a manifest rather than a tree. It names its
+ * blobs and nothing else — where the pool sits is found by looking upward for
+ * `_pool`, since `registry/sdk/<version>/` and
  * `registry/modules/<id>/<version>/` sit at different depths and share these
- * readers.
+ * readers. See `poolRoot`.
  *
  * Immutability survives the change, and arguably improves: a published version's
  * manifest is written once and frozen, and a pooled blob cannot change at all
@@ -36,6 +36,9 @@ import { z } from 'zod';
  */
 
 export const CONTENTS = 'contents.json';
+
+/** The shared store's directory name, at or above every version directory. */
+export const POOL = '_pool';
 
 /**
  * A pooled filename: the content hash and an extension, nothing else.
@@ -48,13 +51,6 @@ const Entry = z.string().regex(/^[0-9a-f]{8,64}\.[a-z0-9]+$/);
 
 export const ContentsSchema = z.strictObject({
   schemaVersion: z.number().int().positive(),
-  /**
-   * Where the pool sits, relative to the version directory.
-   *
-   * `../_pool` for a version in the registry, plain `_pool` for the developer
-   * CLI, which compiles into a scratch directory that owns its own.
-   */
-  pool: z.string().regex(/^(\.\.\/)*_pool$/),
   /** Pooled filename of this version's `index.json`. */
   index: Entry,
   /** Type name -> pooled filename. */
@@ -76,16 +72,52 @@ export function contentsOf(dir: string): Contents | null {
   return value;
 }
 
+/** How far above a version directory the pool is allowed to be. */
+const SEARCH_DEPTH = 3;
+
+const poolRoots = new Map<string, string | null>();
+
+/**
+ * The pool a version directory draws from: the nearest `_pool` at or above it.
+ *
+ * The manifest used to carry this as a relative path, which was a fact about
+ * where the file sits rather than about what it holds, and it could be wrong.
+ * Looking cannot be: `registry/sdk/<version>` finds `registry/sdk/_pool` one
+ * level up, `registry/modules/<id>/<version>` finds `registry/modules/_pool`
+ * two up, and the developer CLI's scratch directory owns its pool outright.
+ * Three probes covers all three, and the answer is cached per directory.
+ */
+export function poolRoot(dir: string): string | null {
+  const cached = poolRoots.get(dir);
+  if (cached !== undefined) return cached;
+
+  let at = dir;
+  for (let up = 0; up <= SEARCH_DEPTH; up++) {
+    const candidate = join(at, POOL);
+    if (existsSync(candidate)) {
+      poolRoots.set(dir, candidate);
+      return candidate;
+    }
+    const parent = dirname(at);
+    if (parent === at) break;
+    at = parent;
+  }
+  poolRoots.set(dir, null);
+  return null;
+}
+
 /**
  * Absolute path of one pooled file.
  *
  * `entry` comes from a manifest this build wrote, never from a URL, but it is
- * still checked: a manifest is a file on disk and a path that escapes the pool
- * would read anything the process can. Names are `<hex>.<ext>` and nothing else.
+ * still checked: a manifest is a file on disk and a name that escaped the pool
+ * would read anything the process can. Names are `<hex>.<ext>` and nothing
+ * else, so the result cannot leave the directory `poolRoot` found.
  */
-export function poolPath(dir: string, contents: Contents, entry: string): string | null {
+export function poolPath(dir: string, entry: string): string | null {
   if (!/^[0-9a-f]{8,64}\.[a-z0-9]+$/.test(entry)) return null;
-  return join(dir, contents.pool, entry);
+  const root = poolRoot(dir);
+  return root && join(root, entry);
 }
 
 /**
@@ -98,5 +130,5 @@ export function poolPath(dir: string, contents: Contents, entry: string): string
  */
 export function indexPath(dir: string): string | null {
   const contents = contentsOf(dir);
-  return contents ? poolPath(dir, contents, contents.index) : null;
+  return contents ? poolPath(dir, contents.index) : null;
 }

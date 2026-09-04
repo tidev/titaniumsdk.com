@@ -1,4 +1,4 @@
-import { CONTENTS, type Contents } from '../src/lib/docs/pool.ts';
+import { CONTENTS, type Contents, poolPath } from '../src/lib/docs/pool.ts';
 import { POOL_DIR } from './lib/pool.ts';
 import {
   copyFileSync,
@@ -95,7 +95,8 @@ for (const source of SOURCES) {
         continue;
       }
       wanted.add(to);
-      const from = join(dir, contents.pool, entry);
+      const from = poolPath(dir, entry);
+      if (!from) continue;
       if (existsSync(to) && statSync(to).size === statSync(from).size) {
         reused++;
         continue;

@@ -124,8 +124,6 @@ for (const rel of ROOTS) {
 
     const contents: Contents = {
       schemaVersion: POOL_SCHEMA_VERSION,
-      // `registry/sdk/13.4.1` -> `../_pool`; a module sits one deeper.
-      pool: `${'../'.repeat(relative(base, dir).split(sep).length)}${POOL_DIR}`,
       index,
       types: Object.fromEntries(Object.entries(types).sort(([a], [b]) => a.localeCompare(b))),
       images: Object.fromEntries(Object.entries(images).sort(([a], [b]) => a.localeCompare(b))),

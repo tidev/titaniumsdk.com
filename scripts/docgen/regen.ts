@@ -24,7 +24,7 @@ import { moduleIdFrom, resolveSource, sdkSource, type Source } from './sources.t
  */
 import { execFileSync } from 'node:child_process';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
-import { join, relative, resolve, sep } from 'node:path';
+import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 /** The only tree that may be rewritten. Everything else is a published release. */
@@ -246,7 +246,6 @@ try {
   // must not exist until everything it names is in the pool.
   const contents: Contents = {
     schemaVersion: POOL_SCHEMA_VERSION,
-    pool: relative(outDir, poolDir).split(sep).join('/'),
     index: result.contents?.index ?? '',
     types: result.contents?.types ?? {},
     images: assets.images,

@@ -90,7 +90,6 @@ try {
     const dir = outDir ?? resolve(source);
     const contents: Contents = {
       schemaVersion: POOL_SCHEMA_VERSION,
-      pool: POOL_DIR,
       index: result.contents.index,
       types: result.contents.types,
       images: {},
