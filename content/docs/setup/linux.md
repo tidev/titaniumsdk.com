@@ -61,7 +61,7 @@ expected it to work, use `ANDROID_SDK_ROOT` instead.
 
 ### `sdkmanager` fails with a Java error
 
-Check `java -version` reports 17 or newer, then check the tools are at
+Check `java -version` reports 17, 21 or 25, then check the tools are at
 `<sdk>/cmdline-tools/latest/bin/sdkmanager`. Unzipping straight into the SDK
 root leaves them at `<sdk>/cmdline-tools/bin`, and the error does not mention
 the layout.

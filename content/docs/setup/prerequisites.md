@@ -37,9 +37,10 @@ node -v
 
 ## JDK
 
-Android builds need a **JDK 17 or newer**. Any distribution works —
-[Temurin](https://adoptium.net/), Microsoft's OpenJDK, or the one Android Studio
-installs.
+Titanium requires **JDK 17, 21, or 25**. JDK 26 needs Titanium SDK 14 or newer.
+
+Any distribution works — [Temurin](https://adoptium.net/), Microsoft's OpenJDK,
+or the one Android Studio installs.
 
 ```sh
 java -version
