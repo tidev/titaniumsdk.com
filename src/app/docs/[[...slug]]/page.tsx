@@ -70,6 +70,9 @@ export async function generateMetadata({
     title: `${title} — Titanium SDK`,
     description,
     alternates: { canonical: `${SITE_URL}${path}` },
+    // A draft renders so it can be reviewed at its URL, but it is not finished
+    // prose and should not be what a search brings someone to.
+    ...(page?.draft ? { robots: { index: false, follow: false } } : {}),
   };
 }
 
@@ -235,6 +238,13 @@ export default async function DocsPage({ params }: PageProps<'/docs/[[...slug]]'
             {/* The version the page's content assumes, so a reader on an older
                 SDK knows before following the steps rather than after. */}
             {!!page.since && <span>Written for Titanium SDK {page.since} and later</span>}
+          </p>
+        )}
+
+        {!!page?.draft && (
+          <p className="mt-4 rounded-lg border border-dashed border-border px-3 py-2 text-sm text-text-muted">
+            This is a draft. It is not linked from the sidebar, and search engines are asked to skip
+            it.
           </p>
         )}
 

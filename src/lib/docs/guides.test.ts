@@ -1,4 +1,4 @@
-import { contentFiles, guide, internalLinks, validateGuides } from './guides.ts';
+import { contentFiles, guide, internalLinks, validateGuides, writtenPaths } from './guides.ts';
 import assert from 'node:assert/strict';
 import { join } from 'node:path';
 import { describe, test } from 'node:test';
@@ -112,7 +112,29 @@ describe('guide', () => {
 describe('contentFiles', () => {
   test('lists pages and skips partials', () => {
     const found = contentFiles(FIXTURES).map((s) => s.join('/'));
-    assert.deepEqual(found.sort(), ['setup/macos', 'setup/windows']);
+    assert.deepEqual(found.sort(), ['setup/editors', 'setup/macos', 'setup/windows']);
+  });
+
+  test('includes drafts, which still have to be valid', () => {
+    // Validation covers every file on disk. A draft with broken frontmatter or
+    // a dead link should fail the build now, not on the day it is published.
+    assert.ok(contentFiles(FIXTURES).some((s) => s.join('/') === 'setup/editors'));
+  });
+});
+
+describe('drafts', () => {
+  test('render at their own URL', () => {
+    const page = guide(['setup', 'editors'], FIXTURES)!;
+    assert.equal(page.draft, true);
+    assert.match(text(page.html), /VS Code extension/);
+  });
+
+  test('are not linked from the sidebar', () => {
+    // The whole point: reviewable by anyone with the URL, invisible to a reader
+    // browsing the tree. Without this the nav would link half-written prose.
+    const written = writtenPaths(FIXTURES);
+    assert.ok(written.has('/docs/setup/macos'));
+    assert.ok(!written.has('/docs/setup/editors'), 'a draft was linked');
   });
 });
 

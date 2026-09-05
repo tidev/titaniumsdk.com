@@ -74,7 +74,11 @@ const FrontmatterSchema = z
      * unversioned by URL (TI-59) and says so inline where it matters.
      */
     since: z.string().optional(),
-    /** Kept out of the sidebar and the sitemap; still reachable by URL. */
+    /**
+     * Work in progress. The page still renders at its URL — that is what makes
+     * it reviewable — but it is not linked from the sidebar or a section index,
+     * it says so at the top, and it asks search engines not to index it.
+     */
     draft: z.boolean().default(false),
   })
   // Unknown keys are a typo, not an extension point. A misspelled `platform`
@@ -235,10 +239,25 @@ export function contentFiles(root = CONTENT): string[][] {
  * The nav shows the whole approved structure including pages nobody has written
  * yet, so it needs to know which of them to render as links. Derived from the
  * filesystem rather than from the IA, because that is exactly the difference it
- * is being asked about.
+ * is being asked about — and then filtered by frontmatter, because a draft is a
+ * file that exists and a page that is not ready to be sent anyone.
  */
 export function writtenPaths(root = CONTENT): Set<string> {
-  return new Set(contentFiles(root).map((segments) => ['/docs', ...segments].join('/')));
+  const out = new Set<string>();
+  for (const segments of contentFiles(root)) {
+    let page: Guide | undefined;
+    try {
+      page = guide(segments, root);
+    } catch {
+      // A page that does not parse is reported by `validateGuides`, which fails
+      // the build. Treating it as unwritten here keeps the nav renderable in
+      // `next dev` while someone is midway through fixing it.
+      continue;
+    }
+    // A draft is deliberately not linked. It renders for whoever has the URL.
+    if (page && !page.draft) out.add(page.path);
+  }
+  return out;
 }
 
 export type Problem = { where: string; message: string };
