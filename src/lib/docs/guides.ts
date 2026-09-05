@@ -184,6 +184,18 @@ function parse(root: string, segments: string[], file: string, text: string): Gu
 const cache = new Map<string, Guide | null>();
 
 /**
+ * Caching is a production-only optimisation.
+ *
+ * A build renders every guide once and `writtenPaths` parses all of them again
+ * for the sidebar, so the cache earns its place there. In `next dev` it is
+ * actively wrong: markdown under `content/` is not in the module graph, so
+ * editing a page does not invalidate this module, and a cached guide would be
+ * served until the server was restarted. Anyone writing a page would be editing
+ * a file the site refused to re-read.
+ */
+const CACHEABLE = process.env.NODE_ENV === 'production';
+
+/**
  * One guide, or undefined when nothing is written yet.
  *
  * A missing page is not an error: the structure is defined up front in `ia.ts`
@@ -194,7 +206,7 @@ const cache = new Map<string, Guide | null>();
 export function guide(segments: string[], root = CONTENT): Guide | undefined {
   // Only the real tree is cached. A fixture root is a test, and caching those
   // would leak one test's content into the next.
-  const live = root === CONTENT;
+  const live = CACHEABLE && root === CONTENT;
   const key = segments.join('/');
   if (live) {
     const hit = cache.get(key);
