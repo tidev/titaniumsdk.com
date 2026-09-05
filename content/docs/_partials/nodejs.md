@@ -104,7 +104,8 @@ node -v
 ```
 
 > [!IMPORTANT]
-> **Node 26 needs Titanium SDK 14 or newer.** Node 24 works with every SDK.
+> **Node 26 is only compatible with Titanium SDK 14 or newer.** Node 24
+> works with every SDK.
 
 :::only macos
 

@@ -1,6 +1,7 @@
 ## Install a JDK
 
-Titanium requires **JDK 17, 21, or 25**. JDK 26 needs Titanium SDK 14 or newer.
+Titanium requires **JDK 17, 21, or 25**. JDK 26 is only compatible with
+Titanium SDK 14 or newer.
 Any distribution works. The commands below install
 [Temurin](https://adoptium.net/) or your distribution's OpenJDK.
 
