@@ -74,25 +74,69 @@ leave it unset.
 
 :::only macos
 
+:::code-group
+
+@tab zsh
+
 ```sh
 echo 'export JAVA_HOME=$(/usr/libexec/java_home -v 21)' >> ~/.zshrc
 source ~/.zshrc
 $JAVA_HOME/bin/javac -version
 ```
 
-The single quotes keep that unresolved: `/usr/libexec/java_home` ships with
-macOS and reports where the JDK is now, so an update cannot strand the path.
-Change `-v 21` if you installed 17 or 25.
+@tab bash
+
+```sh
+echo 'export JAVA_HOME=$(/usr/libexec/java_home -v 21)' >> ~/.bash_profile
+source ~/.bash_profile
+$JAVA_HOME/bin/javac -version
+```
+
+@tab fish
+
+```fish
+echo 'set -gx JAVA_HOME (/usr/libexec/java_home -v 21)' >> ~/.config/fish/config.fish
+source ~/.config/fish/config.fish
+$JAVA_HOME/bin/javac -version
+```
+
+:::
+
+The value stays unresolved on purpose: `/usr/libexec/java_home` reports where
+the JDK is now, so an update cannot strand the path. Change `-v 21` if you
+installed 17 or 25.
 
 :::
 
 :::only linux
+
+:::code-group
+
+@tab bash
 
 ```sh
 JAVA_HOME=$(dirname "$(dirname "$(readlink -f "$(command -v javac)")")")
 echo "export JAVA_HOME=$JAVA_HOME" >> ~/.bashrc
 $JAVA_HOME/bin/javac -version
 ```
+
+@tab zsh
+
+```sh
+JAVA_HOME=$(dirname "$(dirname "$(readlink -f "$(command -v javac)")")")
+echo "export JAVA_HOME=$JAVA_HOME" >> ~/.zshrc
+$JAVA_HOME/bin/javac -version
+```
+
+@tab fish
+
+```fish
+set -gx JAVA_HOME (dirname (dirname (readlink -f (command -v javac))))
+echo "set -gx JAVA_HOME $JAVA_HOME" >> ~/.config/fish/config.fish
+$JAVA_HOME/bin/javac -version
+```
+
+:::
 
 The path differs by distribution — `/usr/lib/jvm/java-21-openjdk-amd64` on
 Debian and Ubuntu, `/usr/lib/jvm/java-21-openjdk` on Fedora — so this reads it
