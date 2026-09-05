@@ -1,0 +1,52 @@
+name: 'Refresh Doc Pins'
+
+# The setup guides tell a reader to curl an install script at a pinned tag.
+# Baking the version into the content is what lets `next build` stay offline
+# (TI-25); this is what stops the baked value going stale.
+#
+# Deliberately not a CI step: an nvm release must not fail an unrelated pull
+# request. It lands as its own commit instead.
+on:
+  schedule:
+    # Weekly, off the hour — GitHub drops scheduled runs that pile onto one
+    # minute, and every cron in the world is written for :00.
+    - cron: '37 6 * * 1'
+  workflow_dispatch:
+
+concurrency:
+  group: refresh-doc-pins
+  cancel-in-progress: true
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+      - name: Setup node
+        uses: actions/setup-node@v7
+        with:
+          node-version: 26
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Refresh the pinned versions
+        run: node scripts/refresh-doc-pins.ts
+        env:
+          # Runner IPs share the anonymous API quota.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # Cheap insurance that the rewrite left the guides intact.
+      - name: Check the guides
+        run: pnpm check:docs
+
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v7
+        with:
+          commit_message: 'Refresh the versions pinned in the setup guides'
