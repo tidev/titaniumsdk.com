@@ -5,16 +5,6 @@ platforms: [linux, android]
 since: 13.4.0
 ---
 
-Linux builds for Android.
-
-:::unavailable ios
-
-Building for iOS needs Xcode, and Apple ships Xcode only for macOS — not in a
-container, not in a virtual machine. If you need iOS, you need a Mac for that
-half of the work.
-
-:::
-
 :::include nodejs
 
 :::include jdk

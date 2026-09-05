@@ -5,8 +5,6 @@ platforms: [macos, ios, android]
 since: 13.4.0
 ---
 
-macOS is the only platform that builds for both iOS and Android.
-
 :::include nodejs
 
 :::include jdk

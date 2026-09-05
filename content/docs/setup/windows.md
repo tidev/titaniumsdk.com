@@ -5,8 +5,6 @@ platforms: [windows, android]
 since: 13.4.0
 ---
 
-Windows builds for Android.
-
 :::unavailable ios
 
 Building for iOS needs Xcode, and Apple ships Xcode only for macOS. If you need
