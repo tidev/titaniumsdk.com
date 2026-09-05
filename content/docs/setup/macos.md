@@ -5,13 +5,11 @@ platforms: [macos, ios, android]
 since: 13.4.0
 ---
 
-macOS is the only platform that builds for both iOS and Android. This assumes
-you have installed [Node.js and a JDK](/docs/setup/prerequisites).
+macOS is the only platform that builds for both iOS and Android.
 
-> [!IMPORTANT]
-> Check your Node version first. On SDK 13.4 and earlier, Node 26 makes every
-> CLI command exit with an unhandled error. Node 24 works with every SDK —
-> [why](/docs/setup/prerequisites).
+:::include nodejs
+
+:::include jdk
 
 :::include install-cli
 
@@ -89,7 +87,7 @@ Developer options and accept the prompt on the device.
 ### Every command exits with "Rebuild failed"
 
 You are on Node 26 with SDK 13.4 or earlier. Switch to Node 24, or to SDK 14 —
-[detail here](/docs/setup/prerequisites).
+[detail here](#install-node-js).
 
 ### `ti info` reports no iOS certificates
 

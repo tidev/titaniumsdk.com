@@ -5,8 +5,7 @@ platforms: [linux, android]
 since: 13.4.0
 ---
 
-Linux builds for Android. This assumes you have installed
-[Node.js and a JDK](/docs/setup/prerequisites).
+Linux builds for Android.
 
 :::unavailable ios
 
@@ -15,6 +14,10 @@ container, not in a virtual machine. If you need iOS, you need a Mac for that
 half of the work.
 
 :::
+
+:::include nodejs
+
+:::include jdk
 
 :::include install-cli
 
@@ -61,7 +64,7 @@ expected it to work, use `ANDROID_SDK_ROOT` instead.
 
 ### `sdkmanager` fails with a Java error
 
-Check `java -version` reports 17, 21 or 25, then check the tools are at
+Check `javac -version` reports 17, 21 or 25, then check the tools are at
 `<sdk>/cmdline-tools/latest/bin/sdkmanager`. Unzipping straight into the SDK
 root leaves them at `<sdk>/cmdline-tools/bin`, and the error does not mention
 the layout.

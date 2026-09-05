@@ -5,8 +5,7 @@ platforms: [windows, android]
 since: 13.4.0
 ---
 
-Windows builds for Android. This assumes you have installed
-[Node.js and a JDK](/docs/setup/prerequisites).
+Windows builds for Android.
 
 :::unavailable ios
 
@@ -16,6 +15,10 @@ iOS, you need a Mac for that half of the work.
 :::
 
 Run the commands below in PowerShell.
+
+:::include nodejs
+
+:::include jdk
 
 :::include install-cli
 

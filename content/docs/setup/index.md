@@ -11,10 +11,8 @@ Budget an hour on a clean machine. Most of it is downloads.
 
 ## Start here
 
-[Prerequisites](/docs/setup/prerequisites) covers Node.js and the JDK. Read it
-first — the Node version you pick matters.
-
-Then follow the page for your operating system:
+Follow the page for your operating system. Each one covers that machine end to
+end: Node.js, a JDK, the Titanium CLI and SDK, and the native tooling.
 
 - [Linux](/docs/setup/linux) — Android only
 - [macOS](/docs/setup/macos) — Android and iOS

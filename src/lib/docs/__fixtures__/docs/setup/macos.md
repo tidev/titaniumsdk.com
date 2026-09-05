@@ -5,7 +5,7 @@ platforms: [macos, ios, android]
 since: 12.1.0
 ---
 
-Before you start, see [Prerequisites](/docs/setup/prerequisites).
+Before you start, see [Environment Setup](/docs/setup).
 
 :::include install-cli
 

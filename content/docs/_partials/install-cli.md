@@ -1,20 +1,25 @@
 ## Install the Titanium CLI
 
-:::only macos, linux
+:::code-group
+
+@tab npm
 
 ```sh
-sudo npm install -g titanium
+npm install -g titanium
 ```
 
-Drop the `sudo` if you installed Node with a version manager.
+@tab pnpm
+
+```sh
+pnpm add -g titanium
+```
 
 :::
 
-:::only windows
+:::only macos, linux
 
-```powershell
-npm install -g titanium
-```
+Prefix that with `sudo` if you installed Node with apt or the installer — their
+global directory is owned by root.
 
 :::
 
