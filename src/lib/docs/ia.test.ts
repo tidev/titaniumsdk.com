@@ -2,6 +2,7 @@ import {
   CONTAINER_INDEXES,
   isValidSlug,
   MAX_DEPTH,
+  platformLabel,
   RESERVED_ROOTS,
   reservedSegments,
   SECTIONS,
@@ -89,6 +90,40 @@ describe('sections', () => {
       SECTIONS.map((s) => s.slug),
       ['setup', 'build', 'alloy', 'distribute', 'reference', 'extend']
     );
+  });
+});
+
+describe('platform names', () => {
+  test('are spelled the way the vendor spells them', () => {
+    // The ids are keys, not prose. Rendered raw they read "ios" and "macos".
+    assert.equal(platformLabel('ios'), 'iOS');
+    assert.equal(platformLabel('macos'), 'macOS');
+    assert.equal(platformLabel('android'), 'Android');
+    assert.equal(platformLabel('windows'), 'Windows');
+    assert.equal(platformLabel('linux'), 'Linux');
+  });
+
+  test('cover every id the structure actually uses', () => {
+    // A missing label falls back to the raw id rather than throwing, so without
+    // this the first page to use a new platform would quietly print the key.
+    for (const section of SECTIONS) {
+      for (const page of section.pages) {
+        for (const id of page.platforms ?? []) {
+          assert.notEqual(platformLabel(id), id, `${id} has no display name`);
+        }
+      }
+    }
+  });
+});
+
+describe('Environment Setup', () => {
+  test('lists the operating systems alphabetically', () => {
+    // They are peers. Any other order reads as a recommendation, and the one
+    // that would lead — macOS — is only required for building iOS.
+    const os = SECTIONS.find((s) => s.slug === 'setup')!
+      .pages.filter((p) => ['linux', 'macos', 'windows'].includes(p.slug))
+      .map((p) => p.slug);
+    assert.deepEqual(os, ['linux', 'macos', 'windows']);
   });
 });
 

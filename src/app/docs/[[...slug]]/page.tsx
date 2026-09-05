@@ -3,7 +3,14 @@ import { GuideNav } from '@/components/docs/guide-nav';
 import { GuideToc } from '@/components/docs/guide-toc';
 import { formatDate } from '@/lib/docs/format';
 import { guide, writtenPaths, type Guide } from '@/lib/docs/guides';
-import { allPaths, findPage, SECTIONS, type DocPage, type DocSection } from '@/lib/docs/ia';
+import {
+  allPaths,
+  findPage,
+  platformLabel,
+  SECTIONS,
+  type DocPage,
+  type DocSection,
+} from '@/lib/docs/ia';
 import { lastUpdated } from '@/lib/docs/last-updated';
 import { SITE_URL } from '@/lib/site';
 import type { Metadata } from 'next';
@@ -221,7 +228,9 @@ export default async function DocsPage({ params }: PageProps<'/docs/[[...slug]]'
         {!!description && <p className="mt-2 text-lg text-text-muted">{description}</p>}
 
         {!!page?.platforms?.length && (
-          <p className="mt-3 text-sm text-text-subtle">Applies to {page.platforms.join(', ')}</p>
+          <p className="mt-3 text-sm text-text-subtle">
+            Applies to {page.platforms.map(platformLabel).join(', ')}
+          </p>
         )}
 
         {page ? (
