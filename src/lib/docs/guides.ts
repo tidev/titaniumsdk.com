@@ -1,5 +1,14 @@
+import { BlockError, renderBlocks, unresolvedMarkers } from './blocks.ts';
 import { withHeadingAnchors, type Heading } from './headings.ts';
-import { findPage, MAX_DEPTH, reservedSegments, SECTIONS, isValidSlug } from './ia.ts';
+import {
+  findPage,
+  isValidSlug,
+  MAX_DEPTH,
+  PLATFORM_IDS,
+  reservedSegments,
+  SECTIONS,
+  type PlatformId,
+} from './ia.ts';
 import { renderMarkdown } from './markdown.ts';
 import { DirectiveError, expandDirectives, referencedPartials } from './partials.ts';
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
@@ -51,8 +60,6 @@ const CONTENT = join(process.cwd(), 'content/docs');
 /** Overridable so tests can run the real pipeline over a fixture tree. */
 const partialsIn = (root: string) => join(root, '_partials');
 
-const PLATFORMS = ['macos', 'windows', 'linux', 'ios', 'android'] as const;
-
 const FrontmatterSchema = z
   .object({
     title: z.string().min(1),
@@ -61,7 +68,7 @@ const FrontmatterSchema = z
      * What this page applies to. Drives `:::only` blocks and the platform
      * badge. Absent means universal, which is the common case.
      */
-    platforms: z.array(z.enum(PLATFORMS)).optional(),
+    platforms: z.array(z.enum(PLATFORM_IDS as [PlatformId, ...PlatformId[]])).optional(),
     /**
      * The SDK version a page's content assumes, shown as a notice. Prose is
      * unversioned by URL (TI-59) and says so inline where it matters.
@@ -135,7 +142,26 @@ function parse(root: string, segments: string[], file: string, text: string): Gu
 
   // No `link` option: guide prose is written for people, not against the type
   // tree, so an `api:` URI would be a mistake rather than something to resolve.
-  const { html, toc } = withHeadingAnchors(renderMarkdown(expanded, {}));
+  let rendered: string;
+  try {
+    rendered = renderBlocks(renderMarkdown(expanded, {}));
+  } catch (err) {
+    if (err instanceof BlockError) throw new GuideError(`${path}: ${err.message}`);
+    throw err;
+  }
+
+  // A marker no transform consumed is a mistake that would otherwise ship as
+  // literal `:::` in the prose — usually a missing blank line around it, which
+  // makes markdown-it fold the marker into the paragraph below.
+  const stray = unresolvedMarkers(rendered);
+  if (stray.length) {
+    throw new GuideError(
+      `${path}: unrecognised or unclosed block marker: ${stray.join(', ')} ` +
+        `(a marker needs a blank line above and below it)`
+    );
+  }
+
+  const { html, toc } = withHeadingAnchors(rendered);
 
   return {
     path,

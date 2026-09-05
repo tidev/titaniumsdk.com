@@ -66,6 +66,38 @@ describe('guide', () => {
     assert.match(guide(['setup', 'macos'], FIXTURES)!.html, /<pre[^>]*class="[^"]*shiki/);
   });
 
+  test('resolves a code group nested inside an :::only block', () => {
+    // The two directives close with the same `:::`, so the inner one has to be
+    // counted or it closes the outer block at its own fence — which would have
+    // cut the rest of the partial from every page that includes it.
+    const mac = guide(['setup', 'macos'], FIXTURES)!;
+    assert.match(mac.html, /<div class="tabs tabs-code"/);
+    assert.match(text(mac.html), /sudo npm install -g titanium/);
+    assert.match(text(mac.html), /sudo yarn global add titanium/);
+
+    // And the block is scoped, so Windows gets its own instructions instead.
+    const win = guide(['setup', 'windows'], FIXTURES)!;
+    assert.doesNotMatch(win.html, /tabs-code/);
+    assert.match(text(win.html), /npm install -g titanium/);
+  });
+
+  test('renders platform and version blocks', () => {
+    const html = guide(['setup', 'macos'], FIXTURES)!.html;
+    assert.match(html, /<span class="badge badge-ios">iOS<\/span>/);
+    assert.match(text(html), /Since Titanium SDK 12\.2\.0/);
+  });
+
+  test('reads the SDK version a page assumes', () => {
+    assert.equal(guide(['setup', 'macos'], FIXTURES)!.since, '12.1.0');
+  });
+
+  test('keeps a tab panel out of the table of contents', () => {
+    // Headings inside panels are rejected at parse time, so nothing in the
+    // contents can point at content hidden behind a tab.
+    const page = guide(['setup', 'macos'], FIXTURES)!;
+    assert.ok(page.toc.every((h) => h.text !== 'npm' && h.text !== 'Yarn'));
+  });
+
   test('returns undefined for a page nobody has written', () => {
     assert.equal(guide(['setup', 'linux'], FIXTURES), undefined);
   });

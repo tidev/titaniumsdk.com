@@ -1,4 +1,5 @@
 import { CodeCopy } from '@/components/docs/code-copy';
+import { TabSync } from '@/components/docs/tab-sync';
 import { SiteFooter } from '@/components/site-footer';
 import { SiteHeader } from '@/components/site-header';
 import { SITE_URL } from '@/lib/site';
@@ -91,6 +92,9 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
             here because prose appears under /docs, /modules and /blog alike,
             and it re-runs itself on navigation. */}
         <CodeCopy />
+        {/* Tabs switch on their own with CSS; this only keeps groups with the
+            same labels in step and remembers the choice. */}
+        <TabSync />
       </body>
     </html>
   );
