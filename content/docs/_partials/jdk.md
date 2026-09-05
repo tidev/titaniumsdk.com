@@ -77,7 +77,7 @@ leave it unset.
 ```sh
 echo 'export JAVA_HOME=$(/usr/libexec/java_home -v 21)' >> ~/.zshrc
 source ~/.zshrc
-echo $JAVA_HOME
+$JAVA_HOME/bin/javac -version
 ```
 
 The single quotes keep that unresolved: `/usr/libexec/java_home` ships with
@@ -91,7 +91,7 @@ Change `-v 21` if you installed 17 or 25.
 ```sh
 JAVA_HOME=$(dirname "$(dirname "$(readlink -f "$(command -v javac)")")")
 echo "export JAVA_HOME=$JAVA_HOME" >> ~/.bashrc
-echo $JAVA_HOME
+$JAVA_HOME/bin/javac -version
 ```
 
 The path differs by distribution — `/usr/lib/jvm/java-21-openjdk-amd64` on
@@ -113,7 +113,7 @@ off `javac` rather than naming one.
 Reopen PowerShell, then:
 
 ```powershell
-$env:JAVA_HOME
+& "$env:JAVA_HOME\bin\javac" -version
 ```
 
 :::
