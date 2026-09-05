@@ -2,7 +2,8 @@ import {
   CONTAINER_INDEXES,
   isValidSlug,
   MAX_DEPTH,
-  RESERVED_SEGMENTS,
+  RESERVED_ROOTS,
+  reservedSegments,
   SECTIONS,
   sectionForLegacy,
   slugify,
@@ -13,11 +14,14 @@ import assert from 'node:assert/strict';
 import { describe, test } from 'node:test';
 
 /**
- * The rules the docs tree is built on (TI-31).
+ * The rules the docs tree is built on.
  *
  * The structure this replaces went four levels deep before reaching content,
  * one section at a time, because nothing stopped it. These are the checks that
  * stop it happening again.
+ *
+ * Updated for the approved IA (2026-09-04), which replaced the section list
+ * derived from the legacy corpus.
  */
 
 describe('sections', () => {
@@ -27,12 +31,32 @@ describe('sections', () => {
     for (const slug of slugs) assert.ok(isValidSlug(slug), `${slug} is not a valid slug`);
   });
 
-  test('do not collide with a reserved segment', () => {
+  test('do not collide with a reserved root', () => {
     // `/docs/sdk/...` is the API reference. A section called `sdk` would
     // shadow it, and the failure would look like a missing type page.
     for (const slug of SECTIONS.map((s) => s.slug)) {
-      assert.ok(!RESERVED_SEGMENTS.includes(slug as never), `${slug} is reserved`);
+      assert.ok(!RESERVED_ROOTS.includes(slug as never), `${slug} is reserved`);
       assert.ok(!VERSION_SEGMENT.test(slug), `${slug} looks like a version prefix`);
+    }
+  });
+
+  test('are themselves reserved, so no page can shadow one', () => {
+    // Derived rather than listed: adding a section must reserve its name in the
+    // same edit, or a page could later claim it and win silently.
+    for (const slug of SECTIONS.map((s) => s.slug)) {
+      assert.ok(reservedSegments().includes(slug), `${slug} is not reserved`);
+    }
+    for (const root of RESERVED_ROOTS) assert.ok(reservedSegments().includes(root));
+  });
+
+  test('have unique page slugs within each section', () => {
+    for (const section of SECTIONS) {
+      const slugs = section.pages.map((p) => p.slug);
+      assert.equal(new Set(slugs).size, slugs.length, `duplicate page slug in ${section.slug}`);
+      for (const page of section.pages) {
+        const kids = (page.pages ?? []).map((c) => c.slug);
+        assert.equal(new Set(kids).size, kids.length, `duplicate child slug in ${page.slug}`);
+      }
     }
   });
 
@@ -54,7 +78,16 @@ describe('sections', () => {
     // is a choice they are not equipped to make.
     assert.deepEqual(
       SECTIONS.filter((s) => s.kind === 'tutorial').map((s) => s.slug),
-      ['start']
+      ['setup']
+    );
+  });
+
+  test("are in the reader's order, not alphabetical", () => {
+    // Setting up precedes building precedes shipping. Sorting these would put
+    // Alloy first and Environment Setup fourth, which is nobody's journey.
+    assert.deepEqual(
+      SECTIONS.map((s) => s.slug),
+      ['setup', 'build', 'alloy', 'distribute', 'reference', 'extend']
     );
   });
 });
@@ -63,16 +96,23 @@ describe('sectionForLegacy', () => {
   test('matches a page and its directory from one prefix', () => {
     // Prefixes are written without `.md`, so `Editor_IDE/README.md` and
     // `Editor_IDE/VSCode_Extension/...` both resolve from `Editor_IDE`.
-    assert.equal(sectionForLegacy('Editor_IDE/README.md')?.slug, 'tooling');
-    assert.equal(sectionForLegacy('Editor_IDE/VSCode_Extension/README.md')?.slug, 'tooling');
+    assert.equal(sectionForLegacy('Editor_IDE/README.md')?.slug, 'setup');
+    assert.equal(sectionForLegacy('Editor_IDE/VSCode_Extension/README.md')?.slug, 'setup');
   });
 
   test('prefers the longest prefix when sections nest', () => {
-    // `Titanium_SDK/Titanium_SDK_How-tos/Using_Modules` sits inside territory
-    // `build` would otherwise claim; `native` wins because it is more specific.
+    // `Extending_Titanium_Mobile` sits inside territory `build` would otherwise
+    // claim from `Titanium_SDK_How-tos`; `extend` wins by being more specific.
+    assert.equal(
+      sectionForLegacy('Titanium_SDK/Titanium_SDK_How-tos/Extending_Titanium_Mobile/README.md')
+        ?.slug,
+      'extend'
+    );
+    // And the general case still falls to `build`: using a module is a
+    // building-apps topic, unlike writing one.
     assert.equal(
       sectionForLegacy('Titanium_SDK/Titanium_SDK_How-tos/Using_Modules/README.md')?.slug,
-      'native'
+      'build'
     );
   });
 
@@ -112,10 +152,21 @@ describe('slugify', () => {
 });
 
 describe('depth', () => {
-  test('is two segments below /docs', () => {
-    // `/docs/<section>/<page>`. A third level means the section is really two
-    // sections, or the page should be one page with headings.
-    assert.equal(MAX_DEPTH, 2);
+  test('is three segments below /docs', () => {
+    // `/docs/<section>/<page>/<page>`. `build/ui` and `build/data` are the only
+    // groups large enough to earn the third level; a fourth would mean the
+    // section is really two sections.
+    assert.equal(MAX_DEPTH, 3);
+  });
+
+  test('no page in the tree exceeds it', () => {
+    for (const section of SECTIONS) {
+      for (const page of section.pages) {
+        for (const child of page.pages ?? []) {
+          assert.equal((child.pages ?? []).length, 0, `${child.slug} is a fourth level`);
+        }
+      }
+    }
   });
 });
 

@@ -5,6 +5,7 @@ import java from 'shiki/langs/java.mjs';
 import javascript from 'shiki/langs/javascript.mjs';
 import json from 'shiki/langs/json.mjs';
 import objectivec from 'shiki/langs/objective-c.mjs';
+import powershell from 'shiki/langs/powershell.mjs';
 import shellscript from 'shiki/langs/shellscript.mjs';
 import swift from 'shiki/langs/swift.mjs';
 import typescript from 'shiki/langs/typescript.mjs';
@@ -40,9 +41,13 @@ import githubLight from 'shiki/themes/github-light.mjs';
  *
  * Counted across the registry and `content/`: 1,372 `js`/`javascript`, 609
  * `xml` (Alloy views and TSS), 16 `html`/`json`/`sh`, and 44 untagged. The
- * other four are here because TI-10 asks for them and the guides in TI-33..38
+ * other five are here because TI-10 asks for them and the guides in TI-33..38
  * will need them; they cost 500KB in the bundle and nothing at runtime, since
  * a grammar is only compiled when a block actually uses it.
+ *
+ * PowerShell joined them for the Windows setup page: `sh` is not a shell
+ * Windows has, and an unhighlighted block next to a highlighted one on the
+ * macOS page reads as a rendering bug rather than a language choice.
  */
 
 const LANGS = {
@@ -58,6 +63,9 @@ const LANGS = {
   shell: 'shellscript',
   shellscript: 'shellscript',
   console: 'shellscript',
+  powershell: 'powershell',
+  ps1: 'powershell',
+  pwsh: 'powershell',
   typescript: 'typescript',
   ts: 'typescript',
   java: 'java',
@@ -143,7 +151,18 @@ function core(): HighlighterCore {
       corrected(githubLight as ThemeLike, CODE_SURFACE.light),
       corrected(githubDark as ThemeLike, CODE_SURFACE.dark),
     ] as Parameters<typeof createHighlighterCoreSync>[0]['themes'],
-    langs: [javascript, xml, html, json, shellscript, typescript, java, swift, objectivec],
+    langs: [
+      javascript,
+      xml,
+      html,
+      json,
+      shellscript,
+      typescript,
+      java,
+      swift,
+      objectivec,
+      powershell,
+    ],
     engine: createJavaScriptRegexEngine(),
   });
   return highlighter;

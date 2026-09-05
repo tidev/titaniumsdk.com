@@ -6,9 +6,10 @@
   "scripts": {
     "assets": "node scripts/sync-doc-assets.ts",
     "audit:guides": "node scripts/audit-legacy-guides.ts",
-    "build": "node scripts/prune-builds.ts && node scripts/sync-doc-assets.ts && node scripts/generate-search-index.ts && node scripts/generate-symbol-index.ts && next build",
+    "build": "node scripts/prune-builds.ts && node scripts/sync-doc-assets.ts && node scripts/generate-search-index.ts && node scripts/generate-symbol-index.ts && node scripts/check-docs.ts && next build",
     "check": "next typegen && tsc --noEmit",
     "check:contrast": "node scripts/check-contrast.ts",
+    "check:docs": "node scripts/check-docs.ts",
     "check:offline": "NODE_OPTIONS='--import ./scripts/assert-offline.ts' next build",
     "check:registry": "node scripts/validate-registry.ts",
     "dev": "next dev --port 3002",
