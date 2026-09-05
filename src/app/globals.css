@@ -637,4 +637,159 @@ body {
     max-width: 100%;
     height: auto;
   }
+
+  /* ---- Tabs and code groups (TI-32) -----------------------------------
+
+     Radio inputs and labels, switched by CSS, so the panels work with no
+     JavaScript at all: a guide's tabs hold the Android half of the
+     instructions, and losing that to a failed hydration would be losing
+     content. `TabSync` adds only the cross-group syncing on top.
+
+     The default is every panel VISIBLE, and the rules below hide the ones
+     that are not selected. Written the other way round — hide all, reveal
+     the checked one — a browser without `:has()` would show nothing at
+     all. This way the worst case is a stacked, untabbed page that still
+     says everything it was written to say. */
+  .prose-docs .tabs {
+    margin-block: 1em;
+  }
+
+  .prose-docs .tab-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  /* Off-screen rather than `display: none`, which would take the radios out
+     of the tab order and with them the arrow-key navigation that a radio
+     group gives these for free. */
+  .prose-docs .tab-radio {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .prose-docs .tab {
+    margin-bottom: -1px;
+    border-bottom: 2px solid transparent;
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875em;
+    line-height: 1.4;
+    color: var(--color-text-muted);
+    cursor: pointer;
+  }
+  .prose-docs .tab:hover {
+    color: var(--color-text);
+  }
+  .prose-docs .tab-radio:checked + .tab {
+    border-bottom-color: var(--color-link);
+    font-weight: 500;
+    color: var(--color-text);
+  }
+  /* The input is off-screen, so its focus ring has to be drawn on the label
+     the reader is actually looking at. */
+  .prose-docs .tab-radio:focus-visible + .tab {
+    outline: 2px solid var(--color-link);
+    outline-offset: -2px;
+    border-radius: 0.25rem;
+  }
+
+  .prose-docs .tab-panel > :first-child {
+    margin-top: 0.75em;
+  }
+  .prose-docs .tab-panel > :last-child {
+    margin-bottom: 0;
+  }
+
+  /* One rule per index, which is why `MAX_PANELS` in blocks.ts is enforced
+     rather than advisory. A general rule is not expressible: no combinator
+     relates the nth input to the nth panel. */
+  .prose-docs .tabs:has(.tab-radio:nth-of-type(1):checked) > .tab-panel:not([data-tab='0']),
+  .prose-docs .tabs:has(.tab-radio:nth-of-type(2):checked) > .tab-panel:not([data-tab='1']),
+  .prose-docs .tabs:has(.tab-radio:nth-of-type(3):checked) > .tab-panel:not([data-tab='2']),
+  .prose-docs .tabs:has(.tab-radio:nth-of-type(4):checked) > .tab-panel:not([data-tab='3']),
+  .prose-docs .tabs:has(.tab-radio:nth-of-type(5):checked) > .tab-panel:not([data-tab='4']),
+  .prose-docs .tabs:has(.tab-radio:nth-of-type(6):checked) > .tab-panel:not([data-tab='5']) {
+    display: none;
+  }
+
+  /* A code group's strip sits on the code rather than above it, so the two
+     read as one object. The `<pre>` may be wrapped by CodeCopy after mount,
+     hence the descendant selector rather than a child one. */
+  .prose-docs .tabs-code .tab-list {
+    border: 1px solid var(--color-border);
+    border-bottom: 0;
+    border-radius: 0.5rem 0.5rem 0 0;
+    background-color: var(--color-surface);
+    padding: 0 0.25rem;
+  }
+  .prose-docs .tabs-code .tab-panel > :first-child {
+    margin-top: 0;
+  }
+  .prose-docs .tabs-code .tab-panel pre {
+    margin-block: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+
+  /* ---- Platform and version blocks (TI-32) ----------------------------
+
+     Both mark a passage as conditional. They are quieter than a callout on
+     purpose: a callout interrupts to say something the reader might miss,
+     while these label content that is already where it belongs. */
+  .prose-docs .platform-block,
+  .prose-docs .version-notice {
+    margin-block: 1em;
+    border-left: 3px solid var(--color-border);
+    padding-left: 0.875rem;
+  }
+  .prose-docs .platform-block > :first-child,
+  .prose-docs .version-notice > :first-child {
+    margin-top: 0;
+  }
+  .prose-docs .platform-block > :last-child,
+  .prose-docs .version-notice > :last-child {
+    margin-bottom: 0;
+  }
+
+  .prose-docs .platform-label,
+  .prose-docs .version-label {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+    margin-bottom: 0.375em;
+    font-size: 0.75em;
+    font-weight: 600;
+    /* Positive tracking, unlike the headings: small uppercase text needs
+       opening up, not pulling in. */
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-text-subtle);
+  }
+
+  .prose-docs .badge {
+    border-radius: 0.25rem;
+    background-color: color-mix(in oklch, var(--color-text-subtle) 12%, transparent);
+    padding: 0.0625rem 0.375rem;
+    color: var(--color-text-muted);
+  }
+
+  /* "Not available" is the one state here that is bad news, so it is the one
+     that borrows a semantic colour. The others are neutral labels. */
+  .prose-docs .platform-block-off {
+    border-left-color: var(--color-warning);
+  }
+  .prose-docs .platform-block-off .platform-label {
+    color: var(--color-warning);
+  }
+
+  .prose-docs .version-notice {
+    border-left-color: var(--color-info);
+  }
 }

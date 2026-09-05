@@ -227,9 +227,14 @@ export default async function DocsPage({ params }: PageProps<'/docs/[[...slug]]'
         <h1 className="mt-2 text-3xl font-semibold tracking-tight text-text">{title}</h1>
         {!!description && <p className="mt-2 text-lg text-text-muted">{description}</p>}
 
-        {!!page?.platforms?.length && (
-          <p className="mt-3 text-sm text-text-subtle">
-            Applies to {page.platforms.map(platformLabel).join(', ')}
+        {(!!page?.platforms?.length || !!page?.since) && (
+          <p className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm text-text-subtle">
+            {!!page.platforms?.length && (
+              <span>Applies to {page.platforms.map(platformLabel).join(', ')}</span>
+            )}
+            {/* The version the page's content assumes, so a reader on an older
+                SDK knows before following the steps rather than after. */}
+            {!!page.since && <span>Written for Titanium SDK {page.since} and later</span>}
           </p>
         )}
 

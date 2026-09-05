@@ -38,6 +38,15 @@ export class DirectiveError extends Error {}
 
 /** `:::only macos, android` — the platforms a block is scoped to. */
 const ONLY_OPEN = /^:::only[ \t]+([a-z0-9,\s-]+?)[ \t]*$/;
+/**
+ * Any other block opener: `:::tabs`, `:::platform ios`, `:::since 12.1.0`.
+ *
+ * Those are resolved much later, on rendered HTML (`blocks.ts`), so their text
+ * passes through here untouched. They still have to be *counted*, because they
+ * close with the same `:::` this does — without that, a tab group inside an
+ * `:::only` block would close the `:::only` at its own closing fence.
+ */
+const OTHER_OPEN = /^:::[a-z][a-z-]*(?:[ \t]|$)/;
 /** `:::include install-cli` — a bare slug, so no path can escape the directory. */
 const INCLUDE = /^:::include[ \t]+([a-z0-9-]+)[ \t]*$/;
 const CLOSE = /^:::[ \t]*$/;
@@ -58,15 +67,19 @@ export type ExpandOptions = {
 /**
  * Resolves `:::only` blocks against the page's platforms.
  *
- * Nesting is not supported and is rejected rather than mis-parsed: a nested
- * `:::only` inside another would need the closing fences to be distinguishable,
- * and content that wants it is better written as two blocks.
+ * An `:::only` inside another is rejected rather than mis-parsed — the closing
+ * fences would be indistinguishable, and content that wants it reads better as
+ * two blocks. Other block directives may nest freely: they are counted so the
+ * right `:::` closes this one, and are otherwise left for `blocks.ts`.
  */
 function applyOnly(source: string, platforms: readonly string[] | undefined): string {
   const lines = source.split('\n');
   const out: string[] = [];
   let keep: boolean | undefined;
   let openedAt = 0;
+  // Other `:::` blocks open inside this one. Counted, not parsed: all this
+  // needs is to know which `:::` is the one that closes the `:::only`.
+  let depth = 0;
 
   for (const [i, line] of lines.entries()) {
     const open = ONLY_OPEN.exec(line);
@@ -86,9 +99,15 @@ function applyOnly(source: string, platforms: readonly string[] | undefined): st
       continue;
     }
 
-    if (CLOSE.test(line) && keep !== undefined) {
-      keep = undefined;
-      continue;
+    if (keep !== undefined && OTHER_OPEN.test(line)) {
+      depth += 1;
+    } else if (CLOSE.test(line) && keep !== undefined) {
+      if (depth > 0) {
+        depth -= 1;
+      } else {
+        keep = undefined;
+        continue;
+      }
     }
 
     if (keep === undefined || keep) out.push(line);

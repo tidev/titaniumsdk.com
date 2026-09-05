@@ -46,7 +46,7 @@ export type DocPage = {
    * Linux pages cover Android only. The pipeline renders that as a stated
    * limitation rather than leaving the reader to notice an absence.
    */
-  platforms?: readonly ('macos' | 'windows' | 'linux' | 'ios' | 'android')[];
+  platforms?: readonly PlatformId[];
   /** The third and final level. Only `build/ui` and `build/data` use it. */
   pages?: DocPage[];
 };
@@ -80,21 +80,30 @@ export type DocSection = {
 export const RESERVED_ROOTS = ['sdk', 'latest'] as const;
 
 /**
- * How a platform id is written for a reader.
+ * Every platform a page, a block or a badge may name, and how each is written
+ * for a reader.
  *
- * The ids are lowercase everywhere because they are keys — in this file, in
- * frontmatter, and in `:::only` blocks. Printing one raw puts "ios" on the page,
- * which is nobody's spelling of it.
+ * One list, exported, because four things need the same vocabulary: this file's
+ * page entries, the frontmatter schema, the `:::only` directive, and the
+ * `:::platform` badge. A second copy would drift, and the drift would look like
+ * a page mysteriously failing validation.
+ *
+ * The ids are lowercase because they are keys. Printing one raw puts "ios" on
+ * the page, which is nobody's spelling of it.
  */
-const PLATFORM_LABELS: Record<string, string> = {
+export const PLATFORM_LABELS = {
   macos: 'macOS',
   windows: 'Windows',
   linux: 'Linux',
   ios: 'iOS',
   android: 'Android',
-};
+} as const;
 
-export const platformLabel = (id: string): string => PLATFORM_LABELS[id] ?? id;
+export type PlatformId = keyof typeof PLATFORM_LABELS;
+
+export const PLATFORM_IDS = Object.keys(PLATFORM_LABELS) as PlatformId[];
+
+export const platformLabel = (id: string): string => PLATFORM_LABELS[id as PlatformId] ?? id;
 
 /** Prose versioning is by SDK major: `/docs/v13/<section>/<page>`. */
 export const VERSION_SEGMENT = /^v\d+$/;
