@@ -5,48 +5,40 @@ platforms: [windows, android]
 since: 13.4.0
 ---
 
-Windows builds for Android. Everything below assumes you have already installed
+Windows builds for Android. This assumes you have installed
 [Node.js and a JDK](/docs/setup/prerequisites).
 
 :::unavailable ios
 
-Building for iOS needs Xcode, and Apple ships Xcode only for macOS. There is no
-supported path on Windows. If you need iOS, you need access to a Mac for that
-half of the work.
+Building for iOS needs Xcode, and Apple ships Xcode only for macOS. If you need
+iOS, you need a Mac for that half of the work.
 
 :::
 
-Run the commands below in **PowerShell**. Nothing here needs an administrator
-prompt unless a specific step says so.
+Run the commands below in PowerShell.
 
 :::include install-cli
 
 :::include android-sdk
 
-Android Studio is the straightforward choice on Windows. It installs the SDK to
-`%LOCALAPPDATA%\Android\Sdk` by default, which the Titanium CLI already knows to
-look in.
+Android Studio installs the SDK to `%LOCALAPPDATA%\Android\Sdk`, which the CLI
+already checks.
 
 > [!IMPORTANT]
-> Do not put the Android SDK anywhere with a space or an ampersand in the path.
-> Titanium checks for ampersands specifically and refuses to build, because the
-> Android build tools mis-parse them. `C:\Program Files\...` is a bad choice for
-> the same reason — use the default location or something like `C:\Android\Sdk`.
+> Do not put the SDK anywhere with a space or an ampersand in the path. Titanium
+> checks for ampersands and refuses to build, because the Android build tools
+> mis-parse them. That rules out `C:\Program Files`.
 
 ## Set up an emulator
 
-The Android emulator needs hardware acceleration. On Windows that is either
-**Windows Hypervisor Platform** or Intel HAXM, and Android Studio's setup wizard
-turns on whichever applies.
+The emulator needs hardware acceleration — either Windows Hypervisor Platform or
+Intel HAXM. Android Studio's setup wizard enables whichever applies.
 
-If the emulator will not start, the usual cause is that Hyper-V and the
-emulator's accelerator disagree. Enable **Windows Hypervisor Platform** in
-_Turn Windows features on or off_, reboot, and try again.
+If it will not start, enable **Windows Hypervisor Platform** in _Turn Windows
+features on or off_, reboot, and try again.
 
-A physical Android device over USB is faster than any emulator. It needs USB
-debugging turned on in Developer options, and on Windows it also needs the
-vendor's USB driver — Google ships one for Pixel devices, and other
-manufacturers ship their own.
+A physical device over USB is faster. It needs USB debugging turned on in
+Developer options and the vendor's USB driver.
 
 :::include verify
 
@@ -54,50 +46,36 @@ manufacturers ship their own.
 
 ### `ti` is not recognised as a command
 
-npm's global directory is not on your `PATH`. Close and reopen PowerShell first,
-since a fresh install does not affect a shell that was already running. If it
-still fails, check where npm puts global packages:
+Reopen PowerShell — a fresh install does not affect a shell that was already
+running. If it still fails, check that npm's global directory is on your `PATH`:
 
 ```powershell
 npm config get prefix
 ```
 
-That directory needs to be on your `PATH`.
-
 ### `ti info` cannot find the Android SDK
 
-Run `ti setup android` and give it the path. That writes the location to the
-CLI's own config, which is checked before any environment variable.
-
-If you set `ANDROID_HOME` and expected it to work: Titanium's app build does not
-read that variable. Use `ANDROID_SDK_ROOT`, or let `ti setup android` record the
-path.
+Run `ti setup android` and give it the path. If you set `ANDROID_HOME` and
+expected it to work, use `ANDROID_SDK_ROOT` instead.
 
 ### The build fails complaining about the SDK path
 
-Check the path for spaces and ampersands. See the note above — this is a real
-constraint of the Android build tools, not a Titanium limitation, and the only
-fix is to move the SDK.
+Check the path for spaces and ampersands. Moving the SDK is the only fix.
 
 ### A build fails partway through with a file-in-use error
 
-Windows locks files that are open, and antivirus software scanning the build
-directory is the common culprit. Exclude your project's `build` directory from
-real-time scanning.
+Antivirus scanning the build directory. Exclude your project's `build`
+directory from real-time scanning.
 
 ## Prove it works
-
-`ti info` says the tools are there. A build says they work together.
 
 ```sh
 ti create
 ti build -p android
 ```
 
-`ti create` prompts for a project name and settings; `ti build` compiles and
-launches it on a running emulator or a connected device. If both finish, your environment is done.
+If both finish, your environment is done.
 
 ## Next
 
-[Your first app](/docs/build/first-app) covers what `ti create` produced and
-what to change first.
+[Your first app](/docs/build/first-app) covers what `ti create` produced.

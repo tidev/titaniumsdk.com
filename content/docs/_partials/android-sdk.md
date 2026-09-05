@@ -1,6 +1,6 @@
 ## Install the Android SDK
 
-Titanium needs four things out of the Android SDK:
+Titanium needs four pieces of it:
 
 | Component      | Why                   | Supported by SDK 13.4 |
 | -------------- | --------------------- | --------------------- |
@@ -9,73 +9,59 @@ Titanium needs four things out of the Android SDK:
 | Platform Tools | Provides `adb`        | 33.x                  |
 | Emulator       | Runs a virtual device | Any current version   |
 
-Two ways to get them. Android Studio is the path Google supports and the one to
-take if you have no reason not to; the command-line tools are smaller and are
-what you want on a build server.
+Android Studio is the straightforward way to get them. The command-line tools
+are smaller and are what you want on a build server.
 
 :::tabs
 
 @tab Android Studio
 
-Install [Android Studio](https://developer.android.com/studio), open it, and let
-the setup wizard run. It installs a platform, build tools and platform tools by
-default.
+Install [Android Studio](https://developer.android.com/studio) and let the setup
+wizard run. It installs a platform, build tools and platform tools.
 
-Then open **Settings → Languages & Frameworks → Android SDK** and confirm that
-at least one SDK Platform is installed, and that under **SDK Tools** you have
-**Android SDK Build-Tools**, **Android SDK Platform-Tools** and **Android
-Emulator**.
+Then open **Settings → Languages & Frameworks → Android SDK** and check that
+**SDK Tools** lists **Android SDK Build-Tools**, **Android SDK Platform-Tools**
+and **Android Emulator**.
 
 @tab Command line
 
-Download the **command-line tools** package from the
-[Android Studio downloads page](https://developer.android.com/studio#command-line-tools-only),
-unzip it, and arrange it as `<sdk>/cmdline-tools/latest` — the tools expect that
-exact layout and fail confusingly without it.
-
-Then install the packages:
+Download the **command-line tools** from the
+[Android Studio downloads page](https://developer.android.com/studio#command-line-tools-only)
+and unzip them to `<sdk>/cmdline-tools/latest`. The tools expect that exact
+layout and fail confusingly without it.
 
 ```sh
 sdkmanager "platforms;android-36" "build-tools;35.0.0" "platform-tools" "emulator"
 ```
 
 > [!NOTE]
-> Google has deprecated `sdkmanager` in favour of a newer `android` command:
-> `android sdk install platforms/android-36 build-tools/35.0.0`. Both work
-> today. `sdkmanager` still ships in the command-line tools package, and is
-> what most existing CI scripts call.
+> Google has deprecated `sdkmanager` in favour of `android sdk install
+platforms/android-36 build-tools/35.0.0`. Both work. `sdkmanager` still ships
+> in the command-line tools and is what most CI scripts call.
 
 :::
 
 ## Point Titanium at it
 
-Titanium looks for the Android SDK in this order, and stops at the first one
-that works:
-
-1. Its own config setting, `android.sdkPath`
-2. The `ANDROID_SDK_ROOT` environment variable
-3. The `ANDROID_SDK` environment variable
-4. `adb` on your `PATH`, walking up from there
-5. A scan of the usual install directories
-
-> [!IMPORTANT]
-> `ANDROID_HOME` is not on that list. Most Android documentation tells you to
-> set it, and Titanium's app build does not read it. Set `ANDROID_SDK_ROOT`, or
-> better, let the CLI record the path itself.
-
-The reliable way is to let the CLI ask:
-
 ```sh
 ti setup android
 ```
 
-It finds the SDK, shows you what it found, and writes the answer to its config
-so no environment variable has to be right.
+This finds the SDK and writes the path to the CLI's config, so no environment
+variable has to be right.
 
-## Versions that are newer than Titanium expects
+If you would rather set one, Titanium checks `ANDROID_SDK_ROOT` and
+`ANDROID_SDK`, then looks for `adb` on your `PATH`, then scans the usual install
+directories.
 
-Google ships new API levels and build tools faster than any SDK declares support
-for them, so a current Android Studio install usually produces warnings:
+> [!IMPORTANT]
+> `ANDROID_HOME` is not one of them. Most Android documentation tells you to set
+> it; Titanium's app build does not read it.
+
+## Versions newer than Titanium supports
+
+Google ships API levels and build tools faster than the SDK adds support, so a
+current Android Studio usually produces warnings:
 
 ```
 !  Android API Android 17 (android-37) is too new and may or may not work with
@@ -83,12 +69,9 @@ for them, so a current Android Studio install usually produces warnings:
    The maximum supported Android API level by Titanium SDK 13.4.0 is API level 36.
 ```
 
-These are warnings, not errors, and Titanium builds anyway. Leave them alone
-until a build actually fails. When one does, pin a version Titanium knows:
+Titanium builds anyway. Leave them until a build fails, then pin a version it
+knows:
 
 ```sh
 ti config android.buildTools.selectedVersion 35.0.0
 ```
-
-Keeping a supported API level installed alongside the newest one costs a few
-hundred megabytes and saves the argument entirely.
