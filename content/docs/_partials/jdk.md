@@ -67,5 +67,53 @@ Download the `.msi` from
 javac -version
 ```
 
-`javac` rather than `java`: Android builds compile Java, so a JRE is not
-enough.
+## Set `JAVA_HOME`
+
+Gradle and the Titanium SDK locate the JDK through `JAVA_HOME`. Most installers
+leave it unset.
+
+:::only macos
+
+```sh
+echo 'export JAVA_HOME=$(/usr/libexec/java_home -v 21)' >> ~/.zshrc
+source ~/.zshrc
+echo $JAVA_HOME
+```
+
+The single quotes keep that unresolved: `/usr/libexec/java_home` ships with
+macOS and reports where the JDK is now, so an update cannot strand the path.
+Change `-v 21` if you installed 17 or 25.
+
+:::
+
+:::only linux
+
+```sh
+JAVA_HOME=$(dirname "$(dirname "$(readlink -f "$(command -v javac)")")")
+echo "export JAVA_HOME=$JAVA_HOME" >> ~/.bashrc
+echo $JAVA_HOME
+```
+
+The path differs by distribution — `/usr/lib/jvm/java-21-openjdk-amd64` on
+Debian and Ubuntu, `/usr/lib/jvm/java-21-openjdk` on Fedora — so this reads it
+off `javac` rather than naming one.
+
+:::
+
+:::only windows
+
+```powershell
+[Environment]::SetEnvironmentVariable(
+  'JAVA_HOME',
+  (Get-Item (Get-Command javac).Source).Directory.Parent.FullName,
+  'User'
+)
+```
+
+Reopen PowerShell, then:
+
+```powershell
+$env:JAVA_HOME
+```
+
+:::
