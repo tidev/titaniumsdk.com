@@ -111,6 +111,10 @@ Use `xml` for Alloy views and `tss` for styles. Use `sh` for macOS and Linux
 shells and `powershell` for Windows — an unhighlighted Windows block sitting
 next to a highlighted macOS one reads as a bug rather than as a choice.
 
+**Program output is the exception.** A block that quotes what a command printed
+is not a language, and tagging it colours it as one — leave those untagged. The
+rule is about code the reader will run.
+
 **Shell samples show the command, not the prompt.** No leading `$`. The page has
 a copy button, and a copied `$` does not run.
 
