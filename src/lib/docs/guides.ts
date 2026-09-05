@@ -63,6 +63,7 @@ const partialsIn = (root: string) => join(root, '_partials');
 const FrontmatterSchema = z
   .object({
     title: z.string().min(1),
+    /** Metadata only: the search snippet and tab preview, never rendered. */
     description: z.string().default(''),
     /**
      * What this page applies to. Drives `:::only` blocks and the platform
@@ -284,6 +285,7 @@ export type Problem = { where: string; message: string };
  *   - every content file corresponds to a page in the IA
  *   - every page parses, and its directives resolve
  *   - every internal link points at a path the IA defines
+ *   - every code fence names a language the highlighter has
  *
  * The link check is why this lives here rather than in a script: it needs the
  * rendered HTML, which needs the whole pipeline.
@@ -358,6 +360,13 @@ export function validateGuides(root = CONTENT): Problem[] {
       }
     }
 
+    for (const lang of new Set(unhighlightedLangs(page.html))) {
+      problems.push({
+        where: path,
+        message: `code fence tagged \`${lang}\`, which highlight.ts has no grammar for`,
+      });
+    }
+
     for (const href of internalLinks(page.html)) {
       const [target] = href.split('#');
       // Only guide paths are checked. `/docs/sdk/...` is the generated API
@@ -370,6 +379,22 @@ export function validateGuides(root = CONTENT): Problem[] {
   }
 
   return problems;
+}
+
+/**
+ * Languages declared on a code fence that came out unhighlighted.
+ *
+ * `highlightCodeBlocks` replaces a block it can colour with Shiki markup, which
+ * carries no `language-` class, and leaves everything else exactly as it found
+ * it. A surviving class is therefore the highlighter saying it did not know the
+ * language, which renders as a plain block beside coloured ones and reads as a
+ * bug rather than a choice — that is how `fish` shipped grey next to `sh`.
+ *
+ * An untagged fence is not reported. 44 blocks in the corpus have no language
+ * on purpose, and `highlightCodeBlocks` documents why it will not guess.
+ */
+export function unhighlightedLangs(html: string): string[] {
+  return [...html.matchAll(/<pre[^>]*><code class="language-([A-Za-z0-9_+-]+)"/g)].map((m) => m[1]);
 }
 
 /** Every `href` in rendered HTML that stays on this site. */

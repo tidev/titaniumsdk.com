@@ -1,4 +1,11 @@
-import { contentFiles, guide, internalLinks, validateGuides, writtenPaths } from './guides.ts';
+import {
+  contentFiles,
+  guide,
+  internalLinks,
+  unhighlightedLangs,
+  validateGuides,
+  writtenPaths,
+} from './guides.ts';
 import assert from 'node:assert/strict';
 import { join } from 'node:path';
 import { describe, test } from 'node:test';
@@ -155,5 +162,23 @@ describe('internalLinks', () => {
     const html =
       '<a href="/docs/setup/macos">a</a><a href="https://example.com">b</a><a href="#x">c</a>';
     assert.deepEqual(internalLinks(html), ['/docs/setup/macos']);
+  });
+});
+
+describe('unhighlightedLangs', () => {
+  test('reports a language the highlighter left alone', () => {
+    const html = '<pre><code class="language-nushell">ls | first</code></pre>';
+    assert.deepEqual(unhighlightedLangs(html), ['nushell']);
+  });
+
+  test('ignores a block Shiki rendered', () => {
+    // Shiki emits its own `pre` and drops the `language-` class, which is what
+    // makes a surviving class mean "not highlighted".
+    const html = '<pre class="shiki github-light"><code><span>brew</span></code></pre>';
+    assert.deepEqual(unhighlightedLangs(html), []);
+  });
+
+  test('ignores an untagged fence', () => {
+    assert.deepEqual(unhighlightedLangs('<pre><code>Error: Rebuild failed:</code></pre>'), []);
   });
 });
