@@ -13,6 +13,15 @@ import Link from 'next/link';
  * Sibling of `ApiNav`, which does the same job for `/docs/sdk` — that one is a
  * disclosure tree over 45,610 types, this one is a fixed list of about forty
  * pages, so they share an idea and no code.
+ *
+ * ## Three states, three strengths
+ *
+ * A link at rest is full-strength `text`, the page you are on is `link`, and a
+ * page nobody has written is `text-subtle`. The first of those used to be
+ * `text-muted`, one small step from the unwritten state and the same token the
+ * article body uses — so an available page read as a disabled one, and the nav
+ * read as more body copy. Contrast was never the problem (`text-muted` is 7.3:1
+ * on white); the problem was that three different meanings looked alike.
  */
 
 export type GuideNavProps = {
@@ -58,7 +67,7 @@ function Row({
         href={href}
         aria-current={active ? 'page' : undefined}
         className={`block py-1 text-sm ${indent} ${
-          active ? 'font-medium text-link' : 'text-text-muted hover:text-link'
+          active ? 'font-medium text-link' : 'text-text hover:text-link'
         }`}
       >
         {title}

@@ -12,6 +12,9 @@ import type { Heading } from '@/lib/docs/headings';
  *
  * Hidden below `xl`, matching the reference: at that width the rail would push
  * the article into a column too narrow to read code in.
+ *
+ * Entries are full-strength `text`, the same as the sidebar. These are links,
+ * and a link at rest should not be dimmer than the body copy it points into.
  */
 export function GuideToc({ headings }: { headings: Heading[] }) {
   // One heading is not a table of contents — it is a restatement of the title.
@@ -26,7 +29,7 @@ export function GuideToc({ headings }: { headings: Heading[] }) {
             <li key={heading.id}>
               <a
                 href={`#${heading.id}`}
-                className={`block border-l-2 border-transparent py-0.5 text-text-muted hover:border-border-strong hover:text-link ${
+                className={`block border-l-2 border-transparent py-0.5 text-text hover:border-border-strong hover:text-link ${
                   heading.level === 3 ? 'pl-6 text-xs' : 'pl-3'
                 }`}
               >

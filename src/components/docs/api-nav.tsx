@@ -164,8 +164,8 @@ function Label({ node, base, current }: { node: NavNode; base: string; current: 
       // min-w-0 so truncate still shrinks when this is the flex child of a summary.
       className={`block min-w-0 truncate py-1 font-mono ${
         current
-          ? 'font-semibold text-text underline decoration-link decoration-2 underline-offset-4'
-          : 'text-text-muted hover:text-link'
+          ? 'font-semibold text-link underline decoration-link decoration-2 underline-offset-4'
+          : 'text-text hover:text-link'
       } ${node.deprecated ? 'line-through decoration-danger' : ''}`}
     >
       {node.label}
