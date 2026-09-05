@@ -12,13 +12,14 @@ The Titanium CLI requires **Node.js 22.19.0 or newer**. Install an active LTS
 release — Node 22 or Node 24 — from [nodejs.org](https://nodejs.org/).
 
 > [!IMPORTANT]
-> Install an LTS release, not the newest one. Node 26 breaks the CLI on macOS.
+> **Node 26 needs Titanium SDK 14 or newer.** On SDK 13.4 and earlier it breaks
+> the CLI on macOS. Node 24 works with every SDK.
 
 :::platform macos
 
-The SDK reaches a physical iPhone through `node-ios-device`, which ships
-prebuilt binaries for Node 18 through 24. There is none for Node 26, so npm
-compiles from source and the compile fails. Every command then exits with:
+SDK 13.4 and earlier reach a physical iPhone through `node-ios-device`, which
+ships prebuilt binaries for Node 18 through 24. There is none for Node 26, so
+npm compiles from source and the compile fails. Every command then exits with:
 
 ```
 Error: Rebuild failed:
@@ -26,7 +27,7 @@ node-pre-gyp ERR! install response status 404 Not Found on
 https://github.com/tidev/node-ios-device/releases/download/v1.13.0/node_ios_device-v1.13.0-node-v147-darwin-arm64.tar.gz
 ```
 
-Switch to Node 24.
+Switch to Node 24, or to SDK 14, which drops the dependency.
 
 :::
 
