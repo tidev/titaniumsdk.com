@@ -13,15 +13,10 @@ function latestRedirects() {
   const latest = latestSdkVersion();
   if (!latest) return [];
   return [
-    // `/docs` and `/docs/sdk` are both bare prefixes with no page of their own,
-    // and `/docs` is in the primary nav — it 404'd. Reference is all that lives
-    // under `/docs` today; when the prose guides land (TI-32) `/docs` becomes a
-    // real index and these two go away.
-    {
-      source: '/docs',
-      destination: '/docs/sdk/latest',
-      permanent: false,
-    },
+    // `/docs` used to redirect here, because the reference was all that lived
+    // under it. TI-32 made `/docs` a real index over the guide tree, so that
+    // rule is gone; this one stays, since `/docs/sdk` is still a bare prefix
+    // with no page of its own.
     {
       source: '/docs/sdk',
       destination: `/docs/sdk/${latest}`,

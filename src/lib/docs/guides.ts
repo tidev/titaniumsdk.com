@@ -203,6 +203,18 @@ export function contentFiles(root = CONTENT): string[][] {
   return walk(root, []);
 }
 
+/**
+ * Every `/docs` path that has content, for the sidebar.
+ *
+ * The nav shows the whole approved structure including pages nobody has written
+ * yet, so it needs to know which of them to render as links. Derived from the
+ * filesystem rather than from the IA, because that is exactly the difference it
+ * is being asked about.
+ */
+export function writtenPaths(root = CONTENT): Set<string> {
+  return new Set(contentFiles(root).map((segments) => ['/docs', ...segments].join('/')));
+}
+
 export type Problem = { where: string; message: string };
 
 /**
