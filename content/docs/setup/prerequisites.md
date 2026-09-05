@@ -8,8 +8,8 @@ JDK, which the CLI and the Android build need.
 
 ## Node.js
 
-The Titanium CLI requires **Node.js 22.19.0 or newer**. Install an active LTS
-release — Node 22 or Node 24 — from [nodejs.org](https://nodejs.org/).
+Titanium requires **Node.js 22.19.0 or 24.x**. Install it from
+[nodejs.org](https://nodejs.org/).
 
 > [!IMPORTANT]
 > **Node 26 needs Titanium SDK 14 or newer.** On SDK 13.4 and earlier it breaks
