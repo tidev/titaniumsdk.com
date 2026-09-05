@@ -79,6 +79,23 @@ export type DocSection = {
  */
 export const RESERVED_ROOTS = ['sdk', 'latest'] as const;
 
+/**
+ * How a platform id is written for a reader.
+ *
+ * The ids are lowercase everywhere because they are keys — in this file, in
+ * frontmatter, and in `:::only` blocks. Printing one raw puts "ios" on the page,
+ * which is nobody's spelling of it.
+ */
+const PLATFORM_LABELS: Record<string, string> = {
+  macos: 'macOS',
+  windows: 'Windows',
+  linux: 'Linux',
+  ios: 'iOS',
+  android: 'Android',
+};
+
+export const platformLabel = (id: string): string => PLATFORM_LABELS[id] ?? id;
+
 /** Prose versioning is by SDK major: `/docs/v13/<section>/<page>`. */
 export const VERSION_SEGMENT = /^v\d+$/;
 
@@ -105,6 +122,15 @@ export const SECTIONS: DocSection[] = [
         title: 'Prerequisites',
         blurb: 'Node.js and the JDK, before anything Titanium-specific.',
       },
+      // The three operating systems are peers and are listed alphabetically.
+      // Putting macOS first would read as an endorsement of it: the only thing
+      // a Mac is actually required for is building iOS, which each page says.
+      {
+        slug: 'linux',
+        title: 'Linux',
+        blurb: 'Titanium CLI and SDK, and the Android SDK.',
+        platforms: ['linux', 'android'],
+      },
       {
         slug: 'macos',
         title: 'macOS',
@@ -116,12 +142,6 @@ export const SECTIONS: DocSection[] = [
         title: 'Windows',
         blurb: 'Titanium CLI and SDK, and the Android SDK.',
         platforms: ['windows', 'android'],
-      },
-      {
-        slug: 'linux',
-        title: 'Linux',
-        blurb: 'Titanium CLI and SDK, and the Android SDK.',
-        platforms: ['linux', 'android'],
       },
       {
         slug: 'editors',
@@ -177,7 +197,12 @@ export const SECTIONS: DocSection[] = [
       {
         slug: 'modules',
         title: 'Using modules',
-        blurb: 'Finding and adding them. Writing them is under Extending Titanium.',
+        // npm packages live here too. Consuming a native module and consuming
+        // an npm package are the same task to the reader — find it, add it,
+        // require it — and splitting them across sections would have put half
+        // the answer under a section about authoring. Writing either one is
+        // under Extending Titanium.
+        blurb: 'Native modules and npm packages: finding, adding, and requiring them.',
       },
       { slug: 'debugging', title: 'Debugging & profiling' },
     ],
@@ -214,7 +239,12 @@ export const SECTIONS: DocSection[] = [
         title: 'Certificates & provisioning',
         blurb: 'Distribution identities. Development signing is under Environment Setup.',
       },
-      { slug: 'ios', title: 'App Store', platforms: ['ios'] },
+      // Apple's own name for it is "App Store", but that name only disambiguates
+      // in context, and these titles also appear in search results, breadcrumbs
+      // and tabs. Its sibling carries its vendor — "Google Play" — so naming
+      // Apple here makes the pair symmetric rather than one store and one
+      // generic category.
+      { slug: 'ios', title: 'Apple App Store', platforms: ['ios'] },
       { slug: 'android', title: 'Google Play', platforms: ['android'] },
       { slug: 'encryption', title: 'Source code encryption' },
     ],
@@ -256,7 +286,6 @@ export const SECTIONS: DocSection[] = [
         blurb: 'Native APIs without writing a module.',
       },
       { slug: 'cli-plugins', title: 'CLI plugins' },
-      { slug: 'npm', title: 'npm packages' },
     ],
     legacy: [
       'Titanium_SDK/Titanium_SDK_How-tos/Extending_Titanium_Mobile',
