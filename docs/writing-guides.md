@@ -76,13 +76,13 @@ draft: false
 ---
 ```
 
-| Key           | Required | Meaning                                                                                                              |
-| ------------- | -------- | -------------------------------------------------------------------------------------------------------------------- |
-| `title`       | yes      | The `<h1>`, the tab title, and the breadcrumb. Do not repeat it as a heading in the body.                            |
-| `description` | no       | One sentence. It is the page's lede _and_ its search-result snippet, so write it for both.                           |
-| `platforms`   | no       | What the page applies to: `macos`, `windows`, `linux`, `ios`, `android`. Absent means all of them. Drives `:::only`. |
-| `since`       | no       | The SDK version the page's content assumes. Renders as a line under the title.                                       |
-| `draft`       | no       | Renders at its URL, is not linked from the sidebar, says so at the top, and asks search engines to skip it.          |
+| Key           | Required | Meaning                                                                                                                                                    |
+| ------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `title`       | yes      | The `<h1>`, the tab title, and the breadcrumb. Do not repeat it as a heading in the body.                                                                  |
+| `description` | no       | One sentence, for the search result and the tab preview. It is not shown on the page, so do not write it as a lede — the body's opening paragraph is that. |
+| `platforms`   | no       | What the page applies to: `macos`, `windows`, `linux`, `ios`, `android`. Absent means all of them. Drives `:::only`.                                       |
+| `since`       | no       | The SDK version the page's content assumes. Renders as a line under the title.                                                                             |
+| `draft`       | no       | Renders at its URL, is not linked from the sidebar, says so at the top, and asks search engines to skip it.                                                |
 
 Unknown keys fail the build. A misspelled `platform` would otherwise silently
 apply to nothing.
@@ -110,6 +110,10 @@ them and nobody has ever gone back to fix one. The tags that work:
 Use `xml` for Alloy views and `tss` for styles. Use `sh` for macOS and Linux
 shells and `powershell` for Windows — an unhighlighted Windows block sitting
 next to a highlighted macOS one reads as a bug rather than as a choice.
+
+**Program output is the exception.** A block that quotes what a command printed
+is not a language, and tagging it colours it as one — leave those untagged. The
+rule is about code the reader will run.
 
 **Shell samples show the command, not the prompt.** No leading `$`. The page has
 a copy button, and a copied `$` does not run.
@@ -279,6 +283,31 @@ install fragment says `sudo` on macOS and Linux and something else on Windows.
 This is not an optimisation. Installing the CLI is identical on three setup
 pages; written out three times it drifts, and the docs this replaces are what
 that looks like after ten years.
+
+## Images
+
+Put the file in `public/docs/guides/` and reference it from the site root:
+
+```md
+![The Android SDK Manager, with Build-Tools selected](/docs/guides/android-sdk-manager.png)
+```
+
+Name it for what it shows, in the same kebab-case as a page slug. These are
+committed like any other source file.
+
+Do not put anything in `public/docs/img/`. That directory is generated from the
+registry on every build, its filenames are content hashes, and the build deletes
+anything in it that it did not write. `public/docs/README.md` says which is
+which.
+
+**Write alt text that replaces the image, not that labels it.** "The SDK Manager
+with Build-Tools 35.0.0 checked" is useful to someone who cannot see it; "SDK
+Manager screenshot" is not.
+
+A screenshot of a third-party UI dates faster than anything else on a page —
+Android Studio and Xcode both rearrange their settings panes between releases.
+Use one where the UI is genuinely hard to describe, and say what to look for in
+prose as well, so the page still works when the screenshot is a year stale.
 
 ## Links
 

@@ -114,9 +114,33 @@ function registryApiHeaders() {
   ];
 }
 
+/**
+ * Keeps `public/docs/README.md` off the site.
+ *
+ * That file explains which half of `public/docs` is generated and which half is
+ * committed, and it is written for whoever opens the directory — not for
+ * readers. `public/` has no ignore glob: Next serves everything under it from
+ * the base URL, and there is no config option to exclude a path (checked
+ * against `node_modules/next/dist/docs`, and against `config-shared.d.ts`).
+ *
+ * A dotfile is not the answer either. `.README.md` is unreachable today, but by
+ * way of a 400 in dev and a 500 in production rather than a rule, it is
+ * undocumented in both, and `public/` is served by the host's own static layer
+ * in deployment rather than by this server.
+ *
+ * `beforeFiles` is documented to run at step 4 of routing and the public
+ * directory at step 5, so this shadows the file deterministically. The
+ * destination is a path the docs route does not define, and that route sets
+ * `dynamicParams = false`, so it 404s.
+ */
+const hideInternalReadme = {
+  beforeFiles: [{ source: '/docs/README.md', destination: '/docs/_internal-readme' }],
+};
+
 const nextConfig: NextConfig = {
   reactCompiler: true,
   headers: registryApiHeaders,
+  rewrites: async () => hideInternalReadme,
   redirects: async () => {
     const rules = [...latestRedirects(), ...legacyApiRedirects()];
 

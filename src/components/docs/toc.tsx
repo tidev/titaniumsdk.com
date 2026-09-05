@@ -54,7 +54,7 @@ export function OnThisPage({
 
         {shown.map((group) => (
           <details key={group.id} open={group.members.length <= OPEN_UP_TO} className="group mt-3">
-            <summary className="flex cursor-pointer list-none items-center gap-1.5 py-1 text-text-muted [&::-webkit-details-marker]:hidden">
+            <summary className="flex cursor-pointer list-none items-center gap-1.5 py-1 text-text [&::-webkit-details-marker]:hidden">
               <svg
                 viewBox="0 0 16 16"
                 fill="none"
@@ -83,7 +83,7 @@ export function OnThisPage({
                 <li key={`${m.name}-${i}`}>
                   <a
                     href={`#${group.anchor(m)}`}
-                    className="block truncate py-0.5 font-mono text-xs text-text-muted hover:text-link"
+                    className="block truncate py-0.5 font-mono text-xs text-text hover:text-link"
                     title={m.name}
                   >
                     {m.name}

@@ -34,6 +34,14 @@ import { fileURLToPath } from 'node:url';
  * public file keeps that name. One file per distinct image falls out of the
  * storage layer rather than being re-derived here.
  *
+ * ## What this script does and does not own
+ *
+ * It owns `public/docs/img/` and `public/docs/assets.json`, both gitignored and
+ * both rebuilt from scratch. Everything else under `public/docs/` belongs to
+ * whoever put it there — `public/docs/guides/` holds images an author added to a
+ * guide, committed under names they chose. The prune below is scoped
+ * accordingly.
+ *
  * The manifest is what `src/lib/docs/assets.ts` reads to rewrite an image URL
  * at render time.
  *
@@ -118,8 +126,13 @@ writeFileSync(
 
 // Anything left behind belongs to a version that no longer exists, or to a
 // layout this replaced.
+//
+// Scoped to the pool this script owns, not to all of `public/docs`. It used to
+// walk the whole directory, which meant anything a human put beside the pool —
+// an image for a guide, a note explaining where the pool comes from — was
+// deleted by the next build, silently and without appearing in any diff.
 let removed = 0;
-for (const file of walk(PUBLIC)) {
+for (const file of walk(POOL)) {
   if (wanted.has(file)) continue;
   rmSync(file);
   removed++;

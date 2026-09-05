@@ -126,11 +126,6 @@ export const SECTIONS: DocSection[] = [
     blurb: 'Get a machine ready to build, on your operating system.',
     kind: 'tutorial',
     pages: [
-      {
-        slug: 'prerequisites',
-        title: 'Prerequisites',
-        blurb: 'Node.js and the JDK, before anything Titanium-specific.',
-      },
       // The three operating systems are peers and are listed alphabetically.
       // Putting macOS first would read as an endorsement of it: the only thing
       // a Mac is actually required for is building iOS, which each page says.

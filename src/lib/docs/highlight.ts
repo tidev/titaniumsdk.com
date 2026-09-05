@@ -1,5 +1,6 @@
 import { createHighlighterCoreSync, type HighlighterCore } from 'shiki/core';
 import { createJavaScriptRegexEngine } from 'shiki/engine/javascript';
+import fish from 'shiki/langs/fish.mjs';
 import html from 'shiki/langs/html.mjs';
 import java from 'shiki/langs/java.mjs';
 import javascript from 'shiki/langs/javascript.mjs';
@@ -47,7 +48,10 @@ import githubLight from 'shiki/themes/github-light.mjs';
  *
  * PowerShell joined them for the Windows setup page: `sh` is not a shell
  * Windows has, and an unhighlighted block next to a highlighted one on the
- * macOS page reads as a rendering bug rather than a language choice.
+ * macOS page reads as a rendering bug rather than a language choice. fish
+ * joined for the same reason, once the JAVA_HOME step grew a tab per shell —
+ * its syntax is different enough from POSIX that tagging it `sh` would colour
+ * it wrongly rather than not at all.
  */
 
 const LANGS = {
@@ -63,6 +67,7 @@ const LANGS = {
   shell: 'shellscript',
   shellscript: 'shellscript',
   console: 'shellscript',
+  fish: 'fish',
   powershell: 'powershell',
   ps1: 'powershell',
   pwsh: 'powershell',
@@ -157,6 +162,7 @@ function core(): HighlighterCore {
       html,
       json,
       shellscript,
+      fish,
       typescript,
       java,
       swift,
