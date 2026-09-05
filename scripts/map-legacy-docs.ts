@@ -82,7 +82,7 @@ function newPath(rawPath: string): string | undefined {
 }
 
 const rows: { from: string; to: string; verdict: Verdict; wrong: boolean }[] = [];
-const orphans: string[] = [];
+const unclaimed: string[] = [];
 const collisions = new Map<string, string[]>();
 
 for (const page of pages) {
@@ -94,11 +94,17 @@ for (const page of pages) {
   // and that is where its old URL has to land — sending it to a slug of its
   // own would promise 121 pages nobody agreed to write.
   const target = page.verdict === 'merge' && page.destination ? page.destination : page.path;
-  const to = newPath(target);
-  if (!to) {
-    orphans.push(page.path);
-    continue;
-  }
+  // A page the approved IA does not claim lands on the docs index.
+  //
+  // This used to be a hard failure, back when the IA was derived from the audit
+  // and "every surviving page has a home" was achievable by construction. The
+  // approved structure is designed rather than derived, so whole legacy trees —
+  // Contributing, Angular, the Welcome pages — have no successor on purpose.
+  // `/docs` is the truthful destination for those, and TI-39 decides whether
+  // any of them deserve better.
+  const mapped = newPath(target);
+  if (!mapped) unclaimed.push(page.path);
+  const to = mapped ?? '/docs';
   rows.push({ from: legacyUrl(page.path), to, verdict: page.verdict, wrong: page.wrong });
   collisions.set(to, [...(collisions.get(to) ?? []), page.path]);
 }
@@ -118,6 +124,11 @@ for (const section of SECTIONS) {
   const n = rows.filter((r) => r.to.startsWith(`/docs/${section.slug}`)).length;
   console.log(`    ${section.slug.padEnd(12)} ${String(n).padStart(3)}  ${section.kind}`);
 }
+if (unclaimed.length) {
+  console.log(
+    `    ${'(docs index)'.padEnd(12)} ${String(unclaimed.length).padStart(3)}  no successor in the approved IA`
+  );
+}
 
 if (merged.length) {
   console.log(`\n  ${merged.length} destinations absorb more than one page:`);
@@ -129,12 +140,6 @@ if (merged.length) {
 // --------------------------------------------------------------- invariants
 
 const problems: string[] = [];
-
-if (orphans.length) {
-  problems.push(
-    `${orphans.length} surviving pages have no section:\n    ${orphans.join('\n    ')}`
-  );
-}
 
 for (const to of collisions.keys()) {
   const segments = to

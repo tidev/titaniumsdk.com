@@ -47,6 +47,12 @@ jobs:
       - name: Contrast
         run: pnpm check:contrast
 
+      # Guide content: frontmatter, partials, and every internal link resolving
+      # against the IA. The build runs this too, but failing here names the page
+      # and the problem instead of surfacing as a render error.
+      - name: Docs
+        run: pnpm check:docs
+
       # The build reads the whole registry and renders from it, so it is also
       # the broadest check that the compiled corpus is intact.
       - name: Build
