@@ -1,8 +1,7 @@
-import { DeprecatedBadge, PlatformBadges, SinceBadge } from '@/components/docs/badges';
+import { DeprecatedBadge, PlatformBadges } from '@/components/docs/badges';
 import { MemberSection } from '@/components/docs/member-section';
 import { Prose } from '@/components/docs/prose';
 import type { TocGroup } from '@/components/docs/toc';
-import { formatSince } from '@/lib/docs/format';
 import { anchorAllocator, type ApiLinker } from '@/lib/docs/links';
 import type { ModuleReference } from '@/lib/docs/module-view';
 import type { ResolvedMember, TypeView } from '@/lib/docs/type-view';
@@ -71,7 +70,6 @@ export function TypeSection({
   imageBase?: string;
 }) {
   const api = view.type;
-  const since = formatSince(api.since);
   const anchor = typeAnchors(view);
   const relative = imageBase ? { images: imageBase } : undefined;
 
@@ -89,8 +87,7 @@ export function TypeSection({
           {api.kind}
         </span>
         {api.deprecated && <DeprecatedBadge />}
-        <PlatformBadges platforms={api.platforms} />
-        <SinceBadge since={since} />
+        <PlatformBadges platforms={api.platforms} since={api.since} />
       </div>
 
       {!!api.inheritanceChain?.length && (
@@ -146,7 +143,6 @@ export function TypeSection({
           members={view[group]}
           link={link}
           anchor={anchor}
-          typePlatforms={api.platforms}
           level={3}
         />
       ))}
