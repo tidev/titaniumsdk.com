@@ -4,7 +4,7 @@ import { guide, indexableGuidePaths } from './docs/guides.ts';
 import { lastUpdated } from './docs/last-updated.ts';
 import { latestPerPlatform } from './docs/module-summary.ts';
 import { listedModuleIds, moduleIndex } from './docs/modules.ts';
-import { latestSdkVersion, sdkIndex } from './docs/registry.ts';
+import { latestSdkVersion, sdkIndex, sdkToolchain } from './docs/registry.ts';
 import { versionsWithNotes } from './docs/release-notes.ts';
 import { canonicalPath, indexedVersions } from './docs/versions.ts';
 import { branchList, MAIN_BRANCH } from './downloads/registry.ts';
@@ -200,6 +200,20 @@ function reference(): MetadataRoute.Sitemap {
       changeFrequency: 'yearly' as const,
       priority: 0.4,
     })),
+    // Compatibility, only where the version is indexed (TI-94). The opposite
+    // rule to the notes above, and for the opposite reason: a note is a
+    // distinct document per release, while these twenty pages are the same
+    // table with the numbers moved. Asking a crawler to rank between them is
+    // asking it to pick which release's requirements to show someone who did
+    // not name a release. The page itself is `noindex` outside this set, so
+    // listing more here would contradict it.
+    ...[latest, ...indexedVersions().filter((version) => version !== latest)]
+      .filter((version): version is string => Boolean(version && sdkToolchain(version)))
+      .map((version) => ({
+        url: `${SITE_URL}/docs/sdk/${version}/compatibility`,
+        changeFrequency: 'monthly' as const,
+        priority: 0.5,
+      })),
   ];
 }
 

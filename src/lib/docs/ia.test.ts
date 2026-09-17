@@ -138,12 +138,15 @@ describe('the /docs/sdk segment', () => {
     }
   });
 
-  test('release-notes is not a type name either', () => {
-    // A static segment beside `[type]`, so a type of that name would be
-    // unreachable at a pinned version.
+  test('the static segments beside [type] are not type names either', () => {
+    // Static segments beside `[type]`, so a type of either name would be
+    // unreachable at a pinned version: `/docs/sdk/13.4.1/compatibility` would
+    // render the page rather than the type.
     for (const version of sdkVersions()) {
       const names = new Set((sdkIndex(version)?.types ?? []).map((t) => t.name));
-      assert.ok(!names.has('release-notes'), `${version} has a type named "release-notes"`);
+      for (const segment of ['release-notes', 'compatibility']) {
+        assert.ok(!names.has(segment), `${version} has a type named "${segment}"`);
+      }
     }
   });
 });

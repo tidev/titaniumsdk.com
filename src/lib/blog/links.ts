@@ -1,7 +1,7 @@
 import { type Problem } from '../docs/guides.ts';
 import { allPaths } from '../docs/ia.ts';
 import { renderMarkdown } from '../docs/markdown.ts';
-import { latestSdkVersion, sdkTypeNames, sdkVersions } from '../docs/registry.ts';
+import { latestSdkVersion, sdkToolchain, sdkTypeNames, sdkVersions } from '../docs/registry.ts';
 import { releaseNote } from '../docs/release-notes.ts';
 import { activeCategories, allPosts, allTags, pageCount } from './posts.ts';
 import { existsSync, readdirSync, statSync } from 'node:fs';
@@ -139,7 +139,8 @@ function unresolvedBlog(rest: string[]): string | null {
  *
  * The guides are the approved IA in `ia.ts`. `/docs/sdk` is the compiled API
  * reference, addressed either unversioned (the latest release) or with a
- * version in the path, plus the release notes beside each version.
+ * version in the path, plus the release notes and compatibility page beside
+ * each version.
  */
 function unresolvedDocs(rest: string[]): string | null {
   if (rest[0] !== 'sdk') {
@@ -157,6 +158,14 @@ function unresolvedDocs(rest: string[]): string | null {
   // versions with a compiled reference are in `sdkVersions()` (TI-72).
   if (rest.length === 3 && second === 'release-notes') {
     return releaseNote(first) ? null : `SDK ${first} has no captured release note`;
+  }
+
+  // Compatibility, likewise a static segment beside `[type]` (TI-94). Against
+  // the capture rather than against `sdkVersions()`: the route generates its
+  // params from the versions that have a `toolchain.json`, so a compiled
+  // version captured later is the one case where the two disagree.
+  if (rest.length === 3 && second === 'compatibility') {
+    return sdkToolchain(first) ? null : `SDK ${first} has no captured toolchain`;
   }
 
   // Unversioned: `/docs/sdk/<Type>` at the latest release.

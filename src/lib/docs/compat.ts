@@ -327,8 +327,8 @@ export function renderToolchain(
       [
         ['Node.js', code(current.node)],
         ['Titanium CLI', code(minimumCli(current, cliReleases))],
-        ...Object.entries(current.android.vendor).map(([k, v]) => [label(k), code(v)]),
-        ...Object.entries(current.ios.vendor).map(([k, v]) => [label(k), code(v)]),
+        ...Object.entries(current.android.vendor).map(([k, v]) => [vendorLabel(k), code(v)]),
+        ...Object.entries(current.ios.vendor).map(([k, v]) => [vendorLabel(k), code(v)]),
       ]
     ),
     '',
@@ -419,7 +419,7 @@ const releaseLabel = (t: Toolchain, current?: Toolchain) => {
 };
 
 /** `android build tools` reads as a column heading; `ios sdk` and `ndk` do not. */
-function label(key: string): string {
+export function vendorLabel(key: string): string {
   const special: Record<string, string> = {
     'ios sdk': 'iOS SDK',
     xcode: 'Xcode',
@@ -431,4 +431,173 @@ function label(key: string): string {
     'android ndk': 'Android NDK',
   };
   return special[key] ?? cellSafe(key.replace(/^./, (c) => c.toUpperCase()));
+}
+
+// -------------------------------------------------- the per-version page (TI-94)
+
+/**
+ * The same capture, read one release at a time (TI-94).
+ *
+ * `/docs/reference/compatibility` answers across every release at once, which
+ * is the right shape for "when did Java 17 become the floor" and the wrong one
+ * for the reader who is already standing on `/docs/sdk/13.4.0`. That reader has
+ * picked their release and wants its column, not the table it sits in.
+ *
+ * So this returns the same `toolchain.json` as rows rather than as markdown.
+ * The page beside the reference renders these; the cross-release tables above
+ * stay exactly as they were. Nothing here re-reads or re-derives anything:
+ * `minimumCli` decides the CLI floor in both places, and a range is printed as
+ * the SDK declared it in both places.
+ *
+ * Values are raw. `cellSafe` exists because a markdown table cell ends at an
+ * unescaped `|`, and `16.x || 18.x || 20.x` is a real value; JSX has no such
+ * hazard and React escapes what it renders, so escaping here would put literal
+ * backslashes on the page.
+ */
+export type CompatRow = {
+  label: string;
+  /** The range as the release declares it, or undefined when it states none. */
+  value?: string;
+  /** Shown with the row, where the range on its own would mislead. */
+  note?: string;
+};
+
+export type CompatSection = {
+  title: string;
+  blurb?: string;
+  rows: CompatRow[];
+};
+
+/**
+ * Vendor keys in the order the page reads them, per platform.
+ *
+ * `vendorDependencies` is authored in the SDK's own order, which puts Java last
+ * on Android. That is the order a `package.json` happens to be written in, not
+ * a reading order: Java is the component a reader checks first and the one that
+ * most often turns out to be the problem, so it leads. A key not listed here is
+ * still rendered - see `vendorRows`.
+ */
+const VENDOR_ORDER: Record<'android' | 'ios', readonly string[]> = {
+  android: [
+    'java',
+    'android sdk',
+    'android build tools',
+    'android platform tools',
+    'android tools',
+    'android ndk',
+  ],
+  ios: ['xcode', 'ios sdk'],
+};
+
+/**
+ * What a range does not say, for the few components where that matters.
+ *
+ * Deliberately short. Everything here is a fact about how the *build* treats a
+ * component being out of range, which is the thing a reader cannot work out
+ * from the range itself: `>=r21 <=r22b` does not say that having no NDK at all
+ * is fine.
+ */
+const VENDOR_NOTES: Record<string, string> = {
+  'android ndk': 'Only needed to compile native code. A missing NDK is a warning, not an error.',
+  'android build tools':
+    'A newer version is a warning and usually builds. Pin one with ' +
+    '`ti config android.buildTools.selectedVersion` when it does not.',
+  xcode: 'A newer Xcode is reported as too new and builds anyway, so rule it out early.',
+};
+
+/**
+ * One platform's vendor ranges, preferred order first.
+ *
+ * Keys outside `VENDOR_ORDER` are appended alphabetically rather than dropped.
+ * `ToolchainSchema` keeps `vendor` loose precisely because the key set is the
+ * SDK's to change, and a release that adds a component should put a row on the
+ * page rather than have it silently disappear until someone edits this file.
+ */
+export function vendorRows(vendor: Record<string, string>, order: readonly string[]): CompatRow[] {
+  const known = new Set(order);
+  const keys = [
+    ...order.filter((key) => key in vendor),
+    ...Object.keys(vendor)
+      .filter((key) => !known.has(key))
+      .sort(),
+  ];
+
+  return keys.map((key) => ({
+    label: vendorLabel(key),
+    value: vendor[key],
+    ...(VENDOR_NOTES[key] ? { note: VENDOR_NOTES[key] } : {}),
+  }));
+}
+
+/**
+ * What one release needs from the machine building with it.
+ *
+ * Three sections rather than one table. The old matrix ran Node, Java, Xcode
+ * and the Android SDK down a single column, which reads as one checklist when
+ * it is really three: two of them do not apply at all unless you build for that
+ * platform, and a Linux reader has no Xcode to compare against. A section that
+ * announces its platform lets that reader skip it rather than wonder.
+ *
+ * An empty section is dropped by the caller, not here: a release with no iOS
+ * `vendorDependencies` should not render an "iOS" heading over nothing.
+ */
+export function requirementSections(
+  toolchain: Toolchain,
+  cliReleases: CliReleases['releases']
+): CompatSection[] {
+  const cli = minimumCli(toolchain, cliReleases);
+
+  return [
+    {
+      title: 'Your machine',
+      rows: [
+        { label: 'Node.js', value: toolchain.node },
+        {
+          label: 'Titanium CLI',
+          value: cli,
+          // The CLI's own floor is not stated anywhere in the SDK: it is worked
+          // out from the Node this release needs, and a reader comparing this
+          // against the SDK's package.json would not find it there.
+          note: 'The oldest CLI that cannot start on a Node this release rejects. See how this is decided on the [compatibility reference](/docs/reference/compatibility).',
+        },
+      ],
+    },
+    {
+      title: 'Android',
+      blurb: 'Needed to build for Android, on macOS, Windows or Linux.',
+      rows: vendorRows(toolchain.android.vendor, VENDOR_ORDER.android),
+    },
+    {
+      title: 'iOS',
+      blurb: 'Needed to build for iOS, and macOS-only: Xcode compiles, signs and installs.',
+      rows: vendorRows(toolchain.ios.vendor, VENDOR_ORDER.ios),
+    },
+  ].filter((section) => section.rows.some((row) => row.value));
+}
+
+/**
+ * What one release builds *for*, as opposed to what it builds *with*.
+ *
+ * The floors an app produced by this release runs on. A device below the
+ * minimum Android API, or a simulator below the minimum iOS version, cannot run
+ * the output no matter how current the machine that built it is - which is the
+ * distinction the legacy matrix blurred by listing both under one heading.
+ */
+export function targetSection(toolchain: Toolchain): CompatSection {
+  return {
+    title: 'What it builds for',
+    blurb:
+      'The floors your app runs on, rather than the tools that build it. ' +
+      'Set higher in your project if you need to; these are as low as this release goes.',
+    rows: [
+      { label: 'Minimum Android API', value: toolchain.android.minSdkVersion },
+      {
+        label: 'Compiles against Android API',
+        value: toolchain.android.compileSdkVersion,
+        note: 'Also the highest `targetSdkVersion` this release can build against.',
+      },
+      { label: 'Minimum iOS', value: toolchain.ios.minIosVersion },
+      { label: 'Minimum watchOS', value: toolchain.ios.minWatchosVersion },
+    ].filter((row) => row.value),
+  };
 }

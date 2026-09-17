@@ -1,7 +1,7 @@
 import { OlderVersionNotice, VersionSwitcher } from '@/components/docs/version-switcher';
 import { InstallRow } from '@/components/downloads/install-row';
 import { OsIconDefs } from '@/components/downloads/os-icon';
-import { sdkIndex, MAIN } from '@/lib/docs/registry';
+import { sdkIndex, sdkToolchain, MAIN } from '@/lib/docs/registry';
 import { hasReleaseNote } from '@/lib/docs/release-notes';
 import { newerVersion, versionOptions } from '@/lib/docs/versions';
 import { formatDate } from '@/lib/downloads/format';
@@ -74,6 +74,22 @@ export function VersionIndex({ version, linkBase }: { version: string; linkBase:
                   className="text-link hover:underline"
                 >
                   Release notes
+                </a>
+              </>
+            )}
+            {/* Unconditional where the notes are gated: every compiled version
+                carries a `toolchain.json`, because the same capture step that
+                makes a version compiled makes it captured. Checked anyway -
+                a version compiled before `pnpm registry:toolchain` was run
+                would otherwise link to a 404. */}
+            {sdkToolchain(version) && (
+              <>
+                {' · '}
+                <a
+                  href={`/docs/sdk/${version}/compatibility`}
+                  className="text-link hover:underline"
+                >
+                  Compatibility
                 </a>
               </>
             )}
