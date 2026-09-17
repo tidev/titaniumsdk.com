@@ -9,8 +9,17 @@ name: Cleanup previews
 #
 # "Active" is Vercel's own word: a branch stops protecting its latest preview
 # once its pull request is merged or closed. This fires on both.
+#
+# `pull_request_target` rather than `pull_request` so that pull requests from
+# forks are cleaned up too. Under `pull_request` they are handed no secrets, so
+# this had to skip them, and they leaked: a third of the merged pull requests
+# here come from forks, and the five previews left orphaned after the last
+# manual sweep were every one of them a fork's. `_target` is safe in this
+# workflow specifically because it never checks out the pull request's code --
+# it reads two numbers off the event and shells out to Vercel. Do not add a
+# checkout step without revisiting that.
 on:
-  pull_request:
+  pull_request_target:
     types: [closed]
 
 # Two runs for one pull request would race on the same deployments, and whichever
@@ -18,15 +27,13 @@ on:
 concurrency:
   group: cleanup-previews-${{ github.event.pull_request.number }}
 
+# `pull_request_target` would otherwise hand a fork's pull request a writable
+# GITHUB_TOKEN. Nothing here talks to the GitHub API.
+permissions: {}
+
 jobs:
   remove:
     runs-on: ubuntu-latest
-
-    # A pull request from a fork is not given secrets, so there would be no token
-    # to authenticate with. Few fork previews exist to clean up in any case: Git
-    # Fork Protection is on, so they only build once someone authorizes them.
-    # Retention still collects those, 30 days later.
-    if: github.event.pull_request.head.repo.full_name == github.repository
 
     env:
       # Identifiers, not credentials. They name the project that VERCEL_TOKEN
@@ -34,17 +41,20 @@ jobs:
       VERCEL_ORG_ID: team_av3JbwDsQiwntXs2XWbz7JhJ
       VERCEL_PROJECT_ID: prj_Emee30vHKLvUjwbyZu4gVAuVaQsC
       VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-      # Passed as an environment variable rather than interpolated into the run
-      # block: a branch name is attacker-controlled, and `${{ }}` would splice it
-      # into the script as shell source before bash ever saw it.
-      BRANCH: ${{ github.event.pull_request.head.ref }}
+      # The pull request number, which Vercel records on every deployment it
+      # builds as `githubPrId`. Matching on that rather than on the branch name
+      # is what makes a fork safe to clean up: fork branches are named by their
+      # author, so `githubCommitRef=main` or `=patch-1` can name a deployment
+      # belonging to some other pull request entirely, or to this repo's own
+      # main. A pull request number collides with nothing.
+      PR_NUMBER: ${{ github.event.pull_request.number }}
 
     steps:
       - uses: actions/setup-node@v7
         with:
           node-version: 26
 
-      - name: Remove this branch's preview deployments
+      - name: Remove this pull request's preview deployments
         run: |
           set -euo pipefail
 
@@ -60,16 +70,16 @@ jobs:
             urls=$(npx --yes vercel@59 list \
               --token "$VERCEL_TOKEN" \
               --environment preview \
-              --meta githubCommitRef="$BRANCH" \
+              --meta githubPrId="$PR_NUMBER" \
               --limit 100 --json | jq -r '.deployments[].url')
 
             if [ -z "$urls" ]; then
-              echo "No preview deployments remain for $BRANCH."
+              echo "No preview deployments remain for PR #$PR_NUMBER."
               exit 0
             fi
 
             echo "$urls" | xargs npx --yes vercel@59 remove --yes --token "$VERCEL_TOKEN"
           done
 
-          echo "$BRANCH still has previews after 10 passes; removal is not taking effect."
+          echo "PR #$PR_NUMBER still has previews after 10 passes; removal is not taking effect."
           exit 1
