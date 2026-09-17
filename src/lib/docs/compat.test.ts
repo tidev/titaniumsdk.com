@@ -5,10 +5,13 @@ import {
   narrowedPlatforms,
   renderMatrix,
   renderToolchain,
+  requirementSections,
   table,
+  targetSection,
+  type CompatSection,
   type MatrixRow,
 } from './compat.ts';
-import { renderMarkdown } from './markdown.ts';
+import { renderInline, renderMarkdown } from './markdown.ts';
 import assert from 'node:assert/strict';
 import { describe, test } from 'node:test';
 
@@ -316,5 +319,144 @@ describe('renderToolchain', () => {
     };
     const out = renderToolchain([bare], CLI, '');
     assert.match(out, /\| Node\.js +\| - +\|/);
+  });
+});
+
+describe('the per-version page (TI-94)', () => {
+  const CLI = [
+    { version: '8.0.0', node: '>=20.18.1' },
+    { version: '9.0.0', node: '>=22.19.0' },
+  ];
+
+  const full: Toolchain = {
+    schemaVersion: 1,
+    version: '13.4.1',
+    source: { repo: 'tidev/titanium-sdk', ref: '13.4.1', commit: 'a'.repeat(40) },
+    node: '>=20.18.1',
+    cli: '>=3.2.1',
+    android: {
+      minSdkVersion: '24',
+      compileSdkVersion: '36',
+      // Authored in the SDK's own order, which puts java last.
+      vendor: {
+        'android sdk': '>=23.x <=36.x',
+        'android build tools': '>=30.0.2 <=35.x',
+        'android ndk': '>=r21 <=r22b',
+        java: '>=17.x',
+      },
+    },
+    ios: {
+      minIosVersion: '15.0',
+      minWatchosVersion: '8.0',
+      vendor: { 'ios sdk': '>=17.0 <=26.x', xcode: '>=15.0 <=26.x' },
+    },
+  };
+
+  const rowsOf = (sections: CompatSection[], title: string) =>
+    sections.find((s) => s.title === title)?.rows ?? [];
+
+  test('reads Java first, whatever order the SDK authored it in', () => {
+    // The fixture lists java last, as 13.4.1 really does. It is the component a
+    // reader checks first, so a package.json's authoring order must not decide
+    // the reading order.
+    const android = rowsOf(requirementSections(full, CLI), 'Android');
+    assert.equal(android[0]?.label, 'Java (JDK)');
+    assert.deepEqual(
+      android.map((r) => r.label),
+      ['Java (JDK)', 'Android SDK', 'Android build tools', 'Android NDK']
+    );
+  });
+
+  test('a vendor key this file has never heard of still gets a row', () => {
+    // `ToolchainSchema` keeps `vendor` loose because the key set is the SDK's
+    // to change. A release adding a component must appear rather than vanish
+    // until someone edits VENDOR_ORDER.
+    const withNew: Toolchain = {
+      ...full,
+      android: { ...full.android, vendor: { ...full.android.vendor, 'android cmake': '>=3.22' } },
+    };
+    const labels = rowsOf(requirementSections(withNew, CLI), 'Android').map((r) => r.label);
+    assert.ok(labels.includes('Android cmake'), labels.join(', '));
+    // Appended, not interleaved: the known order is the one that was reasoned
+    // about, so an unknown key goes after it rather than into the middle of it.
+    assert.equal(labels.at(-1), 'Android cmake');
+  });
+
+  test('ranges are passed through exactly as the release declares them', () => {
+    // Not paraphrased, and not escaped. `cellSafe` exists for markdown table
+    // cells; JSX has no such hazard, and escaping here would put literal
+    // backslashes on the page.
+    const piped: Toolchain = { ...full, node: '16.x || 18.x || 20.x' };
+    const machine = rowsOf(requirementSections(piped, CLI), 'Your machine');
+    assert.equal(machine.find((r) => r.label === 'Node.js')?.value, '16.x || 18.x || 20.x');
+
+    const android = rowsOf(requirementSections(full, CLI), 'Android');
+    assert.equal(android.find((r) => r.label === 'Android SDK')?.value, '>=23.x <=36.x');
+  });
+
+  test('the CLI floor is the one minimumCli decides, not the range the SDK states', () => {
+    // 13.4.1's commands ask only for >=3.2.1, but a CLI whose own Node floor is
+    // below the SDK's would start on a Node the SDK cannot build under. See
+    // cli-support.ts.
+    const machine = rowsOf(requirementSections(full, CLI), 'Your machine');
+    assert.equal(machine.find((r) => r.label === 'Titanium CLI')?.value, '>=8.0.0');
+  });
+
+  test('a platform the release says nothing about gets no heading', () => {
+    // An "iOS" heading over an empty list reads as "no iOS requirements",
+    // which is the opposite of "this capture has none".
+    const noIos: Toolchain = { ...full, ios: { vendor: {} } };
+    const titles = requirementSections(noIos, CLI).map((s) => s.title);
+    assert.deepEqual(titles, ['Your machine', 'Android']);
+  });
+
+  test('build-for floors are separate from build-with tools', () => {
+    // The distinction the legacy matrix blurred: a device below the minimum
+    // API cannot run the output however current the build machine is.
+    const rows = targetSection(full).rows;
+    assert.deepEqual(
+      rows.map((r) => [r.label, r.value]),
+      [
+        ['Minimum Android API', '24'],
+        ['Compiles against Android API', '36'],
+        ['Minimum iOS', '15.0'],
+        ['Minimum watchOS', '8.0'],
+      ]
+    );
+  });
+
+  test('an unstated floor is dropped rather than rendered empty', () => {
+    const bare: Toolchain = {
+      schemaVersion: 1,
+      version: '9.0.0',
+      source: { repo: 'tidev/titanium-sdk', ref: '9.0.0', commit: 'b'.repeat(40) },
+      android: { vendor: {} },
+      ios: { vendor: {} },
+    };
+    assert.deepEqual(targetSection(bare).rows, []);
+    // And with nothing on either platform, only the machine section survives -
+    // where the CLI row is still worth stating if a Node floor is known.
+    assert.deepEqual(
+      requirementSections(bare, CLI).map((s) => s.title),
+      []
+    );
+  });
+
+  test('every note is renderable inline, since the page renders them as markdown', () => {
+    const notes = [
+      ...requirementSections(full, CLI).flatMap((s) => s.rows),
+      ...targetSection(full).rows,
+    ]
+      .map((r) => r.note)
+      .filter((n): n is string => Boolean(n));
+
+    assert.ok(notes.length > 0);
+    for (const note of notes) {
+      const html = renderInline(note, {});
+      // renderInline strips the wrapping paragraph; a note that came back as a
+      // block would land in the page as nested block elements inside a <p>.
+      assert.equal(html.includes('<p>'), false, note);
+      assert.ok(html.length > 0, note);
+    }
   });
 });

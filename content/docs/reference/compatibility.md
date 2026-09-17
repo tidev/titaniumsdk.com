@@ -25,6 +25,10 @@ about your machine in a way that no page can be.
 
 ## Toolchain
 
+Every release below also has a page of its own, linked as "Compatibility" from
+its [API reference](/docs/sdk) index. Read that one when you have already picked
+a release; read this one to see where a requirement changed.
+
 :::include toolchain
 
 A component newer than its range is a warning rather than an error on Android,
