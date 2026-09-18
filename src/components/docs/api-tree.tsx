@@ -1,5 +1,5 @@
+import { HoverPrefetchLink } from './hover-prefetch-link';
 import { branchIds, buildNavTree, type NavNode, type NavType } from '@/lib/docs/tree';
-import Link from 'next/link';
 
 /**
  * The namespace tree itself, without the rail around it.
@@ -103,12 +103,13 @@ function Label({ node, base, current }: { node: NavNode; base: string; current: 
   }
 
   return (
-    <Link
+    <HoverPrefetchLink
       href={`${base}/${node.name}`}
       // 284 links in a scrolling rail, and a type page renders on demand: left
       // to prefetch on sight, opening the tree would ask the server to build
-      // most of a version. The navigation is still client-side.
-      prefetch={false}
+      // most of a version. So it prefetches on hover instead, which is when
+      // the click is about to happen anyway. The navigation is still
+      // client-side; see the component for the numbers.
       aria-current={current ? 'page' : undefined}
       // Sans, like every other row in either sidebar. A type name is code in
       // prose and gets a mono face there, but a nav row is a label: set in mono
@@ -123,7 +124,7 @@ function Label({ node, base, current }: { node: NavNode; base: string; current: 
       } ${node.deprecated ? 'line-through decoration-danger' : ''}`}
     >
       {node.label}
-    </Link>
+    </HoverPrefetchLink>
   );
 }
 
