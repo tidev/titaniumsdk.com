@@ -1,5 +1,5 @@
+import { HoverPrefetchLink } from './hover-prefetch-link';
 import { branchIds, buildNavTree, type NavNode, type NavType } from '@/lib/docs/tree';
-import Link from 'next/link';
 
 /**
  * The namespace tree itself, without the rail around it.
@@ -11,8 +11,12 @@ import Link from 'next/link';
  * route whose page knows its own type and passes it straight in.
  *
  * No `'use client'` here on purpose. Imported from a client component it is
- * bundled into that graph; imported from a server component it renders on the
- * server and ships no JavaScript. It uses no hooks, so both are correct.
+ * bundled into that graph; imported from a server component the tree renders
+ * on the server and the only client code it ships is the `HoverPrefetchLink`
+ * in each `Label`: one client reference in the flight payload and one small
+ * component to hydrate per type, 284 per version. That is the price of the
+ * hover prefetch, paid once; the tree itself uses no hooks, so both imports
+ * are correct.
  *
  * The flat type list is the prop rather than the built tree because props are
  * serialised into a client page's flight payload, and the nested form costs
@@ -103,12 +107,13 @@ function Label({ node, base, current }: { node: NavNode; base: string; current: 
   }
 
   return (
-    <Link
+    <HoverPrefetchLink
       href={`${base}/${node.name}`}
       // 284 links in a scrolling rail, and a type page renders on demand: left
       // to prefetch on sight, opening the tree would ask the server to build
-      // most of a version. The navigation is still client-side.
-      prefetch={false}
+      // most of a version. So it prefetches after a short hover instead, which
+      // is when the click is about to happen anyway. The navigation is still
+      // client-side; see the component for the numbers.
       aria-current={current ? 'page' : undefined}
       // Sans, like every other row in either sidebar. A type name is code in
       // prose and gets a mono face there, but a nav row is a label: set in mono
@@ -123,7 +128,7 @@ function Label({ node, base, current }: { node: NavNode; base: string; current: 
       } ${node.deprecated ? 'line-through decoration-danger' : ''}`}
     >
       {node.label}
-    </Link>
+    </HoverPrefetchLink>
   );
 }
 
