@@ -108,8 +108,8 @@ export function VersionIndex({ version, linkBase }: { version: string; linkBase:
             <ul className="mt-3 grid gap-x-6 gap-y-1 sm:grid-cols-2">
               {byKind.get(kind)!.map((t) => (
                 <li key={t.name} className="truncate">
-                  {/* Client-side, and prefetched only on hover: this list is
-                      the whole version, and a type page renders on demand. */}
+                  {/* Client-side, and prefetched only after a short hover: this list
+                      is the whole version, and a type page renders on demand. */}
                   <HoverPrefetchLink
                     href={`${base}/${t.name}`}
                     className="font-mono text-sm text-link hover:underline"
