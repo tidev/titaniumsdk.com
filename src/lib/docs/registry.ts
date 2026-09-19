@@ -157,11 +157,19 @@ export const sdkType = (version: string, name: string): ApiType | null =>
  * A module's cross-repo references are checked against this: docgen compiles one
  * repo at a time, so a module's `Titanium.UI.View` is only a name until someone
  * confirms the SDK still has a page for it.
+ *
+ * Read from the version's `contents.json` rather than from its index. The two
+ * name the same types - `registry.test.ts` holds that invariant - and the
+ * manifest is a 20KB file that is already parsed to reach anything else in
+ * the version, while the index is 400KB and validated against a schema. The
+ * version switcher on a type page asks this of every version, so the
+ * difference was twenty index parses on a cold serverless function before
+ * the page could render.
  */
 export function sdkTypeNames(version: string): ReadonlySet<string> {
   const cached = sdkNames.get(version);
   if (cached) return cached;
-  const names = new Set((sdkIndex(version)?.types ?? []).map((t) => t.name));
+  const names = new Set(Object.keys(contentsOf(join(SDK_DIR, version))?.types ?? {}));
   sdkNames.set(version, names);
   return names;
 }
