@@ -4,7 +4,7 @@
   "source": {
     "repo": "tidev/titanium-sdk",
     "ref": "main",
-    "commit": "8a64932e5178a77d02fe9185082adf9d0320a8c0"
+    "commit": "d02b52b6e19e1f14ceb7b22667630353c3625db9"
   },
   "node": ">=22.19.0",
   "declared": "14.0.0",
@@ -22,11 +22,11 @@
     }
   },
   "ios": {
-    "minIosVersion": "15.0",
+    "minIosVersion": "16.0",
     "minWatchosVersion": "8.0",
     "vendor": {
-      "xcode": ">=15.0 <=26.x",
-      "ios sdk": ">=17.0 <=26.x"
+      "xcode": ">=16.0 <=27.x",
+      "ios sdk": ">=18.0 <=27.x"
     }
   }
 }
