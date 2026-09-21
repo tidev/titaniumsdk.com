@@ -13,7 +13,7 @@ Titanium requires **Node.js 22.19.0 or 24.x**.
 @tab nvm
 
 ```sh
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.7/install.sh | bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.8/install.sh | bash
 ```
 
 Reopen your terminal, then:
@@ -47,7 +47,7 @@ Download the macOS `.pkg` from
 @tab nvm
 
 ```sh
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.7/install.sh | bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.8/install.sh | bash
 ```
 
 Reopen your terminal, then:
