@@ -77,8 +77,12 @@ export type ImagePolicy = {
   maxBytes: number;
   /** What one entry is called, in errors: a "listing", an "app". */
   noun: string;
-  /** What to do about a file over the cap, in the submitter's terms. */
-  advice: string;
+  /**
+   * What to do about a file over the cap, in the submitter's terms. A function
+   * where the answer depends on which file it is - the showcase's icons and
+   * screenshots want different sizes.
+   */
+  advice: string | ((name: string) => string);
 };
 
 export const asKb = (bytes: number) => `${Math.ceil(bytes / 1024)}KB`;
@@ -112,7 +116,8 @@ export function imageProblem(path: string, name: string, policy: ImagePolicy): s
 
   const bytes = statSync(path).size;
   if (bytes > policy.maxBytes) {
-    return `${name}: ${asKb(bytes)} is over the ${asKb(policy.maxBytes)} limit. ${policy.advice}`;
+    const advice = typeof policy.advice === 'string' ? policy.advice : policy.advice(name);
+    return `${name}: ${asKb(bytes)} is over the ${asKb(policy.maxBytes)} limit. ${advice}`;
   }
 
   if (!magicMatches(path, ext as keyof typeof FORMATS)) {

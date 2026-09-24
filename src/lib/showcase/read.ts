@@ -1,7 +1,7 @@
 import { fairOrder } from '../fair-order.ts';
 import { ShowcaseAppSchema } from '../registry/showcase.ts';
 import { liveApps, type App } from './app.ts';
-import { iconsByApp, iconUrl } from './icon.ts';
+import { iconUrl, imagesByApp } from './icon.ts';
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { basename, join } from 'node:path';
 
@@ -34,7 +34,7 @@ let all: App[] | null = null;
  *
  * Parsed through the same schema CI validates with, so a file that would fail
  * `pnpm check:registry` throws here rather than rendering a half-built card,
- * and `iconsByApp` throws on an entry whose icon is missing or unpublishable.
+ * and `imagesByApp` throws on an entry whose icon is missing or unpublishable.
  * The build failing is the correct outcome in both cases: a showcase exists to
  * be looked at, and a card with a hole where the icon goes says something worse
  * about the framework than no card at all.
@@ -58,14 +58,18 @@ export function allApps(): App[] {
       return parsed;
     });
 
-  // A second pass, because an icon is matched to an entry by name and both the
-  // orphan check and the missing-icon check need to know every id first.
-  const icons = iconsByApp(
+  // A second pass, because a picture is matched to an entry by name and both
+  // the orphan check and the missing-icon check need to know every id first.
+  const { icons, screenshots } = imagesByApp(
     SHOWCASE_DIR,
     entries.map((app) => app.id)
   );
 
-  all = entries.map((app) => ({ ...app, icon: iconUrl(icons.get(app.id)!) }));
+  all = entries.map((app) => ({
+    ...app,
+    icon: iconUrl(icons.get(app.id)!),
+    screenshots: (screenshots.get(app.id) ?? []).map(iconUrl),
+  }));
   return all;
 }
 

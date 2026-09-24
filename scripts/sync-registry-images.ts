@@ -1,12 +1,13 @@
 import { avatarsByProfile } from '../src/lib/directory/avatar.ts';
-import { iconsByApp } from '../src/lib/showcase/icon.ts';
+import { publishedFiles } from '../src/lib/showcase/icon.ts';
 import { copyFileSync, existsSync, mkdirSync, readdirSync, rmSync } from 'node:fs';
 import { basename, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 /**
  * Mirrors hand-submitted registry pictures into `public/` so Next can serve
- * them: developer directory avatars (TI-58) and app showcase icons (TI-54).
+ * them: developer directory avatars (TI-58) and app showcase icons and
+ * screenshots (TI-54).
  *
  * They are committed beside the entry they belong to rather than dropped into
  * `public/` directly - see `src/lib/registry-images.ts` for why a picture is a
@@ -40,8 +41,12 @@ const root = fileURLToPath(new URL('..', import.meta.url));
  * problem at once by the time anyone gets here.
  */
 const REGISTRIES = [
-  { name: 'directory', read: avatarsByProfile, noun: 'listing picture' },
-  { name: 'showcase', read: iconsByApp, noun: 'app icon' },
+  {
+    name: 'directory',
+    read: (dir: string, ids: string[]) => [...avatarsByProfile(dir, ids).values()],
+    noun: 'listing picture',
+  },
+  { name: 'showcase', read: publishedFiles, noun: 'app picture' },
 ] as const;
 
 /** The entries that exist in a registry, by id. Their pictures are named after them. */
@@ -60,24 +65,24 @@ function sync({ name, read, noun }: (typeof REGISTRIES)[number]): void {
   // first unpublishable file, and clearing the destination first would mean a
   // rejected picture took every good one down with it - leaving a build that
   // still references them and quietly serves none.
-  const pictures = read(source, entryIds(source));
+  const files = read(source, entryIds(source));
 
   // Rebuilt rather than updated. An entry removed in the same commit that added
   // it back under another name would otherwise leave its picture served at a
   // URL nothing links to.
   rmSync(destination, { recursive: true, force: true });
 
-  if (!pictures.size) {
+  if (!files.length) {
     console.log(`${name}: no ${noun}s to publish`);
     return;
   }
 
   mkdirSync(destination, { recursive: true });
-  for (const file of pictures.values()) {
+  for (const file of files) {
     copyFileSync(join(source, file), join(destination, file));
   }
 
-  console.log(`${name}: published ${pictures.size} ${noun}(s) to public/${name}/`);
+  console.log(`${name}: published ${files.length} ${noun}(s) to public/${name}/`);
 }
 
 for (const registry of REGISTRIES) sync(registry);
