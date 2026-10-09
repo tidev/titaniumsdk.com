@@ -17,6 +17,7 @@ const app = (id: string, over: Partial<App> = {}): App => ({
   sdkVersion: '12.7.0.GA',
   description: `${id} does something useful`,
   icon: `/showcase/${id}.png`,
+  screenshots: [],
   placeholder: false,
   ...over,
 });
