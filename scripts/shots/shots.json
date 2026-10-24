@@ -1,0 +1,58 @@
+[
+  {
+    "id": "layout-precedence",
+    "note": "content/docs/build/ui/layout.md, inventory #1. Shipped.",
+    "platforms": [
+      "ios"
+    ],
+    "crop": {
+      "top": 80,
+      "height": 330
+    }
+  },
+  {
+    "id": "list-view",
+    "note": "content/docs/build/ui/lists.md, inventory #2. Section header styling is the point.",
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "crop": {
+      "ios": {
+        "top": 58,
+        "height": 290
+      },
+      "android": {
+        "top": 48,
+        "height": 290
+      }
+    },
+    "compose": [
+      "ios",
+      "android"
+    ]
+  },
+  {
+    "id": "back-affordance",
+    "note": "content/docs/build/ui/platform-conventions.md, inventory #3. iOS chevron against the Android up caret.",
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "crop": {
+      "ios": {
+        "top": 56,
+        "height": 125
+      },
+      "android": {
+        "top": 48,
+        "height": 125
+      }
+    },
+    "compose": [
+      "ios",
+      "android"
+    ],
+    "composeAxis": "column"
+  }
+]

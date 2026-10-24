@@ -132,13 +132,7 @@ thousand view hierarchies.
 
 The event is `click`, not `itemclick`.
 
-:::missing 4:3
-
-The same list of five items rendered twice, side by side: `ListView` on an
-iPhone simulator and on an Android emulator, with a section header visible on
-each so the platform styling of the header is the difference on show.
-
-:::
+![The same five-item list on both platforms, side by side. On iOS the section header Modules is grey text on the window background above the first row. On Android it is white text on a filled grey bar spanning the width of the list.](/docs/guides/list-view.png)
 
 ## Next
 

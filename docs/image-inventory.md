@@ -44,7 +44,9 @@ here because they apply to every row):
 - Light or dark, or both. The site has both themes and a light-only screenshot
   on a dark page is the first thing a reader notices.
 - One device per platform for everything, so scale does not wander page to page.
-  Suggest iPhone 16 (393x852pt) and a Pixel 8 emulator (412x915dp).
+  An iPhone 17 Pro Max (440x956pt), which is what `scripts/capture-screenshots.ts`
+  defaults to, and a Pixel 8 emulator (412x915dp). An iPhone 16 is no longer
+  installable on a current Xcode; an iPhone 17 is the same 393x852pt screen.
 - Status bars: clean them or crop them. A real clock and battery level date an
   image and leak the machine it was taken on.
 - Project names from the guides - `Hello`, `myapp` - not whatever was on disk.
@@ -69,81 +71,52 @@ These are the ones a reader can currently see are absent.
 
 | #   | Page                                                                                    | Ratio | Deliver   | Platform | Of                                                                                                                                                                                                                                           |
 | --- | --------------------------------------------------------------------------------------- | ----- | --------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1   | [layout.md:116](content/docs/build/ui/layout.md#L116)                                   | 4:3   | 1400x1050 | iOS      | Two iPhone frames side by side. Left: a view with `top: 20, bottom: 20, height: 100` sitting at the top of its parent. Right: the same view with `height` removed, stretched between both pins. The point is that `height` outranks `bottom` |
-| 2   | [lists.md:135](content/docs/build/ui/lists.md#L135)                                     | 4:3   | 1400x1050 | **Both** | The same five-item `ListView` on iPhone and on an Android emulator, side by side, with a section header visible on each so the platform header styling is the difference on show                                                             |
-| 3   | [platform-conventions.md:167](content/docs/build/ui/platform-conventions.md#L167)       | 4:3   | 1400x1050 | **Both** | The same two-screen app on both, on the detail screen, so the iOS back chevron in the navigation bar and the Android up affordance in the action bar are both visible                                                                        |
+| 1   | [layout.md:116](content/docs/build/ui/layout.md#L116)                                   | 4:3   | 1320x990  | iOS      | **Shipped**, light only, as `/docs/guides/layout-precedence-ios.png`. One iPhone screenshot, cropped to the band holding both panes. Left: a view with `top: 20, bottom: 20, height: 100` sitting at the top of its parent. Right: the same view with `height` removed, stretched between both pins. The point is that `height` outranks `bottom` |
+| 2   | [lists.md:135](content/docs/build/ui/lists.md#L135)                                     | 3:1   | 2267x761  | **Both** | **Shipped**, light only, as `/docs/guides/list-view.png`. The same five-item `ListView` on iPhone and on an Android emulator, side by side, with a section header visible on each so the platform header styling is the difference on show                                                             |
+| 3   | [platform-conventions.md:167](content/docs/build/ui/platform-conventions.md#L167)       | 5:3   | 1080x667  | **Both** | **Shipped**, light only, as `/docs/guides/back-affordance.png`. Stacked rather than side by side, because two navigation bars side by side render about 100px tall in the prose. The same two-screen app on both, on the detail screen, so the iOS back chevron in the navigation bar and the Android up affordance in the action bar are both visible                                                                        |
 | 4   | [icons-and-launch-screens.md:97](content/docs/build/ui/icons-and-launch-screens.md#L97) | 16:9  | 1400x788  | Android  | The generated adaptive icon on an emulator launcher, three times with different mask shapes - circle, squircle, rounded square - so the cropping is visible                                                                                  |
 | 5   | [notifications.md:123](content/docs/build/notifications.md#L123)                        | 16:9  | 1400x788  | Android  | An expanded notification in the emulator's shade, showing title, body and app icon from the local notification example on the page                                                                                                           |
 | 6   | [media.md:143](content/docs/build/media.md#L143)                                        | 9:16  | 640x1138  | Android  | The camera overlay open with the shutter visible, and below it the captured photo shown in an `ImageView` on the same screen                                                                                                                 |
 | 7   | [location.md:135](content/docs/build/location.md#L135)                                  | 9:16  | 640x1138  | Android  | A map with three annotations, centred on a city, with one annotation's callout open                                                                                                                                                          |
 
-Snippets for the three that need code rather than a stock app:
+Snippets for the three that need code rather than a stock app. Each one that a
+script can shoot lives in `scripts/shots/` as well, and
+`pnpm run capture:shots` builds it, runs it on a fixed simulator with the status
+bar overridden, and writes the cropped image. The ones below that are not a
+snippet in a window stay manual.
 
 **#1 - layout precedence (iOS)**
 
-```js
-const win = Ti.UI.createWindow({ backgroundColor: '#fff', layout: 'horizontal' });
+The two panes sit in a fixed band rather than filling the screen, and the shot
+is cropped to that band. A full-height portrait screenshot cannot be used on
+this page at any scale: `.prose-docs img` is `max-width: 100%` in a 700px
+column, so a 0.46:1 image is either 1500px tall at full width or 190px wide at
+the 26rem height the prose allows (`MISSING_MAX_HEIGHT`, `src/lib/docs/blocks.ts`).
+A 330pt band on the 440pt-wide screen of an iPhone 17 Pro Max crops to exactly
+4:3; on a 393pt iPhone 17 use 295, or pad the crop with the window's white,
+which is uniform above and below the band.
 
-function pane(title, props) {
-  const outer = Ti.UI.createView({
-    width: '50%',
-    height: Ti.UI.FILL,
-    top: 60,
-    backgroundColor: '#f2f2f7',
-  });
-  outer.add(Ti.UI.createLabel({ text: title, top: 4, font: { fontSize: 12 } }));
-  const parent = Ti.UI.createView({
-    top: 30,
-    bottom: 20,
-    left: 12,
-    right: 12,
-    backgroundColor: '#e0e0e6',
-  });
-  parent.add(Ti.UI.createView({ backgroundColor: '#0a84ff', left: 0, right: 0, ...props }));
-  outer.add(parent);
-  return outer;
-}
+The code is `scripts/shots/layout-precedence.js`, which is what
+`node scripts/capture-screenshots.ts --shot layout-precedence` builds. It lives
+there rather than inline here so the picture and the code that produced it
+cannot drift apart.
 
-win.add(pane('height wins', { top: 20, bottom: 20, height: 100 }));
-win.add(pane('no height', { top: 20, bottom: 20 }));
-win.open();
-```
+Composite layout with each pane pinned by `left` or `right`, not a `horizontal`
+window: in horizontal layout `Ti.UI.FILL` takes the full row height and `top: 60`
+then pushes the bottom of both panes off the screen, which is the one edge this
+image has to show.
 
-**#2 - the same ListView on both platforms**
+**#2 and #3 - the two platform comparisons**
 
-```js
-const win = Ti.UI.createWindow({ backgroundColor: '#fff' });
+`scripts/shots/list-view.js` and `scripts/shots/back-affordance.js`, both shot
+with `--platform both` and stitched by the capture script.
 
-const section = Ti.UI.createListSection({ headerTitle: 'Modules' });
-section.setItems([
-  { properties: { title: 'ti.map' } },
-  { properties: { title: 'ti.barcode' } },
-  { properties: { title: 'ti.coremotion' } },
-  { properties: { title: 'ti.crypto' } },
-  { properties: { title: 'ti.nfc' } },
-]);
-
-win.add(Ti.UI.createListView({ sections: [section] }));
-win.open();
-```
-
-**#3 - back affordance on both platforms**
-
-```js
-const android = Ti.Platform.osname === 'android';
-const root = Ti.UI.createWindow({ title: 'Notes', backgroundColor: '#fff' });
-const nav = android ? null : Ti.UI.createNavigationWindow({ window: root });
-
-const detail = Ti.UI.createWindow({ title: 'Shopping list', backgroundColor: '#fff' });
-detail.add(Ti.UI.createLabel({ text: 'Milk, bread, coffee' }));
-
-const open = Ti.UI.createButton({ title: 'Open detail' });
-open.addEventListener('click', () => (nav ? nav.openWindow(detail) : detail.open()));
-root.add(open);
-
-(nav ?? root).open();
-// Then tap through to the detail screen before shooting.
-```
+Two things the shoot turned up. On iOS a `ListView` given a fixed height
+renders only the rows that fit the frame it was given, and quietly dropped the
+fifth even with room to spare, so the list fills the window and the crop does
+the framing. And Titanium Android puts no up caret on a child window unless
+`actionBar.displayHomeAsUp` is set, which is worth saying on
+`platform-conventions.md` itself rather than only showing in a picture.
 
 ---
 
@@ -872,7 +845,7 @@ Recorded so nobody re-derives these.
 
 | Group                                | Images | Notes                                                                                                        |
 | ------------------------------------ | ------ | ------------------------------------------------------------------------------------------------------------ |
-| Guides, already marked `:::missing`  | 7      | Visible as gaps on the page today                                                                            |
+| Guides, already marked `:::missing`  | 4      | Visible as gaps on the page today. #1, #2 and #3 are shipped, leaving four                                   |
 | Guides, tooling                      | 4 + 3  | Three of the latter are `ti info`, likely code blocks instead                                                |
 | Guides, unmarked but wanted          | 10     | Each needs a `:::missing` block adding alongside                                                             |
 | API reference, replacing legacy      | 58     | 52 replacements (54 files, 2 dropped) plus 6 platform halves that never existed                              |
