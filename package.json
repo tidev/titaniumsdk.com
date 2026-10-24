@@ -7,6 +7,7 @@
     "assets": "node scripts/sync-doc-assets.ts",
     "audit:guides": "node scripts/audit-legacy-guides.ts",
     "build": "node scripts/prune-builds.ts && node scripts/sync-doc-assets.ts && node scripts/sync-registry-images.ts && node scripts/generate-compat.ts && node scripts/generate-search-index.ts && node scripts/generate-symbol-index.ts && node scripts/check-docs.ts && next build",
+    "capture:shots": "node scripts/capture-screenshots.ts",
     "check": "next typegen && tsc --noEmit",
     "check:contrast": "node scripts/check-contrast.ts",
     "check:docs": "node scripts/check-docs.ts",
@@ -68,6 +69,7 @@
     "oxfmt": "0.74.0",
     "oxlint": "1.89.0",
     "pagefind": "^1.5.2",
+    "sharp": "^0.35.5",
     "tailwindcss": "4.3.3",
     "typescript": "7.0.2"
   },
