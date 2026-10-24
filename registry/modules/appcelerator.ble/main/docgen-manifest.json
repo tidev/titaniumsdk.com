@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "generator": "sha256:ac231061067ed51d0966e3953108bbd9c19cae952495be231d05241eb191edf3",
+  "generator": "sha256:3b7bd6f149505791face123269bbc9ea944e76c3b6fcdaa9786a2733e097fa29",
   "external": {
     "repo": "tidev/titanium-sdk",
     "version": "main",
-    "hash": "sha256:0c8e94bd4e64c06147ad9ff63806ba4cc4617e8aca5fa7095f28472598bbf5a4"
+    "hash": "sha256:cf5782e888a89b15f04132ea960e3cfb0ae5341ebec1bda4194b30cba061d06b"
   },
-  "generatedAt": "2026-08-30T19:02:12.481Z",
+  "generatedAt": "2026-10-24T14:36:45.817Z",
   "sources": {
     "Beacon.yml": {
       "hash": "sha256:e9e80218dc74140f014a6098e36955e2ddf71763a432789e7e10ed890d695679",
@@ -27,7 +27,7 @@
       ]
     },
     "Ble.yml": {
-      "hash": "sha256:e42845257a32f4e57c94c63e26eff37ed821518fd54d84edf67d41a50328ec8c",
+      "hash": "sha256:6ac7429a8941183d0ff06451dd0068e17e10c048cb498c5d76bf24447a8414bc",
       "types": [
         "Modules.BLE"
       ]
@@ -136,7 +136,7 @@
     "Modules.BLE": {
       "source": "Ble.yml",
       "extends": "Titanium.Module",
-      "outputHash": "sha256:1e466009219f38c537c3c33cea8a2f65e6796a564b54a05fad124cde8eb6ac6e"
+      "outputHash": "sha256:0a1d28897260e3c4f06563b3e7942da9e16afc302c97e6fb3d9e909d79f7a6d4"
     },
     "Modules.BLE.Central": {
       "source": "Central.yml",
