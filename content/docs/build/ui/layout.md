@@ -113,13 +113,7 @@ Setting `top`, `bottom` **and** `height` does not stretch anything: `height`
 outranks `bottom`, so the view sits at the top with the height you asked for.
 Drop the `height` and the two pins size it.
 
-:::missing 4:3
-
-The same view rendered twice on an iPhone simulator, side by side: on the left
-`top: 20, bottom: 20, height: 100` sitting at the top of its parent, on the
-right the same view with `height` removed, stretched between both pins.
-
-:::
+![Two panes side by side on an iPhone. In the left pane a blue view with top, bottom and height all set sits 100 points tall against the top of its grey parent, leaving the rest of the parent empty below it. In the right pane the same view with no height fills the parent, stopping 20 points short of each end.](/docs/guides/layout-precedence-ios.png)
 
 ## Vertical layout
 

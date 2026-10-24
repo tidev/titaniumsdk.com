@@ -164,13 +164,7 @@ In TSS and XML, a platform attribute does the same:
 Prefer those to a runtime check when the difference is layout rather than
 behaviour: the code for the other platform never ships.
 
-:::missing 4:3
-
-The same two-screen app on an iPhone simulator and an Android emulator side by
-side, on the detail screen, so the iOS back chevron in the navigation bar and
-the Android up affordance in the action bar are both visible.
-
-:::
+![The detail screen of the same app on both platforms, one above the other. On iOS a back chevron labelled Notes sits at the left of the navigation bar, with the title Shopping list centred. On Android a plain left arrow sits at the left of the action bar, with the title beside it rather than centred.](/docs/guides/back-affordance.png)
 
 ## Next
 
