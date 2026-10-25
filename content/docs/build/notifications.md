@@ -120,12 +120,7 @@ The most common "push is broken" causes, in the order worth checking:
 3. **Missing channel on Android.** See above.
 4. **The token is stale.** See above.
 
-:::missing 16:9
-
-An expanded notification in the Android emulator's shade, showing the title,
-body and app icon from the local notification example.
-
-:::
+![An expanded notification in the Android shade, posted by an app called Hello. Its icon sits at the left, the title reads Standup and the body reads Daily standup in five minutes.](/docs/guides/notification-shade-android.png)
 
 ## Next
 
