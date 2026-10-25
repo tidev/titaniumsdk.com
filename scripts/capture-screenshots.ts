@@ -73,8 +73,14 @@ const STATUS_BAR_TIME = '9:41';
 
 const MARKER = 'TI_SHOT_READY';
 
+/** The harness app's id. Stage commands write it as `{app}`. */
+const APP_ID = 'com.titaniumsdk.shots';
+
 type Platform = 'ios' | 'android';
 type Theme = 'light' | 'dark';
+
+/** An `adb shell` command, or a number of milliseconds to wait. */
+type Step = string | number;
 
 /**
  * The slice of the screen worth keeping, full width, in the units the snippet
@@ -111,6 +117,20 @@ interface Shot {
   composeAxis?: 'row' | 'column';
   /** Milliseconds of quiet after the last layout before the shot is taken. */
   settle?: number;
+  /** Modules the snippet requires, added to the harness tiapp.xml. */
+  modules?: { name: string; platform: 'iphone' | 'android' }[];
+  /**
+   * Permissions the snippet needs. They are declared in the manifest and
+   * granted with `pm grant`, because the alternative is a system dialog that
+   * someone has to tap.
+   */
+  androidPermissions?: string[];
+  /**
+   * Run after the app reports ready and before the screenshot, for a picture
+   * of something that is not the app's own window. Strings are `adb shell`
+   * commands, numbers are waits in milliseconds, and `{app}` is the app id.
+   */
+  androidStage?: Step[];
   /** What the picture is for, so a stray file in `out/` can be traced back. */
   note?: string;
 }
@@ -233,13 +253,65 @@ function ensureProject(options: Options): string {
     '-n',
     'Hello',
     '--id',
-    'com.titaniumsdk.shots',
+    APP_ID,
     '-p',
     'ios,android',
     '-d',
     options.projectDir,
   ]);
   return dir;
+}
+
+/**
+ * Adds whatever the chosen shots need to the harness tiapp.xml.
+ *
+ * Applied for the whole run rather than per shot, so switching between shots
+ * does not churn the manifest and force a full rebuild each time. Everything
+ * added is inert for the shots that do not use it.
+ */
+function ensureProjectNeeds(projectDir: string, shots: Shot[]): void {
+  const file = join(projectDir, 'tiapp.xml');
+  const before = readFileSync(file, 'utf8');
+  let xml = before;
+
+  // `ti create` writes CRLF, so neither the match nor the inserted line can
+  // assume a bare newline.
+  const eol = xml.includes('\r\n') ? '\r\n' : '\n';
+
+  for (const shot of shots) {
+    for (const module of shot.modules ?? []) {
+      const tag = `<module platform="${module.platform}">${module.name}</module>`;
+      if (!xml.includes(tag)) {
+        xml = xml.replace(/([ \t]*<modules>\r?\n)/, `$1\t\t${tag}${eol}`);
+      }
+    }
+    for (const permission of shot.androidPermissions ?? []) {
+      const tag = `<uses-permission android:name="${permission}"/>`;
+      if (!xml.includes(tag)) {
+        xml = xml.replace(/(<manifest[^>]*>\r?\n)/, `$1\t\t\t${tag}${eol}`);
+      }
+    }
+  }
+
+  if (xml !== before) {
+    writeFileSync(file, xml);
+    console.log('Updated tiapp.xml for this run');
+  }
+}
+
+async function stageAndroid(device: Device, shot: Shot): Promise<void> {
+  const adb = adbPath();
+  for (const permission of shot.androidPermissions ?? []) {
+    run(adb, ['-s', device.serial, 'shell', 'pm', 'grant', APP_ID, permission], true);
+  }
+
+  for (const step of shot.androidStage ?? []) {
+    if (typeof step === 'number') {
+      await new Promise((resolve) => setTimeout(resolve, step));
+      continue;
+    }
+    run(adb, ['-s', device.serial, 'shell', step.replaceAll('{app}', APP_ID)], true);
+  }
 }
 
 function adbPath(): string {
@@ -583,7 +655,7 @@ async function composeParts(
 
   await sharp({ create: { width, height, channels: 3, background: '#ffffff' } })
     .composite(layers)
-    .png()
+    .png({ palette: true })
     .toFile(out);
 }
 
@@ -594,6 +666,7 @@ async function main(): Promise<void> {
   if (!wanted.length) throw new Error(`No shot named ${options.only} in scripts/shots/shots.json`);
 
   const projectDir = ensureProject(options);
+  ensureProjectNeeds(projectDir, wanted);
   mkdirSync(options.out, { recursive: true });
   mkdirSync(PARTS_DIR, { recursive: true });
   const written: string[] = [];
@@ -622,6 +695,7 @@ async function main(): Promise<void> {
         console.log(`Building ${shot.id} for ${platform} (${theme})`);
 
         const ready = await buildAndWait(platform, device, projectDir, options, shot.id);
+        if (platform === 'android') await stageAndroid(device, shot);
         capture(platform, device, file);
         if (!options.full) await cropBand(file, shot, ready, platform);
         if (!compose) written.push(file);
