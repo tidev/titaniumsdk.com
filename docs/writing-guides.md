@@ -461,6 +461,12 @@ Never in frame: signing identities, team names, keystore paths, tokens, or any
 console line carrying a password argument. See the
 `displayBuildCommandInConsole` warning on `/docs/setup/ide-integration`.
 
+**A comparison of two platforms is labelled and boxed.** Two screenshots of
+mostly white UI set side by side bleed into one another: nothing says where one
+screen stops, or which platform is which. Each half gets its platform name
+above it and a hairline box around it. Not a phone bezel: most of these are a
+band cropped out of a screen, and a bezel would claim they are whole phones.
+
 **Crop to the part that carries the point, not to the device.** A whole
 portrait screenshot cannot be used in the prose at any scale: `.prose-docs img`
 is `max-width: 100%` in a column of about 700px, so a 0.46:1 image is either

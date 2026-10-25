@@ -3,7 +3,7 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { homedir, tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import sharp from 'sharp';
+import sharp, { type OverlayOptions } from 'sharp';
 
 /**
  * Builds a snippet into a throwaway app, runs it on a simulator or emulator,
@@ -154,6 +154,8 @@ interface Options {
   keep: boolean;
   /** Skip cropping and composing, to see what a new shot actually renders. */
   full: boolean;
+  /** Recompose from the halves already in PARTS_DIR, building nothing. */
+  composeOnly: boolean;
 }
 
 /** `adb` talks to the serial, `ti build` talks to the AVD name. */
@@ -189,6 +191,7 @@ function parseArgs(argv: string[]): Options {
     javaHome: get('--java-home'),
     keep: argv.includes('--keep'),
     full: argv.includes('--full'),
+    composeOnly: argv.includes('--compose-only'),
   };
 }
 
@@ -719,6 +722,19 @@ async function cropBand(file: string, shot: Shot, ready: Ready, platform: Platfo
   writeFileSync(file, buffer);
 }
 
+/** How a composed half is framed: label above, hairline box around. */
+const FRAME = {
+  pad: 28,
+  gutter: 48,
+  border: 2,
+  labelGap: 14,
+  borderColor: '#c7c7cc',
+  labelColor: '#3c3c43',
+  background: '#ffffff',
+};
+
+const PLATFORM_LABELS: Record<Platform, string> = { ios: 'iOS', android: 'Android' };
+
 /**
  * Stitches the halves of a comparison shot into one image.
  *
@@ -729,12 +745,18 @@ async function cropBand(file: string, shot: Shot, ready: Ready, platform: Platfo
  * what puts the two UIs at comparable scale rather than distorting them. The
  * smaller of the two wins, since downscaling the denser screenshot is kinder
  * than upscaling the other into blur.
+ *
+ * Each half is then labelled and boxed. Two screenshots of mostly white UI
+ * laid side by side bleed into each other: there is nothing to say where one
+ * screen stops and the other starts, or which platform is which. The box is a
+ * hairline rather than a phone bezel on purpose, because most of these are a
+ * band cropped out of a screen and a bezel would claim they are whole phones.
  */
 async function composeParts(
   parts: string[],
   out: string,
-  axis: 'row' | 'column' = 'row',
-  gutter = 32
+  axis: 'row' | 'column',
+  labels: string[]
 ): Promise<void> {
   const sizes = await Promise.all(parts.map((part) => sharp(part).metadata()));
   const row = axis === 'row';
@@ -754,19 +776,52 @@ async function composeParts(
     })
   );
 
-  let offset = 0;
-  const layers = scaled.map((piece) => {
-    const layer = { input: piece.buffer, left: row ? offset : 0, top: row ? 0 : offset };
-    offset += (row ? piece.width : piece.height) + gutter;
-    return layer;
+  const fontSize = Math.min(
+    48,
+    Math.max(20, Math.round(Math.max(...scaled.map((s) => s.width)) * 0.035))
+  );
+  const labelHeight = Math.round(fontSize * 1.25);
+  const cellTop = FRAME.pad + labelHeight + FRAME.labelGap;
+
+  const layers: OverlayOptions[] = [];
+  const boxes: string[] = [];
+  let offset = FRAME.pad;
+  let right = 0;
+  let bottom = 0;
+
+  scaled.forEach((piece, i) => {
+    const left = row ? offset : FRAME.pad;
+    const top = row ? cellTop : offset + labelHeight + FRAME.labelGap;
+    layers.push({ input: piece.buffer, left: left + FRAME.border, top: top + FRAME.border });
+
+    boxes.push(
+      `<rect x="${left + FRAME.border / 2}" y="${top + FRAME.border / 2}" ` +
+        `width="${piece.width + FRAME.border}" height="${piece.height + FRAME.border}" ` +
+        `fill="none" stroke="${FRAME.borderColor}" stroke-width="${FRAME.border}" shape-rendering="crispEdges"/>`,
+      `<text x="${left + (piece.width + FRAME.border * 2) / 2}" y="${top - FRAME.labelGap}" ` +
+        `font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="${fontSize}" ` +
+        `font-weight="600" fill="${FRAME.labelColor}" text-anchor="middle">${labels[i]}</text>`
+    );
+
+    // The canvas is sized from where things actually landed rather than from
+    // a running total, which is easy to get wrong by one label's height.
+    right = Math.max(right, left + piece.width + FRAME.border * 2);
+    bottom = Math.max(bottom, top + piece.height + FRAME.border * 2);
+
+    offset = row
+      ? left + piece.width + FRAME.border * 2 + FRAME.gutter
+      : top + piece.height + FRAME.border * 2 + FRAME.gutter;
   });
 
-  const span = offset - gutter;
-  const width = row ? span : common;
-  const height = row ? common : span;
+  const width = right + FRAME.pad;
+  const height = bottom + FRAME.pad;
 
-  await sharp({ create: { width, height, channels: 3, background: '#ffffff' } })
-    .composite(layers)
+  const svg = Buffer.from(
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">${boxes.join('')}</svg>`
+  );
+
+  await sharp({ create: { width, height, channels: 3, background: FRAME.background } })
+    .composite([...layers, { input: svg, left: 0, top: 0 }])
     .png({ palette: true })
     .toFile(out);
 }
@@ -841,7 +896,8 @@ async function main(): Promise<void> {
         continue;
       }
       const out = join(options.out, `${shot.id}${suffix}.png`);
-      await composeParts(parts, out, shot.composeAxis ?? 'row');
+      const labels = shot.compose.map((platform) => PLATFORM_LABELS[platform]);
+      await composeParts(parts, out, shot.composeAxis ?? 'row', labels);
       if (shot.maxWidth) await shrink(out, shot.maxWidth);
       written.push(out);
       console.log(`  ${out}`);

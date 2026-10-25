@@ -132,7 +132,7 @@ thousand view hierarchies.
 
 The event is `click`, not `itemclick`.
 
-![The same five-item list on both platforms, side by side. On iOS the section header Modules is grey text on the window background above the first row. On Android it is white text on a filled grey bar spanning the width of the list.](/docs/guides/list-view.png)
+![Two boxed screenshots labelled iOS and Android, side by side, each showing the same five-item list. On iOS the section header Modules is grey text on the window background above the first row. On Android it is white text on a filled grey bar spanning the width of the list.](/docs/guides/list-view.png)
 
 ## Next
 

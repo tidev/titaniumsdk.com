@@ -138,7 +138,7 @@ The app opens on two tabs, each with a label. The build log ends with
 `Project built successfully`, and the app's console output continues in your
 terminal until you stop it with `Ctrl-C`.
 
-![The generated template app running on an iPhone and an Android emulator side by side. Both show a window labelled I am Window 1 with two tabs; on iOS the tab bar sits at the bottom of the screen, on Android the tabs sit under a title bar at the top.](/docs/guides/template-app.png)
+![Two boxed screenshots labelled iOS and Android, side by side, showing the generated template app. Both show a window labelled I am Window 1 with two tabs; on iOS the tab bar sits at the bottom of the screen, on Android the tabs sit under a title bar at the top.](/docs/guides/template-app.png)
 
 To compile without installing or launching, add `--build-only`. It is the fast
 way to check that a change compiles.
