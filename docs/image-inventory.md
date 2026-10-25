@@ -75,9 +75,9 @@ These are the ones a reader can currently see are absent.
 | 2   | [lists.md:135](content/docs/build/ui/lists.md#L135)                                     | 3:1   | 2267x761  | **Both** | **Shipped**, light only, as `/docs/guides/list-view.png`. The same five-item `ListView` on iPhone and on an Android emulator, side by side, with a section header visible on each so the platform header styling is the difference on show                                                             |
 | 3   | [platform-conventions.md:167](content/docs/build/ui/platform-conventions.md#L167)       | 5:3   | 1080x667  | **Both** | **Shipped**, light only, as `/docs/guides/back-affordance.png`. Stacked rather than side by side, because two navigation bars side by side render about 100px tall in the prose. The same two-screen app on both, on the detail screen, so the iOS back chevron in the navigation bar and the Android up affordance in the action bar are both visible                                                                        |
 | 4   | [icons-and-launch-screens.md:97](content/docs/build/ui/icons-and-launch-screens.md#L97) | 16:9  | 1400x788  | Android  | The generated adaptive icon on an emulator launcher, three times with different mask shapes - circle, squircle, rounded square - so the cropping is visible                                                                                  |
-| 5   | [notifications.md:123](content/docs/build/notifications.md#L123)                        | 16:9  | 1400x788  | Android  | An expanded notification in the emulator's shade, showing title, body and app icon from the local notification example on the page                                                                                                           |
+| 5   | [notifications.md:123](content/docs/build/notifications.md#L123)                        | 3.3:1 | 1080x328  | Android  | **Shipped**, light only, as `/docs/guides/notification-shade-android.png`. Cropped to the card rather than the whole shade, which keeps the emulator's own notifications and its clock out of frame. An expanded notification in the emulator's shade, showing title, body and app icon from the local notification example on the page                                                                                                           |
 | 6   | [media.md:143](content/docs/build/media.md#L143)                                        | 9:16  | 640x1138  | Android  | The camera overlay open with the shutter visible, and below it the captured photo shown in an `ImageView` on the same screen                                                                                                                 |
-| 7   | [location.md:135](content/docs/build/location.md#L135)                                  | 9:16  | 640x1138  | Android  | A map with three annotations, centred on a city, with one annotation's callout open                                                                                                                                                          |
+| 7   | [location.md:135](content/docs/build/location.md#L135)                                  | 4:3   | 1320x990  | iOS      | **Shipped**, light only, as `/docs/guides/map-callout-ios.png`. Moved from Android to iOS: MapKit needs no API key, where Android Maps does. A map with three annotations, centred on a city, with one annotation's callout open                                                                                                                                                          |
 
 Snippets for the three that need code rather than a stock app. Each one that a
 script can shoot lives in `scripts/shots/` as well, and
@@ -105,6 +105,35 @@ Composite layout with each pane pinned by `left` or `right`, not a `horizontal`
 window: in horizontal layout `Ti.UI.FILL` takes the full row height and `top: 60`
 then pushes the bottom of both panes off the screen, which is the one edge this
 image has to show.
+
+**#4 and #6 - the two that are still open**
+
+Neither is a snippet in a window, and neither is worth the machinery yet.
+
+**#4, the adaptive icon under three launcher masks.** Android ships overlay
+packages for the mask shapes and `cmd overlay enable` can switch between them,
+so the three states are reachable. The cost is the crop: the picture is of one
+icon on a launcher page, and finding it means either hard-coding a position for
+one device or driving the launcher. Worth doing only if more launcher shots
+turn up.
+
+**#6, the camera overlay and the captured photo.** The emulator's fake camera
+can be driven, but taking the photo means tapping a shutter at a coordinate,
+and the emulator's test scene is not something worth putting on a page. The
+honest options are to shoot it by hand on a real device or to drop the picture
+and keep the prose.
+
+**#5 and #7 - what it took**
+
+Both needed something the harness did not have. `#5` posts the example's own
+notification, which needs `POST_NOTIFICATIONS` declared and granted, and then
+needs the app force-stopped and relaunched: a plain relaunch finds it already
+running and the code never runs again. It also clears the emulator's own
+notifications first, by tapping Clear all at a position that is specific to
+this device. `#7` needs the `ti.map` module in the harness tiapp and calls
+`selectAnnotation` so the callout is open without anyone tapping. On iOS 26 a
+selected annotation draws its title and subtitle as a label rather than the old
+bubble, which is what the picture shows.
 
 **#2 and #3 - the two platform comparisons**
 
@@ -845,7 +874,7 @@ Recorded so nobody re-derives these.
 
 | Group                                | Images | Notes                                                                                                        |
 | ------------------------------------ | ------ | ------------------------------------------------------------------------------------------------------------ |
-| Guides, already marked `:::missing`  | 4      | Visible as gaps on the page today. #1, #2 and #3 are shipped, leaving four                                   |
+| Guides, already marked `:::missing`  | 2      | #1, #2, #3, #5 and #7 are shipped. #4 and #6 are still gaps; see below                                       |
 | Guides, tooling                      | 4 + 3  | Three of the latter are `ti info`, likely code blocks instead                                                |
 | Guides, unmarked but wanted          | 10     | Each needs a `:::missing` block adding alongside                                                             |
 | API reference, replacing legacy      | 58     | 52 replacements (54 files, 2 dropped) plus 6 platform halves that never existed                              |

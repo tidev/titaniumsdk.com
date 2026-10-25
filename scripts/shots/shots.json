@@ -54,5 +54,54 @@
       "android"
     ],
     "composeAxis": "column"
+  },
+  {
+    "id": "notification-shade",
+    "note": "content/docs/build/notifications.md, inventory #5. The shade, not the app. The stage clears the emulator's own notifications first by tapping Clear all, whose position is specific to this device, then force-stops the app so it reposts: a relaunch without that finds the app already running and app.js never re-runs.",
+    "platforms": [
+      "android"
+    ],
+    "androidPermissions": [
+      "android.permission.POST_NOTIFICATIONS"
+    ],
+    "androidStage": [
+      "cmd statusbar expand-notifications",
+      900,
+      "input tap 538 1959",
+      1200,
+      "cmd statusbar collapse",
+      600,
+      "am force-stop {app}",
+      "monkey -p {app} -c android.intent.category.LAUNCHER 1",
+      3500,
+      "cmd statusbar expand-notifications",
+      1200
+    ],
+    "crop": {
+      "android": {
+        "top": 235,
+        "height": 125
+      }
+    }
+  },
+  {
+    "id": "map-callout",
+    "note": "content/docs/build/location.md, inventory #7. iOS rather than Android: MapKit needs no API key.",
+    "platforms": [
+      "ios"
+    ],
+    "modules": [
+      {
+        "name": "ti.map",
+        "platform": "iphone"
+      }
+    ],
+    "settle": 5000,
+    "crop": {
+      "ios": {
+        "top": 330,
+        "height": 330
+      }
+    }
   }
 ]

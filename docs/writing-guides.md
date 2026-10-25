@@ -442,6 +442,32 @@ Android Studio and Xcode both rearrange their settings panes between releases.
 Use one where the UI is genuinely hard to describe, and say what to look for in
 prose as well, so the page still works when the screenshot is a year stale.
 
+### Screenshot conventions
+
+Settled under TI-78 and listed here because reshooting for consistency is the
+expensive part. A shot of app UI should not be taken by hand at all:
+`scripts/capture-screenshots.ts` applies all of this, and a reshoot after an
+SDK change is then one command rather than an afternoon.
+
+| | |
+| ---------------- | ------------------------------------------------------------------------------ |
+| Theme            | **Light only.** The harness produces dark from one flag if this is revisited |
+| iOS device       | iPhone 17 Pro Max, 440x956pt                                                 |
+| Android device   | Pixel 10 emulator, 411dp wide at density 2.625                               |
+| Status bar       | Fixed at 9:41, charged, full bars, or cropped out of frame                   |
+| Project name     | `Hello`, which is the name the guides already use                            |
+
+Never in frame: signing identities, team names, keystore paths, tokens, or any
+console line carrying a password argument. See the
+`displayBuildCommandInConsole` warning on `/docs/setup/ide-integration`.
+
+**Crop to the part that carries the point, not to the device.** A whole
+portrait screenshot cannot be used in the prose at any scale: `.prose-docs img`
+is `max-width: 100%` in a column of about 700px, so a 0.46:1 image is either
+1500px tall at full width or 190px wide at the height the page allows. Shoot a
+band instead. Where two platforms are being compared, the harness stitches
+them, side by side for tall panes and stacked for wide short ones.
+
 ## Links
 
 Internal links are root-relative and have no extension: `/docs/build/ui/layout`.

@@ -132,12 +132,7 @@ squares, that is the reason.
 See [using modules](/docs/build/modules) for installing it, and the module's
 own reference for the full API.
 
-:::missing 9:16
-
-A map with three annotations on an Android emulator, centred on a city, with
-one annotation's callout open.
-
-:::
+![A map centred on the Civic Center district of San Francisco with three annotations. The City Hall pin is selected, drawn larger than the others and labelled with its title and subtitle; the Asian Art Museum and Main Library pins sit nearby at their normal size.](/docs/guides/map-callout-ios.png)
 
 ## Next
 
