@@ -103,5 +103,79 @@
         "height": 330
       }
     }
+  },
+  {
+    "id": "template-app",
+    "note": "content/docs/build/first-app.md \"Run it\", inventory #13. The generated template, both platforms.",
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "compose": [
+      "ios",
+      "android"
+    ],
+    "maxWidth": 560
+  },
+  {
+    "id": "first-app-tap",
+    "note": "content/docs/build/first-app.md \"Change something\", inventory #14. After the tap.",
+    "platforms": [
+      "ios"
+    ],
+    "crop": {
+      "ios": {
+        "top": 70,
+        "height": 140
+      }
+    }
+  },
+  {
+    "id": "layout-modes",
+    "note": "content/docs/build/ui/layout.md \"The three layout modes\", inventory #15.",
+    "platforms": [
+      "ios"
+    ],
+    "crop": {
+      "ios": {
+        "top": 95,
+        "height": 240
+      }
+    }
+  },
+  {
+    "id": "horizontal-wrap",
+    "note": "content/docs/build/ui/layout.md \"Horizontal layout\", inventory #16. Container narrowed to 240 so the chips wrap.",
+    "platforms": [
+      "ios"
+    ],
+    "crop": {
+      "ios": {
+        "top": 90,
+        "height": 90
+      }
+    }
+  },
+  {
+    "id": "one-codebase",
+    "note": "content/docs/build/ui/index.md, inventory #17. One screen, both platforms.",
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "compose": [
+      "ios",
+      "android"
+    ],
+    "crop": {
+      "ios": {
+        "top": 95,
+        "height": 215
+      },
+      "android": {
+        "top": 151,
+        "height": 215
+      }
+    }
   }
 ]

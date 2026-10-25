@@ -173,11 +173,11 @@ mechanism the site has for saying a picture is wanted.
 
 | #   | Page                                                                                         | Ratio | Deliver   | Platform | Of                                                                                                                                                                                               |
 | --- | -------------------------------------------------------------------------------------------- | ----- | --------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| 13  | [first-app.md](content/docs/build/first-app.md) "Run it"                                     | 4:3   | 1400x1050 | **Both** | The generated two-tab template app running, iPhone and Android side by side. This is the first thing a reader builds and the page never shows it                                                 |
-| 14  | [first-app.md](content/docs/build/first-app.md) "Change something"                           | 9:16  | 640x1138  | iOS      | The label-and-button screen from the snippet on the page, after the button has been tapped so the label reads "Hello from Titanium"                                                              |
-| 15  | [layout.md](content/docs/build/ui/layout.md) "The three layout modes"                        | 4:3   | 1400x1050 | iOS      | One frame per mode - composite, vertical, horizontal - with the same four coloured children in each, so the difference is only the parent's `layout`. Snippet below                              |
-| 16  | [layout.md](content/docs/build/ui/layout.md) "Horizontal layout"                             | 16:9  | 1400x788  | iOS      | The tag-chip example from the page, wrapped onto two rows, so `horizontalWrap` is visible rather than described                                                                                  |
-| 17  | [ui/index.md](content/docs/build/ui/index.md)                                                | 16:9  | 1400x788  | **Both** | Optional. A single screen built from one codebase, rendered on both, for the page that opens with "a Titanium view is a real native view"                                                        |
+| 13  | [first-app.md](content/docs/build/first-app.md) "Run it"                                     | 2:1  | 560x610  | **Both** | **Shipped**, light only, as `/docs/guides/template-app.png`. The generated two-tab template app running, iPhone and Android side by side. This is the first thing a reader builds and the page never shows it                                                 |
+| 14  | [first-app.md](content/docs/build/first-app.md) "Change something"                           | 3:1  | 1320x420 | iOS      | **Shipped**, light only, as `/docs/guides/first-app-tap-ios.png`. The label-and-button screen from the snippet on the page, after the button has been tapped so the label reads "Hello from Titanium"                                                              |
+| 15  | [layout.md](content/docs/build/ui/layout.md) "The three layout modes"                        | 11:6 | 1320x720 | iOS      | **Shipped**, light only, as `/docs/guides/layout-modes-ios.png`. One frame per mode - composite, vertical, horizontal - with the same four coloured children in each, so the difference is only the parent's `layout`. Snippet below                              |
+| 16  | [layout.md](content/docs/build/ui/layout.md) "Horizontal layout"                             | 5:1  | 1320x270 | iOS      | **Shipped**, light only, as `/docs/guides/horizontal-wrap-ios.png`. The tag-chip example from the page, wrapped onto two rows, so `horizontalWrap` is visible rather than described                                                                                  |
+| 17  | [ui/index.md](content/docs/build/ui/index.md)                                                | 4:1  | 2266x564 | **Both** | **Shipped**, light only, as `/docs/guides/one-codebase.png`. Optional. A single screen built from one codebase, rendered on both, for the page that opens with "a Titanium view is a real native view"                                                        |
 | 18  | [alloy/views.md](content/docs/alloy/views.md)                                                | 16:9  | 1400x788  | n/a      | A three-pane editor shot: `index.xml`, `index.tss`, `index.js` open side by side with the same `id` highlighted in each. This is the one Alloy concept that a picture explains faster than prose |
 | 19  | [debugging.md](content/docs/build/debugging.md) "Breakpoints"                                | 16:9  | 1400x788  | n/a      | VS Code stopped on a breakpoint in an Alloy controller, with the Variables pane showing a local. The page currently says breakpoints exist and shows nothing                                     |
 | 20  | [distribute/signing.md](content/docs/distribute/signing.md)                                  | 16:9  | 1400x788  | n/a      | Xcode's **Settings, Accounts, Manage Certificates** sheet with an Apple Development certificate listed. **Redact the team name.** This is the step people get stuck on                           |
@@ -211,6 +211,29 @@ for (const mode of ['composite', 'vertical', 'horizontal']) {
 
 win.open();
 ```
+
+**#13 to #17 - what the shoot turned up**
+
+Three of the five could not be photographed as the pages had them written,
+which is worth more than the pictures:
+
+- The chip example on `layout.md` renders as one dark block, not as chips. A
+  label in a horizontal container does not size to its text without an
+  explicit `Ti.UI.SIZE`, so all five expand. The shot adds it; the page should
+  too. Its container is also narrowed to 240 for the shot, because at the
+  page's own `90%` five short chips do not wrap on a 440pt phone and the
+  picture would show nothing of `horizontalWrap`.
+- The first screen a reader builds put its label at `top: 40`, which on a
+  notched iPhone sits inside the status bar. Both the Classic and the Alloy
+  version are changed to 80 and 140, which is what the picture shows.
+- `#13` is the one shot where the whole screen is the subject, since the tab
+  bar at the bottom is half the point. It uses `maxWidth` rather than a crop.
+
+**#4 cannot be done on this emulator.** Switching the launcher's icon mask
+needs the `com.android.theme.icon.*` overlay packages, and `cmd overlay list`
+on the Pixel 10 image shows none of them. It wants a system image that carries
+the Pixel themes, or a real device. `#22`, the three iOS 18 icon appearances,
+is a home screen customisation setting that `simctl` does not expose.
 
 ---
 
@@ -876,7 +899,7 @@ Recorded so nobody re-derives these.
 | ------------------------------------ | ------ | ------------------------------------------------------------------------------------------------------------ |
 | Guides, already marked `:::missing`  | 2      | #1, #2, #3, #5 and #7 are shipped. #4 and #6 are still gaps; see below                                       |
 | Guides, tooling                      | 4 + 3  | Three of the latter are `ti info`, likely code blocks instead                                                |
-| Guides, unmarked but wanted          | 10     | Each needs a `:::missing` block adding alongside                                                             |
+| Guides, unmarked but wanted          | 5      | #13 to #17 are shipped. The five left are editor, console and home screen shots                             |
 | API reference, replacing legacy      | 58     | 52 replacements (54 files, 2 dropped) plus 6 platform halves that never existed                              |
 | API reference, missing platform half | 6      | Inside the 58 above: Label, ButtonBar, OptionBar, ScrollableView, RefreshControl, TabGroup have Android only |
 | API reference, types with nothing    | 22     | 16 entries, six wanting both platforms. Of 24 view types with no image; 8 deliberately skipped               |

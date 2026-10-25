@@ -115,6 +115,12 @@ interface Shot {
    * strip that renders about 100px tall in the prose and cannot be read.
    */
   composeAxis?: 'row' | 'column';
+  /**
+   * Scale the finished image down to at most this wide. For a shot whose
+   * subject is the whole screen rather than a band, this is how it earns its
+   * place in a 700px column without being a storey tall.
+   */
+  maxWidth?: number;
   /** Milliseconds of quiet after the last layout before the shot is taken. */
   settle?: number;
   /** Modules the snippet requires, added to the harness tiapp.xml. */
@@ -497,6 +503,120 @@ function releaseDevice(platform: Platform, device: Device): void {
  * `ti build` stays attached streaming the app log, which is the channel the
  * marker comes back on, so the process is killed rather than waited on.
  */
+function androidEnv(options: Options): NodeJS.ProcessEnv {
+  const javaHome = androidJavaHome(options.javaHome);
+  return {
+    ...process.env,
+    JAVA_HOME: javaHome,
+    PATH: `${join(javaHome, 'bin')}:${process.env.PATH ?? ''}`,
+  };
+}
+
+function runToCompletion(cmd: string, args: string[], env: NodeJS.ProcessEnv): Promise<void> {
+  return new Promise((resolve, reject) => {
+    const child = spawn(cmd, args, { stdio: ['ignore', 'pipe', 'pipe'], env });
+    let tail = '';
+    const onChunk = (chunk: Buffer) => {
+      tail = (tail + chunk.toString()).slice(-4000);
+    };
+    child.stdout.on('data', onChunk);
+    child.stderr.on('data', onChunk);
+    child.on('exit', (code) =>
+      code === 0 ? resolve() : reject(new Error(`${cmd} exited with ${code}:\n${tail}`))
+    );
+  });
+}
+
+/**
+ * Android takes the long way round: build only, then install, launch and watch
+ * logcat from here.
+ *
+ * A plain `ti build` hands the emulator to Titanium's EmulatorManager, which
+ * waits on `adb track-devices` for a device that is already connected and so
+ * never hears about it. The build then fails after two minutes with "Emulator
+ * failed to start in a timely manner", having built perfectly well. Driving
+ * the install from here sidesteps that, and the harness already owns the
+ * emulator for the status bar overrides anyway.
+ */
+async function buildAndWaitAndroid(
+  device: Device,
+  projectDir: string,
+  options: Options,
+  id: string
+): Promise<Ready> {
+  await runToCompletion(
+    'ti',
+    [
+      'build',
+      '--no-banner',
+      '--no-prompt',
+      '--no-colors',
+      '-s',
+      options.sdk,
+      '-d',
+      projectDir,
+      '-p',
+      'android',
+      '-T',
+      'emulator',
+      '-C',
+      device.buildTarget,
+      '--build-only',
+      '-l',
+      'info',
+    ],
+    androidEnv(options)
+  );
+
+  const apk = join(
+    projectDir,
+    'build',
+    'android',
+    'app',
+    'build',
+    'outputs',
+    'apk',
+    'debug',
+    'app-debug.apk'
+  );
+  if (!existsSync(apk)) throw new Error(`The build produced no APK at ${apk}`);
+
+  const adb = adbPath();
+  const target = ['-s', device.serial];
+  run(adb, [...target, 'install', '-r', apk]);
+  run(adb, [...target, 'logcat', '-c'], true);
+  run(adb, [...target, 'shell', 'am', 'force-stop', APP_ID], true);
+
+  return new Promise((resolve, reject) => {
+    const log = spawn(adb, [...target, 'logcat']);
+    let settled = false;
+    const finish = (err: Error | null, ready?: Ready) => {
+      if (settled) return;
+      settled = true;
+      clearTimeout(timer);
+      log.kill();
+      if (err) reject(err);
+      else resolve(ready as Ready);
+    };
+    const timer = setTimeout(
+      () => finish(new Error(`${id} never reported ready on Android`)),
+      90000
+    );
+
+    log.stdout.on('data', (chunk: Buffer) => {
+      const pattern = new RegExp(`${MARKER} ${id} (\\d+(?:\\.\\d+)?) (\\d+(?:\\.\\d+)?)`);
+      const match = chunk.toString().match(pattern);
+      if (match) finish(null, { width: Number(match[1]), density: Number(match[2]) });
+    });
+
+    run(
+      adb,
+      [...target, 'shell', 'monkey', '-p', APP_ID, '-c', 'android.intent.category.LAUNCHER', '1'],
+      true
+    );
+  });
+}
+
 function buildAndWait(
   platform: Platform,
   device: Device,
@@ -504,6 +624,8 @@ function buildAndWait(
   options: Options,
   id: string
 ): Promise<Ready> {
+  if (platform === 'android') return buildAndWaitAndroid(device, projectDir, options, id);
+
   const args = [
     'build',
     '--no-banner',
@@ -514,27 +636,17 @@ function buildAndWait(
     '-d',
     projectDir,
     '-p',
-    platform,
+    'ios',
     '-T',
-    platform === 'ios' ? 'simulator' : 'emulator',
+    'simulator',
     '-C',
     device.buildTarget,
     '-l',
     'info',
   ];
 
-  let env = process.env;
-  if (platform === 'android') {
-    const javaHome = androidJavaHome(options.javaHome);
-    env = {
-      ...process.env,
-      JAVA_HOME: javaHome,
-      PATH: `${join(javaHome, 'bin')}:${process.env.PATH ?? ''}`,
-    };
-  }
-
   return new Promise((resolve, reject) => {
-    const child = spawn('ti', args, { stdio: ['ignore', 'pipe', 'pipe'], env });
+    const child = spawn('ti', args, { stdio: ['ignore', 'pipe', 'pipe'] });
     let settled = false;
     let tail = '';
 
@@ -659,6 +771,13 @@ async function composeParts(
     .toFile(out);
 }
 
+async function shrink(file: string, maxWidth: number): Promise<void> {
+  const { width } = await sharp(file).metadata();
+  if (!width || width <= maxWidth) return;
+  const buffer = await sharp(file).resize({ width: maxWidth }).png({ palette: true }).toBuffer();
+  writeFileSync(file, buffer);
+}
+
 async function main(): Promise<void> {
   const options = parseArgs(process.argv.slice(2));
   const shots: Shot[] = JSON.parse(readFileSync(join(SHOTS_DIR, 'shots.json'), 'utf8'));
@@ -698,6 +817,7 @@ async function main(): Promise<void> {
         if (platform === 'android') await stageAndroid(device, shot);
         capture(platform, device, file);
         if (!options.full) await cropBand(file, shot, ready, platform);
+        if (!compose && shot.maxWidth && !options.full) await shrink(file, shot.maxWidth);
         if (!compose) written.push(file);
         console.log(`  ${file}`);
       }
@@ -722,6 +842,7 @@ async function main(): Promise<void> {
       }
       const out = join(options.out, `${shot.id}${suffix}.png`);
       await composeParts(parts, out, shot.composeAxis ?? 'row');
+      if (shot.maxWidth) await shrink(out, shot.maxWidth);
       written.push(out);
       console.log(`  ${out}`);
     }

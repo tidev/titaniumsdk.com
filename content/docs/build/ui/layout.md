@@ -38,6 +38,8 @@ win.add(stack);
 win.open();
 ```
 
+![Three parents side by side holding the same four coloured squares. Under composite only one square is visible, because all four are pinned to the same spot and the last one added is on top. Under vertical they stack in a column. Under horizontal they run left to right and wrap onto a second row.](/docs/guides/layout-modes-ios.png)
+
 `layout` is set on the container, never on the child. A child cannot ask to be
 stacked; its parent decides.
 
@@ -166,6 +168,8 @@ for (const name of ['alloy', 'android', 'ios', 'layout', 'listview']) {
   }));
 }
 ```
+
+![Five dark chips labelled alloy, android, ios, layout and listview. The first four fill the row and listview has wrapped onto a second row below them.](/docs/guides/horizontal-wrap-ios.png)
 
 Within a row, a child with neither `top` nor `bottom` is centred; with one of
 them it aligns to that edge with that much padding; with both, the two are
