@@ -138,6 +138,8 @@ The app opens on two tabs, each with a label. The build log ends with
 `Project built successfully`, and the app's console output continues in your
 terminal until you stop it with `Ctrl-C`.
 
+![Two boxed screenshots labelled iOS and Android, side by side, showing the generated template app. Both show a window labelled I am Window 1 with two tabs; on iOS the tab bar sits at the bottom of the screen, on Android the tabs sit under a title bar at the top.](/docs/guides/template-app.png)
+
 To compile without installing or launching, add `--build-only`. It is the fast
 way to check that a change compiles.
 
@@ -159,12 +161,12 @@ const win = Ti.UI.createWindow({
 const label = Ti.UI.createLabel({
   text: 'Tap the button',
   color: 'textColor',
-  top: 40
+  top: 80
 });
 
 const button = Ti.UI.createButton({
   title: 'Say hello',
-  top: 100
+  top: 140
 });
 
 button.addEventListener('click', () => {
@@ -188,8 +190,8 @@ in light and dark mode.
 ```xml
 <Alloy>
 	<Window>
-		<Label id="label" top="40">Tap the button</Label>
-		<Button id="button" top="100" onClick="sayHello">Say hello</Button>
+		<Label id="label" top="80">Tap the button</Label>
+		<Button id="button" top="140" onClick="sayHello">Say hello</Button>
 	</Window>
 </Alloy>
 ```
@@ -223,6 +225,8 @@ and `textColor` are semantic colors from `app/assets/semantic.colors.json`,
 which resolve differently in light and dark mode.
 
 :::
+
+![An iPhone screen with the label now reading Hello from Titanium above a Say hello button.](/docs/guides/first-app-tap-ios.png)
 
 Build again and tap the button.
 

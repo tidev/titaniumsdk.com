@@ -38,6 +38,8 @@ win.add(stack);
 win.open();
 ```
 
+![Three parents side by side holding the same four coloured squares. Under composite only one square is visible, because all four are pinned to the same spot and the last one added is on top. Under vertical they stack in a column. Under horizontal they run left to right and wrap onto a second row.](/docs/guides/layout-modes-ios.png)
+
 `layout` is set on the container, never on the child. A child cannot ask to be
 stacked; its parent decides.
 
@@ -150,13 +152,15 @@ tallest child.
 const tags = Ti.UI.createView({
   layout: 'horizontal',
   top: 40,
-  width: '90%',
+  width: 240,
   height: Ti.UI.SIZE
 });
 
 for (const name of ['alloy', 'android', 'ios', 'layout', 'listview']) {
   tags.add(Ti.UI.createLabel({
     text: name,
+    width: Ti.UI.SIZE,
+    height: Ti.UI.SIZE,
     left: 4,
     right: 4,
     top: 4,
@@ -166,6 +170,13 @@ for (const name of ['alloy', 'android', 'ios', 'layout', 'listview']) {
   }));
 }
 ```
+
+![Five dark chips labelled alloy, android, ios, layout and listview. The first four fill the row and listview has wrapped onto a second row below them.](/docs/guides/horizontal-wrap-ios.png)
+
+**Give each child a size.** A label with no `width` fills the row rather than
+shrinking to its text, and five of them stack into one dark block instead of
+five chips. `Ti.UI.SIZE` is what makes a child as wide as its content, and it
+is the first thing to check when a horizontal layout comes out wrong.
 
 Within a row, a child with neither `top` nor `bottom` is centred; with one of
 them it aligns to that edge with that much padding; with both, the two are

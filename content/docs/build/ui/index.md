@@ -12,6 +12,8 @@ What Titanium adds on top is one layout system, shared by both platforms, so a
 screen you describe once positions itself on either. That system is the first
 thing to learn and the thing most new Titanium code gets wrong.
 
+![Two boxed screenshots labelled iOS and Android, side by side, showing the same screen: a heading, a switch, a button and a slider in the same order at the same positions. Each control is drawn in its own platform's style, so the iOS switch is green and its button is plain blue text, while the Android switch is blue and its button is a filled rectangle.](/docs/guides/one-codebase.png)
+
 ## Start here
 
 [Layout and positioning](/docs/build/ui/layout) is the one to read first. Three

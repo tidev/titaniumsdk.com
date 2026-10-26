@@ -10,6 +10,70 @@ apidoc, and the type index in `registry/sdk/main/contents.json`. TI-78 tracks th
 work; this is the long form of its **Needed** section and should be kept in step
 with it.
 
+**Status is the next section.** Rows further down carry a **Shipped** marker
+once done, and that marker is the detail behind the summary.
+
+## Status
+
+Ten images are shipped, all light theme, all produced by
+`scripts/capture-screenshots.ts` and reproducible with it.
+
+| Group                       | Shipped | Left                                                      |
+| --------------------------- | ------- | --------------------------------------------------------- |
+| Guides, marked `:::missing` | 5 of 7  | #4, #6                                                    |
+| Guides, tooling             | 0 of 7  | #8, #9, #10, and three `ti info` shots that want a decision |
+| Guides, unmarked but wanted | 5 of 10 | #18 to #22                                                |
+| API reference               | 0 of 80 | all of it, and it lands in `tidev/titanium-sdk`           |
+
+### Shipped
+
+| #   | Page                                | File                             |
+| --- | ----------------------------------- | -------------------------------- |
+| 1   | `build/ui/layout` precedence        | `layout-precedence-ios.png`      |
+| 2   | `build/ui/lists`                    | `list-view.png`                  |
+| 3   | `build/ui/platform-conventions`     | `back-affordance.png`            |
+| 5   | `build/notifications`               | `notification-shade-android.png` |
+| 7   | `build/location`                    | `map-callout-ios.png`            |
+| 13  | `build/first-app` "Run it"          | `template-app.png`               |
+| 14  | `build/first-app` "Change something" | `first-app-tap-ios.png`         |
+| 15  | `build/ui/layout` three modes       | `layout-modes-ios.png`           |
+| 16  | `build/ui/layout` horizontal        | `horizontal-wrap-ios.png`        |
+| 17  | `build/ui/index`                    | `one-codebase.png`               |
+
+### Left, and what each one needs
+
+**Nothing left in the guides can be shot by the harness.** Every remaining
+guide image is either a desktop application, a launcher, or a decision.
+
+- **#8, #9, #10** the VS Code Titanium view, the Pulsar toolbar, the JetBrains
+  build explorer. **#18** three Alloy files open side by side. **#19** VS Code
+  stopped at a breakpoint. **#20** Xcode's signing pane. **#21** the Play
+  Console. A person at a desk with the application open.
+- **#4** the launcher icon masks. Needs the `com.android.theme.icon.*` overlay
+  packages to switch mask shape, and `cmd overlay list` on the Pixel 10 image
+  has none of them. Wants a system image carrying the Pixel themes, or a real
+  device.
+- **#6** the camera overlay and captured photo. The emulator's fake camera can
+  be driven, but the shutter needs a tap at a coordinate and the test scene is
+  not worth putting on a page. Shoot by hand or drop it.
+- **#22** the three iOS 18 icon appearances. A home screen customisation
+  setting that `simctl` does not expose.
+- **`ti info` x3 (#12)** is a decision, not a shoot. A code block is
+  searchable, copyable and cannot go stale silently; say yes and three images
+  leave this list.
+- **#11** the JetBrains logo treatment is a licensing question, tracked
+  separately as TI-96.
+- **The API reference, about 80 images.** This is where the volume is, and the
+  harness is built for it: roughly half the example entries under
+  `apidoc/Titanium/UI` are already self-contained runnable apps. It lands in
+  `tidev/titanium-sdk`, so it wants its own ticket.
+
+TI-78 asks for every image to be produced **or explicitly dropped with the
+reason recorded**. #4, #6 and #22 have their reasons above but have not been
+dropped, so the `:::missing` blocks for #4 and #6 are still on their pages.
+
+---
+
 ## Read this first
 
 **Three different repositories own these images.** Getting that wrong is the
@@ -27,26 +91,34 @@ after the change - `main` and the next release. Archived versions keep their
 frozen manifests and their old pictures, which is correct: `/docs/sdk/13.4.1`
 should show what 13.4.1 shipped.
 
-**Sizing is currently unhandled and needs a decision before anyone shoots 50
-images.** `.prose-docs img` is `max-width: 100%; height: auto`, and nothing emits
-`width`/`height`, so an image renders at its intrinsic pixel size capped at the
-prose column, which is about **700px**. A 2x asset of a small control therefore
-renders at double its intended size rather than at the same size and twice the
-density. The cheap fix is to emit `width`/`height` at half the intrinsic size for
-a `@2x`-named file - `src/lib/docs/markdown.ts` already allows both attributes
+**Sizing.** `.prose-docs img` is `max-width: 100%; height: auto`, and nothing
+emits `width`/`height`, so an image renders at its intrinsic pixel size capped
+at the prose column, which is about **700px**. For a wide screenshot that is
+the right behaviour: anything wider than the column is scaled down to fit and
+the extra pixels become density. It only bites for an image **narrower** than
+the column, where a 2x asset of a small control renders at double its intended
+size rather than at the same size and twice the density. The cheap fix, if one
+is ever needed, is to emit `width`/`height` at half the intrinsic size for a
+`@2x`-named file: `src/lib/docs/markdown.ts` already allows both attributes
 through the sanitiser, and `assetUrl` in `src/lib/docs/assets.ts` is the hook.
-Until that exists, the **Deliver** column below is a plain pixel size that looks
-right at 1x.
 
-**Conventions to settle before shooting** (TI-78 acceptance criteria, repeated
-here because they apply to every row):
+What this means in practice is that a whole portrait screenshot is unusable at
+any scale: at a readable width it is 1500px tall, and at the height the page
+allows it is 190px wide. Shoot a band. Where the whole screen genuinely is the
+subject, as in #13, the harness has `maxWidth` instead.
 
-- Light or dark, or both. The site has both themes and a light-only screenshot
-  on a dark page is the first thing a reader notices.
-- One device per platform for everything, so scale does not wander page to page.
-  An iPhone 17 Pro Max (440x956pt), which is what `scripts/capture-screenshots.ts`
-  defaults to, and a Pixel 8 emulator (412x915dp). An iPhone 16 is no longer
-  installable on a current Xcode; an iPhone 17 is the same 393x852pt screen.
+**Conventions are settled and written down** in `docs/writing-guides.md`, which
+is where TI-78 asked for them. Repeated here because they apply to every row,
+and `scripts/capture-screenshots.ts` applies them for you:
+
+- **Light theme only.** The harness produces dark from one flag if that is ever
+  revisited.
+- One device per platform, so scale does not wander page to page. An iPhone 17
+  Pro Max (440x956pt) and a Pixel 10 emulator (411dp wide at density 2.625).
+  An iPhone 16 is no longer installable on a current Xcode.
+- A comparison of two platforms gets its platform name above each half and a
+  hairline box around it. Not a phone bezel: most of these are a band cropped
+  out of a screen, and a bezel would claim they are whole phones.
 - Status bars: clean them or crop them. A real clock and battery level date an
   image and leak the machine it was taken on.
 - Project names from the guides - `Hello`, `myapp` - not whatever was on disk.
@@ -56,18 +128,19 @@ here because they apply to every row):
 - Watch total weight. Deployment is capped at 100MB measured against static
   output, which was 93MB. The six legacy iOS behaviour GIFs alone are 8.3MB.
 
-**Snippets.** Each one below is a complete `Resources/app.js` for a Classic
-project - `ti create --type app --name Hello --id com.example.hello --platforms
-android,ios --workspace-dir .`, drop the file in, `ti build --platform ios` or
-`--platform android`. They are written to fill the frame with the control and
-nothing else, which is not what the SDK's own examples do.
+**Snippets live in `scripts/shots/`,** one `.js` per shot plus `shots.json`
+holding the platforms, the crop band and anything else the shot needs. They are
+not pasted into this file any more, so the picture and the code that produced
+it cannot drift apart. `node scripts/capture-screenshots.ts --shot <id>` builds
+one; a warm run is about 25 seconds.
 
 ---
 
 ## 1. Guides: already marked `:::missing`
 
-Seven, each already drawn on the page as a crossed box carrying its own brief.
-These are the ones a reader can currently see are absent.
+Seven, each drawn on the page as a crossed box carrying its own brief. Five
+are shipped and their blocks are gone; #4 and #6 are the two a reader can still
+see are absent.
 
 | #   | Page                                                                                    | Ratio | Deliver   | Platform | Of                                                                                                                                                                                                                                           |
 | --- | --------------------------------------------------------------------------------------- | ----- | --------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -167,17 +240,19 @@ decision as everything else.
 
 ## 3. Guides: not yet marked, worth adding
 
-Gaps I would fill, in rough priority order. None has a `:::missing` block today,
-so adding one alongside the image request is part of the task - that is the
-mechanism the site has for saying a picture is wanted.
+Gaps I would fill, in rough priority order. None had a `:::missing` block,
+which is why they were easy to overlook. #13 to #17 are shipped and their
+images are on the pages; #18 to #22 are still open, and either wants a
+`:::missing` block adding or wants shooting, since that block is the mechanism
+the site has for saying a picture is wanted.
 
 | #   | Page                                                                                         | Ratio | Deliver   | Platform | Of                                                                                                                                                                                               |
 | --- | -------------------------------------------------------------------------------------------- | ----- | --------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| 13  | [first-app.md](content/docs/build/first-app.md) "Run it"                                     | 4:3   | 1400x1050 | **Both** | The generated two-tab template app running, iPhone and Android side by side. This is the first thing a reader builds and the page never shows it                                                 |
-| 14  | [first-app.md](content/docs/build/first-app.md) "Change something"                           | 9:16  | 640x1138  | iOS      | The label-and-button screen from the snippet on the page, after the button has been tapped so the label reads "Hello from Titanium"                                                              |
-| 15  | [layout.md](content/docs/build/ui/layout.md) "The three layout modes"                        | 4:3   | 1400x1050 | iOS      | One frame per mode - composite, vertical, horizontal - with the same four coloured children in each, so the difference is only the parent's `layout`. Snippet below                              |
-| 16  | [layout.md](content/docs/build/ui/layout.md) "Horizontal layout"                             | 16:9  | 1400x788  | iOS      | The tag-chip example from the page, wrapped onto two rows, so `horizontalWrap` is visible rather than described                                                                                  |
-| 17  | [ui/index.md](content/docs/build/ui/index.md)                                                | 16:9  | 1400x788  | **Both** | Optional. A single screen built from one codebase, rendered on both, for the page that opens with "a Titanium view is a real native view"                                                        |
+| 13  | [first-app.md](content/docs/build/first-app.md) "Run it"                                     | 2:1  | 560x610  | **Both** | **Shipped**, light only, as `/docs/guides/template-app.png`. The generated two-tab template app running, iPhone and Android side by side. This is the first thing a reader builds and the page never shows it                                                 |
+| 14  | [first-app.md](content/docs/build/first-app.md) "Change something"                           | 3:1  | 1320x420 | iOS      | **Shipped**, light only, as `/docs/guides/first-app-tap-ios.png`. The label-and-button screen from the snippet on the page, after the button has been tapped so the label reads "Hello from Titanium"                                                              |
+| 15  | [layout.md](content/docs/build/ui/layout.md) "The three layout modes"                        | 11:6 | 1320x720 | iOS      | **Shipped**, light only, as `/docs/guides/layout-modes-ios.png`. One frame per mode - composite, vertical, horizontal - with the same four coloured children in each, so the difference is only the parent's `layout`. Snippet below                              |
+| 16  | [layout.md](content/docs/build/ui/layout.md) "Horizontal layout"                             | 5:1  | 1320x270 | iOS      | **Shipped**, light only, as `/docs/guides/horizontal-wrap-ios.png`. The tag-chip example from the page, wrapped onto two rows, so `horizontalWrap` is visible rather than described                                                                                  |
+| 17  | [ui/index.md](content/docs/build/ui/index.md)                                                | 4:1  | 2266x564 | **Both** | **Shipped**, light only, as `/docs/guides/one-codebase.png`. Optional. A single screen built from one codebase, rendered on both, for the page that opens with "a Titanium view is a real native view"                                                        |
 | 18  | [alloy/views.md](content/docs/alloy/views.md)                                                | 16:9  | 1400x788  | n/a      | A three-pane editor shot: `index.xml`, `index.tss`, `index.js` open side by side with the same `id` highlighted in each. This is the one Alloy concept that a picture explains faster than prose |
 | 19  | [debugging.md](content/docs/build/debugging.md) "Breakpoints"                                | 16:9  | 1400x788  | n/a      | VS Code stopped on a breakpoint in an Alloy controller, with the Variables pane showing a local. The page currently says breakpoints exist and shows nothing                                     |
 | 20  | [distribute/signing.md](content/docs/distribute/signing.md)                                  | 16:9  | 1400x788  | n/a      | Xcode's **Settings, Accounts, Manage Certificates** sheet with an Apple Development certificate listed. **Redact the team name.** This is the step people get stuck on                           |
@@ -211,6 +286,31 @@ for (const mode of ['composite', 'vertical', 'horizontal']) {
 
 win.open();
 ```
+
+**#13 to #17 - what the shoot turned up**
+
+Three of the five could not be photographed as the pages had them written,
+which is worth more than the pictures:
+
+- The chip example on `layout.md` rendered as one dark block, not as chips. A
+  label in a horizontal container does not size to its text without an
+  explicit `Ti.UI.SIZE`, so all five expanded. At the page's own `90%` the five
+  short chips also did not wrap on a 440pt phone, so the picture would have
+  shown nothing of `horizontalWrap`. **The page example is fixed** rather than
+  the shot diverging from it: a picture that contradicts the code under it is
+  worse than no picture. The page now carries the sizes and a 240 container,
+  and a line saying why a child in a horizontal layout needs a size at all.
+- The first screen a reader builds put its label at `top: 40`, which on a
+  notched iPhone sits inside the status bar. Both the Classic and the Alloy
+  version are changed to 80 and 140, which is what the picture shows.
+- `#13` is the one shot where the whole screen is the subject, since the tab
+  bar at the bottom is half the point. It uses `maxWidth` rather than a crop.
+
+**#4 cannot be done on this emulator.** Switching the launcher's icon mask
+needs the `com.android.theme.icon.*` overlay packages, and `cmd overlay list`
+on the Pixel 10 image shows none of them. It wants a system image that carries
+the Pixel themes, or a real device. `#22`, the three iOS 18 icon appearances,
+is a home screen customisation setting that `simctl` does not expose.
 
 ---
 
@@ -872,21 +972,25 @@ Recorded so nobody re-derives these.
 
 ## Counts
 
-| Group                                | Images | Notes                                                                                                        |
-| ------------------------------------ | ------ | ------------------------------------------------------------------------------------------------------------ |
-| Guides, already marked `:::missing`  | 2      | #1, #2, #3, #5 and #7 are shipped. #4 and #6 are still gaps; see below                                       |
-| Guides, tooling                      | 4 + 3  | Three of the latter are `ti info`, likely code blocks instead                                                |
-| Guides, unmarked but wanted          | 10     | Each needs a `:::missing` block adding alongside                                                             |
-| API reference, replacing legacy      | 58     | 52 replacements (54 files, 2 dropped) plus 6 platform halves that never existed                              |
-| API reference, missing platform half | 6      | Inside the 58 above: Label, ButtonBar, OptionBar, ScrollableView, RefreshControl, TabGroup have Android only |
-| API reference, types with nothing    | 22     | 16 entries, six wanting both platforms. Of 24 view types with no image; 8 deliberately skipped               |
-| API reference, to delete             | 2      | `searchbar_windows.png`, `window-modal.png`                                                                  |
-| CLI reference                        | 0      | Recommended                                                                                                  |
+| Group                                | Shipped | Left | Notes                                                                                             |
+| ------------------------------------ | ------- | ---- | --------------------------------------------------------------------------------------------------- |
+| Guides, marked `:::missing`          | 5       | 2    | #4 and #6, neither shootable by the harness                                                       |
+| Guides, tooling                      | 0       | 4+3  | Three of the latter are `ti info`, recommended as code blocks instead                             |
+| Guides, unmarked but wanted          | 5       | 5    | #18 to #22, all editor, console or home screen shots                                              |
+| API reference, replacing legacy      | 0       | 58   | 52 replacements (54 files, 2 dropped) plus 6 platform halves that never existed                   |
+| API reference, missing platform half | 0       | 6    | Inside the 58 above: Label, ButtonBar, OptionBar, ScrollableView, RefreshControl, TabGroup        |
+| API reference, types with nothing    | 0       | 22   | 16 entries, six wanting both platforms. Of 24 view types with no image; 8 deliberately skipped    |
+| API reference, to delete             | 0       | 2    | `searchbar_windows.png`, `window-modal.png`                                                       |
+| CLI reference                        | 0       | 0    | Recommended                                                                                        |
 
-**Roughly 105 images**, of which about 95 are app UI needing a simulator or
-emulator, and 80 of those are API reference work that lands in
-`tidev/titanium-sdk` rather than in this repository.
+**Ten shipped, about 95 left.** Roughly 80 of those are API reference work that
+lands in `tidev/titanium-sdk` rather than here, and about half of its
+`Titanium/UI` examples are already self-contained runnable apps, so the harness
+can shoot them as they stand. Of the fifteen left in this repository, none can
+be automated: they are desktop applications, a launcher, a camera, and one
+decision about `ti info`.
 
-Two things to settle before any of it: the theme and device conventions above,
-and whether the renderer learns about `@2x` assets. Both are cheaper now than
-after fifty screenshots exist.
+The conventions that used to block all of this are settled and recorded in
+`docs/writing-guides.md`. The remaining open question is narrow: whether the
+renderer should learn about `@2x` assets, which only matters for an image
+narrower than the prose column, and none of the ten shipped so far is.

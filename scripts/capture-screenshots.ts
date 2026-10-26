@@ -3,7 +3,7 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { homedir, tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import sharp from 'sharp';
+import sharp, { type OverlayOptions } from 'sharp';
 
 /**
  * Builds a snippet into a throwaway app, runs it on a simulator or emulator,
@@ -115,6 +115,12 @@ interface Shot {
    * strip that renders about 100px tall in the prose and cannot be read.
    */
   composeAxis?: 'row' | 'column';
+  /**
+   * Scale the finished image down to at most this wide. For a shot whose
+   * subject is the whole screen rather than a band, this is how it earns its
+   * place in a 700px column without being a storey tall.
+   */
+  maxWidth?: number;
   /** Milliseconds of quiet after the last layout before the shot is taken. */
   settle?: number;
   /** Modules the snippet requires, added to the harness tiapp.xml. */
@@ -148,6 +154,8 @@ interface Options {
   keep: boolean;
   /** Skip cropping and composing, to see what a new shot actually renders. */
   full: boolean;
+  /** Recompose from the halves already in PARTS_DIR, building nothing. */
+  composeOnly: boolean;
 }
 
 /** `adb` talks to the serial, `ti build` talks to the AVD name. */
@@ -183,6 +191,7 @@ function parseArgs(argv: string[]): Options {
     javaHome: get('--java-home'),
     keep: argv.includes('--keep'),
     full: argv.includes('--full'),
+    composeOnly: argv.includes('--compose-only'),
   };
 }
 
@@ -497,6 +506,133 @@ function releaseDevice(platform: Platform, device: Device): void {
  * `ti build` stays attached streaming the app log, which is the channel the
  * marker comes back on, so the process is killed rather than waited on.
  */
+function androidEnv(options: Options): NodeJS.ProcessEnv {
+  const javaHome = androidJavaHome(options.javaHome);
+  return {
+    ...process.env,
+    JAVA_HOME: javaHome,
+    PATH: `${join(javaHome, 'bin')}:${process.env.PATH ?? ''}`,
+  };
+}
+
+function runToCompletion(cmd: string, args: string[], env: NodeJS.ProcessEnv): Promise<void> {
+  return new Promise((resolve, reject) => {
+    const child = spawn(cmd, args, { stdio: ['ignore', 'pipe', 'pipe'], env });
+    let tail = '';
+    const onChunk = (chunk: Buffer) => {
+      tail = (tail + chunk.toString()).slice(-4000);
+    };
+    child.stdout.on('data', onChunk);
+    child.stderr.on('data', onChunk);
+    child.on('exit', (code) =>
+      code === 0 ? resolve() : reject(new Error(`${cmd} exited with ${code}:\n${tail}`))
+    );
+  });
+}
+
+/**
+ * Android takes the long way round: build only, then install, launch and watch
+ * logcat from here.
+ *
+ * A plain `ti build` hands the emulator to Titanium's EmulatorManager, which
+ * waits on `adb track-devices` for a device that is already connected and so
+ * never hears about it. The build then fails after two minutes with "Emulator
+ * failed to start in a timely manner", having built perfectly well. Driving
+ * the install from here sidesteps that, and the harness already owns the
+ * emulator for the status bar overrides anyway.
+ */
+async function buildAndWaitAndroid(
+  device: Device,
+  projectDir: string,
+  options: Options,
+  id: string
+): Promise<Ready> {
+  await runToCompletion(
+    'ti',
+    [
+      'build',
+      '--no-banner',
+      '--no-prompt',
+      '--no-colors',
+      '-s',
+      options.sdk,
+      '-d',
+      projectDir,
+      '-p',
+      'android',
+      '-T',
+      'emulator',
+      '-C',
+      device.buildTarget,
+      '--build-only',
+      '-l',
+      'info',
+    ],
+    androidEnv(options)
+  );
+
+  const apk = join(
+    projectDir,
+    'build',
+    'android',
+    'app',
+    'build',
+    'outputs',
+    'apk',
+    'debug',
+    'app-debug.apk'
+  );
+  if (!existsSync(apk)) throw new Error(`The build produced no APK at ${apk}`);
+
+  const adb = adbPath();
+  const target = ['-s', device.serial];
+  run(adb, [...target, 'install', '-r', apk]);
+  run(adb, [...target, 'logcat', '-c'], true);
+  run(adb, [...target, 'shell', 'am', 'force-stop', APP_ID], true);
+
+  return new Promise((resolve, reject) => {
+    const log = spawn(adb, [...target, 'logcat']);
+    let settled = false;
+    const finish = (err: Error | null, ready?: Ready) => {
+      if (settled) return;
+      settled = true;
+      clearTimeout(timer);
+      log.kill();
+      if (err) reject(err);
+      else resolve(ready as Ready);
+    };
+    const timer = setTimeout(
+      () => finish(new Error(`${id} never reported ready on Android`)),
+      90000
+    );
+
+    // A pipe read can split a line anywhere, and the launch floods logcat, so
+    // the marker has to be matched against whole lines or it can be missed and
+    // the shot waits out the timer for an app that came up fine.
+    const pattern = new RegExp(`${MARKER} ${id} (\\d+(?:\\.\\d+)?) (\\d+(?:\\.\\d+)?)`);
+    let pending = '';
+
+    log.stdout.on('data', (chunk: Buffer) => {
+      pending += chunk.toString();
+      const lines = pending.split('\n');
+      pending = lines.pop() ?? '';
+      for (const line of lines) {
+        const match = line.match(pattern);
+        if (match) {
+          finish(null, { width: Number(match[1]), density: Number(match[2]) });
+          return;
+        }
+      }
+    });
+
+    run(
+      adb,
+      [...target, 'shell', 'monkey', '-p', APP_ID, '-c', 'android.intent.category.LAUNCHER', '1'],
+      true
+    );
+  });
+}
+
 function buildAndWait(
   platform: Platform,
   device: Device,
@@ -504,6 +640,8 @@ function buildAndWait(
   options: Options,
   id: string
 ): Promise<Ready> {
+  if (platform === 'android') return buildAndWaitAndroid(device, projectDir, options, id);
+
   const args = [
     'build',
     '--no-banner',
@@ -514,27 +652,17 @@ function buildAndWait(
     '-d',
     projectDir,
     '-p',
-    platform,
+    'ios',
     '-T',
-    platform === 'ios' ? 'simulator' : 'emulator',
+    'simulator',
     '-C',
     device.buildTarget,
     '-l',
     'info',
   ];
 
-  let env = process.env;
-  if (platform === 'android') {
-    const javaHome = androidJavaHome(options.javaHome);
-    env = {
-      ...process.env,
-      JAVA_HOME: javaHome,
-      PATH: `${join(javaHome, 'bin')}:${process.env.PATH ?? ''}`,
-    };
-  }
-
   return new Promise((resolve, reject) => {
-    const child = spawn('ti', args, { stdio: ['ignore', 'pipe', 'pipe'], env });
+    const child = spawn('ti', args, { stdio: ['ignore', 'pipe', 'pipe'] });
     let settled = false;
     let tail = '';
 
@@ -607,6 +735,19 @@ async function cropBand(file: string, shot: Shot, ready: Ready, platform: Platfo
   writeFileSync(file, buffer);
 }
 
+/** How a composed half is framed: label above, hairline box around. */
+const FRAME = {
+  pad: 28,
+  gutter: 48,
+  border: 2,
+  labelGap: 14,
+  borderColor: '#c7c7cc',
+  labelColor: '#3c3c43',
+  background: '#ffffff',
+};
+
+const PLATFORM_LABELS: Record<Platform, string> = { ios: 'iOS', android: 'Android' };
+
 /**
  * Stitches the halves of a comparison shot into one image.
  *
@@ -617,12 +758,18 @@ async function cropBand(file: string, shot: Shot, ready: Ready, platform: Platfo
  * what puts the two UIs at comparable scale rather than distorting them. The
  * smaller of the two wins, since downscaling the denser screenshot is kinder
  * than upscaling the other into blur.
+ *
+ * Each half is then labelled and boxed. Two screenshots of mostly white UI
+ * laid side by side bleed into each other: there is nothing to say where one
+ * screen stops and the other starts, or which platform is which. The box is a
+ * hairline rather than a phone bezel on purpose, because most of these are a
+ * band cropped out of a screen and a bezel would claim they are whole phones.
  */
 async function composeParts(
   parts: string[],
   out: string,
-  axis: 'row' | 'column' = 'row',
-  gutter = 32
+  axis: 'row' | 'column',
+  labels: string[]
 ): Promise<void> {
   const sizes = await Promise.all(parts.map((part) => sharp(part).metadata()));
   const row = axis === 'row';
@@ -642,21 +789,61 @@ async function composeParts(
     })
   );
 
-  let offset = 0;
-  const layers = scaled.map((piece) => {
-    const layer = { input: piece.buffer, left: row ? offset : 0, top: row ? 0 : offset };
-    offset += (row ? piece.width : piece.height) + gutter;
-    return layer;
+  const fontSize = Math.min(
+    48,
+    Math.max(20, Math.round(Math.max(...scaled.map((s) => s.width)) * 0.035))
+  );
+  const labelHeight = Math.round(fontSize * 1.25);
+  const cellTop = FRAME.pad + labelHeight + FRAME.labelGap;
+
+  const layers: OverlayOptions[] = [];
+  const boxes: string[] = [];
+  let offset = FRAME.pad;
+  let right = 0;
+  let bottom = 0;
+
+  scaled.forEach((piece, i) => {
+    const left = row ? offset : FRAME.pad;
+    const top = row ? cellTop : offset + labelHeight + FRAME.labelGap;
+    layers.push({ input: piece.buffer, left: left + FRAME.border, top: top + FRAME.border });
+
+    boxes.push(
+      `<rect x="${left + FRAME.border / 2}" y="${top + FRAME.border / 2}" ` +
+        `width="${piece.width + FRAME.border}" height="${piece.height + FRAME.border}" ` +
+        `fill="none" stroke="${FRAME.borderColor}" stroke-width="${FRAME.border}" shape-rendering="crispEdges"/>`,
+      `<text x="${left + (piece.width + FRAME.border * 2) / 2}" y="${top - FRAME.labelGap}" ` +
+        `font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="${fontSize}" ` +
+        `font-weight="600" fill="${FRAME.labelColor}" text-anchor="middle">${labels[i]}</text>`
+    );
+
+    // The canvas is sized from where things actually landed rather than from
+    // a running total, which is easy to get wrong by one label's height.
+    right = Math.max(right, left + piece.width + FRAME.border * 2);
+    bottom = Math.max(bottom, top + piece.height + FRAME.border * 2);
+
+    offset = row
+      ? left + piece.width + FRAME.border * 2 + FRAME.gutter
+      : top + piece.height + FRAME.border * 2 + FRAME.gutter;
   });
 
-  const span = offset - gutter;
-  const width = row ? span : common;
-  const height = row ? common : span;
+  const width = right + FRAME.pad;
+  const height = bottom + FRAME.pad;
 
-  await sharp({ create: { width, height, channels: 3, background: '#ffffff' } })
-    .composite(layers)
+  const svg = Buffer.from(
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">${boxes.join('')}</svg>`
+  );
+
+  await sharp({ create: { width, height, channels: 3, background: FRAME.background } })
+    .composite([...layers, { input: svg, left: 0, top: 0 }])
     .png({ palette: true })
     .toFile(out);
+}
+
+async function shrink(file: string, maxWidth: number): Promise<void> {
+  const { width } = await sharp(file).metadata();
+  if (!width || width <= maxWidth) return;
+  const buffer = await sharp(file).resize({ width: maxWidth }).png({ palette: true }).toBuffer();
+  writeFileSync(file, buffer);
 }
 
 async function main(): Promise<void> {
@@ -665,13 +852,19 @@ async function main(): Promise<void> {
   const wanted = options.only ? shots.filter((shot) => shot.id === options.only) : shots;
   if (!wanted.length) throw new Error(`No shot named ${options.only} in scripts/shots/shots.json`);
 
-  const projectDir = ensureProject(options);
-  ensureProjectNeeds(projectDir, wanted);
+  // --compose-only reframes what is already in PARTS_DIR, so it needs neither
+  // a harness project nor anything in it.
+  const projectDir = options.composeOnly ? '' : ensureProject(options);
+  if (!options.composeOnly) ensureProjectNeeds(projectDir, wanted);
   mkdirSync(options.out, { recursive: true });
   mkdirSync(PARTS_DIR, { recursive: true });
   const written: string[] = [];
 
-  for (const platform of options.platforms) {
+  // --compose-only reframes what is already in PARTS_DIR, so the whole
+  // build-and-capture pass is skipped rather than rebuilding every shot.
+  const platforms = options.composeOnly ? [] : options.platforms;
+
+  for (const platform of platforms) {
     const forPlatform = wanted.filter((shot) => shot.platforms.includes(platform));
     if (!forPlatform.length) continue;
 
@@ -698,6 +891,7 @@ async function main(): Promise<void> {
         if (platform === 'android') await stageAndroid(device, shot);
         capture(platform, device, file);
         if (!options.full) await cropBand(file, shot, ready, platform);
+        if (!compose && shot.maxWidth && !options.full) await shrink(file, shot.maxWidth);
         if (!compose) written.push(file);
         console.log(`  ${file}`);
       }
@@ -721,14 +915,16 @@ async function main(): Promise<void> {
         continue;
       }
       const out = join(options.out, `${shot.id}${suffix}.png`);
-      await composeParts(parts, out, shot.composeAxis ?? 'row');
+      const labels = shot.compose.map((platform) => PLATFORM_LABELS[platform]);
+      await composeParts(parts, out, shot.composeAxis ?? 'row', labels);
+      if (shot.maxWidth) await shrink(out, shot.maxWidth);
       written.push(out);
       console.log(`  ${out}`);
     }
   }
 
   console.log(`\n${written.length} image${written.length === 1 ? '' : 's'} written.`);
-  if (!options.keep) {
+  if (!options.keep && !options.composeOnly) {
     console.log(
       `Harness project left at ${projectDir} for the next run. Delete it to start clean.`
     );
