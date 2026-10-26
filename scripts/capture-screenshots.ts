@@ -606,10 +606,23 @@ async function buildAndWaitAndroid(
       90000
     );
 
+    // A pipe read can split a line anywhere, and the launch floods logcat, so
+    // the marker has to be matched against whole lines or it can be missed and
+    // the shot waits out the timer for an app that came up fine.
+    const pattern = new RegExp(`${MARKER} ${id} (\\d+(?:\\.\\d+)?) (\\d+(?:\\.\\d+)?)`);
+    let pending = '';
+
     log.stdout.on('data', (chunk: Buffer) => {
-      const pattern = new RegExp(`${MARKER} ${id} (\\d+(?:\\.\\d+)?) (\\d+(?:\\.\\d+)?)`);
-      const match = chunk.toString().match(pattern);
-      if (match) finish(null, { width: Number(match[1]), density: Number(match[2]) });
+      pending += chunk.toString();
+      const lines = pending.split('\n');
+      pending = lines.pop() ?? '';
+      for (const line of lines) {
+        const match = line.match(pattern);
+        if (match) {
+          finish(null, { width: Number(match[1]), density: Number(match[2]) });
+          return;
+        }
+      }
     });
 
     run(
@@ -839,13 +852,19 @@ async function main(): Promise<void> {
   const wanted = options.only ? shots.filter((shot) => shot.id === options.only) : shots;
   if (!wanted.length) throw new Error(`No shot named ${options.only} in scripts/shots/shots.json`);
 
-  const projectDir = ensureProject(options);
-  ensureProjectNeeds(projectDir, wanted);
+  // --compose-only reframes what is already in PARTS_DIR, so it needs neither
+  // a harness project nor anything in it.
+  const projectDir = options.composeOnly ? '' : ensureProject(options);
+  if (!options.composeOnly) ensureProjectNeeds(projectDir, wanted);
   mkdirSync(options.out, { recursive: true });
   mkdirSync(PARTS_DIR, { recursive: true });
   const written: string[] = [];
 
-  for (const platform of options.platforms) {
+  // --compose-only reframes what is already in PARTS_DIR, so the whole
+  // build-and-capture pass is skipped rather than rebuilding every shot.
+  const platforms = options.composeOnly ? [] : options.platforms;
+
+  for (const platform of platforms) {
     const forPlatform = wanted.filter((shot) => shot.platforms.includes(platform));
     if (!forPlatform.length) continue;
 
@@ -905,7 +924,7 @@ async function main(): Promise<void> {
   }
 
   console.log(`\n${written.length} image${written.length === 1 ? '' : 's'} written.`);
-  if (!options.keep) {
+  if (!options.keep && !options.composeOnly) {
     console.log(
       `Harness project left at ${projectDir} for the next run. Delete it to start clean.`
     );

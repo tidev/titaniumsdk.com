@@ -292,12 +292,14 @@ win.open();
 Three of the five could not be photographed as the pages had them written,
 which is worth more than the pictures:
 
-- The chip example on `layout.md` renders as one dark block, not as chips. A
+- The chip example on `layout.md` rendered as one dark block, not as chips. A
   label in a horizontal container does not size to its text without an
-  explicit `Ti.UI.SIZE`, so all five expand. The shot adds it; the page should
-  too. Its container is also narrowed to 240 for the shot, because at the
-  page's own `90%` five short chips do not wrap on a 440pt phone and the
-  picture would show nothing of `horizontalWrap`.
+  explicit `Ti.UI.SIZE`, so all five expanded. At the page's own `90%` the five
+  short chips also did not wrap on a 440pt phone, so the picture would have
+  shown nothing of `horizontalWrap`. **The page example is fixed** rather than
+  the shot diverging from it: a picture that contradicts the code under it is
+  worse than no picture. The page now carries the sizes and a 240 container,
+  and a line saying why a child in a horizontal layout needs a size at all.
 - The first screen a reader builds put its label at `top: 40`, which on a
   notched iPhone sits inside the status bar. Both the Classic and the Alloy
   version are changed to 80 and 140, which is what the picture shows.

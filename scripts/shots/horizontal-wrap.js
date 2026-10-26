@@ -1,6 +1,9 @@
-// The tag-chip example from the page. The container is narrowed to 240 so the
-// five chips wrap onto two rows: at the page's own '90%' they fit on one line
-// on a phone this wide, and the picture would show nothing of `horizontalWrap`.
+// The tag-chip example from the page. The only differences are the window it
+// has to live in and `top`, which is 100 here so the band clears the status
+// bar. The page used to say '90%', where five short chips fit on one line on
+// a phone this wide so nothing of `horizontalWrap` showed, and it omitted the
+// sizes, where the labels render as one dark block. Both are fixed on the
+// page, so the chips here are what a reader copying it gets.
 const win = Ti.UI.createWindow({ backgroundColor: '#fff' });
 
 const tags = Ti.UI.createView({
@@ -13,8 +16,6 @@ const tags = Ti.UI.createView({
 for (const name of ['alloy', 'android', 'ios', 'layout', 'listview']) {
   tags.add(Ti.UI.createLabel({
     text: name,
-    // Without these a label in a horizontal container does not size to its
-    // text on iOS: the five chips render as one dark block.
     width: Ti.UI.SIZE,
     height: Ti.UI.SIZE,
     left: 4,
