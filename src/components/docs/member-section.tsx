@@ -1,10 +1,9 @@
-import { DeprecatedBadge, PlatformBadges, SinceBadge } from './badges';
+import { DeprecatedBadge, PlatformBadges } from './badges';
 import { Prose } from './prose';
 import { TypeRefText } from './type-ref';
-import { formatOsver, formatSince, splitConstant } from '@/lib/docs/format';
+import { formatOsver, splitConstant } from '@/lib/docs/format';
 import type { ApiLinker } from '@/lib/docs/links';
 import type { ResolvedMember } from '@/lib/docs/type-view';
-import type { ApiPlatform } from '@/lib/registry';
 
 /**
  * One group of members - properties, methods, or events.
@@ -44,13 +43,11 @@ export function MemberSection({
   members,
   link,
   anchor,
-  typePlatforms,
   level = 2,
 }: Addressing & {
   id: string;
   title: string;
   members: ResolvedMember[];
-  typePlatforms: readonly ApiPlatform[];
   level?: Level;
 }) {
   if (!members.length) return null;
@@ -84,14 +81,7 @@ export function MemberSection({
 
       <div className="mt-4 divide-y divide-border border-t border-border">
         {members.map((m) => (
-          <Member
-            key={m.name}
-            member={m}
-            link={link}
-            anchor={anchor}
-            typePlatforms={typePlatforms}
-            level={level}
-          />
+          <Member key={m.name} member={m} link={link} anchor={anchor} level={level} />
         ))}
       </div>
     </section>
@@ -102,15 +92,12 @@ function Member({
   member,
   link,
   anchor,
-  typePlatforms,
   level,
 }: Addressing & {
   member: ResolvedMember;
-  typePlatforms: readonly ApiPlatform[];
   level: Level;
 }) {
   const id = anchor(member);
-  const since = formatSince(member.since);
   const osver = formatOsver(member.osver);
   const declaredAt = member.inheritedFrom && link(member.inheritedFrom, member.name);
   const Heading = level === 2 ? 'h3' : 'h4';
@@ -146,8 +133,7 @@ function Member({
         )}
 
         {member.deprecated && <DeprecatedBadge />}
-        <PlatformBadges platforms={member.platforms} all={typePlatforms} />
-        <SinceBadge since={since} />
+        <PlatformBadges platforms={member.platforms} since={member.since} />
 
         {member.permission && (
           <span className="font-mono text-xs text-text-subtle">{member.permission}</span>

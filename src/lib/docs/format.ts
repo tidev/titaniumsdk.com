@@ -28,6 +28,30 @@ export function formatSince(since: Member['since']): string | null {
   return entries.map(([p, v]) => `${PLATFORM_LABELS[p as ApiPlatform] ?? p} ${v}`).join(', ');
 }
 
+/**
+ * The version a platform is assumed to have had a member since when the
+ * source records none: the SDK's first release with the platform-split
+ * docs for the mobile platforms, and the release that added macOS.
+ */
+export const DEFAULT_SINCE: Record<ApiPlatform, string> = {
+  android: '2.1.3',
+  iphone: '2.1.3',
+  ipad: '2.1.3',
+  macos: '9.2.0',
+};
+
+/**
+ * The version one platform gained a member in, for a badge that pairs the
+ * platform with its own number rather than listing all of them in one string.
+ * A bare version applies to every platform; a map may omit a platform that
+ * has no recorded version, and that falls back to the platform's default.
+ */
+export function sinceFor(since: Member['since'], platform: ApiPlatform): string {
+  if (!since) return DEFAULT_SINCE[platform];
+  if (typeof since === 'string') return since;
+  return since[platform] ?? DEFAULT_SINCE[platform];
+}
+
 /** Flattens a parsed type reference back to source-like text: `Dictionary<Titanium.UI.View>`. */
 export function typeRefText(ref: TypeRef): string {
   return ref.kind === 'generic' ? `${ref.name}<${ref.args.map(typeRefText).join(', ')}>` : ref.name;
