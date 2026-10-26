@@ -14,6 +14,7 @@
     "check:em-dash": "node scripts/check-em-dash.ts",
     "check:offline": "NODE_OPTIONS='--import ./scripts/assert-offline.ts' next build",
     "check:registry": "node scripts/validate-registry.ts",
+    "deploys:prune": "node scripts/prune-deployments.ts",
     "dev": "node scripts/sync-doc-assets.ts && node scripts/sync-registry-images.ts && next dev --port 3002",
     "docgen": "node scripts/docgen/index.ts",
     "docs:compat": "node scripts/generate-compat.ts",
