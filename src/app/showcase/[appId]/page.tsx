@@ -1,5 +1,6 @@
 import { JsonLd } from '@/components/seo/json-ld';
 import { Icon, PlaceholderBadge, PlatformChips } from '@/components/showcase/badges';
+import { Screenshots } from '@/components/showcase/screenshots';
 import { ExternalLink } from '@/components/ui/external-link';
 import { softwareApplication } from '@/lib/seo';
 import { storeLinks } from '@/lib/showcase/app';
@@ -118,6 +119,8 @@ export default async function AppPage({ params }: PageProps<'/showcase/[appId]'>
           <p className="mt-2 text-sm text-text-muted">Titanium SDK {app.sdkVersion}</p>
         </section>
       </div>
+
+      <Screenshots name={app.name} screenshots={app.screenshots} />
     </div>
   );
 }

@@ -19,8 +19,13 @@ import type { AppPlatform, ShowcaseApp } from '../registry/showcase.ts';
  * avatar: every app that shipped has an icon, a grid of app cards with a gap in
  * it looks broken rather than modest, and an entry missing one fails the build
  * with a message saying which file to add.
+ *
+ * `screenshots` are the public URLs of the numbered files beside the entry, in
+ * their numbered order, and empty for an entry that committed none. Optional
+ * where the icon is not: a page without screenshots is a shorter page, not a
+ * broken one.
  */
-export type App = ShowcaseApp & { icon: string };
+export type App = ShowcaseApp & { icon: string; screenshots: string[] };
 
 export const PLATFORM_LABELS: Record<AppPlatform, string> = {
   iphone: 'iPhone',
