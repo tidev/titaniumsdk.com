@@ -60,8 +60,14 @@ your entry.
 - **No SVG.** It can carry script and would be served from this site's own
   origin. Export it to `.png`
 - Convert rather than rename: the contents are checked against the extension
-- **Screenshots are not published.** Not an oversight - `docs/app-showcase.md`
-  has the size arithmetic. Your store links carry them already
+
+## Screenshots, which are optional
+
+Up to five, committed beside your JSON as `registry/showcase/<your-slug>-1.png`
+(or `.jpg`, or `.webp`) through `<your-slug>-5`. The number is the order they
+are shown in. The same format rules and the same 100KB cap apply to each; the
+pixel cap does not, since a phone screenshot is not square. Saved as `.webp` at
+about 540px wide is the easy way under the limit.
 
 ## Before you open this
 
@@ -76,6 +82,8 @@ your entry.
       `mailto:`, `tel:` and anything shaped like an address in any text field
 - [ ] The icon is `.png`, `.jpg` or `.webp`, at most 512x512px and 100KB, and
       named after your slug
+- [ ] Any screenshots are `.png`, `.jpg` or `.webp`, at most 100KB each, at
+      most five, and numbered `<slug>-1` to `<slug>-5`
 - [ ] `pnpm check:registry` passes locally, or CI will run it for you
 
 ## Anything the reviewer should know
