@@ -9,7 +9,13 @@ import {
 } from '@/lib/docs/compat';
 import { renderInline } from '@/lib/docs/markdown';
 import { MAIN, sdkToolchain } from '@/lib/docs/registry';
-import { canonicalPath, isIndexedVersion, newerVersion, versionOptions } from '@/lib/docs/versions';
+import {
+  canonicalPath,
+  isCompiled,
+  isIndexedVersion,
+  newerVersion,
+  versionOptions,
+} from '@/lib/docs/versions';
 import { readCliReleases } from '@/lib/downloads/cli';
 import { formatDate } from '@/lib/downloads/format';
 import { releaseForVersion } from '@/lib/downloads/registry';
@@ -53,14 +59,18 @@ import { notFound } from 'next/navigation';
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return readToolchains().map((toolchain) => ({ segment: toolchain.version }));
+  // Only versions with a compiled reference. An older release keeps its row in
+  // the cross-release table, but this page sits beside a reference it lacks.
+  return readToolchains()
+    .filter((toolchain) => isCompiled(toolchain.version))
+    .map((toolchain) => ({ segment: toolchain.version }));
 }
 
 export async function generateMetadata({
   params,
 }: PageProps<'/docs/sdk/[segment]/compatibility'>): Promise<Metadata> {
   const { segment: version } = await params;
-  if (!sdkToolchain(version)) return {};
+  if (!sdkToolchain(version) || !isCompiled(version)) return {};
 
   return {
     title: `Compatibility ${version} - Titanium SDK`,
@@ -128,7 +138,7 @@ export default async function Compatibility({
 }: PageProps<'/docs/sdk/[segment]/compatibility'>) {
   const { segment: version } = await params;
   const toolchain = sdkToolchain(version);
-  if (!toolchain) notFound();
+  if (!toolchain || !isCompiled(version)) notFound();
 
   // Captured to `registry/cli/releases.json` by `pnpm registry:cli`. Absent, the
   // CLI row states nothing rather than the page failing: every other row comes

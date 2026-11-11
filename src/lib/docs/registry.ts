@@ -148,6 +148,20 @@ export function sdkToolchain(version: string): Toolchain | null {
   return readJson(join(SDK_DIR, version, 'toolchain.json'), (v) => ToolchainSchema.parse(v));
 }
 
+/**
+ * Every version with a captured toolchain, newest first, `main` last.
+ *
+ * Wider than `sdkVersions()`: a release keeps its capture after its compiled
+ * reference is retired, so the cross-release tables still state what it needs.
+ */
+export function toolchainVersions(): string[] {
+  if (!existsSync(SDK_DIR)) return [];
+  return readdirSync(SDK_DIR, { withFileTypes: true })
+    .filter((e) => e.isDirectory() && existsSync(join(SDK_DIR, e.name, 'toolchain.json')))
+    .map((e) => e.name)
+    .sort(compareVersions);
+}
+
 export const sdkType = (version: string, name: string): ApiType | null =>
   apiTypeAt(join(SDK_DIR, version), name);
 

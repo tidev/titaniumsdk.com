@@ -193,6 +193,18 @@ describe('renderToolchain', () => {
     ios: { minIosVersion: '15.0', vendor: { xcode: '>=15.0 <=26.x' } },
   });
 
+  test('a release without a compiled reference keeps its row and loses its link', () => {
+    const out = renderToolchain(
+      [at('13.3.0', '>=20.18.1', '>=17.x'), at('13.2.0', '>=20.18.1', '>=17.x')],
+      CLI,
+      '',
+      (version) => version === '13.3.0'
+    );
+    assert.match(out, /\*\*\[13\.3\.0\]\(\/docs\/sdk\/13\.3\.0\)\*\*/);
+    assert.match(out, /\| \*\*13\.2\.0\*\* /);
+    assert.doesNotMatch(out, /\/docs\/sdk\/13\.2\.0/);
+  });
+
   test('a range with pipes survives as one table cell', () => {
     // `16.x || 18.x || 20.x` is a real value. Unescaped, its pipes end the cell
     // and every row after it is off by two columns.

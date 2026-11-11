@@ -166,7 +166,8 @@ function unresolvedDocs(rest: string[]): string | null {
   // params from the versions that have a `toolchain.json`, so a compiled
   // version captured later is the one case where the two disagree.
   if (rest.length === 3 && second === 'compatibility') {
-    return sdkToolchain(first) ? null : `SDK ${first} has no captured toolchain`;
+    if (!sdkToolchain(first)) return `SDK ${first} has no captured toolchain`;
+    return versions.includes(first) ? null : `SDK ${first} has no compatibility page`;
   }
 
   // Unversioned: `/docs/sdk/<Type>` at the latest release.

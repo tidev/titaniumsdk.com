@@ -8,6 +8,7 @@ import {
   REGISTRY,
   sdkIndex,
   sdkToolchain,
+  toolchainVersions,
   sdkVersions,
 } from './registry.ts';
 import { join } from 'node:path';
@@ -285,9 +286,15 @@ const cellSafe = (v: string) => v.replace(/\|/g, '\\|').replace(/\s*[\r\n]+\s*/g
 /** One range, as a code span safe to put in a table cell. */
 const code = (v: string | undefined) => (v ? `\`${cellSafe(v)}\`` : '-');
 
-/** Every compiled version that has been captured, newest first, `main` last. */
+/**
+ * Every version that has been captured, newest first, `main` last.
+ *
+ * Not only the compiled ones: a release whose reference was retired still has
+ * requirements worth stating. `renderToolchain` links a row only where the
+ * reference exists.
+ */
 export function readToolchains(): Toolchain[] {
-  return sdkVersions()
+  return toolchainVersions()
     .map((v) => sdkToolchain(v))
     .filter((t): t is Toolchain => t !== null);
 }
@@ -303,7 +310,9 @@ export function readToolchains(): Toolchain[] {
 export function renderToolchain(
   all: readonly Toolchain[],
   cliReleases: CliReleases['releases'],
-  generatedFrom: string
+  generatedFrom: string,
+  /** Whether a version has a compiled reference to link its row to. */
+  hasReference: (version: string) => boolean = isCompiledVersion
 ): string {
   if (!all.length) return `${generatedFrom}\n\nNo release has been captured yet.\n`;
 
@@ -337,7 +346,7 @@ export function renderToolchain(
     ...table(
       ['SDK', 'Node.js', 'Titanium CLI', ...COLUMNS.map((c) => c.label)],
       rows.map((t) => [
-        releaseLabel(t, current),
+        releaseLabel(t, current, hasReference(t.version)),
         code(t.node),
         code(minimumCli(t, cliReleases)),
         ...COLUMNS.map((c) => code(t[c.from].vendor[c.key])),
@@ -353,7 +362,7 @@ export function renderToolchain(
     ...table(
       ['SDK', 'Min Android API', 'Compiles against API', 'Min iOS', 'Min watchOS'],
       rows.map((t) => [
-        releaseLabel(t, current),
+        releaseLabel(t, current, hasReference(t.version)),
         plain(t.android.minSdkVersion),
         plain(t.android.compileSdkVersion),
         plain(t.ios.minIosVersion),
@@ -364,6 +373,8 @@ export function renderToolchain(
 
   return `${out.join('\n')}\n`;
 }
+
+const isCompiledVersion = (version: string) => sdkVersions().includes(version);
 
 const plain = (v: string | undefined) => (v ? cellSafe(v) : '-');
 
@@ -404,18 +415,18 @@ function toolchainRows(all: readonly Toolchain[], current: Toolchain): Toolchain
  * leaves the reader unable to tell which release the row is a preview of;
  * naming only the version would present an unreleased tree as installable.
  */
-const releaseLabel = (t: Toolchain, current?: Toolchain) => {
-  // Every row here came from `sdkVersions()`, which lists only versions with a
-  // compiled reference, so the link always resolves.
-  const href = `/docs/sdk/${t.version}`;
+const releaseLabel = (t: Toolchain, current: Toolchain | undefined, linked: boolean) => {
+  // A row is linked only where the version has a compiled reference. Older
+  // releases keep their row and lose the link, because it would 404.
+  const link = (text: string) => (linked ? `[${text}](/docs/sdk/${t.version})` : text);
   if (t.version === MAIN) {
-    return `[\`main\`](${href}) (${t.declared ? `${t.declared}, ` : ''}unreleased)`;
+    return `${link('`main`')} (${t.declared ? `${t.declared}, ` : ''}unreleased)`;
   }
   // `main` is never the latest: it is not released. Where it is the only entry
   // it stands in as `current` for the summary above, and marking it there would
   // contradict the word "unreleased" beside it.
   const latest = current && current.version !== MAIN && t.version === current.version;
-  return `**[${t.version}](${href})**${latest ? ' (latest)' : ''}`;
+  return `**${link(t.version)}**${latest ? ' (latest)' : ''}`;
 };
 
 /** `android build tools` reads as a column heading; `ios sdk` and `ndk` do not. */
