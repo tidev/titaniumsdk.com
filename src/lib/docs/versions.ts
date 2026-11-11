@@ -8,7 +8,7 @@ import { MAIN, latestSdkVersion, sdkIndex, sdkTypeNames, sdkVersions } from './r
  * pinned version linkable, and it means every destination can be worked out on
  * the server, including whether it exists.
  *
- * Which matters: the reference spans 12.5.0 to 13.4.1, and types come and go
+ * Which matters: the reference spans 13.3.0 to 13.4.1, and types come and go
  * across a year of releases. Offering a reader a link to a page that will 404
  * is worse than telling them the type is not in that version, so each option
  * carries whether the page is actually there and the switcher says so.

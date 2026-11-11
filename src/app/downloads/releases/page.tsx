@@ -75,7 +75,7 @@ export default function ReleasesPage() {
             : null
         }
         // Only nineteen of these rows get one: the reference is compiled from
-        // 12.5.0 onwards and the list goes back to 8.0.0. Absent rather than
+        // 13.3.0 onwards and the list goes back to 8.0.0. Absent rather than
         // dead, for the same reason the notes link is.
         //
         // GA rows only, and for the reason the notes callback gives: an RC

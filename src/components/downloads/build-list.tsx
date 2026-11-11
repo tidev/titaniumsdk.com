@@ -39,7 +39,7 @@ export function BuildList({
    * Where this build's API reference lives on this site, or null.
    *
    * Separate from `notesHref` because the two answer differently: notes go back
-   * to 8.0.0 and the compiled reference only to 12.5.0, so most rows that have
+   * to 8.0.0 and the compiled reference only to 13.3.0, so most rows that have
    * a note have no reference.
    */
   apiHref?: (build: Build & { prerelease?: boolean }) => string | null;
