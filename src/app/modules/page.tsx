@@ -50,7 +50,7 @@ export default function ModulesIndex() {
             TiDev has reviewed and vouches for.
           </>
         )}{' '}
-        A further {found.toLocaleString()} were found by their <code>titanium</code>,
+        A further {found.toLocaleString()} were found by their <code>titanium</code>,{' '}
         <code>titanium-module</code> or <code>titanium-sdk</code> topic on GitHub
         and link straight to their repositories. Those are listed, not reviewed.
       </p>
