@@ -1,7 +1,7 @@
 import { indexableGuidePaths } from './docs/guides.ts';
 import { latestSdkVersion, MAIN } from './docs/registry.ts';
 import { indexedVersions } from './docs/versions.ts';
-import { blockedByRobots } from './seo.ts';
+import { blockedByRobots, robotsRules } from './seo.ts';
 import { SITE_URL } from './site.ts';
 import { sitemapEntries } from './sitemap.ts';
 import assert from 'node:assert/strict';
@@ -48,7 +48,8 @@ describe('sitemap', () => {
     // The two would be contradictory instructions, and a crawler handed both
     // trusts neither. `/registry` the page is listed; `/registry/` the API is
     // what the rule keeps out.
-    const blocked = paths.filter((path) => blockedByRobots(path));
+    const rules = robotsRules();
+    const blocked = paths.filter((path) => blockedByRobots(path, rules));
     assert.deepEqual(blocked, []);
     assert.equal(paths.includes('/registry'), true);
   });

@@ -1,3 +1,6 @@
+import { sdkVersions } from './docs/registry.ts';
+import { versionsWithNotes } from './docs/release-notes.ts';
+import { isIndexedVersion } from './docs/versions.ts';
 import { SITE_URL } from './site.ts';
 
 /**
@@ -7,7 +10,7 @@ import { SITE_URL } from './site.ts';
  * route writes its own from the content in front of it. What lives here is
  * everything that has to be identical everywhere and would otherwise drift: the
  * robots verdict for a page that should not compete, the Open Graph fields every
- * card carries, the one prefix robots.txt keeps crawlers out of, and the two
+ * card carries, what robots.txt keeps crawlers out of, and the two
  * structured-data shapes the site actually earns.
  */
 
@@ -36,7 +39,8 @@ export const OPEN_GRAPH = {
 } as const;
 
 /**
- * What robots.txt disallows, which is one prefix and deliberately not more.
+ * What robots.txt disallows on every host that is indexed, apart from the
+ * retired reference versions below.
  *
  * `/registry/` is the public JSON API (TI-55): several hundred generated
  * documents, one per module and per release, that answer nothing anybody typed
@@ -51,12 +55,107 @@ export const OPEN_GRAPH = {
  * and `noindex` rather than `Disallow` is what keeps a page out of results
  * anyway, since a blocked URL can still be indexed from its inbound links and a
  * crawler that cannot fetch it never reads the `noindex` saying otherwise.
+ *
+ * The retired reference versions are the one place that trade goes the other
+ * way; see `retiredReferenceRules`.
  */
 export const DISALLOW = ['/registry/'];
 
-/** Whether robots.txt keeps crawlers off a path. Prefix matching, as robots.txt does. */
-export const blockedByRobots = (path: string): boolean =>
-  DISALLOW.some((prefix) => path.startsWith(prefix));
+/** The `Allow` and `Disallow` lines of the one `*` group in robots.txt. */
+export type RobotsRules = { allow: string[]; disallow: string[] };
+
+/**
+ * Keeps crawlers off the pinned reference versions past the index cutoff
+ * (TI-101).
+ *
+ * Those pages are already `noindex` (see `isIndexedVersion`), and they were the
+ * most expensive thing on the site to crawl. A type page is rendered the first
+ * time anyone asks for it and cached for the life of the deployment, so every
+ * production deploy starts the cache over, and bots walking 284 types in every
+ * retired version were what rebuilt it: about nine in ten ISR writes.
+ * `noindex` never stopped any of that, because a crawler has to download the
+ * page to read the tag.
+ *
+ * The cost is the one `DISALLOW` warns about: a URL robots.txt blocks can still
+ * be listed from its inbound links, as a bare address without a snippet, and
+ * the `noindex` that would have prevented it goes unread. Here that is the
+ * smaller risk. These addresses are new with this site, so few links point at
+ * them; they are out of the sitemap; and every one has a newer copy that is
+ * indexed and that the version banner points to.
+ *
+ * Per version, three lines that keep the pattern from reaching a longer version
+ * number (a rule for `13.4.1` must not block `13.4.10`):
+ *
+ * - `/docs/sdk/<v>/` for the type pages, their `.md` copies and compatibility.
+ * - `/docs/sdk/<v>$` for the version index. `$` anchors the end, per RFC 9309.
+ * - `/docs/sdk/<v>.md` for the index's Markdown copy.
+ *
+ * And one `Allow` for the release notes where the version has them. They are
+ * indexed for every version (see `sitemap.ts`), and the longer of two matching
+ * rules wins, so the notes stay open under the `Disallow` above them.
+ *
+ * Takes its inputs so a test can drive it without the registry on disk.
+ */
+export function retiredReferenceRules(
+  retired: readonly string[],
+  withNotes: ReadonlySet<string>
+): RobotsRules {
+  return {
+    allow: retired
+      .filter((version) => withNotes.has(version))
+      .map((version) => `/docs/sdk/${version}/release-notes`),
+    disallow: retired.flatMap((version) => [
+      `/docs/sdk/${version}/`,
+      `/docs/sdk/${version}$`,
+      `/docs/sdk/${version}.md`,
+    ]),
+  };
+}
+
+/**
+ * Everything the indexed host's robots.txt says, in one `*` group.
+ *
+ * Read from the registry each time rather than fixed at import: the set of
+ * retired versions moves with every release that is compiled.
+ */
+export function robotsRules(): RobotsRules {
+  const retired = sdkVersions().filter((version) => !isIndexedVersion(version));
+  const reference = retiredReferenceRules(retired, new Set(versionsWithNotes()));
+  return {
+    allow: ['/', ...reference.allow],
+    disallow: [...DISALLOW, ...reference.disallow],
+  };
+}
+
+/**
+ * Whether a robots.txt pattern matches a path, per RFC 9309.
+ *
+ * Prefix matching, with `*` for any run of characters and a trailing `$` to
+ * anchor the end. The rules above only use `$`, but a matcher that ignored `*`
+ * would quietly disagree with every crawler the first time one was added.
+ */
+function matches(pattern: string, path: string): boolean {
+  const anchored = pattern.endsWith('$');
+  const body = anchored ? pattern.slice(0, -1) : pattern;
+  const source = body
+    .split('*')
+    .map((part) => part.replace(/[.+?^${}()|[\]\\]/g, '\\$&'))
+    .join('.*');
+  return new RegExp(`^${source}${anchored ? '$' : ''}`).test(path);
+}
+
+/**
+ * Whether robots.txt keeps crawlers off a path.
+ *
+ * The longest matching pattern wins, and `Allow` wins a tie, which is how RFC
+ * 9309 and the major crawlers settle an `Allow` and a `Disallow` that both
+ * match.
+ */
+export function blockedByRobots(path: string, rules: RobotsRules = robotsRules()): boolean {
+  const longest = (patterns: string[]) =>
+    Math.max(-1, ...patterns.filter((p) => matches(p, path)).map((p) => p.length));
+  return longest(rules.disallow) > longest(rules.allow);
+}
 
 /** One visible breadcrumb. The shape `components/docs/breadcrumbs` renders. */
 type Step = { label: string; href?: string };
