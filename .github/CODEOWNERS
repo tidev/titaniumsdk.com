@@ -1,6 +1,11 @@
-# Sole active maintainer. The email resolves to @cb1kenobi, whose GitHub
-# account carries this address.
-* me@chrisbarber.dev
+# Sole active maintainer.
+#
+# Owners are named by GitHub login, not by email. scripts/preview-gate.ts reads
+# this file to decide whose commits get a Vercel preview, and it can only
+# compare a login: resolving an email or a team needs the GitHub API, which the
+# build cannot call reliably. An email or `@org/team` entry still requests
+# reviews here, but it does not grant previews.
+* @cb1kenobi
 
 # Developer directory listings (TI-58). The wildcard above already covers this
 # path, and the entry is here anyway: CODEOWNERS is last-match-wins, so a future
@@ -9,11 +14,11 @@
 # people, and who approves one should be stated rather than inherited.
 #
 # See docs/developer-directory.md for what is being approved.
-/registry/directory/ me@chrisbarber.dev
+/registry/directory/ @cb1kenobi
 
 # App showcase entries (TI-54). Here for the same reason as the directory above:
 # an entry publishes somebody's name, icon and app description, and who approves
 # that should be stated rather than inherited from a rule about `/registry/`.
 #
 # See docs/app-showcase.md for what is being approved.
-/registry/showcase/ me@chrisbarber.dev
+/registry/showcase/ @cb1kenobi
