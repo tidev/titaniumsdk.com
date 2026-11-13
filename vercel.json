@@ -1,4 +1,17 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "ignoreCommand": "node scripts/preview-gate.ts"
+  "ignoreCommand": "node scripts/preview-gate.ts",
+  "routes": [
+    {
+      "src": "^/docs/sdk/(?:main|(?:[89]|1[0-2])\\.\\d+\\.\\d+|13\\.[0-2]\\.\\d+)(?:\\.md|/(?!release-notes/?$)[^/]+)?/?$",
+      "has": [
+        {
+          "type": "header",
+          "key": "user-agent",
+          "value": { "re": "Amazonbot|PerplexityBot|OAI-SearchBot|ExaSearchBot" }
+        }
+      ],
+      "mitigate": { "action": "deny" }
+    }
+  ]
 }
