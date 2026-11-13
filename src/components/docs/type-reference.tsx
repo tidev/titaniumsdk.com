@@ -1,11 +1,10 @@
-import { PlatformBadges, DeprecatedBadge, SinceBadge } from '@/components/docs/badges';
+import { PlatformBadges, DeprecatedBadge } from '@/components/docs/badges';
 import { Breadcrumbs } from '@/components/docs/breadcrumbs';
 import { LegacyAnchor } from '@/components/docs/legacy-anchor';
 import { MemberSection } from '@/components/docs/member-section';
 import { Prose } from '@/components/docs/prose';
 import { OnThisPage, SectionJump, jumpLinks, type TocGroup } from '@/components/docs/toc';
 import { OlderVersionNotice, VersionSwitcher } from '@/components/docs/version-switcher';
-import { formatSince } from '@/lib/docs/format';
 import { anchorAllocator, pathLinker } from '@/lib/docs/links';
 import { sdkIndex, sdkType, sourceUrl, MAIN } from '@/lib/docs/registry';
 import { crumbsFor, subtypesOf } from '@/lib/docs/tree';
@@ -55,7 +54,6 @@ export function TypeReference({ version, typeName, linkBase, imageRoot }: TypeRe
   // linking the ones that do not produced 1,023 dead links. See pathLinker.
   const link = pathLinker(base, new Set(types.map((t) => t.name)));
   const { type: api } = view;
-  const since = formatSince(api.since);
   const subtypes = subtypesOf(types, api.name);
   const newer = newerVersion(version, api.name);
 
@@ -128,8 +126,7 @@ export function TypeReference({ version, typeName, linkBase, imageRoot }: TypeRe
               {api.kind}
             </span>
             {api.deprecated && <DeprecatedBadge />}
-            <PlatformBadges platforms={api.platforms} />
-            <SinceBadge since={since} />
+            <PlatformBadges platforms={api.platforms} since={api.since} />
           </div>
 
           {!!api.inheritanceChain?.length && (
@@ -208,7 +205,6 @@ export function TypeReference({ version, typeName, linkBase, imageRoot }: TypeRe
             members={group.members}
             link={link}
             anchor={group.anchor}
-            typePlatforms={api.platforms}
           />
         ))}
 
