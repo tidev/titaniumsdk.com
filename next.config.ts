@@ -3,6 +3,7 @@ import legacyApi from './src/lib/docs/legacy-api-redirects.json';
 import legacyGuide from './src/lib/docs/legacy-guide-redirects.json';
 import { MAIN, latestSdkVersion } from './src/lib/docs/registry.ts';
 import { versionsWithNotes } from './src/lib/docs/release-notes.ts';
+import { noindexHeaders } from './src/lib/site.ts';
 import type { NextConfig } from 'next';
 
 /**
@@ -284,7 +285,7 @@ const markdownSuffix = [
 
 const nextConfig: NextConfig = {
   reactCompiler: true,
-  headers: registryApiHeaders,
+  headers: async () => [...registryApiHeaders(), ...noindexHeaders()],
   rewrites: async () => ({ beforeFiles: [...hideInternalReadme, ...markdownSuffix] }),
   redirects: async () => {
     const rules = [
