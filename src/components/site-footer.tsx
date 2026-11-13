@@ -1,4 +1,5 @@
 import { TitaniumMark } from './titanium-logo';
+import { HoverPrefetchLink } from '@/components/hover-prefetch-link';
 import {
   communityFooterNav,
   isExternal,
@@ -7,7 +8,6 @@ import {
   supportNav,
   type NavItem,
 } from '@/lib/nav';
-import Link from 'next/link';
 
 function LinkColumn({ title, items }: { title: string; items: NavItem[] }) {
   return (
@@ -24,9 +24,9 @@ function LinkColumn({ title, items }: { title: string; items: NavItem[] }) {
                   {item.label}
                 </a>
               ) : (
-                <Link href={item.href} className={className}>
+                <HoverPrefetchLink href={item.href} className={className}>
                   {item.label}
-                </Link>
+                </HoverPrefetchLink>
               )}
               {item.also && (
                 <>
