@@ -43,6 +43,12 @@ const DWELL_MS = 150;
  * the timer; once it has fired the prefetch is committed and the link stays
  * eager, which is what the guide's pattern does too. Focus is included so
  * keyboard navigation gets the same head start.
+ *
+ * The site-wide nav uses it too (TI-99): header, footer, the header's menus
+ * and the mobile drawer. Each prefetch of those pages was a cheap cache hit,
+ * but the header is on every page, so every page view fetched all of its
+ * links: about 24 CDN requests per view, and 60% of all requests. Prefetching
+ * on hover keeps the click fast and drops the requests nobody acts on.
  */
 export function HoverPrefetchLink(props: Omit<ComponentProps<typeof Link>, 'prefetch'>) {
   const [active, setActive] = useState(false);

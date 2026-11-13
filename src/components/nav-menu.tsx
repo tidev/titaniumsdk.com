@@ -1,8 +1,8 @@
 'use client';
 
 import { NAV_ITEM_CLASS } from './site-nav-item';
+import { HoverPrefetchLink } from '@/components/hover-prefetch-link';
 import { isExternal, type NavItem } from '@/lib/nav';
-import Link from 'next/link';
 import { useCallback, useEffect, useId, useRef, useState } from 'react';
 
 /**
@@ -176,9 +176,9 @@ export function NavMenu({ label, items }: { label: string; items: NavItem[] }) {
                   {item.label}
                 </a>
               ) : (
-                <Link href={item.href} onClick={hide} className={className}>
+                <HoverPrefetchLink href={item.href} onClick={hide} className={className}>
                   {item.label}
-                </Link>
+                </HoverPrefetchLink>
               )}
             </li>
           );
