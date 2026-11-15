@@ -4,6 +4,7 @@ import { newFileUrl } from '@/lib/github';
 import { prettyJson } from '@/lib/pretty-json';
 import { IMAGE_EXTENSIONS } from '@/lib/registry-images';
 import { appTemplate } from '@/lib/registry/showcase';
+import { MAX_SCREENSHOTS } from '@/lib/showcase/icon';
 import { SITE_URL } from '@/lib/site';
 import type { Metadata } from 'next';
 
@@ -87,6 +88,12 @@ export default function SubmitAppPage() {
           Commit an icon beside it, named the same ({IMAGE_EXTENSIONS.join(', ')}, at most 512x512px
           and 100KB). Every entry needs one - there is no fallback the way the directory has
           initials.
+        </li>
+        <li>
+          Screenshots are optional: up to {MAX_SCREENSHOTS}, committed beside it as{' '}
+          <code className="font-mono text-xs">&lt;slug&gt;-1</code> to{' '}
+          <code className="font-mono text-xs">&lt;slug&gt;-{MAX_SCREENSHOTS}</code> with the same
+          extensions, at most 100KB each. The number is the order they are shown in.
         </li>
         <li>
           <code className="font-mono text-xs">subtitle</code> may be deleted, and so may any one of

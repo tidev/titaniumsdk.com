@@ -236,6 +236,7 @@ type ShowcaseEntry = {
   name: string;
   description: string;
   icon: string;
+  screenshots?: readonly string[];
   platforms: readonly string[];
   appStore?: string;
   playStore?: string;
@@ -273,6 +274,9 @@ export function softwareApplication(app: ShowcaseEntry): object {
     applicationCategory: 'MobileApplication',
     operatingSystem: os.join(', '),
     image: `${SITE_URL}${app.icon}`,
+    ...(app.screenshots?.length
+      ? { screenshot: app.screenshots.map((path) => `${SITE_URL}${path}`) }
+      : {}),
     url: `${SITE_URL}/showcase/${app.id}`,
     ...(app.appStore || app.playStore
       ? { installUrl: [app.appStore, app.playStore].filter((url) => !!url) }

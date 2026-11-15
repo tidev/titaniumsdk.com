@@ -104,27 +104,36 @@ What is enforced, and checked by `pnpm check:registry`:
   is plenty - it is never drawn larger than 80px. The byte cap is a deployment
   budget rather than a matter of taste - see below.
 - One icon per entry, no orphans, and **no entry without one**. All three fail
-  the build rather than rendering a gap.
+  the build rather than rendering a gap. A numbered file is a screenshot, and
+  is covered below.
 
-## Screenshots, and why there are none
+## Screenshots
 
-Asked for, considered, and deliberately not built. This is recorded so nobody
-re-derives it.
+**Optional, and at most five.** Committed beside the entry like the icon, as
+`registry/showcase/<id>-1.png` (or `.jpg`, or `.webp`) through `<id>-5`, and
+again nothing in the JSON refers to them - the number in the filename is the
+order they are shown in. The app page draws them in a row under the platforms,
+and a tap opens one in a lightbox. An entry with none has a shorter page, not a
+broken one.
 
-The deployment size limit is 100MB, and it is measured against the **prerendered
-static output**, which was 93MB when this was written. The headroom is therefore
-single-digit megabytes, shared with the entire compiled documentation set. Four
-screenshots per app at a realistic quality is roughly 1MB per entry; twenty
-entries is twenty megabytes, and the cap is breached before the page is even
-interesting.
+Every rule above applies to a screenshot as it does to an icon - format, magic
+bytes, no SVG, **100KB per file** - except the pixel cap, which is for icons: a
+phone screenshot is taller than it is wide and a 512px square would not fit
+one. Saved as `.webp` at about 540px wide, a screenshot comes in under the cap
+at a quality nobody will notice on a thumbnail or in the lightbox. A file
+numbered `0`, or `6` and up, is refused with a message saying what the
+numbering is, and `src/lib/showcase/icon.ts` holds the rules.
 
-The stores already host screenshots, size them per device, and keep them current
-as the app is updated. An entry links out to them. That is a better artefact
-than a stale copy of one, and it costs nothing.
-
-If this is revisited, revisit the measurement first. A committed screenshot
-today is refused by `src/lib/showcase/icon.ts` with a message that says so, so
-nobody wastes a round trip discovering it.
+Why five, and why 100KB: the deployment size limit is 100MB, and it is measured
+against the **prerendered static output**, which was 93MB when the showcase was
+built. The headroom is therefore single-digit megabytes, shared with the entire
+compiled documentation set. Screenshots at a realistic quality were first
+refused outright on that arithmetic - roughly 1MB per entry - and the cap is
+what makes them affordable now: an entry with all five at the limit is half a
+megabyte. That still adds up, so if the showcase grows past a couple of dozen
+entries, **re-measure the output before the limit does**. The stores host the
+full-size screenshots and keep them current; these are a preview, and an entry
+links out for the rest.
 
 ## Freshness, and why nothing expires
 
