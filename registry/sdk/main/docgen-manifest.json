@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "generator": "sha256:3b7bd6f149505791face123269bbc9ea944e76c3b6fcdaa9786a2733e097fa29",
-  "generatedAt": "2026-10-01T17:35:42.516Z",
+  "generator": "sha256:66c7d445a1b21075e8cca43b0569af0916363eaf4f2a0428a3ed59aeb683fc19",
+  "generatedAt": "2026-11-18T11:09:28.080Z",
   "sources": {
     "Global/Console/Console.yml": {
       "hash": "sha256:103e92335f50be09c6edfb21e914b3e08873f7520d20c768d9026d0bb619e97d",
@@ -168,7 +168,7 @@
       ]
     },
     "Titanium/Android/Android.yml": {
-      "hash": "sha256:151b3483aa6f7032afd916c575311d45bdab9c376fd1cac74e4212652cc83e47",
+      "hash": "sha256:6332fcd7f09550a68e3a1490fbc3ea1fe8a49cdf34df88608fcec2888597fdd6",
       "types": [
         "Titanium.Android",
         "ServiceIntentOptions",
@@ -263,9 +263,10 @@
       ]
     },
     "Titanium/App/Android/Android.yml": {
-      "hash": "sha256:d60d792b0b6ed0dad77a79ea10a72465dc57a3a5facc858192eb6e6fd8e7ed56",
+      "hash": "sha256:3b32b0dcbe703432ade572fc0e231210d6c33e997c102e65f53b3d4c7fc5a610",
       "types": [
-        "Titanium.App.Android"
+        "Titanium.App.Android",
+        "ChangeIconOptions"
       ]
     },
     "Titanium/App/App.yml": {
@@ -297,6 +298,12 @@
       "hash": "sha256:a40738bc0372162fcb22f4a7a285d9708a55d49ac0cd70a234cf4978e5c0a504",
       "types": [
         "Titanium.App.iOS.LocalNotification"
+      ]
+    },
+    "Titanium/App/iOS/SceneProxy.yml": {
+      "hash": "sha256:ea6be5231e6e4aecadbb122bbb52af7f2ecd8962538c34f8eb1a6a16b22d3817",
+      "types": [
+        "Titanium.App.iOS.SceneProxy"
       ]
     },
     "Titanium/App/iOS/SearchQuery.yml": {
@@ -358,13 +365,15 @@
       ]
     },
     "Titanium/App/iOS/iOS.yml": {
-      "hash": "sha256:a76e7e6dbb866fdcecb2a762582c0b9ba0b05e9a4a16959deec802c62bea9615",
+      "hash": "sha256:2488eed890992a1b64d6a75eaf853648649f9df9d78e82763b61564c4fb6a222",
       "types": [
         "Titanium.App.iOS",
         "NotificationParams",
         "UserNotificationAttachment",
         "LaunchOptionsType",
-        "UserNotificationSettings"
+        "UserNotificationSettings",
+        "RequestSceneOptions",
+        "RequestSceneResult"
       ]
     },
     "Titanium/Blob.yml": {
@@ -475,7 +484,7 @@
       ]
     },
     "Titanium/Database/Database.yml": {
-      "hash": "sha256:cf107f21e8611aa24815c409319aaaebd51f62cf61b669fa286842c11e224f76",
+      "hash": "sha256:2cef5a4e13173394030675117fec30209e0d7b4ea51a399e53749778ec790c43",
       "types": [
         "Titanium.Database"
       ]
@@ -599,7 +608,7 @@
       ]
     },
     "Titanium/Media/Media.yml": {
-      "hash": "sha256:db44ad7ff57f26402db221e943be1163e8953ffa00b6fa53c4c6632a5decdd0f",
+      "hash": "sha256:61c137f95f8e770d4087dc083f5a2404326e88bb828f212e94ee4325bc1a3365",
       "types": [
         "Titanium.Media",
         "MusicLibraryOptionsType",
@@ -641,7 +650,7 @@
       ]
     },
     "Titanium/Media/VideoPlayer.yml": {
-      "hash": "sha256:1059a02c3bbbf68a3a92cc9ef57a005adf5e39a014b6b20cced19c1d03143da2",
+      "hash": "sha256:c454fd0fb3bc191072bbe2616ca3a84039ec44cee6fa34652cc0c704e5cfded1",
       "types": [
         "Titanium.Media.VideoPlayer",
         "ThumbnailResponse",
@@ -772,7 +781,7 @@
       ]
     },
     "Titanium/UI/AlertDialog.yml": {
-      "hash": "sha256:208191333986d126eeb6181a877dacdc00ec2e40552f05679f886c59e2197e60",
+      "hash": "sha256:54e0b9955f2262016f1e9cac80260ec9334225d6a066781306263ef0ac1fecce",
       "types": [
         "Titanium.UI.AlertDialog"
       ]
@@ -833,13 +842,13 @@
       ]
     },
     "Titanium/UI/Animation.yml": {
-      "hash": "sha256:a64fe28752a056abf3a59d49e6ba6546b517f1d8eacd3a0218b6e0dd68f6b2bf",
+      "hash": "sha256:d2bef6f75bf3e48dba31170749ca37ec02c8404776386478da8efe61dc3c5533",
       "types": [
         "Titanium.UI.Animation"
       ]
     },
     "Titanium/UI/Attribute.yml": {
-      "hash": "sha256:8b1b6674863c6cb13d4ba20442f45930ee9c3b1273599198f2d013425949d2da",
+      "hash": "sha256:6248369415784079cb0ffcbf389d145ca59dc19ee173cd3a6cb794d2f28d0d28",
       "types": [
         "Attribute",
         "ParagraphAttribute"
@@ -852,7 +861,7 @@
       ]
     },
     "Titanium/UI/Button.yml": {
-      "hash": "sha256:ed4430e0c2bbe96a10bffc74f028458354b78d46315cfaa36e7f2128953af80f",
+      "hash": "sha256:8adfdc140c59e0591dc2ae7c19d2d9d35e250fe05b77269dbc69c2431e70981d",
       "types": [
         "Titanium.UI.Button"
       ]
@@ -902,19 +911,19 @@
       ]
     },
     "Titanium/UI/Font.yml": {
-      "hash": "sha256:a59691f0a491f21fdd9584b7be623c8df2ee95b799dda2ead9cf5eb901a36778",
+      "hash": "sha256:c6c65919437ee060fe5cc73878124ff3a9c71fbd6c23a85ea0b9599743214b0a",
       "types": [
         "Font"
       ]
     },
     "Titanium/UI/ImageView.yml": {
-      "hash": "sha256:dc70126daa6b1a73e61fdceefb9f702e5a4f22438c730f2b38dcc1c88aa32824",
+      "hash": "sha256:635cab341cf35ee75842543d12aeb2387303203fe2fff167660cf2db656cb068",
       "types": [
         "Titanium.UI.ImageView"
       ]
     },
     "Titanium/UI/Label.yml": {
-      "hash": "sha256:2ffa6df3cb6b68ec5ef515be18b38c2aa9c1c79e0008a8fe4fd33db87d98e5df",
+      "hash": "sha256:02130679aefc088814ac0a643b3e37279f06937fd36837c562b7db688568e057",
       "types": [
         "Titanium.UI.Label",
         "LabelLineSpacing"
@@ -937,7 +946,7 @@
       ]
     },
     "Titanium/UI/ListView.yml": {
-      "hash": "sha256:1c58c3ea83689aa644a5bfd0f010898697b927335bc3dab51370ae62516d12ad",
+      "hash": "sha256:a0498783f8d90aa04f0b51902e716a5b95b2b20cbc9d0babfb3084c94047161e",
       "types": [
         "Titanium.UI.ListView",
         "ListViewAnimationProperties",
@@ -960,7 +969,7 @@
       ]
     },
     "Titanium/UI/Matrix2D.yml": {
-      "hash": "sha256:1cac95c2f584b92008bb91bc7fb3484000d9d7a9b07e05c5b0ea35b530884deb",
+      "hash": "sha256:591c2475a8f76aaafcb80b3bfd357d9d1635bf3296838348371be5d343364fa4",
       "types": [
         "Titanium.UI.Matrix2D",
         "Matrix2DCreationDict"
@@ -1044,9 +1053,10 @@
       ]
     },
     "Titanium/UI/ScrollableView.yml": {
-      "hash": "sha256:da5f913a468003fcbeabe8da546e880b4cf9541fbeb25c56397f3315bdd4e822",
+      "hash": "sha256:b3f650ce76dfa7da3c84298661988033a875ff41c7dd22faf0fc3c9068b5bda5",
       "types": [
-        "Titanium.UI.ScrollableView"
+        "Titanium.UI.ScrollableView",
+        "ScrollablePadding"
       ]
     },
     "Titanium/UI/SearchBar.yml": {
@@ -1094,7 +1104,7 @@
       ]
     },
     "Titanium/UI/TabGroup.yml": {
-      "hash": "sha256:9fc51e8a3a4b8267c11e8f0542fa6e112742bf26aa99f4696e6785c7f9246acd",
+      "hash": "sha256:ac0cc4a8db74c6092016d04afbc015eba5d59e28864751271fae43a8d68600c5",
       "types": [
         "Titanium.UI.TabGroup",
         "disableTabOptions"
@@ -1107,7 +1117,7 @@
       ]
     },
     "Titanium/UI/TableView.yml": {
-      "hash": "sha256:d99b76dda985b131241e79038afe6e8336e2800a486ec230b205a3612567cb2d",
+      "hash": "sha256:200787608650a359d43962bf79cf69b11f846174cbfc4591f8a8367602101c70",
       "types": [
         "Titanium.UI.TableView",
         "TableViewAnimationProperties",
@@ -1134,7 +1144,7 @@
       ]
     },
     "Titanium/UI/TextArea.yml": {
-      "hash": "sha256:0a5034dfb820d708ffed16f37807681139073096c7d6b96d9d6022b1943c311f",
+      "hash": "sha256:801f11ed4d99522a56c3fb20c938815166715547f0a143b3af2fc0cb460f6e0f",
       "types": [
         "Titanium.UI.TextArea",
         "textAreaSelectedParams"
@@ -1155,14 +1165,14 @@
       ]
     },
     "Titanium/UI/UI.yml": {
-      "hash": "sha256:20b0464ede29edce6383106a8a4113b6816d681457667f1147bc2a0da48f353f",
+      "hash": "sha256:f9175784a779b10e6ecd2819386f62b14ff264f6a3f106b5ed91bef35cf7ad5e",
       "types": [
         "Titanium.UI",
         "CutoutSize"
       ]
     },
     "Titanium/UI/View.yml": {
-      "hash": "sha256:c3b05ea6e899e4bf30f14e07d1fa326ef8d78095eae156a1c7f45b67a973ca38",
+      "hash": "sha256:1a855d95582a66ff9a307ce4e15149f36e5c81816d8da646db750a1bd207bf56",
       "types": [
         "Titanium.UI.View",
         "Point",
@@ -1173,7 +1183,7 @@
       ]
     },
     "Titanium/UI/WebView.yml": {
-      "hash": "sha256:ebcd151202225200c59a1375f77fc368202fa1781e5cfa4f4f7c1bc3d9b417ee",
+      "hash": "sha256:c8f8c316dbe60c6570e1a846a474652e959854c15b9010e8922954ad94d0823a",
       "types": [
         "Titanium.UI.WebView",
         "SnapshotResult",
@@ -1189,14 +1199,15 @@
       ]
     },
     "Titanium/UI/Window.yml": {
-      "hash": "sha256:719014be69f68a48dc19cb2c84dea762dad0711d063f81ed3eca4e585161ac89",
+      "hash": "sha256:370c344833c421b4a1187e2c60ea9542f784c68fb2a81e139c05a44c047366b6",
       "types": [
         "Titanium.UI.Window",
         "openWindowParams",
         "windowToolbarParam",
         "closeWindowParams",
         "titleAttributesParams",
-        "shadowDict"
+        "shadowDict",
+        "ReservedRegion"
       ]
     },
     "Titanium/UI/iOS/AlertDialogStyle.yml": {
@@ -1374,7 +1385,7 @@
       ]
     },
     "Titanium/UI/iOS/SplitWindow.yml": {
-      "hash": "sha256:62600f0cdfb5214126fa231a42daeb1b665b5fae2063ba664280ebbb91665cfe",
+      "hash": "sha256:07166b888c3a662b6dd04e4b4a507f0c0e3bc9cee0f2b43e7b9622a34f520b00",
       "types": [
         "Titanium.UI.iOS.SplitWindow"
       ]
@@ -1466,7 +1477,7 @@
       ]
     },
     "Titanium/UI/iOS/iOS.yml": {
-      "hash": "sha256:9a17ced7353e3bb5e33cb9ce8d8e606ef7550a13e0582dcec4b8084005c12d7f",
+      "hash": "sha256:9707bee4be49f1f1eddee471c8c6e4ac6fb3094538523510d83ab9fb30354f69",
       "types": [
         "Titanium.UI.iOS",
         "SystemImageParameters"
@@ -1744,7 +1755,7 @@
     "Titanium.Android": {
       "source": "Titanium/Android/Android.yml",
       "extends": "Titanium.Module",
-      "outputHash": "sha256:facc379f9b95aae8153dd2678476153cd5220a616654c012f2fc9dd525da7731"
+      "outputHash": "sha256:36cbb1ed73ac72ddacc7ebdb2c8a97bbd59c28950f0dc8e57a351d6001b98e64"
     },
     "RequestPermissionAccessResult": {
       "source": "Titanium/Android/Android.yml",
@@ -1824,7 +1835,7 @@
     "Titanium.App.Android": {
       "source": "Titanium/App/Android/Android.yml",
       "extends": "Titanium.Module",
-      "outputHash": "sha256:df9b102e1e1c7bf9bfcd38d8fadabeb3e28065225876416f6e0097fe1a6b2374"
+      "outputHash": "sha256:8a57ec65bdda7924352ae9a4e1bf02d2fa900368b5afb620d158bc65d1256e10"
     },
     "Titanium.App": {
       "source": "Titanium/App/App.yml",
@@ -1849,6 +1860,11 @@
       "source": "Titanium/App/iOS/LocalNotification.yml",
       "extends": "Titanium.Proxy",
       "outputHash": "sha256:101313ef77d3366d5c47cac7966e3ffb6ad54b2c59df514f9c22cb387f0bbf7b"
+    },
+    "Titanium.App.iOS.SceneProxy": {
+      "source": "Titanium/App/iOS/SceneProxy.yml",
+      "extends": "Titanium.Proxy",
+      "outputHash": "sha256:403c90834c6adffb779b5bc161cba32d8ed72203ee08a0e6ce878a35cb7d2ecc"
     },
     "Titanium.App.iOS.SearchQuery": {
       "source": "Titanium/App/iOS/SearchQuery.yml",
@@ -1902,7 +1918,7 @@
     "Titanium.App.iOS": {
       "source": "Titanium/App/iOS/iOS.yml",
       "extends": "Titanium.Module",
-      "outputHash": "sha256:d47bcc536144018c766248bf3856bb4563ab3b76f17f0aa00d48b1d93f3f16d2"
+      "outputHash": "sha256:fbea4c943a921e03fc77ad66a1774b888385ebeae01e833eb9bc0bf88d07e754"
     },
     "Titanium.Blob": {
       "source": "Titanium/Blob.yml",
@@ -1992,7 +2008,7 @@
     "Titanium.Database": {
       "source": "Titanium/Database/Database.yml",
       "extends": "Titanium.Module",
-      "outputHash": "sha256:b065b833843a745d3a5ca33d82369db74922d57e526be270f3c4e99cb710734e"
+      "outputHash": "sha256:390d534b4602e2b84886a6c1f8606a69eddd470d0e16430951bde1f963b468a4"
     },
     "Titanium.Database.ResultSet": {
       "source": "Titanium/Database/ResultSet.yml",
@@ -2108,7 +2124,7 @@
     "Titanium.Media": {
       "source": "Titanium/Media/Media.yml",
       "extends": "Titanium.Module",
-      "outputHash": "sha256:eb22062fcad4c31c559a954f4f998d4090753544bb870b3fd318e8b4eca8ed9f"
+      "outputHash": "sha256:40d0dff3d548c9e6476bcdc6d9c551b8ac28dc46f7eb375d2434af8ce913420b"
     },
     "MediaQueryType": {
       "source": "Titanium/Media/Media.yml",
@@ -2165,7 +2181,7 @@
     "Titanium.Media.VideoPlayer": {
       "source": "Titanium/Media/VideoPlayer.yml",
       "extends": "Titanium.UI.View",
-      "outputHash": "sha256:6f28b9747b49b6f070f0d31bd5af02dcfcfaa23f14ff6870e2fddcdc4e89eef0"
+      "outputHash": "sha256:54707e81ac144bdcf098117ec2558bcaf5072734358e468a7627f9bb31d7cbdb"
     },
     "Titanium.Module": {
       "source": "Titanium/Module.yml",
@@ -2267,7 +2283,7 @@
     "Titanium.UI.ActivityIndicator": {
       "source": "Titanium/UI/ActivityIndicator.yml",
       "extends": "Titanium.UI.View",
-      "outputHash": "sha256:38fb45766a821c680c25f14b5694f4735930a52a2db08c5cabaec86511a11591"
+      "outputHash": "sha256:ed64aca1fee3a22bfda4177e942e1b631ac2787fda368370ab28835260579368"
     },
     "Titanium.UI.ActivityIndicatorStyle": {
       "source": "Titanium/UI/ActivityIndicatorStyle.yml",
@@ -2277,7 +2293,7 @@
     "Titanium.UI.AlertDialog": {
       "source": "Titanium/UI/AlertDialog.yml",
       "extends": "Titanium.UI.View",
-      "outputHash": "sha256:fa76e4a79935a72e8caa917affebc56a7cdf37c446756d0305ad479d02041bf5"
+      "outputHash": "sha256:e24eca96c2ebfc394567b38e730aa9270914c34adfc15f10fcba78890eecff3a"
     },
     "Titanium.UI.Android": {
       "source": "Titanium/UI/Android/Android.yml",
@@ -2287,37 +2303,37 @@
     "Titanium.UI.Android.CardView": {
       "source": "Titanium/UI/Android/CardView.yml",
       "extends": "Titanium.UI.View",
-      "outputHash": "sha256:081b93b5ec203e9a785acb62f649b0279c26e842a7575c584a05f34d37603840"
+      "outputHash": "sha256:5884e0cefa90c931089bba86b27f01425f33e89ea2fe7bc16ab56a00c8df54da"
     },
     "Titanium.UI.Android.CollapseToolbar": {
       "source": "Titanium/UI/Android/CollapseToolbar.yml",
       "extends": "Titanium.UI.View",
-      "outputHash": "sha256:4817cda4261a7bfbd423195d54d1c41ef8ceb25a6de2d0a4e498e9ed66cd0657"
+      "outputHash": "sha256:d8f2bd89033571f1a68c699ed596c21f652e6ca098968b33c96f6db3f1f7cad5"
     },
     "Titanium.UI.Android.DrawerLayout": {
       "source": "Titanium/UI/Android/DrawerLayout.yml",
       "extends": "Titanium.UI.View",
-      "outputHash": "sha256:0ad84eb911c1f9b2664fc5dc88ae523847b8855f1e37fc5fbc22bec1199b5793"
+      "outputHash": "sha256:74dac80f46dc1f38a8b67f0e7e2623da663ced509d78b56814678d2909f69ee4"
     },
     "Titanium.UI.Android.FloatingActionButton": {
       "source": "Titanium/UI/Android/FloatingActionButton.yml",
       "extends": "Titanium.UI.View",
-      "outputHash": "sha256:996ec0f40ed11e13d3795938cad077166dde957dc8e153260eceed6558a9d9ca"
+      "outputHash": "sha256:c3b772834ccc251334b306aa60665ddb27fe3cff5e64c844bdee4464b25ba58d"
     },
     "Titanium.UI.Android.ProgressIndicator": {
       "source": "Titanium/UI/Android/ProgressIndicator.yml",
       "extends": "Titanium.UI.View",
-      "outputHash": "sha256:1b0d73d486747e9f4ec203c5a00e5fcafd7b032dec015248e90b2c54a9381298"
+      "outputHash": "sha256:d67f9e1466a474f24a23b0b6d79673fcd2b218c63da1de5f782034c837a42714"
     },
     "Titanium.UI.Android.SearchView": {
       "source": "Titanium/UI/Android/SearchView.yml",
       "extends": "Titanium.UI.View",
-      "outputHash": "sha256:d8c928878dd938e8ea640c9c9a1bd1fcf40198b43c2a955ebd6e5a43ff7ab77c"
+      "outputHash": "sha256:bfb50aff6f3544214fd8f9c5c6fc0b0da1f3f65b16ff5884d5d00493e52925a7"
     },
     "Titanium.UI.Android.Snackbar": {
       "source": "Titanium/UI/Android/Snackbar.yml",
       "extends": "Titanium.UI.View",
-      "outputHash": "sha256:f7e87d78df79dc4296c4bd5e46d285a81c908b61b1c2bf8b67f45a174b581e42"
+      "outputHash": "sha256:d434e630340e7f0a174bc1182c2ab594fc6e027f83fb468c95851e074a8d0cd1"
     },
     "AnimatedOptions": {
       "source": "Titanium/UI/AnimatedOptions.yml",
@@ -2331,15 +2347,15 @@
     "Titanium.UI.Animation": {
       "source": "Titanium/UI/Animation.yml",
       "extends": "Titanium.Proxy",
-      "outputHash": "sha256:98d6d7eabe34bde9409b858212a1387b06cce849ae299eedfdfdfce4b645a7f9"
+      "outputHash": "sha256:57dbd8ef0b170216f05c11ded1b17edb00a330b590afeb027b5bba0d7689cb3f"
     },
     "Attribute": {
       "source": "Titanium/UI/Attribute.yml",
-      "outputHash": "sha256:0e80d8f548ff81a73baae776dc04a9c83f6d0f130b6ac4349a12ce2ef6931e67"
+      "outputHash": "sha256:9cfda5b6d3965408d1e6ff9b25f8433021d6bc6d890b23728def3013bb53b66b"
     },
     "ParagraphAttribute": {
       "source": "Titanium/UI/Attribute.yml",
-      "outputHash": "sha256:d4960a5775cc40f367e6c54fefd49ddcb9d9e2afcc66b02090ce24dedac6cd76"
+      "outputHash": "sha256:72742f0398ad4f2e63d2bdfb754795fa78764202917cab9d5786d2760d166519"
     },
     "Titanium.UI.AttributedString": {
       "source": "Titanium/UI/AttributedString.yml",
@@ -2349,12 +2365,12 @@
     "Titanium.UI.Button": {
       "source": "Titanium/UI/Button.yml",
       "extends": "Titanium.UI.View",
-      "outputHash": "sha256:2a10fc48dbab3cfe03ab8374c69039f34bdaf9ad3eb8367b149afd9aa58f704c"
+      "outputHash": "sha256:ab403b370a24022eb4e0238ccf1a3601228b9e5850b2f06ae7573d58c1021fcc"
     },
     "Titanium.UI.ButtonBar": {
       "source": "Titanium/UI/ButtonBar.yml",
       "extends": "Titanium.UI.View",
-      "outputHash": "sha256:57f72b369b57c50feafdbe82213fa268839b6f5eaf242c3ff6da46691ca6c32e"
+      "outputHash": "sha256:7d8ef3c10b256110a4be669d829a3ab5b0f8921f8eb06ab7af2993ce989317d4"
     },
     "Titanium.UI.Clipboard": {
       "source": "Titanium/UI/Clipboard/Clipboard.yml",
@@ -2374,7 +2390,7 @@
     "Titanium.UI.DashboardView": {
       "source": "Titanium/UI/DashboardView.yml",
       "extends": "Titanium.UI.View",
-      "outputHash": "sha256:439c7a3ae64fdb54a71202f6126256963d8467aa39ab2af54dcdc6680de78566"
+      "outputHash": "sha256:f8706c8fd32f5dd8fef38abdd3dc4bf26d497dcdacedd85dda1e468f5fecea3a"
     },
     "Dimension": {
       "source": "Titanium/UI/Dimension.yml",
@@ -2384,21 +2400,21 @@
     "Titanium.UI.EmailDialog": {
       "source": "Titanium/UI/EmailDialog.yml",
       "extends": "Titanium.UI.View",
-      "outputHash": "sha256:d2e5739a00a083aa865e6a7a6908682f8287e0c2915004786a17bfcc12569a65"
+      "outputHash": "sha256:45eb65b6d811ce8f21c44bba1b474da5462da5ffb87af34a6331b5d6f87818d5"
     },
     "Font": {
       "source": "Titanium/UI/Font.yml",
-      "outputHash": "sha256:1696e8befc042aea0b9709d1bacb2da1614b117c76a1b60df21830c20a7090ac"
+      "outputHash": "sha256:8e7743acbd745f31bf636e4ce97403d8f589bd08b8313fa4b8621576dcfcd83f"
     },
     "Titanium.UI.ImageView": {
       "source": "Titanium/UI/ImageView.yml",
       "extends": "Titanium.UI.View",
-      "outputHash": "sha256:ec78e0c6bb9593d6efdfbfbeffd5f95763a53c78c0d737ad01d8b674d8d6ea1d"
+      "outputHash": "sha256:c4b02c20d977adaf203d7e51273f1b48b0037d1b1fca56c2756a7237ec01712c"
     },
     "Titanium.UI.Label": {
       "source": "Titanium/UI/Label.yml",
       "extends": "Titanium.UI.View",
-      "outputHash": "sha256:503065162f2fa9868ede8e9e78348d7face437d698b261e149ce95664169ffca"
+      "outputHash": "sha256:d5dac0d484ba0c5914f8fe7b5950006ba3379af2872b99b5b95a075df9bba204"
     },
     "Titanium.UI.ListItem": {
       "source": "Titanium/UI/ListItem.yml",
@@ -2429,7 +2445,7 @@
     "Titanium.UI.ListView": {
       "source": "Titanium/UI/ListView.yml",
       "extends": "Titanium.UI.View",
-      "outputHash": "sha256:303634f918b693ceb5fbbfebd6d00fe9674c560b8b1a0d4d72f5c8cbc8b132b1"
+      "outputHash": "sha256:df9143e036ef55c9796fcda542c8ba0913298a16f7a712cc93c87e28fbd3ff21"
     },
     "ListViewAnimationProperties": {
       "source": "Titanium/UI/ListView.yml",
@@ -2443,12 +2459,12 @@
     "Titanium.UI.MaskedImage": {
       "source": "Titanium/UI/MaskedImage.yml",
       "extends": "Titanium.UI.View",
-      "outputHash": "sha256:169b2d9e0c7a2fa5a90404a01257282833df36aac0240b97383758a908a86bfd"
+      "outputHash": "sha256:bdef692b49c37d6aa53e10ba20c1d2c925580dbeac4b1fb9adfe4d5dd692fa63"
     },
     "Titanium.UI.Matrix2D": {
       "source": "Titanium/UI/Matrix2D.yml",
       "extends": "Titanium.Proxy",
-      "outputHash": "sha256:ab152ac4e8a9fd0d0bc81582c78cb82a6efb29bf12e5de1926b634ac12f723f2"
+      "outputHash": "sha256:c322049f199ddb6601634b21f216faace85adbc47d134562a667273ef88ee73d"
     },
     "Matrix2DCreationDict": {
       "source": "Titanium/UI/Matrix2D.yml",
@@ -2462,7 +2478,7 @@
     "Titanium.UI.NavigationWindow": {
       "source": "Titanium/UI/NavigationWindow.yml",
       "extends": "Titanium.UI.Window",
-      "outputHash": "sha256:de91826e8c60bc333a6565b0e8084ac180551de4064ee40345a66afbe5717c36"
+      "outputHash": "sha256:507f4c80f4e2a7ad68f448aa7862f67857b383bd885c4d11f47eac2d4915e207"
     },
     "Titanium.UI.Notification": {
       "source": "Titanium/UI/Notification.yml",
@@ -2472,12 +2488,12 @@
     "Titanium.UI.OptionBar": {
       "source": "Titanium/UI/OptionBar.yml",
       "extends": "Titanium.UI.View",
-      "outputHash": "sha256:221cd7ae2166c3c9930a3478e7d145ebe732c5a689f43e2beae78c6d21e29b74"
+      "outputHash": "sha256:09957ed00c7be325c4517c26bd4eeb57414678c3527abf0c27800935dde885a0"
     },
     "Titanium.UI.OptionDialog": {
       "source": "Titanium/UI/OptionDialog.yml",
       "extends": "Titanium.UI.View",
-      "outputHash": "sha256:fa5cfc162168a6446dddca4856c47c388aa2af1d54bd5f86ab5627efeabad767"
+      "outputHash": "sha256:9242bcd0b5e45dc459a04321a18c450be9b437e424fd279c6f59515ac9a543b7"
     },
     "HorizontalInsets": {
       "source": "Titanium/UI/Padding.yml",
@@ -2491,22 +2507,22 @@
     "Titanium.UI.Picker": {
       "source": "Titanium/UI/Picker.yml",
       "extends": "Titanium.UI.View",
-      "outputHash": "sha256:85f75a384344e142609f352b1d985899d8019e862142384d5f67c880c4e4c7f5"
+      "outputHash": "sha256:835a8b32f6500d798afc55851ada86f78a68842b40d9934bb6801c3d6b5ad148"
     },
     "Titanium.UI.PickerColumn": {
       "source": "Titanium/UI/PickerColumn.yml",
       "extends": "Titanium.UI.View",
-      "outputHash": "sha256:e2954386cc1f782b8b13b410d14e4e345be88b5b793ca92e03267372a279de36"
+      "outputHash": "sha256:3f4783031630bc64a8a655d9443ca89f3ac5ecaf4e75640c4cc662487fdce7f0"
     },
     "Titanium.UI.PickerRow": {
       "source": "Titanium/UI/PickerRow.yml",
       "extends": "Titanium.UI.View",
-      "outputHash": "sha256:31b367c8f6f0b88b00428671bb325a83b5db6ef928596176175077f30c2b64cc"
+      "outputHash": "sha256:c2adb7f0e22ac73bf9f04e6e5eda6e91124d2be41011854fa3f4ac792ac2b306"
     },
     "Titanium.UI.ProgressBar": {
       "source": "Titanium/UI/ProgressBar.yml",
       "extends": "Titanium.UI.View",
-      "outputHash": "sha256:6c5b29e7b17b1c4c85d6f9fc392c285db19ecbe217c06749d996374952c2ef55"
+      "outputHash": "sha256:c5703676e87b40f255033497a32308b5746e668eed0a8d451651d69058bc0a47"
     },
     "Titanium.UI.RefreshControl": {
       "source": "Titanium/UI/RefreshControl.yml",
@@ -2516,17 +2532,17 @@
     "Titanium.UI.ScrollView": {
       "source": "Titanium/UI/ScrollView.yml",
       "extends": "Titanium.UI.View",
-      "outputHash": "sha256:4f6533e24620f2d85c70c3a428b3f02c5b610115d83ba5166d85ceec41049fa2"
+      "outputHash": "sha256:cb05145d2a2d60b6f3a4fb3a1ca2e6a7d641fc828ae0e33025dc074e5a9d39ff"
     },
     "Titanium.UI.ScrollableView": {
       "source": "Titanium/UI/ScrollableView.yml",
       "extends": "Titanium.UI.View",
-      "outputHash": "sha256:31f9a76edf21518c632290bdcc04d05830d9400d5e7f9c5c3a6f729b0ff49704"
+      "outputHash": "sha256:5f7d788f2df8e189a5e4a5b7415c30acbaf68d75cc05a2ce7c99cf7591d9e981"
     },
     "Titanium.UI.SearchBar": {
       "source": "Titanium/UI/SearchBar.yml",
       "extends": "Titanium.UI.View",
-      "outputHash": "sha256:7b51e1e29516e178284060e5d1fdb5d64a00c51ed711af08e67cb280cb6cf4da"
+      "outputHash": "sha256:aa3d702db29d76e36becc40eb28a9e97d62a1eaa865800a91b5106bfeaa68b96"
     },
     "Titanium.UI.Shortcut": {
       "source": "Titanium/UI/Shortcut/Shortcut.yml",
@@ -2545,37 +2561,37 @@
     "Titanium.UI.Slider": {
       "source": "Titanium/UI/Slider.yml",
       "extends": "Titanium.UI.View",
-      "outputHash": "sha256:08a209d1ad88c101547e48adfc6d7c505c3cf7327ff6f9854167622f37d1f1af"
+      "outputHash": "sha256:00a66c2e6a39abf7882ba97b957cbff8c40f2d9b7cbe302200112d61024cccea"
     },
     "Titanium.UI.Switch": {
       "source": "Titanium/UI/Switch.yml",
       "extends": "Titanium.UI.View",
-      "outputHash": "sha256:4880adecd2b24a06b1a89f05cd8b0b013fd3ce494bf1d8dccfad5139ff0ca65e"
+      "outputHash": "sha256:0b5953b7c32305dc140f25b02ebd72fcde22dd028b41b002f4a7bdc565f43801"
     },
     "Titanium.UI.Tab": {
       "source": "Titanium/UI/Tab.yml",
       "extends": "Titanium.UI.View",
-      "outputHash": "sha256:d75f394dd9df872f549451f94037cfe76a34b85236b34e7b85826df5ba8f8ba4"
+      "outputHash": "sha256:98f842282a9e628c583a96253130eb4ac997e7b0fcf7c1d0fe349311ef5d50c3"
     },
     "Titanium.UI.TabGroup": {
       "source": "Titanium/UI/TabGroup.yml",
       "extends": "Titanium.UI.Window",
-      "outputHash": "sha256:eae35ff18c7a746da8986ecdc1996132e620e2a2f6a63078f4526562bef6ff33"
+      "outputHash": "sha256:b43e90c0cb9de596f9513160b627ecbe10a39b5994726609f24cf05d92942f90"
     },
     "Titanium.UI.TabbedBar": {
       "source": "Titanium/UI/TabbedBar.yml",
       "extends": "Titanium.UI.View",
-      "outputHash": "sha256:921225884b6fefc3198867a31f5864e0ec1d548265cc63850557b71aee67ecbe"
+      "outputHash": "sha256:0d5779a0c7c44acdac75ea4a6035c49d6b856d628ed32c6449a485dee05038ab"
     },
     "Titanium.UI.TableView": {
       "source": "Titanium/UI/TableView.yml",
       "extends": "Titanium.UI.View",
-      "outputHash": "sha256:ba4d152a018d2458af0fab5d904f7cfd02d66fc5a4a465ea12c1c5167179d70e"
+      "outputHash": "sha256:75dfa3b2fcf2026168ea8aecde38fc6028fdae0f0b34096506123dd39ece72c9"
     },
     "Titanium.UI.TableViewRow": {
       "source": "Titanium/UI/TableViewRow.yml",
       "extends": "Titanium.UI.View",
-      "outputHash": "sha256:47fc3c66603532d801ce70e4bca18c5a85fdd337634f9b2957831cd8084a0b5f"
+      "outputHash": "sha256:cdb3363e61281bf5381a9959cde1a9d0c443bb9487fd56d2a640161e1b91cf75"
     },
     "Titanium.UI.TableViewScrollPosition": {
       "source": "Titanium/UI/TableViewScrollPosition.yml",
@@ -2590,27 +2606,27 @@
     "Titanium.UI.TextArea": {
       "source": "Titanium/UI/TextArea.yml",
       "extends": "Titanium.UI.View",
-      "outputHash": "sha256:ebfca43f3be72e565e318e40bd4b2d8ebea059b2b250b066c49b8142d1b9dbcc"
+      "outputHash": "sha256:366ab4a65c00fbb65fba2da66ff669b3538b17beaca0092dd977d090f9a6a317"
     },
     "Titanium.UI.TextField": {
       "source": "Titanium/UI/TextField.yml",
       "extends": "Titanium.UI.View",
-      "outputHash": "sha256:40ac1316dfa8ba059e760a2811f3d4d8877b94e8c55bba0a0b0a1c2f786ef26e"
+      "outputHash": "sha256:579d781385c073911ebc9cfbad3ddcb1c7d6af6e4e13464bf17c47b63746da76"
     },
     "Titanium.UI.Toolbar": {
       "source": "Titanium/UI/Toolbar.yml",
       "extends": "Titanium.UI.View",
-      "outputHash": "sha256:e0155fa39b6b2ce2469db094c6b5ee6ae27b9ca0706eee444d9df8e8292c2e84"
+      "outputHash": "sha256:d30e0940f3e65d2b91e639f694d4af9c0d702b20a1a8cc004931f1caa4832dd3"
     },
     "Titanium.UI": {
       "source": "Titanium/UI/UI.yml",
       "extends": "Titanium.Module",
-      "outputHash": "sha256:42bf6e1694e2c50ab77fd4623465fe4f0bf8a8301fcc83c5bf2775a3e38f0971"
+      "outputHash": "sha256:f3b646efd1de30e06cc41caf29e5d60f193a82c3569b1d8d3fb5c1f2b331c389"
     },
     "Titanium.UI.View": {
       "source": "Titanium/UI/View.yml",
       "extends": "Titanium.Proxy",
-      "outputHash": "sha256:57db8f4035011755d2c49cb0e11720886c4f209349947441d2f15bf87dd65aeb"
+      "outputHash": "sha256:4b50091e90d275839ba3d3b4bd5e23cc01359e050b34bba2be3b0914c65dc864"
     },
     "Point": {
       "source": "Titanium/UI/View.yml",
@@ -2623,12 +2639,12 @@
     "Titanium.UI.WebView": {
       "source": "Titanium/UI/WebView.yml",
       "extends": "Titanium.UI.View",
-      "outputHash": "sha256:50fc44580d1ec5bbfa90afd86e5bd57c3206846f4e0e5396b49f82b5ab6956bc"
+      "outputHash": "sha256:9022e4ae90a846de59d5751b2c2a38e22def1861324f53763622f23e01aba79f"
     },
     "Titanium.UI.Window": {
       "source": "Titanium/UI/Window.yml",
       "extends": "Titanium.UI.View",
-      "outputHash": "sha256:434efdab6959018ca6ac827e43248cb72d34ff576ea643cbb93500fc2233ab92"
+      "outputHash": "sha256:0f9e01c2f5c15db2974840f48cfdbe56481493febecab4f8814f2dfc7523b9e5"
     },
     "openWindowParams": {
       "source": "Titanium/UI/Window.yml",
@@ -2670,7 +2686,7 @@
     "Titanium.UI.iOS.BlurView": {
       "source": "Titanium/UI/iOS/BlurView.yml",
       "extends": "Titanium.UI.View",
-      "outputHash": "sha256:3204fdd1b516d7e093a3f13cbb7e06a693a1a025cf4d7c81f78c198b9cbaaee3"
+      "outputHash": "sha256:4d466daefaadb0d521695fd97cd8035a5470dd6e40697d0ca1070c4d86c083dc"
     },
     "Titanium.UI.iOS.ButtonConfiguration": {
       "source": "Titanium/UI/iOS/ButtonConfiguration.yml",
@@ -2685,7 +2701,7 @@
     "Titanium.UI.iOS.CoverFlowView": {
       "source": "Titanium/UI/iOS/CoverFlowView.yml",
       "extends": "Titanium.UI.View",
-      "outputHash": "sha256:3ec7096abcaee13c3cb8f5d20d0bcf6fddc7b70795ba58fbca274f081fe6c581"
+      "outputHash": "sha256:ec84f42b72af2953747174a61f496098523157a3a27ae9def16d753e88667eea"
     },
     "Titanium.UI.iOS.DocumentViewer": {
       "source": "Titanium/UI/iOS/DocumentViewer.yml",
@@ -2730,7 +2746,7 @@
     "Titanium.UI.iOS.LivePhotoView": {
       "source": "Titanium/UI/iOS/LivePhotoView.yml",
       "extends": "Titanium.UI.View",
-      "outputHash": "sha256:72f814bb709f5c6facc58390f6ecf3d59e0c470f91b6cac2b0c580c809cb8dac"
+      "outputHash": "sha256:db9c3f08bd87b3b5261ff61b9946974100a659e15745864aae0f18ab613b367d"
     },
     "Titanium.UI.iOS.MenuPopup": {
       "source": "Titanium/UI/iOS/MenuPopup.yml",
@@ -2740,7 +2756,7 @@
     "Titanium.UI.iOS.NavigationWindow": {
       "source": "Titanium/UI/iOS/NavigationWindow.yml",
       "extends": "Titanium.UI.Window",
-      "outputHash": "sha256:f3f692a4003cd3e0fdca2ec5cc4191d5273471c3b357a90bab026dc6673be17b"
+      "outputHash": "sha256:503bc457fbf53a4cfa47fb875dbe378379d68c1c61d25f031ca91055b54e77ad"
     },
     "Titanium.UI.iOS.PreviewAction": {
       "source": "Titanium/UI/iOS/PreviewAction.yml",
@@ -2785,7 +2801,7 @@
     "Titanium.UI.iOS.SplitWindow": {
       "source": "Titanium/UI/iOS/SplitWindow.yml",
       "extends": "Titanium.UI.Window",
-      "outputHash": "sha256:8fc5cc3c72344e25898a04b012ea8ad81c45a3b0a36c1e024ec96da7375b0c17"
+      "outputHash": "sha256:ff210d021adfc3080bbc9ffc0e2d02486d3253131ffd13e45004fc76f1b650ee"
     },
     "Titanium.UI.iOS.StatusBar": {
       "source": "Titanium/UI/iOS/StatusBar.yml",
@@ -2795,7 +2811,7 @@
     "Titanium.UI.iOS.Stepper": {
       "source": "Titanium/UI/iOS/Stepper.yml",
       "extends": "Titanium.UI.View",
-      "outputHash": "sha256:398c76ebd19927dedb11eb6f38919d73d6cfd284f9449f268eb9f853de0c9dcc"
+      "outputHash": "sha256:8f67a7b0cb7f81179a66eee85ba50f4db9f13d457b6ab9ed98b511eed517b275"
     },
     "Titanium.UI.iOS.SystemButton": {
       "source": "Titanium/UI/iOS/SystemButton.yml",
@@ -2810,7 +2826,7 @@
     "Titanium.UI.iOS.TabbedBar": {
       "source": "Titanium/UI/iOS/TabbedBar.yml",
       "extends": "Titanium.UI.View",
-      "outputHash": "sha256:32f84263c57c221ada9a31d6ef929f718d1b2b48b86301c2d43f14dd8ff85ea3"
+      "outputHash": "sha256:132b60d2a69e6269f7eebeff04ca8d00f32a1ebd82a8bad470fb25c6029b008f"
     },
     "BarItemType": {
       "source": "Titanium/UI/iOS/TabbedBar.yml",
@@ -2834,7 +2850,7 @@
     "Titanium.UI.iOS.Toolbar": {
       "source": "Titanium/UI/iOS/Toolbar.yml",
       "extends": "Titanium.UI.View",
-      "outputHash": "sha256:1d1586fb7e17e3460321a1b7f3fa6e8121c47a4f10528d922a45cb0a330ca8c4"
+      "outputHash": "sha256:63bdac3674d8701dca87100367104efec416081fbb828dd2dceb3a44400a7709"
     },
     "Titanium.UI.iOS.TransitionAnimation": {
       "source": "Titanium/UI/iOS/TransitionAnimation.yml",
@@ -2864,12 +2880,12 @@
     "Titanium.UI.iOS": {
       "source": "Titanium/UI/iOS/iOS.yml",
       "extends": "Titanium.Module",
-      "outputHash": "sha256:8c0ef0619e212e4a728643333547a86998c8f4fb79c60e24f6506cda559e8465"
+      "outputHash": "sha256:00975d34d5a77bc63d33754f5bf6928189fa199a2d4eab3e7e25ce51463dc173"
     },
     "Titanium.UI.iPad.Popover": {
       "source": "Titanium/UI/iPad/Popover.yml",
       "extends": "Titanium.UI.View",
-      "outputHash": "sha256:d7a3835809d98afa7bb294f1401ba2c131f8b78d24c18286a59f74ca9b882dcb"
+      "outputHash": "sha256:8b80e5efc86e208bbda84aa3ca5e7e74ddf03085649fec9f7f695275b305bf1c"
     },
     "Titanium.UI.iPad": {
       "source": "Titanium/UI/iPad/iPad.yml",
