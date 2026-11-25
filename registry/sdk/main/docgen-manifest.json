@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "generator": "sha256:66c7d445a1b21075e8cca43b0569af0916363eaf4f2a0428a3ed59aeb683fc19",
-  "generatedAt": "2026-11-25T20:02:01.900Z",
+  "generatedAt": "2026-11-25T20:37:04.679Z",
   "sources": {
     "Global/Console/Console.yml": {
       "hash": "sha256:103e92335f50be09c6edfb21e914b3e08873f7520d20c768d9026d0bb619e97d",
@@ -820,6 +820,12 @@
       "hash": "sha256:e1ab47395a39f3239ecc58cd7434a87ae2563b8933a2067de281a5ec44f6dd40",
       "types": [
         "Titanium.UI.Android.ProgressIndicator"
+      ]
+    },
+    "Titanium/UI/Android/RadioButtons.yml": {
+      "hash": "sha256:28ec907694021f0f183aac5814790d56df525d46198eb5710c91523ae0f6aec6",
+      "types": [
+        "Titanium.UI.Android.RadioButtons"
       ]
     },
     "Titanium/UI/Android/SearchView.yml": {
@@ -2324,6 +2330,11 @@
       "source": "Titanium/UI/Android/ProgressIndicator.yml",
       "extends": "Titanium.UI.View",
       "outputHash": "sha256:d67f9e1466a474f24a23b0b6d79673fcd2b218c63da1de5f782034c837a42714"
+    },
+    "Titanium.UI.Android.RadioButtons": {
+      "source": "Titanium/UI/Android/RadioButtons.yml",
+      "extends": "Titanium.UI.View",
+      "outputHash": "sha256:1e0385567a372299b37fb8e5c1dc08190b1736c060be06ccd0fe5263a666dc6b"
     },
     "Titanium.UI.Android.SearchView": {
       "source": "Titanium/UI/Android/SearchView.yml",
