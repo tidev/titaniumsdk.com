@@ -41,7 +41,8 @@ adding a row is a model operation rather than a view operation.
 element becomes a `Ti.UI.create*` call.
 
 [Styles and themes](/docs/alloy/styles) is TSS: selectors, precedence, platform
-and form-factor queries, and themes.
+and form-factor queries, and themes. It also covers
+[PurgeTSS](/docs/alloy/styles#purgetss) for generating styles from utility classes.
 
 [Controllers](/docs/alloy/controllers) is the JavaScript: the `$` namespace,
 arguments, opening and closing, and cleaning up.

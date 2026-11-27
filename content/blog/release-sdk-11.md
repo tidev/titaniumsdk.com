@@ -38,7 +38,7 @@ Execute `titanium sdk select 10.1.1.GA` to rollback
 
 ## New integration
 
-We're also proud to announce the Alloy integration of [PurgeTSS](/docs/alloy), created by [macCesar](https://github.com/macCesar). [PurgeTSS](/docs/alloy) is an Alloy addon with predefined classes to use in the XML views. It can be used by all Titanium developers, who want to create beautiful designed mobile apps easily.
+We're also proud to announce the Alloy integration of [PurgeTSS](/docs/alloy/styles#purgetss), created by [macCesar](https://github.com/macCesar). [PurgeTSS](/docs/alloy/styles#purgetss) is an Alloy addon with predefined classes to use in the XML views. It can be used by all Titanium developers, who want to create beautiful designed mobile apps easily.
 
 ## Report Bugs
 
