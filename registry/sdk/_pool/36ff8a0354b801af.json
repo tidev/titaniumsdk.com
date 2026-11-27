@@ -1,0 +1,1639 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.UI.iOS.SplitWindow",
+  "kind": "view",
+  "extends": "Titanium.UI.Window",
+  "inheritanceChain": [
+    "Titanium.UI.Window",
+    "Titanium.UI.View",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "iphone",
+    "ipad",
+    "macos"
+  ],
+  "since": {
+    "iphone": "3.6.0",
+    "ipad": "3.6.0",
+    "macos": "9.2.0"
+  },
+  "summary": "A SplitWindow is a window that manages the presentation of two side-by-side view\ncontrollers.\n",
+  "description": "The [masterView](api:Titanium.UI.iOS.SplitWindow#masterView) and [detailView](api:Titanium.UI.iOS.SplitWindow#detailView)\nproperties are required before the SplitWindow is opened.\n\nYou use this class to implement a master-detail interface, in which the left-side view presents\na list of items and the right-side presents details of the selected item. The `SplitWindow` is supported\nfor both iPhone and iPad idioms. Use the [Titanium.UI.iOS.createSplitWindow](api:Titanium.UI.iOS#createSplitWindow) method to create a `SplitWindow` object.\n\nThe `SplitWindow` is backed by the native `UISplitViewController` and uses its default behavior:\n\n* In a wide regular width, such as an iPad in landscape, the master view and the detail view are shown side by side.\n* In a narrower regular width, such as an iPad in portrait, the master view is hidden. The display mode button in the\n  navigation bar of the detail view and a swipe from the leading edge show it as an overlay.\n* In a compact width, such as an iPhone in portrait, the split window collapses to a single column and the system\n  navigates between the master view and the detail view.\n\nUse [displayMode](api:Titanium.UI.iOS.SplitWindow#displayMode) and [splitBehavior](api:Titanium.UI.iOS.SplitWindow#splitBehavior)\nto request a different arrangement, [showMasterView](api:Titanium.UI.iOS.SplitWindow#showMasterView) and\n[hideMasterView](api:Titanium.UI.iOS.SplitWindow#hideMasterView) to show or hide the master view, and\n[primaryColumnWidthFraction](api:Titanium.UI.iOS.SplitWindow#primaryColumnWidthFraction) to control its width.\n\nThe system embeds each view in a navigation controller, so the `title` and the navigation bar properties of a\n[Titanium.UI.Window](api:Titanium.UI.Window) apply directly. Set `navBarHidden` to `true` on a window to hide its navigation bar. Use a\n[Titanium.UI.NavigationWindow](api:Titanium.UI.NavigationWindow) as `masterView` or `detailView` to push windows inside a pane.\n\nThe SplitWindow is a top-level window and cannot be contained within another window or view.\n",
+  "properties": [
+    {
+      "name": "detailView",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Window for the detail view section of the SplitWindow.",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.UI.Window"
+        }
+      ]
+    },
+    {
+      "name": "displayMode",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The arrangement of the master view and the detail view.",
+      "description": "Set one of the `SPLIT_WINDOW_DISPLAY_MODE_*` constants to request a display mode. The system applies the mode when\nthe width allows it. Reading the property returns the display mode in use, which can differ from the requested\none, for example in a compact width where the split window is collapsed.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "14.0.0",
+      "default": "<Titanium.UI.iOS.SPLIT_WINDOW_DISPLAY_MODE_AUTOMATIC>",
+      "constants": [
+        "Titanium.UI.iOS.SPLIT_WINDOW_DISPLAY_MODE_AUTOMATIC",
+        "Titanium.UI.iOS.SPLIT_WINDOW_DISPLAY_MODE_ONE_BESIDE_SECONDARY",
+        "Titanium.UI.iOS.SPLIT_WINDOW_DISPLAY_MODE_ONE_OVER_SECONDARY",
+        "Titanium.UI.iOS.SPLIT_WINDOW_DISPLAY_MODE_SECONDARY_ONLY"
+      ]
+    },
+    {
+      "name": "landscapeSplit",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Determines the width of the `masterView` in landscape mode.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "deprecated": {
+        "since": "14.0.0",
+        "notes": "The layout is owned by the system and this property has no effect. Use\n<Titanium.UI.iOS.SplitWindow.primaryColumnWidthFraction>.\n"
+      },
+      "default": "The width of the master-view divided by the screen-height"
+    },
+    {
+      "name": "masterIsOverlayed",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Determines whether to show the master view is overlayed in portrait orientation.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "deprecated": {
+        "since": "14.0.0",
+        "notes": "The layout is owned by the system and this property has no effect. Use\n<Titanium.UI.iOS.SplitWindow.splitBehavior> with <Titanium.UI.iOS.SPLIT_WINDOW_SPLIT_BEHAVIOR_OVERLAY>.\n"
+      },
+      "default": "false"
+    },
+    {
+      "name": "masterView",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Window for the master view section of the SplitWindow.",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.UI.Window"
+        }
+      ]
+    },
+    {
+      "name": "masterViewVisible",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Determines whether to show the master view or hide.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "deprecated": {
+        "since": "14.0.0",
+        "notes": "The layout is owned by the system and this property has no effect. Use\n<Titanium.UI.iOS.SplitWindow.showMasterView> and <Titanium.UI.iOS.SplitWindow.hideMasterView>.\n"
+      },
+      "default": "true"
+    },
+    {
+      "name": "maximumPrimaryColumnWidth",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The maximum width of the master view in points.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "14.0.0",
+      "default": "System default"
+    },
+    {
+      "name": "minimumPrimaryColumnWidth",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The minimum width of the master view in points.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "14.0.0",
+      "default": "System default"
+    },
+    {
+      "name": "portraitSplit",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Determines the width of the `masterView` in portrait mode.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "deprecated": {
+        "since": "14.0.0",
+        "notes": "The layout is owned by the system and this property has no effect. Use\n<Titanium.UI.iOS.SplitWindow.primaryColumnWidthFraction>.\n"
+      },
+      "default": "The width of the master-view divided by the screen-width"
+    },
+    {
+      "name": "presentsWithGesture",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Determines whether a swipe from the leading edge shows the hidden master view.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "since": "14.0.0",
+      "default": "true"
+    },
+    {
+      "name": "primaryColumnWidthFraction",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "The width of the master view as a fraction of the width of the split window.",
+      "description": "The resulting width is limited by [minimumPrimaryColumnWidth](api:Titanium.UI.iOS.SplitWindow#minimumPrimaryColumnWidth)\nand [maximumPrimaryColumnWidth](api:Titanium.UI.iOS.SplitWindow#maximumPrimaryColumnWidth).\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "14.0.0",
+      "default": "System default"
+    },
+    {
+      "name": "showMasterInPortrait",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Determines whether to show the master view in portrait orientation.",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Boolean"
+        }
+      ],
+      "deprecated": {
+        "since": "14.0.0",
+        "notes": "The layout is owned by the system and this property has no effect. Use\n<Titanium.UI.iOS.SplitWindow.displayMode> with <Titanium.UI.iOS.SPLIT_WINDOW_DISPLAY_MODE_ONE_BESIDE_SECONDARY>\nto always show the master view.\n"
+      },
+      "default": "false"
+    },
+    {
+      "name": "splitBehavior",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "How the master view and the detail view share the width when both are visible.",
+      "description": "Set one of the `SPLIT_WINDOW_SPLIT_BEHAVIOR_*` constants to request a split behavior. Reading the property returns\nthe split behavior in use, which can differ from the requested one.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "14.0.0",
+      "default": "<Titanium.UI.iOS.SPLIT_WINDOW_SPLIT_BEHAVIOR_AUTOMATIC>",
+      "constants": [
+        "Titanium.UI.iOS.SPLIT_WINDOW_SPLIT_BEHAVIOR_AUTOMATIC",
+        "Titanium.UI.iOS.SPLIT_WINDOW_SPLIT_BEHAVIOR_DISPLACE",
+        "Titanium.UI.iOS.SPLIT_WINDOW_SPLIT_BEHAVIOR_OVERLAY",
+        "Titanium.UI.iOS.SPLIT_WINDOW_SPLIT_BEHAVIOR_TILE"
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "hideMasterView",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Hides the master view if the current display mode shows it.",
+      "description": "The system animates the change. Listen to the [displaymodechange](api:Titanium.UI.iOS.SplitWindow#displaymodechange)\nevent to react to the result.\n",
+      "since": "14.0.0"
+    },
+    {
+      "name": "setMasterIsOverlayed",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Sets the value of the [masterIsOverlayed](api:Titanium.UI.iOS.SplitWindow#masterIsOverlayed) property.",
+      "deprecated": {
+        "since": "14.0.0",
+        "notes": "The layout is owned by the system. Use <Titanium.UI.iOS.SplitWindow.splitBehavior> instead."
+      },
+      "parameters": [
+        {
+          "name": "masterIsOverlayed",
+          "summary": "Determines whether to show the master view is overlayed in portrait orientation.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "options",
+          "summary": "Ignored.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "AnimatedOptions"
+            }
+          ],
+          "optional": true,
+          "default": "{ animated: false }"
+        }
+      ]
+    },
+    {
+      "name": "setShowMasterInPortrait",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Sets the value of the [showMasterInPortrait](api:Titanium.UI.iOS.SplitWindow#showMasterInPortrait) property.",
+      "deprecated": {
+        "since": "14.0.0",
+        "notes": "The layout is owned by the system. Use <Titanium.UI.iOS.SplitWindow.displayMode> instead."
+      },
+      "parameters": [
+        {
+          "name": "showMasterInPortrait",
+          "summary": "Determines whether to show the master view in portrait orientation.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Boolean"
+            }
+          ]
+        },
+        {
+          "name": "options",
+          "summary": "Ignored.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "AnimatedOptions"
+            }
+          ],
+          "optional": true,
+          "default": "{ animated: false }"
+        }
+      ]
+    },
+    {
+      "name": "showMasterView",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Shows the master view if the current display mode hides it.",
+      "description": "The system animates the change and picks the display mode that fits the available width, for example an\noverlay in a narrow width. Listen to the [displaymodechange](api:Titanium.UI.iOS.SplitWindow#displaymodechange)\nevent to react to the result.\n",
+      "since": "14.0.0"
+    }
+  ],
+  "events": [
+    {
+      "name": "collapse",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when the split window collapses to a single column, for example when the width becomes compact.",
+      "since": "14.0.0"
+    },
+    {
+      "name": "displaymodechange",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired before the split window changes its display mode, for example when the master view is shown or hidden.",
+      "since": "14.0.0",
+      "properties": [
+        {
+          "name": "displayMode",
+          "summary": "The new display mode.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "Number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "expand",
+      "platforms": [
+        "iphone",
+        "ipad",
+        "macos"
+      ],
+      "summary": "Fired when the split window expands from a single column to two columns.",
+      "since": "14.0.0"
+    }
+  ],
+  "inherited": {
+    "properties": [
+      {
+        "name": "accessibilityHidden",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "accessibilityHint",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "accessibilityLabel",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "accessibilityValue",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "anchorPoint",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "animatedCenter",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "autoAdjustScrollViewInsets",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backButtonTitle",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backButtonTitleImage",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundColor",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundGradient",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundImage",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundLeftCap",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundRepeat",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundSelectedColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "backgroundTopCap",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "barColor",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "barImage",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "borderColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "borderDashPattern",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "borderRadius",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "borderWidth",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "bottom",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "center",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "children",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "clipMode",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "closed",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "extendEdges",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "extendSafeArea",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "focused",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "fullscreen",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "height",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "hidesBackButton",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "hidesBarsOnSwipe",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "hidesBarsOnTap",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "hidesBarsWhenKeyboardAppears",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "hideShadow",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "hidesSearchBarWhenScrolling",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "homeIndicatorAutoHidden",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "horizontalMotionEffect",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "horizontalWrap",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "id",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "includeOpaqueBars",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "largeTitleDisplayMode",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "largeTitleEnabled",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "layout",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "left",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "leftNavButton",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "leftNavButtons",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "modal",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "navBarHidden",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "navigationWindow",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "navTintColor",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "opacity",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "orientation",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "orientationModes",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "previewContext",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone"
+        ]
+      },
+      {
+        "name": "pullBackgroundColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "rect",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "reservedRegions",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad"
+        ]
+      },
+      {
+        "name": "right",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "rightNavButton",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "rightNavButtons",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "rotation",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad"
+        ]
+      },
+      {
+        "name": "safeAreaPadding",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "shadowImage",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "size",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "statusBarStyle",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "tabBarHidden",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "tintColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "title",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "titleAttributes",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "titleControl",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "titleid",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "titleImage",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "titlePrompt",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "titlepromptid",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "toolbar",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "tooltip",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "top",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "touchEnabled",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "transform",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "translucent",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "verticalMotionEffect",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "viewShadowColor",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "viewShadowOffset",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "viewShadowRadius",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "visible",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "width",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "zIndex",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      }
+    ],
+    "methods": [
+      {
+        "name": "add",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "animate",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "clearMotionEffects",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "close",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "convertPointToView",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "getViewById",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "hide",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "hideNavBar",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "hideTabBar",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "hideToolbar",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "insertAt",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "open",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "remove",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "replaceAt",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "show",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "showNavBar",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "showTabBar",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "showToolbar",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "toImage",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      }
+    ],
+    "events": [
+      {
+        "name": "blur",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "click",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "close",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "dblclick",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "doubletap",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "focus",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "keypressed",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "longpress",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "open",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "pinch",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "postlayout",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "reservedregionschange",
+        "from": "Titanium.UI.Window",
+        "platforms": [
+          "iphone",
+          "ipad"
+        ]
+      },
+      {
+        "name": "rotate",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "singletap",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "swipe",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "touchcancel",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "touchend",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "touchmove",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "touchstart",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      },
+      {
+        "name": "twofingertap",
+        "from": "Titanium.UI.View",
+        "platforms": [
+          "iphone",
+          "ipad",
+          "macos"
+        ]
+      }
+    ]
+  },
+  "references": [
+    "AnimatedOptions",
+    "Titanium.UI.NavigationWindow",
+    "Titanium.UI.Window",
+    "Titanium.UI.iOS"
+  ],
+  "source": "Titanium/UI/iOS/SplitWindow.yml"
+}

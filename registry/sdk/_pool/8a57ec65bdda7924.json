@@ -1,0 +1,240 @@
+{
+  "schemaVersion": 1,
+  "name": "Titanium.App.Android",
+  "kind": "module",
+  "extends": "Titanium.Module",
+  "inheritanceChain": [
+    "Titanium.Module",
+    "Titanium.Proxy"
+  ],
+  "platforms": [
+    "android"
+  ],
+  "since": "1.5",
+  "summary": "A module used to access Android application resources.",
+  "description": "For more information, refer to the official documentation on the Android Developer website about\n[application resources](https://developer.android.com/guide/topics/resources/index.html).\n",
+  "examples": [
+    {
+      "title": "Custom String Resource",
+      "code": "\nCustom Android resources may be placed in `platform/android` in the project root.\nFor example, to utilize a custom localization file, create and populate\n`platform/android/res/values/mystrings.xml` with the following data.\n\n``` xml\n<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<resources>\n    <string name=\"mystring\">testing 1 2 3</string>\n</resources>\n```\n\nIn Javascript, this can be accessed as follows.\n\n``` js\nvar activity = Ti.Android.currentActivity;\nvar R = Ti.App.Android.R;\n\nvar mystring = activity.getString(R.string.mystring);\nTi.API.debug(\"mystring = \" + mystring);\n```\n"
+    },
+    {
+      "title": "Change Android icon at runtime",
+      "code": "\nAdd these `<activity-alias>` nodes into the tiapp.xml `<application>` block:\n\n``` xml\n<activity-alias android:enabled=\"true\" android:name=\".default\" android:targetActivity=\".TestActivity\" android:exported=\"true\">\n    <intent-filter>\n        <action android:name=\"android.intent.action.MAIN\"/>\n        <category android:name=\"android.intent.category.LAUNCHER\"/>\n    </intent-filter>\n</activity-alias>\n<activity-alias android:icon=\"@mipmap/ic_launcher\" android:name=\".red\" android:enabled=\"false\" android:targetActivity=\".TestActivity\" android:exported=\"true\">\n    <intent-filter>\n        <action android:name=\"android.intent.action.MAIN\"/>\n        <category android:name=\"android.intent.category.LAUNCHER\"/>\n    </intent-filter>\n</activity-alias>\n```\n\nChange the `android:targetActivity` to point at your main activity, `android:name` is used inside the JavaScript code\nto switch between the alias nodes and `android:icon` will be the new icon.\n\nIn Javascript, this can be accessed as follows.\n\n``` js\nconst win = Ti.UI.createWindow({layout: \"vertical\"});\n\nconst btn1 = Ti.UI.createButton({title: \"switch to red\"});\nconst btn2 = Ti.UI.createButton({title: \"switch to default\"});\n\nbtn1.addEventListener(\"click\", function() {\n  Ti.App.Android.changeIcon({\n    from: \"default\",\n    to: \"red\"\n  });\n});\nbtn2.addEventListener(\"click\", function() {\n  Ti.App.Android.changeIcon({\n    from: \"red\",\n    to: \"default\"\n  });\n});\n\nwin.add([btn1, btn2]);\nwin.open();\n```\n"
+    }
+  ],
+  "properties": [
+    {
+      "name": "appVersionCode",
+      "platforms": [
+        "android"
+      ],
+      "summary": "The version number of the application.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "Number"
+        }
+      ],
+      "since": "3.3.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "appVersionName",
+      "platforms": [
+        "android"
+      ],
+      "summary": "The version name of the application.\n",
+      "type": [
+        {
+          "kind": "primitive",
+          "name": "String"
+        }
+      ],
+      "since": "3.3.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "launchIntent",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Return the intent that was used to launch the application.\n",
+      "description": "This intent will not change for the lifetime of the application. Its [action](api:Titanium.Android.Intent#action)\nis typically set to \"android.intent.action.MAIN\" when launched via the app list screen.\n\nThis launch intent can be used to resume the app while backgrounded via the\n[startActivity()](api:Titanium.Android.Activity#startActivity) method or via a notification.\n\nWhen the app is launched via a data intent such as a URL, shortcut, notification, etc. then that intent\nis provided by the [Ti.Android.rootActivity](api:Titanium.Android#rootActivity) object's\n[intent](api:Titanium.Android.Activity#intent) property instead. That intent will initially be set to the\nlaunch intent, but will change when a [\"newintent\"](api:Titanium.Android.Activity#newintent) event has been fired.\nYou should always read the root activity's intent instead of the launch intent for data.\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.Android.Intent"
+        }
+      ],
+      "since": "3.3.0",
+      "permission": "read-only"
+    },
+    {
+      "name": "R",
+      "platforms": [
+        "android"
+      ],
+      "summary": "The `R` namespace for application resources.",
+      "description": "The properties and sub-properties of this object relate directly to the\nnative application resources `R` class, and thus have the same syntax.\nFor more information, refer to the official documentation on the\nAndroid Developer website about\n[accessing application resources](https://developer.android.com/guide/topics/resources/accessing-resources.html).\n\nFor example, if the file `platform/android/res/drawable/icon.png`\nexists in the project, it can be accessed using its resource name,\nas follows.\n\n``` js\nvar resid = Titanium.App.Android.R.drawable.icon;\n```\n\nTo access system-wide resources, rather than application resources, use\n[Titanium.Android.R](api:Titanium.Android.R) instead.\n",
+      "type": [
+        {
+          "kind": "type",
+          "name": "Titanium.Android.R"
+        }
+      ],
+      "permission": "read-only"
+    }
+  ],
+  "methods": [
+    {
+      "name": "changeIcon",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Changes the Android app icon at runtime.",
+      "description": "You have to add `<activity-alias>` nodes for every icon to the tiapp.xml and use `changeIcon()` to switch from one\nto another. Check the `Change Android icon at runtime` example for more details. The app has to keep track of\nthe current icon state in order to set the from/to parameters.\n\nOne alias must have an `<intent-filter>` with the `MAIN` action and the `LAUNCHER` category and must not\nset `android:enabled=\"false\"`. The build then removes the launcher entry of the main activity. If no\nalias fulfills this, the main activity keeps its launcher entry.\n",
+      "since": "14.0.0",
+      "parameters": [
+        {
+          "name": "options",
+          "summary": "Dictionary with the `from` and `to` alias names.",
+          "type": [
+            {
+              "kind": "type",
+              "name": "ChangeIconOptions"
+            }
+          ],
+          "inlined": {
+            "name": "ChangeIconOptions",
+            "summary": "Dictionary of options for the [Titanium.App.Android.changeIcon](api:Titanium.App.Android#changeIcon) method.",
+            "properties": [
+              {
+                "name": "from",
+                "platforms": [
+                  "android"
+                ],
+                "summary": "`android:name` (without leading dot) of the `<activity-alias>` of the current icon. The method disables this alias.\n",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  }
+                ]
+              },
+              {
+                "name": "to",
+                "platforms": [
+                  "android"
+                ],
+                "summary": "`android:name` (without leading dot) of the `<activity-alias>` of the new icon. The method enables this alias.\n",
+                "type": [
+                  {
+                    "kind": "primitive",
+                    "name": "String"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "clearUserCache",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Clears app data and cache. This will close the app.",
+      "since": "13.1.0"
+    }
+  ],
+  "events": [
+    {
+      "name": "shortcutitemclick",
+      "platforms": [
+        "android"
+      ],
+      "summary": "Fired when a [Titanium.UI.ShortcutItem](api:Titanium.UI.ShortcutItem) is clicked.",
+      "since": "7.5.0",
+      "properties": [
+        {
+          "name": "id",
+          "summary": "Identifier of the clicked shortcut item.",
+          "type": [
+            {
+              "kind": "primitive",
+              "name": "String"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "inherited": {
+    "properties": [
+      {
+        "name": "apiName",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "bubbleParent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "lifecycleContainer",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      }
+    ],
+    "methods": [
+      {
+        "name": "addEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "applyProperties",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "fireEvent",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      },
+      {
+        "name": "removeEventListener",
+        "from": "Titanium.Proxy",
+        "platforms": [
+          "android"
+        ]
+      }
+    ],
+    "events": []
+  },
+  "references": [
+    "ChangeIconOptions",
+    "Titanium.Android",
+    "Titanium.Android.Activity",
+    "Titanium.Android.Intent",
+    "Titanium.Android.R",
+    "Titanium.Module",
+    "Titanium.UI.ShortcutItem"
+  ],
+  "source": "Titanium/App/Android/Android.yml"
+}

@@ -1,7 +1,7 @@
-import { HoverPrefetchLink } from '@/components/docs/hover-prefetch-link';
 import { OlderVersionNotice, VersionSwitcher } from '@/components/docs/version-switcher';
 import { InstallRow } from '@/components/downloads/install-row';
 import { OsIconDefs } from '@/components/downloads/os-icon';
+import { HoverPrefetchLink } from '@/components/hover-prefetch-link';
 import { sdkIndex, sdkToolchain, MAIN } from '@/lib/docs/registry';
 import { hasReleaseNote } from '@/lib/docs/release-notes';
 import { newerVersion, versionOptions } from '@/lib/docs/versions';

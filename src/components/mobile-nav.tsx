@@ -1,6 +1,7 @@
 'use client';
 
 import { ThemeToggle } from './theme-toggle';
+import { HoverPrefetchLink } from '@/components/hover-prefetch-link';
 import {
   COMMUNITY_LABEL,
   communityNav,
@@ -10,7 +11,6 @@ import {
   sectionNav,
   type NavItem,
 } from '@/lib/nav';
-import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 
 /**
@@ -59,9 +59,9 @@ function Group({ label, items, close }: { label: string; items: NavItem[]; close
                 {item.label}
               </a>
             ) : (
-              <Link href={item.href} onClick={close} className={ITEM}>
+              <HoverPrefetchLink href={item.href} onClick={close} className={ITEM}>
                 {item.label}
-              </Link>
+              </HoverPrefetchLink>
             )}
           </li>
         ))}
@@ -148,9 +148,9 @@ export function MobileNav() {
           <ul className="mt-2 flex flex-col gap-1">
             {sectionNav.map((item) => (
               <li key={item.href}>
-                <Link href={item.href} onClick={close} className={ITEM}>
+                <HoverPrefetchLink href={item.href} onClick={close} className={ITEM}>
                   {item.label}
-                </Link>
+                </HoverPrefetchLink>
               </li>
             ))}
           </ul>

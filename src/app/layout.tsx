@@ -1,7 +1,9 @@
+import { Analytics } from '@vercel/analytics/next';
 import { CodeCopy } from '@/components/docs/code-copy';
 import { TabSync } from '@/components/docs/tab-sync';
 import { SiteFooter } from '@/components/site-footer';
 import { SiteHeader } from '@/components/site-header';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import { OPEN_GRAPH } from '@/lib/seo';
 import { SITE_URL } from '@/lib/site';
 import { THEME_INIT } from '@/lib/theme-init';
@@ -77,44 +79,48 @@ export const metadata: Metadata = {
  */
 export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
-    <html
-      lang="en"
-      className={`${plexSans.variable} ${plexMono.variable} antialiased`}
-      suppressHydrationWarning
-    >
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: THEME_INIT }} />
-      </head>
-      <body className="flex min-h-dvh flex-col">
-        {/* Rendered here rather than through page metadata: a page that sets
-            its own `alternates` replaces the parent's wholesale, so a metadata
-            declaration would quietly vanish from most of the site. React
-            hoists this into <head> from wherever it is rendered. */}
-        <link
-          rel="alternate"
-          type="application/rss+xml"
-          title="Titanium SDK blog"
-          href={`${SITE_URL}/blog/feed.xml`}
-        />
-        <a
-          href="#main"
-          className="sr-only rounded-md bg-surface-raised px-4 py-2 text-sm font-medium text-text outline-2 outline-offset-2 outline-focus focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50"
-        >
-          Skip to content
-        </a>
-        <SiteHeader />
-        <main id="main" className="flex flex-1 flex-col">
-          {children}
-        </main>
-        <SiteFooter />
-        {/* Adds copy buttons to code blocks in rendered prose. Mounted once
-            here because prose appears under /docs, /modules and /blog alike,
-            and it re-runs itself on navigation. */}
-        <CodeCopy />
-        {/* Tabs switch on their own with CSS; this only keeps groups with the
-            same labels in step and remembers the choice. */}
-        <TabSync />
-      </body>
-    </html>
+    <>
+      <html
+        lang="en"
+        className={`${plexSans.variable} ${plexMono.variable} antialiased`}
+        suppressHydrationWarning
+      >
+        <head>
+          <script dangerouslySetInnerHTML={{ __html: THEME_INIT }} />
+        </head>
+        <body className="flex min-h-dvh flex-col">
+          {/* Rendered here rather than through page metadata: a page that sets
+              its own `alternates` replaces the parent's wholesale, so a metadata
+              declaration would quietly vanish from most of the site. React
+              hoists this into <head> from wherever it is rendered. */}
+          <link
+            rel="alternate"
+            type="application/rss+xml"
+            title="Titanium SDK blog"
+            href={`${SITE_URL}/blog/feed.xml`}
+          />
+          <a
+            href="#main"
+            className="sr-only rounded-md bg-surface-raised px-4 py-2 text-sm font-medium text-text outline-2 outline-offset-2 outline-focus focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50"
+          >
+            Skip to content
+          </a>
+          <SiteHeader />
+          <main id="main" className="flex flex-1 flex-col">
+            {children}
+          </main>
+          <SiteFooter />
+          {/* Adds copy buttons to code blocks in rendered prose. Mounted once
+              here because prose appears under /docs, /modules and /blog alike,
+              and it re-runs itself on navigation. */}
+          <CodeCopy />
+          {/* Tabs switch on their own with CSS; this only keeps groups with the
+              same labels in step and remembers the choice. */}
+          <TabSync />
+        </body>
+      </html>
+      <Analytics />
+      <SpeedInsights />
+    </>
   );
 }

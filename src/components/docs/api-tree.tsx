@@ -1,4 +1,4 @@
-import { HoverPrefetchLink } from './hover-prefetch-link';
+import { HoverPrefetchLink } from '@/components/hover-prefetch-link';
 import { branchIds, buildNavTree, type NavNode, type NavType } from '@/lib/docs/tree';
 
 /**

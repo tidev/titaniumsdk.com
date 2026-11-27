@@ -3,6 +3,7 @@ import { NavMenu } from './nav-menu';
 import { NAV_ITEM_CLASS } from './site-nav-item';
 import { ThemeToggle } from './theme-toggle';
 import { TitaniumLogo } from './titanium-logo';
+import { HoverPrefetchLink } from '@/components/hover-prefetch-link';
 import { SiteSearch } from '@/components/search/site-search';
 import {
   COMMUNITY_LABEL,
@@ -12,18 +13,17 @@ import {
   GITHUB_ORG_URL,
   sectionNav,
 } from '@/lib/nav';
-import Link from 'next/link';
 
 export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-bg/85 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-7xl items-center gap-4 px-4 sm:px-6 lg:px-8">
-        <Link
+        <HoverPrefetchLink
           href="/"
           className="flex items-center rounded-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
         >
           <TitaniumLogo />
-        </Link>
+        </HoverPrefetchLink>
 
         <nav aria-label="Main" className="hidden md:block">
           <ul className="flex items-center gap-1">
@@ -35,9 +35,9 @@ export function SiteHeader() {
             </li>
             {sectionNav.map((item) => (
               <li key={item.href}>
-                <Link href={item.href} className={NAV_ITEM_CLASS}>
+                <HoverPrefetchLink href={item.href} className={NAV_ITEM_CLASS}>
                   {item.label}
-                </Link>
+                </HoverPrefetchLink>
               </li>
             ))}
             {/* Last. What is under it is the site's people rather than its

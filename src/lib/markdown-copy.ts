@@ -170,7 +170,7 @@ export function prefersMarkdown(accept: string | null | undefined): boolean {
 export const CORPUS_CACHE_CONTROL =
   'public, max-age=600, s-maxage=3600, stale-while-revalidate=86400';
 
-/** What `proxy.ts` does with a request, besides the noindex header. */
+/** What `proxy.ts` does with a request. */
 export type ProxyAnswer =
   /** Serve it as the route would. */
   | { readonly pass: true }
