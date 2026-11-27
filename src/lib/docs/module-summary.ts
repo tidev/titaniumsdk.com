@@ -73,6 +73,8 @@ export type CommunityListing = {
   stars: number;
   archived: boolean;
   pushedAt: string;
+  /** When the listing first appeared here, which is not when the repo was created. */
+  listedAt: string;
 };
 
 export type ModuleListing = ModuleSummary | CommunityListing;

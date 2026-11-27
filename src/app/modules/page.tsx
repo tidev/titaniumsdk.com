@@ -20,7 +20,15 @@ export const metadata: Metadata = {
   title: 'Modules - Titanium SDK',
   description:
     'Native modules for Titanium: Maps, Bluetooth, NFC, Facebook, biometrics, and more, for iOS and Android.',
-  alternates: { canonical: `${SITE_URL}/modules`, types: markdownAlternate('/modules') },
+  alternates: {
+    canonical: `${SITE_URL}/modules`,
+    types: {
+      ...markdownAlternate('/modules'),
+      'application/rss+xml': [
+        { url: `${SITE_URL}/modules/feed.xml`, title: 'New Titanium modules' },
+      ],
+    },
+  },
 };
 
 export default function ModulesIndex() {
@@ -52,6 +60,16 @@ export default function ModulesIndex() {
         )}{' '}
         A further {found.toLocaleString()} were found by their <code>titanium</code> topic on GitHub
         and link straight to their repositories. Those are listed, not reviewed.
+      </p>
+      <p className="mt-3 text-sm text-text-muted">
+        {/* Not a Link: the feed is a route handler, so client-side navigation
+            would try to render XML as a page. */}
+        <a
+          href="/modules/feed.xml"
+          className="text-link hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
+        >
+          RSS feed of new modules
+        </a>
       </p>
 
       <Browse modules={[...official, ...listings]} />

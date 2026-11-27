@@ -295,6 +295,14 @@ export const CommunityModuleSchema = z.strictObject({
    */
   archived: z.boolean(),
   pushedAt: z.string(),
+  /**
+   * When the generator first saw this repository, as an ISO timestamp.
+   *
+   * Not something GitHub reports. The generator carries it forward from the
+   * previous file and stamps a new slug with the time of the run, which is what
+   * lets `/modules/feed.xml` say which listings are new.
+   */
+  listedAt: z.string(),
 });
 
 export const CommunityIndexSchema = z.strictObject({

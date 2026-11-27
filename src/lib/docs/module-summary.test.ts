@@ -45,6 +45,7 @@ const community = (
   stars,
   archived,
   pushedAt: '2026-01-01T00:00:00Z',
+  listedAt: '2026-01-01T00:00:00Z',
 });
 
 describe('orderListings', () => {

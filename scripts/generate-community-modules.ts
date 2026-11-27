@@ -87,6 +87,7 @@ type CommunityModule = {
   stars: number;
   archived: boolean;
   pushedAt: string;
+  listedAt: string;
 };
 
 /**
@@ -170,6 +171,30 @@ function blockedRepos(): Set<string> {
   return new Set(parsed.modules.map((m) => m.repo.toLowerCase()));
 }
 
+/**
+ * When each listed repo was first seen, keyed on its lowercased slug.
+ *
+ * Read from the committed file, because GitHub has no such date: `created_at`
+ * is when the repository was made, and a module from 2015 that gains the topic
+ * today is new to this list today. A slug that is not in the previous file gets
+ * the time of this run, and `/modules/feed.xml` orders on the result.
+ */
+function previouslyListed(): Map<string, string> {
+  if (!existsSync(OUT)) return new Map();
+  const previous = JSON.parse(readFileSync(OUT, 'utf8')) as {
+    modules?: { id: string; listedAt?: string }[];
+  };
+  return new Map(
+    (previous.modules ?? []).flatMap((m) =>
+      m.listedAt ? [[m.id.toLowerCase(), m.listedAt] as const] : []
+    )
+  );
+}
+
+const listed = previouslyListed();
+// To the second, the precision GitHub uses for `pushed_at`.
+const now = new Date().toISOString().replace(/\.\d+Z$/, 'Z');
+
 const curated = curatedRepos();
 console.log(`${curated.size} curated repos will be skipped`);
 
@@ -219,6 +244,7 @@ for (const repo of fresh) {
     stars: repo.stargazers_count,
     archived: repo.archived,
     pushedAt: repo.pushed_at,
+    listedAt: listed.get(repo.full_name.toLowerCase()) ?? now,
   });
 }
 
@@ -227,6 +253,7 @@ for (const repo of fresh) {
 modules.sort((a, b) => b.stars - a.stars || a.id.localeCompare(b.id));
 
 console.log(`${modules.length} have a platform directory`);
+console.log(`  ${modules.filter((m) => m.listedAt === now).length} are new to the list`);
 console.log(`  ${modules.filter((m) => m.platforms.length === 2).length} ship both platforms`);
 
 const payload = {
