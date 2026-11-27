@@ -1,6 +1,7 @@
 import { publishedPosts } from '@/lib/blog/posts';
 import { renderMarkdown } from '@/lib/docs/markdown';
 import { SITE_URL } from '@/lib/site';
+import { escapeXml as escape } from '@/lib/xml';
 
 /**
  * RSS 2.0, at the path readers guess.
@@ -15,14 +16,6 @@ import { SITE_URL } from '@/lib/site';
  */
 
 export const dynamic = 'force-static';
-
-const escape = (s: string) =>
-  s
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&apos;');
 
 /** RFC 822, which is what RSS requires - not the ISO date the frontmatter uses. */
 const rfc822 = (date: string) => new Date(`${date}T00:00:00Z`).toUTCString();
